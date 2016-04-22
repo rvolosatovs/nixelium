@@ -1,0 +1,4 @@
+alias -g pacman="sudo pacman"
+alias    pi="pacman -S"
+alias    py="pacman -Syyu"
+# vim: ft=zsh

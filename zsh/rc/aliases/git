@@ -1,0 +1,17 @@
+alias  gs='git status'
+alias  gl='git log'
+alias  ga='git add .'
+alias  gA='git add'
+alias  gc='git commit -S'
+alias  gC='git commit -S -am'
+alias  gd='git diff'
+alias  gb='git branch'
+alias  gB='git checkout'
+alias  gm='git cherry-pick'
+alias  gM='git merge'
+
+alias  gp='git pull'
+alias  gP='git push'
+alias  gf='git fetch'
+alias  gu='git submodule update --remote --rebase'
+# vim: ft=zsh

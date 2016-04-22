@@ -1,0 +1,1 @@
+source bsource rc zsh

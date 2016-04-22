@@ -1,0 +1,22 @@
+alias slow='nice -10'
+
+#alias ls='ls -h --color=auto'
+#alias ll='ls -la'
+#alias l.='ls -d .*'
+alias sl='ls'
+
+alias rm='rm -i'
+
+alias mkdir='mkdir -pv'
+
+alias ping='ping -c 3'
+
+
+alias	 o='xdg-open'
+alias    d='rm -r'
+alias    q='exit'
+
+alias   QQ='poweroff'
+alias   RR='reboot'
+alias   SS='suspend'
+# vim: ft=zsh

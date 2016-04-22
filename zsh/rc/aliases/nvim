@@ -1,0 +1,5 @@
+alias vi='nvim'
+alias vim='nvim'
+alias Vi='sudoedit'
+alias Vim='sudoedit'
+# vim: ft=zsh

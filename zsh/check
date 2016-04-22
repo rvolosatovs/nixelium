@@ -1,0 +1,1 @@
+export distro=$(awk /ID/ /etc/os-release | cut -d"=" -f2)
