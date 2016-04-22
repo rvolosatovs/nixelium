@@ -1,13 +1,13 @@
 # Description
+
 I have 2 machines with different specs:
-* Lenovo W541 running [Exherbo](http://exherbo.org/), main
-* Lenovo X230 running [Void](http://www.voidlinux.eu/) 
+* Lenovo W541, main
+* Lenovo X230
 
-Both run LibreSSL, Musl on Void and Glibc on Exherbo.
+Both run [Gentoo](https://www.gentoo.org/) with LibreSSL. ('distcc' enabled)
+I have tried a lot of different distros, but I just keep coming back to Gentoo
 
-I do have Gentoo stable left as a backup(I like to break things)
-
-xinitrc gets symlinked to appropriate spec
+* My own git repo is hosted on a Raspberry PI 2 running [Void](http://www.voidlinux.eu/)
 
 .dotsrc files in directories are needed by my dotfile managing script(for easy bootstrap, when needed)
 
