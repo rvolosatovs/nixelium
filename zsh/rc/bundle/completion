@@ -8,4 +8,4 @@ zstyle ':completion:*' prompt 'Did you fuck up again?'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' substitute 1
 zstyle :compinstall filename '/home/b1101/.config/zsh/.zshrc'
-#vim: ft=zsh
+# vim: ft=zsh

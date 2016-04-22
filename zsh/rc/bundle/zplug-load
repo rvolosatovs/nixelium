@@ -6,4 +6,5 @@ if ! zplug check --verbose; then
 fi
 
 zplug load --verbose
-#vim ft:sh
+
+# vim: ft=sh

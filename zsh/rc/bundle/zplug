@@ -10,4 +10,5 @@ zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-completions"
 #zplug "RanaExMachina/oh-my-zsh-candy-light"
 zplug "S1cK94/minimal", of:"minimal.zsh-theme", nice:19
-#vim: ft=zsh
+
+# vim: ft=zsh

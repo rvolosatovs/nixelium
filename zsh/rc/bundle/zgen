@@ -6,3 +6,5 @@ if ! zgen saved; then
   zgen load S1cK94/minimal minimal
   zgen save
 fi
+
+# vim: ft=sh

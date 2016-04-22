@@ -332,8 +332,8 @@ fi
 #getstrings () { perl -ne 'while ( m/"(.*?)"/gc ) { print $1, "\n"; }' $*}
 #getanchors () { perl -ne 'while ( m/«([^«»\n]+)»/gc ) { print $1, "\n"; }' $* }
 #showINC ()    { perl -e 'for (@INC) { printf "%d %s\n", $i++, $_ }' }
-#vimpm ()      { vim `perldoc -l $1 | sed -e 's/pod$/pm/'` }
-#vimhelp ()    { vim -c "help $1" -c on -c "au! VimEnter *" }
+# vimpm ()      { vim `perldoc -l $1 | sed -e 's/pod$/pm/'` }
+# vimhelp ()    { vim -c "help $1" -c on -c "au! VimEnter *" }
 ## END OF FILE #################################################################
 
 #. bsource rc zsh
