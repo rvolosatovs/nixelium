@@ -1,19 +1,54 @@
 alias  gs='git status'
-alias  gl='git log'
+alias  gS='git show --word-diff=color'
+
+alias  gl='git log --graph --decorate --stat --date=short'
+alias  gL='git log --graph --decorate --word-diff=color --patch-with-stat'
+alias  gh='git log --decorate --date=short'
+alias  gH='git log --decorate --shortstat --summary'
+
+alias  gt='git log --oneline --graph --decorate'
+alias  gT="git log --graph --decorate --pretty=format:'%C(auto)%h [%G?] %an <%ae> %ar%n%s%d'"
+
+alias gtt='gt --all'
+alias gTT='gT --all'
+
+alias gl1='gl --oneline'
+alias gL1='gL --oneline'
+alias gh1='gh --oneline'
+alias gH1='gH --oneline'
+alias gll='gl --all'
+alias gLL='gL --all'
+alias ghh='gh --all'
+alias gHH='gH --all'
+
+alias gsl='git shortlog'
+
+alias  gd='git diff --word-diff=color'
+
 alias  ga='git add .'
-alias  gA='git add'
-alias  gc='git commit -S'
-alias  gC='git commit -S -am'
-alias  gd='git diff'
+alias gaf='git add'
+alias  gc='git commit'
+alias gcm='git commit -am'
+alias gca='git commit --amend'
+
 alias  gn='git checkout'
-alias  gN='git checkout --orphan'
+alias gnb='git checkout -b'
+alias gno='git checkout --orphan'
 alias  gb='git branch'
-alias  gr='git rebase'
+alias gbi='git branch -lvv'
+alias  gr='git remote'
+alias  gB='git rebase'
 alias  gm='git cherry-pick'
 alias  gM='git merge'
 
 alias  gp='git pull'
 alias  gP='git push'
 alias  gf='git fetch'
+alias gfp='git fetch --prune'
 alias  gu='git submodule update --init --remote --rebase'
+
+alias  gR='git reset'
+
+alias  ge='git config --global --edit'
+
 # vim: ft=zsh
