@@ -1,13 +1,13 @@
 alias  gs='git status'
 alias  gS='git show --word-diff=color'
 
-alias  gl='git log --graph --decorate --stat --date=short'
-alias  gL='git log --graph --decorate --word-diff=color --patch-with-stat'
+alias  gl='git log --decorate --stat --date=short'
+alias  gL='git log --decorate --word-diff=color --patch-with-stat'
 alias  gh='git log --decorate --date=short'
 alias  gH='git log --decorate --shortstat --summary'
 
-alias  gt='git log --oneline --graph --decorate'
-alias  gT="git log --graph --decorate --pretty=format:'%C(auto)%h [%G?] %an <%ae> %ar%n%s%d'"
+alias  gt="git log --graph --decorate --pretty=format:'%C(auto)%h -%d %s (%C(blue)%ar)'"
+alias  gT="git log --graph --decorate --pretty=format:'%C(auto)%d%n%h [%G?] %an <%ae> (%C(blue)%ar%C(auto))%n%s%d%n'"
 
 alias gtt='gt --all'
 alias gTT='gT --all'
