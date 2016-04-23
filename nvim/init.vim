@@ -61,7 +61,7 @@ Plug 'bling/vim-bufferline'
 Plug 'ryanoasis/vim-devicons'
 
 " Code
-" Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim'
 Plug 'benekastah/neomake'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -74,8 +74,9 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
-Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-repeat'
+Plug 'junegunn/fzf', { 'dir': '~/.local/fzf' }
+Plug 'junegunn/fzf.vim'
 
 " Filetype-related
 Plug 'vim-latex/vim-latex'
