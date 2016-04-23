@@ -1,0 +1,35 @@
+[push]
+	default = upstream
+[status]
+	submoduleSummary = true
+[color]
+    ui = true
+[diff]
+	renames = copy
+[branch]
+    autosetuprebase = always
+[core]
+    autocrlf = false
+    safecrlf = false
+	editor = nvim
+[alias]
+     a = apply --index
+     p = format-patch --stdout
+    co = checkout
+    ci = commit
+    cp = cherry-pick
+    me = merge
+    re = rebase 
+    br = branch 
+    su = submodule
+    rr = reset 
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+[merge]
+	tool = vimdiff3
+[mergetool]
+	path = /usr/bin/nvim
+[commit]
+	gpgsign = true
+[format]
+	pretty = %C(auto)%h [%G?] %an <%ae> %ar (%ad)%n   %s%+N% d%n
+# vim: ft=gitconfig
