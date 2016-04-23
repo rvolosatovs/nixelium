@@ -13,17 +13,19 @@
     safecrlf = false
 	editor = nvim
 [alias]
-     a = apply --index
-     p = format-patch --stdout
-    co = checkout
-    ci = commit
-    cp = cherry-pick
-    me = merge
-    re = rebase 
-    br = branch 
-    su = submodule
-    rr = reset 
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+       a = apply --index
+       p = format-patch --stdout
+      co = checkout
+      ci = commit
+      cp = cherry-pick
+      me = merge
+      re = rebase 
+      br = branch 
+      su = submodule
+      rr = reset 
+    tree = log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'
+ bigtree = log --graph --decorate --pretty=format:'%C(auto)%d%n%h %s%+b%n(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n'
+    hist = log --date=short --pretty=format:'%C(auto)%ad %h (%G?) %s [%an] %d'
 [merge]
 	tool = vimdiff3
 [mergetool]
@@ -31,5 +33,5 @@
 [commit]
 	gpgsign = true
 [format]
-	pretty = %C(auto)%h [%G?] %an <%ae> %ar (%ad)%n   %s%+N% d%n
+	pretty = %C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n
 # vim: ft=gitconfig
