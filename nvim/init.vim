@@ -69,6 +69,9 @@ Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'godlygeek/tabular'
 Plug 'Chiel92/vim-autoformat'
+Plug 'fatih/vim-go'
+Plug 'nsf/gocode', {'rtp': 'vim'}
+" , { 'do': '~/.local/share/nvim/plugins/gocode/vim/symlink.sh' }
 
 " Steroids
 Plug 'easymotion/vim-easymotion'
