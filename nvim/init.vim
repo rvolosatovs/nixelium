@@ -9,7 +9,7 @@ set hidden
 set foldmethod=syntax
 set foldnestmax=5
 set foldcolumn=2
-set foldlevel=1
+set foldlevel=2
 
 " Searching
 set wrapscan
@@ -181,10 +181,10 @@ inoremap ()         ()
 inoremap {<CR>      {<CR>}<Esc>O
 
 " Filetype-specific (TODO:migrate to /ft)
-au FileType typescript inoremap <buffer> : :<Space>,<Esc>i
-au FileType typescript inoremap <buffer> <Space>: :<Space>
-au FileType javascript inoremap <buffer> : :<Space>,<Esc>i
-au FileType javascript inoremap <buffer> <Space>: :<Space>
+au FileType typescript inoremap <buffer> <Space>: :<Space>,<Esc>i
+au FileType typescript inoremap <buffer> : :<Space>
+au FileType javascript inoremap <buffer> <Space>: :<Space>,<Esc>i
+au FileType javascript inoremap <buffer> : :<Space>
 
 au FileType sh         inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
 au FileType conf       inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
