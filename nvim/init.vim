@@ -79,7 +79,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'tpope/vim-repeat'
-Plug 'junegunn/fzf', { 'dir': '~/.local/fzf' }
+Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --no-update-rc --no-key-bindings' }
 Plug 'junegunn/fzf.vim'
 
 " Filetype-related
