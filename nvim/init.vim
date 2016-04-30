@@ -70,6 +70,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'godlygeek/tabular'
 Plug 'Chiel92/vim-autoformat'
 Plug 'fatih/vim-go'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'nsf/gocode', {'rtp': 'vim'}
 " , { 'do': '~/.local/share/nvim/plugins/gocode/vim/symlink.sh' }
 
@@ -151,10 +152,20 @@ let g:Tex_ViewRule_ps = 'zathura'
 let g:Tex_CompileRule_pdf = 'pdflatex -interaction=nonstopmode $*'
 let g:Tex_DefaultTargetFormat = 'pdf'
 
+" Go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
-au VimEnter call deoplete#initialize()
+" au VimEnter call deoplete#initialize()
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " Tern
 let g:tern_request_timeout = 1
@@ -165,45 +176,33 @@ let g:session_autoload="no"
 
 " ~~~ Controls ~~~
 
-" Insert-mode
-inoremap jk         <Esc>
-inoremap kj         <Esc>
-
-inoremap '          ''<Esc>i
-inoremap "          ""<Esc>i
-inoremap (          ()<Esc>i
-inoremap [          []<Esc>i
-inoremap {          {}<Esc>i
-
-inoremap (<Space>   ();<Esc>hi
-inoremap (;         ();<Esc>o
-inoremap ()         ()
-inoremap {<CR>      {<CR>}<Esc>O
-
-" Filetype-specific (TODO:migrate to /ft)
-au FileType typescript inoremap <buffer> <Space>: :<Space>,<Esc>i
-au FileType typescript inoremap <buffer> : :<Space>
-au FileType javascript inoremap <buffer> <Space>: :<Space>,<Esc>i
-au FileType javascript inoremap <buffer> : :<Space>
-
-au FileType sh         inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
-au FileType conf       inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
-
-au FileType vim        inoremap <buffer> "" "<Space>~~~<Space><Space>~~~<Esc>bhi
-au FileType vim        inoremap <buffer> "  "<Space>
-
 " Essential
-nnoremap ;        :
+nnoremap      ;  :
 nnoremap <SPACE>  <Nop>
 let mapleader = "\<Space>"
 
+" Insert-mode
+inoremap      jk  <Esc>
+inoremap      kj  <Esc>
+
+inoremap      '   ''<Esc>i
+inoremap      "   ""<Esc>i
+inoremap      (   ()<Esc>i
+inoremap      [   []<Esc>i
+inoremap      {   {}<Esc>i
+
+inoremap (<Space>  ();<Esc>hi
+inoremap      (;   ();<Esc>o
+inoremap      ()   ()
+inoremap    {<CR>  {<CR>}<Esc>O
+
 " Navigation
-nnoremap j gj
-nnoremap k gk
-nnoremap <C-h>    <C-w>h
-nnoremap <C-j>    <C-w>j
-nnoremap <C-k>    <C-w>k
-nnoremap <C-l>    <C-w>l
+nnoremap      j   gj
+nnoremap      k   gk
+nnoremap  <C-h>   <C-w>h
+nnoremap  <C-j>   <C-w>j
+nnoremap  <C-k>   <C-w>k
+nnoremap  <C-l>   <C-w>l
 
 " Vim-related
 nmap <Leader>vw   :w<CR>
@@ -214,6 +213,7 @@ nmap <Leader>ve   :e ~/.config/nvim/init.vim<CR>
 nmap <Leader>vr   :source ~/.config/nvim/init.vim<CR>
 nmap <Leader>vP   :PlugInstall<CR>
 nmap <Leader>vp   :PlugUpdate<CR>
+nmap <Leader>vm   :make<CR>
 
 " Toggles
 nmap <Leader>tT   :tabnew<CR>
@@ -255,15 +255,15 @@ nmap <Leader>fh   :History<CR>
 
 " Incsearch
 let g:incsearch#auto_nohlsearch = 1
-map /            <Plug>(incsearch-easymotion-/)
-map ?            <Plug>(incsearch-easymotion-?)
-map g/           <Plug>(incsearch-easymotion-stay)
-map *            <Plug>(incsearch-nohl-*)
-map n            <Plug>(incsearch-nohl-n)
-map N            <Plug>(incsearch-nohl-N)
-map #            <Plug>(incsearch-nohl-#)
-map g*           <Plug>(incsearch-nohl-g*)
-map g#           <Plug>(incsearch-nohl-g#)
+map           /   <Plug>(incsearch-easymotion-/)
+map           ?   <Plug>(incsearch-easymotion-?)
+map           g/  <Plug>(incsearch-easymotion-stay)
+map           *   <Plug>(incsearch-nohl-*)
+map           n   <Plug>(incsearch-nohl-n)
+map           N   <Plug>(incsearch-nohl-N)
+map           #   <Plug>(incsearch-nohl-#)
+map           g*  <Plug>(incsearch-nohl-g*)
+map           g#  <Plug>(incsearch-nohl-g#)
 
 " EasyMotion
 let g:EasyMotion_keys='hjkluiobnmxcvwersdfg'
@@ -271,33 +271,31 @@ let g:EasyMotion_startofline = 0
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 
-map f            <Plug>(easymotion-f)
-map F            <Plug>(easymotion-F)
-map t            <Plug>(easymotion-t)
-map T            <Plug>(easymotion-T)
-map s            <Plug>(easymotion-s2)
-map S            <Plug>(easymotion-overwin-f2)
-map <Leader>w    <Plug>(easymotion-w)
-map <Leader>W    <Plug>(easymotion-W)
-map <Leader>b    <Plug>(easymotion-b)
-map <Leader>B    <Plug>(easymotion-B)
-map <Leader>e    <Plug>(easymotion-e)
-map <Leader>E    <Plug>(easymotion-E)
-map <Leader>ge   <Plug>(easymotion-ge)
-map <Leader>gE   <Plug>(easymotion-gE)
+map            f  <Plug>(easymotion-f)
+map            F  <Plug>(easymotion-F)
+map            t  <Plug>(easymotion-t)
+map            T  <Plug>(easymotion-T)
+map            s  <Plug>(easymotion-s2)
+map            S  <Plug>(easymotion-overwin-f2)
+map    <Leader>w  <Plug>(easymotion-w)
+map    <Leader>W  <Plug>(easymotion-W)
+map    <Leader>b  <Plug>(easymotion-b)
+map    <Leader>B  <Plug>(easymotion-B)
+map    <Leader>e  <Plug>(easymotion-e)
+map    <Leader>E  <Plug>(easymotion-E)
+map    <Leader>ge <Plug>(easymotion-ge)
+map    <Leader>gE <Plug>(easymotion-gE)
 
-map <Leader>gl   <Plug>(easymotion-overwin-line)
+map    <Leader>gl <Plug>(easymotion-overwin-line)
 
-map <Leader>gn   <Plug>(easymotion-next)
-map <Leader>gN   <Plug>(easymotion-prev)
-map <Leader>n    <Plug>(easymotion-vim-n)
-map <Leader>N    <Plug>(easymotion-vim-N)
-map <Leader>.    <Plug>(easymotion-repeat)
+map    <Leader>gn <Plug>(easymotion-next)
+map    <Leader>gN <Plug>(easymotion-prev)
+map    <Leader>n  <Plug>(easymotion-vim-n)
 
-map <Leader>h    <Plug>(easymotion-linebackward)
-map <Leader>j    <Plug>(easymotion-j)
-map <Leader>k    <Plug>(easymotion-k)
-map <Leader>l    <Plug>(easymotion-lineforward)
+map    <Leader>h  <Plug>(easymotion-linebackward)
+map    <Leader>j  <Plug>(easymotion-j)
+map    <Leader>k  <Plug>(easymotion-k)
+map    <Leader>l  <Plug>(easymotion-lineforward)
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -306,6 +304,23 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " ~~~ Autocmd ~~~
 
+" Filetype-specific keybinds(TODO:migrate to /ft)
+au FileType typescript inoremap <buffer> <Space>: :<Space>,<Esc>i
+au FileType typescript inoremap <buffer> : :<Space>
+au FileType javascript inoremap <buffer> <Space>: :<Space>,<Esc>i
+au FileType javascript inoremap <buffer> : :<Space>
+
+au FileType sh         inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
+au FileType conf       inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
+
+au FileType vim        inoremap <buffer> "" "<Space>~~~<Space><Space>~~~<Esc>bhi
+au FileType vim        inoremap <buffer> "  "<Space>
+
+au FileType go             nmap <leader>er <Plug>(go-run)
+au FileType go             nmap <leader>eb <Plug>(go-build)
+au FileType go             nmap <leader>et <Plug>(go-test)
+au FileType go             nmap <leader>ec <Plug>(go-coverage)
+
 " Layout
 au vimenter * if argc() == 0 | NERDTree | wincmd l | endif
 au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -313,6 +328,6 @@ au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTre
 " Func
 au FocusLost * :wa
 
-" Filetype-specific
+" Filetype-specific settings
 au FileType html setlocal foldmethod=indent
 au FileType typescript setlocal noexpandtab
