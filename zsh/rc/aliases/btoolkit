@@ -1,0 +1,1 @@
+alias -g eu='source bsource env zsh && source bsource rc zsh'

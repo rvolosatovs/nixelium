@@ -103,6 +103,7 @@ Plug 'vim-scripts/scratch.vim'
 Plug 'vim-scripts/FastFold'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
+Plug 'kopischke/vim-stay'
 
 call plug#end()
 
@@ -173,6 +174,11 @@ let g:tern_request_timeout = 1
 " Vim-session
 let g:session_autosave="no"
 let g:session_autoload="no"
+
+" FastFold
+let g:fastfold_savehook = 0
+
+set viewoptions=cursor,folds,slash,unix
 
 " ~~~ Controls ~~~
 

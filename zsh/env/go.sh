@@ -1,2 +1,3 @@
-export GOPATH="$HOME/.local/go"
-path+=("$HOME/.local/go/bin")
+export GOPATH="$HOME/workspace/go"
+export GOBIN="$HOME/.local/bin.go"
+path=(${GOBIN} $PATH)
