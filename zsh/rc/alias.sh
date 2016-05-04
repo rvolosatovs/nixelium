@@ -3,69 +3,74 @@ pushd $0:A:h > /dev/null
 
 alias -g aliases="$0:A:h'/aliases/'"
 
+# Persistent
+for ali in aliases/const/*; do
+    source $ali
+done
+
 # Shell
 if [ uname=="Linux" ];then
-source aliases/linux
+    source aliases/linux
 fi
 
 # Systemd
 if type systemctl > /dev/null;then
-source aliases/systemd
+    source aliases/systemd
 fi
 
 # Vi
 if type nvim > /dev/null;then
-source aliases/nvim
+    source aliases/nvim
 elif type vim > /dev/null;then
-source aliases/vim
+    source aliases/vim
 fi
 
 # Git
 if type git > /dev/null;then
-source aliases/git
+    source aliases/git
 fi
 
 # Cave
 if type cave > /dev/null; then
-source aliases/cave
+    source aliases/cave
 fi
 
 # Eclectic
 if type eclectic > /dev/null; then
-source aliases/eclectic
+    source aliases/eclectic
 fi
 
 # Xbps
 if type xbps-install > /dev/null; then
-source aliases/xbps
+    source aliases/xbps
 fi
 
 # Portage
 if type emerge > /dev/null; then
-source aliases/portage
+    source aliases/portage
 fi
 
 # Pacman
 if type pacman > /dev/null; then
-source aliases/pacman
+    source aliases/pacman
 fi
 
 # Nix
 if type nix-env > /dev/null; then
-source aliases/nix
+    source aliases/nix
 fi
 
 # Distro-specific
 if   [[ $distro == "exherbo"   ]]; then
-source aliases/exherbo
+    source aliases/exherbo
 elif [[ $distro == "voidlinux" ]]; then
-source aliases/void
+    source aliases/void
 elif [[ $distro == "gentoo"    ]]; then #TODO: check ID
-source aliases/gentoo
+    source aliases/gentoo
 elif [[ $distro == "nix"       ]]; then #TODO: check ID
-source aliases/nixos
+    source aliases/nixos
 elif [[ $distro == "arch"      ]]; then
-source aliases/arch
+    source aliases/arch
 fi
 
 unalias \aliases
