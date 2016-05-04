@@ -1,4 +1,4 @@
 [submodule "zplug"]
 	path = zplug
-	url = git@matrix:zplug.git
+	url = https://github.com/b4b4r07/zplug.git
 	branch = master
