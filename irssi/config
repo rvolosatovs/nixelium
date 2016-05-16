@@ -378,4 +378,5 @@ settings = {
     recode_transliterate = "no";
   };
   "fe-text" = { actlist_sort = "refnum"; };
+  "fe-common/core" = { bell_beeps = "yes"; };
 };
