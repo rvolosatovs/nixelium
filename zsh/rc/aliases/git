@@ -1,3 +1,5 @@
+alias -g git='hub'
+
 alias  gs='git status'
 alias  gS='git show --word-diff=color'
 

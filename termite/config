@@ -1,7 +1,7 @@
 [options]
 scroll_on_output = false
 scroll_on_keystroke = true
-audible_bell = false
+audible_bell = true
 mouse_autohide = false
 allow_bold = true
 dynamic_title = true
