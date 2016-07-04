@@ -2,14 +2,22 @@
 " ~~~ Vim configurations ~~~
 filetype plugin indent on
 
+set updatetime=250
+
+set visualbell
+
+set rtp^=/usr/share/vim/vimfiles
+set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
+
 " Buffers
 set hidden
 
 " Folding
-set foldmethod=syntax
-set foldnestmax=5
-set foldcolumn=2
-set foldlevel=2
+" set foldmethod=syntax
+set foldnestmax=1
+set foldcolumn=1
+set nofoldenable
+"set foldlevel=2
 
 " Searching
 set wrapscan
@@ -51,7 +59,7 @@ if !has('nvim')
     Plug 'tpope/vim-sensible'
 endif
 
-" Looks 
+" Looks
 Plug 'chriskempson/base16-vim'
 " Plug 'junegunn/seoul256.vim'
 " Plug 'jnurmine/Zenburn'
@@ -69,27 +77,14 @@ Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'godlygeek/tabular'
 Plug 'Chiel92/vim-autoformat'
-Plug 'fatih/vim-go'
-Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'nsf/gocode', {'rtp': 'vim'}
-" , { 'do': '~/.local/share/nvim/plugins/gocode/vim/symlink.sh' }
 
 " Steroids
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'tpope/vim-repeat'
-Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --no-update-rc --no-key-bindings' }
+"Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --no-update-rc --no-key-bindings' }
 Plug 'junegunn/fzf.vim'
-
-" Filetype-related
-Plug 'vim-latex/vim-latex'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-Plug 'carlitux/deoplete-ternjs'
-Plug 'jason0x43/vim-js-indent'
-Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
-Plug 'Shougo/vimproc.vim', { 'build' : 'make'} " tsuquyomi dep
 
 " Utility
 Plug 'tpope/vim-fugitive'
@@ -98,12 +93,39 @@ Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sjl/gundo.vim'
-Plug 'vim-scripts/YankRing.vim'
-Plug 'vim-scripts/scratch.vim'
-Plug 'vim-scripts/FastFold'
+"Plug 'vim-scripts/YankRing.vim'
+Plug 'maxbrunsfeld/vim-yankstack'
+"Plug 'vim-scripts/scratch.vim'
+"Plug 'vim-scripts/FastFold'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
+Plug 'xolox/vim-easytags'
 Plug 'kopischke/vim-stay'
+Plug 'mattn/webapi-vim'
+Plug 'corntrace/bufexplorer'
+Plug 'gregsexton/gitv'
+Plug 'jiangmiao/auto-pairs'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-unimpaired'
+
+
+" Filetype-related
+" Latex
+Plug 'vim-latex/vim-latex', { 'for': 'latex' }
+" Javascript
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
+Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
+Plug 'jason0x43/vim-js-indent', {'for': 'javascript'}
+" Typescript
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
+Plug 'Shougo/vimproc.vim', { 'for': 'typescript', 'build' : 'make'} " tsuquyomi dep
+" Rust
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Go
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'vim', 'do': '~/.local/share/nvim/plugins/gocode/vim/symlink.sh' }
 
 call plug#end()
 
@@ -140,11 +162,18 @@ let g:airline#extensions#tabline#tab_nr_type = 2
 " Bufferline
 let g:bufferline_echo = 0
 
-" ~~~ Plugin configs ~~~
+" Easytags
+let g:easytags_auto_update = 0
+let g:easytags_async = 1
 
+" ~~~ Plugin configs ~~~
+" AutoPairs
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutToggle = '<C-P>'
 " YankRing
-let g:yankring_history_dir = "$HOME/.local/share/nvim" 
-let g:yankring_history_file = 'yankhist'
+"let g:yankring_history_dir = "$HOME/.local/share/nvim"
+"let g:yankring_history_file = 'yankhist'
+"let g:yankring_clipboard_monitor=0
 
 " TeX
 let g:Tex_ViewRule_pdf = 'zathura'
@@ -160,7 +189,9 @@ let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -177,9 +208,9 @@ let g:session_autosave="no"
 let g:session_autoload="no"
 
 " FastFold
-let g:fastfold_savehook = 0
+"let g:fastfold_savehook = 0
 
-set viewoptions=cursor,folds,slash,unix
+set viewoptions=cursor,slash,unix
 
 " ~~~ Controls ~~~
 
@@ -192,16 +223,8 @@ let mapleader = "\<Space>"
 inoremap      jk  <Esc>
 inoremap      kj  <Esc>
 
-inoremap      '   ''<Esc>i
-inoremap      "   ""<Esc>i
-inoremap      (   ()<Esc>i
-inoremap      [   []<Esc>i
-inoremap      {   {}<Esc>i
-
-inoremap (<Space>  ();<Esc>hi
-inoremap      (;   ();<Esc>o
-inoremap      ()   ()
-inoremap    {<CR>  {<CR>}<Esc>O
+" Fix yank
+nmap Y y$
 
 " Navigation
 nnoremap      j   gj
@@ -220,19 +243,21 @@ nmap <Leader>ve   :e ~/.config/nvim/init.vim<CR>
 nmap <Leader>vr   :source ~/.config/nvim/init.vim<CR>
 nmap <Leader>vP   :PlugInstall<CR>
 nmap <Leader>vp   :PlugUpdate<CR>
-nmap <Leader>vm   :make<CR>
+nmap <Leader>m    :make<CR>
+
+" New
+nmap <Leader>nt   :tabnew<CR>
+nmap <Leader>nb   :enew <CR>
 
 " Toggles
-nmap <Leader>tT   :tabnew<CR>
-nmap <Leader>tb   :enew <CR>
 nmap <Leader>tO   :e .<CR>
 nmap <Leader>to   :e %:p:h<CR>
 nmap <Leader>tn   :NERDTreeToggle<CR>
 nmap <Leader>tt   :TagbarToggle<CR>
 nmap <Leader>tu   :GundoToggle<CR>
 nmap <Leader>tp   :YRShow<CR>
-nmap <Leader>ts   :Sscratch<CR>
-nmap <Leader>tS   :Scratch<CR>
+"nmap <Leader>ts   :Sscratch<CR>
+"nmap <Leader>tS   :Scratch<CR>
 
 " Sessions
 nmap <Leader>ss   :SaveSession<CR>
@@ -297,17 +322,19 @@ map    <Leader>gl <Plug>(easymotion-overwin-line)
 
 map    <Leader>gn <Plug>(easymotion-next)
 map    <Leader>gN <Plug>(easymotion-prev)
-map    <Leader>n  <Plug>(easymotion-vim-n)
+map    n          <Plug>(easymotion-vim-n)
+map    N          <Plug>(easymotion-vim-N)
 
-map    <Leader>h  <Plug>(easymotion-linebackward)
+"map    <Leader>h  <Plug>(easymotion-linebackward)
 map    <Leader>j  <Plug>(easymotion-j)
 map    <Leader>k  <Plug>(easymotion-k)
-map    <Leader>l  <Plug>(easymotion-lineforward)
+"map    <Leader>l  <Plug>(easymotion-lineforward)
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsListSnippets="<leader><tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " ~~~ Autocmd ~~~
 
@@ -323,10 +350,10 @@ au FileType conf       inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
 au FileType vim        inoremap <buffer> "" "<Space>~~~<Space><Space>~~~<Esc>bhi
 au FileType vim        inoremap <buffer> "  "<Space>
 
-au FileType go             nmap <leader>er <Plug>(go-run)
-au FileType go             nmap <leader>eb <Plug>(go-build)
-au FileType go             nmap <leader>et <Plug>(go-test)
-au FileType go             nmap <leader>ec <Plug>(go-coverage)
+au FileType go             nmap <M-r> <Plug>(go-run)
+au FileType go             nmap <M-b> <Plug>(go-build)
+au FileType go             nmap <M-t> <Plug>(go-test)
+au FileType go             nmap <M-c> <Plug>(go-coverage)
 
 " Layout
 au vimenter * if argc() == 0 | NERDTree | wincmd l | endif
@@ -336,5 +363,5 @@ au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTre
 au FocusLost * :wa
 
 " Filetype-specific settings
-au FileType html setlocal foldmethod=indent
+"au FileType html setlocal foldmethod=indent
 au FileType typescript setlocal noexpandtab

@@ -15,16 +15,19 @@ super + Escape
     pkill -USR1 -x sxhkd
 
 super + shift + p
-    pass-insert
+    pass-script insert
 
 super + ctrl + p
-    pass-copy
+    pass-script copy
+
+super + alt + p
+    pass-script new
 
 super + shift + o
     chromium
 
 Print
-    scrot ~/pictures/scrot/%d-%m-%Y-%T-screenshot.png
+    scrot
 
 XF86MonBrightnessDown
     brightness down
