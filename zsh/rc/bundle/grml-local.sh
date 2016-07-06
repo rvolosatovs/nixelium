@@ -82,18 +82,18 @@ zle -N mquote && bindkey '^q' mquote
 #WORDCHARS='${WORDCHARS:s@/@}'
 
 # just type '...' to get '../..'
-rationalise-dot() {
-local MATCH
-if [[ $LBUFFER =~ '(^|/| |	|'$'\n''|\||;|&)\.\.$' ]]; then
-  LBUFFER+=/
-  zle self-insert
-  zle self-insert
-else
-  zle self-insert
-fi
-}
-zle -N rationalise-dot
-bindkey . rationalise-dot
+#rationalise-dot() {
+#local MATCH
+#if [[ $LBUFFER =~ '(^|/| |	|'$'\n''|\||;|&)\.\.$' ]]; then
+#  LBUFFER+=/
+#  zle self-insert
+#  zle self-insert
+#else
+#  zle self-insert
+#fi
+#}
+#zle -N rationalise-dot
+#bindkey . rationalise-dot
 # without this, typing a . aborts incremental history search
 bindkey -M isearch . self-insert
 
@@ -111,10 +111,10 @@ setopt nonomatch
 setopt NO_clobber
 
 ## don't warn me about bg processes when exiting
-#setopt nocheckjobs
+setopt nocheckjobs
 
 # alert me if something failed
-setopt printexitvalue
+#setopt printexitvalue
 
 ## with spelling correction, assume dvorak kb
 #setopt dvorak
@@ -212,7 +212,7 @@ zstyle ':completion:*:hosts' hosts $hosts
 export MANWIDTH=${MANWIDTH:-80}
 
 # Set a search path for the cd builtin
-cdpath=($GOPATH/src/github.com $GOPATH/src/github.com/b1101 $HOME/.local/bin)
+cdpath=($GOPATH/src/github.com/b1101 workspace)
 
 ## variation of our manzsh() function; pick you poison:
 #manzsh()  { /usr/bin/man zshall |  most +/"$1" ; }
@@ -221,9 +221,9 @@ cdpath=($GOPATH/src/github.com $GOPATH/src/github.com/b1101 $HOME/.local/bin)
 #bash() {
 #    NO_SWITCH="yes" command bash "$@"
 #}
-#restart () {
-#    exec $SHELL $SHELL_ARGS "$@"
-#}
+restart () {
+    exec $SHELL $SHELL_ARGS "$@"
+}
 
 ## Handy functions for use with the (e::) globbing qualifier (like nt)
 #contains() { grep -q "$*" $REPLY }
@@ -244,16 +244,16 @@ cdpath=($GOPATH/src/github.com $GOPATH/src/github.com/b1101 $HOME/.local/bin)
 #}
 
 ## List all occurrences of programm in current PATH
-#plap() {
-#    emulate -L zsh
-#    if [[ $# = 0 ]] ; then
-#        echo "Usage:    $0 program"
-#        echo "Example:  $0 zsh"
-#        echo "Lists all occurrences of program in the current PATH."
-#    else
-#        ls -l ${^path}/*$1*(*N)
-#    fi
-#}
+plap() {
+    emulate -L zsh
+    if [[ $# = 0 ]] ; then
+        echo "Usage:    $0 program"
+        echo "Example:  $0 zsh"
+        echo "Lists all occurrences of program in the current PATH."
+    else
+        ls -l ${^path}/*$1*(*N)
+    fi
+}
 
 ## Find out which libs define a symbol
 #lcheck() {
@@ -335,5 +335,3 @@ fi
 # vimpm ()      { vim `perldoc -l $1 | sed -e 's/pod$/pm/'` }
 # vimhelp ()    { vim -c "help $1" -c on -c "au! VimEnter *" }
 ## END OF FILE #################################################################
-
-#. bsource rc zsh

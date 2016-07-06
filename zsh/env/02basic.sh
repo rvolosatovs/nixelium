@@ -7,8 +7,6 @@ export PASSWORD_STORE_DIR="${HOME}/.local/pass"
 
 export HISTFILE="${ZDOTDIR}/.zhistory"
 
-export LANG="en_GB.UTF-8"
-
 export PAGER="less"
 export EDITOR="nvim"
 export VISUAL="nvim"

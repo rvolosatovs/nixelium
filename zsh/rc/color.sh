@@ -1,1 +1,1 @@
-bundle/color
+bundle/color.sh

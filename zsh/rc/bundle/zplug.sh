@@ -5,7 +5,7 @@ _Z_DATA="${XDG_DATA_HOME:-$HOME}/z/z"
 export ZPLUG_CLONE_DEPTH=1
 
 zplug "b4b4r07/zplug"
-zplug "zsh-users/zsh-history-substring-search"
+#zplug "zsh-users/zsh-history-substring-search"
 zplug "rupa/z", use:"z.sh"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-completions"
