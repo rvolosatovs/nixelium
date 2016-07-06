@@ -322,8 +322,8 @@ map    <Leader>gl <Plug>(easymotion-overwin-line)
 
 map    <Leader>gn <Plug>(easymotion-next)
 map    <Leader>gN <Plug>(easymotion-prev)
-map    n          <Plug>(easymotion-vim-n)
-map    N          <Plug>(easymotion-vim-N)
+map    <Leader>n  <Plug>(easymotion-vim-n)
+map    <Leader>N  <Plug>(easymotion-vim-N)
 
 "map    <Leader>h  <Plug>(easymotion-linebackward)
 map    <Leader>j  <Plug>(easymotion-j)
