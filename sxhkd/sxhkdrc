@@ -29,10 +29,11 @@ super + shift + o
 Print
     scrot
 
-XF86MonBrightnessDown
-    brightness down
-XF86MonBrightnessUp
-    brightness up
+# Handled by the kernel
+#XF86MonBrightnessDown
+#    brightness down
+#XF86MonBrightnessUp
+#    brightness up
 
 XF86AudioMute
     vol mute
