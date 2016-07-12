@@ -1,7 +1,7 @@
 #! /bin/sh
 sxhkd &
 
-bspc monitor -d Br Te Vi Bo Mu Mo
+bspc monitor -d H He Li Be B C N
 
 #bspc config border_width        1
 #bspc config window_gap          10
@@ -37,21 +37,16 @@ bspc config         normal_frame_opacity  0.0
 bspc config        focused_frame_opacity  0.1
 
 #bspc rule -a Gimp desktop=^8 follow=on floating=on
-bspc rule -a                    Chromium  desktop=^1
-bspc rule -a                        cmus  desktop=^4
+#bspc rule -a                    Chromium  desktop=^1
 #bspc rule -a mplayer2 floating=on
 #bspc rule -a Kupfer.py focus=on
 #bspc rule -a Screenkey manage=off
 
 wmname "LG3D" #compatibility issues fix
 
-feh  --bg-scale "$HOME/pictures/bg"
+feh  --bg-max "$HOME/pictures/bg" 
 
 panel &
-stalonetray -c "$HOME/.config/stalonetray/stalonetrayrc"&
-
-nm-applet &
-redshift &
 
 #tint2 &
 # sudo wpa_gui -t &

@@ -8,8 +8,8 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = false
 clickable_url = true
-#font = Hurmit 10 
-font = Hurmit 11
+font = Hurmit 10 
+#font = Hurmit 11
 
 scrollback_lines = 10000
 search_wrap = true

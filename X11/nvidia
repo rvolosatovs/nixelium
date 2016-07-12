@@ -1,4 +1,4 @@
-xrandr --setprovideroutputsource modesetting NVIDIA-0
-xrandr --auto
+xrandr --output DP-2 --auto --rotate left --primary --left-of LVDS-1 #--output HDMI-3 --auto --primary
 xsetroot -cursor_name left_ptr & 
 exec bspwm
+# vim: ft=sh

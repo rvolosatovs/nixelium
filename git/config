@@ -1,7 +1,11 @@
+# vim: ft=gitconfig
 [push]
 	default = upstream
 [status]
+	short = true
+    branch = true
 	submoduleSummary = true
+    showUntrackedFiles = all
 [color]
     ui = true
 [diff]
@@ -27,11 +31,18 @@
  bigtree = log --graph --decorate --pretty=format:'%C(auto)%d%n%h %s%+b%n(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n'
     hist = log --date=short --pretty=format:'%C(auto)%ad %h (%G?) %s [%an] %d'
 [merge]
-	tool = vimdiff3
+	tool = nvimdiff
+    conflictstyle = diff3
+[diff]
+	tool = nvimdiff
 [mergetool]
 	path = /usr/bin/nvim
+    keepBackup = false
+[mergetool "nvimdiff"]
+    cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [commit]
 	gpgsign = true
 [format]
 	pretty = %C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n
-# vim: ft=gitconfig
+[http]
+	cookieFile = ~/.gitcookies
