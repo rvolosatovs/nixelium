@@ -133,12 +133,9 @@ zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' completer _expand_alias _complete _approximate
 
 # to have more convenient account completion, specify your logins:
-my_accounts=(
-    neo@matrix
-    root@matrix
-    b1101@atom
-    b1101@nirvana
-)
+#my_accounts=(
+#b1101@nirvana
+#)
 #other_accounts=(
 # {fred,root}@foo.invalid
 # vera@bar.invalid
@@ -212,7 +209,7 @@ zstyle ':completion:*:hosts' hosts $hosts
 export MANWIDTH=${MANWIDTH:-80}
 
 # Set a search path for the cd builtin
-cdpath=($GOPATH/src/github.com/b1101 workspace)
+cdpath=($GOPATH/src/github.com/rvolosatovs $GOPATH/src/github.com/TheThingsIndustries $GOPATH/src/github.com/TheThingsNetwork $GOPATH/src/github.com $GOPATH/src $HOME/workspace)
 
 ## variation of our manzsh() function; pick you poison:
 #manzsh()  { /usr/bin/man zshall |  most +/"$1" ; }

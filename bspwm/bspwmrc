@@ -43,9 +43,6 @@ bspc config        focused_frame_opacity  0.1
 #bspc rule -a Screenkey manage=off
 
 wmname "LG3D" #compatibility issues fix
-
-feh  --bg-max "$HOME/pictures/bg" 
-
 panel &
 
 #tint2 &

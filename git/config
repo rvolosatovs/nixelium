@@ -46,3 +46,7 @@
 	pretty = %C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n
 [http]
 	cookieFile = ~/.gitcookies
+[user]
+	name = Roman Volosatovs
+	email = rvolosatovs@riseup.net
+	signingkey = 3D80C89E

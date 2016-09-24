@@ -1,6 +1,7 @@
-#! vim: set ft=vim
 " ~~~ Vim configurations ~~~
 filetype plugin indent on
+
+set undofile
 
 set updatetime=250
 
@@ -83,7 +84,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'tpope/vim-repeat'
-"Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --no-update-rc --no-key-bindings' }
+Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --no-update-rc --no-key-bindings' }
 Plug 'junegunn/fzf.vim'
 
 " Utility
@@ -107,9 +108,12 @@ Plug 'gregsexton/gitv'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-unimpaired'
+Plug 'terryma/vim-multiple-cursors'
 
 
 " Filetype-related
+" C
+Plug 'Rip-Rip/clang_complete'
 " Latex
 Plug 'vim-latex/vim-latex', { 'for': 'latex' }
 " Javascript
@@ -125,7 +129,6 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
-Plug 'nsf/gocode', { 'for': 'go', 'rtp': 'vim', 'do': '~/.local/share/nvim/plugins/gocode/vim/symlink.sh' }
 
 call plug#end()
 
@@ -182,23 +185,10 @@ let g:Tex_ViewRule_ps = 'zathura'
 let g:Tex_CompileRule_pdf = 'pdflatex -interaction=nonstopmode $*'
 let g:Tex_DefaultTargetFormat = 'pdf'
 
-" Go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_autosave = 1
-let g:go_fmt_command = "goimports"
-let g:go_auto_type_info = 1
-
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
 " au VimEnter call deoplete#initialize()
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " Tern
 let g:tern_request_timeout = 1
@@ -206,6 +196,9 @@ let g:tern_request_timeout = 1
 " Vim-session
 let g:session_autosave="no"
 let g:session_autoload="no"
+
+" Neomake
+let g:neomake_open_list=1
 
 " FastFold
 "let g:fastfold_savehook = 0
@@ -330,6 +323,8 @@ map    <Leader>j  <Plug>(easymotion-j)
 map    <Leader>k  <Plug>(easymotion-k)
 "map    <Leader>l  <Plug>(easymotion-lineforward)
 
+nmap <M-b> :Neomake<CR>
+
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -349,11 +344,6 @@ au FileType conf       inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
 
 au FileType vim        inoremap <buffer> "" "<Space>~~~<Space><Space>~~~<Esc>bhi
 au FileType vim        inoremap <buffer> "  "<Space>
-
-au FileType go             nmap <M-r> <Plug>(go-run)
-au FileType go             nmap <M-b> <Plug>(go-build)
-au FileType go             nmap <M-t> <Plug>(go-test)
-au FileType go             nmap <M-c> <Plug>(go-coverage)
 
 " Layout
 au vimenter * if argc() == 0 | NERDTree | wincmd l | endif

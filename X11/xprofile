@@ -1,5 +1,1 @@
-stalonetray -c "$HOME/.config/stalonetray/stalonetrayrc"&
-
-nm-applet &
-redshift &
 #vim: ft=sh

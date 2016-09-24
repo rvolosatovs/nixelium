@@ -6,3 +6,4 @@
 #path=("${HOME}/.local/bin" $path)
 #
 #export PATH
+export PATH="$HOME/.local/bin:$PATH"
