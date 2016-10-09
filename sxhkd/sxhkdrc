@@ -30,17 +30,17 @@ Print
     scrot
 
 # Handled by the kernel
-XF86MonBrightnessDown
-    brightness down
-XF86MonBrightnessUp
-    brightness up
-
-XF86AudioMute
-    vol mute
-XF86AudioLowerVolume
-    vol down
-XF86AudioRaiseVolume
-    vol up
+#XF86MonBrightnessDown
+#    brightness down
+#XF86MonBrightnessUp
+#    brightness up
+#
+#XF86AudioMute
+#    vol mute
+#XF86AudioLowerVolume
+#    vol down
+#XF86AudioRaiseVolume
+#    vol up
 
 #
 # bspwm hotkeys
