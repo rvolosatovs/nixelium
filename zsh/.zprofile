@@ -58,8 +58,10 @@ PANEL_WM_NAME=bspwm_panel
 export PANEL_FIFO PANEL_HEIGHT PANEL_FONT PANEL_WM_NAME
 
 # Ruby
-path+=($HOME/.gem/ruby/2.3.0/bin)
+export PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
 source $HOME/.local/share/base16/vconsole/base16-marrakesh.dark.sh
+
+# Zplug
 export ZPLUG_HOME=${XDG_CONFIG_HOME}/zplug
 
 # GCC
@@ -83,5 +85,4 @@ if [[ $distro == "exherbo" ]]; then
     export WINDRES=${CHOST}-windres
     export PKG_CONFIG=${CHOST}-pkg-config
 fi 
-
 # vim: ft=zsh
