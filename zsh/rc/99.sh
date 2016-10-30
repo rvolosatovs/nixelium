@@ -1,1 +1,0 @@
-bundle/fzf-arch.sh
