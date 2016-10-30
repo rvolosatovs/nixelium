@@ -1,6 +1,6 @@
 # vim: ft=gitconfig
 [push]
-	default = upstream
+	default = matching
 [status]
 	short = true
     branch = true
@@ -50,3 +50,5 @@
 	name = Roman Volosatovs
 	email = rvolosatovs@riseup.net
 	signingkey = 3D80C89E
+[url "https://${GITHUB_OAUTH_GO}:x-oauth-basic@github.com/"]
+	insteadOf = https://github.com/

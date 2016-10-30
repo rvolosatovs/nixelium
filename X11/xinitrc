@@ -15,11 +15,13 @@ xsetroot -cursor_name left_ptr &
 feh  --bg-max "$HOME/pictures/bg" 
 stalonetray -c "$HOME/.config/stalonetray/stalonetrayrc"&
 
+dunst &
 nm-applet &
 redshift &
 
 session=${1:-bspwm}
 case $session in
+    wingo             ) exec wingo;;
     awesome           ) exec awesome;;
     bspwm             ) exec bspwm;;
     catwm             ) exec catwm;;
