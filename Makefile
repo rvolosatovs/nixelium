@@ -14,11 +14,11 @@ REL_XDG_DATA = $(shell realpath --relative-to $(XDG_DATA_HOME) $(PWD))
 
 WM ?= bspwm
 
-GUI_APPS=$(WM) termite fontconfig zathura 
+GUI_APPS=$(WM) termite fontconfig zathura sxhkd stalonetray
 TUI_APPS=pass git nvim rtorrent mopidy
 SHELL=zsh
 
-XDG_APPS=git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale
+XDG_APPS=git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale cower
 
 HOME_DOTS=profile pam_environment xprofile xinitrc
 
@@ -62,4 +62,4 @@ clean:
 	-rm -rf $(ZPLUG_HOME)
 	-rm -f $(XDG_CONFIG_HOME)/nvim/autoload/plug.vim
 
-.PHONY: $(TUI_APPS) $(GUI_APPS) $(SHELL) $(HOME_DOTS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs
+.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs
