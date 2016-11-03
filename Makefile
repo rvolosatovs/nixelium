@@ -57,9 +57,9 @@ pass: $(PASSWORD_STORE_DIR)
 $(PASSWORD_STORE_DIR):
 	git clone $(PASS_USERNAME)@$(PASS_HOSTNAME):$(PASSWORD_STORE_SUFFIX) $@
 
-fonts: ${XDG_DATA_HOME}/fonts
-${XDG_DATA_HOME}/fonts:
-	ln -s ${REL_XDG_DATA}/fonts $@
+fonts: $(XDG_DATA_HOME)/fonts
+$(XDG_DATA_HOME)/fonts:
+	ln -s $(REL_XDG_DATA)/fonts $@
 
 $(XDG_APPS): %: $(XDG_CONFIG_HOME)/%
 $(XDG_CONFIG_HOME)/%:
