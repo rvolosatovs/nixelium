@@ -130,8 +130,10 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 
-call plug#end()
+" Sxhkd
+Plug 'baskerville/vim-sxhkdrc'
 
+call plug#end()
 
 
 " ~~~ Eye-candy ~~~
@@ -144,7 +146,7 @@ set t_Co=256
 
 color base16-twilight
 set background=dark
-" color seoul256
+ "color seoul256
 " color zenburn
 
 " Airline

@@ -1,5 +1,4 @@
 source ${ZPLUG_HOME}/init.zsh
-export ZPLUG_CLONE_DEPTH=1
 
 #_Z_OWNER="b1101"
 #_Z_DATA="${XDG_DATA_HOME:-$HOME}/z/z"
