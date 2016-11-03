@@ -3,10 +3,10 @@ XDG_DATA_HOME ?= $(HOME)/.local/share
 
 ZDOTDIR ?= $(XDG_CONFIG_HOME)/zsh
 
-PASSWORD_STORE_SUFFIX ?= ".local/pass"
+PASSWORD_STORE_SUFFIX ?= .local/pass
 PASSWORD_STORE_DIR ?= $(HOME)/$(PASSWORD_STORE_SUFFIX)
 PASS_USERNAME ?= $(shell whoami)
-PASS_HOSTNAME ?= "nirvana"
+PASS_HOSTNAME ?= nirvana
 
 REL_HOME = $(shell realpath --relative-to $(HOME) $(PWD))
 REL_XDG_CONFIG = $(shell realpath --relative-to $(XDG_CONFIG_HOME) $(PWD))
@@ -14,15 +14,15 @@ REL_XDG_DATA = $(shell realpath --relative-to $(XDG_DATA_HOME) $(PWD))
 
 WM ?= bspwm
 
-GUI_APPS=$(WM) termite fontconfig zathura sxhkd stalonetray
-TUI_APPS=pass git nvim rtorrent mopidy
-SHELL=zsh
+GUI_APPS = $(WM) termite fontconfig zathura sxhkd stalonetray
+TUI_APPS = pass git nvim rtorrent mopidy
+SHELL = zsh
 
-XDG_APPS=git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale cower
+XDG_APPS = git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale cower
 
-HOME_DOTS=profile pam_environment xprofile xinitrc
+HOME_DOTS = profile pam_environment xprofile xinitrc
 
-UPDATE_CMDS=pass-update submodule-update go-update 
+UPDATE_CMDS = pass-update submodule-update go-update 
 
 all: tui env gui
 env: pam_environment profile user-dirs
