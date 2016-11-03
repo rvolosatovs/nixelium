@@ -2,3 +2,7 @@
 	path = zsh/zplug
 	url = git@github.com:zplug/zplug.git
 	branch = master
+[submodule "vim-plug"]
+	path = vim-plug
+	url = git@github.com:junegunn/vim-plug.git
+	branch = master
