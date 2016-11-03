@@ -3,10 +3,13 @@ XDG_DATA_HOME ?= $(HOME)/.local/share
 
 ZDOTDIR ?= $(XDG_CONFIG_HOME)/zsh
 
+REMOTE_USERNAME ?= $(shell whoami)
+REMOTE_HOSTNAME ?= nirvana
+
 PASSWORD_STORE_SUFFIX ?= .local/pass
 PASSWORD_STORE_DIR ?= $(HOME)/$(PASSWORD_STORE_SUFFIX)
-PASS_USERNAME ?= $(shell whoami)
-PASS_HOSTNAME ?= nirvana
+PASS_USERNAME ?= $(REMOTE_USERNAME)
+PASS_HOSTNAME ?= $(REMOTE_HOSTNAME)
 
 REL_HOME = $(shell realpath --relative-to $(HOME) $(PWD))
 REL_XDG_CONFIG = $(shell realpath --relative-to $(XDG_CONFIG_HOME) $(PWD))
@@ -43,6 +46,9 @@ $(XDG_CONFIG_HOME)/nvim/autoload/plug.vim: $(XDG_CONFIG_HOME)/nvim
 ssh:
 	ssh-keygen -C "$(shell whoami)@$(shell hostname)-$(shell date -I)" -b 4096
 
+gpg:
+	scp -r $(REMOTE_USERNAME)@$(REMOTE_HOSTNAME):.config/gnupg $(HOME)/.config
+
 pass: $(PASSWORD_STORE_DIR)
 $(PASSWORD_STORE_DIR):
 	git clone $(PASS_USERNAME)@$(PASS_HOSTNAME):$(PASSWORD_STORE_SUFFIX) $@
@@ -75,4 +81,4 @@ go-update:
 	go get -u ...
 
 
-.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update
+.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update gpg
