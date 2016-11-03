@@ -72,7 +72,7 @@ $(HOME)/.%:
 clean:
 	@./clean-links.sh
 	-rm -rf $(ZPLUG_HOME)
-	-rm -f $(XDG_CONFIG_HOME)/nvim/autoload/plug.vim
+	-rm -f nvim/autoload/plug.vim
 
 update: $(UPDATE_CMDS)
 pass-update: pass
