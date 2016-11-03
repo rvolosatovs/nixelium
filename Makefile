@@ -3,8 +3,8 @@ XDG_DATA_HOME ?= $(HOME)/.local/share
 
 ZDOTDIR ?= $(XDG_CONFIG_HOME)/zsh
 
-PASSWORD_STORE_SUFFIX = ".local/pass"
-PASSWORD_STORE_DIR ?= $(HOME)/.local/pass
+PASSWORD_STORE_SUFFIX ?= ".local/pass"
+PASSWORD_STORE_DIR ?= $(HOME)/$(PASSWORD_STORE_SUFFIX)
 PASS_USERNAME ?= $(shell whoami)
 PASS_HOSTNAME ?= "nirvana"
 
@@ -22,6 +22,8 @@ XDG_APPS=git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.local
 
 HOME_DOTS=profile pam_environment xprofile xinitrc
 
+UPDATE_CMDS=pass-update submodule-update go-update 
+
 all: tui env gui
 env: pam_environment profile user-dirs
 user-dirs: user-dirs.dirs user-dirs.locale
@@ -36,7 +38,7 @@ nvim: vim-plug
 vim-plug: $(XDG_CONFIG_HOME)/nvim/autoload/plug.vim
 $(XDG_CONFIG_HOME)/nvim/autoload/plug.vim: $(XDG_CONFIG_HOME)/nvim
 	mkdir -p $(shell dirname $@)
-	cp vim-plug/plug.vim $@
+	-ln -s $(shell realpath --relative-to $(XDG_CONFIG_HOME)/nvim/autoload $(PWD))/vim-plug/plug.vim $@
 
 ssh:
 	ssh-keygen -C "$(shell whoami)@$(shell hostname)-$(shell date -I)" -b 4096
@@ -62,4 +64,15 @@ clean:
 	-rm -rf $(ZPLUG_HOME)
 	-rm -f $(XDG_CONFIG_HOME)/nvim/autoload/plug.vim
 
-.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs
+update: $(UPDATE_CMDS)
+pass-update: pass
+	pass git pull
+
+submodule-update:
+	git submodule update --init --recursive
+
+go-update:
+	go get -u ...
+
+
+.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update
