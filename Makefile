@@ -4,7 +4,11 @@ XDG_DATA_HOME ?= $(HOME)/.local/share
 ZDOTDIR ?= $(XDG_CONFIG_HOME)/zsh
 
 REMOTE_USERNAME ?= $(shell whoami)
-REMOTE_HOSTNAME ?= nirvana
+ifeq ($(shell hostname), atom)
+	REMOTE_HOSTNAME ?= nirvana
+else
+	REMOTE_HOSTNAME ?= atom
+endif
 
 PASSWORD_STORE_SUFFIX ?= .local/pass
 PASSWORD_STORE_DIR ?= $(HOME)/$(PASSWORD_STORE_SUFFIX)
