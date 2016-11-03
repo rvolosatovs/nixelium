@@ -18,12 +18,13 @@ GUI_APPS=$(WM) termite fontconfig zathura
 TUI_APPS=pass git nvim rtorrent mopidy
 SHELL=zsh
 
-XDG_APPS=git zsh nvim rtorrent mopidy $(GUI_APPS)
+XDG_APPS=git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale
 
 HOME_DOTS=profile pam_environment xprofile xinitrc
 
-all: tui env 
-env: pam_environment profile
+all: tui env gui
+env: pam_environment profile user-dirs
+user-dirs: user-dirs.dirs user-dirs.locale
 tui: pass $(TUI_APPS) $(SHELL)
 gui: $(WM) $(GUI_APPS) fonts
 arch: all cower xinitrc gui
@@ -44,6 +45,10 @@ pass: $(PASSWORD_STORE_DIR)
 $(PASSWORD_STORE_DIR):
 	git clone $(PASS_USERNAME)@$(PASS_HOSTNAME):$(PASSWORD_STORE_SUFFIX) $@
 
+fonts: ${XDG_DATA_HOME}/fonts
+${XDG_DATA_HOME}/fonts:
+	ln -s ${REL_XDG_DATA}/fonts $@
+
 $(XDG_APPS): %: $(XDG_CONFIG_HOME)/%
 $(XDG_CONFIG_HOME)/%:
 	ln -s $(REL_XDG_CONFIG)/$* $@
@@ -57,4 +62,4 @@ clean:
 	-rm -rf $(ZPLUG_HOME)
 	-rm -f $(XDG_CONFIG_HOME)/nvim/autoload/plug.vim
 
-.PHONY: $(TUI_APPS) $(GUI_APPS) $(SHELL) $(HOME_DOTS) all clean nixos arch gui ssh env
+.PHONY: $(TUI_APPS) $(GUI_APPS) $(SHELL) $(HOME_DOTS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs
