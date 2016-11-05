@@ -18,17 +18,8 @@ for i in ${!monitors[@]}; do
     bspc monitor $monitor -n $i -d ${names[@]}
 done
 
-#bspc config border_width        1
-#bspc config window_gap          10
-#bspc config top_padding         22
-#bspc config left_padding        0
-#
-#bspc config split_ratio         0.52
-#bspc config borderless_monocle  true
-#bspc config gapless_monocle     true
-#bspc config focus_by_distance   true
 
-BW=1
+BW=2
 
 bspc config                   window_gap  -$BW
 bspc config                 border_width  $BW
@@ -36,26 +27,15 @@ for side in right bottom left ; do
 	bspc config          ${side}_padding  $BW
 done
 
+
 bspc config                  split_ratio  0.50
 bspc config           borderless_monocle  true
 bspc config              gapless_monocle  true
-bspc config            focus_by_distance  true
-bspc config          history_aware_focus  true
 bspc config        focus_follows_pointer  false
 bspc config               click_to_focus  true
 bspc config          normal_border_color  "#333333"
 bspc config          active_border_color  "#2d2d2d"
 bspc config         focused_border_color  "#2d2d2d"
-bspc config          presel_border_color  "#2d2d2d"
-bspc config          urgent_border_color  "#d64937"
-bspc config  focused_locked_border_color  "#f9f9f9"
-bspc config         normal_frame_opacity  0.0
-bspc config        focused_frame_opacity  0.1
-#bspc rule -a Gimp desktop=^8 follow=on floating=on
-#bspc rule -a                    Chromium  desktop=^1
-#bspc rule -a mplayer2 floating=on
-#bspc rule -a Kupfer.py focus=on
-#bspc rule -a Screenkey manage=off
 
 wmname "LG3D" #compatibility issues fix
 panel &
