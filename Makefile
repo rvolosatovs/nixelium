@@ -32,11 +32,11 @@ HOME_DOTS = profile pam_environment xprofile xinitrc Xresources
 UPDATE_CMDS = pass-update submodule-update go-update 
 
 all: tui env gui
-env: pam_environment profile user-dirs systemd
+env: pam_environment profile user-dirs
 user-dirs: user-dirs.dirs user-dirs.locale
 tui: $(TUI_APPS) $(SHELL) env
 gui: $(WM) $(GUI_APPS) fonts Xresources
-arch: all cower xinitrc gui
+arch: all cower xinitrc gui systemd
 nixos: all xprofile gui
 
 bspwm: sxhkd
@@ -65,8 +65,6 @@ $(HOME)/.%:
 
 clean:
 	@./clean-links.sh
-	-rm -rf $(ZPLUG_HOME)
-	-rm -f nvim/autoload/plug.vim
 
 update: $(UPDATE_CMDS)
 pass-update: pass
