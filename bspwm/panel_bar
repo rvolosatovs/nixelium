@@ -1,0 +1,93 @@
+#! /bin/sh
+
+source $(dirname $0)/config
+
+num_mon=$(bspc query -M | wc -l)
+
+while read -r line ; do
+    case $line in
+        S*)
+            # clock output
+            sysR="${line#?}"
+            ;;
+		T*)
+			# xtitle output
+            sysL="${line#?}"
+			;;
+		W*)
+			# bspwm's state
+			wm=""
+			IFS=':'
+			set -- ${line#?}
+			while [ $# -gt 0 ] ; do
+				item=$1
+				name=${item#?}
+				case $item in
+					[mM]*)
+						[ $num_mon -lt 2 ] && shift && continue
+						case $item in
+							m*)
+								# monitor
+                                FG=${WHITE}
+                                BG=${BG}
+								;;
+							M*)
+								# focused monitor
+                                FG=${WHITE}
+                                BG=${BG}
+								;;
+						esac
+                        wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc monitor -f ${name}:} ${name} %{A}%{B-}%{F-}"
+						;;
+					[fFoOuU]*)
+						case $item in
+							f*)
+								# free desktop
+                                FG=${WHITE}
+                                IC=${CNONE}
+                                BG=${BG}
+								;;
+							F*)
+								# focused free desktop
+                                FG=${RED}
+                                IC=${CNONE}
+                                BG=${BG}
+								;;
+							o*)
+								# occupied desktop
+                                FG=${CYAN}
+                                IC=${CFULL}
+                                BG=${BG}
+								;;
+							O*)
+								# focused occupied desktop
+                                FG=${RED2}
+                                IC=${CFULL}
+                                BG=${BG}
+								;;
+							u*)
+								# urgent desktop
+                                FG=${WHITE2}
+                                BG=${RED}
+                                IC=${CNONE}
+								;;
+							U*)
+								# focused urgent desktop
+                                FG=${BLACK}
+                                BG=${RED}
+                                IC=${CNONE}
+								;;
+						esac
+                        wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:} $(printf '%b' $IC) %{A}%{B-}%{F-}"
+						;;
+					[LTG]*)
+						# layout, state and flags
+                        wm="${wm}%{F${YELLOW}}%{B${BLACK}} ${name} %{B-}%{F-}"
+						;;
+				esac
+				shift
+			done
+			;;
+	esac
+	printf "%s\n" "%{l}${sysL}%{c}${wm}%{r}${sysR}"
+done

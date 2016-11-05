@@ -1,16 +1,7 @@
 #! /bin/sh
 sxhkd &
 
-display_names=( I II III IV V VI VII VIII IX X )
-monitors=( `bspc query -M | tr '\n' ' '` )
-
-displays_per_mon=`echo "${#display_names[@]}/${#monitors[@]}" | bc`
-
-for i in ${!monitors[@]}; do
-    start_index=`echo "$i*$displays_per_mon" | bc`
-    end_index=`echo "$start_index+$displays_per_mon" | bc`
-    bspc monitor ${monitors[$i]} -d ${display_names[@]:$start_index:$end_index}
-done
+bspc monitor -d H He Li Be B C N
 
 #bspc config border_width        1
 #bspc config window_gap          10
@@ -22,7 +13,7 @@ done
 #bspc config gapless_monocle     true
 #bspc config focus_by_distance   true
 
-BW=1
+BW=0
 
 bspc config                   window_gap  -$BW
 bspc config                 border_width  $BW
@@ -36,7 +27,6 @@ bspc config              gapless_monocle  true
 bspc config            focus_by_distance  true
 bspc config          history_aware_focus  true
 bspc config        focus_follows_pointer  false
-bspc config               click_to_focus  true
 bspc config          normal_border_color  "#333333"
 bspc config          active_border_color  "#2d2d2d"
 bspc config         focused_border_color  "#2d2d2d"

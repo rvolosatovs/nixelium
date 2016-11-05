@@ -1,0 +1,171 @@
+#! /bin/sh
+
+source $(dirname $0)/config
+    
+if xdo id -a "$WM_NAME" > /dev/null ; then
+    printf "%s\n" "The panel is already running." >&2
+    exit 1
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+bspc config top_padding $HEIGHT
+bspc subscribe |\
+    grep -oE "[Mm][^TM]*[TML]" --line-buffered |\
+    while read line; do echo W$line; done > "$PANEL_FIFO" &
+
+# Top left
+{
+    getName() {
+        local ic=$(pIcon ${RED2} ${CSTART})
+        local cmd=$(uname -n)
+        local clr=$(pText ${WHITE2} "${cmd}")
+        echo ${ic}$SEP${clr}
+    }
+
+    panelMusic() {
+        local icp=$(pAction $WHITE2 $RED "mpc prev &>/dev/null" ${CPREV})
+        local icn=$(pAction $WHITE2 $RED "mpc next &>/dev/null" ${CNEXT})
+        local icpl=$(pAction $WHITE2 $RED "mpc play &>/dev/null" ${CPLAY})
+        local icpa=$(pAction $WHITE2 $RED "mpc pause &>/dev/null" ${CPAUS})
+        echo "$icp $icn $icpl $icpa"
+    }
+
+    music() {
+        local ic=$(pIcon ${RED2} ${CSOUND})
+        local status=$(mpc current)
+        if [ "$status" != "" ] ; then
+            local artist=$(mpc -f %artist% current)
+            local musicname=$(mpc -f %title% current)
+            local clr1=$(pText ${BLUE2} "${artist}")
+            local clr2=$(pText ${CYAN2} "${musicname:0:20}")
+            echo ${ic}$SEP${clr1}$SEP${clr2}
+        else
+            echo ${ic}$SEP%{F${RED}}No Sound%{F-}
+        fi
+    }
+
+    volume() {
+        local ic=$(pIcon ${RED2} ${CVOLUME})
+        local cmd=$(mpc volume | awk '{FS:":"}{print $2}' | sed -e 's/\%//g')
+        local cmd+="$SEP%$SEP"
+        local clr=$(pText ${YELLOW} "${cmd}")
+        echo ${ic}$SEP${clr}
+    }
+
+    while :; do
+        #echo "T$(getName)$SEP$(panelMusic)$SEP$(music)$SEP$(volume)"
+        echo "T$(getName)"
+        sleep 5
+    done
+
+} > "$PANEL_FIFO" &
+
+# Top Right
+{
+    getDay() {
+        local ic=$(pIcon ${RED} ${CTIME})
+        local cmd=$(date '+%A %d %b')
+        local clr=$(pText ${GREEN2} "${cmd}")
+        echo ${ic}$SEP${clr}
+    }
+
+    clock() {
+        local ic=$(pIcon ${RED2} ${CCLOCK})
+        local cmd=$(date +%H:%M)
+        local clr=$(pText ${YELLOW} "${cmd}")
+        echo ${ic}$SEP${clr}
+    }
+
+    mail() {
+        local gmaildir=$HOME/.mails/Gmail/\[Gmail\].All\ Mail/new
+        local ic=$(pIcon ${RED2} ${CMAIL})
+        local count=0
+        if [[ ! -n $(ls "${gmaildir}") ]]; then
+            count=0
+        else
+            count=$(ls -1 "${gmaildir}" | wc -l)
+        fi
+        echo ${ic}$SEP${count}
+    }
+
+    net() {
+        local ic=$(pIcon ${RED2} ${CNET})
+        local dev=$(ip route | grep link | awk '{print $3}')
+        local clr=$(pText ${CYAN2} "${dev}")
+        echo ${ic}$SEP${clr}
+    }
+
+    energy() {
+        local ac=/sys/class/power_supply/AC/online
+        local bat=/sys/class/power_supply/BAT0/present
+        local icon=""
+        local batCap=""
+        if [[ -e $bat ]] && [[ $(cat $ac) -lt 1 ]]; then
+            batCap="$(cat ${bat%/*}/capacity)"
+            [ $batCap -gt 90 ] && icon=$BAT100
+            [ $batCap -gt 70 ] && [ $batCap -lt 90 ] && icon=$BAT70
+            [ $batCap -gt 50 ] && [ $batCap -lt 70 ] && icon=$BAT50
+            [ $batCap -gt 30 ] && [ $batCap -lt 50 ] && icon=$BAT30
+            [ $batCap -gt 15 ] && [ $batCap -lt 30 ] && icon=$BAT15
+            [ $batCap -lt 7 ] && icon=$BAT7
+        elif [[ -n $(cat $ac) ]]; then
+            batCap="AC"
+            icon=$CAC
+        else
+            batCap="wttf"
+        fi
+        echo "$(pIcon ${RED2} $icon)$SEP$(pText ${WHITE} ${batCap})"
+    }
+
+    ram() {
+        local ic=$(pIcon ${RED2}} ${CRAM})
+        local cmd=$(free -m | grep Mem | awk '{print $3}')
+        local clr=$(pText ${MAGENTA2} "${cmd}")
+        echo ${ic}$SEP${clr}
+    }
+
+    cpu() {
+        local ic=$(pIcon ${RED2} ${CCPU})
+        local cmd=$(cat /proc/loadavg | awk '{print $1}')
+        cmd+=$SEP$(cat /proc/cpuinfo | grep -i mhz |awk '{ORS=" "}{print $4}'| sed -e 's/.000//g')
+        local clr=$(pText ${WHITE} "${cmd}")
+        echo ${ic}$SEP${clr}
+    }
+
+    package() {
+        local cmd=$(equery list "*" | wc -l)
+        echo $(pIcon ${RED2} ${CPACK})$SEP$(pText ${YELLOW2} "${cmd}")
+    }
+
+    while :; do
+        #echo "S$(package)$SEP$(cpu)$SEP$(ram)$SEP$(energy)$SEP$(net)$SEP$(mail)$SEP$(clock)$SEP$(getDay)"
+        echo "S$(cpu)$SEP$(ram)$SEP$(energy)$SEP$(net)$SEP$(clock)$SEP$(getDay)"
+        sleep 5
+    done
+
+} > "$PANEL_FIFO" &
+
+$(dirname $0)/panel_bar < "$PANEL_FIFO" | lemonbar \
+    -a 32 \
+    -g x$HEIGHT \
+    -f "$FONT" \
+    -f "$FONT_ICON" \
+    -F "$FG" \
+    -B "$BG" | sh | while read line; do eval "$line"; done &
+
+wid=$(xdo id -a "$WM_NAME")
+tries_left=20
+
+while [ -z "$wid" -a "$tries_left" -gt 0 ] ; do
+	sleep 0.05
+	wid=$(xdo id -a "$WM_NAME")
+	tries_left=$((tries_left - 1))
+done
+
+[ -n "$wid" ] && xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" "$wid"
+
+wait
