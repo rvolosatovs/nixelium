@@ -7,3 +7,6 @@
 lib.pl
 playlist.pl
 *private*
+
+*.target.wants
+default.target
