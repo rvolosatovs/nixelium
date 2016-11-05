@@ -1,0 +1,9 @@
+[Unit]
+Description=Xorg server
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/startx
+
+[Install]
+WantedBy=graphical.target
