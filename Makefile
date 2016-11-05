@@ -27,7 +27,7 @@ SHELL = zsh
 
 XDG_APPS = git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale cower
 
-HOME_DOTS = profile pam_environment xprofile xinitrc
+HOME_DOTS = profile pam_environment xprofile xinitrc xresources
 
 UPDATE_CMDS = pass-update submodule-update go-update 
 
@@ -40,12 +40,6 @@ arch: all cower xinitrc gui
 nixos: all xprofile gui
 
 bspwm: sxhkd
-nvim: vim-plug
-
-vim-plug: $(XDG_CONFIG_HOME)/nvim/autoload/plug.vim
-$(XDG_CONFIG_HOME)/nvim/autoload/plug.vim: $(XDG_CONFIG_HOME)/nvim
-	mkdir -p $(shell dirname $@)
-	-ln -s $(shell realpath --relative-to $(XDG_CONFIG_HOME)/nvim/autoload $(PWD))/vim-plug/plug.vim $@
 
 ssh:
 	ssh-keygen -C "$(shell whoami)@$(shell hostname)-$(shell date -I)" -b 4096
