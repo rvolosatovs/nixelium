@@ -7,6 +7,8 @@ Xft.rgba: rgb
 
 Xcursor.size: 32
 
+xscreensaver.logFile:/var/log/xscreensaver.log
+
 ! "Enabled modi" Set from: Default
 ! rofi.modi:                           window,run,ssh
 ! "Window opacity" Set from: Default
