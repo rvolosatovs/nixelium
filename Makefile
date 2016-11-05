@@ -25,17 +25,17 @@ GUI_APPS = $(WM) termite fontconfig zathura sxhkd stalonetray
 TUI_APPS = pass git nvim rtorrent mopidy
 SHELL = zsh
 
-XDG_APPS = git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale cower
+XDG_APPS = git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale cower systemd
 
-HOME_DOTS = profile pam_environment xprofile xinitrc xresources
+HOME_DOTS = profile pam_environment xprofile xinitrc Xresources
 
 UPDATE_CMDS = pass-update submodule-update go-update 
 
 all: tui env gui
-env: pam_environment profile user-dirs
+env: pam_environment profile user-dirs systemd
 user-dirs: user-dirs.dirs user-dirs.locale
-tui: pass $(TUI_APPS) $(SHELL)
-gui: $(WM) $(GUI_APPS) fonts
+tui: $(TUI_APPS) $(SHELL) env
+gui: $(WM) $(GUI_APPS) fonts Xresources
 arch: all cower xinitrc gui
 nixos: all xprofile gui
 
