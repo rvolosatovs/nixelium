@@ -1,15 +1,21 @@
 #! /bin/sh
 sxhkd &
 
-display_names=( I II III IV V VI VII VIII IX X )
-monitors=( `bspc query -M | tr '\n' ' '` )
+max_displays=10
 
-displays_per_mon=`echo "${#display_names[@]}/${#monitors[@]}" | bc`
+monitors=( `bspc query -M | tr '\n' ' '` )
+displays_per_mon=`echo "$max_displays/${#monitors[@]}" | bc`
 
 for i in ${!monitors[@]}; do
-    start_index=`echo "$i*$displays_per_mon" | bc`
-    end_index=`echo "$start_index+$displays_per_mon" | bc`
-    bspc monitor ${monitors[$i]} -d ${display_names[@]:$start_index:$end_index}
+    monitor=${monitors[$i]} 
+
+    let i++
+
+    names=()
+    for j in `seq $displays_per_mon`; do
+        names+=("$i/$j")
+    done
+    bspc monitor $monitor -n $i -d ${names[@]}
 done
 
 #bspc config border_width        1
