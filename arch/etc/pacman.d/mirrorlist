@@ -1,0 +1,6 @@
+Server = https://mirror.i3d.net/pub/archlinux/$repo/os/$arch
+Server = https://mirror.netcologne.de/archlinux/$repo/os/$arch
+Server = https://mirror.wormhole.eu/archlinux/$repo/os/$arch
+Server = https://mirror.vfn-nrw.de/archlinux/$repo/os/$arch
+Server = https://ftp.fau.de/archlinux/$repo/os/$arch
+Server = https://www.mailtunnel.eu/archlinux/$repo/os/$arch
