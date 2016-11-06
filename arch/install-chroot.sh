@@ -2,6 +2,9 @@
 
 ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime || exit 1
 hwclock --systohc || exit 1
+
+bootctl install || exit 1
+
 mkinitcpio -p linux || exit 1
 
 echo "Creating $1 user..."
