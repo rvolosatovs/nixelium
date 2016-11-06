@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime || exit 1
 hwclock --systohc || exit 1
