@@ -5,7 +5,7 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-Xcursor.size: 32
+Xcursor.size: 22
 
 xscreensaver.logFile:/var/log/xscreensaver.log
 
