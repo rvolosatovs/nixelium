@@ -136,11 +136,12 @@ swapon $swapDev || exit 1
 curl -# --create-dirs -fLo /mnt/etc/mkinitcpio.conf $configAddr/etc/mkinitcpio.conf || echo "mkinitcpio.conf not found"
 
 curl -# --create-dirs -fLo /etc/pacman.d/mirrorlist $configAddr/etc/pacman.d/mirrorlist || exit 1
-pacstrap /mnt base base-devel btrfs-progs dosfstools gdisk efibootmgr rfkill reflector pciutils lm_sensors acpi zsh grml-zsh-config git docker go julia python nodejs neovim keychain pass gnupg bspwm sxhkd feh mpv rofi termite chromium firefox thunderbird xscreensaver xorg-xsetroot xorg-xdpyinfo xorg-xrandr xorg-xlsfonts xorg-xset intel-ucode networkmanager network-manager-applet networkmanager-openvpn lzop dunst libnotify upower xdo libva-${libvaDriver}-driver imagemagick || exit 1
+pacstrap /mnt base base-devel btrfs-progs dosfstools gdisk efibootmgr rfkill reflector pciutils lm_sensors acpi zsh grml-zsh-config git docker go julia python nodejs neovim keychain pass gnupg bspwm sxhkd feh mpv rofi termite chromium firefox thunderbird libinput xorg-server xorg-xinit xscreensaver xorg-xsetroot xorg-xdpyinfo xorg-xrandr xorg-xlsfonts xorg-xset intel-ucode networkmanager network-manager-applet networkmanager-openvpn lzop dunst libnotify upower xdo libva-${libvaDriver}-driver mesa-libgl imagemagick || exit 1
 
 curl -# --create-dirs -fLo /mnt/etc/fstab $configAddr/etc/fstab  || exit 1
 curl -# --create-dirs -fLo /mnt/boot/loader/loader.conf $configAddr/boot/loader/loader.conf  || exit 1
 curl -# --create-dirs -fLo /mnt/boot/loader/entries/arch.conf $configAddr/boot/loader/entries/arch.conf  || exit 1
+curl -# --create-dirs -fLo /mnt/boot/loader/entries/arch-verbose.conf $configAddr/boot/loader/entries/arch-verbose.conf  || echo "arch-verbose.conf entry not found"
 curl -# --create-dirs -fLo /mnt/etc/locale.gen $configAddr/etc/locale.gen  || exit 1
 curl -# --create-dirs -fLo /mnt/etc/locale.conf $configAddr/etc/locale.conf  || exit 1
 curl -# --create-dirs -fLo /mnt/etc/vconsole.conf $configAddr/etc/vconsole.conf  || echo "vconsole.conf not found"
