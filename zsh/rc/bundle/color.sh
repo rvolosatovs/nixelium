@@ -1,3 +1,3 @@
-source ~/.local/share/base16/shell/base16-tomorrow.dark.sh
+source ~/.local/share/base16/scripts/base16-tomorrow-night.sh
 
 # vim: ft=zsh

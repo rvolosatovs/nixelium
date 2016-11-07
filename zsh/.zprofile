@@ -48,7 +48,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Pass
 export PASSWORD_STORE_DIR="${HOME}/.local/pass"
-export GITHUB_OAUTH_GO=`pass oauth/github-go`
 
 # Panel
 PANEL_FIFO=/tmp/panel-fifo
@@ -59,7 +58,6 @@ export PANEL_FIFO PANEL_HEIGHT PANEL_FONT PANEL_WM_NAME
 
 # Ruby
 export PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
-source $HOME/.local/share/base16/vconsole/base16-marrakesh.dark.sh
 
 # GCC
 if [[ $distro == "exherbo" ]]; then
