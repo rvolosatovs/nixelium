@@ -26,7 +26,7 @@ GUI_APPS = $(WM) termite fontconfig zathura sxhkd stalonetray
 TUI_APPS = pass git nvim rtorrent mopidy
 SHELL = zsh
 
-XDG_APPS = git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale cower systemd
+XDG_APPS = git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale cower systemd mimeapps.list
 DATA_APPS=fonts base16
 
 HOME_DOTS = profile pam_environment xprofile xinitrc Xresources
@@ -35,7 +35,7 @@ UPDATE_CMDS = pass-update submodule-update go-update nvim-update
 
 all: tui env gui
 
-env: pam_environment profile user-dirs
+env: pam_environment profile user-dirs mimeapps
 
 user-dirs: user-dirs.dirs user-dirs.locale
 
@@ -48,6 +48,10 @@ arch: all cower xinitrc gui systemd
 bspwm: sxhkd
 
 nvim:
+	$(MAKE) nvim-install
+
+nvim-install: $(XDG_DATA_HOME)/nvim/plugins
+$(XDG_DATA_HOME)/nvim/plugins:
 	nvim --headless -c :PlugInstall -c :GoInstallBinaries -c :UpdateRemotePlugins -c :q /tmp/install.go
 
 ssh:
@@ -62,12 +66,12 @@ $(PASSWORD_STORE_DIR):
 
 $(DATA_APPS): %: $(XDG_DATA_HOME)/%
 $(XDG_DATA_HOME)/%:
-	ln -sf $(REL_XDG_DATA)/$* $@
+	ln -s $(REL_XDG_DATA)/$* $@
 
 $(XDG_APPS): %: $(XDG_CONFIG_HOME)/%
 $(XDG_CONFIG_HOME)/%:
 	mkdir -p $(dirname $@)
-	ln -sf $(REL_XDG_CONFIG)/$* $@
+	ln -s $(REL_XDG_CONFIG)/$* $@
 
 $(HOME_DOTS): %: $(HOME)/.%
 $(HOME)/.%:
@@ -77,7 +81,8 @@ xdg-dirs: $(XDG_DIRS)
 $(XDG_DIRS):
 	mkdir -p $@
 
-mimeapps: $(XDG_CONFIG_HOME)/mimeapps.list
+mimeapps: mimeapps.list
+mimeapps.list: $(XDG_CONFIG_HOME)/mimeapps.list
 $(XDG_CONFIG_HOME)/mimeapps.list:
 	mkdir -p $(XDG_DATA_HOME)/applications
 	ln -s $(REL_XDG_DATA)/mimeapps.list $(XDG_DATA_HOME)/applications/mimeapps.list
@@ -101,4 +106,4 @@ nvim-update:
 bin:
 	git clone git@github.com:rvolosatovs/bin.git ${HOME}/.local/bin
 
-.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update gpg base16 xdg-dirs bin
+.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update gpg base16 xdg-dirs bin mimeapps nvim-install
