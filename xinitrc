@@ -1,3 +1,5 @@
+source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+
 export SSH_ASKPASS="ssh-askpass"
 keychain --agent gpg `key-id`
 keychain id_rsa
@@ -9,7 +11,7 @@ pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
 
 #xrandr --output LVDS-1 --auto
 #xrandr --output LVDS-1 --auto --output DP-2 --mode 1920x1080 --rate 60 --left-of LVDS-1 --primary
-xrandr --output DP-1 --primary --mode 3840x2160 --rate 60 --rotate normal --output LVDS-1 --auto --right-of DP-1
+xrandr --output DP1 --primary --mode 3840x2160 --rate 60 --rotate normal --output LVDS1 --auto --right-of DP1
 xsetroot -cursor_name left_ptr & 
 
 feh  --bg-max "$HOME/pictures/bg" 
