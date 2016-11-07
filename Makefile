@@ -59,11 +59,11 @@ $(PASSWORD_STORE_DIR):
 
 $(DATA_APPS): %: $(XDG_DATA_HOME)/%
 $(XDG_DATA_HOME)/%: $(XDG_DATA_HOME)
-	ln -s $(REL_XDG_DATA)/$* $@
+	ln -sf $(REL_XDG_DATA)/$* $@
 
 $(XDG_APPS): %: $(XDG_CONFIG_HOME)/%
 $(XDG_CONFIG_HOME)/%: $(XDG_CONFIG_HOME)
-	ln -s $(REL_XDG_CONFIG)/$* $@
+	ln -sf $(REL_XDG_CONFIG)/$* $@
 
 $(HOME_DOTS): %: $(HOME)/.%
 $(HOME)/.%:
