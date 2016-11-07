@@ -84,7 +84,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'tpope/vim-repeat'
-Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --no-update-rc --no-key-bindings' }
+" Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --no-update-rc --no-key-bindings' }
 Plug 'junegunn/fzf.vim'
 
 " Utility
@@ -117,7 +117,7 @@ Plug 'Rip-Rip/clang_complete'
 " Latex
 Plug 'vim-latex/vim-latex', { 'for': 'latex' }
 " Javascript
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
+"Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
 Plug 'jason0x43/vim-js-indent', {'for': 'javascript'}
 " Typescript

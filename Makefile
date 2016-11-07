@@ -31,7 +31,7 @@ DATA_APPS=fonts base16
 
 HOME_DOTS = profile pam_environment xprofile xinitrc Xresources
 
-UPDATE_CMDS = pass-update submodule-update go-update 
+UPDATE_CMDS = pass-update submodule-update go-update nvim-update
 
 all: tui env gui
 
@@ -46,6 +46,9 @@ gui: $(WM) $(GUI_APPS) fonts Xresources base16
 arch: all cower xinitrc gui systemd
 
 bspwm: sxhkd
+
+nvim:
+	nvim --headless -c :PlugInstall -c :GoInstallBinaries -c :UpdateRemotePlugins -c :q /tmp/install.go
 
 ssh:
 	ssh-keygen -C "$(shell whoami)@$(shell hostname)-$(shell date -I)" -b 4096
@@ -84,7 +87,10 @@ submodule-update:
 	git submodule update --init --recursive
 
 go-update:
-	go get -u ...
+	-go get -u ...
+
+nvim-update:
+	nvim --headless -c :PlugUpdate -c :GoUpdateBinaries -c :UpdateRemotePlugins -c :q /tmp/install.go
 
 bin:
 	git clone git@github.com:rvolosatovs/bin.git ${HOME}/.local/bin
