@@ -66,6 +66,7 @@ $(XDG_DATA_HOME)/%:
 
 $(XDG_APPS): %: $(XDG_CONFIG_HOME)/%
 $(XDG_CONFIG_HOME)/%:
+	mkdir -p $(dirname $@)
 	ln -sf $(REL_XDG_CONFIG)/$* $@
 
 $(HOME_DOTS): %: $(HOME)/.%
@@ -75,6 +76,11 @@ $(HOME)/.%:
 xdg-dirs: $(XDG_DIRS)
 $(XDG_DIRS):
 	mkdir -p $@
+
+mimeapps: $(XDG_CONFIG_HOME)/mimeapps.list
+$(XDG_CONFIG_HOME)/mimeapps.list:
+	mkdir -p $(XDG_DATA_HOME)/applications
+	ln -s $(REL_XDG_DATA)/mimeapps.list $(XDG_DATA_HOME)/applications/mimeapps.list
 
 clean:
 	@./clean-links.sh
