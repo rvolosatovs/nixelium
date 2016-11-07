@@ -58,17 +58,18 @@ $(PASSWORD_STORE_DIR):
 	git clone $(PASS_USERNAME)@$(PASS_HOSTNAME):$(PASSWORD_STORE_SUFFIX) $@
 
 $(DATA_APPS): %: $(XDG_DATA_HOME)/%
-$(XDG_DATA_HOME)/%: $(XDG_DATA_HOME)
+$(XDG_DATA_HOME)/%:
 	ln -sf $(REL_XDG_DATA)/$* $@
 
 $(XDG_APPS): %: $(XDG_CONFIG_HOME)/%
-$(XDG_CONFIG_HOME)/%: $(XDG_CONFIG_HOME)
+$(XDG_CONFIG_HOME)/%:
 	ln -sf $(REL_XDG_CONFIG)/$* $@
 
 $(HOME_DOTS): %: $(HOME)/.%
 $(HOME)/.%:
 	ln -s $(REL_HOME)/$* $@
 
+xdg-dirs: $(XDG_DIRS)
 $(XDG_DIRS):
 	mkdir -p $@
 
@@ -86,4 +87,4 @@ go-update:
 	go get -u ...
 
 
-.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update gpg base16
+.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update gpg base16 xdg-dirs
