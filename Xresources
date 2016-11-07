@@ -5,8 +5,7 @@ Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-Xcursor.size: 22
-
+Xcursor.size: 20
 xscreensaver.logFile:/var/log/xscreensaver.log
 
 ! "Enabled modi" Set from: Default

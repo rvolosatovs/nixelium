@@ -38,7 +38,7 @@ bspc config          active_border_color  "#2d2d2d"
 bspc config         focused_border_color  "#2d2d2d"
 
 wmname "LG3D" #compatibility issues fix
-panel &
+#panel &
 
 #tint2 &
 # sudo wpa_gui -t &

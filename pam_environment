@@ -44,6 +44,3 @@ GOBIN DEFAULT="@{HOME}/.local/bin.go"
 
 # Pass
 PASSWORD_STORE_DIR DEFAULT="@{HOME}/.local/pass"
-
-# Path
-PATH DEFAULT="@{HOME}/.local/bin:${GOBIN}:${PATH}"

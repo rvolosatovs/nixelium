@@ -4,9 +4,9 @@ source ${ZPLUG_HOME}/init.zsh
 #_Z_DATA="${XDG_DATA_HOME:-$HOME}/z/z"
 
 #zplug "b4b4r07/zplug"
-zplug "zsh-users/zsh-history-substring-search"
+#zplug "zsh-users/zsh-history-substring-search"
 #zplug "rupa/z", use:"z.sh"
-zplug "zplug/zplug"
+#zplug "zplug/zplug"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-completions"
 #zplug "RanaExMachina/oh-my-zsh-candy-light"
