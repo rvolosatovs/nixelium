@@ -29,13 +29,13 @@ SHELL = zsh
 XDG_APPS = git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale cower systemd mimeapps.list
 DATA_APPS=fonts base16
 
-HOME_DOTS = profile pam_environment xprofile xinitrc Xresources
+HOME_DOTS = profile pam_environment xprofile xinitrc Xresources npmrc
 
 UPDATE_CMDS = pass-update submodule-update go-update nvim-update
 
 all: tui env gui
 
-env: pam_environment profile user-dirs mimeapps
+env: pam_environment profile user-dirs mimeapps npmrc
 
 user-dirs: user-dirs.dirs user-dirs.locale
 
@@ -70,7 +70,6 @@ $(XDG_DATA_HOME)/%:
 
 $(XDG_APPS): %: $(XDG_CONFIG_HOME)/%
 $(XDG_CONFIG_HOME)/%:
-	mkdir -p $(dirname $@)
 	ln -s $(REL_XDG_CONFIG)/$* $@
 
 $(HOME_DOTS): %: $(HOME)/.%
@@ -82,10 +81,10 @@ $(XDG_DIRS):
 	mkdir -p $@
 
 mimeapps: mimeapps.list
-mimeapps.list: $(XDG_CONFIG_HOME)/mimeapps.list
-$(XDG_CONFIG_HOME)/mimeapps.list:
-	mkdir -p $(XDG_DATA_HOME)/applications
-	ln -s $(REL_XDG_DATA)/mimeapps.list $(XDG_DATA_HOME)/applications/mimeapps.list
+mimeapps.list: $(XDG_CONFIG_HOME)/mimeapps.list $(XDG_DATA_HOME)/applications/mimeapps.list
+$(XDG_DATA_HOME)/applications/mimeapps.list:
+	mkdir -p $(shell dirname $@)
+	ln -s ../$(REL_XDG_DATA)/mimeapps.list $@
 
 clean:
 	@./clean-links.sh
