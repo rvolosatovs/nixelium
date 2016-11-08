@@ -1,9 +1,3 @@
-# Panel
-#PANEL_FIFO=/tmp/panel-fifo
-#PANEL_HEIGHT=24
-#PANEL_FONT="-*-Fira Sans-*-*-*-*-10-*-*-*-*-*-*-*"
-#PANEL_WM_NAME=bspwm_panel
-#PANEL_FIFO PANEL_HEIGHT PANEL_FONT PANEL_WM_NAME
 EMAIL="rvolosatovs@riseup"
 
 EDITOR="nvim"
@@ -35,7 +29,6 @@ PYTHON_EGG_CACHE DEFAULT="${XDG_CACHE_HOME}/python-eggs"
 
 # Zsh
 ZDOTDIR DEFAULT="${XDG_CONFIG_HOME}/zsh"
-HISTFILE DEFAULT="${ZDOTDIR}/.zhistory"
 ZPLUG_HOME DEFAULT="${ZDOTDIR}/zplug"
 
 # Go

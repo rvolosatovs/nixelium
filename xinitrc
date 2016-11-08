@@ -21,6 +21,8 @@ stalonetray -c "$HOME/.config/stalonetray/stalonetrayrc"&
 
 dunst &
 nm-applet &
+xbanish &
+
 redshift &
 
 session=${1:-bspwm}

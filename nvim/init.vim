@@ -117,7 +117,7 @@ Plug 'Rip-Rip/clang_complete'
 " Latex
 Plug 'vim-latex/vim-latex', { 'for': 'latex' }
 " Javascript
-"Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
 Plug 'jason0x43/vim-js-indent', {'for': 'javascript'}
 " Typescript
@@ -127,7 +127,7 @@ Plug 'Shougo/vimproc.vim', { 'for': 'typescript', 'build' : 'make'} " tsuquyomi 
 " Rust
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Go
-Plug 'fatih/vim-go', { 'for': 'go' }
+"Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 
 " Sxhkd

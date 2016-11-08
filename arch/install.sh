@@ -136,7 +136,7 @@ swapon $swapDev || exit 1
 curl -# --create-dirs -fLo /mnt/etc/mkinitcpio.conf $configAddr/etc/mkinitcpio.conf || echo "mkinitcpio.conf not found"
 
 curl -# --create-dirs -fLo /etc/pacman.d/mirrorlist $configAddr/etc/pacman.d/mirrorlist || exit 1
-pacstrap /mnt base base-devel btrfs-progs dosfstools gdisk efibootmgr rfkill reflector pciutils lm_sensors acpi zsh grml-zsh-config git docker go julia python nodejs neovim keychain pass gnupg bspwm sxhkd feh mpv rofi termite chromium firefox thunderbird libinput xorg-server xorg-xinit xscreensaver xorg-xsetroot xorg-xdpyinfo xorg-xrandr xorg-xlsfonts xorg-xset intel-ucode networkmanager network-manager-applet networkmanager-openvpn lzop dunst libnotify upower xdo libva-${libvaDriver}-driver mesa-libgl imagemagick bc openssh x11-ssh-askpass mopidy pulseaudio pulseaudio-alsa pavucontrol sdl python-neovim protobuf || exit 1
+pacstrap /mnt base base-devel btrfs-progs dosfstools gdisk efibootmgr rfkill reflector pciutils lm_sensors acpi zsh grml-zsh-config git docker docker-compose go julia python nodejs npm neovim keychain pass gnupg bspwm sxhkd feh mpv rofi termite chromium firefox thunderbird libinput xorg-server xorg-xinit xscreensaver xorg-xsetroot xorg-xdpyinfo xorg-xrandr xorg-xlsfonts xorg-xset intel-ucode networkmanager network-manager-applet networkmanager-openvpn lzop dunst libnotify upower xdo libva-${libvaDriver}-driver mesa-libgl imagemagick bc openssh openssh-askpass mopidy pulseaudio pulseaudio-alsa pavucontrol sdl python-neovim expac htop xf86-input-libinput redshift || exit 1
 
 curl -# --create-dirs -fLo /mnt/etc/fstab $configAddr/etc/fstab  || exit 1
 curl -# --create-dirs -fLo /mnt/boot/loader/loader.conf $configAddr/boot/loader/loader.conf  || exit 1

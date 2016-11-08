@@ -1,10 +1,9 @@
 #! /bin/sh
-
 PANEL_FIFO=/tmp/panel-fifo
 
 HEIGHT=24
-FONT="-*-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
-FONT_ICON="-*-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
+FONT="Fira Sans"
+FONT_ICON="Hurmit"
 #FONT_ICON="-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1"
 WM_NAME="Bspwm"
 
