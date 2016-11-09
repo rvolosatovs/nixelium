@@ -10,3 +10,6 @@ playlist.pl
 
 *.target.wants
 default.target
+
+completion.zsh
+key-bindings.zsh
