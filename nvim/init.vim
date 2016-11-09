@@ -9,6 +9,7 @@ set visualbell
 
 set rtp^=/usr/share/vim/vimfiles
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
+set rtp+=$GOPATH/src/github.com/junegunn/fzf
 
 " Buffers
 set hidden

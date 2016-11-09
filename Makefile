@@ -23,11 +23,11 @@ REL_XDG_DATA = $(shell realpath --relative-to $(XDG_DATA_HOME) $(PWD))
 WM ?= bspwm
 
 GUI_APPS = $(WM) termite fontconfig zathura sxhkd stalonetray
-TUI_APPS = pass git nvim rtorrent mopidy
+TUI_APPS = pass git nvim rtorrent mopidy fzf
 SHELL = zsh
 
 XDG_APPS = git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale cower systemd mimeapps.list
-DATA_APPS=fonts base16
+DATA_APPS = fonts base16
 
 HOME_DOTS = profile pam_environment xprofile xinitrc Xresources npmrc
 
@@ -49,6 +49,13 @@ bspwm: sxhkd
 
 nvim:
 	$(MAKE) nvim-install
+
+fzf: ${GOPATH}/src/github.com/junegunn/fzf zsh
+	ln -s $(wildcard $</shell/*.zsh) $(XDG_CONFIG_HOME)/zsh/rc
+	ln -s $(wildcard $</bin/*) ~/.local/bin
+
+${GOPATH}/src/%:
+	go get -u $*
 
 nvim-install: $(XDG_DATA_HOME)/nvim/plugins
 $(XDG_DATA_HOME)/nvim/plugins:

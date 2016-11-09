@@ -1,0 +1,1 @@
+/home/rvolosatovs/go/src/github.com/junegunn/fzf/shell/completion.zsh
