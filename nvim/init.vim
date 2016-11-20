@@ -128,7 +128,7 @@ Plug 'Shougo/vimproc.vim', { 'for': 'typescript', 'build' : 'make'} " tsuquyomi 
 " Rust
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Go
-"Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 
 " Sxhkd
@@ -145,7 +145,7 @@ if $TERM!="linux"
 endif
 set t_Co=256
 
-color base16-twilight
+color base16-tomorrow-night
 set background=dark
  "color seoul256
 " color zenburn

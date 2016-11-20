@@ -1,9 +1,9 @@
 EMAIL="rvolosatovs@riseup"
 
-EDITOR="nvim"
-VISUAL="nvim"
-BROWSER="chromium"
-PAGER="less"
+EDITOR="/usr/bin/env nvim"
+VISUAL="/usr/bin/env nvim"
+BROWSER="/usr/bin/env chromium"
+PAGER="/usr/bin/env less"
 
 # XDG
 XDG_CONFIG_HOME DEFAULT="@{HOME}/.config"
@@ -26,6 +26,9 @@ LESSHISTFILE DEFAULT="${XDG_CACHE_HOME}/less/history"
 __GL_SHADER_DISK_CACHE_PATH DEFAULT="${XDG_CACHE_HOME}/nv"
 CUDA_CACHE_PATH DEFAULT="${XDG_CACHE_HOME}/nv"
 PYTHON_EGG_CACHE DEFAULT="${XDG_CACHE_HOME}/python-eggs"
+
+# Qt and Gtk uniformity
+QT_QPA_PLATFORMTHEME DEFAULT="gtk2"
 
 # Zsh
 ZDOTDIR DEFAULT="${XDG_CONFIG_HOME}/zsh"

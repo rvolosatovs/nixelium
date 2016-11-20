@@ -1,0 +1,6 @@
+alias       pms="pacaur -Sy"
+alias       pmy="pacaur -Syyu"
+alias       pmq="pacaur -Ss"
+alias       pmr="pacaur -R"
+
+# vim: ft=zsh

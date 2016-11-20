@@ -55,8 +55,8 @@ $(XDG_DATA_HOME)/nvim/plugins:
 	nvim --headless -c :PlugInstall -c :GoInstallBinaries -c :UpdateRemotePlugins -c :q /tmp/install.go
 
 fzf: ${GOPATH}/src/github.com/junegunn/fzf zsh
-	ln -s $(wildcard $</shell/*.zsh) $(XDG_CONFIG_HOME)/zsh/rc
-	ln -s $(wildcard $</bin/*) ~/.local/bin
+	-ln -s $(wildcard $</shell/*.zsh) $(XDG_CONFIG_HOME)/zsh/rc
+	-ln -s $(wildcard $</bin/*) ~/.local/bin
 
 ${GOPATH}/src/%:
 	go get -u $*

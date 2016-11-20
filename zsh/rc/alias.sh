@@ -55,6 +55,11 @@ if type pacman > /dev/null; then
     source aliases/pacman
 fi
 
+# Pacaur
+if type pacaur > /dev/null; then
+    source aliases/pacaur
+fi
+
 # Nix
 if type nix-env > /dev/null; then
     source aliases/nix

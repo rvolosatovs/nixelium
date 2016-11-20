@@ -130,15 +130,10 @@ bspc subscribe |\
 
     cpu() {
         local ic=$(pIcon ${RED2} ${CCPU})
-        local cmd=$(cat /proc/loadavg | awk '{print $1}')
+        local cmd=$(cat /proc/loadavg | cut -d' ' -f1 )
         cmd+=$SEP$(cat /proc/cpuinfo | grep -i mhz |awk '{ORS=" "}{print $4}'| sed -e 's/.000//g')
         local clr=$(pText ${WHITE} "${cmd}")
         echo ${ic}$SEP${clr}
-    }
-
-    package() {
-        local cmd=$(equery list "*" | wc -l)
-        echo $(pIcon ${RED2} ${CPACK})$SEP$(pText ${YELLOW2} "${cmd}")
     }
 
     while :; do

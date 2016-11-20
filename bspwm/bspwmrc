@@ -21,7 +21,6 @@ for i in ${!monitors[@]}; do
     bspc monitor $monitor -n $i -d ${names[@]}
 done
 
-
 bspc config border_width            2
 bspc config window_gap              7
 

@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + space
-	rofi -show run
+	rofi -show run -sidebar-mode
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -26,20 +26,32 @@ super + alt + p
 super + shift + o
     chromium
 
-Print
-    scrot
+super + shift + e
+    termite -e "$SHELL -i -c $EDITOR"
 
-XF86MonBrightnessDown
-    brightness down
-XF86MonBrightnessUp
-    brightness up
+XF86MyComputer
+    termite -e "$SHELL -i -c lf"
+
+XF86AudioRaiseVolume
+    amixer set Master unmute && amixer set Master 5%+
+
+XF86AudioLowerVolume
+    amixer set Master unmute && amixer set Master 5%-
 
 XF86AudioMute
-    vol mute
-XF86AudioLowerVolume
-    vol down
-XF86AudioRaiseVolume
-    vol up
+    amixer set Master toggle
+
+XF86MonBrightnessUp
+    light -A 5%
+
+XF86MonBrightnessDown
+    light -U 5%
+
+XF86HomePage
+    chromium
+
+Print
+    maim -s `xdg-user-dir PICTURES`/scrot-`date +%F_%T`.png
 
 #
 # bspwm hotkeys

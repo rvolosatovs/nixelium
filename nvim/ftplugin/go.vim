@@ -10,7 +10,7 @@ let g:go_auto_type_info = 1
 
 " Deoplete
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#sort_class = ['var', 'func', 'type', 'package', 'const']
 
 nmap <M-r> <Plug>(go-run)
 nmap <M-t> <Plug>(go-test)
