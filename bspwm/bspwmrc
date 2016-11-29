@@ -21,7 +21,7 @@ for i in ${!monitors[@]}; do
     bspc monitor $monitor -n $i -d ${names[@]}
 done
 
-bspc config border_width            2
+bspc config border_width            4
 bspc config window_gap              7
 
 bspc config                  split_ratio  0.50
@@ -31,7 +31,7 @@ bspc config        focus_follows_pointer  false
 bspc config               click_to_focus  true
 bspc config          normal_border_color  "#333333"
 bspc config          active_border_color  "#2d2d2d"
-bspc config         focused_border_color  "#2d2d2d"
+bspc config         focused_border_color  ${CYAN}
 bspc config presel_feedback_color   ${BG}
 
 max_displays=10

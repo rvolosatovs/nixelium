@@ -63,15 +63,13 @@ endif
 
 " Looks
 Plug 'chriskempson/base16-vim'
-" Plug 'junegunn/seoul256.vim'
-" Plug 'jnurmine/Zenburn'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-bufferline'
 Plug 'ryanoasis/vim-devicons'
 
 " Code
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'benekastah/neomake'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -102,9 +100,9 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-session'
 "Plug 'xolox/vim-easytags'
-Plug 'kopischke/vim-stay'
+"Plug 'kopischke/vim-stay'
 "Plug 'mattn/webapi-vim'
-Plug 'corntrace/bufexplorer'
+"Plug 'corntrace/bufexplorer'
 Plug 'gregsexton/gitv'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
@@ -112,9 +110,10 @@ Plug 'tpope/vim-unimpaired'
 Plug 'terryma/vim-multiple-cursors'
 
 
+
 " Filetype-related
 " C
-Plug 'Rip-Rip/clang_complete'
+Plug 'Rip-Rip/clang_complete', { 'for': 'c' }
 " Latex
 Plug 'vim-latex/vim-latex', { 'for': 'latex' }
 " Javascript
@@ -131,8 +130,17 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 
+" Proto
+Plug 'rvolosatovs/vim-protobuf', { 'for': 'proto' }
+
+" Vim
+Plug 'Shougo/neco-vim'
+
 " Sxhkd
 Plug 'baskerville/vim-sxhkdrc'
+
+Plug 'editorconfig/editorconfig-vim'
+
 
 call plug#end()
 
@@ -147,7 +155,7 @@ set t_Co=256
 
 color base16-tomorrow-night
 set background=dark
- "color seoul256
+"color seoul256
 " color zenburn
 
 " Airline
@@ -173,11 +181,30 @@ let g:easytags_auto_update = 0
 let g:easytags_async = 1
 
 " ~~~ Plugin configs ~~~
+" Go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 0
+
+" Vim
+
+nmap <M-r> <Plug>(go-run)
+nmap <M-t> <Plug>(go-test)
+nmap <M-c> <Plug>(go-coverage)
+
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
 " AutoPairs
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutToggle = '<C-P>'
 " YankRing
-"let g:yankring_history_dir = "$HOME/.local/share/nvim"
+"let g:yankring_history_dir = \"$HOME/.local/share/nvim"
 "let g:yankring_history_file = 'yankhist'
 "let g:yankring_clipboard_monitor=0
 
@@ -190,6 +217,11 @@ let g:Tex_DefaultTargetFormat = 'pdf'
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#go#sort_class = ['var', 'func', 'type', 'package', 'const']
+"let g:deoplete#sources#go#gocode_binary = '$GOBIN/gocode'
+let g:deoplete#sources#go#use_cache = 1
+let g:deoplete#sources#go#json_directory = '$XDG_CACHE_HOME/deoplete/go/$GOOS_$GOARCH'
+let g:deoplete#sources#go#package_dot = 0
 " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
 " au VimEnter call deoplete#initialize()
 
@@ -220,7 +252,11 @@ inoremap      jk  <Esc>
 inoremap      kj  <Esc>
 
 " Fix yank
-nmap Y y$
+noremap Y y$
+
+noremap K i<CR><Esc>
+noremap H 0
+noremap L $
 
 " Navigation
 nnoremap      j   gj
@@ -276,10 +312,29 @@ nmap <Leader>cd   :cd %:p:h<CR>:pwd<CR>
 "command! -nargs= 1 Locate call fzf#run({'source': 'locate <q-args>', 'sink': 'e', 'options': '-m'})
 nmap <Leader>fb   :Buffers <CR>
 nmap <Leader>o    :Files %:p:h<CR>
-nmap <Leader>O    :Files <CR>
-nmap <Leader>ff   :BLines <CR>
-nmap <Leader>fo   :Lines <CR>
+nmap <Leader>O    :GFiles <CR>
+nmap <Leader>fl   :BLines <CR>
+nmap <Leader>fL   :Lines <CR>
 nmap <Leader>fh   :History<CR>
+nmap <Leader>f;   :History:<CR>
+nmap <Leader>f:   :Commands<CR>
+nmap <Leader>ft   :BTags<CR>
+nmap <Leader>fT   :Tags<CR>
+nmap <Leader>fm   :Marks<CR>
+nmap <Leader>fw   :Windows<CR>
+nmap <Leader>fs   :Snippets<CR>
+nmap <Leader>fg   :BCommits<CR>
+nmap <Leader>fG   :Commits<CR>
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Incsearch
 let g:incsearch#auto_nohlsearch = 1
@@ -337,16 +392,10 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " ~~~ Autocmd ~~~
 
 " Filetype-specific keybinds(TODO:migrate to /ft)
-au FileType typescript inoremap <buffer> <Space>: :<Space>,<Esc>i
-au FileType typescript inoremap <buffer> : :<Space>
-au FileType javascript inoremap <buffer> <Space>: :<Space>,<Esc>i
-au FileType javascript inoremap <buffer> : :<Space>
-
 au FileType sh         inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
 au FileType conf       inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
 
 au FileType vim        inoremap <buffer> "" "<Space>~~~<Space><Space>~~~<Esc>bhi
-au FileType vim        inoremap <buffer> "  "<Space>
 
 " Layout
 au vimenter * if argc() == 0 | NERDTree | wincmd l | endif

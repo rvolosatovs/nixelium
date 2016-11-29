@@ -8,6 +8,9 @@ alias  gL='git log --word-diff=color --patch-with-stat'
 alias  gh='git hist'
 alias  gH='git hist --shortstat'
 
+alias  grl='git reflog'
+alias  gsl='git shortlog'
+
 alias  gt='git tree'
 alias  gT="git bigtree --summary --shortstat --dirstat"
 
@@ -23,8 +26,6 @@ alias gLL='gL --all'
 alias ghh='gh --all'
 alias gHH='gH --all'
 
-alias gsl='git shortlog'
-
 alias  gd='git diff --word-diff=color'
 
 alias  ga='git add .'
@@ -33,6 +34,10 @@ alias  gc='git commit'
 alias gcm='git commit -m'
 alias gca='git commit --amend'
 alias  gC='git commit -am'
+
+alias  gy='git stash'
+alias  gyp='git stash pop'
+alias  gyd='git stash drop'
 
 alias  gn='git checkout'
 alias gnb='git checkout -b'
@@ -45,12 +50,15 @@ alias  gm='git cherry-pick'
 alias  gM='git merge'
 
 alias  gp='git pull'
+alias  gpp='git pull --prune'
 alias  gP='git push'
+alias  gPp='git push --prune'
 alias  gf='git fetch'
 alias gfp='git fetch --prune'
 alias  gu='git submodule update --init --remote --rebase'
 
 alias  gR='git reset'
+alias  gRh='git reset --hard'
 
 alias  ge='git config --global --edit'
 

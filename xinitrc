@@ -20,6 +20,8 @@ xsetroot -cursor_name left_ptr &
 feh  --bg-max "$HOME/pictures/bg" 
 stalonetray -c "$HOME/.config/stalonetray/stalonetrayrc"&
 
+sudo ~/.local/bin/fix-keycodes
+
 dunst &
 nm-applet &
 xbanish &

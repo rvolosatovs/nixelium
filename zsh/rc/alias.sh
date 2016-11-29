@@ -30,6 +30,16 @@ if type git > /dev/null;then
     source aliases/git
 fi
 
+# Docker
+if type docker > /dev/null;then
+    source aliases/docker
+fi
+
+# Docker-compose
+if type docker-compose > /dev/null;then
+    source aliases/docker-compose
+fi
+
 # Cave
 if type cave > /dev/null; then
     source aliases/cave
