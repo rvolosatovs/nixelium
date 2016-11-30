@@ -2,38 +2,48 @@
 PANEL_FIFO=/tmp/panel-fifo
 
 HEIGHT=24
-FONT="Fira Sans"
-FONT_ICON="Hurmit"
-#FONT_ICON="-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1"
+#FONT="Fira Sans"
+FONT="Fira"
+FONT_ICON="FontAwesome"
 WM_NAME="Bspwm"
 
 # icons
-CSTART="\ue00d"
-CSOUND="\ue04d"
-CVOLUME="\ue11b"
-CMAIL="\ue070"
-CRAM="\ue19a"
-CCPU="\ue1c1"
-CNET="\ue04b"
-CWIFI="\ue222"
-CFULL="\ue056"
-CNONE="\ue0e6"
-CCLOCK="\ue016"
-CTIME="\ue018"
-CPACK="\ue1b7"
-# icons panel music
-CPREV="\ue055"
-CNEXT="\ue05b"
-CPLAY="\ue058"
-CPAUS="\ue059"
-# battery or AC
-BAT100="\ue254"
-BAT70="\ue252"
-BAT50="\ue250"
-BAT30="\ue24f"
-BAT15="\ue24e"
-BAT7="\ue24c"
-CAC="\ue215"
+
+# $(faToUtf ${faIcon})
+faToUtf() {
+    echo -n "\x$(echo ${1} | hexdump -C | head -1 | cut -d' ' -f3,4,5 | sed 's: :\\x:g')"
+}
+
+CSTART="$(faToUtf )"
+
+#CFULL="$(faToUtf )"
+#CNONE="$(faToUtf )"
+CFULL="$(faToUtf )"
+CNONE="$(faToUtf )"
+
+CSOUND="$(faToUtf )"
+CVOLUME="$(faToUtf )"
+
+CPREV="$(faToUtf )"
+CNEXT="$(faToUtf )"
+CPLAY="$(faToUtf )"
+CPAUS="$(faToUtf )"
+
+CCLOCK="$(faToUtf )"
+CDATE="$(faToUtf )"
+CMAIL="$(faToUtf )"
+
+CRAM="$(faToUtf )"
+CCPU="$(faToUtf )"
+CNET="$(faToUtf )"
+CWIFI="$(faToUtf )"
+
+BAT100="$(faToUtf  )"
+BAT75="$(faToUtf )"
+BAT50="$(faToUtf  )"
+BAT25="$(faToUtf )"
+BAT0="$(faToUtf )"
+CAC="$(faToUtf )"
 
 # $(pAction ${fg} ${bg} ${command} ${whatprint})
 pAction() {
@@ -50,8 +60,9 @@ pText() {
     echo -n "%{F$1}$2%{F-}"
 }
 
+# $(getXresColor ${colorName})
 getXresColor() {
-   echo "$( xrdb -query | grep $1: | grep -oE '#[a-zA-Z0-9]{6}' | cut -c 1- )"
+   echo "$(xrdb -query | grep $1: | grep -oE '#[a-zA-Z0-9]{6}' | cut -c 1- )"
 }
 
 # colors
