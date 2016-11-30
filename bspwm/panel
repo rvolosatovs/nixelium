@@ -49,15 +49,18 @@ bspc subscribe |\
     }
 
     volume() {
-        local cmd=$(amixer sget Master | awk -F '[][]' '{ print $2 }' | tail -1 )
-        if [ "$cmd" = "0" ]; then
-            local ic=$(pIcon ${RED2} ${CMUTED})
-            echo ${ic}
+        local cmd=$(amixer sget Master | awk -F '[][]' '{ print $4 }' | tail -1 )
+        local ic=""
+        local clr=""
+        if [ "$cmd" = "on" ]; then
+            local vol=$(amixer sget Master | awk -F '[][]' '{ print $2 }' | tail -1 )
+            ic=$(pIcon ${RED2} ${CVOLUME})
+            clr=$(pText ${YELLOW} "${vol}")
         else
-            local ic=$(pIcon ${RED2} ${CVOLUME})
-            local clr=$(pText ${YELLOW} "${cmd}")
-            echo ${ic}$SEP${clr}
+            ic=$(pIcon ${RED2} ${CMUTED})
+            clr=$(pText ${YELLOW} muted)
         fi
+        echo ${ic}$SEP${clr}
     }
 
     mic() {
@@ -144,7 +147,7 @@ bspc subscribe |\
 
     while :; do
         echo "S$(cpu)$SEP$(ram)$SEP$(energy)$SEP$(net)$SEP$(clock)$SEP$(getDay)"
-        sleep 5
+        sleep 1
     done
 
 } > "$PANEL_FIFO" &
