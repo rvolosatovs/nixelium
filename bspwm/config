@@ -14,7 +14,7 @@ faToUtf() {
     echo -n "\x$(echo ${1} | hexdump -C | head -1 | cut -d' ' -f3,4,5 | sed 's: :\\x:g')"
 }
 
-CSTART="$(faToUtf )"
+CSTART="$(faToUtf )"
 
 #CFULL="$(faToUtf )"
 #CNONE="$(faToUtf )"
@@ -23,6 +23,7 @@ CNONE="$(faToUtf )"
 
 CSOUND="$(faToUtf )"
 CVOLUME="$(faToUtf )"
+CMUTED="$(faToUtf )"
 
 CPREV="$(faToUtf )"
 CNEXT="$(faToUtf )"

@@ -49,10 +49,19 @@ bspc subscribe |\
     }
 
     volume() {
-        local ic=$(pIcon ${RED2} ${CVOLUME})
         local cmd=$(amixer sget Master | awk -F '[][]' '{ print $2 }' | tail -1 )
-        local clr=$(pText ${YELLOW} "${cmd}")
-        echo ${ic}$SEP${clr}
+        if [ "$cmd" = "0" ]; then
+            local ic=$(pIcon ${RED2} ${CMUTED})
+            echo ${ic}
+        else
+            local ic=$(pIcon ${RED2} ${CVOLUME})
+            local clr=$(pText ${YELLOW} "${cmd}")
+            echo ${ic}$SEP${clr}
+        fi
+    }
+
+    mic() {
+        local cmd=$(amixer)
     }
 
     while :; do
