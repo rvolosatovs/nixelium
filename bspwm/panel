@@ -50,15 +50,14 @@ bspc subscribe |\
 
     volume() {
         local ic=$(pIcon ${RED2} ${CVOLUME})
-        local cmd=$(mpc volume | awk '{FS:":"}{print $2}' | sed -e 's/\%//g')
-        local cmd+="$SEP%$SEP"
+        local cmd=$(amixer sget Master | awk -F '[][]' '{ print $2 }' | tail -1 )
         local clr=$(pText ${YELLOW} "${cmd}")
         echo ${ic}$SEP${clr}
     }
 
     while :; do
         #echo "T$(getName)$SEP$(panelMusic)$SEP$(music)$SEP$(volume)"
-        echo "T$(getName)"
+        echo "T$(getName)$SEP$(volume)"
         sleep 5
     done
 
@@ -67,7 +66,7 @@ bspc subscribe |\
 # Top Right
 {
     getDay() {
-        local ic=$(pIcon ${RED} ${CTIME})
+        local ic=$(pIcon ${RED} ${CDATE})
         local cmd=$(date '+%A %d %b')
         local clr=$(pText ${GREEN2} "${cmd}")
         echo ${ic}$SEP${clr}
@@ -104,25 +103,23 @@ bspc subscribe |\
         local bat=/sys/class/power_supply/BAT0/present
         local icon=""
         local batCap=""
-        if [[ -e $bat ]] && [[ $(cat $ac) -lt 1 ]]; then
+        if [[ -e $bat ]]; then
             batCap="$(cat ${bat%/*}/capacity)"
             [ $batCap -gt 90 ] && icon=$BAT100
-            [ $batCap -gt 70 ] && [ $batCap -lt 90 ] && icon=$BAT70
-            [ $batCap -gt 50 ] && [ $batCap -lt 70 ] && icon=$BAT50
-            [ $batCap -gt 30 ] && [ $batCap -lt 50 ] && icon=$BAT30
-            [ $batCap -gt 15 ] && [ $batCap -lt 30 ] && icon=$BAT15
-            [ $batCap -lt 7 ] && icon=$BAT7
-        elif [[ -n $(cat $ac) ]]; then
-            batCap="AC"
+            [ $batCap -gt 75 ] && [ $batCap -lt 90 ] && icon=$BAT75
+            [ $batCap -gt 50 ] && [ $batCap -lt 75 ] && icon=$BAT50
+            [ $batCap -gt 25 ] && [ $batCap -lt 50 ] && icon=$BAT25
+            [ $batCap -lt 25 ] && icon=$BAT0
+        fi
+        if [[ -n $(cat $ac) ]]; then
+            batCap="${batCap:-AC}"
             icon=$CAC
-        else
-            batCap="wttf"
         fi
         echo "$(pIcon ${RED2} $icon)$SEP$(pText ${WHITE} ${batCap})"
     }
 
     ram() {
-        local ic=$(pIcon ${RED2}} ${CRAM})
+        local ic=$(pIcon ${RED2} ${CRAM})
         local cmd=$(free -m | grep Mem | awk '{print $3}')
         local clr=$(pText ${MAGENTA2} "${cmd}")
         echo ${ic}$SEP${clr}
@@ -131,13 +128,12 @@ bspc subscribe |\
     cpu() {
         local ic=$(pIcon ${RED2} ${CCPU})
         local cmd=$(cat /proc/loadavg | cut -d' ' -f1 )
-        cmd+=$SEP$(cat /proc/cpuinfo | grep -i mhz |awk '{ORS=" "}{print $4}'| sed -e 's/.000//g')
+        cmd+=$SEP$(cat /proc/cpuinfo | grep -i mhz | awk '{ORS=" "}{print $4}'| sed -e 's/.000//g')
         local clr=$(pText ${WHITE} "${cmd}")
         echo ${ic}$SEP${clr}
     }
 
     while :; do
-        #echo "S$(package)$SEP$(cpu)$SEP$(ram)$SEP$(energy)$SEP$(net)$SEP$(mail)$SEP$(clock)$SEP$(getDay)"
         echo "S$(cpu)$SEP$(ram)$SEP$(energy)$SEP$(net)$SEP$(clock)$SEP$(getDay)"
         sleep 5
     done
