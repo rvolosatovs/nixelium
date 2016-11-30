@@ -1,5 +1,7 @@
 #! /bin/sh
 
+sleepFor=1
+
 source $(dirname $0)/config
     
 if xdo id -a "$WM_NAME" > /dev/null ; then
@@ -70,7 +72,7 @@ bspc subscribe |\
     while :; do
         #echo "T$(getName)$SEP$(panelMusic)$SEP$(music)$SEP$(volume)"
         echo "T$(getName)$SEP$(volume)"
-        sleep 5
+        sleep $sleepFor
     done
 
 } > "$PANEL_FIFO" &
@@ -147,7 +149,7 @@ bspc subscribe |\
 
     while :; do
         echo "S$(cpu)$SEP$(ram)$SEP$(energy)$SEP$(net)$SEP$(clock)$SEP$(getDay)"
-        sleep 1
+        sleep $sleepFor
     done
 
 } > "$PANEL_FIFO" &
