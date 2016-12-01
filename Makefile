@@ -31,8 +31,6 @@ DATA_APPS = fonts base16
 
 HOME_DOTS = profile pam_environment xprofile xinitrc Xresources npmrc
 
-UPDATE_CMDS = pass-update submodule-update go-update nvim-update
-
 all: tui env gui
 
 env: pam_environment profile user-dirs mimeapps npmrc
@@ -96,7 +94,9 @@ $(XDG_DATA_HOME)/applications/mimeapps.list:
 clean:
 	@./clean-links.sh
 
+UPDATE_CMDS = pass-update submodule-update go-update nvim-update
 update: $(UPDATE_CMDS)
+
 pass-update: pass
 	pass git pull
 
