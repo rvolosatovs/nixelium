@@ -86,5 +86,3 @@ WHITE2="$(getXresColor color15)"
 
 BG="$(getXresColor background)"
 FG="$(getXresColor foreground)"
-
-SEP=" "

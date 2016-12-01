@@ -25,7 +25,7 @@ bspc subscribe |\
         local ic=$(pIcon ${RED2} ${CSTART})
         local cmd=$(uname -n)
         local clr=$(pText ${WHITE2} "${cmd}")
-        echo ${ic}$SEP${clr}
+        echo ${ic} ${clr}
     }
 
     panelMusic() {
@@ -39,14 +39,14 @@ bspc subscribe |\
     music() {
         local ic=$(pIcon ${RED2} ${CSOUND})
         local status=$(mpc current)
-        if [ "$status" != "" ] ; then
+        if [ "$status" ] ; then
             local artist=$(mpc -f %artist% current)
             local musicname=$(mpc -f %title% current)
             local clr1=$(pText ${BLUE2} "${artist}")
             local clr2=$(pText ${CYAN2} "${musicname:0:20}")
-            echo ${ic}$SEP${clr1}$SEP${clr2}
+            echo ${ic} ${clr1} ${clr2}
         else
-            echo ${ic}$SEP%{F${RED}}No Sound%{F-}
+            echo ${ic} %{F${RED}}No Sound%{F-}
         fi
     }
 
@@ -62,7 +62,7 @@ bspc subscribe |\
             ic=$(pIcon ${RED2} ${CMUTED})
             clr=$(pText ${YELLOW} muted)
         fi
-        echo ${ic}$SEP${clr}
+        echo ${ic} ${clr}
     }
 
     mic() {
@@ -70,8 +70,8 @@ bspc subscribe |\
     }
 
     while :; do
-        #echo "T$(getName)$SEP$(panelMusic)$SEP$(music)$SEP$(volume)"
-        echo "T$(getName)$SEP$(volume)"
+        #echo "T$(getName) $(panelMusic) $(music) $(volume)"
+        echo "T$(getName) $(volume)"
         sleep $sleepFor
     done
 
@@ -83,14 +83,14 @@ bspc subscribe |\
         local ic=$(pIcon ${RED} ${CDATE})
         local cmd=$(date '+%A %d %b')
         local clr=$(pText ${GREEN2} "${cmd}")
-        echo ${ic}$SEP${clr}
+        echo ${ic} ${clr}
     }
 
     clock() {
         local ic=$(pIcon ${RED2} ${CCLOCK})
         local cmd=$(date +%H:%M)
         local clr=$(pText ${YELLOW} "${cmd}")
-        echo ${ic}$SEP${clr}
+        echo ${ic} ${clr}
     }
 
     mail() {
@@ -102,14 +102,7 @@ bspc subscribe |\
         else
             count=$(ls -1 "${gmaildir}" | wc -l)
         fi
-        echo ${ic}$SEP${count}
-    }
-
-    net() {
-        local ic=$(pIcon ${RED2} ${CNET})
-        local dev=$(ip route | grep link | awk '{print $3}')
-        local clr=$(pText ${CYAN2} "${dev}")
-        echo ${ic}$SEP${clr}
+        echo ${ic} ${count}
     }
 
     energy() {
@@ -129,26 +122,28 @@ bspc subscribe |\
             batCap="${batCap:-AC}"
             icon=$CAC
         fi
-        echo "$(pIcon ${RED2} $icon)$SEP$(pText ${WHITE} ${batCap})"
+        echo "$(pIcon ${RED2} $icon) $(pText ${WHITE} ${batCap})"
     }
 
     ram() {
         local ic=$(pIcon ${RED2} ${CRAM})
-        local cmd=$(free -m | grep Mem | awk '{print $3}')
+        local cmd="$(free -m | grep Mem | awk '{print $3}') Mb"
         local clr=$(pText ${MAGENTA2} "${cmd}")
-        echo ${ic}$SEP${clr}
+        echo ${ic} ${clr}
     }
 
     cpu() {
         local ic=$(pIcon ${RED2} ${CCPU})
-        local cmd=$(cat /proc/loadavg | cut -d' ' -f1 )
-        cmd+=$SEP$(cat /proc/cpuinfo | grep -i mhz | awk '{ORS=" "}{print $4}'| sed -e 's/.000//g')
+        #local cmd=$(cat /proc/loadavg | cut -d' ' -f1 )
+        #cmd+= $(cat /proc/cpuinfo | grep -i mhz | awk '{ORS=" "}{print $4}'| sed -e 's/.000//g')
+
+        local cmd=$(sensors | grep 'Core ' | awk '{print $3}')
         local clr=$(pText ${WHITE} "${cmd}")
-        echo ${ic}$SEP${clr}
+        echo ${ic} ${clr}
     }
 
     while :; do
-        echo "S$(cpu)$SEP$(ram)$SEP$(energy)$SEP$(net)$SEP$(clock)$SEP$(getDay)"
+        echo "S$(cpu) $(ram) $(energy) $(clock) $(getDay)"
         sleep $sleepFor
     done
 
