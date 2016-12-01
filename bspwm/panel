@@ -105,12 +105,12 @@ bspc subscribe |\
         echo ${ic} ${count}
     }
 
-    energy() {
+    power() {
         local ac=/sys/class/power_supply/AC/online
         local bat=/sys/class/power_supply/BAT0/present
         local icon=""
         local batCap=""
-        if [[ -e $bat ]]; then
+        if [ -e $bat ]; then
             batCap="$(cat ${bat%/*}/capacity)"
             [ $batCap -gt 90 ] && icon=$BAT100
             [ $batCap -gt 75 ] && [ $batCap -lt 90 ] && icon=$BAT75
@@ -118,7 +118,7 @@ bspc subscribe |\
             [ $batCap -gt 25 ] && [ $batCap -lt 50 ] && icon=$BAT25
             [ $batCap -lt 25 ] && icon=$BAT0
         fi
-        if [[ -n $(cat $ac) ]]; then
+        if [ -e $ac ] && [ $(cat $ac) -gt 0 ]; then
             batCap="${batCap:-AC}"
             icon=$CAC
         fi
@@ -143,7 +143,7 @@ bspc subscribe |\
     }
 
     while :; do
-        echo "S$(cpu) $(ram) $(energy) $(clock) $(getDay)"
+        echo "S$(cpu) $(ram) $(power) $(clock) $(getDay)"
         sleep $sleepFor
     done
 
