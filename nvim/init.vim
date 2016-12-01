@@ -69,6 +69,7 @@ Plug 'bling/vim-bufferline'
 Plug 'ryanoasis/vim-devicons'
 
 " Code
+Plug 'editorconfig/editorconfig-vim'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'benekastah/neomake'
 Plug 'SirVer/ultisnips'
@@ -83,7 +84,6 @@ Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'tpope/vim-repeat'
-" Plug 'junegunn/fzf', { 'dir': '~/.local/fzf', 'do': './install --no-update-rc --no-key-bindings' }
 Plug 'junegunn/fzf.vim'
 
 " Utility
@@ -93,25 +93,20 @@ Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sjl/gundo.vim'
-"Plug 'vim-scripts/YankRing.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
+"Plug 'vim-scripts/YankRing.vim'
 "Plug 'vim-scripts/scratch.vim'
 "Plug 'vim-scripts/FastFold'
 Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
 "Plug 'xolox/vim-session'
-"Plug 'xolox/vim-easytags'
 "Plug 'kopischke/vim-stay'
-"Plug 'mattn/webapi-vim'
-"Plug 'corntrace/bufexplorer'
 Plug 'gregsexton/gitv'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-unimpaired'
 Plug 'terryma/vim-multiple-cursors'
 
-
-
-" Filetype-related
 " C
 Plug 'Rip-Rip/clang_complete', { 'for': 'c' }
 " Latex
@@ -129,17 +124,12 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
-
 " Proto
 Plug 'rvolosatovs/vim-protobuf', { 'for': 'proto' }
-
 " Vim
-Plug 'Shougo/neco-vim'
-
+Plug 'Shougo/neco-vim', { 'for': 'vim' }
 " Sxhkd
-Plug 'baskerville/vim-sxhkdrc'
-
-Plug 'editorconfig/editorconfig-vim'
+Plug 'baskerville/vim-sxhkdrc', { 'for': 'sxhkdrc' }
 
 
 call plug#end()
@@ -176,44 +166,26 @@ let g:airline#extensions#tabline#tab_nr_type = 2
 " Bufferline
 let g:bufferline_echo = 0
 
+" ~~~ Plugin configs ~~~
+
 " Easytags
 let g:easytags_auto_update = 0
 let g:easytags_async = 1
 
-" ~~~ Plugin configs ~~~
-" Go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_autosave = 1
-let g:go_fmt_command = "goimports"
-let g:go_auto_type_info = 0
-
-" Vim
-
-nmap <M-r> <Plug>(go-run)
-nmap <M-t> <Plug>(go-test)
-nmap <M-c> <Plug>(go-coverage)
-
+" EditorConfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " AutoPairs
-let g:AutoPairsFlyMode = 0
+let g:AutoPairsFlyMode = 1
 let g:AutoPairsShortcutToggle = '<C-P>'
+
 " YankRing
 "let g:yankring_history_dir = \"$HOME/.local/share/nvim"
 "let g:yankring_history_file = 'yankhist'
 "let g:yankring_clipboard_monitor=0
 
-" TeX
-let g:Tex_ViewRule_pdf = 'zathura'
-let g:Tex_ViewRule_dvi = 'zathura'
-let g:Tex_ViewRule_ps = 'zathura'
-let g:Tex_CompileRule_pdf = 'pdflatex -interaction=nonstopmode $*'
-let g:Tex_DefaultTargetFormat = 'pdf'
+" YankStack
+call yankstack#setup()
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -234,6 +206,10 @@ let g:session_autoload="no"
 
 " Neomake
 let g:neomake_open_list=1
+
+" Gundo
+let g:gundo_right=1
+let g:gundo_preview_bottom=1
 
 " FastFold
 "let g:fastfold_savehook = 0
@@ -287,7 +263,7 @@ nmap <Leader>to   :e %:p:h<CR>
 nmap <Leader>tn   :NERDTreeToggle<CR>
 nmap <Leader>tt   :TagbarToggle<CR>
 nmap <Leader>tu   :GundoToggle<CR>
-nmap <Leader>tp   :YRShow<CR>
+nmap <Leader>tp   :Yanks<CR>
 "nmap <Leader>ts   :Sscratch<CR>
 "nmap <Leader>tS   :Scratch<CR>
 
@@ -381,13 +357,13 @@ map    <Leader>j  <Plug>(easymotion-j)
 map    <Leader>k  <Plug>(easymotion-k)
 "map    <Leader>l  <Plug>(easymotion-lineforward)
 
-nmap <M-b> :Neomake<CR>
-
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsListSnippets="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+nmap <M-m> :Neomake<CR>
 
 " ~~~ Autocmd ~~~
 
