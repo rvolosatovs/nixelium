@@ -101,7 +101,7 @@ pass-update: pass
 	pass git pull
 
 submodule-update:
-	git submodule update --init --recursive
+	git submodule update --init --recursive --remote --rebase
 
 go-update:
 	-go get -u ...
