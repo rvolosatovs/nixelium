@@ -37,7 +37,7 @@ bspc subscribe |\
     }
 
     music() {
-        local ic=$(pIcon ${RED2} ${CSOUND})
+        local ic=$(pIcon ${RED2} ${CMUSIC})
         local status=$(mpc current)
         if [ "$status" ] ; then
             local artist=$(mpc -f %artist% current)
@@ -56,22 +56,28 @@ bspc subscribe |\
         local clr=""
         if [ "$cmd" = "on" ]; then
             local vol=$(amixer sget Master | awk -F '[][]' '{ print $2 }' | tail -1 )
-            ic=$(pIcon ${RED2} ${CVOLUME})
+            ic=$(pIcon ${RED2} ${CSOUNDON})
             clr=$(pText ${YELLOW} "${vol}")
         else
-            ic=$(pIcon ${RED2} ${CMUTED})
+            ic=$(pIcon ${RED2} ${CSOUNDOFF})
             clr=$(pText ${YELLOW} muted)
         fi
         echo ${ic} ${clr}
     }
 
     mic() {
-        local cmd=$(amixer)
+        local cmd=$(amixer sget Capture 2> /dev/null | awk -F '[][]' '{ print $4 }' | tail -1 )
+        if [ "$cmd" = "on" ]; then
+            echo $(pIcon ${RED2} ${CMICON})
+        #elif [ "$cmd" = "off" ]; then
+        else
+            echo $(pIcon ${RED2} ${CMICOFF})
+        fi
     }
 
     while :; do
         #echo "T$(getName) $(panelMusic) $(music) $(volume)"
-        echo "T$(getName) $(volume)"
+        echo "T$(getName) $(volume) $(mic)"
         sleep $sleepFor
     done
 
@@ -117,6 +123,7 @@ bspc subscribe |\
             [ $batCap -gt 50 ] && [ $batCap -lt 75 ] && icon=$BAT50
             [ $batCap -gt 25 ] && [ $batCap -lt 50 ] && icon=$BAT25
             [ $batCap -lt 25 ] && icon=$BAT0
+            batCap+="%"
         fi
         if [ -e $ac ] && [ $(cat $ac) -gt 0 ]; then
             batCap="${batCap:-AC}"
