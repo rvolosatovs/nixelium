@@ -149,7 +149,7 @@ curl -# --create-dirs -fLo /mnt/etc/vconsole.conf $configAddr/etc/vconsole.conf 
 curl -# --create-dirs -fLo /mnt/root/install-chroot.sh $configAddr/install-chroot.sh  || exit 1
 
 echo $hostname > /mnt/etc/hostname || exit 1
-echo "127.0.1.1	$hostname.localdomain	$hostname" >> /mnt/etc/hosts || exit 1
+echo "127.0.0.1	$hostname.localdomain	$hostname" >> /mnt/etc/hosts || exit 1
 
 chmod +x /mnt/root/install-chroot.sh
 echo "Now execute /root/install-chroot.sh $username"

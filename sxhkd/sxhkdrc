@@ -51,7 +51,7 @@ XF86HomePage
     chromium
 
 Print
-    maim -s `xdg-user-dir PICTURES`/scrot-`date +%F_%T`.png
+    maim -s `xdg-user-dir PICTURES`/scrot/`date +%F-%T`-screenshot.png
 
 #
 # bspwm hotkeys
