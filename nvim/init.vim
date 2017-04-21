@@ -1,6 +1,8 @@
 " ~~~ Vim configurations ~~~
 filetype plugin indent on
 
+"set modeline
+
 set undofile
 
 set updatetime=250
@@ -72,7 +74,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'benekastah/neomake'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
@@ -176,7 +178,7 @@ let g:easytags_async = 1
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " AutoPairs
-let g:AutoPairsFlyMode = 1
+let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutToggle = '<C-P>'
 
 " YankRing
@@ -189,13 +191,10 @@ call yankstack#setup()
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#go#sort_class = ['var', 'func', 'type', 'package', 'const']
-"let g:deoplete#sources#go#gocode_binary = '$GOBIN/gocode'
-let g:deoplete#sources#go#use_cache = 1
-let g:deoplete#sources#go#json_directory = '$XDG_CACHE_HOME/deoplete/go/$GOOS_$GOARCH'
-let g:deoplete#sources#go#package_dot = 0
+
 " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
 " au VimEnter call deoplete#initialize()
+
 
 " Tern
 let g:tern_request_timeout = 1

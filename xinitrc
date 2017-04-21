@@ -14,7 +14,10 @@ pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
 pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
 
 #xrandr
-#xrandr --output DP1 --primary --mode 3840x2160 --rate 60 --rotate normal --output LVDS1 --auto --right-of DP1
+xrandr --output DP1 --primary --mode 3840x2160 --rate 30 --rotate normal --output LVDS1 --auto --right-of DP1
+#xrandr --output DP2 --primary --mode 1920x1080 --rate 60 --rotate normal --output LVDS1 --auto --right-of DP2
+#xrandr --output HDMI1 --primary --mode 1920x1080 --rate 60 --rotate normal --output LVDS1 --auto --right-of HDMI1
+#xrandr --output DP1 --primary --mode 1920x1080 --rate 60 --output LVDS1 --auto --right-of DP1
 xsetroot -cursor_name left_ptr & 
 
 feh  --bg-max "$HOME/pictures/bg" 
@@ -27,6 +30,8 @@ nm-applet &
 xbanish &
 
 redshift &
+
+xset s off -dpms
 
 session=${1:-bspwm}
 case $session in
