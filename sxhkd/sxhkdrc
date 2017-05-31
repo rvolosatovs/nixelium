@@ -59,7 +59,7 @@ Print
 
 # quit bspwm normally
 super + alt + Escape
-	pkill -x panel; bspc quit
+	pkill -x panel; bspc quit; sudo systemctl restart display-manager
 
 # close and kill
 super + {_,shift + }q

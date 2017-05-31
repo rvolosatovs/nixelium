@@ -7,6 +7,7 @@ Xft.rgba: rgb
 
 Xcursor.size: 20
 xscreensaver.logFile:/var/log/xscreensaver.log
+ssh-askpass*background: #000000
 
 ! "Enabled modi" Set from: Default
 ! rofi.modi:                           window,run,ssh

@@ -3,6 +3,10 @@ filetype plugin indent on
 
 "set modeline
 
+set mouse=a
+set termguicolors
+set guicursor=
+
 set undofile
 
 set updatetime=250
@@ -54,6 +58,11 @@ endif
 " Set terminal title
 set title
 
+set grepprg='pt'
+
+set autochdir
+"set tags=tags,./tags;
+
 " ~~~ Plugins ~~~
 
 call plug#begin('~/.local/share/nvim/plugins')
@@ -92,20 +101,21 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'majutsushi/tagbar'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'scrooloose/nerdtree'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-vinegar'
 Plug 'sjl/gundo.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
 "Plug 'vim-scripts/YankRing.vim'
 "Plug 'vim-scripts/scratch.vim'
 "Plug 'vim-scripts/FastFold'
 Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
+"Plug 'xolox/vim-easytags'
 "Plug 'xolox/vim-session'
 "Plug 'kopischke/vim-stay'
 Plug 'gregsexton/gitv'
 Plug 'jiangmiao/auto-pairs'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-unimpaired'
 Plug 'terryma/vim-multiple-cursors'
 
@@ -126,12 +136,16 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+" Arduino
+Plug 'sudar/vim-arduino-syntax', { 'for': 'arduino' }
 " Proto
 Plug 'rvolosatovs/vim-protobuf', { 'for': 'proto' }
 " Vim
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 " Sxhkd
 Plug 'baskerville/vim-sxhkdrc', { 'for': 'sxhkdrc' }
+" Nix
+Plug 'LnL7/vim-nix', { 'for': 'nix' }
 
 
 call plug#end()
@@ -171,8 +185,11 @@ let g:bufferline_echo = 0
 " ~~~ Plugin configs ~~~
 
 " Easytags
-let g:easytags_auto_update = 0
-let g:easytags_async = 1
+let g:easytags_file='~/.local/share/nvim/tags'
+let g:easytags_by_filetype = '~/.local/share/nvim/tags'
+let g:easytags_on_cursorhold= 0
+"let g:easytags_auto_update = 1
+"let g:easytags_async = 1
 
 " EditorConfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -259,7 +276,7 @@ nmap <Leader>nb   :enew <CR>
 " Toggles
 nmap <Leader>tO   :e .<CR>
 nmap <Leader>to   :e %:p:h<CR>
-nmap <Leader>tn   :NERDTreeToggle<CR>
+"nmap <Leader>tn   :NERDTreeToggle<CR>
 nmap <Leader>tt   :TagbarToggle<CR>
 nmap <Leader>tu   :GundoToggle<CR>
 nmap <Leader>tp   :Yanks<CR>
@@ -373,8 +390,8 @@ au FileType conf       inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
 au FileType vim        inoremap <buffer> "" "<Space>~~~<Space><Space>~~~<Esc>bhi
 
 " Layout
-au vimenter * if argc() == 0 | NERDTree | wincmd l | endif
-au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"au vimenter * if argc() == 0 | NERDTree | wincmd l | endif
+"au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Func
 au FocusLost * :wa
