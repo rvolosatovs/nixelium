@@ -289,7 +289,8 @@ services = {
         };
       };
       sessionCommands = ''
-          eval `${pkgs.keychain}/bin/keychain --eval`
+          eval `${pkgs.keychain}/bin/keychain --eval id_rsa ttn`
+          eval `${pkgs.keychain}/bin/keychain --eval --agents gpg`
 
           # Set GTK_PATH so that GTK+ can find the theme engines.
           export GTK_PATH="${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0"
