@@ -75,6 +75,11 @@ if type nix-env > /dev/null; then
     source aliases/nix
 fi
 
+# Go
+if type go > /dev/null; then
+    source aliases/go
+fi
+
 distro=$(awk /ID/ /etc/os-release | cut -d"=" -f2)
 # Distro-specific
 if   [[ $distro == "exherbo"   ]]; then
