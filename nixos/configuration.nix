@@ -182,6 +182,7 @@ environment = {
     tree
     thunderbird
     rofi
+    rtorrent
     rclone
     nox
     keychain
