@@ -1,9 +1,9 @@
-#! /bin/sh
+#!/usr/bin/env sh
 
 sleepFor=1
 
-source $(dirname $0)/config
-    
+source $(dirname `readlink -f $0`)/config
+
 if xdo id -a "$WM_NAME" > /dev/null ; then
     printf "%s\n" "The panel is already running." >&2
     exit 1
@@ -19,160 +19,181 @@ bspc subscribe |\
     grep -oE "[Mm][^TM]*[TML]" --line-buffered |\
     while read line; do echo W$line; done > "$PANEL_FIFO" &
 
-# Top left
-{
-    getName() {
-        local ic=$(pIcon ${RED2} ${CSTART})
-        local cmd=$(uname -n)
-        local clr=$(pText ${WHITE2} "${cmd}")
-        echo ${ic} ${clr}
-    }
+        # Top left
+        {
+            getName() {
+                local ic=$(pIcon ${RED2} ${CSTART})
+                local cmd=$(uname -n)
+                local clr=$(pText ${WHITE2} "${cmd}")
+                echo ${ic} ${clr}
+            }
 
-    panelMusic() {
-        local icp=$(pAction $WHITE2 $RED "mpc prev &>/dev/null" ${CPREV})
-        local icn=$(pAction $WHITE2 $RED "mpc next &>/dev/null" ${CNEXT})
-        local icpl=$(pAction $WHITE2 $RED "mpc play &>/dev/null" ${CPLAY})
-        local icpa=$(pAction $WHITE2 $RED "mpc pause &>/dev/null" ${CPAUS})
-        echo "$icp $icn $icpl $icpa"
-    }
+            panelMusic() {
+                local icp=$(pAction $WHITE2 $RED "mpc prev &>/dev/null" ${CPREV})
+                local icn=$(pAction $WHITE2 $RED "mpc next &>/dev/null" ${CNEXT})
+                local icpl=$(pAction $WHITE2 $RED "mpc play &>/dev/null" ${CPLAY})
+                local icpa=$(pAction $WHITE2 $RED "mpc pause &>/dev/null" ${CPAUS})
+                echo "$icp $icn $icpl $icpa"
+            }
 
-    music() {
-        local ic=$(pIcon ${RED2} ${CMUSIC})
-        local status=$(mpc current)
-        if [ "$status" ] ; then
-            local artist=$(mpc -f %artist% current)
-            local musicname=$(mpc -f %title% current)
-            local clr1=$(pText ${BLUE2} "${artist}")
-            local clr2=$(pText ${CYAN2} "${musicname:0:20}")
-            echo ${ic} ${clr1} ${clr2}
-        else
-            echo ${ic} %{F${RED}}No Sound%{F-}
-        fi
-    }
+            music() {
+                local ic=$(pIcon ${RED2} ${CMUSIC})
+                local status=$(mpc current)
+                if [ "$status" ] ; then
+                    local artist=$(mpc -f %artist% current)
+                    local musicname=$(mpc -f %title% current)
+                    local clr1=$(pText ${BLUE2} "${artist}")
+                    local clr2=$(pText ${CYAN2} "${musicname:0:20}")
+                    echo ${ic} ${clr1} ${clr2}
+                else
+                    echo ${ic} %{F${RED}}No Sound%{F-}
+                fi
+            }
 
-    volume() {
-        local cmd=$(amixer sget Master | awk -F '[][]' '{ print $4 }' | tail -1 )
-        local ic=""
-        local clr=""
-        if [ "$cmd" = "on" ]; then
-            local vol=$(amixer sget Master | awk -F '[][]' '{ print $2 }' | tail -1 )
-            ic=$(pIcon ${RED2} ${CSOUNDON})
-            clr=$(pText ${YELLOW} "${vol}")
-        else
-            ic=$(pIcon ${RED2} ${CSOUNDOFF})
-            clr=$(pText ${YELLOW} muted)
-        fi
-        echo ${ic} ${clr}
-    }
+            volume() {
+                local cmd=$(amixer sget Master | awk -F '[][]' '{ print $4 }' | tail -1 )
+                local ic=""
+                local clr=""
+                if [ "$cmd" = "on" ]; then
+                    local vol=$(amixer sget Master | awk -F '[][]' '{ print $2 }' | tail -1 )
+                    ic=$(pIcon ${RED2} ${CSOUNDON})
+                    clr=$(pText ${YELLOW} "${vol}")
+                else
+                    ic=$(pIcon ${RED2} ${CSOUNDOFF})
+                    clr=$(pText ${YELLOW} muted)
+                fi
+                echo ${ic} ${clr}
+            }
 
-    mic() {
-        local cmd=$(amixer sget Capture 2> /dev/null | awk -F '[][]' '{ print $4 }' | tail -1 )
-        if [ "$cmd" = "on" ]; then
-            echo $(pIcon ${RED2} ${CMICON})
-        #elif [ "$cmd" = "off" ]; then
-        else
-            echo $(pIcon ${RED2} ${CMICOFF})
-        fi
-    }
+            mic() {
+                local cmd=$(amixer sget Capture 2> /dev/null | awk -F '[][]' '{ print $4 }' | tail -1 )
+                if [ "$cmd" = "on" ]; then
+                    echo $(pIcon ${RED2} ${CMICON})
+                    #elif [ "$cmd" = "off" ]; then
+                else
+                    echo $(pIcon ${RED2} ${CMICOFF})
+                fi
+            }
 
-    while :; do
-        #echo "T$(getName) $(panelMusic) $(music) $(volume)"
-        echo "T$(getName) $(volume) $(mic)"
-        sleep $sleepFor
-    done
+            while :; do
+                #echo "T$(getName) $(panelMusic) $(music) $(volume)"
+                echo "T$(getName) $(volume) $(mic)"
+                sleep $sleepFor
+            done
 
-} > "$PANEL_FIFO" &
+        } > "$PANEL_FIFO" &
 
-# Top Right
-{
-    getDay() {
-        local ic=$(pIcon ${RED} ${CDATE})
-        local cmd=$(date '+%A %d %b')
-        local clr=$(pText ${GREEN2} "${cmd}")
-        echo ${ic} ${clr}
-    }
+        # Top Right
+        {
+            getDay() {
+                local ic=$(pIcon ${RED} ${CDATE})
+                local cmd=$(date '+%A %d %b')
+                local clr=$(pText ${GREEN2} "${cmd}")
+                echo ${ic} ${clr}
+            }
 
-    clock() {
-        local ic=$(pIcon ${RED2} ${CCLOCK})
-        local cmd=$(date +%H:%M)
-        local clr=$(pText ${YELLOW} "${cmd}")
-        echo ${ic} ${clr}
-    }
+            clock() {
+                local ic=$(pIcon ${RED2} ${CCLOCK})
+                local cmd=$(date +%H:%M)
+                local clr=$(pText ${YELLOW} "${cmd}")
+                echo ${ic} ${clr}
+            }
 
-    mail() {
-        local gmaildir=$HOME/.mails/Gmail/\[Gmail\].All\ Mail/new
-        local ic=$(pIcon ${RED2} ${CMAIL})
-        local count=0
-        if [[ ! -n $(ls "${gmaildir}") ]]; then
-            count=0
-        else
-            count=$(ls -1 "${gmaildir}" | wc -l)
-        fi
-        echo ${ic} ${count}
-    }
+            mail() {
+                local gmaildir=$HOME/.mails/Gmail/\[Gmail\].All\ Mail/new
+                local ic=$(pIcon ${RED2} ${CMAIL})
+                local count=0
+                if [[ ! -n $(ls "${gmaildir}") ]]; then
+                    count=0
+                else
+                    count=$(ls -1 "${gmaildir}" | wc -l)
+                fi
+                echo ${ic} ${count}
+            }
 
-    power() {
-        local ac=/sys/class/power_supply/AC/online
-        local bat=/sys/class/power_supply/BAT0/present
-        local icon=""
-        local batCap=""
-        if [ -e $bat ]; then
-            batCap="$(cat ${bat%/*}/capacity)"
-            [ $batCap -gt 90 ] && icon=$BAT100
-            [ $batCap -gt 75 ] && [ $batCap -lt 90 ] && icon=$BAT75
-            [ $batCap -gt 50 ] && [ $batCap -lt 75 ] && icon=$BAT50
-            [ $batCap -gt 25 ] && [ $batCap -lt 50 ] && icon=$BAT25
-            [ $batCap -lt 25 ] && icon=$BAT0
-            batCap+="%"
-        fi
-        if [ -e $ac ] && [ $(cat $ac) -gt 0 ]; then
-            batCap="${batCap:-AC}"
-            icon=$CAC
-        fi
-        echo "$(pIcon ${RED2} $icon) $(pText ${WHITE} ${batCap})"
-    }
+            power() {
+                local ac=/sys/class/power_supply/AC/online
+                local bat=/sys/class/power_supply/BAT0
+                local bat1=/sys/class/power_supply/BAT1
+                local icon=""
+                local icon1=""
+                local batCap=""
+                local batCap1=""
+                if [ -e ${bat}/present ]; then
+                    batCap="$(cat ${bat}/capacity)"
+                    [ $batCap -gt 90 ] && icon=$BAT100
+                    [ $batCap -gt 75 ] && [ $batCap -lt 90 ] && icon=$BAT75
+                    [ $batCap -gt 50 ] && [ $batCap -lt 75 ] && icon=$BAT50
+                    [ $batCap -gt 25 ] && [ $batCap -lt 50 ] && icon=$BAT25
+                    [ $batCap -lt 25 ] && icon=$BAT0
+                    batCap+="%"
+                fi
 
-    ram() {
-        local ic=$(pIcon ${RED2} ${CRAM})
-        local cmd="$(free -m | grep Mem | awk '{print $3}') Mb"
-        local clr=$(pText ${MAGENTA2} "${cmd}")
-        echo ${ic} ${clr}
-    }
+                if [ -e ${bat1}/present ]; then
+                    batCap1="$(cat ${bat1}/capacity)"
+                    [ $batCap1 -gt 90 ] && icon1=$BAT100
+                    [ $batCap1 -gt 75 ] && [ $batCap1 -lt 90 ] && icon1=$BAT75
+                    [ $batCap1 -gt 50 ] && [ $batCap1 -lt 75 ] && icon1=$BAT50
+                    [ $batCap1 -gt 25 ] && [ $batCap1 -lt 50 ] && icon1=$BAT25
+                    [ $batCap1 -lt 25 ] && icon1=$BAT0
+                    batCap1+="%"
+                fi
 
-    cpu() {
-        local ic=$(pIcon ${RED2} ${CCPU})
-        #local cmd=$(cat /proc/loadavg | cut -d' ' -f1 )
-        #cmd+= $(cat /proc/cpuinfo | grep -i mhz | awk '{ORS=" "}{print $4}'| sed -e 's/.000//g')
+                if [ -e $ac ] && [ $(cat $ac) -gt 0 ]; then
+                    batCap="${batCap:-AC}"
+                    batCap1="${batCap1:-AC}"
+                    icon=$CAC
+                    icon1=$CAC
+                fi
 
-        local cmd=$(sensors | grep 'Core ' | awk '{print $3}')
-        local clr=$(pText ${WHITE} "${cmd}")
-        echo ${ic} ${clr}
-    }
+                if [ -e $bat ] && [ -e $bat1 ]; then
+                    echo "$(pIcon ${RED2} $icon) $(pText ${WHITE} ${batCap}) $(pIcon ${RED2} $icon1) $(pText ${WHITE} ${batCap1})"
+                else
+                    echo "$(pIcon ${RED2} $icon) $(pText ${WHITE} ${batCap})"
+                fi
+            }
 
-    while :; do
-        echo "S$(cpu) $(ram) $(power) $(clock) $(getDay)"
-        sleep $sleepFor
-    done
+            ram() {
+                local ic=$(pIcon ${RED2} ${CRAM})
+                local cmd="$(free -m | grep Mem | awk '{print $3}') Mb"
+                local clr=$(pText ${MAGENTA2} "${cmd}")
+                echo ${ic} ${clr}
+            }
 
-} > "$PANEL_FIFO" &
+            cpu() {
+                local ic=$(pIcon ${RED2} ${CCPU})
+                #local cmd=$(cat /proc/loadavg | cut -d' ' -f1 )
+                #cmd+= $(cat /proc/cpuinfo | grep -i mhz | awk '{ORS=" "}{print $4}'| sed -e 's/.000//g')
 
-$(dirname $0)/panel_bar < "$PANEL_FIFO" | lemonbar \
-    -a 32 \
-    -g x$HEIGHT \
-    -f "$FONT" \
-    -f "$FONT_ICON" \
-    -F "$FG" \
-    -B "$BG" | sh | while read line; do eval "$line"; done &
+                local cmd=$(sensors | grep 'Core ' | awk '{print $3}')
+                local clr=$(pText ${WHITE} "${cmd}")
+                echo ${ic} ${clr}
+            }
 
-wid=$(xdo id -a "$WM_NAME")
-tries_left=20
+            while :; do
+                echo "S$(cpu) $(ram) $(power) $(clock) $(getDay)"
+                sleep $sleepFor
+            done
 
-while [ -z "$wid" -a "$tries_left" -gt 0 ] ; do
-	sleep 0.05
-	wid=$(xdo id -a "$WM_NAME")
-	tries_left=$((tries_left - 1))
-done
+        } > "$PANEL_FIFO" &
 
-[ -n "$wid" ] && xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" "$wid"
+        $(dirname $0)/panel_bar < "$PANEL_FIFO" | lemonbar \
+            -a 32 \
+            -g x$HEIGHT \
+            -f "$FONT" \
+            -f "$FONT_ICON" \
+            -F "$FG" \
+            -B "$BG" | sh | while read line; do eval "$line"; done &
 
-wait
+        wid=$(xdo id -a "$WM_NAME")
+        tries_left=20
+
+        while [ -z "$wid" -a "$tries_left" -gt 0 ] ; do
+            sleep 0.05
+            wid=$(xdo id -a "$WM_NAME")
+            tries_left=$((tries_left - 1))
+        done
+
+        [ -n "$wid" ] && xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" "$wid"
+
+        wait
