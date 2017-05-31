@@ -33,6 +33,8 @@ redshift &
 
 xset s off -dpms
 
+wmname LG3D
+
 session=${1:-bspwm}
 case $session in
     wingo             ) exec wingo;;
