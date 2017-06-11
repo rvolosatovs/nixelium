@@ -13,3 +13,5 @@ default.target
 
 completion.zsh
 key-bindings.zsh
+
+*history*
