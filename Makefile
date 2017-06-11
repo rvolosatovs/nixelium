@@ -26,7 +26,7 @@ GUI_APPS = $(WM) termite fontconfig zathura sxhkd stalonetray
 TUI_APPS = pass git nvim rtorrent mopidy
 SHELL = zsh
 
-XDG_APPS = git zsh nvim rtorrent mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale systemd mimeapps.list
+XDG_APPS = git zsh nvim mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale systemd mimeapps.list
 DATA_APPS = fonts base16
 
 HOME_DOTS = profile pam_environment xprofile xinitrc Xresources npmrc
