@@ -1,3 +1,55 @@
+! Base16 Tomorrow Night
+! Scheme: Chris Kempson (http://chriskempson.com)
+
+#define base00 #1d1f21
+#define base01 #282a2e
+#define base02 #373b41
+#define base03 #969896
+#define base04 #b4b7b4
+#define base05 #c5c8c6
+#define base06 #e0e0e0
+#define base07 #ffffff
+#define base08 #cc6666
+#define base09 #de935f
+#define base0A #f0c674
+#define base0B #b5bd68
+#define base0C #8abeb7
+#define base0D #81a2be
+#define base0E #b294bb
+#define base0F #a3685a
+
+*.foreground:   base05
+*.background:   base00
+*.cursorColor:  base05
+
+*.color0:       base00
+*.color1:       base08
+*.color2:       base0B
+*.color3:       base0A
+*.color4:       base0D
+*.color5:       base0E
+*.color6:       base0C
+*.color7:       base05
+
+*.color8:       base03
+*.color9:       base08
+*.color10:      base0B
+*.color11:      base0A
+*.color12:      base0D
+*.color13:      base0E
+*.color14:      base0C
+*.color15:      base07
+
+! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+! use 'shell' template to set these if necessary
+*.color16:      base09
+*.color17:      base0F
+*.color18:      base01
+*.color19:      base02
+*.color20:      base04
+*.color21:      base06
+
+
 Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintslight
@@ -7,28 +59,25 @@ Xft.rgba: rgb
 
 Xcursor.size: 20
 xscreensaver.logFile:/var/log/xscreensaver.log
-ssh-askpass*background: #000000
+ssh-askpass*background: base00
+
+rofi.width:                         20
+rofi.lines:                         10
+!                                  'bg',   'fg',   'bgalt','hlbg', 'hlfg'
+rofi.color-normal:                  base00, base04, base01, base03, base06
+rofi.color-urgent:                  base00, base0F, base01, base03, base06
+rofi.color-active:                  base00, base0B, base01, base03, base05
+!                                   'bg',   'border'
+rofi.color-window:                  base00, base01
+rofi.separator-style:               none
+rofi.hide-scrollbar:                true
+rofi.opacity:                       90
+rofi.auto-select:                   true
 
 ! "Enabled modi" Set from: Default
 ! rofi.modi:                           window,run,ssh
-! "Window opacity" Set from: Default
-! rofi.opacity:                        100
-! "Window width" Set from: Default
-! rofi.width:                          50
-! "Number of lines" Set from: Default
-! rofi.lines:                          15
-! "Number of columns" Set from: Default
-! rofi.columns:                        1
 ! "Font to use" Set from: Default
 ! rofi.font:                           mono 12
-! "Color scheme for normal row" Set from: Default
-! rofi.color-normal:                   #fdf6e3,#002b36,#eee8d5,#586e75,#eee8d5
-! "Color scheme for urgent row" Set from: Default
-! rofi.color-urgent:                   #fdf6e3,#dc322f,#eee8d5,#dc322f,#fdf6e3
-! "Color scheme for active row" Set from: Default
-! rofi.color-active:                   #fdf6e3,#268bd2,#eee8d5,#268bd2,#fdf6e3
-! "Color scheme window" Set from: Default
-! rofi.color-window:                   #fdf6e3,#002b36
 ! "Border width" Set from: Default
 ! rofi.bw:                             1
 ! "Location on screen" Set from: Default
@@ -67,8 +116,6 @@ ssh-askpass*background: #000000
 ! rofi.sidebar-mode:                   false
 ! "Row height (in chars)" Set from: Default
 ! rofi.eh:                             1
-! "Enable auto select mode" Set from: Default
-! rofi.auto-select:                    false
 ! "Parse hosts file for ssh mode" Set from: Default
 ! rofi.parse-hosts:                    false
 ! "Parse known_hosts file for ssh mode" Set from: Default
@@ -229,54 +276,3 @@ ssh-askpass*background: #000000
 ! rofi.display-windowcd:               
 ! "The display name of this browser" Set from: Default
 ! rofi.display-combi:                  
-
-! Base16 Tomorrow Night
-! Scheme: Chris Kempson (http://chriskempson.com)
-
-#define base00 #1d1f21
-#define base01 #282a2e
-#define base02 #373b41
-#define base03 #969896
-#define base04 #b4b7b4
-#define base05 #c5c8c6
-#define base06 #e0e0e0
-#define base07 #ffffff
-#define base08 #cc6666
-#define base09 #de935f
-#define base0A #f0c674
-#define base0B #b5bd68
-#define base0C #8abeb7
-#define base0D #81a2be
-#define base0E #b294bb
-#define base0F #a3685a
-
-*.foreground:   base05
-*.background:   base00
-*.cursorColor:  base05
-
-*.color0:       base00
-*.color1:       base08
-*.color2:       base0B
-*.color3:       base0A
-*.color4:       base0D
-*.color5:       base0E
-*.color6:       base0C
-*.color7:       base05
-
-*.color8:       base03
-*.color9:       base08
-*.color10:      base0B
-*.color11:      base0A
-*.color12:      base0D
-*.color13:      base0E
-*.color14:      base0C
-*.color15:      base07
-
-! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
-! use 'shell' template to set these if necessary
-*.color16:      base09
-*.color17:      base0F
-*.color18:      base01
-*.color19:      base02
-*.color20:      base04
-*.color21:      base06
