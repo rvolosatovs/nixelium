@@ -16,6 +16,7 @@
     autocrlf = false
     safecrlf = false
 	editor = nvim
+	excludesfile = ~/.config/git/gitignore
 [alias]
        a = apply --index
        p = format-patch --stdout
