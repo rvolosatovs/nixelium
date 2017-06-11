@@ -144,6 +144,8 @@ Plug 'rvolosatovs/vim-protobuf', { 'for': 'proto' }
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 " Sxhkd
 Plug 'baskerville/vim-sxhkdrc', { 'for': 'sxhkdrc' }
+"
+Plug 'ccarpita/rtorrent-syntax-file', { 'for': 'rtorrent' }
 " Nix
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
 
