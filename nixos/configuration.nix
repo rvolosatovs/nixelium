@@ -72,8 +72,7 @@ programs = {
   zsh = {
     enable = true;
     enableAutosuggestions = true;
-    #syntaxHighlighting.enable = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     interactiveShellInit = ''
         source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
         HISTFILE="''${ZDOTDIR:-$HOME}/.zhistory"
@@ -201,6 +200,10 @@ environment = {
     nox
     keychain
     networkmanagerapplet
+    neofetch
+    lxappearance
+    xautolock
+    xss-lock
   ];
 
   sessionVariables = { 
@@ -319,8 +322,6 @@ services = {
           # Java
           export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.aatext=true -Dsun.java2d.xrender=true'
 
-        #xrandr --output DP1 --primary --mode 3840x2160 --rate 60 --rotate normal --output eDP1 --auto --right-of DP1
-
           ${config.hardware.pulseaudio.package}/bin/pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
           ${config.hardware.pulseaudio.package}/bin/pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
 
@@ -333,6 +334,12 @@ services = {
           ${pkgs.wmname}/bin/wmname LG3D
 
           ${pkgs.sudo}/bin/sudo "''${HOME}/.local/bin/fix-keycodes"
+
+          # Screen Locking (time-based & on suspend)
+          ${pkgs.xautolock}/bin/xautolock -detectsleep -time 5 \
+                -locker "/home/rvolosatovs/.local/bin/lock -s -p" \
+                -notify 10 -notifier "${pkgs.libnotify}/bin/notify-send -u critical -t 10000 -- 'Screen will be locked in 10 seconds'" &
+          ${pkgs.xss-lock}/bin/xss-lock -- /home/rvolosatovs/.local/bin/lock -s -p &
       '';
     };
     windowManager = {
@@ -396,10 +403,11 @@ services = {
       enabled = true
       '';
     extensionPackages = [
-      pkgs.mopidy-moped
       pkgs.mopidy-soundcloud
       pkgs.mopidy-iris
-      pkgs.mopidy-mopify
+      pkgs.mopidy-local-images
+      pkgs.mopidy-local-sqlite
+      pkgs.mopidy-mpris
       pkgs.mopidy-spotify
       pkgs.mopidy-spotify-tunigo
       pkgs.mopidy-youtube
