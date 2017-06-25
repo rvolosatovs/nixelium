@@ -144,8 +144,11 @@ Plug 'rvolosatovs/vim-protobuf', { 'for': 'proto' }
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 " Sxhkd
 Plug 'baskerville/vim-sxhkdrc', { 'for': 'sxhkdrc' }
-"
+" Rtorrent
 Plug 'ccarpita/rtorrent-syntax-file', { 'for': 'rtorrent' }
+" Julia
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'JuliaEditorSupport/deoplete-julia', { 'for': 'fulia' }
 " Nix
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
 
