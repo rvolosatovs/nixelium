@@ -4,6 +4,10 @@
 
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixpkgs> {};
+  mypkgs = import <mypkgs> {};
+in
 {
   imports =
   [ # Include the results of the hardware scan.
@@ -98,8 +102,7 @@ programs = {
     extensions = [
       "gcbommkclmclpchllfjekcdonpmejbdp" # https everywhere
       "klbibkeccnjlkjkiokjodocebajanakg" # great suspender
-      "fjnbnpbmkenffdnngjfgmeleoegfcffe" # stylish
-      "ocifcklkibdehekfnmflempfgjhbedch" # ad block
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock origin
     ];
   };
 };
@@ -109,11 +112,47 @@ nixpkgs.config.allowUnfree = true;
 # http://anderspapitto.com/posts/2015-11-01-nixos-with-local-nixpkgs-checkout.html
 # https://stackoverflow.com/questions/33294201/how-do-you-rebuild-nixos-packages-using-cloned-nixpkgs
 # http://matrix.ai/2017/03/13/intro-to-nix-channels-and-reproducible-nixos-environment
-nix.nixPath = [ "nixpkgs=/nix/nixpkgs" "nixos-config=/etc/nixos/configuration.nix" ];
+nix.nixPath = [
+  "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
+  "mypkgs=/nix/nixpkgs"
+  "nixos-config=/etc/nixos/configuration.nix"
+  "/nix/var/nix/profiles/per-user/root/channels"
+];
+nixpkgs.overlays = [
+  (self: super: with builtins;
+      let
+      # isNewer reports whether version of a is higher, than b
+      isNewer = { a, b }: compareVersions a.version b.version == 1;
+
+      # newest returns derivation with same name as pkg from super
+      # if it's version is higher than version on pkg. pkg otherwise.
+      newest = pkg:
+      let
+        name = (parseDrvName pkg.name).name;
+        inSuper = if hasAttr name super then getAttr name super else null;
+      in
+      if (inSuper != null) && (isNewer { a = inSuper; b = pkg;} )
+        then inSuper
+        else pkg;
+      in
+  {
+    go = unstable.go;
+    neovim = newest mypkgs.neovim;
+    mopidy-iris = newest mypkgs.mopidy-iris;
+    mopidy-local-sqlite = newest mypkgs.mopidy-local-sqlite;
+    mopidy-local-images = newest mypkgs.mopidy-local-images;
+    mopidy-mpris = newest mypkgs.mopidy-mpris;
+  })
+];
 
 environment = {
   systemPackages = with pkgs; [
+    linuxPackages.acpi_call
+
+    microcodeIntel
+
     # OS/Env
+    tree
     grml-zsh-config
     bc
     psmisc
@@ -180,9 +219,10 @@ environment = {
     firefox
     chromium
     libreoffice
-    texlive.combined.scheme-full
+    texlive.combined.scheme-small
     pandoc
     keybase
+    graphviz
     slock
     wget
     termite
@@ -210,7 +250,7 @@ environment = {
     EMAIL="rvolosatovs@riseup";
     EDITOR="nvim";
     VISUAL="nvim";
-    BROWSER="chromium";
+    BROWSER="firefox";
     PAGER="less";
 
     QT_QPA_PLATFORMTHEME="gtk2";
@@ -335,6 +375,8 @@ services = {
 
           ${pkgs.sudo}/bin/sudo "''${HOME}/.local/bin/fix-keycodes"
 
+          "~/.local/bin/turbo disable"
+
           # Screen Locking (time-based & on suspend)
           ${pkgs.xautolock}/bin/xautolock -detectsleep -time 5 \
                 -locker "/home/rvolosatovs/.local/bin/lock -s -p" \
@@ -347,6 +389,7 @@ services = {
       bspwm.enable = true;
     };
   };
+
   redshift = {
     enable = true;
     latitude = "51.4";
@@ -360,9 +403,14 @@ services = {
   thermald.enable = true;
   openssh.enable = true;
   acpid.enable = true;
-  journald.extraConfig = ''
-      MaxRetentionSec=5day
-  '';
+      journald.extraConfig = ''
+            SystemMaxUse=1G
+            MaxRetentionSec=5day
+      '';
+      logind.extraConfig = ''
+            IdleAction=suspend
+            IdleActionSec=300
+      '';
   tlp = {
     enable = true;
     extraConfig = ''
@@ -424,7 +472,7 @@ users.users = {
     home="/home/rvolosatovs";
     description="Roman Volosatovs";
     createHome=true;
-    extraGroups= [ "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" ];
+    extraGroups= [ "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" ];
     shell = pkgs.zsh;
   };
 
