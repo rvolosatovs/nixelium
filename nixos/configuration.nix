@@ -5,6 +5,7 @@
 { config, pkgs, ... }:
 
 let
+  secrets = import ./secrets.nix;
   unstable = import <nixpkgs> {};
   mypkgs = import <mypkgs> {};
 in
@@ -98,7 +99,7 @@ in
 
     chromium = {
       enable = true;
-      homepageLocation = "https://duckduckgo.com/?kae=t&kap=v66-2&kl=nl-nl&kad=en_US&kp=-1&kaj=m&kam=osm&kt=Fira+Sans&ka=Fira+Sans";
+      homepageLocation = "https://duckduckgo.com/?key=${secrets.duckduckgo.key}";
       extensions = [
         "gcbommkclmclpchllfjekcdonpmejbdp" # https everywhere
         "klbibkeccnjlkjkiokjodocebajanakg" # great suspender
@@ -108,10 +109,6 @@ in
   };
 
   nixpkgs.config.allowUnfree = true;
-  # related:
-  # http://anderspapitto.com/posts/2015-11-01-nixos-with-local-nixpkgs-checkout.html
-  # https://stackoverflow.com/questions/33294201/how-do-you-rebuild-nixos-packages-using-cloned-nixpkgs
-  # http://matrix.ai/2017/03/13/intro-to-nix-channels-and-reproducible-nixos-environment
   nix.nixPath = [
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
     "mypkgs=/nix/nixpkgs"
@@ -250,7 +247,7 @@ in
       EMAIL="rvolosatovs@riseup";
       EDITOR="nvim";
       VISUAL="nvim";
-      BROWSER="firefox";
+      BROWSER="chromium";
       PAGER="less";
 
       QT_QPA_PLATFORMTHEME="gtk2";
@@ -353,35 +350,35 @@ in
             };
           };
           sessionCommands = ''
-          eval `${pkgs.keychain}/bin/keychain --eval id_rsa ttn`
-          eval `${pkgs.keychain}/bin/keychain --eval --agents gpg`
+            eval `${pkgs.keychain}/bin/keychain --eval id_rsa ttn`
+            eval `${pkgs.keychain}/bin/keychain --eval --agents gpg`
 
-          # Set GTK_PATH so that GTK+ can find the theme engines.
-          export GTK_PATH="${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0"
+            # Set GTK_PATH so that GTK+ can find the theme engines.
+            export GTK_PATH="${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0"
 
-          # Java
-          export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.aatext=true -Dsun.java2d.xrender=true'
+            # Java
+            export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.aatext=true -Dsun.java2d.xrender=true'
 
-          ${config.hardware.pulseaudio.package}/bin/pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
-          ${config.hardware.pulseaudio.package}/bin/pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
+            ${config.hardware.pulseaudio.package}/bin/pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
+            ${config.hardware.pulseaudio.package}/bin/pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
 
-          ${pkgs.feh}/bin/feh  --bg-max "$HOME/pictures/bg" 
-          #${pkgs.stalonetray}/bin/stalonetray -c "''${XDG_CONFIG_HOME}/stalonetray/stalonetrayrc" &
-          ${pkgs.dunst}/bin/dunst &
-          ${pkgs.networkmanagerapplet}/bin/nm-applet &
-          ${pkgs.xorg.xset}/bin/xset s off -dpms
-          ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
-          ${pkgs.wmname}/bin/wmname LG3D
+            ${pkgs.feh}/bin/feh  --bg-max "$HOME/pictures/bg" 
+            #${pkgs.stalonetray}/bin/stalonetray -c "''${XDG_CONFIG_HOME}/stalonetray/stalonetrayrc" &
+            ${pkgs.dunst}/bin/dunst &
+            ${pkgs.networkmanagerapplet}/bin/nm-applet &
+            ${pkgs.xorg.xset}/bin/xset s off -dpms
+            ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
+            ${pkgs.wmname}/bin/wmname LG3D
 
-          ${pkgs.sudo}/bin/sudo "''${HOME}/.local/bin/fix-keycodes"
+            ${pkgs.sudo}/bin/sudo "''${HOME}/.local/bin/fix-keycodes"
 
-          "~/.local/bin/turbo disable"
+            "~/.local/bin/turbo disable"
 
-          # Screen Locking (time-based & on suspend)
-          ${pkgs.xautolock}/bin/xautolock -detectsleep -time 5 \
-          -locker "/home/rvolosatovs/.local/bin/lock -s -p" \
-          -notify 10 -notifier "${pkgs.libnotify}/bin/notify-send -u critical -t 10000 -- 'Screen will be locked in 10 seconds'" &
-          ${pkgs.xss-lock}/bin/xss-lock -- /home/rvolosatovs/.local/bin/lock -s -p &
+            # Screen Locking (time-based & on suspend)
+            ${pkgs.xautolock}/bin/xautolock -detectsleep -time 5 \
+            -locker "/home/rvolosatovs/.local/bin/lock -s -p" \
+            -notify 10 -notifier "${pkgs.libnotify}/bin/notify-send -u critical -t 10000 -- 'Screen will be locked in 10 seconds'" &
+            ${pkgs.xss-lock}/bin/xss-lock -- /home/rvolosatovs/.local/bin/lock -s -p &
           '';
         };
         windowManager = {
@@ -404,51 +401,56 @@ in
       openssh.enable = true;
       acpid.enable = true;
       journald.extraConfig = ''
-      SystemMaxUse=1G
-      MaxRetentionSec=5day
+        SystemMaxUse=1G
+        MaxRetentionSec=5day
       '';
       logind.extraConfig = ''
-      IdleAction=suspend
-      IdleActionSec=300
+        IdleAction=suspend
+        IdleActionSec=300
       '';
       tlp = {
         enable = true;
         extraConfig = ''
-        START_CHARGE_THRESH_BAT0=75
-        STOP_CHARGE_THRESH_BAT0=90
-        START_CHARGE_THRESH_BAT1=75
-        STOP_CHARGE_THRESH_BAT1=90
+          START_CHARGE_THRESH_BAT0=75
+          STOP_CHARGE_THRESH_BAT0=90
+          START_CHARGE_THRESH_BAT1=75
+          STOP_CHARGE_THRESH_BAT1=90
         '';
       };
       udev.extraRules= ''
-      KERNEL="ttyUSB[0-9]*", TAG+="udev-acl", TAG+="uaccess", OWNER="rvolosatovs"
-      KERNEL="ttyACM[0-9]*", TAG+="udev-acl", TAG+="uaccess", OWNER="rvolosatovs"
+        KERNEL="ttyUSB[0-9]*", TAG+="udev-acl", TAG+="uaccess", OWNER="rvolosatovs"
+        KERNEL="ttyACM[0-9]*", TAG+="udev-acl", TAG+="uaccess", OWNER="rvolosatovs"
 
-      SUBSYSTEM!="usb_device", ACTION!="add", GOTO="avrisp_end"
+        SUBSYSTEM!="usb_device", ACTION!="add", GOTO="avrisp_end"
 
-      # Atmel Corp. JTAG ICE mkII
-      ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2103", MODE="660", GROUP="dialout"
-      # Atmel Corp. AVRISP mkII
-      ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="660", GROUP="dialout"
-      # Atmel Corp. Dragon
-      ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2107", MODE="660", GROUP="dialout"
+        # Atmel Corp. JTAG ICE mkII
+        ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2103", MODE="660", GROUP="dialout"
+        # Atmel Corp. AVRISP mkII
+        ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="660", GROUP="dialout"
+        # Atmel Corp. Dragon
+        ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2107", MODE="660", GROUP="dialout"
 
-      LABEL="avrisp_end"
+        LABEL="avrisp_end"
       '';
       mopidy = {
         enable = true;
         configuration = ''
-        [local]
-        enabled = false
-        [soundcloud]
-        explore_songs = 25
-        [spotify]
-        bitrate = 320
-        timeout = 30
-        [spotify/tunigo]
-        enabled = true
-        [youtube]
-        enabled = true
+          [local]
+          enabled = false
+          [soundcloud]
+          auth_token = ${secrets.soundcloud.token}
+          explore_songs = 25
+          [spotify]
+          username = ${secrets.spotify.username}
+          password = ${secrets.spotify.password}
+          client_id = ${secrets.spotify.clientID}
+          client_secret = ${secrets.spotify.clientSecret}
+          bitrate = 320
+          timeout = 30
+          [spotify/tunigo]
+          enabled = true
+          [youtube]
+          enabled = true
         '';
         extensionPackages = [
           pkgs.mopidy-soundcloud
@@ -463,6 +465,34 @@ in
       };
     };
     virtualisation.docker.enable = true;
+
+    systemd.services = {
+      systemd-networkd-wait-online.enable = false;
+
+      audio-off = {
+        enable = true;
+        description = "Mute audio before suspend";
+        wantedBy = [ "sleep.target" ];
+        serviceConfig = {
+            Type = "oneshot";
+            User = "rvolosatovs";
+            ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
+            RemainAfterExit = true;
+        };
+      };
+
+      godoc = {
+        enable = true;
+        wantedBy = [ "multi-user.target" ];
+        environment = {
+          "GOPATH" = "/home/rvolosatovs";
+        };
+        serviceConfig = {
+            User = "rvolosatovs";
+            ExecStart = "/home/rvolosatovs/.local/bin.go/godoc -http=:6060";
+        };
+      };
+    };
 
     # Enable the X11 windowing system.
     users.users = { 
