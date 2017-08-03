@@ -13,6 +13,7 @@ super + space
 # make sxhkd reload its configuration files:
 super + Escape
     pkill -USR1 -x sxhkd
+    notify-send "Reloaded sxhkd config"
 
 super + shift + p
     pass-script insert
@@ -24,7 +25,7 @@ super + alt + p
     pass-script new
 
 super + shift + o
-    chromium
+    $BROWSER
 
 super + shift + e
     termite -e "$SHELL -i -c $EDITOR"
@@ -48,7 +49,7 @@ XF86MonBrightnessDown
     light -U 5%
 
 XF86HomePage
-    chromium
+    $BROWSER
 
 Print
     maim -s `xdg-user-dir PICTURES`/scrot/`date +%F-%T`-screenshot.png
