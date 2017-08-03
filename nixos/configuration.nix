@@ -6,7 +6,7 @@
 
 let
   secrets = import ./secrets.nix;
-  unstable = import <nixpkgs> {};
+  unstable = import <nixpkgs-unstable> {};
   mypkgs = import <mypkgs> {};
 in
   {
@@ -111,6 +111,7 @@ in
   nixpkgs.config.allowUnfree = true;
   nix.nixPath = [
     "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
+    "nixpkgs-unstable=/nix/var/nix/profiles/per-user/root/channels/nixpkgs"
     "mypkgs=/nix/nixpkgs"
     "nixos-config=/etc/nixos/configuration.nix"
     "/nix/var/nix/profiles/per-user/root/channels"
@@ -139,6 +140,7 @@ in
       mopidy-local-sqlite = newest mypkgs.mopidy-local-sqlite;
       mopidy-local-images = newest mypkgs.mopidy-local-images;
       mopidy-mpris = newest mypkgs.mopidy-mpris;
+      ripgrep = unstable.ripgrep;
     })
   ];
 
@@ -198,7 +200,7 @@ in
       universal-ctags
       gist
       fzf
-      platinum-searcher
+      ripgrep
       curl
       influxdb
       redis
@@ -239,6 +241,7 @@ in
       networkmanagerapplet
       neofetch
       lxappearance
+      zip
       xautolock
       xss-lock
     ];
@@ -362,7 +365,7 @@ in
             ${config.hardware.pulseaudio.package}/bin/pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
             ${config.hardware.pulseaudio.package}/bin/pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
 
-            ${pkgs.feh}/bin/feh  --bg-max "$HOME/pictures/bg" 
+            ${pkgs.feh}/bin/feh  --bg-fill "$HOME/pictures/wp" 
             #${pkgs.stalonetray}/bin/stalonetray -c "''${XDG_CONFIG_HOME}/stalonetray/stalonetrayrc" &
             ${pkgs.dunst}/bin/dunst &
             ${pkgs.networkmanagerapplet}/bin/nm-applet &
@@ -372,7 +375,7 @@ in
 
             ${pkgs.sudo}/bin/sudo "''${HOME}/.local/bin/fix-keycodes"
 
-            "~/.local/bin/turbo disable"
+            turbo get && turbo disable
 
             # Screen Locking (time-based & on suspend)
             ${pkgs.xautolock}/bin/xautolock -detectsleep -time 5 \
@@ -443,8 +446,8 @@ in
           [spotify]
           username = ${secrets.spotify.username}
           password = ${secrets.spotify.password}
-          client_id = ${secrets.spotify.clientID}
-          client_secret = ${secrets.spotify.clientSecret}
+          #client_id = ${secrets.spotify.clientID}
+          #client_secret = ${secrets.spotify.clientSecret}
           bitrate = 320
           timeout = 30
           [spotify/tunigo]
@@ -452,15 +455,15 @@ in
           [youtube]
           enabled = true
         '';
-        extensionPackages = [
-          pkgs.mopidy-soundcloud
-          pkgs.mopidy-iris
-          pkgs.mopidy-local-images
-          pkgs.mopidy-local-sqlite
-          pkgs.mopidy-mpris
-          pkgs.mopidy-spotify
-          pkgs.mopidy-spotify-tunigo
-          pkgs.mopidy-youtube
+        extensionPackages = with pkgs; [
+          mopidy-soundcloud
+          mopidy-iris
+          mopidy-local-images
+          mopidy-local-sqlite
+          mopidy-mpris
+          mopidy-spotify
+          mopidy-spotify-tunigo
+          mopidy-youtube
         ];
       };
     };
