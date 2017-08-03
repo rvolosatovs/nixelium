@@ -148,7 +148,7 @@ Plug 'baskerville/vim-sxhkdrc', { 'for': 'sxhkdrc' }
 Plug 'ccarpita/rtorrent-syntax-file', { 'for': 'rtorrent' }
 " Julia
 Plug 'JuliaEditorSupport/julia-vim'
-Plug 'JuliaEditorSupport/deoplete-julia', { 'for': 'fulia' }
+Plug 'JuliaEditorSupport/deoplete-julia', { 'for': 'julia' }
 " Nix
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
 
@@ -272,7 +272,14 @@ nmap <Leader>ve   :e ~/.config/nvim/init.vim<CR>
 nmap <Leader>vr   :source ~/.config/nvim/init.vim<CR>
 nmap <Leader>vP   :PlugInstall<CR>
 nmap <Leader>vp   :PlugUpdate<CR>
-nmap <Leader>m    :make<CR>
+
+nmap <Leader>ln   :lnext<CR>
+nmap <Leader>lN   :lNext<CR>
+nmap <Leader>ll   :ll<CR>
+nmap <Leader>cn   :cnext<CR>
+nmap <Leader>cN   :cNext<CR>
+nmap <Leader>cc   :cc<CR>
+"nmap <Leader>m    :make<CR>
 
 " New
 nmap <Leader>nt   :tabnew<CR>
@@ -384,7 +391,7 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsListSnippets="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-nmap <M-m> :Neomake<CR>
+nmap <Leader>m :Neomake<CR>
 
 " ~~~ Autocmd ~~~
 
