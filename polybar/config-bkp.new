@@ -1,0 +1,458 @@
+[colors]
+xcolor0 = ${xrdb:color0}
+xcolor1 = ${xrdb:color1}
+xcolor2 = ${xrdb:color2}
+xcolor3 = ${xrdb:color3}
+xcolor4 = ${xrdb:color4}
+xcolor5 = ${xrdb:color5}
+xcolor6 = ${xrdb:color6}
+xcolor7 = ${xrdb:color7}
+xcolor8 = ${xrdb:color8}
+xcolor9 = ${xrdb:color9}
+xcolor10 = ${xrdb:color10}
+xcolor11 = ${xrdb:color11}
+xcolor12 = ${xrdb:color12}
+xcolor13 = ${xrdb:color13}
+xcolor14 = ${xrdb:color14}
+xcolor15 = ${xrdb:color15}
+
+background = ${xrdb:background}
+foreground = ${xrdb:foreground}
+overline-color = #bc92f8
+underline-color = #bc92f8
+
+
+
+[bar/main_bar]
+width = 100%
+height = 20
+offset-y = 0
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 0
+line-color = #f00
+
+spacing = 1
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 0
+
+font-0 = Hurmit:size=10;0
+font-1 = FontAwesome:size=10;0
+font-2 = siji:pixesize=10;0
+font-3 = monofur:size=12;2
+
+modules-left = xwindow
+modules-center = bspwm
+modules-right = volume temperature cpu memory network battery clock
+
+wm-restack = bspwm
+
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+
+tray-position = right
+tray-transparent = false
+tray_detached = false
+tray-offset-x = 0
+tray-offset-y = 0
+tray-padding = 0
+tray-background = #1e1f29
+
+[bar/second_bar]
+width = 100%
+height = 20
+offset-y = 0
+bottom=true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 0
+line-color = #f00
+
+spacing = 1
+padding-right = 2
+module-margin-left = 0
+module-margin-right = 2
+
+font-0 = Hurmit:size=11
+font-1 = MaterialIcons:size=10
+font-2 = FontAwesome:size=10
+font-3 = siji:pixelsize=10
+
+modules-left = xwindow
+modules-center = volume
+modules-right = musicinfo
+
+;tray-position = right
+tray-transparent = false
+tray_detached = false
+tray-offset-x = 0
+tray-offset-y = 0
+tray-padding = 0
+tray-background = #1e1f29
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:120:...%
+label-padding=4
+
+[module/bspwm]
+type = internal/bspwm
+
+;label-focused = %index%
+;label-focused-background = ${colors.background}
+;;label-focused-underline= ${colors.primary}
+;label-focused-padding = 2
+
+;label-occupied = %index%
+;label-occupied-padding = 2
+
+;label-urgent = %index%!
+;label-urgent-background = ${colors.xcolor4}
+;label-urgent-padding = 2
+
+;label-empty = %index%
+;label-empty-foreground = ${colors.foreground}
+;label-empty-padding = 2
+
+;label-mode-padding = 2
+;label-mode-foreground = ${colors.foreground}
+;label-mode-background = ${colors.xcolor5}
+;label-focused = %icon%
+;label-focused-padding = 2
+;label-focused-margin = 1
+;label-focused-font = 3
+;label-focused-foreground = ${colors.foreground}
+;label-focused-background = ${colors.xcolor6}
+;
+;label-unfocused = %icon%
+;label-unfocused-padding = 2
+;label-unfocused-margin = 1
+;label-unfocused-background = ${colors.xcolor7}
+;label-unfocused-foreground = ${colors.background}
+;label-unfocused-font = 3
+;
+;label-urgent = %icon%
+;label-urgent-padding = 2
+;label-urgent-margin = 1
+;label-urgent-font = 3
+;label-urgent-background = ${colors.xcolor4}
+;label-urgent-foreground = ${colors.foreground}
+;
+;label-visible = %icon%
+;label-visible-background = ${colors.xcolor5}
+;label-visible-overline = ${colors.xcolor13}
+;label-visible-underline = ${colors.xcolor13}
+;label-visible-padding = 2
+;label-visible-margin = 1
+;label-visible-font = 3
+
+format = <label-state> <label-mode>
+
+label-focused = %icon%
+label-focused-background = #88000000
+label-focused-underline= #ddd
+label-focused-padding = 4
+
+label-occupied = %icon%
+label-occupied-padding = 4
+
+label-urgent = %icon%
+label-urgent-padding = 4
+
+label-empty = %icon%
+label-empty-foreground = #44ffffff
+label-empty-padding = 4
+
+ws-icon-0 = 1/1: 
+ws-icon-1 = 1/2: 
+ws-icon-2 = 1/3: 
+;ws-icon-3 = 1/4: 
+ws-icon-4 = 1/5: 
+ws-icon-default = 
+
+;[module/i3]
+;type = internal/i3
+;format = <label-state> <label-mode>
+;index-sort = true
+;wrapping-scroll = false
+;
+;label-mode-padding = 2
+;label-mode-foreground = ${colors.foreground}
+;label-mode-background = ${colors.xcolor5}
+;label-focused = %icon%
+;label-focused-padding = 2
+;label-focused-margin = 1
+;label-focused-font = 3
+;label-focused-foreground = ${colors.foreground}
+;label-focused-background = ${colors.xcolor6}
+;
+;label-unfocused = %icon%
+;label-unfocused-padding = 2
+;label-unfocused-margin = 1
+;label-unfocused-background = ${colors.xcolor7}
+;label-unfocused-foreground = ${colors.background}
+;label-unfocused-font = 3
+;
+;label-urgent = %icon%
+;label-urgent-padding = 2
+;label-urgent-margin = 1
+;label-urgent-font = 3
+;label-urgent-background = ${colors.xcolor4}
+;label-urgent-foreground = ${colors.foreground}
+;
+;label-visible = %icon%
+;label-visible-background = ${colors.xcolor5}
+;label-visible-overline = ${colors.xcolor13}
+;label-visible-underline = ${colors.xcolor13}
+;label-visible-padding = 2
+;label-visible-margin = 1
+;label-visible-font = 3
+;
+;ws-icon-0 = 1;1: 
+;ws-icon-1 = 2;2: 
+;ws-icon-2 = 3;3: 
+;ws-icon-3 = 4;4: 
+;ws-icon-4 = 5;5: 
+;ws-icon-5 = 6;6: 
+;ws-icon-6 = 7;7: 
+;ws-icon-7 = 8;8: 
+
+[module/musicinfo]
+type = custom/script
+
+exec = ~/.config/polybar/music.sh
+interval = 5
+format = <label>
+label = %output:0:40:...%
+format-padding = 10
+format-background = ${colors.xcolor4}
+format-foreground =  ${colors.background}
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+
+format = <label> <ramp-coreload>
+format-background = ${colors.xcolor6}
+format-foreground = ${colors.background}
+format-padding = 2
+
+label = 
+label-font = 3
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 5
+ramp-coreload-0-foreground = ${colors.xcolor4}
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 5
+ramp-coreload-1-foreground = ${colors.xcolor4}
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 5
+ramp-coreload-2-foreground = ${colors.xcolor4}
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 5
+ramp-coreload-3-foreground = ${colors.xcolor4}
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 5
+ramp-coreload-4-foreground = ${colors.xcolor5}
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 5
+ramp-coreload-5-foreground = ${colors.xcolor5}
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 5
+ramp-coreload-6-foreground = ${colors.xcolor5}
+ramp-coreload-7 = █
+ramp-coreload-7-font = 5
+ramp-coreload-7-foreground = ${colors.xcolor5}
+
+[module/memory]
+type = internal/memory
+
+format = <label> <bar-used>
+format-padding = 2
+format-background = ${colors.xcolor6}
+format-foreground = ${colors.background}
+
+label = 
+label-font = 3
+
+bar-used-width = 10
+bar-used-indicator = |
+bar-used-indicator-font = 4
+bar-used-indicator-foreground = ${colors.background}
+bar-used-fill = ─
+bar-used-fill-font = 4
+bar-used-fill-foreground = ${colors.background}
+bar-used-empty = ─
+bar-used-empty-font = 4
+bar-used-empty-foreground = ${colors.xcolor7}
+
+[module/clock]
+type = internal/date
+
+date =
+date-alt = " %Y-%m-%d"
+
+time = %%{T3} %H:%M%%{T-}
+
+format-padding = 2
+format-background = ${colors.xcolor6}
+format-foreground = ${colors.background}
+format-underline = ${colors.xcolor14}
+format-overline = ${colors.xcolor14}
+
+label = %date% %time%
+
+[module/volume]
+type = internal/volume
+
+format-volume = <label-volume> <bar-volume>
+label-volume = 
+label-volume-foreground = ${colors.xcolor6}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground}
+label-muted =  muted
+label-muted-foreground = ${colors.xcolor1}
+
+bar-volume-width = 10
+bar-volume-foreground-0 = ${colors.xcolor6}
+bar-volume-foreground-1 = ${colors.xcolor6}
+bar-volume-foreground-2 = ${colors.xcolor6}
+bar-volume-foreground-3 = ${colors.xcolor6}
+bar-volume-foreground-4 = ${colors.xcolor6}
+bar-volume-foreground-5 = ${colors.xcolor14}
+bar-volume-foreground-6 = ${colors.xcolor14}
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground}
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.foreground}
+format-full-underline = ${self.format-charging-underline}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-foreground = ${colors.foreground}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-foreground = ${colors.foreground}
+animation-charging-framerate = 750
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground}
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+[module/network]
+type = internal/network
+interface = wlp4s0
+
+interval = 3.0
+udspeed-minwidth = 5
+accumulate-stats = true
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+format-packetloss = <animation-packetloss> <label-connected>
+label-connected =  %essid% %downspeed:9%
+label-connected-foreground = ${colors.background}
+label-connected-background = ${colors.xcolor6}
+label-connected-underline = ${colors.xcolor14}
+label-connected-overline = ${colors.xcolor14}
+label-connected-padding = 2
+label-disconnected = not connected
+label-disconnected-foreground = ${colors.background}
+label-disconnected-background = ${colors.xcolor6}
+label-disconnected-underline = ${colors.xcolor14}
+label-disconnected-overline = ${colors.xcolor14}
+label-disconnected-padding = 2
+ramp-signal-0-background = ${colors.xcolor2}
+ramp-signal-1-background = ${colors.xcolor2}
+ramp-signal-2-background = ${colors.xcolor2}
+ramp-signal-3-background = ${colors.xcolor2}
+ramp-signal-4-background = ${colors.xcolor2}
+ramp-signal-5-background = ${colors.xcolor2}
+ramp-signal-0-foreground = ${colors.foreground}
+ramp-signal-2-foreground = ${colors.foreground}
+ramp-signal-3-foreground = ${colors.foreground}
+ramp-signal-4-foreground = ${colors.foreground}
+ramp-signal-5-foreground = ${colors.foreground}
+ramp-signal-1-foreground = ${colors.foreground}
+ramp-signal-0-underline = ${colors.xcolor3}
+ramp-signal-1-underline = ${colors.xcolor3}
+ramp-signal-2-underline = ${colors.xcolor3}
+ramp-signal-3-underline = ${colors.xcolor3}
+ramp-signal-4-underline = ${colors.xcolor3}
+ramp-signal-5-underline = ${colors.xcolor3}
+ramp-signal-0-overline = ${colors.xcolor3}
+ramp-signal-1-overline = ${colors.xcolor3}
+ramp-signal-2-overline = ${colors.xcolor3}
+ramp-signal-3-overline = ${colors.xcolor3}
+ramp-signal-4-overline = ${colors.xcolor3}
+ramp-signal-5-overline = ${colors.xcolor3}
+
+ramp-signal-0 = 😱
+ramp-signal-1 = 😠
+ramp-signal-2 = 😒
+ramp-signal-3 = 😊
+ramp-signal-4 = 😃
+ramp-signal-5 = 😈
+
+animation-packetloss-0 = ⚠
+animation-packetloss-0-foreground = ${colors.foreground}
+animation-packetloss-1 = 📶
+animation-packetloss-1-foreground = ${colors.foreground}
+animation-packetloss-framerate = 500
+
+; vim:ft=dosini
