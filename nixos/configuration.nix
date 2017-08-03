@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 let
@@ -11,8 +7,7 @@ let
 in
   {
     imports =
-    [ # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    [ ./hardware-configuration.nix
   ];
 
   boot = {
@@ -305,12 +300,6 @@ in
     };
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
   services = {
     xserver = {
       enable = true;
@@ -477,10 +466,10 @@ in
         description = "Mute audio before suspend";
         wantedBy = [ "sleep.target" ];
         serviceConfig = {
-            Type = "oneshot";
-            User = "rvolosatovs";
-            ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
-            RemainAfterExit = true;
+          Type = "oneshot";
+          User = "rvolosatovs";
+          ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
+          RemainAfterExit = true;
         };
       };
 
@@ -491,13 +480,12 @@ in
           "GOPATH" = "/home/rvolosatovs";
         };
         serviceConfig = {
-            User = "rvolosatovs";
-            ExecStart = "/home/rvolosatovs/.local/bin.go/godoc -http=:6060";
+          User = "rvolosatovs";
+          ExecStart = "/home/rvolosatovs/.local/bin.go/godoc -http=:6060";
         };
       };
     };
 
-    # Enable the X11 windowing system.
     users.users = { 
       rvolosatovs = {
         isNormalUser = true;
@@ -517,7 +505,6 @@ in
       };
     };
 
-    # The NixOS release to be compatible with for stateful data such as databases.
     system = {
       stateVersion = "17.03";
       autoUpgrade.enable = true;
