@@ -76,6 +76,7 @@ in
       syntaxHighlighting.enable = true;
       interactiveShellInit = ''
         source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
+        bindkey -v
         HISTFILE="''${ZDOTDIR:-$HOME}/.zhistory"
         source ${pkgs.fzf.out}/share/shell/key-bindings.zsh
         source ${pkgs.fzf.out}/share/shell/completion.zsh
