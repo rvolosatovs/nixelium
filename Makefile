@@ -5,10 +5,10 @@ XDG_DIRS = $(XDG_CONFIG_HOME) $(XDG_DATA_HOME)
 ZDOTDIR ?= $(XDG_CONFIG_HOME)/zsh
 
 REMOTE_USERNAME ?= $(shell whoami)
-ifeq ($(shell hostname), atom)
+ifeq ($(shell hostname), neon)
 	REMOTE_HOSTNAME ?= nirvana
 else
-	REMOTE_HOSTNAME ?= atom
+	REMOTE_HOSTNAME ?= neon
 endif
 
 PASSWORD_STORE_SUFFIX ?= .local/pass
@@ -31,7 +31,7 @@ DATA_APPS = fonts base16
 
 HOME_DOTS = profile pam_environment xprofile xinitrc Xresources npmrc
 
-all: tui env gui
+all: bin tui env gui
 
 env: pam_environment profile user-dirs mimeapps npmrc
 
@@ -41,7 +41,7 @@ tui: $(TUI_APPS) $(SHELL) env
 
 gui: $(WM) $(GUI_APPS) fonts Xresources base16
 
-arch: all cower xinitrc gui systemd
+arch: all cower xinitrc systemd
 
 bspwm: sxhkd
 
