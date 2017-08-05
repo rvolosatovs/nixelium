@@ -33,6 +33,10 @@ HOME_DOTS = profile pam_environment xprofile xinitrc Xresources npmrc
 
 all: bin tui env gui
 
+arch: all cower xinitrc systemd
+
+nixos: all nixpkgs
+
 env: pam_environment profile user-dirs mimeapps npmrc
 
 user-dirs: user-dirs.dirs user-dirs.locale
@@ -40,8 +44,6 @@ user-dirs: user-dirs.dirs user-dirs.locale
 tui: $(TUI_APPS) $(SHELL) env
 
 gui: $(WM) $(GUI_APPS) fonts Xresources base16
-
-arch: all cower xinitrc systemd
 
 bspwm: sxhkd
 
@@ -108,4 +110,8 @@ nvim-update:
 bin:
 	git clone git@github.com:rvolosatovs/bin.git ${HOME}/.local/bin
 
-.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update gpg base16 xdg-dirs bin mimeapps nvim-install
+nixpkgs: $(GOPATH)/src/github.com/rvolosatovs/nixpkgs
+	git clone git@github.com:rvolosatovs/nixpkgs.git $<
+	sudo ln -s $< /nix/nixpkgs
+
+.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update gpg base16 xdg-dirs bin mimeapps nvim-install nixpkgs
