@@ -1,8 +1,0 @@
-# 
-# /etc/fstab: static file system information
-#
-# <file system>	                <dir>	    <type>	    <options>	                                                                                            <dump>	<pass>
-/dev/sda1           	        /boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro	0       2
-/dev/mapper/partitions-butter	/         	btrfs     	rw,autodefrag,noatime,compress=lzo,ssd,discard,space_cache,subvolid=257,subvol=/@                       0       0
-/dev/mapper/partitions-butter	/home     	btrfs     	rw,autodefrag,noatime,compress=lzo,ssd,discard,space_cache,subvolid=258,subvol=/@home                   0       0
-/dev/mapper/partitions-swap	    none      	swap      	defaults  	                                                                                            0       0
