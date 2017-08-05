@@ -32,9 +32,9 @@ fi
 
 # Settings for umask
 if (( EUID == 0 )); then
-    umask 022
+    umask 002
 else
-    umask 066
+    umask 022
 fi
 
 ## Now, we'll give a few examples of what you might want to use in your
@@ -114,7 +114,7 @@ setopt NO_clobber
 setopt nocheckjobs
 
 # alert me if something failed
-#setopt printexitvalue
+setopt printexitvalue
 
 ## with spelling correction, assume dvorak kb
 #setopt dvorak
@@ -133,18 +133,19 @@ zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' completer _expand_alias _complete _approximate
 
 # to have more convenient account completion, specify your logins:
-#my_accounts=(
-#b1101@nirvana
-#)
+my_accounts=(
+    {rvolosatovs,root}@{nirvana,atom,matrix,brick,neon}
+    roman@noc.thethingsnetwork.org
+)
 #other_accounts=(
-# {fred,root}@foo.invalid
-# vera@bar.invalid
+ #{fred,root}@foo.invalid
+ #vera@bar.invalid
 #)
 zstyle ':completion:*:my-accounts' users-hosts $my_accounts
 #zstyle ':completion:*:other-accounts' users-hosts $other_accounts
 
 ## add grml.org to your list of hosts
-hosts+=(atom nirvana matrix brick)
+hosts+=(atom nirvana matrix brick noc.thethingsnetwork.org)
 zstyle ':completion:*:hosts' hosts $hosts
 
 ## telnet on non-default ports? ...well:
@@ -252,14 +253,14 @@ plap() {
     fi
 }
 
-## Find out which libs define a symbol
-#lcheck() {
-#    if [[ -n "$1" ]] ; then
-#        nm -go /usr/lib/lib*.a 2>/dev/null | grep ":[[:xdigit:]]\{8\} . .*$1"
-#    else
-#        echo "Usage: lcheck <function>" >&2
-#    fi
-#}
+# Find out which libs define a symbol
+lcheck() {
+    if [[ -n "$1" ]] ; then
+        nm -go /usr/lib/lib*.a 2>/dev/null | grep ":[[:xdigit:]]\{8\} . .*$1"
+    else
+        echo "Usage: lcheck <function>" >&2
+    fi
+}
 
 ## Download a file and display it locally
 #uopen() {

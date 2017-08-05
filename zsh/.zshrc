@@ -1,5 +1,7 @@
 #!/bin/zsh
-for rc in ${ZDOTDIR}/rc/*.sh ${ZDOTDIR}/rc/*.zsh; do
+curl wttr.in/Eindhoven&
+
+for rc in ${ZDOTDIR}/rc/*.sh; do
     source $rc
 done
 
