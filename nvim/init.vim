@@ -118,6 +118,7 @@ Plug 'jiangmiao/auto-pairs'
 "Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-unimpaired'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'dhruvasagar/vim-table-mode'
 
 " C
 Plug 'Rip-Rip/clang_complete', { 'for': 'c' }
@@ -282,8 +283,8 @@ nmap <Leader>cc   :cc<CR>
 "nmap <Leader>m    :make<CR>
 
 " New
-nmap <Leader>nt   :tabnew<CR>
-nmap <Leader>nb   :enew <CR>
+nmap <Leader>ze   :enew <CR>
+nmap <Leader>zt   :tabnew<CR>
 
 " Toggles
 nmap <Leader>tO   :e .<CR>
