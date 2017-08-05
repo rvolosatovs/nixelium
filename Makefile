@@ -107,11 +107,15 @@ go-update:
 nvim-update:
 	nvim --headless -c :PlugUpdate -c :GoUpdateBinaries -c :UpdateRemotePlugins -c :q /tmp/install.go
 
-bin:
-	git clone git@github.com:rvolosatovs/bin.git ${HOME}/.local/bin
+bin: $(HOME)/.local/bin
+
+$(HOME)/.local/bin:
+	git clone git@github.com:rvolosatovs/bin.git $@
 
 nixpkgs: $(GOPATH)/src/github.com/rvolosatovs/nixpkgs
-	git clone git@github.com:rvolosatovs/nixpkgs.git $<
-	sudo ln -s $< /nix/nixpkgs
 
-.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update gpg base16 xdg-dirs bin mimeapps nvim-install nixpkgs
+$(GOPATH)/src/github.com/rvolosatovs/nixpkgs:
+	git clone git@github.com:rvolosatovs/nixpkgs.git $@
+	sudo ln -s $@ /nix/nixpkgs
+
+.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update gpg base16 xdg-dirs bin mimeapps nvim-install nixpkgs bin
