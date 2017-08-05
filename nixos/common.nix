@@ -72,11 +72,15 @@ in
     zsh = {
       enable = true;
       enableAutosuggestions = true;
+      enableCompletion = true;
       syntaxHighlighting.enable = true;
       interactiveShellInit = ''
         source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
         HISTFILE="''${ZDOTDIR:-$HOME}/.zhistory"
+        source ${pkgs.fzf.out}/share/shell/key-bindings.zsh
+        source ${pkgs.fzf.out}/share/shell/completion.zsh
       '';
+      promptInit="";
     };
     bash.enableCompletion = true;
 
