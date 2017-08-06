@@ -267,6 +267,7 @@ in
 
       QT_QPA_PLATFORMTHEME="gtk2";
 
+      TERMINFO="/var/run/current-system/sw/share/terminfo";
     };
 
     variables = {
