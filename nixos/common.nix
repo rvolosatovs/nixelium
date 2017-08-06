@@ -195,6 +195,7 @@ in
 
       # Dev
       go
+      gotools
       nodejs
       protobuf3_2
       nodejs
@@ -292,7 +293,7 @@ in
       export ELINKS_CONFDIR="''${XDG_CONFIG_HOME}/elinks"
 
       export WINEPREFIX="''${XDG_DATA_HOME}/wine"
-      #export TERMINFO_DIRS="''${XDG_DATA_HOME}/terminfo:''${TERMINFO_DIRS}"
+      export TERMINFO_DIRS="''${XDG_DATA_HOME}/terminfo:''${TERMINFO_DIRS}"
 
       export TMUX_TMPDIR="''${XDG_RUNTIME_DIR}/tmux"
 
