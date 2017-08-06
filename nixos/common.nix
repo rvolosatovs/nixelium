@@ -499,7 +499,7 @@ in
         };
         serviceConfig = {
           User = "rvolosatovs";
-          ExecStart = "/home/rvolosatovs/.local/bin.go/godoc -http=:6060";
+          ExecStart = "${pkgs.gotools}/bin/godoc -http=:6060";
         };
       };
     };
