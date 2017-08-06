@@ -1,4 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+
+with lib;
 
 let
   secrets = import ./secrets.nix;
@@ -262,6 +264,11 @@ in
       PAGER="less";
 
       QT_QPA_PLATFORMTHEME="gtk2";
+
+      #PANEL_FIFO="/tmp/panel-fifo";
+      #PANEL_HEIGHT="24";
+      #PANEL_FONT="-*-fixed-*-*-*-*-10-*-*-*-*-*-*-*";
+      #PANEL_WM_NAME="bspwm_panel";
     };
 
     variables = {
@@ -269,40 +276,37 @@ in
       XDG_CACHE_HOME="\${HOME}/.local/cache";
       XDG_DATA_HOME="\${HOME}/.local/share";
 
-      GIMP2_DIRECTORY="\${XDG_CONFIG_HOME}/gimp";
-      GNUPGHOME="\${XDG_CONFIG_HOME}/gnupg";
-      GTK2_RC_FILES="\${XDG_CONFIG_HOME}/gtk-2.0/gtkrc";
-      INPUTRC="\${XDG_CONFIG_HOME}/readline/inputrc";
-      ELINKS_CONFDIR="\${XDG_CONFIG_HOME}/elinks";
-
-      WINEPREFIX="\${XDG_DATA_HOME}/wine";
-      TERMINFO="\${XDG_DATA_HOME}/terminfo";
-      TERMINFO_DIRS=[ "\${XDG_DATA_HOME}/terminfo" "/usr/share/terminfo" ];
-
-      TMUX_TMPDIR="\${XDG_RUNTIME_DIR}/tmux";
-
-      LESSHISTFILE="\${XDG_CACHE_HOME}/less/history";
-      __GL_SHADER_DISK_CACHE_PATH="\${XDG_CACHE_HOME}/nv";
-      CUDA_CACHE_PATH="\${XDG_CACHE_HOME}/nv";
-      PYTHON_EGG_CACHE="\${XDG_CACHE_HOME}/python-eggs";
-
-      ZDOTDIR="\${XDG_CONFIG_HOME}/zsh";
-      ZPLUG_HOME="\${ZDOTDIR}/zplug";
-
       PASSWORD_STORE_DIR="\${HOME}/.local/pass";
 
       GOPATH="\${HOME}";
       GOBIN="\${HOME}/.local/bin.go";
       PATH=[ "\${HOME}/.local/bin" "\${GOBIN}" "\${HOME}/.gem/ruby/2.4.0/bin" ];
-
-      PANEL_FIFO="/tmp/panel-fifo";
-      PANEL_HEIGHT="24";
-      PANEL_FONT="-*-fixed-*-*-*-*-10-*-*-*-*-*-*-*";
-      PANEL_WM_NAME="bspwm_panel";
     };
 
+    # These variables should be set after some of the environment.variables
+    extraInit = ''
+      export GIMP2_DIRECTORY="''${XDG_CONFIG_HOME}/gimp"
+      export GNUPGHOME="''${XDG_CONFIG_HOME}/gnupg"
+      export GTK2_RC_FILES="''${XDG_CONFIG_HOME}/gtk-2.0/gtkrc"
+      export INPUTRC="''${XDG_CONFIG_HOME}/readline/inputrc"
+      export ELINKS_CONFDIR="''${XDG_CONFIG_HOME}/elinks"
+
+      export WINEPREFIX="''${XDG_DATA_HOME}/wine"
+      #export TERMINFO_DIRS="''${XDG_DATA_HOME}/terminfo:''${TERMINFO_DIRS}"
+
+      export TMUX_TMPDIR="''${XDG_RUNTIME_DIR}/tmux"
+
+      export LESSHISTFILE="''${XDG_CACHE_HOME}/less/history"
+      export __GL_SHADER_DISK_CACHE_PATH="''${XDG_CACHE_HOME}/nv"
+      export CUDA_CACHE_PATH="''${XDG_CACHE_HOME}/nv"
+      export PYTHON_EGG_CACHE="''${XDG_CACHE_HOME}/python-eggs"
+
+      export ZDOTDIR="''${XDG_CONFIG_HOME}/zsh"
+      export ZPLUG_HOME="''${ZDOTDIR}/zplug";
+    '';
+
     shells = [ 
-      pkgs.zsh
+      /var/run/current-system/sw/bin/zsh
     ];
   };
 
@@ -355,8 +359,8 @@ in
             };
           };
           sessionCommands = ''
-            eval `${pkgs.keychain}/bin/keychain --eval id_rsa ttn`
-            eval `${pkgs.keychain}/bin/keychain --eval --agents gpg`
+            #eval `${pkgs.keychain}/bin/keychain --eval id_rsa ttn`
+            #eval `${pkgs.keychain}/bin/keychain --eval --agents gpg`
 
             # Set GTK_PATH so that GTK+ can find the theme engines.
             export GTK_PATH="${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0"
@@ -422,21 +426,21 @@ in
           STOP_CHARGE_THRESH_BAT1=90
         '';
       };
-      udev.extraRules= ''
-        KERNEL="ttyUSB[0-9]*", TAG+="udev-acl", TAG+="uaccess", OWNER="rvolosatovs"
-        KERNEL="ttyACM[0-9]*", TAG+="udev-acl", TAG+="uaccess", OWNER="rvolosatovs"
+      #udev.extraRules= ''
+        #KERNEL="ttyUSB[0-9]*", TAG+="udev-acl", TAG+="uaccess", OWNER="rvolosatovs"
+        #KERNEL="ttyACM[0-9]*", TAG+="udev-acl", TAG+="uaccess", OWNER="rvolosatovs"
 
-        SUBSYSTEM!="usb_device", ACTION!="add", GOTO="avrisp_end"
+        #SUBSYSTEM!="usb_device", ACTION!="add", GOTO="avrisp_end"
 
-        # Atmel Corp. JTAG ICE mkII
-        ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2103", MODE="660", GROUP="dialout"
-        # Atmel Corp. AVRISP mkII
-        ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="660", GROUP="dialout"
-        # Atmel Corp. Dragon
-        ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2107", MODE="660", GROUP="dialout"
+        ## Atmel Corp. JTAG ICE mkII
+        #ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2103", MODE="660", GROUP="dialout"
+        ## Atmel Corp. AVRISP mkII
+        #ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="660", GROUP="dialout"
+        ## Atmel Corp. Dragon
+        #ATTR{idVendor}=="03eb", ATTRS{idProduct}=="2107", MODE="660", GROUP="dialout"
 
-        LABEL="avrisp_end"
-      '';
+        #LABEL="avrisp_end"
+      #'';
       mopidy = {
         enable = true;
         configuration = ''
