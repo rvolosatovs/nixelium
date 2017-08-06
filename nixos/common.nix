@@ -190,7 +190,8 @@ in
       xclip
       sxhkd
       slock
-      lemonbar-xft
+      #lemonbar-xft
+      polybar
       autorandr
 
       # Dev
