@@ -227,6 +227,7 @@ in
 
       # Random
       pass
+      playerctl
       firefox
       chromium
       libreoffice
