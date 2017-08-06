@@ -58,7 +58,7 @@ endif
 " Set terminal title
 set title
 
-set grepprg='pt'
+set grepprg='rg'
 
 set autochdir
 "set tags=tags,./tags;
