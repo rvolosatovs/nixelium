@@ -95,7 +95,14 @@ in
     java.enable = true;
     wireshark.enable = true;
     #slock.enable = true;
-    #gnupg.agent.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+    
+    browserpass.enable = true;
+    command-not-found.enable = true;
+    mosh.enable = true;
 
     chromium = {
       enable = true;
@@ -104,6 +111,7 @@ in
         "gcbommkclmclpchllfjekcdonpmejbdp" # https everywhere
         "klbibkeccnjlkjkiokjodocebajanakg" # great suspender
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock origin
+        "jegbgfamcgeocbfeebacnkociplhmfbk" # browserpass
       ];
     };
   };
