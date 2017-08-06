@@ -284,14 +284,7 @@ in
 
     # These variables should be set after some of the environment.variables
     extraInit = ''
-      export GIMP2_DIRECTORY="''${XDG_CONFIG_HOME}/gimp"
-      export GNUPGHOME="''${XDG_CONFIG_HOME}/gnupg"
-      export GTK2_RC_FILES="''${XDG_CONFIG_HOME}/gtk-2.0/gtkrc"
-      export INPUTRC="''${XDG_CONFIG_HOME}/readline/inputrc"
-      export ELINKS_CONFDIR="''${XDG_CONFIG_HOME}/elinks"
-
       export WINEPREFIX="''${XDG_DATA_HOME}/wine"
-      export TERMINFO_DIRS="''${XDG_DATA_HOME}/terminfo:''${TERMINFO_DIRS}"
 
       export TMUX_TMPDIR="''${XDG_RUNTIME_DIR}/tmux"
 
@@ -300,7 +293,13 @@ in
       export CUDA_CACHE_PATH="''${XDG_CACHE_HOME}/nv"
       export PYTHON_EGG_CACHE="''${XDG_CACHE_HOME}/python-eggs"
 
+      export GIMP2_DIRECTORY="''${XDG_CONFIG_HOME}/gimp"
+      export GNUPGHOME="''${XDG_CONFIG_HOME}/gnupg"
+      export GTK2_RC_FILES="''${XDG_CONFIG_HOME}/gtk-2.0/gtkrc"
+      export INPUTRC="''${XDG_CONFIG_HOME}/readline/inputrc"
+      export ELINKS_CONFDIR="''${XDG_CONFIG_HOME}/elinks"
       export ZDOTDIR="''${XDG_CONFIG_HOME}/zsh"
+
       export ZPLUG_HOME="''${ZDOTDIR}/zplug";
     '';
 
