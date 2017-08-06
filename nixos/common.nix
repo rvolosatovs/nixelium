@@ -267,10 +267,6 @@ in
 
       QT_QPA_PLATFORMTHEME="gtk2";
 
-      #PANEL_FIFO="/tmp/panel-fifo";
-      #PANEL_HEIGHT="24";
-      #PANEL_FONT="-*-fixed-*-*-*-*-10-*-*-*-*-*-*-*";
-      #PANEL_WM_NAME="bspwm_panel";
     };
 
     variables = {
