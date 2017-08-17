@@ -80,8 +80,10 @@ in
         source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
         bindkey -v
         HISTFILE="''${ZDOTDIR:-$HOME}/.zhistory"
-        source ${pkgs.fzf.out}/share/shell/key-bindings.zsh
-        source ${pkgs.fzf.out}/share/shell/completion.zsh
+        if [ -n "''${commands[fzf-share]}" ]; then
+          source "`fzf-share`/completion.zsh"
+          source "`fzf-share`/key-bindings.zsh"
+        fi
       '';
       promptInit="";
     };
@@ -380,7 +382,7 @@ in
 
             ${pkgs.sudo}/bin/sudo "''${HOME}/.local/bin/fix-keycodes"
 
-            turbo get && turbo disable
+            turbo disable
 
             # Screen Locking (time-based & on suspend)
             ${pkgs.xautolock}/bin/xautolock -detectsleep -time 5 \
