@@ -12,3 +12,9 @@
 [submodule "hosts"]
 	path = boxes/hosts
 	url = git@github.com:StevenBlack/hosts.git
+[submodule "boxes/openvpn"]
+	path = boxes/openvpn
+	url = git@github.com:Nyr/openvpn-install.git
+[submodule "boxes/pimp-my-box"]
+	path = boxes/pimp-my-box
+	url = git@github.com:pyroscope/pimp-my-box.git
