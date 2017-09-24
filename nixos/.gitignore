@@ -1,2 +1,2 @@
 secrets.nix
-hardware-configuration.nix
+keys.nix
