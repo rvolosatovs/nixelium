@@ -1,33 +1,35 @@
-{ name, addr, ... }:
-{
-services = {
-  openvpn = {
+{ config, lib, confdir, addr, hostname ? "my", ... }:
 
-  };
-};
-}
+with lib;
+
+assert (confdir != null);
+assert (addr != null);
+assert (hostname != null);
+
 {
-  config = ''
-     remote ${name} 1194
-     dev tun0
-     ifconfig 10.8.0.2 10.8.0.1
-     secret /root/static.key
-     mtu-test
-     comp-lzo
+  config.services.openvpn.servers = listToAttrs nameValuePair hostname { config = 
+  ''
+  client
+  dev tun
+  proto udp
+  sndbuf 0
+  rcvbuf 0
+  remote ${addr}
+  resolv-retry infinite
+  nobind
+  persist-key
+  persist-tun
+  remote-cert-tls server
+  auth SHA512
+  cipher AES-256-CBC
+  comp-lzo
+  setenv opt block-outside-dns
+  key-direction 1
+  verb 3
+  ca ${confdir}/ca.crt
+  tls-auth ${confdir}/tls.key
+  cert ${confdir}/${hostname}.crt
+  key ${confdir}/${hostname}.key
   '';
-  up = ''
-     ip route add table 50 default via 10.8.0.1 dev tun0
-     ip route add table 50 throw 10.8.0.1
-     ip route add table 50 throw 192.168.0.0/16
-     ip route add table 50 throw ${addr}
-     ip rule add from all pref 50 table 50
-  '';
-  down = ''
-     ip rule del pref 50
-     ip route del table 50 default
-     ip route del table 50 throw 10.8.0.1
-     ip route del table 50 throw 192.168.0.0/16
-     ip route del table 50 throw ${addr}
-  '';
-  autoStart = false;
-}
+      };
+    }

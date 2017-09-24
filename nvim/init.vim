@@ -58,7 +58,8 @@ endif
 " Set terminal title
 set title
 
-set grepprg='rg'
+set grepprg=rg\ --vimgrep
+set grepformat^=%f:%l:%c:%m
 
 set autochdir
 "set tags=tags,./tags;
@@ -119,6 +120,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-unimpaired'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'rkitover/vimpager'
 
 " C
 Plug 'Rip-Rip/clang_complete', { 'for': 'c' }

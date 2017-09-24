@@ -72,7 +72,8 @@ if [ $clean ];then
 fi
 
 echo "Encrypting $luksPart..."
-cryptsetup luksFormat -v --key-size 512a512 --use-random --verify-passphrase $luksPartcryptsetup luksOpen $luksPart $luksName
+cryptsetup luksFormat -v --key-size 512 --use-random --verify-passphrase $luksPart
+cryptsetup luksOpen $luksPart $luksName
 
 luksDev="/dev/mapper/$luksName"
 echo "Setting up LVM on $luksDev..."

@@ -22,14 +22,14 @@ REL_XDG_DATA = $(shell realpath --relative-to $(XDG_DATA_HOME) $(PWD))
 
 WM ?= bspwm
 
-GUI_APPS = $(WM) termite fontconfig zathura sxhkd stalonetray
+GUI_APPS = $(WM) themes termite fontconfig zathura sxhkd stalonetray 
 TUI_APPS = pass git nvim rtorrent mopidy
 SHELL = zsh
 
 XDG_APPS = git zsh nvim mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale systemd mimeapps.list
 DATA_APPS = fonts base16
 
-HOME_DOTS = profile pam_environment xprofile xinitrc Xresources npmrc
+HOME_DOTS = profile pam_environment themes xprofile xinitrc Xresources npmrc
 
 all: bin tui env gui
 
@@ -62,6 +62,7 @@ ssh:
 
 gpg:
 	scp -r $(REMOTE_USERNAME)@$(REMOTE_HOSTNAME):.config/gnupg $(HOME)/.config
+	#ssh $(REMOTE_USERNAME)@$(REMOTE_HOSTNAME) gpg --export-secret-keys | gpg --import
 
 pass: $(PASSWORD_STORE_DIR)
 $(PASSWORD_STORE_DIR):

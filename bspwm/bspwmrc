@@ -2,6 +2,23 @@
 
 source $(dirname `readlink -f $0`)/config
 
+bspc config border_width            1
+bspc config window_gap              6
+
+bspc config                  split_ratio  0.57
+bspc config           borderless_monocle  true
+bspc config              gapless_monocle  true
+bspc config        focus_follows_pointer  false
+bspc config               click_to_focus  true
+bspc config          normal_border_color  ${FG}
+bspc config         focused_border_color  ${BLUE}
+bspc config          active_border_color  ${BLUE2}
+bspc config        presel_feedback_color  ${BG}
+
+bspc rule -a "Spotify" desktop=^5
+bspc rule -a "Chromium-browser:crx_eggkanocgddhmamlbiijnphhppkpkmkl" state=floating
+bspc rule -a "mpv" state=floating
+
 sxhkd &
 
 max_displays=10
@@ -22,21 +39,6 @@ for i in ${!monitors[@]}; do
     bspc desktop $i/1 -l monocle
 done
 
-bspc config border_width            1
-bspc config window_gap              6
-
-bspc config                  split_ratio  0.57
-bspc config           borderless_monocle  true
-bspc config              gapless_monocle  true
-bspc config        focus_follows_pointer  false
-bspc config               click_to_focus  true
-bspc config          normal_border_color  ${FG}
-bspc config         focused_border_color  ${BLUE}
-bspc config          active_border_color  ${BLUE2}
-bspc config        presel_feedback_color  ${BG}
-
-bspc rule -a "Spotify" desktop=^5
-bspc rule -a "Chromium-browser:crx_eggkanocgddhmamlbiijnphhppkpkmkl" state=floating
-bspc rule -a "mpv" state=floating
-
-polybar top&
+for m in `polybar -m | cut -d' ' -f1 | tr -d ':'`; do
+    MONITOR=$m polybar top&
+done
