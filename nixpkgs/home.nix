@@ -25,12 +25,20 @@ let
 in
 
 {
+  imports = [
+    ./local.nix
+  ];
   home = {
     packages = with pkgs; [
       htop
       neovim
+      curl
+      git
       docker_compose
       pv
+      fzf
+      #ripgrep
+      zsh-syntax-highlighting
     ];
     sessionVariables = {
       EMAIL="${vars.email}";
@@ -49,7 +57,7 @@ in
 
       GOPATH="${vars.homeDir}";
       GOBIN="${goBinDir}";
-      PATH=[ "${binDir}" "${goBinDir}" "${rubyBinDir}" ];
+      #PATH=[ "${binDir}" "${goBinDir}" "${rubyBinDir}" ];
 
       WINEPREFIX="${xdgDataHome}/wine";
 
@@ -61,15 +69,15 @@ in
       PYTHON_EGG_CACHE="${xdgCacheHome}/python-eggs";
 
       GIMP2_DIRECTORY="${xdgConfigHome}/gimp";
-      GNUPGHOME="${xdgConfigHome}/gnupg";
-      GTK2_RC_FILES="${xdgConfigHome}/gtk-2.0/gtkrc";
+      #GNUPGHOME="${xdgConfigHome}/gnupg";
+      #GTK2_RC_FILES="${xdgConfigHome}/gtk-2.0/gtkrc";
       INPUTRC="${xdgConfigHome}/readline/inputrc";
       ELINKS_CONFDIR="${xdgConfigHome}/elinks";
 
       #ZDOTDIR="${xdgConfigHome}/zsh"; # set by zsh subm
       ZPLUG_HOME="${xdgConfigHome}/zsh/zplug";
     };
-    sessionVariableSetter = "zsh";
+    sessionVariableSetter = "pam";
   };
 
   services.gpg-agent = {
@@ -89,10 +97,16 @@ in
       enableCompletion = true;
       dotDir = ".config/zsh";
       initExtra = ''
-            source "${pkgs.grml-zsh-config}/etc/zsh/zshrc";
-            bindkey -v
-            source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
-            source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
+        source "${pkgs.grml-zsh-config}/etc/zsh/zshrc";
+        bindkey -v
+        source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
+        source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
+
+        CITY=''${CITY:-"Eindhoven"}
+        { curl -s wttr.in/''${CITY} 2>/dev/null | head -7 } &|
+
+        source ~/.local/share/base16/scripts/base16-tomorrow-night.sh
+        source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
       '';
       history.path = ".zhistory";
       shellAliases= {

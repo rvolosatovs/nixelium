@@ -1,4 +1,3 @@
-# This overlay extends nixpkgs with a few mozilla packages.
 self: super:
 
 let
@@ -6,5 +5,5 @@ let
 in
 
 {
-  home-manager = callPackage ./pkgs/home-manager {};
+  home-manager = callPackage ../home-manager {};
 }

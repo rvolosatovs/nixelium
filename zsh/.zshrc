@@ -1,9 +1,1 @@
-#!/bin/zsh
-
-CITY=${CITY:-"Eindhoven"}
-{ curl -s wttr.in/${CITY} 2>/dev/null | head -7 } &|
-
-for rc in ${ZDOTDIR}/rc/*.sh; do
-    source $rc
-done
-
+/nix/store/hb5z2cj3x0wrm2m0n84y03qx4yc1nxy3-home-manager-files/.config/zsh/.zshrc
