@@ -19,5 +19,5 @@
 	path = boxes/pimp-my-box
 	url = git@github.com:pyroscope/pimp-my-box.git
 [submodule "vendor/home-manager"]
-	path = nixpkgs/overlays/pkgs/home-manager
+	path = nixpkgs/home-manager
 	url = git@github.com:rycee/home-manager.git
