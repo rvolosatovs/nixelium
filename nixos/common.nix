@@ -19,6 +19,7 @@ in
       ./thinkpad.nix
       ./programs-base.nix
       ./programs-graphical.nix
+      ./mopidy.nix
       #./luks.nix
     ];
 

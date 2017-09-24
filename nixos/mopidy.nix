@@ -1,4 +1,7 @@
 { pkgs, secrets, ... }:
+let
+  secrets = import ./secrets.nix;
+in
 {
   services = {
     mopidy = {
