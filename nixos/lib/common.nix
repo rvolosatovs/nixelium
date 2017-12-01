@@ -1,4 +1,4 @@
-{ config, pkgs, lib, secrets, vars, keys, ... }:
+{ config, pkgs, lib, secrets, vars, keys, mypkgs, unstable, ... }:
 
 let
   mountOpts = if vars.isSSD then [ "noatime" "nodiratime" "discard" ] else "TODO";
@@ -86,6 +86,7 @@ in
     virtualisation.docker.enable = true;
     virtualisation.libvirtd.enable = true;
 
+    shells = [ pkgs.zsh ];
     users.defaultUserShell = pkgs.zsh;
     users.users."${vars.username}" = {
       isNormalUser = true;
@@ -138,6 +139,47 @@ in
         };
       };
     };
+
+    environment.systemPackages = with pkgs; [
+      lm_sensors
+      pciutils
+      lsof
+      whois
+      htop
+      tree
+      bc
+      pv
+      jq
+      psmisc
+      curl
+      zip
+      unzip
+      gnumake
+      wireguard
+      git
+      git-lfs
+      fzf
+      ripgrep
+      neofetch
+      rclone
+      graphviz
+      pandoc
+      weechat
+      rtorrent
+      httpie
+      unstable.neovim
+      gnupg
+      gnupg1compat
+      grml-zsh-config
+      xdg-user-dirs
+      unstable.docker_compose
+      docker-gc
+      nox
+      nix-repl
+      rfkill
+      unstable.direnv
+    ];
+
     system.stateVersion = "17.09";
     system.autoUpgrade.enable = true;
   }

@@ -1,20 +1,33 @@
 { config, pkgs, lib, secrets, vars, ... }:
 
 {
-  programs.chromium.homepageLocation = "https://duckduckgo.com/?key=${secrets.duckduckgo.key}";
+  fonts.enableFontDir = true;
+  fonts.enableGhostscriptFonts = true;
+  fonts.fonts = with pkgs; [
+    terminus_font
+    dejavu_fonts
+    font-awesome-ttf
+    siji
+    fira
+    fira-mono
+  ];
 
-  fonts = {
-    enableFontDir = true;
-    enableGhostscriptFonts = true;
-    fonts = with pkgs; [
-      terminus_font
-      dejavu_fonts
-      font-awesome-ttf
-      siji
-      fira
-      fira-mono
-    ];
-  };
+  programs.adb.enable = true;
+  programs.light.enable = true;
+  programs.java.enable = true;
+  programs.wireshark.enable = true;
+  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.enableSSHSupport = true;
+  programs.browserpass.enable = true;
+
+  programs.chromium.enable = true;
+  programs.chromium.homepageLocation = "https://duckduckgo.com/?key=${secrets.duckduckgo.key}";
+  programs.chromium.extensions = [
+    "gcbommkclmclpchllfjekcdonpmejbdp" # https everywhere
+    "klbibkeccnjlkjkiokjodocebajanakg" # great suspender
+    "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock origin
+    "jegbgfamcgeocbfeebacnkociplhmfbk" # browserpass
+  ];
 
   services.printing.enable = true;
 
@@ -80,4 +93,84 @@
   environment.sessionVariables.QT_QPA_PLATFORMTHEME = "gtk2";
   environment.sessionVariables."_JAVA_OPTIONS" = "-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.aatext=true -Dsun.java2d.xrender=true";
   environment.sessionVariables.GTK_PATH = "${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0";
+
+  environment.systemPackages = with pkgs; [
+    linuxPackages.acpi_call
+    acpi
+    powertop
+    microcodeIntel
+    libnotify
+
+    # X11
+    xdo
+    wmname
+    xdotool
+    xsel
+    sutils
+    #xorg.xset
+    #xorg.xsetroot
+    xtitle
+    xclip
+    sxhkd
+    slock
+    #lemonbar-xft
+    #stalonetray
+    polybar
+    autorandr
+
+
+    # Dev
+    go
+    gotools
+    nodejs
+    protobuf
+    nodejs
+    julia
+    gcc
+    gradle
+    universal-ctags
+    gist
+    influxdb
+    redis
+    travis
+
+    # Multimedia
+    mpv
+    spotify
+    youtube-dl
+    imagemagick
+    sxiv
+    ffmpeg
+
+    # Random
+    ansible
+    gnome3.dconf
+    gnome3.glib_networking
+    pass
+    playerctl
+    firefox
+    chromium
+    #libreoffice
+    gtk-engine-murrine
+    #texlive.combined.scheme-small
+    keybase
+    slock
+    wget
+    termite
+    zathura
+    dunst
+    maim
+    slop
+    redshift
+    thunderbird
+    rofi
+    keychain
+    networkmanagerapplet
+    lxappearance
+    xautolock
+    xss-lock
+    i3lock-color
+
+    android-studio
+  ];
 }
