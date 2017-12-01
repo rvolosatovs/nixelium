@@ -42,6 +42,7 @@ with lib;
     wmname
     xdotool
     xsel
+    sutils
     #xorg.xset
     #xorg.xsetroot
     xtitle
@@ -77,8 +78,6 @@ with lib;
     sxiv
     ffmpeg
 
-    #smlnj # FIXME TUE
-
     # Random
     ansible
     gnome3.dconf
@@ -106,5 +105,8 @@ with lib;
     lxappearance
     xautolock
     xss-lock
+    i3lock-color
+
+    android-studio
   ];
 }

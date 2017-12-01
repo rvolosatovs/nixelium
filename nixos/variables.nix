@@ -6,6 +6,7 @@
   hostname = "neon";
   email = "rvolosatovs@riseup.net";
   editor = "${pkgs.neovim}/bin/nvim";
-  browser = "${pkgs.chromium}/bin/chromium";
+  browser = "${pkgs.firefox}/bin/firefox";
+  mailer = "${pkgs.thunderbird}/bin/thunderbird";
   pager = "${pkgs.less}/bin/less";
 }

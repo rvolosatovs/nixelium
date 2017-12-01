@@ -6,6 +6,7 @@ in
   services = {
     mopidy = {
       enable = true;
+      #enable = false;
       configuration = ''
                     [core]
                     restore_state = true

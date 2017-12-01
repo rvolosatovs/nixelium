@@ -4,6 +4,7 @@ with lib;
 
 let 
   mypkgs = import <mypkgs> {};
+  unstable = import <nixpkgs-unstable> {};
 in
 {
   networking.networkmanager.enable = true;
@@ -64,7 +65,7 @@ in
         #neovim = newest mypkgs.neovim;
         #keybase = newest mypkgs.keybase;
         #ripgrep = unstable.ripgrep;
-        rclone = mypkgs.rclone;
+        #rclone = mypkgs.rclone;
       })
     ];
   };
@@ -78,6 +79,7 @@ in
       tree
       bc
       pv
+      jq
       psmisc
       curl
       zip
@@ -95,6 +97,7 @@ in
       pandoc
       weechat
       rtorrent
+      httpie
       neovim
       gnupg
       gnupg1compat
@@ -103,6 +106,9 @@ in
       docker_compose
       docker-gc
       nox
+      nix-repl
+      rfkill
+      direnv
     ];
 
     shells = [
