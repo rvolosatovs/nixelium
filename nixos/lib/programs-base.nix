@@ -8,34 +8,6 @@ let
 in
 {
   networking.networkmanager.enable = true;
-  programs = {
-    vim.defaultEditor = true;
-    zsh = {
-      enable = true;
-      enableAutosuggestions = true;
-      enableCompletion = true;
-      syntaxHighlighting.enable = true;
-      interactiveShellInit = ''
-                      source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
-                      bindkey -v
-                      HISTFILE="''${ZDOTDIR:-$HOME}/.zhistory"
-                      source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
-                      source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
-      '';
-      promptInit="";
-    };
-    bash.enableCompletion = true;
-    mosh.enable = true;
-    command-not-found.enable = true;
-  };
-
-  nix.nixPath = [
-    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
-    "nixpkgs-unstable=/nix/var/nix/profiles/per-user/root/channels/nixpkgs"
-    "mypkgs=/nix/nixpkgs"
-    "nixos-config=/etc/nixos/configuration.nix"
-    "/nix/var/nix/profiles/per-user/root/channels"
-  ];
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [

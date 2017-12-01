@@ -16,16 +16,19 @@
     ];
   };
 
+  services.printing.enable = true;
+
   services.gnome3.gnome-keyring.enable = true;
   services.gnome3.seahorse.enable = true;
+
+  services.ssh.startAgent = false;
+  services.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
 
   services.redshift.enable = true;
   services.redshift.latitude = secrets.latitude;
   services.redshift.longitude = secrets.longitude;
 
   services.xbanish.enable = true;
-
-  services.printing.enable = true;
 
   services.xserver.enable = true;
   services.xserver.xkbVariant = "qwerty";

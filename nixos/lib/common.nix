@@ -23,6 +23,35 @@ in
     i18n.consoleKeyMap = "us";
     i18n.defaultLocale = "en_US.UTF-8";
 
+    programs = {
+      vim.defaultEditor = true;
+      zsh = {
+        enable = true;
+        enableAutosuggestions = true;
+        enableCompletion = true;
+        syntaxHighlighting.enable = true;
+        interactiveShellInit = ''
+            source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
+            bindkey -v
+            HISTFILE="''${ZDOTDIR:-$HOME}/.zhistory"
+            source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
+            source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
+        '';
+        promptInit="";
+      };
+      bash.enableCompletion = true;
+      mosh.enable = true;
+      command-not-found.enable = true;
+    };
+
+    nix.nixPath = [
+      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
+      "nixpkgs-unstable=/nix/var/nix/profiles/per-user/root/channels/nixpkgs"
+      "mypkgs=/nix/nixpkgs"
+      "nixos-config=/etc/nixos/configuration.nix"
+      "/nix/var/nix/profiles/per-user/root/channels"
+    ];
+
     #nix.useSandbox = true;
     nix.autoOptimiseStore = true;
     nix.gc.automatic = true;
@@ -64,13 +93,10 @@ in
       home="/home/${vars.username}";
       createHome=true;
       extraGroups= [ "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" ];
-      openssh.authorizedKeys = {
-        keys = [
-          keys.publicKey
-        ];
-      };
+      openssh.authorizedKeys.keys = [
+        keys.publicKey
+      ];
     };
-
 
     systemd = {
       services = {
