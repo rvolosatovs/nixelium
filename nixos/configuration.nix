@@ -1,7 +1,1 @@
-{ config, pkgs, ... }:
-
-{
-  imports = [ 
-    ./common.nix
-  ];
-}
+machine/neon/configuration.nix

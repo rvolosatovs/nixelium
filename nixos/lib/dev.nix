@@ -1,16 +1,6 @@
 { config, pkgs, lib, ... }:
 
-with lib;
-
 let
-  keys = import ./keys.nix;
-  secrets = import ./secrets.nix;
-  unstable = import <nixpkgs-unstable> {};
-
-  #hosts = import ./ho
-
-  vars = import ./variables.nix { inherit pkgs; };
-
   rubyVersion = "2.4.0";
 in
   rec {
@@ -33,24 +23,7 @@ in
         }
       ];
 
-      loader = {
-        grub.enable = false;
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
-      };
       cleanTmpDir = true;
-    };
-
-    hardware = {
-      pulseaudio = {
-        enable = true;
-        package = pkgs.pulseaudioFull;
-      };
-
-      opengl = {
-        enable = true;
-        driSupport32Bit = true;
-      };
     };
 
     fonts = {

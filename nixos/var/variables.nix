@@ -9,4 +9,6 @@
   browser = "${pkgs.firefox}/bin/firefox";
   mailer = "${pkgs.thunderbird}/bin/thunderbird";
   pager = "${pkgs.less}/bin/less";
+  isSSD = true;
+
 }

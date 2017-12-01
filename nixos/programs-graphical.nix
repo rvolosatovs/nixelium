@@ -78,7 +78,7 @@ with lib;
     sxiv
     ffmpeg
 
-    # Random
+o   # Random
     ansible
     gnome3.dconf
     gnome3.glib_networking
