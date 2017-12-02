@@ -5,5 +5,5 @@ let
 in
 
 {
-  home-manager = callPackage ../home-manager {};
+  #home-manager = callPackage ../home-manager {};
 }
