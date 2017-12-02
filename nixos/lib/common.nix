@@ -130,45 +130,46 @@ in
         #rclone = mypkgs.rclone;
       })
     ];
+    nixpkgs.config.neovim.vimAlias = true;
 
     environment.shells = [ pkgs.zsh ];
     environment.systemPackages = with pkgs; [
-      lm_sensors
-      pciutils
-      lsof
-      whois
-      htop
-      tree
       bc
-      pv
-      jq
-      psmisc
       curl
-      zip
-      unzip
-      gnumake
-      wireguard
+      docker-gc
+      fzf
       git
       git-lfs
-      fzf
-      ripgrep
-      neofetch
-      rclone
-      graphviz
-      pandoc
-      weechat
-      httpie
-      unstable.neovim
+      gnumake
       gnupg
       gnupg1compat
+      graphviz
       grml-zsh-config
-      xdg-user-dirs
-      unstable.docker_compose
-      docker-gc
-      nox
+      htop
+      httpie
+      jq
+      lm_sensors
+      lsof
+      neofetch
       nix-repl
+      nox
+      pandoc
+      pciutils
+      psmisc
+      pv
+      rclone
       rfkill
+      ripgrep
+      tree
       unstable.direnv
+      unstable.docker_compose
+      unstable.neovim
+      unzip
+      weechat
+      whois
+      wireguard
+      xdg-user-dirs
+      zip
     ];
 
     systemd = {
