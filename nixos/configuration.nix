@@ -1,1 +1,1 @@
-machine/neon/configuration.nix
+host/neon/configuration.nix

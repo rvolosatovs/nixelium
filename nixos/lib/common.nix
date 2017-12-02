@@ -98,77 +98,37 @@ in
       ];
     };
 
-    systemd = {
-      services = {
-        systemd-networkd-wait-online.enable = false;
-
-        audio-off = {
-          enable = true;
-          description = "Mute audio before suspend";
-          wantedBy = [ "sleep.target" ];
-          serviceConfig = {
-            Type = "oneshot";
-            User = "${vars.username}";
-            ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
-            RemainAfterExit = true;
-          };
-        };
-
-        godoc = {
-          enable = true;
-          wantedBy = [ "multi-user.target" ];
-          environment = {
-            "GOPATH" = "/home/${vars.username}";
-          };
-          serviceConfig = {
-            User = "${vars.username}";
-            ExecStart = "${pkgs.gotools}/bin/godoc -http=:6060";
-          };
-        };
-
-        openvpn-reconnect = {
-          enable = true;
-          description = "Restart OpenVPN after suspend";
-
-          wantedBy= [ "sleep.target" ];
-
-          serviceConfig = {
-            ExecStart="${pkgs.procps}/bin/pkill --signal SIGHUP --exact openvpn";
-          };
-        };
-      };
-    };
-
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.overlays = [
-      #(self: super: with builtins;
-      #let
-      #  # isNewer reports whether version of a is higher, than b
-      #  isNewer = { a, b }: compareVersions a.version b.version == 1;
+      (self: super: with builtins;
+      let
+        # isNewer reports whether version of a is higher, than b
+        isNewer = { a, b }: compareVersions a.version b.version == 1;
 
-      #  # newest returns derivation with same name as pkg from super
-      #  # if it's version is higher than version on pkg. pkg otherwise.
-      #  newest = pkg:
-      #  let
-      #    name = (parseDrvName pkg.name).name;
-      #    inSuper = if hasAttr name super then getAttr name super else null;
-      #  in
-      #  if (inSuper != null) && (isNewer { a = inSuper; b = pkg;} )
-      #  then inSuper
-      #  else pkg;
-      #in
-      #{
-      #  #browserpass = newest mypkgs.browserpass;
-      #  #go = unstable.go;
-      #  mopidy-iris = newest mypkgs.mopidy-iris;
-      #  #mopidy-local-sqlite = newest mypkgs.mopidy-local-sqlite;
-      #  #mopidy-local-images = newest mypkgs.mopidy-local-images;
-      #  #mopidy-mpris = newest mypkgs.mopidy-mpris;
-      #  #neovim = newest mypkgs.neovim;
-      #  #keybase = newest mypkgs.keybase;
-      #  #ripgrep = unstable.ripgrep;
-      #  #rclone = mypkgs.rclone;
-      #})
+        # newest returns derivation with same name as pkg from super
+        # if it's version is higher than version on pkg. pkg otherwise.
+        newest = pkg:
+        let
+          name = (parseDrvName pkg.name).name;
+          inSuper = if hasAttr name super then getAttr name super else null;
+        in
+        if (inSuper != null) && (isNewer { a = inSuper; b = pkg;} )
+        then inSuper
+        else pkg;
+      in
+      {
+        #browserpass = newest mypkgs.browserpass;
+        #go = unstable.go;
+        asd = asd;
+        mopidy-iris = mypkgs.mopidy-iris;
+        #mopidy-local-sqlite = newest mypkgs.mopidy-local-sqlite;
+        #mopidy-local-images = newest mypkgs.mopidy-local-images;
+        #mopidy-mpris = newest mypkgs.mopidy-mpris;
+        #neovim = newest mypkgs.neovim;
+        #keybase = newest mypkgs.keybase;
+        #ripgrep = unstable.ripgrep;
+        #rclone = mypkgs.rclone;
+      })
     ];
 
     environment.shells = [ pkgs.zsh ];
@@ -210,6 +170,47 @@ in
       rfkill
       unstable.direnv
     ];
+
+    systemd = {
+      services = {
+        systemd-networkd-wait-online.enable = false;
+
+        audio-off = {
+          enable = true;
+          description = "Mute audio before suspend";
+          wantedBy = [ "sleep.target" ];
+          serviceConfig = {
+            Type = "oneshot";
+            User = "${vars.username}";
+            ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
+            RemainAfterExit = true;
+          };
+        };
+
+        godoc = {
+          enable = true;
+          wantedBy = [ "multi-user.target" ];
+          environment = {
+            "GOPATH" = "/home/${vars.username}";
+          };
+          serviceConfig = {
+            User = "${vars.username}";
+            ExecStart = "${pkgs.gotools}/bin/godoc -http=:6060";
+          };
+        };
+
+        openvpn-reconnect = {
+          enable = true;
+          description = "Restart OpenVPN after suspend";
+
+          wantedBy= [ "sleep.target" ];
+
+          serviceConfig = {
+            ExecStart="${pkgs.procps}/bin/pkill --signal SIGHUP --exact openvpn";
+          };
+        };
+      };
+    };
 
     system.stateVersion = "17.09";
     system.autoUpgrade.enable = true;
