@@ -1,4 +1,4 @@
-{ config, pkgs, lib, secrets, vars, ... }:
+{ config, pkgs, lib, secrets, vars, unstable, ... }:
 
 {
   fonts.enableFontDir = true;
@@ -16,8 +16,6 @@
   programs.light.enable = true;
   programs.java.enable = true;
   programs.wireshark.enable = true;
-  programs.gnupg.agent.enable = true;
-  programs.gnupg.agent.enableSSHSupport = true;
   programs.browserpass.enable = true;
 
   programs.chromium.enable = true;
@@ -29,17 +27,22 @@
     "jegbgfamcgeocbfeebacnkociplhmfbk" # browserpass
   ];
 
+  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.enableSSHSupport = true;
+  programs.ssh.startAgent = false;
+  programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
+
   services.printing.enable = true;
 
   services.gnome3.gnome-keyring.enable = true;
   services.gnome3.seahorse.enable = true;
 
-  services.ssh.startAgent = false;
-  services.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
-
   services.redshift.enable = true;
   services.redshift.latitude = secrets.latitude;
   services.redshift.longitude = secrets.longitude;
+
+  services.keybase.enable = true;
+  services.kbfs.enable = true;
 
   services.xbanish.enable = true;
 
@@ -148,12 +151,12 @@
     gnome3.glib_networking
     pass
     playerctl
-    firefox
-    chromium
+    unstable.firefox
+    unstable.chromium
     #libreoffice
     gtk-engine-murrine
     #texlive.combined.scheme-small
-    keybase
+    unstable.keybase
     slock
     wget
     termite

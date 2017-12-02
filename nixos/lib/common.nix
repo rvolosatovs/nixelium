@@ -86,14 +86,13 @@ in
     virtualisation.docker.enable = true;
     virtualisation.libvirtd.enable = true;
 
-    shells = [ pkgs.zsh ];
     users.defaultUserShell = pkgs.zsh;
     users.users."${vars.username}" = {
       isNormalUser = true;
       initialPassword = "${vars.username}";
       home="/home/${vars.username}";
       createHome=true;
-      extraGroups= [ "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" ];
+      extraGroups= [ "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" ];
       openssh.authorizedKeys.keys = [
         keys.publicKey
       ];
@@ -140,6 +139,39 @@ in
       };
     };
 
+    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.overlays = [
+      #(self: super: with builtins;
+      #let
+      #  # isNewer reports whether version of a is higher, than b
+      #  isNewer = { a, b }: compareVersions a.version b.version == 1;
+
+      #  # newest returns derivation with same name as pkg from super
+      #  # if it's version is higher than version on pkg. pkg otherwise.
+      #  newest = pkg:
+      #  let
+      #    name = (parseDrvName pkg.name).name;
+      #    inSuper = if hasAttr name super then getAttr name super else null;
+      #  in
+      #  if (inSuper != null) && (isNewer { a = inSuper; b = pkg;} )
+      #  then inSuper
+      #  else pkg;
+      #in
+      #{
+      #  #browserpass = newest mypkgs.browserpass;
+      #  #go = unstable.go;
+      #  mopidy-iris = newest mypkgs.mopidy-iris;
+      #  #mopidy-local-sqlite = newest mypkgs.mopidy-local-sqlite;
+      #  #mopidy-local-images = newest mypkgs.mopidy-local-images;
+      #  #mopidy-mpris = newest mypkgs.mopidy-mpris;
+      #  #neovim = newest mypkgs.neovim;
+      #  #keybase = newest mypkgs.keybase;
+      #  #ripgrep = unstable.ripgrep;
+      #  #rclone = mypkgs.rclone;
+      #})
+    ];
+
+    environment.shells = [ pkgs.zsh ];
     environment.systemPackages = with pkgs; [
       lm_sensors
       pciutils
@@ -165,7 +197,6 @@ in
       graphviz
       pandoc
       weechat
-      rtorrent
       httpie
       unstable.neovim
       gnupg
@@ -182,4 +213,5 @@ in
 
     system.stateVersion = "17.09";
     system.autoUpgrade.enable = true;
+    system.autoUpgrade.channel = https://nixos.org/channels/nixos-17.09;
   }

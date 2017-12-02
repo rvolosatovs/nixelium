@@ -1,5 +1,8 @@
-{ pkgs, secrets, ... }:
+{ pkgs, secrets, unstable, ... }:
 {
+  hardware.pulseaudio.tcp.enable = true;
+  hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
+
   services.mopidy.enable = true;
   services.mopidy.configuration = ''
     [core]
@@ -23,7 +26,7 @@
     [audio]
     mixer = software
     mixer_volume =
-    output = autoaudiosink
+    output = pulsesink server=127.0.0.1
     buffer_time =
   '';
   services.mopidy.extensionPackages = with pkgs; [

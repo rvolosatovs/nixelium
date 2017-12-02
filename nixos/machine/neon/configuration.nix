@@ -21,7 +21,6 @@ rec {
     ../../lib/luks.nix
     ../../lib/mopidy.nix
     ../../lib/ovpn.nix
-    #../../lib/neovim.nix
     ../../lib/graphical.nix
   ];
 
