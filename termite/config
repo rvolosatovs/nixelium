@@ -12,8 +12,7 @@ clickable_url = true
 ;font = Hurmit 10
 ;font = Hurmit 11
 font = Hurmit 12
-;font = Hurmit 15
-;font = Hurmit 25
+;font = Hurmit 13
 ;font = Hurmit 15
 
 scrollback_lines = 10000

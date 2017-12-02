@@ -16,13 +16,13 @@ super + Escape
     notify-send "Reloaded sxhkd config"
 
 super + shift + p
-    pass-script insert
+    ~/.local/bin/pass-script insert
 
 super + ctrl + p
-    pass-script copy
+    ~/.local/bin/pass-script copy
 
 super + alt + p
-    pass-script new
+    ~/.local/bin/pass-script new
 
 super + shift + o
     $BROWSER

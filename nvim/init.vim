@@ -61,8 +61,10 @@ set title
 set grepprg=rg\ --vimgrep
 set grepformat^=%f:%l:%c:%m
 
-set autochdir
+"set autochdir
 "set tags=tags,./tags;
+
+set viewoptions=cursor,slash,unix
 
 " ~~~ Plugins ~~~
 
@@ -83,6 +85,7 @@ Plug 'ryanoasis/vim-devicons'
 " Code
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/neoinclude.vim'
 Plug 'benekastah/neomake'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -90,6 +93,7 @@ Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'godlygeek/tabular'
 Plug 'Chiel92/vim-autoformat'
+Plug 'Olical/vim-enmasse'
 
 " Steroids
 Plug 'easymotion/vim-easymotion'
@@ -104,7 +108,8 @@ Plug 'mhinz/vim-signify'
 Plug 'majutsushi/tagbar'
 "Plug 'scrooloose/nerdtree'
 "Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tpope/vim-vinegar'
+"Plug 'tpope/vim-vinegar' "(https://github.com/tpope/vim-vinegar/issues/87)
+Plug 'justinmk/vim-dirvish'
 Plug 'sjl/gundo.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
 "Plug 'vim-scripts/YankRing.vim'
@@ -123,13 +128,15 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'rkitover/vimpager'
 
 " C
-Plug 'Rip-Rip/clang_complete', { 'for': 'c' }
+Plug 'zchee/deoplete-clang', { 'for': 'c,cpp,objc' }
 " Latex
 Plug 'vim-latex/vim-latex', { 'for': 'tex' }
 " Javascript
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
-Plug 'carlitux/deoplete-ternjs', {'for': 'javascript'}
-Plug 'jason0x43/vim-js-indent', {'for': 'javascript'}
+Plug 'carlitux/deoplete-ternjs', {'for': 'javascript', 'do': 'npm install -g tern'}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'mxw/vim-jsx', {'for': 'javascript'}
+Plug 'flowtype/vim-flow', {'for': 'javascript'}
 " Typescript
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
@@ -154,6 +161,7 @@ Plug 'JuliaEditorSupport/julia-vim'
 Plug 'JuliaEditorSupport/deoplete-julia', { 'for': 'julia' }
 " Nix
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
+"Plug 'MarcWeber/vim-addon-nix', { 'for': 'nix' }
 " GLSL
 Plug 'tikhomirov/vim-glsl'
 
@@ -221,6 +229,12 @@ let g:deoplete#enable_at_startup = 1
 " call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
 " au VimEnter call deoplete#initialize()
 
+" Clang
+let g:deoplete#sources#clang#libclang_path="/home/rvolosatovs/.nix-profile/lib/libclang.so"
+let g:deoplete#sources#clang#clang_header="/home/rvolosatovs/.nix-profile/lib/clang"
+
+" JSX
+let g:jsx_ext_required = 0
 
 " Tern
 let g:tern_request_timeout = 1
@@ -238,8 +252,6 @@ let g:gundo_preview_bottom=1
 
 " FastFold
 "let g:fastfold_savehook = 0
-
-set viewoptions=cursor,slash,unix
 
 " ~~~ Controls ~~~
 
@@ -346,15 +358,15 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Incsearch
 let g:incsearch#auto_nohlsearch = 1
-nnoremap           /   <Plug>(incsearch-easymotion-/)
-nnoremap           ?   <Plug>(incsearch-easymotion-?)
-nnoremap           g/  <Plug>(incsearch-easymotion-stay)
-nnoremap           *   <Plug>(incsearch-nohl-*)
-nnoremap           n   <Plug>(incsearch-nohl-n)
-nnoremap           N   <Plug>(incsearch-nohl-N)
-nnoremap           #   <Plug>(incsearch-nohl-#)
-nnoremap           g*  <Plug>(incsearch-nohl-g*)
-nnoremap           g#  <Plug>(incsearch-nohl-g#)
+map           /   <Plug>(incsearch-easymotion-/)
+map           ?   <Plug>(incsearch-easymotion-?)
+map           g/  <Plug>(incsearch-easymotion-stay)
+map           *   <Plug>(incsearch-nohl-*)
+map           n   <Plug>(incsearch-nohl-n)
+map           N   <Plug>(incsearch-nohl-N)
+map           #   <Plug>(incsearch-nohl-#)
+map           g*  <Plug>(incsearch-nohl-g*)
+map           g#  <Plug>(incsearch-nohl-g#)
 
 " EasyMotion
 let g:EasyMotion_keys='hjkluiobnmxcvwersdfg'
@@ -362,31 +374,31 @@ let g:EasyMotion_startofline = 0
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 
-nnoremap            f  <Plug>(easymotion-f)
-nnoremap            F  <Plug>(easymotion-F)
-nnoremap            t  <Plug>(easymotion-t)
-nnoremap            T  <Plug>(easymotion-T)
-nnoremap            s  <Plug>(easymotion-s2)
-nnoremap            S  <Plug>(easymotion-overwin-f2)
-nnoremap    <Leader>w  <Plug>(easymotion-w)
-nnoremap    <Leader>W  <Plug>(easymotion-W)
-nnoremap    <Leader>b  <Plug>(easymotion-b)
-nnoremap    <Leader>B  <Plug>(easymotion-B)
-nnoremap    <Leader>e  <Plug>(easymotion-e)
-nnoremap    <Leader>E  <Plug>(easymotion-E)
-nnoremap    <Leader>ge <Plug>(easymotion-ge)
-nnoremap    <Leader>gE <Plug>(easymotion-gE)
+map            f  <Plug>(easymotion-f)
+map            F  <Plug>(easymotion-F)
+map            t  <Plug>(easymotion-t)
+map            T  <Plug>(easymotion-T)
+map            s  <Plug>(easymotion-s2)
+map            S  <Plug>(easymotion-overwin-f2)
+map    <Leader>w  <Plug>(easymotion-w)
+map    <Leader>W  <Plug>(easymotion-W)
+map    <Leader>b  <Plug>(easymotion-b)
+map    <Leader>B  <Plug>(easymotion-B)
+map    <Leader>e  <Plug>(easymotion-e)
+map    <Leader>E  <Plug>(easymotion-E)
+map    <Leader>ge <Plug>(easymotion-ge)
+map    <Leader>gE <Plug>(easymotion-gE)
 
-nnoremap    <Leader>gl <Plug>(easymotion-overwin-line)
+map    <Leader>gl <Plug>(easymotion-overwin-line)
 
-nnoremap    <Leader>gn <Plug>(easymotion-next)
-nnoremap    <Leader>gN <Plug>(easymotion-prev)
-nnoremap    <Leader>n  <Plug>(easymotion-vim-n)
-nnoremap    <Leader>N  <Plug>(easymotion-vim-N)
+map    <Leader>gn <Plug>(easymotion-next)
+map    <Leader>gN <Plug>(easymotion-prev)
+map    <Leader>n  <Plug>(easymotion-vim-n)
+map    <Leader>N  <Plug>(easymotion-vim-N)
 
 "map    <Leader>h  <Plug>(easymotion-linebackward)
-nnoremap    <Leader>j  <Plug>(easymotion-j)
-nnoremap    <Leader>k  <Plug>(easymotion-k)
+map    <Leader>j  <Plug>(easymotion-j)
+map    <Leader>k  <Plug>(easymotion-k)
 "map    <Leader>l  <Plug>(easymotion-lineforward)
 
 " UltiSnips
@@ -402,6 +414,8 @@ nmap <Leader>m :Neomake<CR>
 " Filetype-specific keybinds(TODO:migrate to /ft)
 au FileType sh         inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
 au FileType conf       inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
+
+au FileType dirvish call fugitive#detect(@%)
 
 " Layout
 "au vimenter * if argc() == 0 | NERDTree | wincmd l | endif

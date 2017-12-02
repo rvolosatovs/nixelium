@@ -2,6 +2,7 @@
 {
   imports = [
     ../lib/common.nix
+    ../lib/graphical.nix
   ];
 
   home.packages = with pkgs; [

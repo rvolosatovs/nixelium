@@ -46,6 +46,8 @@ alias  gb='git branch'
 alias gbi='git branch -lvv'
 alias  gr='git remote'
 alias  gB='git rebase'
+alias  gBc='git rebase --continue'
+alias  gBac='git add . && git rebase --continue'
 alias  gm='git cherry-pick'
 alias  gM='git merge'
 

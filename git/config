@@ -1,6 +1,6 @@
 # vim: ft=gitconfig
 [push]
-	default = matching
+	default = simple
 [status]
 	short = true
     branch = true
@@ -35,12 +35,14 @@
 	tool = nvimdiff
     conflictstyle = diff3
 [diff]
-	tool = nvimdiff
+	tool = codediff
 [mergetool]
 	path = /usr/bin/nvim
     keepBackup = false
 [mergetool "nvimdiff"]
     cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[difftool "codediff"]
+    cmd = code --wait --diff $LOCAL $REMOTE
 [commit]
 	gpgsign = true
 [format]
@@ -60,3 +62,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[rerere]
+	enabled = true
