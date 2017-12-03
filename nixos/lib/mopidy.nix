@@ -1,4 +1,4 @@
-{ pkgs, secrets, unstable, ... }:
+{ pkgs, secrets, mypkgs, ... }:
 {
   hardware.pulseaudio.tcp.enable = true;
   hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
@@ -31,7 +31,7 @@
   '';
   services.mopidy.extensionPackages = with pkgs; [
     mopidy-soundcloud
-    mopidy-iris
+    mypkgs.mopidy-iris
     mopidy-local-images
     mopidy-local-sqlite
     #mopidy-mpris TODO: make it work

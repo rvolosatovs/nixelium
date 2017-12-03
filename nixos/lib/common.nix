@@ -23,26 +23,23 @@ in
     i18n.consoleKeyMap = "us";
     i18n.defaultLocale = "en_US.UTF-8";
 
-    programs = {
-      vim.defaultEditor = true;
-      zsh = {
-        enable = true;
-        enableAutosuggestions = true;
-        enableCompletion = true;
-        syntaxHighlighting.enable = true;
-        interactiveShellInit = ''
-            source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
-            bindkey -v
-            HISTFILE="''${ZDOTDIR:-$HOME}/.zhistory"
-            source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
-            source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
-        '';
-        promptInit="";
-      };
-      bash.enableCompletion = true;
-      mosh.enable = true;
-      command-not-found.enable = true;
-    };
+    programs.zsh.enable = true;
+    programs.zsh.enableAutosuggestions = true;
+    programs.zsh.enableCompletion = true;
+    programs.zsh.syntaxHighlighting.enable = true;
+    programs.zsh.promptInit="";
+    programs.zsh.interactiveShellInit = ''
+       source ${pkgs.grml-zsh-config}/etc/zsh/zshrc
+       bindkey -v
+       HISTFILE="''${ZDOTDIR:-$HOME}/.zhistory"
+       source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
+       source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
+    '';
+
+    programs.bash.enableCompletion = true;
+    programs.mosh.enable = true;
+    programs.command-not-found.enable = true;
+    programs.vim.defaultEditor = true;
 
     nix.nixPath = [
       "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
@@ -62,12 +59,16 @@ in
 
     time.timeZone = "Europe/Amsterdam";
 
-    environment.sessionVariables.EMAIL = vars.email;
-    environment.sessionVariables.EDITOR = vars.editor;
-    environment.sessionVariables.VISUAL = vars.editor;
     environment.sessionVariables.BROWSER = vars.browser;
+    environment.sessionVariables.EDITOR = vars.editor;
+    environment.sessionVariables.EMAIL = vars.email;
     environment.sessionVariables.MAILER = vars.mailer;
     environment.sessionVariables.PAGER = vars.pager;
+    environment.sessionVariables.VISUAL = vars.editor;
+    environment.sessionVariables.PASSWORD_STORE_DIR = "$HOME/.local/pass";
+    environment.extraInit = ''
+      export PATH="$HOME/.local/bin:$HOME/.local/bin.go:$PATH"
+      '';
 
     security.sudo.enable = true;
     security.sudo.wheelNeedsPassword = false;
@@ -85,18 +86,6 @@ in
     virtualisation.docker.autoPrune.enable = true;
     virtualisation.docker.enable = true;
     virtualisation.libvirtd.enable = true;
-
-    users.defaultUserShell = pkgs.zsh;
-    users.users."${vars.username}" = {
-      isNormalUser = true;
-      initialPassword = "${vars.username}";
-      home="/home/${vars.username}";
-      createHome=true;
-      extraGroups= [ "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" ];
-      openssh.authorizedKeys.keys = [
-        keys.publicKey
-      ];
-    };
 
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.overlays = [
@@ -141,8 +130,8 @@ in
       git
       git-lfs
       gnumake
-      gnupg
-      gnupg1compat
+      #gnupg
+      #gnupg1compat
       graphviz
       grml-zsh-config
       htop
@@ -211,6 +200,28 @@ in
           };
         };
       };
+    };
+
+    users.defaultUserShell = pkgs.zsh;
+    users.users."${vars.username}" = {
+      isNormalUser = true;
+      initialPassword = "${vars.username}";
+      home="/home/${vars.username}";
+      createHome=true;
+      extraGroups= [ "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" ];
+      openssh.authorizedKeys.keys = [
+        keys.publicKey
+      ];
+    };
+    users.users.test = {
+      isNormalUser = true;
+      initialPassword = "${vars.username}";
+      home="/home/test";
+      createHome=true;
+      extraGroups= [ "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" ];
+      openssh.authorizedKeys.keys = [
+        keys.publicKey
+      ];
     };
 
     system.stateVersion = "17.09";

@@ -53,8 +53,8 @@
 	name = Roman Volosatovs
 	email = rvolosatovs@riseup.net
 	signingkey = 3D80C89E
-[url "git@github.com:"]
-	insteadOf = https://github.com/
+;[url "git@github.com:"]
+	;insteadOf = https://github.com/
 [http "https://gopkg.in"]
 	followRedirects = true
 [filter "lfs"]

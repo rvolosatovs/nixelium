@@ -68,6 +68,7 @@ set viewoptions=cursor,slash,unix
 
 " ~~~ Plugins ~~~
 
+let g:plug_url_format = 'git@github.com:%s.git'
 call plug#begin('~/.local/share/nvim/plugins')
 
 " Sanity check
@@ -200,6 +201,23 @@ let g:airline#extensions#tabline#tab_nr_type = 2
 let g:bufferline_echo = 0
 
 " ~~~ Plugin configs ~~~
+
+" Called once right before you start selecting multiple cursors
+function! Multiple_cursors_before()
+    if exists('g:deoplete#disable_auto_complete') 
+	   let g:deoplete#disable_auto_complete = 1
+    endif
+endfunction
+
+" Called once only when the multiple selection is canceled (default <Esc>)
+function! Multiple_cursors_after()
+    if exists('g:deoplete#disable_auto_complete')
+	   let g:deoplete#disable_auto_complete = 0
+    endif
+endfunction
+
+let g:multi_cursor_exit_from_visual_mode = 0
+let g:multi_cursor_exit_from_insert_mode = 0
 
 " Easytags
 let g:easytags_file='~/.local/share/nvim/tags'

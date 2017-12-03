@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	termite
+	echo $PATH > /tmp/sxhkd-PATH && termite
 
 # program launcher
 super + space
@@ -16,13 +16,13 @@ super + Escape
     notify-send "Reloaded sxhkd config"
 
 super + shift + p
-    ~/.local/bin/pass-script insert
+    pass-script insert &> /tmp/PASS
 
 super + ctrl + p
-    ~/.local/bin/pass-script copy
+    pass-script copy
 
 super + alt + p
-    ~/.local/bin/pass-script new
+    pass-script new
 
 super + shift + o
     $BROWSER

@@ -1,18 +1,23 @@
 { config, pkgs, xdg, ... }:
 
 rec {
-  home.sessionVariables.ZPLUG_HOME= "${xdg.configHome}/zsh/zplug";
+  #home.sessionVariables.ZPLUG_HOME = "${xdg.configHome}/zsh/zplug";
   home.packages = with pkgs; [ zsh-syntax-highlighting ];
 
   programs.zsh.enable = true;
   programs.zsh.enableAutosuggestions = true;
   programs.zsh.enableCompletion = true;
   programs.zsh.dotDir = ".config/zsh";
-  programs.zsh.history.path = ".config/zhistory";
+  programs.zsh.history.path = ".config/zsh/.zhistory";
   programs.zsh.history.ignoreDups = true;
   programs.zsh.history.share = true;
   programs.zsh.initExtra = ''
+     # Workaround grml setting HISTFILE
+     oldHist="$HISTFILE"
      source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
+     ! [ -z $oldHist ] && export HISTFILE="$oldHist"
+     unset oldHist
+
      bindkey -v
      source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
      source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"

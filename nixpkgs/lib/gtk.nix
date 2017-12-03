@@ -1,7 +1,7 @@
 { ... }:
 
 {
-        home.sessionVariables.QT_QPA_PLATFORMTHEME="gtk2";
+  home.sessionVariables.QT_QPA_PLATFORMTHEME="gtk2";
 
   gtk.enable = true;
   gtk.fontName = "Sans 10";

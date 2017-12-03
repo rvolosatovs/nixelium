@@ -335,3 +335,7 @@ TSWLatexianTemp*
 *-tags.tex
 
 token
+
+.envrc
+.direnv*
+.vscode

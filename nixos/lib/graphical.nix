@@ -27,8 +27,8 @@
     "jegbgfamcgeocbfeebacnkociplhmfbk" # browserpass
   ];
 
-  programs.gnupg.agent.enable = true;
-  programs.gnupg.agent.enableSSHSupport = true;
+  programs.gnupg.agent.enable = false;
+  programs.gnupg.agent.enableSSHSupport = false;
   programs.ssh.startAgent = false;
   programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
 
@@ -37,12 +37,12 @@
   services.gnome3.gnome-keyring.enable = true;
   services.gnome3.seahorse.enable = true;
 
-  services.redshift.enable = true;
-  services.redshift.latitude = secrets.latitude;
-  services.redshift.longitude = secrets.longitude;
+  #services.redshift.enable = true;
+  #services.redshift.latitude = secrets.latitude;
+  #services.redshift.longitude = secrets.longitude;
 
-  services.keybase.enable = true;
-  services.kbfs.enable = true;
+  #services.keybase.enable = true;
+  #services.kbfs.enable = true;
 
   services.xbanish.enable = true;
 
@@ -123,7 +123,7 @@
 
 
     # Dev
-    go
+    go_1_9
     gotools
     nodejs
     protobuf
@@ -156,7 +156,7 @@
     #libreoffice
     gtk-engine-murrine
     #texlive.combined.scheme-small
-    unstable.keybase
+    #unstable.keybase
     slock
     wget
     termite

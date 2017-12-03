@@ -36,8 +36,8 @@
 
     (lib.mkIf config.services.xserver.enable {
       hardware.trackpoint.enable = true;
-      hardware.trackpoint.sensitivity = 220;
-      hardware.trackpoint.speed = 0;
+      hardware.trackpoint.sensitivity = 250;
+      hardware.trackpoint.speed = 120;
       hardware.trackpoint.emulateWheel = true;
 
       services.xserver.libinput.enable = true;
