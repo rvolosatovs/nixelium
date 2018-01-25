@@ -31,6 +31,7 @@
     tree = log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'
  bigtree = log --graph --decorate --pretty=format:'%C(auto)%d%n%h %s%+b%n(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n'
     hist = log --date=short --pretty=format:'%C(auto)%ad %h (%G?) %s [%an] %d'
+  xclean = clean -xdf -e .envrc -e .direnv.* -e shell.nix -e default.nix -e vendor -e .vscode
 [merge]
 	tool = nvimdiff
     conflictstyle = diff3

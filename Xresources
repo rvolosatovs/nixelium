@@ -72,7 +72,7 @@ rofi.color-window:                  base00, base01
 rofi.separator-style:               none
 rofi.hide-scrollbar:                true
 rofi.opacity:                       90
-rofi.auto-select:                   true
+rofi.auto-select:                   false
 
 ! "Enabled modi" Set from: Default
 ! rofi.modi:                           window,run,ssh
