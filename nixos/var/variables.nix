@@ -8,7 +8,7 @@ rec {
   email = "${username}@riseup.net";
 
   editor = "${pkgs.neovim}/bin/nvim";
-  browser = "${pkgs.firefox}/bin/firefox";
+  browser = "${pkgs.chromium}/bin/chromium";
   mailer = "${pkgs.thunderbird}/bin/thunderbird";
   pager = "${pkgs.less}/bin/less";
 

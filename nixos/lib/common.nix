@@ -19,6 +19,8 @@ in
     services.printing.enable = true;
     services.ntp.enable = true;
 
+    services.samba.enable = true;
+
     i18n.consoleFont = "Lat2-Terminus16";
     i18n.consoleKeyMap = "us";
     i18n.defaultLocale = "en_US.UTF-8";
@@ -108,8 +110,8 @@ in
       {
         #browserpass = newest mypkgs.browserpass;
         #go = unstable.go;
-        asd = asd;
-        mopidy-iris = mypkgs.mopidy-iris;
+        mopidy = mypkgs.mopidy;
+        #mopidy-iris = mypkgs.mopidy-iris;
         #mopidy-local-sqlite = newest mypkgs.mopidy-local-sqlite;
         #mopidy-local-images = newest mypkgs.mopidy-local-images;
         #mopidy-mpris = newest mypkgs.mopidy-mpris;
@@ -124,15 +126,14 @@ in
     environment.shells = [ pkgs.zsh ];
     environment.systemPackages = with pkgs; [
       bc
+      clang
       curl
-      docker-gc
-      fzf
       git
       git-lfs
       gnumake
+      gcc
       #gnupg
       #gnupg1compat
-      graphviz
       grml-zsh-config
       htop
       httpie
@@ -140,21 +141,17 @@ in
       lm_sensors
       lsof
       neofetch
+      unstable.neovim
       nix-repl
       nox
-      pandoc
       pciutils
       psmisc
       pv
       rclone
       rfkill
-      ripgrep
+      #ripgrep
       tree
-      unstable.direnv
-      unstable.docker_compose
-      unstable.neovim
       unzip
-      weechat
       whois
       wireguard
       xdg-user-dirs
@@ -177,17 +174,17 @@ in
           };
         };
 
-        godoc = {
-          enable = true;
-          wantedBy = [ "multi-user.target" ];
-          environment = {
-            "GOPATH" = "/home/${vars.username}";
-          };
-          serviceConfig = {
-            User = "${vars.username}";
-            ExecStart = "${pkgs.gotools}/bin/godoc -http=:6060";
-          };
-        };
+        #godoc = {
+          #enable = true;
+          #wantedBy = [ "multi-user.target" ];
+          #environment = {
+            #"GOPATH" = "/home/${vars.username}";
+          #};
+          #serviceConfig = {
+            #User = "${vars.username}";
+            #ExecStart = "${pkgs.gotools}/bin/godoc -http=:6060";
+          #};
+        #};
 
         openvpn-reconnect = {
           enable = true;
@@ -208,17 +205,7 @@ in
       initialPassword = "${vars.username}";
       home="/home/${vars.username}";
       createHome=true;
-      extraGroups= [ "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" ];
-      openssh.authorizedKeys.keys = [
-        keys.publicKey
-      ];
-    };
-    users.users.test = {
-      isNormalUser = true;
-      initialPassword = "${vars.username}";
-      home="/home/test";
-      createHome=true;
-      extraGroups= [ "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" ];
+      extraGroups= [ "users" "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" "vboxusers" "adbusers" "rkt" "libvirtd" ];
       openssh.authorizedKeys.keys = [
         keys.publicKey
       ];

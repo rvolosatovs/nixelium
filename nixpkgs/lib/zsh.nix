@@ -23,7 +23,7 @@ rec {
      source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
 
      CITY=''${CITY:-"Eindhoven"}
-     { curl -s wttr.in/''${CITY} 2>/dev/null | head -7 } &|
+     { curl -s wttr.in/''${CITY} 2>/dev/null | head -7 | tail -6 } &|
 
      source ${xdg.dataHome}/base16/scripts/base16-tomorrow-night.sh
      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

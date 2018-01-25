@@ -1,4 +1,4 @@
-{ lib, config, pkgs, secrets, ... }:
+{ lib, config, pkgs, unstable, secrets, ... }:
 
 {
   imports = [
@@ -21,5 +21,48 @@
   services.screen-locker.lockCmd = "lock -s -p";
 
   programs.firefox.enable = true;
-  #programs.chromium.enable = true;
+  programs.firefox.package = unstable.firefox;
+
+  programs.browserpass.enable = true;
+  #programs.browserpass.browsers = ["firefox" "chromium"];
+
+  home.packages = with pkgs; [
+    #autorandr
+    #xorg.xset
+    #xorg.xsetroot
+    dunst
+    electrum
+    electrum-ltc
+    ffmpeg
+    gnome3.dconf
+    gnome3.glib_networking
+    i3lock-color
+    imagemagick
+    libnotify
+    lxappearance
+    maim
+    mpv
+    rofi
+    rofi-pass
+    slop
+    sxhkd
+    sxiv
+    termite
+    wmname
+    xautolock
+    xclip
+    xdo
+    xdotool
+    xsel
+    xss-lock
+    xtitle
+    youtube-dl
+    zathura
+  ] ++ (with unstable; [
+    chromium
+    #firefox
+    polybar
+    spotify
+    thunderbird
+  ]);
 }

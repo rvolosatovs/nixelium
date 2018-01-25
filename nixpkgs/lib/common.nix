@@ -6,7 +6,7 @@ let
     binDir = "${localDir}/bin";
     goBinDir = "${binDir}.go";
 
-    rubyVersion = "2.4.0";
+    rubyVersion = "2.5.0";
     rubyBinDir = "${homeDir}.gem/ruby/${rubyVersion}/bin";
 in
 
@@ -17,9 +17,11 @@ rec {
     ./neovim.nix
   ];
 
-  services.keybase.enable = true;
-  services.kbfs.enable = true;
-  services.kbfs.mountPoint = ".local/keybase";
+  systemd.user.startServices = true;
+
+  #services.keybase.enable = true;
+  #services.kbfs.enable = true;
+  #services.kbfs.mountPoint = ".local/keybase";
 
   services.gpg-agent.enable = true;
   services.gpg-agent.defaultCacheTtl = 180000;
@@ -65,25 +67,44 @@ rec {
   ]);
 
   home.packages = with pkgs; [
+    acpi
     bc
+    clang
     curl
     elinks
     espeak
+    file
+    gist
     git-lfs
     gnumake
     gnupg
     gnupg1compat
+    go-ethereum
+    gotools
+    graphviz
     grml-zsh-config
     htop
+    #httpie
+    julia
     lm_sensors
     lsof
     neofetch
+    nodejs
+    pass
+    pandoc
     pciutils
+    playerctl
+    protobuf
     psmisc
     pv
     rfkill
+    #ripgrep
+    #seth
+    sutils
     tree
+    universal-ctags
     unzip
+    wget
     whois
     xdg-user-dirs
     zip
@@ -93,13 +114,15 @@ rec {
     docker_compose
     fzf
     git
+    go
     httpie
     jq
-    nox
+    keybase
+    #mopidy
+    #neovim
     nix-repl
+    nox
     rclone
-    mopidy
-    ripgrep
     weechat
     wireguard
   ]);

@@ -32,6 +32,12 @@
         START_CHARGE_THRESH_BAT1=75
         STOP_CHARGE_THRESH_BAT1=90
       '';
+
+      environment.systemPackages = with pkgs; [
+        linuxPackages.acpi_call
+        powertop
+        microcodeIntel
+      ];
     }
 
     (lib.mkIf config.services.xserver.enable {

@@ -24,10 +24,15 @@ rec {
     ../../lib/graphical.nix
   ];
 
-  networking.firewall.allowedTCPPorts = [ 42424 ];
+  networking.firewall.allowedTCPPorts = [ 3001 42424 ];
 
   services.xserver.xrandrHeads = [ "DP1" "eDP1" ];
   services.xserver.resolutions = [ { x = 3840; y = 2160; } { x = 1920; y = 1080; } ];
+  #services.xserver.xrandrHeads = [ "HDMI2" "eDP1" ];
+  #services.xserver.resolutions = [ { x = 1920; y = 1080; } { x = 1920; y = 1080; } ];
 
   virtualisation.rkt.enable = true;
+  #virtualisation.virtualbox.host.enable = true;
+  #virtualisation.virtualbox.host.headless = true;
+  #virtualisation.virtualbox.guest.enable = true;
 }

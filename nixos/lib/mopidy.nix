@@ -31,7 +31,7 @@
   '';
   services.mopidy.extensionPackages = with pkgs; [
     mopidy-soundcloud
-    mypkgs.mopidy-iris
+    mopidy-iris
     mopidy-local-images
     mopidy-local-sqlite
     #mopidy-mpris TODO: make it work

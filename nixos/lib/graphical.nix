@@ -16,7 +16,7 @@
   programs.light.enable = true;
   programs.java.enable = true;
   programs.wireshark.enable = true;
-  programs.browserpass.enable = true;
+  #programs.browserpass.enable = true;
 
   programs.chromium.enable = true;
   programs.chromium.homepageLocation = "https://duckduckgo.com/?key=${secrets.duckduckgo.key}";
@@ -24,7 +24,9 @@
     "gcbommkclmclpchllfjekcdonpmejbdp" # https everywhere
     "klbibkeccnjlkjkiokjodocebajanakg" # great suspender
     "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock origin
-    "jegbgfamcgeocbfeebacnkociplhmfbk" # browserpass
+    "naepdomgkenhinolocfifgehidddafch" # browserpass-ce
+    "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
+    "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
   ];
 
   programs.gnupg.agent.enable = false;
@@ -37,9 +39,9 @@
   services.gnome3.gnome-keyring.enable = true;
   services.gnome3.seahorse.enable = true;
 
-  #services.redshift.enable = true;
-  #services.redshift.latitude = secrets.latitude;
-  #services.redshift.longitude = secrets.longitude;
+  services.redshift.enable = true;
+  services.redshift.latitude = secrets.latitude;
+  services.redshift.longitude = secrets.longitude;
 
   #services.keybase.enable = true;
   #services.kbfs.enable = true;
@@ -52,8 +54,8 @@
   services.xserver.xkbOptions = "grp:alt_space_toggle,terminate:ctrl_alt_bksp,eurosign:5,caps:escape";
   services.xserver.exportConfiguration = true;
 
-  services.xserver.xautolock.enable = true;
-  services.xserver.xautolock.locker = "/home/${vars.username}/.local/bin/lock -s -p";
+  #services.xserver.xautolock.enable = true;
+  #services.xserver.xautolock.locker = "/home/${vars.username}/.local/bin/lock -s -p";
 
   services.xserver.desktopManager.default = "none";
   services.xserver.desktopManager.xterm.enable = false;
@@ -98,82 +100,6 @@
   environment.sessionVariables.GTK_PATH = "${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0";
 
   environment.systemPackages = with pkgs; [
-    linuxPackages.acpi_call
-    acpi
-    powertop
-    microcodeIntel
-    libnotify
-
-    # X11
-    xdo
-    wmname
-    xdotool
-    xsel
-    sutils
-    #xorg.xset
-    #xorg.xsetroot
-    xtitle
-    xclip
-    sxhkd
-    slock
-    #lemonbar-xft
-    #stalonetray
-    polybar
-    autorandr
-
-
-    # Dev
-    go_1_9
-    gotools
-    nodejs
-    protobuf
-    nodejs
-    julia
-    gcc
-    gradle
-    universal-ctags
-    gist
-    influxdb
-    redis
-    travis
-
-    # Multimedia
-    mpv
-    spotify
-    youtube-dl
-    imagemagick
-    sxiv
-    ffmpeg
-
-    # Random
-    ansible
-    gnome3.dconf
-    gnome3.glib_networking
-    pass
-    playerctl
-    unstable.firefox
-    unstable.chromium
-    #libreoffice
-    gtk-engine-murrine
-    #texlive.combined.scheme-small
-    #unstable.keybase
-    slock
-    wget
     termite
-    zathura
-    dunst
-    maim
-    slop
-    redshift
-    thunderbird
-    rofi
-    keychain
-    networkmanagerapplet
-    lxappearance
-    xautolock
-    xss-lock
-    i3lock-color
-
-    android-studio
   ];
 }

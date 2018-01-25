@@ -1,12 +1,13 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   home.sessionVariables.QT_QPA_PLATFORMTHEME="gtk2";
 
   gtk.enable = true;
-  gtk.fontName = "Sans 10";
-  gtk.themeName = "oomox-Tomorrow-Dark";
-  gtk.iconThemeName = "oomox-Tomorrow-Dark-flat";
+  gtk.font.name = "Fira Sans 10";
+  gtk.font.package = pkgs.fira;
+  gtk.theme.name = "oomox-Tomorrow-Dark";
+  gtk.iconTheme.name = "oomox-Tomorrow-Dark-flat";
   gtk.gtk2.extraConfig = ''
      gtk-cursor-theme-size=0
      gtk-toolbar-style=GTK_TOOLBAR_BOTH
