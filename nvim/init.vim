@@ -1,3 +1,125 @@
+" ~~~ Plugins ~~~
+call plug#begin('~/.local/share/nvim/plugins')
+
+" Sanity check
+if !has('nvim')
+    Plug 'tpope/vim-sensible'
+endif
+
+" Looks
+Plug 'chriskempson/base16-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'bling/vim-bufferline'
+Plug 'ryanoasis/vim-devicons'
+
+" Code
+Plug 'editorconfig/editorconfig-vim'
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/neoinclude.vim'
+Plug 'Shougo/neosnippet.vim'
+"Plug 'Shougo/neosnippet-snippets'
+Plug 'benekastah/neomake'
+"Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'godlygeek/tabular'
+Plug 'Chiel92/vim-autoformat'
+"Plug 'Olical/vim-enmasse'
+
+" Steroids
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'tpope/vim-repeat'
+Plug 'junegunn/fzf.vim'
+
+" Utility
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+"Plug 'majutsushi/tagbar'
+"Plug 'scrooloose/nerdtree'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'tpope/vim-vinegar' "( https://github.com/tpope/vim-vinegar/issues/87 )
+Plug 'justinmk/vim-dirvish'
+"Plug 'justinmk/vim-sneak'
+"Plug 'sjl/gundo.vim'
+"Plug 'maxbrunsfeld/vim-yankstack'
+"Plug 'vim-scripts/YankRing.vim'
+"Plug 'vim-scripts/scratch.vim'
+"Plug 'vim-scripts/FastFold'
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-easytags'
+"Plug 'xolox/vim-session'
+"Plug 'kopischke/vim-stay'
+Plug 'gregsexton/gitv'
+Plug 'jiangmiao/auto-pairs'
+"Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-unimpaired'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'dhruvasagar/vim-table-mode'
+"Plug 'rkitover/vimpager'
+
+"Plug 'chaoren/vim-wordmotion'
+Plug 'tpope/vim-abolish'
+
+Plug 'ludovicchabant/vim-gutentags'
+
+" C
+Plug 'zchee/deoplete-clang', { 'for': 'c,cpp,objc' }
+
+" Latex
+Plug 'lervag/vimtex', { 'for': 'tex' }
+
+" Javascript
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
+Plug 'carlitux/deoplete-ternjs', {'for': 'javascript', 'do': 'npm install -g tern'}
+"Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+"Plug 'mxw/vim-jsx', {'for': 'javascript'}
+"Plug 'flowtype/vim-flow', {'for': 'javascript'}
+
+" Typescript
+"Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
+Plug 'Shougo/vimproc.vim', { 'for': 'typescript', 'build' : 'make'} " tsuquyomi dep
+
+" Rust
+"Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+"
+" Go
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+
+" Arduino
+"Plug 'sudar/vim-arduino-syntax', { 'for': 'arduino' }
+"
+" Proto
+"Plug 'rvolosatovs/vim-protobuf', { 'for': 'proto' }
+"
+" Vim
+Plug 'Shougo/neco-vim', { 'for': 'vim' }
+
+" Sxhkd
+"Plug 'baskerville/vim-sxhkdrc', { 'for': 'sxhkdrc' }
+"
+" Rtorrent
+Plug 'ccarpita/rtorrent-syntax-file', { 'for': 'rtorrent' }
+
+" Julia
+"Plug 'JuliaEditorSupport/julia-vim'
+Plug 'JuliaEditorSupport/deoplete-julia', { 'for': 'julia' }
+" Nix
+"Plug 'LnL7/vim-nix', { 'for': 'nix' }
+" GLSL
+"Plug 'tikhomirov/vim-glsl'
+
+Plug 'sheerun/vim-polyglot'
+
+call plug#end()
+
+let g:polyglot_disabled = ['go' , 'latex']
+
 " ~~~ Vim configurations ~~~
 filetype plugin indent on
 
@@ -22,10 +144,14 @@ set hidden
 
 " Folding
 " set foldmethod=syntax
-set foldnestmax=1
+"set foldnestmax=20
+"set foldenable
 set foldcolumn=1
+set foldlevel=20
+set foldlevelstart=7
+set foldmethod=syntax
+set foldignore=""
 set nofoldenable
-"set foldlevel=2
 
 " Searching
 set wrapscan
@@ -48,7 +174,16 @@ set softtabstop=4
 set expandtab
 
 " Indentation
-set smartindent
+set autoindent
+
+" The encoding displayed.
+set encoding=utf-8
+
+" The encoding written to file.
+set fileencoding=utf-8
+
+" Line endings
+set fileformat=unix
 
 " Completion
 if has('nvim')
@@ -65,108 +200,6 @@ set grepformat^=%f:%l:%c:%m
 "set tags=tags,./tags;
 
 set viewoptions=cursor,slash,unix
-
-" ~~~ Plugins ~~~
-
-let g:plug_url_format = 'git@github.com:%s.git'
-call plug#begin('~/.local/share/nvim/plugins')
-
-" Sanity check
-if !has('nvim')
-    Plug 'tpope/vim-sensible'
-endif
-
-" Looks
-Plug 'chriskempson/base16-vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'bling/vim-bufferline'
-Plug 'ryanoasis/vim-devicons'
-
-" Code
-Plug 'editorconfig/editorconfig-vim'
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'Shougo/neoinclude.vim'
-Plug 'benekastah/neomake'
-"Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
-Plug 'godlygeek/tabular'
-Plug 'Chiel92/vim-autoformat'
-Plug 'Olical/vim-enmasse'
-
-" Steroids
-Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
-Plug 'tpope/vim-repeat'
-Plug 'junegunn/fzf.vim'
-
-" Utility
-Plug 'tpope/vim-fugitive'
-Plug 'mhinz/vim-signify'
-Plug 'majutsushi/tagbar'
-"Plug 'scrooloose/nerdtree'
-"Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'tpope/vim-vinegar' "(https://github.com/tpope/vim-vinegar/issues/87)
-Plug 'justinmk/vim-dirvish'
-Plug 'sjl/gundo.vim'
-Plug 'maxbrunsfeld/vim-yankstack'
-"Plug 'vim-scripts/YankRing.vim'
-"Plug 'vim-scripts/scratch.vim'
-"Plug 'vim-scripts/FastFold'
-Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-easytags'
-"Plug 'xolox/vim-session'
-"Plug 'kopischke/vim-stay'
-Plug 'gregsexton/gitv'
-Plug 'jiangmiao/auto-pairs'
-"Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-unimpaired'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'rkitover/vimpager'
-
-" C
-Plug 'zchee/deoplete-clang', { 'for': 'c,cpp,objc' }
-" Latex
-Plug 'vim-latex/vim-latex', { 'for': 'tex' }
-" Javascript
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
-Plug 'carlitux/deoplete-ternjs', {'for': 'javascript', 'do': 'npm install -g tern'}
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'mxw/vim-jsx', {'for': 'javascript'}
-Plug 'flowtype/vim-flow', {'for': 'javascript'}
-" Typescript
-Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
-Plug 'Shougo/vimproc.vim', { 'for': 'typescript', 'build' : 'make'} " tsuquyomi dep
-" Rust
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-" Go
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
-" Arduino
-Plug 'sudar/vim-arduino-syntax', { 'for': 'arduino' }
-" Proto
-Plug 'rvolosatovs/vim-protobuf', { 'for': 'proto' }
-" Vim
-Plug 'Shougo/neco-vim', { 'for': 'vim' }
-" Sxhkd
-Plug 'baskerville/vim-sxhkdrc', { 'for': 'sxhkdrc' }
-" Rtorrent
-Plug 'ccarpita/rtorrent-syntax-file', { 'for': 'rtorrent' }
-" Julia
-Plug 'JuliaEditorSupport/julia-vim'
-Plug 'JuliaEditorSupport/deoplete-julia', { 'for': 'julia' }
-" Nix
-Plug 'LnL7/vim-nix', { 'for': 'nix' }
-"Plug 'MarcWeber/vim-addon-nix', { 'for': 'nix' }
-" GLSL
-Plug 'tikhomirov/vim-glsl'
-
-call plug#end()
 
 
 " ~~~ Eye-candy ~~~
@@ -204,15 +237,15 @@ let g:bufferline_echo = 0
 
 " Called once right before you start selecting multiple cursors
 function! Multiple_cursors_before()
-    if exists('g:deoplete#disable_auto_complete') 
-	   let g:deoplete#disable_auto_complete = 1
+    if exists('g:deoplete#disable_auto_complete')
+        let g:deoplete#disable_auto_complete = 1
     endif
 endfunction
 
 " Called once only when the multiple selection is canceled (default <Esc>)
 function! Multiple_cursors_after()
     if exists('g:deoplete#disable_auto_complete')
-	   let g:deoplete#disable_auto_complete = 0
+        let g:deoplete#disable_auto_complete = 0
     endif
 endfunction
 
@@ -239,7 +272,7 @@ let g:AutoPairsShortcutToggle = '<C-P>'
 "let g:yankring_clipboard_monitor=0
 
 " YankStack
-call yankstack#setup()
+"call yankstack#setup()
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -274,9 +307,13 @@ let g:gundo_preview_bottom=1
 " ~~~ Controls ~~~
 
 " Essential
-nnoremap      ;  :
+noremap         ;  :
+"noremap        ;;  ; 
+noremap        ;;  <Plug>(easymotion-next)
+noremap        ,   <Plug>(easymotion-prev)
 nnoremap <SPACE>  <Nop>
 let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
 
 " Insert-mode
 inoremap      jk  <Esc>
@@ -307,12 +344,12 @@ nmap <Leader>vr   :source ~/.config/nvim/init.vim<CR>
 nmap <Leader>vP   :PlugInstall<CR>
 nmap <Leader>vp   :PlugUpdate<CR>
 
-nmap <Leader>ln   :lnext<CR>
-nmap <Leader>lN   :lNext<CR>
-nmap <Leader>ll   :ll<CR>
-nmap <Leader>cn   :cnext<CR>
-nmap <Leader>cN   :cNext<CR>
-nmap <Leader>cc   :cc<CR>
+"nmap <Leader>ln   :lnext<CR>
+"nmap <Leader>lN   :lNext<CR>
+"nmap <Leader>ll   :ll<CR>
+"nmap <Leader>cn   :cnext<CR>
+"nmap <Leader>cN   :cNext<CR>
+"nmap <Leader>cc   :cc<CR>
 "nmap <Leader>m    :make<CR>
 
 " New
@@ -379,6 +416,9 @@ let g:incsearch#auto_nohlsearch = 1
 map           /   <Plug>(incsearch-easymotion-/)
 map           ?   <Plug>(incsearch-easymotion-?)
 map           g/  <Plug>(incsearch-easymotion-stay)
+"map           /   <Plug>(incsearch-forward)
+"map           ?   <Plug>(incsearch-backward)
+"map           g/  <Plug>(incsearch-stay)
 map           *   <Plug>(incsearch-nohl-*)
 map           n   <Plug>(incsearch-nohl-n)
 map           N   <Plug>(incsearch-nohl-N)
@@ -406,18 +446,18 @@ map    <Leader>e  <Plug>(easymotion-e)
 map    <Leader>E  <Plug>(easymotion-E)
 map    <Leader>ge <Plug>(easymotion-ge)
 map    <Leader>gE <Plug>(easymotion-gE)
-
-map    <Leader>gl <Plug>(easymotion-overwin-line)
-
-map    <Leader>gn <Plug>(easymotion-next)
-map    <Leader>gN <Plug>(easymotion-prev)
+"
+"map    <Leader>gl <Plug>(easymotion-overwin-line)
+"
+"map    <Leader>gn <Plug>(easymotion-next)
+"map    <Leader>gN <Plug>(easymotion-prev)
 map    <Leader>n  <Plug>(easymotion-vim-n)
 map    <Leader>N  <Plug>(easymotion-vim-N)
-
-"map    <Leader>h  <Plug>(easymotion-linebackward)
+"
+""map    <Leader>h  <Plug>(easymotion-linebackward)
 map    <Leader>j  <Plug>(easymotion-j)
 map    <Leader>k  <Plug>(easymotion-k)
-"map    <Leader>l  <Plug>(easymotion-lineforward)
+""map    <Leader>l  <Plug>(easymotion-lineforward)
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -425,7 +465,44 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsListSnippets="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+" Neosnippet
+let g:neosnippet#disable_runtime_snippets = { "_": 1, }
+let g:neosnippet#snippets_directory='~/.local/share/nvim/plugins/vim-snippets/snippets'
+
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+    set conceallevel=2 concealcursor=nc
+endif
+
+let g:tex_conceal="ag"
+let g:vimtex_view_method='zathura'
+
+nmap <localleader>ll <plug>(vimtex-compile-ss)
+
 nmap <Leader>m :Neomake<CR>
+
+"let g:sneak#s_next = 1
+"let g:sneak#use_ic_scs = 1
+"let g:sneak#label = 1
+"let g:sneak#target_labels = 'hjkluiobnmxcvwersdfg'
+"autocmd ColorScheme * hi Sneak guifg=black guibg=red ctermfg=black ctermbg=red
+"autocmd ColorScheme * hi SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
+
 
 " ~~~ Autocmd ~~~
 
