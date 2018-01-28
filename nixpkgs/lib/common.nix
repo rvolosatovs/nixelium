@@ -98,8 +98,8 @@ rec {
     psmisc
     pv
     rfkill
-    #ripgrep
-    #seth
+    ripgrep
+    seth
     sutils
     tree
     universal-ctags

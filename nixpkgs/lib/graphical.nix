@@ -28,12 +28,15 @@
 
   home.packages = with pkgs; [
     #autorandr
+    #nerdfonts
     #xorg.xset
     #xorg.xsetroot
     dunst
     electrum
     electrum-ltc
     ffmpeg
+    fira
+    font-awesome-ttf
     gnome3.dconf
     gnome3.glib_networking
     i3lock-color
@@ -42,12 +45,16 @@
     lxappearance
     maim
     mpv
+    networkmanagerapplet
     rofi
     rofi-pass
+    siji
     slop
     sxhkd
     sxiv
+    symbola
     termite
+    unifont
     wmname
     xautolock
     xclip
