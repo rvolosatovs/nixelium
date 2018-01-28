@@ -237,9 +237,27 @@ cursor-scroll =
 ;modules-center = MiddleArrowLeft date MiddleArrowRight
 ;modules-right = arrow1 LeftStripe arrow1 volume arrow2 network arrow3 cpu arrow2 memory arrow3 filesystem arrow2 temperature arrow3 battery
 
-modules-left = bspwm mpd
+modules-left = lock bspwm mpd
 modules-center = xwindow
-modules-right = volume xkeyboard wifi eth temperature cpu memory battery0 battery1 date lock
+modules-right = volume xkeyboard wifi eth temperature cpu memory battery0 battery1 date
+
+[bar/top-small]
+inherit = bar/top
+modules-left = lock bspwm
+modules-right = volume xkeyboard wifi-short temperature cpu memory battery0 battery1 date
+tray-position =
+
+[bar/top-small-tray]
+inherit = bar/top-small
+tray-position = right
+
+[bar/top-big]
+inherit = bar/top
+tray-position =
+
+[bar/top-big-tray]
+inherit = bar/top-big
+tray-position = right
 
 [module/bspwm]
 type = internal/bspwm
@@ -362,6 +380,7 @@ label-empty-font = 2
 
 [module/mpd]
 type = internal/mpd
+interval = 1
 
 ; Available tags:
 ;   <label-song> (default)
@@ -380,23 +399,30 @@ type = internal/mpd
 ;   <icon-next>
 ;   <icon-seekb>
 ;   <icon-seekf>
-format-playing = <icon-prev> <icon-stop> <toggle> <icon-next> <bar-progress> <label-song> (<label-time>)
-format-stopped = <icon-prev> <icon-stop> <toggle> <icon-next> <icon-repeat>
-format-paused = <icon-prev> <icon-stop> <toggle> <icon-next>
+;format-online = <icon-prev> <icon-stop> <toggle> <icon-next> <bar-progress> <label-song> (<label-time>)
+;format-playing = <icon-prev> <icon-stop> <toggle> <icon-next> <bar-progress> <label-song> (<label-time>)
+;format-stopped = <icon-prev> <icon-stop> <toggle> <icon-next>
+;format-paused = <icon-prev> <icon-stop> <toggle> <icon-next>
+
+format-playing = <icon-prev> <icon-play> <icon-pause> <icon-next> <bar-progress> <label-song> (<label-time>)
+format-paused = <icon-prev> <icon-play> <icon-pause> <icon-next> <bar-progress> <label-song> (<label-time>)
+format-stopped = <icon-prev> <icon-play> <icon-pause> <icon-next>
 format-offline =  Failed to connect to MPD daemon
 
+;format-online-padding = 5
 format-playing-padding = 5
 format-paused-padding = 5
 format-stopped-padding = 5
 format-offline-padding = 5
 
+;format-online-foreground = ${colors.foreground-alt}
 format-playing-foreground = ${colors.foreground-alt}
 format-paused-foreground = ${colors.foreground-alt}
 format-stopped-foreground = ${colors.foreground-alt}
 format-offline-foreground = ${colors.base08}
 
-label-song = %title:5:20:...% - %artist:5:20:...%
-label-song-maxlen = 60
+label-song = %title:5:30:...% // %artist:5:35:...%
+label-song-maxlen = 80
 
 icon-play = 
 icon-pause = 
@@ -560,6 +586,13 @@ interface = wlp4s0
 
 label-connected =  %local_ip%@%essid%
 label-disconnected =  not connected
+
+[module/wifi-short]
+inherit = module/network
+interface = wlp4s0
+
+label-connected =  %essid:5:5:...%
+label-disconnected =  n/c
 
 [module/eth]
 inherit = module/network
