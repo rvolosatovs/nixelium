@@ -12,7 +12,7 @@ clickable_url = true
 ;font = Hurmit 10
 ;font = Hurmit 11
 ;font = Hurmit 12
-font = Hurmit 13
+font = Hurmit Nerd Font 13
 ;font = Hurmit 15
 
 scrollback_lines = 10000
@@ -39,7 +39,7 @@ filter_unmatched_urls = true
 #modify_other_keys = false
 
 [hints]
-font = Hurmit 10
+font = Hurmit Nerd Font 10
 foreground = #dcdccc
 background = #3f3f3f
 active_foreground = #e68080

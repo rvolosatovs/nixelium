@@ -31,7 +31,7 @@ rec {
   #services.xserver.xrandrHeads = [ "HDMI2" "eDP1" ];
   #services.xserver.resolutions = [ { x = 1920; y = 1080; } { x = 1920; y = 1080; } ];
 
-  virtualisation.rkt.enable = true;
+  #virtualisation.rkt.enable = true;
   #virtualisation.virtualbox.host.enable = true;
   #virtualisation.virtualbox.host.headless = true;
   #virtualisation.virtualbox.guest.enable = true;

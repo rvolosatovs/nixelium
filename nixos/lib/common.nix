@@ -149,7 +149,7 @@ in
       pv
       rclone
       rfkill
-      #ripgrep
+      ripgrep
       tree
       unzip
       whois

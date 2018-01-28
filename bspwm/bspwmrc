@@ -2,10 +2,10 @@
 
 source $(dirname `readlink -f $0`)/config
 
-bspc config border_width            1
-bspc config window_gap              6
+bspc config border_width            2
+bspc config window_gap              5
 
-bspc config                  split_ratio  0.57
+bspc config                  split_ratio  0.5
 bspc config           borderless_monocle  true
 bspc config              gapless_monocle  true
 bspc config        focus_follows_pointer  false
@@ -39,6 +39,8 @@ for i in ${!monitors[@]}; do
     bspc desktop $i/1 -l monocle
 done
 
-for m in `polybar -m | cut -d' ' -f1 | tr -d ':'`; do
-    MONITOR=$m polybar top&
+MONITOR=eDP1 polybar -r top-small&
+MONITOR=DP1 polybar -r top-big-tray&
+for m in `polybar -m | grep -vE 'eDP1|DP1' | cut -d' ' -f1 | tr -d ':'`; do
+    MONITOR=$m polybar -r top-big&
 done
