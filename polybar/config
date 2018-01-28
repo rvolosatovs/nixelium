@@ -62,8 +62,8 @@ compositing-border = over
 
 
 ; Define fallback values used by all module formats
-format-foreground = ${colors.base05}
-format-background = ${colors.base00}
+format-foreground =
+format-background =
 format-underline =
 format-overline =
 format-spacing =
@@ -76,9 +76,8 @@ margin-top = 0
 margin-bottom = 3
 
 [bar/top]
-font-0 = Hurmit:size=10;1
-font-1 = Fira Sans:size=10;0
-font-2 = FontAwesome:size=10;2
+font-0 = Hurmit:size=11;1
+font-1 = Hurmit:size=12;1
 ; Extra symbols: http://fontawesome.io/cheatsheet/
 
 ; Use the following command to list available outputs:
@@ -105,12 +104,12 @@ bottom = false
 fixed-center = true
 
 ; Dimension defined as pixel value (e.g. 35) or percentage (e.g. 50%)
-width = 100%
-height = 22
+;width = 100%
+;height = 22
 
 ; Offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
-offset-x = 0
-offset-y = 0
+;offset-x = 0
+;offset-y = 0
 
 ; Background argb color (e.g. #f00, #ff992a, #ddff1023)
 background = ${colors.base00}
@@ -120,21 +119,21 @@ foreground = ${colors.base05}
 
 ; Background gradient (vertical steps)
 ;   background-[0-9]+ = #aarrggbb
-background-0 = 
+;background-0 = 
 
 ; Value used for drawing rounded corners
 ; Individual top/bottom values can be defined using:
 ;   radius-{top,bottom}
-radius = 0.0
+;radius = 0.0
 
 ; Under-/overline pixel size and argb color
 ; Individual values can be defined using:
 ;   {overline,underline}-size
 ;   {overline,underline}-color
-overline-size = 0
-overline-color = ${colors.base05}
-underline-size = 0
-underline-color = ${colors.base05}
+;overline-size = 0
+;overline-color = ${colors.base05}
+;underline-size = 0
+;underline-color = ${colors.base05}
 
 ; Values applied to all borders
 ; Individual side values can be defined using:
@@ -259,7 +258,7 @@ type = internal/bspwm
 ; Only show workspaces defined on the same output as the bar
 ; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
 ; Default: true
-pin-workspaces = true
+pin-workspaces = false
 
 ; Output mode flags after focused state label
 ; Default: false
@@ -299,6 +298,7 @@ fuzzy-match = true
 ;   <label-mode> - gets replaced with <label-(monocle|tiled|fullscreen|floating|locked|sticky|private)>
 ; Default: <label-state>
 format = <label-state>
+format-spacing = 1
 
 ; Available tokens:
 ;   %name%
@@ -312,9 +312,7 @@ label-monitor = %name%
 ;   label-dimmed-occupied
 ;   label-dimmed-urgent
 ;   label-dimmed-empty
-;label-dimmed-foreground = #555
-;label-dimmed-underline = ${bar/top.background}
-;label-dimmed-focused-background = #f00
+label-dimmed-foreground = ${colors.base02}
 
 ; Available tokens:
 ;   %name%
@@ -322,10 +320,6 @@ label-monitor = %name%
 ;   %index%
 ; Default: %icon%  %name%
 label-focused = 
-label-focused-padding = 1
-;label-focused-foreground = ${colors.base05}
-;label-focused-background = ${colors.base08}
-;label-focused-underline = 
 
 ; Available tokens:
 ;   %name%
@@ -333,22 +327,17 @@ label-focused-padding = 1
 ;   %index%
 ; Default: %icon%  %name%
 label-occupied = 
-label-occupied-padding = 1
-label-occupied-font = 14
-;label-occupied-foreground = ${colors.base05}
-;label-occupied-background = ${colors.base08}
-;label-occupied-underline = #555555
+label-occupied-padding = 0
+label-occupied-font = 2
 
 ; Available tokens:
 ;   %name%
 ;   %icon%
 ;   %index%
 ; Default: %icon%  %name%
-label-urgent = ●
-label-urgent-padding = 1
-;label-urgent-foreground = ${colors.base05}
-;label-urgent-background = ${colors.base08}
-;label-urgent-underline = #9b0a20
+label-urgent = 
+label-urgent-padding = 0
+label-urgent-font = 2
 
 ; Available tokens:
 ;   %name%
@@ -356,9 +345,8 @@ label-urgent-padding = 1
 ;   %index%
 ; Default: %icon%  %name%
 label-empty = 
-label-empty-padding = 1
-;label-empty-foreground = ${colors.base05}
-;label-empty-background = ${colors.base08}
+label-empty-padding = 0
+label-empty-font = 2
 
 ; The following labels will be used to indicate the layout/mode
 ; for the focused workspace. Requires <label-mode>
@@ -378,8 +366,8 @@ label-empty-padding = 1
 ;label-private-foreground = #bd2c40
 
 ; Separator in between workspaces
-label-separator = |
-label-separator-padding = 2
+;label-separator = |
+;label-separator-padding = 2
 ;label-separator-foreground = #ffb52a
 
 
@@ -571,10 +559,6 @@ ramp-volume-3 = " "
 ;ramp-headphones-0 = 
 ;ramp-headphones-1 = 
 
-;----------------------------------------------------------
-;			    M P D
-;----------------------------------------------------------
-
 [module/mpd]
 type = internal/mpd
 
@@ -594,8 +578,8 @@ icon-seekf = »
 icon-random = ½
 icon-repeat = O
 
-toggle-on-foreground = ${colors.peach}
-toggle-off-foreground = #66
+;toggle-on-foreground = ${colors.peach}
+;toggle-off-foreground = #66
 
 
 ;----------------------------------------------------------
