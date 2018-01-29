@@ -755,7 +755,7 @@ animation-charging-framerate = 1000
 [module/battery0]
 inherit = module/battery
 battery = BAT0
-full-at = 84
+full-at = 75
 
 format-charging-foreground = ${colors.foreground-alt}
 format-discharging-foreground = ${colors.foreground-alt}
@@ -764,7 +764,7 @@ format-full-foreground = ${colors.foreground-alt}
 [module/battery1]
 inherit = module/battery
 battery = BAT1
-full-at = 88
+full-at = 75
 
 [module/date]
 type = internal/date
