@@ -4,14 +4,12 @@
   imports = [ ./efi.nix ];
   config = lib.mkMerge [
     {
-
       boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call wireguard ];
 
       boot.extraModprobeConfig = ''
         options thinkpad_acpi force-load=1
         options snd-hda-intel model=thinkpad
       '';
-
 
       hardware.bluetooth.enable = true;
       hardware.pulseaudio.enable = true;
