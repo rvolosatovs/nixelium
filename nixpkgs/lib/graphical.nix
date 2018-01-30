@@ -9,6 +9,18 @@
   xsession.enable = true;
   xsession.windowManager.command = ''
     export _JAVA_AWT_WM_NONREPARENTING=1
+
+     ${pkgs.feh}/bin/feh  --bg-fill "$HOME/pictures/wp"
+     ${pkgs.dunst}/bin/dunst &
+     ${pkgs.networkmanagerapplet}/bin/nm-applet &
+     ${pkgs.xorg.xset}/bin/xset s off -dpms
+     ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
+     ${pkgs.wmname}/bin/wmname LG3D
+
+     ${pkgs.sudo}/bin/sudo ''${HOME}/.local/bin/fix-keycodes
+
+     ''${HOME}/.local/bin/turbo disable
+
     SXHKD_SHELL=/bin/sh ${pkgs.sxhkd}/bin/sxhkd &
     ${pkgs.bspwm}/bin/bspwm
     '';
@@ -18,7 +30,9 @@
   services.redshift.longitude = secrets.longitude;
   services.network-manager-applet.enable = true;
   services.screen-locker.enable = true;
-  services.screen-locker.lockCmd = "lock -s -p";
+  #services.screen-locker.lockCmd = "lock -s -p";
+  services.screen-locker.lockCmd = "lock -i ~/pictures/lock";
+  services.screen-locker.inactiveInterval = 20;
 
   programs.firefox.enable = true;
   programs.firefox.package = unstable.firefox;

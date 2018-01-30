@@ -399,14 +399,10 @@ interval = 1
 ;   <icon-next>
 ;   <icon-seekb>
 ;   <icon-seekf>
-;format-online = <icon-prev> <icon-stop> <toggle> <icon-next> <bar-progress> <label-song> (<label-time>)
-;format-playing = <icon-prev> <icon-stop> <toggle> <icon-next> <bar-progress> <label-song> (<label-time>)
-;format-stopped = <icon-prev> <icon-stop> <toggle> <icon-next>
-;format-paused = <icon-prev> <icon-stop> <toggle> <icon-next>
 
-format-playing = <icon-prev> <icon-play> <icon-pause> <icon-next> <bar-progress> <label-song> (<label-time>)
-format-paused = <icon-prev> <icon-play> <icon-pause> <icon-next> <bar-progress> <label-song> (<label-time>)
-format-stopped = <icon-prev> <icon-play> <icon-pause> <icon-next>
+format-playing = <icon-prev> <icon-seekb> <toggle> <icon-seekf> <icon-next> <bar-progress> <label-song> (<label-time>)
+format-paused = <icon-prev> <icon-seekb> <toggle> <icon-seekf> <icon-next> <bar-progress> <label-song> (<label-time>)
+format-stopped = <icon-prev> <toggle> <icon-next>
 format-offline =  Failed to connect to MPD daemon
 
 ;format-online-padding = 5
@@ -526,8 +522,7 @@ blacklist-1 = scroll lock
 ; Available tags:
 ;   <label-layout> (default)
 ;   <label-indicator> (default)
-format = <label-layout> <label-indicator>
-format-prefix = " "
+format =  <label-layout> <label-indicator>
 
 ; Available tokens:
 ;   %layout%
@@ -562,6 +557,7 @@ format-disconnected = <label-disconnected>
 ;   <label-packetloss>
 ;   <animation-packetloss>
 ;format-packetloss = <animation-packetloss> <label-connected>
+format-packetloss-foreground = ${colors.base09}
 
 ; Available tokens:
 ;   %ifname%    [wireless+wired]
@@ -584,23 +580,32 @@ label-disconnected-foreground = ${colors.base09}
 inherit = module/network
 interface = wlp4s0
 
-label-connected =  %local_ip%@%essid%
-label-disconnected =  not connected
+format-connected-prefix = " "
+format-disconnected-prefix = " "
+format-packetloss-prefix = " "
+
+label-connected = %local_ip%@%essid%
+label-disconnected = not connected
 
 [module/wifi-short]
-inherit = module/network
-interface = wlp4s0
+inherit = module/wifi
 
-label-connected =  %essid:5:5:...%
-label-disconnected =  n/c
+label-connected = %essid:5:5:...%
+label-disconnected = n/c
 
 [module/eth]
 inherit = module/network
 interface = enp0s31f6
 
-label-connected =  %local_ip%
-label-disconnected =  not connected
+format-connected-prefix = " "
+format-disconnected-prefix = " "
+format-packetloss-prefix = " "
+
+label-connected = %local_ip%
+label-disconnected = not connected
+
 format-connected-foreground = ${colors.foreground-alt}
+format-packetloss-foreground = ${colors.base08}
 
 [module/cpu]
 type = internal/cpu

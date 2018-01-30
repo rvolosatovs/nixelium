@@ -76,23 +76,23 @@
      ${config.hardware.pulseaudio.package}/bin/pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
      ${config.hardware.pulseaudio.package}/bin/pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
 
-     ${pkgs.feh}/bin/feh  --bg-fill "$HOME/pictures/wp"
-     #${pkgs.stalonetray}/bin/stalonetray -c "''${XDG_CONFIG_HOME}/stalonetray/stalonetrayrc" &
-     ${pkgs.dunst}/bin/dunst &
-     ${pkgs.networkmanagerapplet}/bin/nm-applet &
-     ${pkgs.xorg.xset}/bin/xset s off -dpms
-     ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
-     ${pkgs.wmname}/bin/wmname LG3D
+     #${pkgs.feh}/bin/feh  --bg-fill "$HOME/pictures/wp"
+     ##${pkgs.stalonetray}/bin/stalonetray -c "''${XDG_CONFIG_HOME}/stalonetray/stalonetrayrc" &
+     #${pkgs.dunst}/bin/dunst &
+     #${pkgs.networkmanagerapplet}/bin/nm-applet &
+     #${pkgs.xorg.xset}/bin/xset s off -dpms
+     #${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
+     #${pkgs.wmname}/bin/wmname LG3D
 
-     ${pkgs.sudo}/bin/sudo ''${HOME}/.local/bin/fix-keycodes
+     #${pkgs.sudo}/bin/sudo ''${HOME}/.local/bin/fix-keycodes
 
-     ''${HOME}/.local/bin/turbo disable
+     #''${HOME}/.local/bin/turbo disable
 
-     # Screen Locking (time-based & on suspend)
-     ${pkgs.xautolock}/bin/xautolock -detectsleep -time 5 \
-     -locker "/home/${vars.username}/.local/bin/lock -s -p" \
-     -notify 10 -notifier "${pkgs.libnotify}/bin/notify-send -u critical -t 10000 -- 'Screen will be locked in 10 seconds'" &
-     ${pkgs.xss-lock}/bin/xss-lock -- /home/${vars.username}/.local/bin/lock -s -p &
+     ## Screen Locking (time-based & on suspend)
+     #${pkgs.xautolock}/bin/xautolock -detectsleep -time 5 \
+     #-locker "/home/${vars.username}/.local/bin/lock -s -p" \
+     #-notify 10 -notifier "${pkgs.libnotify}/bin/notify-send -u critical -t 10000 -- 'Screen will be locked in 10 seconds'" &
+     #${pkgs.xss-lock}/bin/xss-lock -- /home/${vars.username}/.local/bin/lock -s -p &
   '';
 
   environment.sessionVariables.QT_QPA_PLATFORMTHEME = "gtk2";

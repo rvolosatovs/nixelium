@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
-
 source $(dirname `readlink -f $0`)/config
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+wmname LG3D
 
 bspc config border_width            2
 bspc config window_gap              5
@@ -18,8 +20,6 @@ bspc config        presel_feedback_color  ${BG}
 bspc rule -a "Spotify" desktop=^5
 bspc rule -a "Chromium-browser:crx_eggkanocgddhmamlbiijnphhppkpkmkl" state=floating
 bspc rule -a "mpv" state=floating
-
-sxhkd &
 
 max_displays=10
 
