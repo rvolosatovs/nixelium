@@ -30,7 +30,7 @@ rec {
   services.gpg-agent.enableScDaemon = false;
   services.gpg-agent.grabKeyboardAndMouse = false;
 
-  services.syncthing.enable = true;
+  #services.syncthing.enable = true;
   services.syncthing.tray = true;
 
   xdg.enable = true;

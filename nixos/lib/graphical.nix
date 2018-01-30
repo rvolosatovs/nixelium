@@ -2,7 +2,7 @@
 
 {
   fonts.enableFontDir = true;
-  fonts.enableDefaultFonts = true;
+  #fonts.enableDefaultFonts = true;
   fonts.enableGhostscriptFonts = true;
   fonts.fonts = with pkgs; [
     dejavu_fonts
@@ -10,6 +10,7 @@
     fira-mono
     font-awesome-ttf
     roboto-slab
+    symbola
     terminus_font
   ];
   fonts.fontconfig.defaultFonts.monospace = [ "Hurmit Nerd Font" "Fira Sans Mono" ];

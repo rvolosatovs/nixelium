@@ -84,6 +84,9 @@ in
         IdleActionSec=300
     '';
     #services.dnscrypt-proxy.enable = true;
+    services.syncthing.enable = true;
+    services.syncthing.openDefaultPorts = true;
+    services.syncthing.user = vars.username;
 
     virtualisation.docker.autoPrune.enable = true;
     virtualisation.docker.enable = true;
