@@ -2,15 +2,24 @@
 
 {
   fonts.enableFontDir = true;
+  fonts.enableDefaultFonts = true;
   fonts.enableGhostscriptFonts = true;
   fonts.fonts = with pkgs; [
-    terminus_font
     dejavu_fonts
-    font-awesome-ttf
-    siji
     fira
     fira-mono
+    font-awesome-ttf
+    roboto-slab
+    terminus_font
   ];
+  fonts.fontconfig.defaultFonts.monospace = [ "Hurmit Nerd Font" "Fira Sans Mono" ];
+  fonts.fontconfig.defaultFonts.sansSerif = [ "Fira Sans" ];
+  fonts.fontconfig.defaultFonts.serif = [ "Roboto Slab" ];
+  fonts.fontconfig.enable = true;
+  fonts.fontconfig.allowBitmaps = true;
+  fonts.fontconfig.allowType1 = false;
+  fonts.fontconfig.hinting.enable = true;
+  fonts.fontconfig.antialias = true;
 
   programs.adb.enable = true;
   programs.light.enable = true;
@@ -27,6 +36,7 @@
     "naepdomgkenhinolocfifgehidddafch" # browserpass-ce
     "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
     "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
+    "gieohaicffldbmiilohhggbidhephnjj" # vanilla cookie manager
   ];
 
   programs.gnupg.agent.enable = false;
