@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   allowBroken = false;
   allowUnfree = true;

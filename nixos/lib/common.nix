@@ -208,7 +208,7 @@ in
       initialPassword = "${vars.username}";
       home="/home/${vars.username}";
       createHome=true;
-      extraGroups= [ "users" "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" "vboxusers" "adbusers" "rkt" "libvirtd" ];
+      extraGroups= [ "users" "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" "vboxusers" "adbusers" "rkt" "libvirtd" "vboxusers" ];
       openssh.authorizedKeys.keys = [
         keys.publicKey
       ];

@@ -31,7 +31,7 @@ rec {
   services.gpg-agent.grabKeyboardAndMouse = false;
 
   #services.syncthing.enable = true;
-  services.syncthing.tray = true;
+  #services.syncthing.tray = true;
 
   xdg.enable = true;
   xdg.configHome = "${homeDir}/.config";
@@ -86,6 +86,8 @@ rec {
     gotools
     graphviz
     grml-zsh-config
+    haskellPackages.ghc
+    haskellPackages.cabal-install
     htop
     #httpie
     julia
@@ -93,10 +95,11 @@ rec {
     lsof
     neofetch
     nodejs
-    pass
     pandoc
+    pass
     pciutils
     playerctl
+    poppler_utils
     protobuf
     psmisc
     pv

@@ -26,6 +26,7 @@
   programs.light.enable = true;
   programs.java.enable = true;
   programs.wireshark.enable = true;
+  programs.qt5ct.enable = true;
   #programs.browserpass.enable = true;
 
   programs.chromium.enable = true;
@@ -106,7 +107,7 @@
      #${pkgs.xss-lock}/bin/xss-lock -- /home/${vars.username}/.local/bin/lock -s -p &
   '';
 
-  environment.sessionVariables.QT_QPA_PLATFORMTHEME = "gtk2";
+  #environment.sessionVariables.QT_QPA_PLATFORMTHEME = "gtk2";
   environment.sessionVariables."_JAVA_OPTIONS" = "-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.aatext=true -Dsun.java2d.xrender=true";
   environment.sessionVariables.GTK_PATH = "${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0";
 
