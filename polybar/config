@@ -243,7 +243,8 @@ modules-right = volume xkeyboard wifi eth temperature cpu memory battery0 batter
 
 [bar/top-small]
 inherit = bar/top
-modules-left = lock bspwm
+modules-left = lock bspwm mpd-short
+modules-center = xwindow-short
 modules-right = volume xkeyboard wifi-short temperature cpu memory battery0 battery1 date
 tray-position =
 
@@ -418,7 +419,7 @@ format-stopped-foreground = ${colors.foreground-alt}
 format-offline-foreground = ${colors.base08}
 
 label-song = %title:5:30:...% // %artist:5:35:...%
-label-song-maxlen = 80
+label-song-maxlen = 64
 
 icon-play = 
 icon-pause = 
@@ -439,13 +440,28 @@ bar-progress-fill = ─
 bar-progress-empty = ─
 bar-progress-empty-foreground = ${colors.base03}
 
+[module/mpd-short]
+inherit = module/mpd
+
+format-playing = <icon-prev> <toggle> <icon-next> <label-song>
+format-paused = <icon-prev> <toggle> <icon-next> <label-song>
+format-stopped = <icon-prev> <toggle> <icon-next>
+format-offline = 
+
+label-song-maxlen = 16
+
 [module/xwindow]
 type = internal/xwindow
 
 ; Available tokens:
 ;   %title%
 ; Default: %title%
-label = %title:50:50:...%
+label = %title:10:40:...%
+
+[module/xwindow-short]
+inherit = module/xwindow
+
+label = %title:10:10:...%
 
 [module/volume]
 type = internal/volume
