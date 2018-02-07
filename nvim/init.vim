@@ -113,6 +113,8 @@ Plug 'JuliaEditorSupport/deoplete-julia', { 'for': 'julia' }
 "Plug 'LnL7/vim-nix', { 'for': 'nix' }
 " GLSL
 "Plug 'tikhomirov/vim-glsl'
+" Verilog
+Plug 'vhda/verilog_systemverilog.vim'
 
 Plug 'sheerun/vim-polyglot'
 
@@ -329,10 +331,18 @@ noremap L $
 " Navigation
 nnoremap      j   gj
 nnoremap      k   gk
-nnoremap  <C-h>   <C-w>h
-nnoremap  <C-j>   <C-w>j
-nnoremap  <C-k>   <C-w>k
-nnoremap  <C-l>   <C-w>l
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
 " Vim-related
 nmap <Leader>vw   :w<CR>
@@ -367,10 +377,10 @@ nmap <Leader>tp   :Yanks<CR>
 "nmap <Leader>tS   :Scratch<CR>
 
 " Sessions
-nmap <Leader>ss   :SaveSession<CR>
-nmap <Leader>sS   :SaveSession
-nmap <Leader>so   :OpenSession<CR>
-nmap <Leader>sO   :OpenSession
+"nmap <Leader>ss   :SaveSession<CR>
+"nmap <Leader>sS   :SaveSession
+"nmap <Leader>so   :OpenSession<CR>
+"nmap <Leader>sO   :OpenSession
 
 " Buffer control
 nmap <Leader>u    :bprevious<CR>
