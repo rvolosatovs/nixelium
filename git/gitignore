@@ -2,29 +2,6 @@
 # Nix OS
 shell.nix
 
-### https://gist.github.com/octocat/9257657 ###
-# Compiled source #
-###################
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
-
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-
 # Logs and databases #
 ######################
 *.log
@@ -73,12 +50,6 @@ tags
 .nfs*
 
 ### https://github.com/github/gitignore/blob/master/Go.gitignore ###
-# Binaries for programs and plugins
-*.exe
-*.dll
-*.so
-*.dylib
-
 # Test binary, build with `go test -c`
 *.test
 
