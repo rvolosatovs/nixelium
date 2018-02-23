@@ -6,6 +6,8 @@ if !has('nvim')
     Plug 'tpope/vim-sensible'
 endif
 
+runtime macros/matchit.vim
+
 " Looks
 Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline'
@@ -13,108 +15,49 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-bufferline'
 Plug 'ryanoasis/vim-devicons'
 
-" Code
-Plug 'editorconfig/editorconfig-vim'
+"Plug 'majutsushi/tagbar'
+"Plug 'tpope/vim-vinegar' "( https://github.com/tpope/vim-vinegar/issues/87 )
+Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neosnippet.vim'
-"Plug 'Shougo/neosnippet-snippets'
 Plug 'benekastah/neomake'
-"Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
-Plug 'godlygeek/tabular'
-Plug 'Chiel92/vim-autoformat'
-"Plug 'Olical/vim-enmasse'
-
-" Steroids
-Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
-Plug 'tpope/vim-repeat'
-Plug 'junegunn/fzf.vim'
-
-" Utility
-Plug 'tpope/vim-fugitive'
-Plug 'mhinz/vim-signify'
-"Plug 'majutsushi/tagbar'
-"Plug 'scrooloose/nerdtree'
-"Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'tpope/vim-vinegar' "( https://github.com/tpope/vim-vinegar/issues/87 )
-Plug 'justinmk/vim-dirvish'
-"Plug 'justinmk/vim-sneak'
-"Plug 'sjl/gundo.vim'
-"Plug 'maxbrunsfeld/vim-yankstack'
-"Plug 'vim-scripts/YankRing.vim'
-"Plug 'vim-scripts/scratch.vim'
-"Plug 'vim-scripts/FastFold'
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-easytags'
-"Plug 'xolox/vim-session'
-"Plug 'kopischke/vim-stay'
-Plug 'gregsexton/gitv'
-Plug 'jiangmiao/auto-pairs'
-"Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-unimpaired'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'dhruvasagar/vim-table-mode'
-"Plug 'rkitover/vimpager'
-
-"Plug 'chaoren/vim-wordmotion'
-Plug 'tpope/vim-abolish'
-
+Plug 'godlygeek/tabular'
+Plug 'gregsexton/gitv'
+Plug 'haya14busa/incsearch.vim'
+Plug 'honza/vim-snippets'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-dirvish'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'mhinz/vim-signify'
+Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+Plug 'scrooloose/nerdcommenter'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
-" C
-Plug 'zchee/deoplete-clang', { 'for': 'c,cpp,objc' }
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch-easymotion.vim'
 
-" Latex
-Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'editorconfig/editorconfig-vim'
 
-" Javascript
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
-Plug 'carlitux/deoplete-ternjs', {'for': 'javascript', 'do': 'npm install -g tern'}
-"Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-"Plug 'mxw/vim-jsx', {'for': 'javascript'}
-"Plug 'flowtype/vim-flow', {'for': 'javascript'}
-
-" Typescript
-"Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
-Plug 'Shougo/vimproc.vim', { 'for': 'typescript', 'build' : 'make'} " tsuquyomi dep
-
-" Rust
-"Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-"
-" Go
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
-
-" Arduino
-"Plug 'sudar/vim-arduino-syntax', { 'for': 'arduino' }
-"
-" Proto
-"Plug 'rvolosatovs/vim-protobuf', { 'for': 'proto' }
-"
-" Vim
-Plug 'Shougo/neco-vim', { 'for': 'vim' }
-
-" Sxhkd
-"Plug 'baskerville/vim-sxhkdrc', { 'for': 'sxhkdrc' }
-"
-" Rtorrent
-Plug 'ccarpita/rtorrent-syntax-file', { 'for': 'rtorrent' }
-
-" Julia
-"Plug 'JuliaEditorSupport/julia-vim'
+"Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
+"Plug 'Shougo/vimproc.vim', { 'for': 'typescript', 'build' : 'make'} " tsuquyomi dep
+"Plug 'carlitux/deoplete-ternjs', {'for': 'javascript', 'do': 'npm install -g tern'}
+"Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'JuliaEditorSupport/deoplete-julia', { 'for': 'julia' }
-" Nix
-"Plug 'LnL7/vim-nix', { 'for': 'nix' }
-" GLSL
-"Plug 'tikhomirov/vim-glsl'
-" Verilog
+Plug 'Shougo/neco-vim', { 'for': 'vim' }
+Plug 'ccarpita/rtorrent-syntax-file', { 'for': 'rtorrent' }
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'vhda/verilog_systemverilog.vim'
+Plug 'zchee/deoplete-clang', { 'for': 'c,cpp,objc' }
+Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 
 Plug 'sheerun/vim-polyglot'
 
@@ -532,3 +475,5 @@ au FocusLost * :wa
 " Filetype-specific settings
 "au FileType html setlocal foldmethod=indent
 au FileType typescript setlocal noexpandtab
+au FileType verilog_systemverilog set makeprg=verilator\ --lint-only\ %
+au FileType verilog_systemverilog VerilogErrorFormat verilator 2
