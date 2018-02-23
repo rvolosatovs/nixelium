@@ -3,7 +3,7 @@
 rec {
   # This will be passed to all imports
   _module.args = {
-    mypkgs = import <mypkgs> {};
+    #mypkgs = import <mypkgs> {};
     unstable = import <nixpkgs-unstable> {};
 
     keys = import ../../var/keys.nix;
@@ -35,4 +35,6 @@ rec {
   virtualisation.virtualbox.host.enable = true;
   #virtualisation.virtualbox.host.headless = true;
   #virtualisation.virtualbox.guest.enable = true;
+
+  programs.wireshark.enable = true;
 }

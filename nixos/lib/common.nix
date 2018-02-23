@@ -1,4 +1,5 @@
-{ config, pkgs, lib, secrets, vars, keys, mypkgs, unstable, ... }:
+#{ config, pkgs, lib, secrets, vars, keys, mypkgs, unstable, ... }:
+{ config, pkgs, lib, secrets, vars, keys, unstable, ... }:
 
 let
   mountOpts = if vars.isSSD then [ "noatime" "nodiratime" "discard" ] else "TODO";
@@ -11,6 +12,7 @@ in
 
     networking.hostName = vars.hostname;
     networking.firewall.enable = true;
+    networking.firewall.trustedInterfaces = [ "vboxnet0" ];
     networking.firewall.allowedTCPPorts = [ ];
     networking.networkmanager.enable = true;
 
@@ -44,9 +46,9 @@ in
     programs.vim.defaultEditor = true;
 
     nix.nixPath = [
-      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos/nixpkgs"
+      #"mypkgs=/nix/nixpkgs"
+      "nixpkgs=/nix/nixpkgs"
       "nixpkgs-unstable=/nix/var/nix/profiles/per-user/root/channels/nixpkgs"
-      "mypkgs=/nix/nixpkgs"
       "nixos-config=/etc/nixos/configuration.nix"
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
@@ -113,7 +115,7 @@ in
       {
         #browserpass = newest mypkgs.browserpass;
         #go = unstable.go;
-        mopidy = mypkgs.mopidy;
+        #mopidy = mypkgs.mopidy;
         #mopidy-iris = mypkgs.mopidy-iris;
         #mopidy-local-sqlite = newest mypkgs.mopidy-local-sqlite;
         #mopidy-local-images = newest mypkgs.mopidy-local-images;

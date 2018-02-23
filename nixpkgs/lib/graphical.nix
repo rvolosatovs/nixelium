@@ -36,6 +36,7 @@
 
   programs.firefox.enable = true;
   programs.firefox.package = unstable.firefox;
+  programs.firefox.enableGoogleTalk = true;
 
   programs.browserpass.enable = true;
   #programs.browserpass.browsers = ["firefox" "chromium"];
@@ -45,9 +46,8 @@
     #nerdfonts
     #xorg.xset
     #xorg.xsetroot
+    #wireshark
     dunst
-    electrum
-    electrum-ltc
     ffmpeg
     fira
     font-awesome-ttf
@@ -60,6 +60,7 @@
     maim
     mpv
     networkmanagerapplet
+    pavucontrol
     rofi
     rofi-pass
     siji
@@ -70,6 +71,7 @@
     termite
     unifont
     wmname
+    x11_ssh_askpass
     xautolock
     xclip
     xdo
@@ -80,6 +82,8 @@
     youtube-dl
     zathura
   ] ++ (with unstable; [
+    electrum
+    #electrum-ltc
     chromium
     #firefox
     polybar

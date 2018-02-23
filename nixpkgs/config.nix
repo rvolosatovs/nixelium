@@ -5,20 +5,28 @@
   allowUnfreeRedistributable = true;
 
   neovim.vimAlias = true;
+  neovim.viAlias = true;
+  neovim.extraPython3Packages = []; #TODO
 
+  #firefox.enableAdobeReader = true;
+  #firefox.ffmpegSupport = true;
+  #firefox.jre = false;
+  firefox.enableAdobeFlash = true;
   firefox.enableDjvu = true;
   firefox.enableGoogleTalkPlugin = true;
-  #firefox.enableAdobeFlash = true;
-  firefox.enableAdobeReader = false;
-  firefox.jre = false;
+  firefox.icedtea = true;
 
-  #chromium.enablePepperFlash = true;
   #chromium.enableWideVine = true;
+  chromium.enableNaCl = true;
+  chromium.enablePepperFlash = true;
 
-  packageOverrides = pkgs: {
-    polybar = pkgs.polybar.override {
-      mpdSupport = true;
-      githubSupport = true;
-    };
-  };
+  polybar.mpdSupport = true;
+  polybar.githubSupport = true;
+
+  #packageOverrides = pkgs: {
+    #polybar = pkgs.polybar.override {
+      #mpdSupport = true;
+      #githubSupport = true;
+    #};
+  #};
 }

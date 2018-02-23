@@ -1,4 +1,4 @@
-{ pkgs, secrets, mypkgs, ... }:
+{ pkgs, secrets, ... }:
 {
   hardware.pulseaudio.tcp.enable = true;
   hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
