@@ -22,11 +22,4 @@
 
   polybar.mpdSupport = true;
   polybar.githubSupport = true;
-
-  #packageOverrides = pkgs: {
-    #polybar = pkgs.polybar.override {
-      #mpdSupport = true;
-      #githubSupport = true;
-    #};
-  #};
 }
