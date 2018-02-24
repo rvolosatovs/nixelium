@@ -6,8 +6,8 @@ let
   binDir = "${localDir}/bin";
   goBinDir = "${binDir}.go";
 
-  rubyVersion = "2.5.0";
-  rubyBinDir = "${homeDir}.gem/ruby/${rubyVersion}/bin";
+  #rubyVersion = "2.5.0";
+  #rubyBinDir = "${homeDir}.gem/ruby/${rubyVersion}/bin";
 in
 
 rec {
@@ -120,7 +120,7 @@ rec {
   programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" ([
     binDir
     goBinDir
-    rubyBinDir
+    #rubyBinDir
     "${xdg.dataHome}/npm/bin"
     "\${PATH}"
   ]);
