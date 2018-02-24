@@ -45,22 +45,6 @@ in
     programs.command-not-found.enable = true;
     programs.vim.defaultEditor = true;
 
-    nix.nixPath = [
-      #"mypkgs=/nix/nixpkgs"
-      "nixpkgs=/nix/nixpkgs"
-      "nixpkgs-unstable=/nix/var/nix/profiles/per-user/root/channels/nixpkgs"
-      "nixos-config=/etc/nixos/configuration.nix"
-      "/nix/var/nix/profiles/per-user/root/channels"
-    ];
-
-    #nix.useSandbox = true;
-    nix.autoOptimiseStore = true;
-    nix.gc.automatic = true;
-    nix.optimise.automatic = true;
-    nix.extraOptions = ''
-         gc-keep-outputs = true
-    '';
-
     time.timeZone = "Europe/Amsterdam";
 
     environment.sessionVariables.BROWSER = vars.browser;
@@ -93,6 +77,22 @@ in
     virtualisation.docker.autoPrune.enable = true;
     virtualisation.docker.enable = true;
     virtualisation.libvirtd.enable = true;
+
+    nix.nixPath = [
+      #"mypkgs=/nix/nixpkgs"
+      "nixpkgs=/nix/nixpkgs"
+      "nixpkgs-unstable=/nix/var/nix/profiles/per-user/root/channels/nixpkgs"
+      "nixos-config=/etc/nixos/configuration.nix"
+      "/nix/var/nix/profiles/per-user/root/channels"
+    ];
+
+    #nix.useSandbox = true;
+    nix.autoOptimiseStore = true;
+    nix.gc.automatic = true;
+    nix.optimise.automatic = true;
+    #nix.extraOptions = ''
+         #gc-keep-outputs = true
+    #'';
 
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.overlays = [
