@@ -57,13 +57,11 @@ rec {
   '';
   programs.zsh.shellAliases.dh="dirs -v";
   programs.zsh.shellAliases.vi="nvim";
-  programs.zsh.shellAliases.vim="nvim";
   programs.zsh.shellAliases.Vi="sudoedit";
   programs.zsh.shellAliases.Vim="sudoedit";
-  programs.zsh.shellAliases.ni="nix-env -i";
-  programs.zsh.shellAliases.ne="nix-env -e";
-  programs.zsh.shellAliases.nu="nix-env -u";
-  programs.zsh.shellAliases.ns="nox";
+  programs.zsh.shellAliases.ne="nix-env";
+  programs.zsh.shellAliases.nr="nixos-rebuild";
+  programs.zsh.shellAliases.nu="sudo nixos-rebuild switch --upgrade -I nixpkgs=/nix/nixpkgs";
   programs.zsh.shellAliases.slow="nice -10";
 
   programs.zsh.shellAliases.ls="ls -h --color=auto";

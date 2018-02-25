@@ -6,6 +6,15 @@
     ./gtk.nix
   ];
 
+  home.keyboard.layout = "lv,ru";
+  home.keyboard.variant = "qwerty";
+  home.keyboard.options = [
+    "grp:alt_space_toggle"
+    "terminate:ctrl_alt_bksp"
+    "eurosign:5"
+    "caps:escape"
+  ];
+
   xsession.enable = true;
   xsession.windowManager.command = ''
     export _JAVA_AWT_WM_NONREPARENTING=1
@@ -23,7 +32,7 @@
 
     SXHKD_SHELL=/bin/sh ${pkgs.sxhkd}/bin/sxhkd &
     ${pkgs.bspwm}/bin/bspwm
-    '';
+  '';
 
   services.redshift.enable = true;
   services.redshift.latitude = secrets.latitude;
@@ -34,19 +43,22 @@
   services.screen-locker.lockCmd = "lock -i ~/pictures/lock";
   services.screen-locker.inactiveInterval = 20;
 
-  programs.firefox.enable = true;
   programs.firefox.package = unstable.firefox;
+  programs.firefox.enable = true;
+  programs.firefox.enableAdobeFlash = true;
   programs.firefox.enableGoogleTalk = true;
+  programs.firefox.enableIcedTea = true;
 
   programs.browserpass.enable = true;
   #programs.browserpass.browsers = ["firefox" "chromium"];
 
   home.packages = with pkgs; [
     #autorandr
+    #electrum
     #nerdfonts
+    #wireshark
     #xorg.xset
     #xorg.xsetroot
-    #wireshark
     dunst
     ffmpeg
     fira
@@ -82,10 +94,10 @@
     youtube-dl
     zathura
   ] ++ (with unstable; [
-    electrum
+    #electrum
     #electrum-ltc
-    chromium
     #firefox
+    chromium
     polybar
     spotify
     thunderbird

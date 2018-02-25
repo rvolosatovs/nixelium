@@ -38,7 +38,6 @@ rec {
   xdg.cacheHome = "${localDir}/cache";
   xdg.dataHome = "${localDir}/share";
 
-  home.sessionVariableSetter = "zsh";
   home.sessionVariables.EMAIL = vars.email;
   home.sessionVariables.EDITOR = vars.editor;
   home.sessionVariables.VISUAL = vars.editor;
@@ -190,7 +189,7 @@ rec {
     go
     httpie
     jq
-    keybase
+    #keybase
     #mopidy
     #neovim
     nix-repl
