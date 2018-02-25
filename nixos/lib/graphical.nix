@@ -55,8 +55,8 @@
   services.redshift.latitude = secrets.latitude;
   services.redshift.longitude = secrets.longitude;
 
-  #services.keybase.enable = true;
-  #services.kbfs.enable = true;
+  services.keybase.enable = true;
+  services.kbfs.enable = true;
 
   services.xbanish.enable = true;
 
