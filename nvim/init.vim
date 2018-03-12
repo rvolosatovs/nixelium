@@ -46,8 +46,9 @@ Plug 'haya14busa/incsearch-easymotion.vim'
 
 Plug 'editorconfig/editorconfig-vim'
 
-"Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
-"Plug 'Shougo/vimproc.vim', { 'for': 'typescript', 'build' : 'make'} " tsuquyomi dep
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
+Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
 "Plug 'carlitux/deoplete-ternjs', {'for': 'javascript', 'do': 'npm install -g tern'}
 "Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'JuliaEditorSupport/deoplete-julia', { 'for': 'julia' }
@@ -58,6 +59,13 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'vhda/verilog_systemverilog.vim'
 Plug 'zchee/deoplete-clang', { 'for': 'c,cpp,objc' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+Plug 'alx741/vim-hindent', { 'for': 'haskell' }
+Plug 'alx741/vim-stylishask', { 'for': 'haskell' }
+Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+Plug 'hsanson/vim-android', { 'for': 'java' }
 
 Plug 'sheerun/vim-polyglot'
 
@@ -272,8 +280,8 @@ noremap H 0
 noremap L $
 
 " Navigation
-nnoremap      j   gj
-nnoremap      k   gk
+"nnoremap      j   gj
+"nnoremap      k   gk
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
 tnoremap <A-k> <C-\><C-N><C-w>k
@@ -300,9 +308,9 @@ nmap <Leader>vp   :PlugUpdate<CR>
 "nmap <Leader>ln   :lnext<CR>
 "nmap <Leader>lN   :lNext<CR>
 "nmap <Leader>ll   :ll<CR>
-"nmap <Leader>cn   :cnext<CR>
-"nmap <Leader>cN   :cNext<CR>
-"nmap <Leader>cc   :cc<CR>
+nmap <Leader>cn   :cnext<CR>
+nmap <Leader>cN   :cNext<CR>
+nmap <Leader>cc   :cc<CR>
 "nmap <Leader>m    :make<CR>
 
 " New
@@ -420,7 +428,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Neosnippet
 let g:neosnippet#disable_runtime_snippets = { "_": 1, }
-let g:neosnippet#snippets_directory='~/.local/share/nvim/plugins/vim-snippets/snippets'
+"let g:neosnippet#snippets_directory='~/.local/share/nvim/plugins/vim-snippets/snippets'
 
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
