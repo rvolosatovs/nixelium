@@ -1,36 +1,18 @@
-{ config, pkgs, xdg, ... }:
+{ config, pkgs, xdg, vars, ... }:
 
 rec {
-  #home.sessionVariables.ZPLUG_HOME = "${xdg.configHome}/zsh/zplug";
-  home.packages = with pkgs; [ zsh-syntax-highlighting ];
-
+  programs.zsh.dotDir = ".config/zsh";
   programs.zsh.enable = true;
   programs.zsh.enableAutosuggestions = true;
   programs.zsh.enableCompletion = true;
-  programs.zsh.dotDir = ".config/zsh";
-  programs.zsh.history.path = ".config/zsh/.zhistory";
   programs.zsh.history.ignoreDups = true;
+  programs.zsh.history.path = ".local/cache/shell-history";
+  programs.zsh.history.save = vars.histsize;
   programs.zsh.history.share = true;
+  programs.zsh.history.size = vars.histsize;
   programs.zsh.initExtra = ''
-     # Workaround grml setting HISTFILE
-     oldHist="$HISTFILE"
-     source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
-     ! [ -z $oldHist ] && export HISTFILE="$oldHist"
-     unset oldHist
-
-     bindkey -v
-     source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
-     source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
-
      CITY=''${CITY:-"Eindhoven"}
      { curl -s wttr.in/''${CITY} 2>/dev/null | head -7 | tail -6 } &|
-
-     source ${xdg.dataHome}/base16/scripts/base16-tomorrow-night.sh
-     source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-     echo `wc -l $HISTFILE`
-
-     eval "$(direnv hook zsh)"
 
      nixify() {
        if [ ! -e ./.envrc ]; then
@@ -53,10 +35,38 @@ rec {
        ];
      }
      EOF
-         ''${EDITOR:-vim} ''${nixfile}
+         ''${EDITOR:-${vars.editor}} ''${nixfile}
        fi
      }
+
+     [ -v oHISTFILE ] && echo "WARNING: oHISTFILE is getting overriden" &> 2
+     oHISTFILE="$HISTFILE"
+
+     [ -v oHISTSIZE ] && echo "WARNING: oHISTSIZE is getting overriden" &> 2
+     oHISTSIZE="$HISTSIZE"
+
+     [ -v oSAVEHIST ] && echo "WARNING: oSAVEHIST is getting overriden" &> 2
+     oSAVEHIST="$SAVEHIST"
+
+     source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
+
+     [ -v oHISTFILE ] && {export HISTFILE="$oHISTFILE"; unset oHISTFILE;}
+     [ -v oHISTSIZE ] && {export HISTSIZE="$oHISTSIZE"; unset oHISTSIZE;}
+     [ -v oSAVEHIST ] && {export SAVEHIST="$oSAVEHIST"; unset oSAVEHIST;}
+
+     bindkey -v
+
+     source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
+     source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
+
+     source ${xdg.dataHome}/base16/scripts/base16-tomorrow-night.sh
+     source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+     echo `wc -l $HISTFILE`
+
+     eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
   '';
+  programs.zsh.sessionVariables.KEYTIMEOUT = "1";
   programs.zsh.shellAliases.dh="dirs -v";
   programs.zsh.shellAliases.vi="nvim";
   programs.zsh.shellAliases.Vi="sudoedit";

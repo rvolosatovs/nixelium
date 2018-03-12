@@ -12,109 +12,88 @@ in
 
 rec {
   imports = [
-    (import ./zsh.nix { inherit config; inherit pkgs; xdg = config.xdg; })
+    (import ./zsh.nix { inherit config; inherit pkgs; inherit vars; xdg = config.xdg; })
     #./colors.nix
     ./neovim.nix
   ];
 
   home.packages = with pkgs; [
-    #httpie
     acpi
     bc
-    clang
     cowsay
     curl
     desktop_file_utils
-    elinks
+    direnv
+    docker-gc
+    docker_compose
     espeak
     file
+    fzf
     geoclue
-    gist
     git-lfs
     gnum4
     gnumake
     gnupg
     gnupg1compat
-    go-ethereum
-    gotools
     graphviz
     htop
-    julia
+    httpie
+    jq
     lm_sensors
     lsof
-    macchanger
     neofetch
     nix-index
     nix-prefetch-scripts
+    nix-repl
     nmap
-    nodejs
+    nox
     pandoc
     pass
     patchelf
     pciutils
-    python3Packages.pip
-    playerctl
-    poppler_utils
-    protobuf
     psmisc
     pv
-    python3
+    rclone
     rfkill
     ripgrep
-    seth
     sutils
+    termite.terminfo
     tig
     tree
     universal-ctags
     unzip
     usbutils
+    weechat
     wget
     whois
+    wireguard
     xdg-user-dirs
     zip
-  ] ++ (with unstable; [
-    direnv
-    docker-gc
-    docker_compose
-    fzf
-    go
-    httpie
-    jq
-    #keybase
-    #mopidy
-    #neovim
-    nix-repl
-    nox
-    rclone
-    stack
-    weechat
-    wireguard
-  ]);
+  ];
 
-  home.sessionVariables.EMAIL = vars.email;
-  home.sessionVariables.EDITOR = vars.editor;
-  home.sessionVariables.VISUAL = vars.editor;
   home.sessionVariables.BROWSER = vars.browser;
-  home.sessionVariables.PAGER = vars.pager;
-
-  home.sessionVariables.PASSWORD_STORE_DIR = "${localDir}/pass";
-
-  home.sessionVariables.WINEPREFIX = "${xdg.dataHome}/wine";
-
-  home.sessionVariables.LESSHISTFILE = "${xdg.cacheHome}/less/history";
-  home.sessionVariables.__GL_SHADER_DISK_CACHE_PATH ="${xdg.cacheHome}/nv";
   home.sessionVariables.CUDA_CACHE_PATH = "${xdg.cacheHome}/nv";
-  home.sessionVariables.PYTHON_EGG_CACHE = "${xdg.cacheHome}/python-eggs";
-
-  home.sessionVariables.GIMP2_DIRECTORY = "${xdg.configHome}/gimp";
-  home.sessionVariables.INPUTRC = "${xdg.configHome}/readline/inputrc";
+  home.sessionVariables.EDITOR = vars.editor;
   home.sessionVariables.ELINKS_CONFDIR = "${xdg.configHome}/elinks";
-
-  home.sessionVariables.GOPATH = homeDir;
+  home.sessionVariables.EMAIL = vars.email;
+  home.sessionVariables.GIMP2_DIRECTORY = "${xdg.configHome}/gimp";
   home.sessionVariables.GOBIN = goBinDir;
+  home.sessionVariables.GOPATH = homeDir;
+  home.sessionVariables.HISTFILE = "${xdg.cacheHome}/shell-history";
+  home.sessionVariables.HISTFILESIZE = vars.histsize;
+  home.sessionVariables.HISTSIZE = vars.histsize;
+  home.sessionVariables.INPUTRC = "${xdg.configHome}/readline/inputrc";
+  home.sessionVariables.LESSHISTFILE = "${xdg.cacheHome}/less/history";
+  home.sessionVariables.MAILER = vars.mailer;
+  home.sessionVariables.PAGER = vars.pager;
+  home.sessionVariables.PASSWORD_STORE_DIR = "${localDir}/pass";
+  home.sessionVariables.PYTHON_EGG_CACHE = "${xdg.cacheHome}/python-eggs";
+  home.sessionVariables.SAVEHIST = vars.histsize;
+  home.sessionVariables.VISUAL = vars.editor;
+  home.sessionVariables.WINEPREFIX = "${xdg.dataHome}/wine";
+  home.sessionVariables.__GL_SHADER_DISK_CACHE_PATH ="${xdg.cacheHome}/nv";
 
   programs.home-manager.enable = true;
-  programs.home-manager.path = xdg.configHome + "/nixpkgs/home-manager";
   programs.git.enable = true;
   programs.git.package = unstable.git;
   programs.git.aliases = {
@@ -165,8 +144,6 @@ rec {
     [rerere]
       enabled = true
   '';
-  programs.git.signing.key = "3D80C89E";
-  programs.git.signing.signByDefault = true;
   programs.git.userName = "Roman Volosatovs";
   programs.git.userEmail = vars.email;
   programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" ([
@@ -177,25 +154,22 @@ rec {
     "\${PATH}"
   ]);
 
-  systemd.user.startServices = true;
-
-  #services.keybase.enable = true;
   #services.kbfs.enable = true;
   #services.kbfs.mountPoint = ".local/keybase";
-
-  services.gpg-agent.enable = true;
-  services.gpg-agent.defaultCacheTtl = 180000;
-  services.gpg-agent.defaultCacheTtlSsh = 180000;
-  services.gpg-agent.enableSshSupport = true;
-  services.gpg-agent.enableScDaemon = false;
-  services.gpg-agent.grabKeyboardAndMouse = false;
-
+  #services.keybase.enable = true;
   #services.syncthing.enable = true;
   #services.syncthing.tray = true;
+  services.gpg-agent.defaultCacheTtl = 180000;
+  services.gpg-agent.defaultCacheTtlSsh = 180000;
+  services.gpg-agent.enable = true;
+  services.gpg-agent.enableScDaemon = false;
+  services.gpg-agent.enableSshSupport = true;
+  services.gpg-agent.grabKeyboardAndMouse = false;
+
+  systemd.user.startServices = true;
 
   xdg.enable = true;
   xdg.configHome = "${homeDir}/.config";
   xdg.cacheHome = "${localDir}/cache";
   xdg.dataHome = "${localDir}/share";
-
 }
