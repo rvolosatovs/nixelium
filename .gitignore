@@ -17,3 +17,6 @@ key-bindings.zsh
 *history*
 
 git/config
+
+nixos/configuration.nix
+nixpkgs/home.nix
