@@ -1,12 +1,16 @@
 " ~~~ Plugins ~~~
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.local/share/nvim/plugins')
 
 " Sanity check
 if !has('nvim')
     Plug 'tpope/vim-sensible'
 endif
-
-runtime macros/matchit.vim
 
 " Looks
 Plug 'chriskempson/base16-vim'
@@ -70,6 +74,8 @@ Plug 'hsanson/vim-android', { 'for': 'java' }
 Plug 'sheerun/vim-polyglot'
 
 call plug#end()
+
+runtime macros/matchit.vim
 
 let g:polyglot_disabled = ['go' , 'latex']
 
