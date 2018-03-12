@@ -22,3 +22,6 @@ nixos/configuration.nix
 nixpkgs/home.nix
 
 nvim/autoload/plug.vim
+
+zsh/.zshrc
+zsh/.zshenv
