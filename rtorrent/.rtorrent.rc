@@ -82,4 +82,4 @@ dht_port = 6881
 
 # Enable peer exchange (for torrents not marked private)
 #
-peer_exchange = yes
+#peer_exchange = yes
