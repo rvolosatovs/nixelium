@@ -17,7 +17,5 @@ rec {
 
   imports = [
     ../lib/common.nix
-    ../lib/graphical.nix
   ];
-
 }
