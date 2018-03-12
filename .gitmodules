@@ -1,23 +1,24 @@
 [submodule "zplug"]
 	path = zsh/zplug
-	url = git@github.com:zplug/zplug.git
+	url = https://github.com/zplug/zplug.git
 	branch = master
 [submodule "vim-plug"]
 	path = vim-plug
-	url = git@github.com:junegunn/vim-plug.git
+	url = https://github.com/junegunn/vim-plug.git
 	branch = master
 [submodule "base16"]
 	path = base16
-	url = git@github.com:chriskempson/base16-shell
+	url = https://github.com/chriskempson/base16-shell
 [submodule "hosts"]
 	path = boxes/hosts
-	url = git@github.com:StevenBlack/hosts.git
+	url = https://github.com/StevenBlack/hosts.git
 [submodule "boxes/openvpn"]
 	path = boxes/openvpn
-	url = git@github.com:Nyr/openvpn-install.git
+	url = https://github.com/Nyr/openvpn-install.git
 [submodule "boxes/pimp-my-box"]
 	path = boxes/pimp-my-box
-	url = git@github.com:pyroscope/pimp-my-box.git
+	url = https://github.com/pyroscope/pimp-my-box.git
 [submodule "vendor/home-manager"]
 	path = nixpkgs/home-manager
-	url = git@github.com:rycee/home-manager.git
+	url = https://github.com/rycee/home-manager.git
+	branch = release-17.09
