@@ -20,3 +20,5 @@ git/config
 
 nixos/configuration.nix
 nixpkgs/home.nix
+
+nvim/autoload/plug.vim
