@@ -19,5 +19,5 @@ rec {
 
   isSSD = true;
 
-  histsize = "10000";
+  histsize = 10000;
 }

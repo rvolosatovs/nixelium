@@ -10,16 +10,15 @@ in
     environment.interactiveShellInit = ''
       set -o vi
     '';
+    environment.pathsToLink = [ "/share/bash" "/share/zsh" ];
     environment.sessionVariables.BROWSER = vars.browser;
     environment.sessionVariables.EDITOR = vars.editor;
     environment.sessionVariables.EMAIL = vars.email;
-    environment.sessionVariables.HISTFILE = "$HOME/.local/cache/shell-history";
-    environment.sessionVariables.HISTFILESIZE = vars.histsize;
-    environment.sessionVariables.HISTSIZE = vars.histsize;
+    environment.sessionVariables.HISTFILESIZE = toString vars.histsize;
+    environment.sessionVariables.HISTSIZE = toString vars.histsize;
     environment.sessionVariables.MAILER = vars.mailer;
     environment.sessionVariables.PAGER = vars.pager;
-    environment.sessionVariables.PASSWORD_STORE_DIR = "$HOME/.local/pass";
-    environment.sessionVariables.SAVEHIST = vars.histsize;
+    environment.sessionVariables.SAVEHIST = toString vars.histsize;
     environment.sessionVariables.VISUAL = vars.editor;
     environment.shells = [ pkgs.zsh ];
     environment.systemPackages = with pkgs; [
