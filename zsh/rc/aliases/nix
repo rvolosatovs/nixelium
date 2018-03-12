@@ -1,5 +1,0 @@
-alias ni='nix-env -i'
-alias ne='nix-env -e'
-alias nu='nix-env -u'
-alias ns='nox'
-# vim: ft=zsh

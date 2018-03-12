@@ -1,8 +1,0 @@
-alias   d='docker'
-alias  dl='docker logs'
-alias dlt='docker logs --tail 100'
-alias  dp='docker ps'
-alias dpq='docker ps -q'
-alias  dk='docker kill'
-
-# vim: ft=zsh

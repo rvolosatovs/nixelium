@@ -1,3 +1,0 @@
-alias  ec='sudo eclectic config interactive'
-alias  ee='sudo eclectic env update'
-# vim: ft=zsh

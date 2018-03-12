@@ -1,3 +1,0 @@
-alias -g eselect='sudo eselect'
-alias es='eselect'
-# vim: ft=zsh

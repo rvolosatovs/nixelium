@@ -1,5 +1,0 @@
-alias -g eu='source bsource env zsh && source bsource rc zsh'
-#alias -g up='zplug update && go get -u all && eu'
-#alias -g uP='cd $HOME && gu && gp && zplug update && go get -u all && eu'
-alias dh='dirs -v'
-# vim: ft=zsh

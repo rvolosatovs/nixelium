@@ -1,5 +1,0 @@
-alias -g xbps-install="sudo xbps-install"
-alias -g xbps-query="sudo xbps-query"
-alias xi="xbps-install"
-alias xq="xbps-query"
-# vim: ft=zsh
