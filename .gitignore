@@ -15,3 +15,5 @@ completion.zsh
 key-bindings.zsh
 
 *history*
+
+git/config
