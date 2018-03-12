@@ -17,26 +17,79 @@ rec {
     ./neovim.nix
   ];
 
-  systemd.user.startServices = true;
-
-  #services.keybase.enable = true;
-  #services.kbfs.enable = true;
-  #services.kbfs.mountPoint = ".local/keybase";
-
-  services.gpg-agent.enable = true;
-  services.gpg-agent.defaultCacheTtl = 180000;
-  services.gpg-agent.defaultCacheTtlSsh = 180000;
-  services.gpg-agent.enableSshSupport = true;
-  services.gpg-agent.enableScDaemon = false;
-  services.gpg-agent.grabKeyboardAndMouse = false;
-
-  #services.syncthing.enable = true;
-  #services.syncthing.tray = true;
-
-  xdg.enable = true;
-  xdg.configHome = "${homeDir}/.config";
-  xdg.cacheHome = "${localDir}/cache";
-  xdg.dataHome = "${localDir}/share";
+  home.packages = with pkgs; [
+    #httpie
+    acpi
+    bc
+    clang
+    cowsay
+    curl
+    desktop_file_utils
+    elinks
+    espeak
+    file
+    geoclue
+    gist
+    git-lfs
+    gnum4
+    gnumake
+    gnupg
+    gnupg1compat
+    go-ethereum
+    gotools
+    graphviz
+    htop
+    julia
+    lm_sensors
+    lsof
+    macchanger
+    neofetch
+    nix-index
+    nix-prefetch-scripts
+    nmap
+    nodejs
+    pandoc
+    pass
+    patchelf
+    pciutils
+    python3Packages.pip
+    playerctl
+    poppler_utils
+    protobuf
+    psmisc
+    pv
+    python3
+    rfkill
+    ripgrep
+    seth
+    sutils
+    tig
+    tree
+    universal-ctags
+    unzip
+    usbutils
+    wget
+    whois
+    xdg-user-dirs
+    zip
+  ] ++ (with unstable; [
+    direnv
+    docker-gc
+    docker_compose
+    fzf
+    go
+    httpie
+    jq
+    #keybase
+    #mopidy
+    #neovim
+    nix-repl
+    nox
+    rclone
+    stack
+    weechat
+    wireguard
+  ]);
 
   home.sessionVariables.EMAIL = vars.email;
   home.sessionVariables.EDITOR = vars.editor;
@@ -124,77 +177,25 @@ rec {
     "\${PATH}"
   ]);
 
-  home.packages = with pkgs; [
-    #httpie
-    acpi
-    bc
-    clang
-    cowsay
-    curl
-    desktop_file_utils
-    elinks
-    espeak
-    file
-    geoclue
-    gist
-    git-lfs
-    gnum4
-    gnumake
-    gnupg
-    gnupg1compat
-    go-ethereum
-    gotools
-    graphviz
-    htop
-    julia
-    lm_sensors
-    lsof
-    macchanger
-    neofetch
-    nix-index
-    nix-prefetch-scripts
-    nmap
-    nodejs
-    pandoc
-    pass
-    patchelf
-    pciutils
-    python3Packages.pip
-    playerctl
-    poppler_utils
-    protobuf
-    psmisc
-    pv
-    python3
-    rfkill
-    ripgrep
-    seth
-    sutils
-    tig
-    tree
-    universal-ctags
-    unzip
-    usbutils
-    wget
-    whois
-    xdg-user-dirs
-    zip
-  ] ++ (with unstable; [
-    direnv
-    docker-gc
-    docker_compose
-    fzf
-    go
-    httpie
-    jq
-    #keybase
-    #mopidy
-    #neovim
-    nix-repl
-    nox
-    rclone
-    stack
-    weechat
-    wireguard
-  ]);
+  systemd.user.startServices = true;
+
+  #services.keybase.enable = true;
+  #services.kbfs.enable = true;
+  #services.kbfs.mountPoint = ".local/keybase";
+
+  services.gpg-agent.enable = true;
+  services.gpg-agent.defaultCacheTtl = 180000;
+  services.gpg-agent.defaultCacheTtlSsh = 180000;
+  services.gpg-agent.enableSshSupport = true;
+  services.gpg-agent.enableScDaemon = false;
+  services.gpg-agent.grabKeyboardAndMouse = false;
+
+  #services.syncthing.enable = true;
+  #services.syncthing.tray = true;
+
+  xdg.enable = true;
+  xdg.configHome = "${homeDir}/.config";
+  xdg.cacheHome = "${localDir}/cache";
+  xdg.dataHome = "${localDir}/share";
+
 }
