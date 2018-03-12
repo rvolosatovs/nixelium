@@ -1,8 +1,15 @@
 { config, pkgs, lib, secrets, vars, unstable, ... }:
 
 {
+  #environment.sessionVariables.QT_QPA_PLATFORMTHEME = "gtk2";
+  environment.sessionVariables."_JAVA_OPTIONS" = "-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.aatext=true -Dsun.java2d.xrender=true";
+  environment.sessionVariables.GTK_PATH = "${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0";
+
+  environment.systemPackages = with pkgs; [
+    termite
+  ];
+
   fonts.enableFontDir = true;
-  #fonts.enableDefaultFonts = true;
   fonts.enableGhostscriptFonts = true;
   fonts.fonts = with pkgs; [
     dejavu_fonts
@@ -13,21 +20,14 @@
     symbola
     terminus_font
   ];
+  fonts.fontconfig.allowBitmaps = true;
+  fonts.fontconfig.allowType1 = false;
+  fonts.fontconfig.antialias = true;
   fonts.fontconfig.defaultFonts.monospace = [ "Hurmit Nerd Font" "Fira Sans Mono" ];
   fonts.fontconfig.defaultFonts.sansSerif = [ "Fira Sans" ];
   fonts.fontconfig.defaultFonts.serif = [ "Roboto Slab" ];
   fonts.fontconfig.enable = true;
-  fonts.fontconfig.allowBitmaps = true;
-  fonts.fontconfig.allowType1 = false;
   fonts.fontconfig.hinting.enable = true;
-  fonts.fontconfig.antialias = true;
-
-  programs.adb.enable = true;
-  programs.light.enable = true;
-  programs.java.enable = true;
-  programs.wireshark.enable = true;
-  programs.qt5ct.enable = true;
-  #programs.browserpass.enable = true;
 
   programs.chromium.enable = true;
   programs.chromium.homepageLocation = "https://duckduckgo.com/?key=${secrets.duckduckgo.key}";
@@ -40,44 +40,24 @@
     "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
     "gieohaicffldbmiilohhggbidhephnjj" # vanilla cookie manager
   ];
-
-  programs.gnupg.agent.enable = false;
-  programs.gnupg.agent.enableSSHSupport = false;
-  programs.ssh.startAgent = false;
+  programs.light.enable = true;
+  programs.qt5ct.enable = true;
   programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
-
-  services.printing.enable = true;
 
   services.gnome3.gnome-keyring.enable = true;
   services.gnome3.seahorse.enable = true;
-
+  services.kbfs.enable = true;
+  services.keybase.enable = true;
+  services.printing.enable = true;
   services.redshift.enable = true;
   services.redshift.latitude = secrets.latitude;
   services.redshift.longitude = secrets.longitude;
-
-  services.keybase.enable = true;
-  services.kbfs.enable = true;
-
   services.xbanish.enable = true;
-
-  services.xserver.enable = true;
-  services.xserver.xkbVariant = "qwerty";
-  services.xserver.layout = "lv,ru";
-  services.xserver.xkbOptions = "grp:alt_space_toggle,terminate:ctrl_alt_bksp,eurosign:5,caps:escape";
-  services.xserver.exportConfiguration = true;
-
-  #services.xserver.xautolock.enable = true;
-  #services.xserver.xautolock.locker = "/home/${vars.username}/.local/bin/lock -s -p";
-
   services.xserver.desktopManager.default = "none";
   services.xserver.desktopManager.xterm.enable = false;
-
-  services.xserver.windowManager.default = "bspwm";
-  services.xserver.windowManager.bspwm.enable = true;
-
-  services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.lightdm.autoLogin.enable = true;
   services.xserver.displayManager.lightdm.autoLogin.user = vars.username;
+  services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.lightdm.greeters.gtk.theme.package = pkgs.zuki-themes;
   services.xserver.displayManager.lightdm.greeters.gtk.theme.name = "Zukitre";
   services.xserver.displayManager.sessionCommands = ''
@@ -106,12 +86,13 @@
      #-notify 10 -notifier "${pkgs.libnotify}/bin/notify-send -u critical -t 10000 -- 'Screen will be locked in 10 seconds'" &
      #${pkgs.xss-lock}/bin/xss-lock -- /home/${vars.username}/.local/bin/lock -s -p &
   '';
-
-  #environment.sessionVariables.QT_QPA_PLATFORMTHEME = "gtk2";
-  environment.sessionVariables."_JAVA_OPTIONS" = "-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.aatext=true -Dsun.java2d.xrender=true";
-  environment.sessionVariables.GTK_PATH = "${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0";
-
-  environment.systemPackages = with pkgs; [
-    termite
-  ];
+  services.xserver.enable = true;
+  services.xserver.exportConfiguration = true;
+  services.xserver.layout = "lv,ru";
+  services.xserver.windowManager.bspwm.enable = true;
+  services.xserver.windowManager.default = "bspwm";
+  #services.xserver.xautolock.enable = true;
+  #services.xserver.xautolock.locker = "/home/${vars.username}/.local/bin/lock -s -p";
+  services.xserver.xkbOptions = "grp:alt_space_toggle,terminate:ctrl_alt_bksp,eurosign:5,caps:escape";
+  services.xserver.xkbVariant = "qwerty";
 }

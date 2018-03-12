@@ -7,10 +7,17 @@ rec {
   homeDir = "/home/${username}";
   email = "${username}@riseup.net";
 
+  luksDevice = "/dev/sda2";
+  luksName = "luksroot";
+
+  netDeviceName = "eth0";
+
+  browser = "${pkgs.links}/bin/links";
   editor = "${pkgs.neovim}/bin/nvim";
-  browser = "${pkgs.chromium}/bin/chromium";
-  mailer = "${pkgs.thunderbird}/bin/thunderbird";
+  mailer = "${pkgs.mutt}/bin/mutt";
   pager = "${pkgs.less}/bin/less";
 
   isSSD = true;
+
+  histsize = "10000";
 }
