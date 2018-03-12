@@ -46,11 +46,11 @@ while getopts "d:v:b:s:S:c" opt; do
     esac
 done
 
-
-subvolumes=( $rootSub $homeSub $snapSub "@/srv" "@/var/tmp" "@/nix/store" )
+subvolumes=( "$rootSub" "$homeSub" "$snapSub" "@/nix/store" )
 
 bootPart="${disk}1"
 luksPart="${disk}2"
+
 
 if [ `mount | grep "/mnt"` ]; then
     rm -rf /mnt
@@ -62,12 +62,8 @@ fi
 
 if [ $clean ];then
     echo "Chillax, this will take a while..."
-    cryptsetup open --type plain $luksPart container
-    if ! [ `fdisk -l | grep "/dev/mapper/container"` ];then
-        echo "Can't find /dev/mapper/container"
-        exit 1
-    fi
-    dd if=/dev/zero of=/dev/mapper/container bs=1M
+    cat /dev/random | head -1 | base64 | cryptsetup open --type plain $luksPart container
+    cat /dev/zero > /dev/mapper/container
     cryptsetup luksClose container
 fi
 
@@ -90,7 +86,6 @@ echo "Creating btrfs on $btrfsDev..."
 lvcreate -l 100%FREE $vgName -n $btrfsName
 mkfs.btrfs -L $btrfsName $btrfsDev
 
-
 mount -o $btrfsMountOpts $btrfsDev /mnt
 for sub in ${subvolumes[@]}; do
    path="/mnt/$sub"
@@ -101,6 +96,7 @@ umount /mnt
 
 echo "Creating vfat on $bootPart..."
 mkfs.vfat -F 32 -n boot $bootPart
+#mkfs.ext4 -L boot $bootPart 
 
 mount -o $btrfsMountOpts,subvol=$rootSub $btrfsDev /mnt
 mkdir -pv /mnt/{home,boot,.snaphots}

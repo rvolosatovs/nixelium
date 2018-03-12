@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -xe
 
-nix-env -iA git
+nix-env -iA nixos.git
 
 username=rvolosatovs
 newhome=/mnt/home/${username}
@@ -19,5 +19,5 @@ ln -s ../../home/${username}/.dotfiles/nixos /mnt/etc/nixos
 mv /tmp/hardware-configuration.nix /mnt/etc/nixos/hardware-configuration.nix 
 chown -R 1000:1000 ${dots}
 
-git clone --depth 1 -b nixos-unstable https://github.com/rvolosatovs/nixpkgs.git /mnt/nix/nixpkgs
+git clone --depth 1 -b nixos-17.09 https://github.com/rvolosatovs/nixpkgs.git /mnt/nix/nixpkgs
 chown -R 1000:1000 /mnt/nix/nixpkgs
