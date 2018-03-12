@@ -34,23 +34,24 @@
     ${pkgs.bspwm}/bin/bspwm
   '';
 
+
+
+  #programs.browserpass.browsers = ["firefox" "chromium"];
+  #programs.firefox.enableAdobeFlash = true;
+  #programs.firefox.enableGoogleTalk = true;
+  #services.screen-locker.lockCmd = "lock -s -p";
+
+  programs.browserpass.enable = true;
+  programs.firefox.enable = true;
+  programs.firefox.enableIcedTea = true;
+  programs.firefox.package = unstable.firefox;
+  services.network-manager-applet.enable = true;
   services.redshift.enable = true;
   services.redshift.latitude = secrets.latitude;
   services.redshift.longitude = secrets.longitude;
-  services.network-manager-applet.enable = true;
   services.screen-locker.enable = true;
-  #services.screen-locker.lockCmd = "lock -s -p";
-  services.screen-locker.lockCmd = "lock -i ~/pictures/lock";
   services.screen-locker.inactiveInterval = 20;
-
-  programs.firefox.package = unstable.firefox;
-  programs.firefox.enable = true;
-  programs.firefox.enableAdobeFlash = true;
-  programs.firefox.enableGoogleTalk = true;
-  programs.firefox.enableIcedTea = true;
-
-  programs.browserpass.enable = true;
-  #programs.browserpass.browsers = ["firefox" "chromium"];
+  services.screen-locker.lockCmd = "lock -i ~/pictures/lock";
 
   home.packages = with pkgs; [
     #autorandr
@@ -77,6 +78,7 @@
     rofi-pass
     siji
     slop
+    spotify
     sxhkd
     sxiv
     symbola
@@ -97,9 +99,9 @@
     #electrum
     #electrum-ltc
     #firefox
+    #spotify
     chromium
     polybar
-    spotify
     thunderbird
   ]);
 }

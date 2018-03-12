@@ -20,10 +20,4 @@ rec {
     ../lib/graphical.nix
   ];
 
-  home.packages = with pkgs; [
-    arduino
-    unstable.android-studio
-    #android-studio
-    wireshark
-  ];
 }

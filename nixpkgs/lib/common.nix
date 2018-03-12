@@ -74,7 +74,7 @@ rec {
   };
   programs.git.extraConfig = ''
     [push]
-      default = simple
+      default = upstream
     [status]
       short = true
       branch = true
@@ -145,9 +145,6 @@ rec {
     go-ethereum
     gotools
     graphviz
-    grml-zsh-config
-    haskellPackages.cabal-install
-    haskellPackages.ghc
     htop
     julia
     lm_sensors
@@ -156,6 +153,7 @@ rec {
     neofetch
     nix-index
     nix-prefetch-scripts
+    nmap
     nodejs
     pandoc
     pass
@@ -195,6 +193,7 @@ rec {
     nix-repl
     nox
     rclone
+    stack
     weechat
     wireguard
   ]);

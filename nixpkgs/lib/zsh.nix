@@ -28,6 +28,8 @@ rec {
      source ${xdg.dataHome}/base16/scripts/base16-tomorrow-night.sh
      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+     echo `wc -l $HISTFILE`
+
      eval "$(direnv hook zsh)"
 
      nixify() {

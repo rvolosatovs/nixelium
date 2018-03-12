@@ -9,11 +9,11 @@
       mpdSupport = true;
       githubSupport = true;
     };
-    chromium = pkgs.chromium.override {
-      enablePepperFlash = true;
+    #chromium = pkgs.chromium.override {
+      #enablePepperFlash = true;
       #enableNaCl = true;
       #enableWideVine = true;
-    };
+    #};
     #firefox-wrapper = pkgs.firefox-wrapper.override {
       #enableAdobeFlash = true;
       #enableDjvu = true;
