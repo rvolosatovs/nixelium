@@ -42,7 +42,8 @@ rec {
     stack
   ]);
 
-  programs.home-manager.path = config.xdg.configHome + "/nixpkgs/home-manager";
+
   programs.git.signing.key = "3D80C89E";
   programs.git.signing.signByDefault = true;
+  programs.home-manager.path = config.xdg.configHome + "/nixpkgs/home-manager";
 }

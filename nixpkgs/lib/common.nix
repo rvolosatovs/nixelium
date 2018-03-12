@@ -146,6 +146,7 @@ rec {
   '';
   programs.git.userName = "Roman Volosatovs";
   programs.git.userEmail = vars.email;
+  #programs.ssh.enable = true;
   programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" ([
     binDir
     goBinDir

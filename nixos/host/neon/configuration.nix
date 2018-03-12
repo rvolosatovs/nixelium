@@ -30,11 +30,8 @@ rec {
     ../../lib/graphical.nix
   ];
 
-    environment.systemPackages = with pkgs; [
-      clang
-      gcc
-      rclone
-    ];
+  environment.systemPackages = with pkgs; [
+  ];
 
   networking.firewall.allowedTCPPorts = [ 3001 42424 ];
   networking.firewall.trustedInterfaces = [ "vboxnet0" ];
@@ -45,6 +42,8 @@ rec {
   programs.wireshark.enable = true;
 
   #services.dnscrypt-proxy.enable = true;
+  services.kbfs.enable = true;
+  services.keybase.enable = true;
   services.printing.enable = true;
   services.samba.enable = true;
   services.syncthing.enable = true;
@@ -90,11 +89,10 @@ rec {
         #};
     };
 
-  services.logind.extraConfig = ''
-      IdleAction=suspend
-      IdleActionSec=300
-  '';
-
+  #services.logind.extraConfig = ''
+      #IdleAction=suspend
+      #IdleActionSec=300
+  #'';
 
   virtualisation.virtualbox.host.enable = true;
   #virtualisation.rkt.enable = true;

@@ -140,8 +140,7 @@ rec {
   programs.zsh.shellAliases.gpp="git pull --prune";
   programs.zsh.shellAliases.gP="git push";
   programs.zsh.shellAliases.gPp="git push --prune";
-  programs.zsh.shellAliases.gf="git fetch";
-  programs.zsh.shellAliases.gfp="git fetch --prune";
+  programs.zsh.shellAliases.gf="git fetch --all --prune";
   programs.zsh.shellAliases.gu="git submodule update --init --remote --rebase";
   programs.zsh.shellAliases.gR="git reset";
   programs.zsh.shellAliases.gRh="git reset --hard";

@@ -17,9 +17,11 @@
 
   xsession.enable = true;
   xsession.windowManager.command = ''
-    export _JAVA_AWT_WM_NONREPARENTING=1
+      export _JAVA_AWT_WM_NONREPARENTING=1
 
-     ${pkgs.feh}/bin/feh  --bg-fill "$HOME/pictures/wp"
+     ''${HOME}/.local/bin/turbo disable
+
+     ${pkgs.feh}/bin/feh --bg-fill "$HOME/pictures/wp"
      ${pkgs.dunst}/bin/dunst &
      ${pkgs.networkmanagerapplet}/bin/nm-applet &
      ${pkgs.xorg.xset}/bin/xset s off -dpms
@@ -28,23 +30,21 @@
 
      ${pkgs.sudo}/bin/sudo ''${HOME}/.local/bin/fix-keycodes
 
-     ''${HOME}/.local/bin/turbo disable
+     ${pkgs.pulseaudioFull}/bin/pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
+     ${pkgs.pulseaudioFull}/bin/pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
 
-    SXHKD_SHELL=/bin/sh ${pkgs.sxhkd}/bin/sxhkd &
-    ${pkgs.bspwm}/bin/bspwm
+     ${pkgs.xbanish}/bin/xbanish &
+
+     SXHKD_SHELL=/bin/sh ${pkgs.sxhkd}/bin/sxhkd &
+     ${pkgs.bspwm}/bin/bspwm
   '';
-
-
-
-  #programs.browserpass.browsers = ["firefox" "chromium"];
-  #programs.firefox.enableAdobeFlash = true;
-  #programs.firefox.enableGoogleTalk = true;
-  #services.screen-locker.lockCmd = "lock -s -p";
 
   programs.browserpass.enable = true;
   programs.firefox.enable = true;
   programs.firefox.enableIcedTea = true;
   programs.firefox.package = unstable.firefox;
+  programs.feh.enable = true;
+  services.gnome-keyring.enable = true;
   services.network-manager-applet.enable = true;
   services.redshift.enable = true;
   services.redshift.latitude = secrets.latitude;

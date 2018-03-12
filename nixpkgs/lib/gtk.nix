@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ 
+    gtk_engines
+    gtk-engine-murrine 
+  ];
   home.sessionVariables.QT_QPA_PLATFORMTHEME="gtk2";
 
   gtk.enable = true;
