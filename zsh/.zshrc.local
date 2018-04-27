@@ -169,7 +169,7 @@ zstyle ':completion:*:hosts' hosts $hosts
 #alias u='translate -i'
 
 ## ignore ~/.ssh/known_hosts entries
-#alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
+alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" -o "PreferredAuthentications=keyboard-interactive"'
 
 
 ## global aliases (for those who like them) ##

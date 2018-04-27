@@ -34,7 +34,7 @@ Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 Plug 'mhinz/vim-signify'
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 Plug 'scrooloose/nerdcommenter'
@@ -72,6 +72,9 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 Plug 'hsanson/vim-android', { 'for': 'java' }
 
 Plug 'sheerun/vim-polyglot'
+
+Plug 'lambdalisue/vim-pager'
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 call plug#end()
 
@@ -453,7 +456,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 
 " For conceal markers.
 if has('conceal')
-    set conceallevel=2 concealcursor=nc
+    set conceallevel=0 concealcursor=nc
 endif
 
 let g:tex_conceal="ag"
@@ -462,6 +465,7 @@ let g:vimtex_view_method='zathura'
 nmap <localleader>ll <plug>(vimtex-compile-ss)
 
 nmap <Leader>m :Neomake<CR>
+nmap <Leader>M :Neomake!<CR>
 
 "let g:sneak#s_next = 1
 "let g:sneak#use_ic_scs = 1

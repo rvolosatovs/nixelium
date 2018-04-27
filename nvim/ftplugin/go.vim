@@ -21,7 +21,7 @@ let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 0
 "let g:go_def_mode = "guru"
 
-call deoplete#custom#set('go', 'rank', 9999)
+call deoplete#custom#source('go', 'rank', 9999)
 
 let g:deoplete#sources#go#sort_class = ['package', 'var', 'func', 'const', 'type']
 let g:deoplete#sources#go#gocode_binary = $GOBIN.'/gocode'
