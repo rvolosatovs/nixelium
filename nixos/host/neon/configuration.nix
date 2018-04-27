@@ -38,19 +38,32 @@ rec {
   networking.networkmanager.enable = true;
 
   programs.adb.enable = true;
-  programs.java.enable = true;
+  #programs.java.enable = true;
   programs.wireshark.enable = true;
 
+  #security.pam.services.i3lock.fprintAuth = true;
+
+  security.polkit.extraConfig = ''
+    /* https://wiki.archlinux.org/index.php/Fprint#Restrict_enrolling */
+    polkit.addRule(function (action, subject) {
+      if (action.id == "net.reactivated.fprint.device.enroll") {
+        return subject.user == "root" ? polkit.Result.YES : polkit.result.NO
+      }
+    })
+  '';
+
   #services.dnscrypt-proxy.enable = true;
-  services.kbfs.enable = true;
-  services.keybase.enable = true;
+  #services.kbfs.enable = true;
+  #services.keybase.enable = true;
   services.printing.enable = true;
   services.samba.enable = true;
-  services.syncthing.enable = true;
-  services.syncthing.openDefaultPorts = true;
-  services.syncthing.user = vars.username;
+  #services.syncthing.enable = true;
+  #services.syncthing.openDefaultPorts = true;
+  #services.syncthing.user = vars.username;
   services.xserver.resolutions = [ { x = 3840; y = 2160; } { x = 1920; y = 1080; } ];
+  #services.xserver.resolutions = [ { x = 1920; y = 1080; } { x = 1920; y = 1080; } ];
   services.xserver.xrandrHeads = [ "DP1" "eDP1" ];
+  #services.xserver.xrandrHeads = [ "HDMI2" "eDP1" ];
 
     systemd.services = {
         audio-off = {
@@ -94,7 +107,7 @@ rec {
       #IdleActionSec=300
   #'';
 
-  virtualisation.virtualbox.host.enable = true;
+  #virtualisation.virtualbox.host.enable = true;
   #virtualisation.rkt.enable = true;
   #virtualisation.virtualbox.host.headless = true;
 }

@@ -12,6 +12,7 @@
       '';
 
       hardware.bluetooth.enable = true;
+      hardware.cpu.intel.updateMicrocode = true;
       hardware.pulseaudio.enable = true;
       hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
@@ -34,7 +35,6 @@
       environment.systemPackages = with pkgs; [
         linuxPackages.acpi_call
         powertop
-        microcodeIntel
       ];
     }
 

@@ -5,10 +5,6 @@
   allowUnfreeRedistributable = true;
 
   packageOverrides = pkgs: {
-    polybar = pkgs.polybar.override {
-      mpdSupport = true;
-      githubSupport = true;
-    };
     #chromium = pkgs.chromium.override {
       #enablePepperFlash = true;
       #enableNaCl = true;

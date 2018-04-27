@@ -25,21 +25,23 @@ rec {
   ];
 
   home.packages = with pkgs; [
+    alsaUtils
     arduino
+    asciinema
+    clang
+    drive
+    julia
     keybase
     macchanger
+    #nodejs
     playerctl
     poppler_utils
+    #sshfs
+    #stack
     wireshark
   ] ++ (with unstable; [
-    android-studio
-    clang
     go
     gotools
-    julia
-    nodejs
-    protobuf
-    stack
   ]);
 
 

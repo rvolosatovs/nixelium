@@ -19,7 +19,6 @@ rec {
 
   home.packages = with pkgs; [
     acpi
-    bc
     cowsay
     curl
     desktop_file_utils
@@ -30,8 +29,9 @@ rec {
     file
     fzf
     geoclue
+    git
     git-lfs
-    gnum4
+    #gnum4
     gnumake
     gnupg
     gnupg1compat

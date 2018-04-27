@@ -22,11 +22,8 @@ in
     environment.sessionVariables.VISUAL = vars.editor;
     environment.shells = [ pkgs.zsh ];
     environment.systemPackages = with pkgs; [
-      bc
       curl
       fzf
-      git
-      git-lfs
       gnumake
       gnupg
       gnupg1compat
@@ -37,17 +34,13 @@ in
       lsof
       neofetch
       neovim
-      nix-repl
-      nox
       pciutils
       psmisc
       pv
-      rclone
       rfkill
       ripgrep
       termite.terminfo
       tree
-      unzip
       whois
       wireguard
       xdg-user-dirs
@@ -120,9 +113,9 @@ in
       MaxRetentionSec=5day
     '';
 
-    system.autoUpgrade.channel = https://nixos.org/channels/nixos-17.09;
+    system.autoUpgrade.channel = https://nixos.org/channels/nixos-18.03;
     system.autoUpgrade.enable = true;
-    system.stateVersion = "17.09";
+    system.stateVersion = "18.03";
 
     systemd.services.systemd-networkd-wait-online.enable = false;
 
