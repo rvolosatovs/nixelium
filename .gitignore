@@ -25,3 +25,5 @@ nvim/autoload/plug.vim
 
 zsh/.zshrc
 zsh/.zshenv
+
+direnv/allow
