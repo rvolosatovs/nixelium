@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+use_nix() {
+    set -e
+
+    local cache=".direnv.$(md5sum <<< "$(nixos-version --hash) $@" | cut -d' ' -f1)"
+    if [[ ! -e "$cache" ]] ||
+        [[ ".envrc" -nt "$cache" ]] ||
+        [[ "default.nix" -nt "$cache" ]] ||
+        [[ "shell.nix" -nt "$cache" ]]; then
+
+        local dump=`nix-shell -p "$@" --run 'direnv dump'`
+        cat > "$cache" <<< "${dump}"
+    fi
+
+    direnv_load cat "$cache"
+    watch_file default.nix
+    watch_file shell.nix
+}
+
+# vim: set ft=bash
