@@ -24,6 +24,7 @@ in
     environment.systemPackages = with pkgs; [
       curl
       fzf
+      git
       gnumake
       gnupg
       gnupg1compat
