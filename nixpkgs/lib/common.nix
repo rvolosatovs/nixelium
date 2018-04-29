@@ -29,7 +29,6 @@ rec {
     file
     fzf
     geoclue
-    git
     git-lfs
     #gnum4
     gnumake
