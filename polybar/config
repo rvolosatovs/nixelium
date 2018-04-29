@@ -17,9 +17,9 @@ base0D = ${xrdb:base0D:#81a2be}
 base0E = ${xrdb:base0E:#b294bb}
 base0F = ${xrdb:base0F:#a3685a}
 
-foreground = ${xrdb:foreground:#b4b7b4}
-foreground-alt = ${xrdb:foreground-alt:#ffffff}
-background = ${xrdb:background:#1d1f21}
+foreground = ${colors.base05}
+foreground-alt = ${colors.base07}
+background = ${colors.base00}
 
 [settings]
 ; The throttle settings lets the eventloop swallow up til X events
