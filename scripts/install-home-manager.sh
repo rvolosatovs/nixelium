@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-HM_PATH=https://github.com/rycee/home-manager/archive/release-17.09.tar.gz
+HM_PATH=https://github.com/rycee/home-manager/archive/release-18.03.tar.gz
 
 checkDep() {
     path=`command -v ${1}` && echo "${1} found at ${path}" || { echo "${1} not found" >&2 ; exit 1; }
