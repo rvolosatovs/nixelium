@@ -17,7 +17,7 @@ rec {
      nixify() {
        if [ ! -e ./.envrc ]; then
          echo "use nix" > .envrc
-         direnv allow
+         ${pkgs.direnv}/bin/direnv allow
        fi
 
        nixfile="shell.nix"
@@ -39,20 +39,71 @@ rec {
        fi
      }
 
-     [ -v oHISTFILE ] && echo "WARNING: oHISTFILE is getting overriden" &> 2
-     oHISTFILE="$HISTFILE"
+     semver() {
+       set -e
+       
+       majorX=`cut -d '.' -f1 <<< "''${1}"`
+       majorX=''${majorX:-"0"}
+       minorX=`cut -d '.' -f2 <<< "''${1}"`
+       minorX=''${minorX:-"0"}
+       patchX=`cut -d '.' -f3 <<< "''${1}"`
+       patchX=''${patchX%-*}
+       patchX=''${patchX:-"0"}
+       
+       majorY=`cut -d '.' -f1 <<< "''${2}"`
+       majorY=''${majorY:-"0"}
+       minorY=`cut -d '.' -f2 <<< "''${2}"`
+       minorY=''${minorY:-"0"}
+       patchY=`cut -d '.' -f3 <<< "''${2}"`
+       patchY=''${patchY%-*}
+       patchY=''${patchY:-"0"}
+       
+       extend() {
+           v=''${1}
+           while [ ''${#v} -lt ''${2} ]; do
+               v=''${v}"0"
+           done
+           printf "%s" ''${v}
+       }
+       
+       majorX=`extend ''${majorX} ''${#majorY}`
+       minorX=`extend ''${minorX} ''${#minorY}`
+       patchX=`extend ''${patchX} ''${#patchY}`
+       
+       majorY=`extend ''${majorY} ''${#majorX}`
+       minorY=`extend ''${minorY} ''${#minorX}`
+       patchY=`extend ''${patchY} ''${#patchX}`
+       
+       printf "%d%s%d\n" ''${majorX}''${minorX}''${patchX} ''${3:-" "} ''${majorY}''${minorY}''${patchY}
+     }
 
-     [ -v oHISTSIZE ] && echo "WARNING: oHISTSIZE is getting overriden" &> 2
-     oHISTSIZE="$HISTSIZE"
+     ver=( `semver ''${ZSH_VERSION} "5.3"` )
+     if [ ''${ver[1]} -ge ''${ver[2]} ]; then
+      [ -v oHISTFILE ] && echo "WARNING: oHISTFILE is getting overriden" &> 2
+      oHISTFILE="$HISTFILE"
 
-     [ -v oSAVEHIST ] && echo "WARNING: oSAVEHIST is getting overriden" &> 2
-     oSAVEHIST="$SAVEHIST"
+      [ -v oHISTSIZE ] && echo "WARNING: oHISTSIZE is getting overriden" &> 2
+      oHISTSIZE="$HISTSIZE"
+
+      [ -v oSAVEHIST ] && echo "WARNING: oSAVEHIST is getting overriden" &> 2
+      oSAVEHIST="$SAVEHIST"
+     else
+      oHISTFILE="$HISTFILE"
+      oHISTSIZE="$HISTSIZE"
+      oSAVEHIST="$SAVEHIST"
+     fi
 
      source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
 
-     [ -v oHISTFILE ] && {export HISTFILE="$oHISTFILE"; unset oHISTFILE;}
-     [ -v oHISTSIZE ] && {export HISTSIZE="$oHISTSIZE"; unset oHISTSIZE;}
-     [ -v oSAVEHIST ] && {export SAVEHIST="$oSAVEHIST"; unset oSAVEHIST;}
+     if [ ''${ver[1]} -ge ''${ver[2]} ]; then
+      [ -v oHISTFILE ] && {export HISTFILE="$oHISTFILE"; unset oHISTFILE;}
+      [ -v oHISTSIZE ] && {export HISTSIZE="$oHISTSIZE"; unset oHISTSIZE;}
+      [ -v oSAVEHIST ] && {export SAVEHIST="$oSAVEHIST"; unset oSAVEHIST;}
+     else
+      export HISTFILE="$oHISTFILE"
+      export HISTSIZE="$oHISTSIZE"
+      export SAVEHIST="$oSAVEHIST"
+     fi
 
      bindkey -v
 
