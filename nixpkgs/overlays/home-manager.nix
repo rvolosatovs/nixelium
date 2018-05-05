@@ -1,1 +1,1 @@
-/home/rvolosatovs/.config/nixpkgs/home-manager/overlay.nix
+../home-manager/overlay.nix
