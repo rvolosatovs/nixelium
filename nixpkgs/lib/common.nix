@@ -93,6 +93,9 @@ rec {
   home.sessionVariables.__GL_SHADER_DISK_CACHE_PATH ="${xdg.cacheHome}/nv";
 
   programs.home-manager.enable = true;
+  programs.fzf.enable = true;
+  programs.fzf.enableBashIntegration = true;
+  programs.fzf.enableZshIntegration = true;
   programs.git.enable = true;
   programs.git.package = unstable.git;
   programs.git.aliases = {

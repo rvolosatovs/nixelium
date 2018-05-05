@@ -24,6 +24,9 @@ nixpkgs/home.nix
 nvim/autoload/plug.vim
 
 zsh/.zshrc
+zsh/.zprofile
+zsh/.zlogin
+zsh/.zlogout
 zsh/.zshenv
 
 direnv/allow

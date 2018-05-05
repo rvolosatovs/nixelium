@@ -11,8 +11,7 @@ rec {
   programs.zsh.history.share = true;
   programs.zsh.history.size = vars.histsize;
   programs.zsh.initExtra = ''
-     CITY=''${CITY:-"Eindhoven"}
-     { curl -s wttr.in/''${CITY} 2>/dev/null | head -7 | tail -6 } &|
+     { curl -s wttr.in/''${CITY:-"Eindhoven"} 2>/dev/null | head -7 | tail -6 } &|
 
      nixify() {
        if [ ! -e ./.envrc ]; then
@@ -107,13 +106,13 @@ rec {
 
      bindkey -v
 
-     source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
-     source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
-
      source ${xdg.dataHome}/base16/scripts/base16-tomorrow-night.sh
      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
+  '';
+  programs.zsh.profileExtra = ''
+     [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
   '';
   programs.zsh.sessionVariables.KEYTIMEOUT = "1";
   programs.zsh.shellAliases.dh="dirs -v";
