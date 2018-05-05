@@ -23,13 +23,16 @@ initBSPWM() {
     killall -qw polybar
 
     local oldM=`bspc query -M`
-    local opt=`randrctl -q`
+    local opt=`randrctl`
 
     local desktops_per_mon=5
     local i=0
     for m in ${opt}; do
         local name="${m%:*}"
         local mode="${m#*:}"
+
+        local pos="${mode#*x*+}"
+        xrandr --output "${name}" --mode "${mode%+*+*}" --pos `tr '+' 'x' <<< ${mode#*x*+}`
         
         bspc wm -a "${name}" "${mode}"
 
@@ -47,6 +50,7 @@ initBSPWM() {
         [[ $i == 0 ]] && suf="-tray"
     
         MONITOR="${name}" polybar -r top${size}${suf}&
+
         let i++
     done
 
@@ -60,6 +64,8 @@ initBSPWM() {
         done
         bspc monitor "${m}" -r
     done
+
+    feh --bg-fill "$HOME/pictures/wp"
 }
 
 initBSPWM

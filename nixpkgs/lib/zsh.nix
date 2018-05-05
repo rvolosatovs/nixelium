@@ -31,7 +31,7 @@ rec {
      stdenv.mkDerivation {
        name = "env";
        buildInputs = [
-         zsh
+         go
        ];
      }
      EOF

@@ -36,7 +36,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
 "Plug 'ludovicchabant/vim-gutentags'
 Plug 'mhinz/vim-signify'
-Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+"Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-abolish'
@@ -64,7 +64,7 @@ Plug 'vhda/verilog_systemverilog.vim'
 Plug 'zchee/deoplete-clang', { 'for': 'c,cpp,objc' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
-Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+"Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
 Plug 'alx741/vim-hindent', { 'for': 'haskell' }
 Plug 'alx741/vim-stylishask', { 'for': 'haskell' }

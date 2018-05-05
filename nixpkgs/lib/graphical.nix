@@ -109,7 +109,7 @@
 
      ${pkgs.xbanish}/bin/xbanish &
 
-     SXHKD_SHELL=${pkgs.bash}/bin/bash ${pkgs.sxhkd}/bin/sxhkd &
+     SXHKD_SHELL=${pkgs.bash}/bin/bash ${pkgs.sxhkd}/bin/sxhkd -m -1 &
      ${pkgs.bspwm}/bin/bspwm
   '';
 

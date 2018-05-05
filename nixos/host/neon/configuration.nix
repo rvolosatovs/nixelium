@@ -60,10 +60,8 @@ rec {
   #services.syncthing.enable = true;
   #services.syncthing.openDefaultPorts = true;
   #services.syncthing.user = vars.username;
-  services.xserver.resolutions = [ { x = 3840; y = 2160; } { x = 1920; y = 1080; } ];
-  #services.xserver.resolutions = [ { x = 1920; y = 1080; } { x = 1920; y = 1080; } ];
-  services.xserver.xrandrHeads = [ "DP1" "eDP1" ];
-  #services.xserver.xrandrHeads = [ "HDMI2" "eDP1" ];
+  #services.xserver.resolutions = [ { x = 1920; y = 1080; } { x = 3840; y = 2160; } ];
+  #services.xserver.xrandrHeads = [ "eDP1" "DP1" ];
 
     systemd.services = {
         audio-off = {

@@ -14,6 +14,7 @@ echo "- Ensuring /nix/var/nix/{profiles,gcroots}/per-user/${USER} are present...
 mkdir -m 0755 -p /nix/var/nix/{profiles,gcroots}/per-user/${USER}
 
 echo "- Creating initial home-manager config file"
+mkdir -p ~/.config/nixpkgs
 cat > ~/.config/nixpkgs/home.nix <<EOF
 {
   programs.home-manager.enable = true;

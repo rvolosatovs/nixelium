@@ -72,7 +72,7 @@ Print
 
 # quit bspwm normally
 super + alt + Escape
-	pkill -x panel; bspc quit; sudo systemctl restart display-manager
+	killall polybar; bspc quit; sudo systemctl restart display-manager
 
 # close and kill
 super + {_,shift + }q
@@ -133,8 +133,8 @@ super + {o,i}
 	bspc wm -h on
 
 # focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+super + {_,shift + }{1-9,0,F1,F2,F3,F4,F5}
+	bspc {desktop -f,node -d} '^{1-9,10,11,12,13,14,15}'
 
 #
 # preselect

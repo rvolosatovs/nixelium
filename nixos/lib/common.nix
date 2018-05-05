@@ -24,6 +24,7 @@ in
     environment.systemPackages = with pkgs; [
       curl
       fzf
+      git
       gnumake
       gnupg
       gnupg1compat
@@ -105,8 +106,13 @@ in
 
     services.ntp.enable = true;
     services.openssh.enable = true;
+    services.openssh.hostKeys = [
+      { type = "rsa"; bits = 4096; path = "/etc/ssh/ssh_host_rsa_key"; rounds = 100; openSSHFormat = true; }
+      { type = "ed25519"; path = "/etc/ssh/ssh_host_ed25519_key"; rounds = 100; comment = "key comment"; }
+    ];
+    #services.openssh.passwordAuthentication = true;
     services.openssh.passwordAuthentication = false;
-    services.openssh.ports = [ 4422 ];
+    services.openssh.ports = secrets.ssh.ports;
     services.openssh.startWhenNeeded = true;
     services.journald.extraConfig = ''
       SystemMaxUse=1G
@@ -124,7 +130,7 @@ in
     users.defaultUserShell = pkgs.zsh;
     users.users."${vars.username}" = {
       createHome = true;
-      extraGroups = [ "users" "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" "vboxusers" "adbusers" "rkt" "libvirtd" "vboxusers" ];
+      extraGroups = [ "users" "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" "vboxusers" "adbusers" "rkt" "libvirtd" "vboxusers" "ssh" ];
       home = "/home/${vars.username}";
       isNormalUser = true;
       openssh.authorizedKeys.keys = [ keys.publicKey ];
