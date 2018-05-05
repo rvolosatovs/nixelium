@@ -1,8 +1,10 @@
-XDG_CONFIG_HOME ?= $(HOME)/.config
-XDG_DATA_HOME ?= $(HOME)/.local/share
-XDG_DIRS = $(XDG_CONFIG_HOME) $(XDG_DATA_HOME)
+SHELL = /usr/bin/env bash
 
 ZDOTDIR ?= $(XDG_CONFIG_HOME)/zsh
+
+GOPATH ?= $(HOME)
+
+USE_HTTPS ?=
 
 REMOTE_USERNAME ?= $(shell whoami)
 ifeq ($(shell hostname), neon)
@@ -16,107 +18,137 @@ PASSWORD_STORE_DIR ?= $(HOME)/$(PASSWORD_STORE_SUFFIX)
 PASS_USERNAME ?= $(REMOTE_USERNAME)
 PASS_HOSTNAME ?= $(REMOTE_HOSTNAME)
 
+XDG_CONFIG_HOME ?= $(HOME)/.config
+XDG_DATA_HOME ?= $(HOME)/.local/share
+XDG_DIRS = $(XDG_CONFIG_HOME) $(XDG_DATA_HOME)
+
 REL_HOME = $(shell realpath --relative-to $(HOME) $(PWD))
 REL_XDG_CONFIG = $(shell realpath --relative-to $(XDG_CONFIG_HOME) $(PWD))
 REL_XDG_DATA = $(shell realpath --relative-to $(XDG_DATA_HOME) $(PWD))
 
-WM ?= bspwm
-
-GUI_APPS = $(WM) themes termite fontconfig zathura sxhkd stalonetray 
-TUI_APPS = pass git nvim rtorrent mopidy
-SHELL = zsh
-
-XDG_APPS = git zsh nvim mopidy $(GUI_APPS) user-dirs.dirs user-dirs.locale systemd mimeapps.list
-DATA_APPS = fonts base16
+GUI_DOTS = bspwm themes termite fontconfig zathura sxhkd stalonetray
+TUI_DOTS = git nvim rtorrent mopidy
 
 HOME_DOTS = profile pam_environment themes xprofile xinitrc Xresources npmrc
+XDG_DOTS = $(GUI_DOTS) git zsh nvim mopidy systemd user-dirs.dirs user-dirs.locale mimeapps.list
+DATA_DOTS = fonts base16
 
-all: bin tui env gui
+DATE ?= $(shell date +%y%m%d)
+
+NVIM_CMD ?= nvim -m -n --headless /tmp/install.go
+
+all: bin tui env
 
 arch: all cower xinitrc systemd
 
 nixos: all nixpkgs
 
-env: pam_environment profile user-dirs mimeapps npmrc
+env: user-dirs.dirs user-dirs.locale mimeapps npmrc
 
-user-dirs: user-dirs.dirs user-dirs.locale
+tui: $(TUI_DOTS) env
 
-tui: $(TUI_APPS) $(SHELL) env
-
-gui: $(WM) $(GUI_APPS) fonts Xresources base16
+gui: $(GUI_DOTS) bspwm fonts Xresources base16 env
 
 bspwm: sxhkd
 
 nvim:
-	$(MAKE) nvim-install
+	@$(MAKE) nvim-install
 
 nvim-install: $(XDG_DATA_HOME)/nvim/plugins
 $(XDG_DATA_HOME)/nvim/plugins:
-	nvim --headless -c :PlugInstall -c :GoInstallBinaries -c :UpdateRemotePlugins -c :q /tmp/install.go
+	$(info Installing neovim plugins...)
+	@$(NVIM_CMD) -c :PlugInstall -c :UpdateRemotePlugins -c :qa!
+	@$(NVIM_CMD) -c :GoInstallBinaries -c :qa!
 
-${GOPATH}/src/%:
+$(GOPATH)/src/%:
 	go get -u $*
 
+SSH_COMMENT="$(shell whoami)@$(shell hostname)"
 ssh:
-	ssh-keygen -C "$(shell whoami)@$(shell hostname)-$(shell date -I)" -b 4096
+	$(info Generating ssh keys...)
+	@ssh-keygen -a 100 -C $(SSH_COMMENT) -t ed25519 -f ~/.ssh/id_ed25519_$(DATE)
+	@ssh-keygen -a 100 -C $(SSH_COMMENT) -t rsa -f ~/.ssh/id_rsa_$(DATE) -o -b 4096
+	$(info Updating ssh key symlinks...)
+	@ln -sf id_ed25519_$(DATE)       ~/.ssh/id_ed25519
+	@ln -sf id_ed25519_$(DATE).pub   ~/.ssh/id_ed25519.pub
+	@ln -sf id_rsa_$(DATE)           ~/.ssh/id_rsa
+	@ln -sf id_rsa_$(DATE).pub       ~/.ssh/id_rsa.pub
 
 gpg:
-	scp -r $(REMOTE_USERNAME)@$(REMOTE_HOSTNAME):.config/gnupg $(HOME)/.config
-	#ssh $(REMOTE_USERNAME)@$(REMOTE_HOSTNAME) gpg --export-secret-keys | gpg --import
+	$(info Copying GPG keychain from $(REMOTE_USERNAME)@$(REMOTE_HOSTNAME)...)
+	@scp -r $(REMOTE_USERNAME)@$(REMOTE_HOSTNAME):.config/gnupg $(HOME)/.config
 
 pass: $(PASSWORD_STORE_DIR)
 $(PASSWORD_STORE_DIR):
-	git clone $(PASS_USERNAME)@$(PASS_HOSTNAME):$(PASSWORD_STORE_SUFFIX) $@
+	$(info Cloning pass store from $(REMOTE_USERNAME)@$(REMOTE_HOSTNAME)...)
+	@git clone $(PASS_USERNAME)@$(PASS_HOSTNAME):$(PASSWORD_STORE_SUFFIX) $@
 
-$(DATA_APPS): %: $(XDG_DATA_HOME)/%
+$(DATA_DOTS): %: $(XDG_DATA_HOME)/%
 $(XDG_DATA_HOME)/%:
-	ln -s $(REL_XDG_DATA)/$* $@
+	$(info Linking $* to $@...)
+	@ln -s $(REL_XDG_DATA)/$* $@
 
-$(XDG_APPS): %: $(XDG_CONFIG_HOME)/%
+$(XDG_DOTS): %: $(XDG_CONFIG_HOME)/%
 $(XDG_CONFIG_HOME)/%:
-	ln -s $(REL_XDG_CONFIG)/$* $@
+	$(info Linking $* to $@...)
+	@ln -s $(REL_XDG_CONFIG)/$* $@
 
 $(HOME_DOTS): %: $(HOME)/.%
 $(HOME)/.%:
-	ln -s $(REL_HOME)/$* $@
+	$(info Linking $* to $@...)
+	@ln -s $(REL_HOME)/$* $@
 
 xdg-dirs: $(XDG_DIRS)
 $(XDG_DIRS):
-	mkdir -p $@
+	@mkdir -p $@
 
 mimeapps: mimeapps.list
 mimeapps.list: $(XDG_CONFIG_HOME)/mimeapps.list $(XDG_DATA_HOME)/applications/mimeapps.list
 $(XDG_DATA_HOME)/applications/mimeapps.list:
-	mkdir -p $(shell dirname $@)
-	ln -s ../$(REL_XDG_DATA)/mimeapps.list $@
-
-clean:
-	@./clean-links.sh
+	$(info Linking $* to $@...)
+	@mkdir -p $(shell dirname $@)
+	@ln -s ../$(REL_XDG_DATA)/mimeapps.list $@
 
 UPDATE_CMDS = pass-update submodule-update go-update nvim-update
+
 update: $(UPDATE_CMDS)
 
 pass-update: pass
-	pass git pull
+	@pass git pull
 
 submodule-update:
-	git submodule update --init --recursive --remote --rebase
+	$(info Cloning binaries...)
+	@git submodule update --init --recursive --remote --rebase
 
 go-update:
 	-go get -u ...
 
 nvim-update:
-	nvim --headless -c :PlugUpdate -c :GoUpdateBinaries -c :UpdateRemotePlugins -c :q /tmp/install.go
+	$(info Updating neovim plugins...)
+	@$(NVIM_CMD) -c :PlugUpdate -c :UpdateRemotePlugins -c :qa!
 
 bin: $(HOME)/.local/bin
 
 $(HOME)/.local/bin:
-	git clone git@github.com:rvolosatovs/bin.git $@
+	$(info Cloning binaries...)
+ifdef USE_HTTPS
+	@git clone https://github.com/rvolosatovs/bin $@
+else
+	@git clone git@github.com:rvolosatovs/bin.git $@
+endif
 
-nixpkgs: $(GOPATH)/src/github.com/rvolosatovs/nixpkgs
+nixpkgs: $(GOPATH)/src/github.com/rvolosatovs/nixpkgs /nix/nixpkgs
 
 $(GOPATH)/src/github.com/rvolosatovs/nixpkgs:
-	git clone git@github.com:rvolosatovs/nixpkgs.git $@
-	sudo ln -s $@ /nix/nixpkgs
+	$(info Cloning nixpkgs...)
+ifdef USE_HTTPS
+	@git clone https://github.com/rvolosatovs/nixpkgs $@
+else
+	@git clone git@github.com:rvolosatovs/nixpkgs.git $@
+endif
 
-.PHONY: $(TUI_APPS) $(GUI_APPS) $(XDG_APPS) $(SHELL) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh env user-dirs.dirs user-dirs.locale user-dirs update gpg base16 xdg-dirs bin mimeapps nvim-install nixpkgs bin
+/nix/nixpkgs: $(GOPATH)/src/github.com/rvolosatovs/nixpkgs
+	$(info Linking $< to $@...)
+	@sudo ln -s $< $@
+
+.PHONY: $(TUI_DOTS) $(GUI_DOTS) $(XDG_DOTS) $(HOME_DOTS) $(UPDATE_CMDS) all clean nixos arch gui ssh zsh env user-dirs.dirs user-dirs.locale update gpg base16 xdg-dirs bin mimeapps nvim-install nixpkgs bin
