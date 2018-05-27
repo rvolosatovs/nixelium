@@ -6,7 +6,7 @@ rec {
   programs.zsh.enableAutosuggestions = true;
   programs.zsh.enableCompletion = true;
   programs.zsh.history.ignoreDups = true;
-  programs.zsh.history.path = ".local/cache/shell-history";
+  #programs.zsh.history.path = programs.zsh.dotDir + "/.zhistory";
   programs.zsh.history.save = vars.histsize;
   programs.zsh.history.share = true;
   programs.zsh.history.size = vars.histsize;

@@ -278,8 +278,8 @@ let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
 " Insert-mode
-inoremap      jk  <Esc>
-inoremap      kj  <Esc>
+"inoremap      jk  <Esc>
+"inoremap      kj  <Esc>
 
 " Fix yank
 noremap Y y$

@@ -1,13 +1,3 @@
-### Custom ###
-token
-
-.envrc
-.direnv*
-.vscode
-
-# Nix OS
-shell.nix
-
 # Logs and databases #
 ######################
 *.log
@@ -310,3 +300,14 @@ TSWLatexianTemp*
 
 # expex forward references with \gathertags
 *-tags.tex
+
+### Custom ###
+token
+
+.envrc
+.direnv*
+.vscode
+
+# Nix OS
+shell.nix
+

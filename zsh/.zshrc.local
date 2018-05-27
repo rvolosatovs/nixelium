@@ -210,7 +210,7 @@ alias insecssh='ssh -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/nu
 export MANWIDTH=${MANWIDTH:-80}
 
 # Set a search path for the cd builtin
-cdpath=($GOPATH/src/github.com/rvolosatovs $GOPATH/src/github.com/TheThingsIndustries $GOPATH/src/github.com/TheThingsNetwork $GOPATH/src/github.com $GOPATH/src)
+cdpath=($GOPATH/src/github.com/rvolosatovs $GOPATH/src/go.thethings.network $GOPATH/src/github.com/TheThingsIndustries $GOPATH/src/github.com/TheThingsNetwork $GOPATH/src/github.com $GOPATH/src)
 
 ## variation of our manzsh() function; pick you poison:
 #manzsh()  { /usr/bin/man zshall |  most +/"$1" ; }
