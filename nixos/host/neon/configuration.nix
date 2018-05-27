@@ -76,18 +76,6 @@ rec {
           };
         };
 
-        #godoc = {
-          #enable = true;
-          #wantedBy = [ "multi-user.target" ];
-          #environment = {
-            #"GOPATH" = "/home/${vars.username}";
-          #};
-          #serviceConfig = {
-            #User = "${vars.username}";
-            #ExecStart = "${pkgs.gotools}/bin/godoc -http=:6060";
-          #};
-        #};
-
         #openvpn-reconnect = {
           #enable = true;
           #description = "Restart OpenVPN after suspend";

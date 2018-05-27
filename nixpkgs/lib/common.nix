@@ -92,6 +92,12 @@ rec {
   home.sessionVariables.WINEPREFIX = "${xdg.dataHome}/wine";
   home.sessionVariables.__GL_SHADER_DISK_CACHE_PATH ="${xdg.cacheHome}/nv";
 
+  programs.bash.enable = true;
+  programs.bash.enableAutojump = true;
+  programs.bash.historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
+  programs.bash.historyFile = home.sessionVariables.HISTFILE;
+  programs.bash.historyFileSize = home.sessionVariables.HISTFILESIZE;
+  programs.bash.historySize = home.sessionVariables.HISTSIZE;
   programs.home-manager.enable = true;
   programs.fzf.enable = true;
   programs.fzf.enableBashIntegration = true;

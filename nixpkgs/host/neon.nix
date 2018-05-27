@@ -48,4 +48,9 @@ rec {
   programs.git.signing.key = "3D80C89E";
   programs.git.signing.signByDefault = true;
   programs.home-manager.path = config.xdg.configHome + "/nixpkgs/home-manager";
+
+  systemd.user.services.godoc.Unit.Description="Godoc server";
+  systemd.user.services.godoc.Service.Environment="'GOPATH=${config.home.sessionVariables.GOPATH}'";
+  systemd.user.services.godoc.Service.ExecStart="${unstable.gotools}/bin/godoc -http=:42002";
+  systemd.user.services.godoc.Service.Restart="always";
 }
