@@ -11,7 +11,7 @@ rec {
   programs.zsh.history.share = true;
   programs.zsh.history.size = vars.histsize;
   programs.zsh.initExtra = ''
-     { curl -s wttr.in/''${CITY:-"Eindhoven"} 2>/dev/null | head -7 | tail -6 } &|
+     { wego ''${CITY:-"Eindhoven"} 1 2>/dev/null | head -7 | tail -6 } &|
 
      nixify() {
        if [ ! -e ./.envrc ]; then

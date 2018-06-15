@@ -55,6 +55,7 @@ rec {
     rclone
     rfkill
     ripgrep
+    shellcheck
     sutils
     termite.terminfo
     tig
