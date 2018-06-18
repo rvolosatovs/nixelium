@@ -52,15 +52,15 @@ Plug 'editorconfig/editorconfig-vim'
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
-Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
+"Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
 "Plug 'carlitux/deoplete-ternjs', {'for': 'javascript', 'do': 'npm install -g tern'}
 "Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'JuliaEditorSupport/deoplete-julia', { 'for': 'julia' }
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
-Plug 'ccarpita/rtorrent-syntax-file', { 'for': 'rtorrent' }
+"Plug 'ccarpita/rtorrent-syntax-file', { 'for': 'rtorrent' }
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'vhda/verilog_systemverilog.vim'
+"Plug 'lervag/vimtex', { 'for': 'tex' }
+"Plug 'vhda/verilog_systemverilog.vim'
 Plug 'zchee/deoplete-clang', { 'for': 'c,cpp,objc' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
@@ -68,8 +68,8 @@ Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
 Plug 'alx741/vim-hindent', { 'for': 'haskell' }
 Plug 'alx741/vim-stylishask', { 'for': 'haskell' }
-Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-Plug 'hsanson/vim-android', { 'for': 'java' }
+"Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+"Plug 'hsanson/vim-android', { 'for': 'java' }
 
 Plug 'sheerun/vim-polyglot'
 
@@ -162,6 +162,8 @@ set grepformat^=%f:%l:%c:%m
 "set tags=tags,./tags;
 
 set viewoptions=cursor,slash,unix
+
+set nrformats=alpha,octal,hex,bin
 
 
 " ~~~ Eye-candy ~~~

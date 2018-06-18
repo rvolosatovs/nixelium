@@ -63,30 +63,30 @@ rec {
   #services.xserver.resolutions = [ { x = 1920; y = 1080; } { x = 3840; y = 2160; } ];
   #services.xserver.xrandrHeads = [ "eDP1" "DP1" ];
 
-    systemd.services = {
-        audio-off = {
-          enable = true;
-          description = "Mute audio before suspend";
-          wantedBy = [ "sleep.target" ];
-          serviceConfig = {
-            Type = "oneshot";
-            User = "${vars.username}";
-            ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
-            RemainAfterExit = true;
-          };
+  systemd.services = {
+      audio-off = {
+        enable = true;
+        description = "Mute audio before suspend";
+        wantedBy = [ "sleep.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          User = "${vars.username}";
+          ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
+          RemainAfterExit = true;
         };
+      };
 
-        #openvpn-reconnect = {
-          #enable = true;
-          #description = "Restart OpenVPN after suspend";
+      #openvpn-reconnect = {
+        #enable = true;
+        #description = "Restart OpenVPN after suspend";
 
-          #wantedBy= [ "sleep.target" ];
+        #wantedBy= [ "sleep.target" ];
 
-          #serviceConfig = {
-            #ExecStart="${pkgs.procps}/bin/pkill --signal SIGHUP --exact openvpn";
-          #};
+        #serviceConfig = {
+          #ExecStart="${pkgs.procps}/bin/pkill --signal SIGHUP --exact openvpn";
         #};
-    };
+      #};
+  };
 
   #services.logind.extraConfig = ''
       #IdleAction=suspend

@@ -12,6 +12,7 @@
       '';
 
       hardware.bluetooth.enable = true;
+      hardware.bluetooth.powerOnBoot = false;
       hardware.cpu.intel.updateMicrocode = true;
       hardware.pulseaudio.enable = true;
       hardware.pulseaudio.package = pkgs.pulseaudioFull;

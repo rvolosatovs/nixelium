@@ -18,7 +18,9 @@ rec {
   ];
 
   home.packages = with pkgs; [
+    #gnum4
     acpi
+    bench
     cowsay
     curl
     desktop_file_utils
@@ -29,8 +31,8 @@ rec {
     file
     fzf
     geoclue
+    ghq
     git-lfs
-    #gnum4
     gnumake
     gnupg
     gnupg1compat
@@ -38,8 +40,10 @@ rec {
     htop
     httpie
     jq
+    lf
     lm_sensors
     lsof
+    ncdu
     neofetch
     nix-index
     nix-prefetch-scripts
@@ -152,6 +156,10 @@ rec {
       required = true
     [rerere]
       enabled = true
+    [ghq]
+      root = ~/src
+    [ghq "https://go.thethings.network"]
+      vcs = git
   '';
   programs.git.userName = "Roman Volosatovs";
   programs.git.userEmail = vars.email;
