@@ -62,6 +62,34 @@ rec {
   #services.syncthing.user = vars.username;
   #services.xserver.resolutions = [ { x = 1920; y = 1080; } { x = 3840; y = 2160; } ];
   #services.xserver.xrandrHeads = [ "eDP1" "DP1" ];
+  services.udev.extraRules = ''
+    # OLKB kerboards
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", OWNER="${vars.username}"
+
+    # Keyboardio
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2301", ATTRS{serial}=="CDkbio01", OWNER="${vars.username}"
+
+    # Atmel ATMega32U4
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", OWNER="${vars.username}"
+
+    # Atmel USBKEY AT90USB1287                                           
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", OWNER="${vars.username}"
+
+    # Atmel ATMega32U2                                                   
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", OWNER="${vars.username}"
+
+    # SparkFun Pro Micro
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9204", OWNER="${vars.username}"
+
+    # Teensy
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789ABCD]?", OWNER="${vars.username}"
+    ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789B]?", ENV{ID_MM_DEVICE_IGNORE}="1"
+    ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789A]?", ENV{MTP_NO_PROBE}="1"
+
+    # General
+    KERNEL=="ttyACM*", OWNER="${vars.username}"
+    KERNEL=="ttyUSB*", OWNER="${vars.username}"
+  '';
 
   systemd.services = {
       audio-off = {

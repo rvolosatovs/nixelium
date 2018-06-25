@@ -67,6 +67,7 @@ in
     ];
     nix.gc.automatic = true;
     nix.optimise.automatic = true;
+    nix.trustedUsers = [ "root" "${vars.username}" "@wheel" ];
 
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.neovim.vimAlias = true;
