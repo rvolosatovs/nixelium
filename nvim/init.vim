@@ -25,6 +25,10 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neoyank.vim'
+Plug 'Shougo/deol.nvim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'benekastah/neomake'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'godlygeek/tabular'
@@ -45,12 +49,14 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
-Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch-easymotion.vim'
+"Plug 'easymotion/vim-easymotion'
+Plug 'osyo-manga/vim-anzu'
+Plug 'thinca/vim-visualstar'
+"Plug 'haya14busa/incsearch-easymotion.vim'
 
 Plug 'editorconfig/editorconfig-vim'
 
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+"Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 "Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
 "Plug 'carlitux/deoplete-ternjs', {'for': 'javascript', 'do': 'npm install -g tern'}
@@ -63,17 +69,17 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 "Plug 'vhda/verilog_systemverilog.vim'
 Plug 'zchee/deoplete-clang', { 'for': 'c,cpp,objc' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
-Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
+"Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
 "Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
-Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
-Plug 'alx741/vim-hindent', { 'for': 'haskell' }
-Plug 'alx741/vim-stylishask', { 'for': 'haskell' }
+"Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+"Plug 'alx741/vim-hindent', { 'for': 'haskell' }
+"Plug 'alx741/vim-stylishask', { 'for': 'haskell' }
 "Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 "Plug 'hsanson/vim-android', { 'for': 'java' }
 
 Plug 'sheerun/vim-polyglot'
 
-Plug 'lambdalisue/vim-pager'
+"Plug 'lambdalisue/vim-pager'
 Plug 'powerman/vim-plugin-AnsiEsc'
 
 call plug#end()
@@ -385,18 +391,22 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Incsearch
 let g:incsearch#auto_nohlsearch = 1
-map           /   <Plug>(incsearch-easymotion-/)
-map           ?   <Plug>(incsearch-easymotion-?)
-map           g/  <Plug>(incsearch-easymotion-stay)
-"map           /   <Plug>(incsearch-forward)
-"map           ?   <Plug>(incsearch-backward)
-"map           g/  <Plug>(incsearch-stay)
-map           *   <Plug>(incsearch-nohl-*)
-map           n   <Plug>(incsearch-nohl-n)
-map           N   <Plug>(incsearch-nohl-N)
-map           #   <Plug>(incsearch-nohl-#)
-map           g*  <Plug>(incsearch-nohl-g*)
-map           g#  <Plug>(incsearch-nohl-g#)
+"map           /   <Plug>(incsearch-easymotion-/)
+"map           ?   <Plug>(incsearch-easymotion-?)
+"map           g/  <Plug>(incsearch-easymotion-stay)
+nmap           /   <Plug>(incsearch-forward)
+nmap           ?   <Plug>(incsearch-backward)
+nmap           g/  <Plug>(incsearch-stay)
+"nmap           *   <Plug>(incsearch-nohl-*)
+"nmap           n   <Plug>(incsearch-nohl-n)
+"nmap           N   <Plug>(incsearch-nohl-N)
+"nmap           #   <Plug>(incsearch-nohl-#)
+nmap           n   <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+nmap           N   <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+nmap           *   <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
+nmap           #   <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
+nmap           g*  <Plug>(incsearch-nohl-g*)<Plug>(anzu-update-search-status-with-echo)
+nmap           g#  <Plug>(incsearch-nohl-g#)<Plug>(anzu-update-search-status-with-echo)
 
 " EasyMotion
 let g:EasyMotion_keys='hjkluiobnmxcvwersdfg'
@@ -404,32 +414,35 @@ let g:EasyMotion_startofline = 0
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 
-map            f  <Plug>(easymotion-f)
-map            F  <Plug>(easymotion-F)
-map            t  <Plug>(easymotion-t)
-map            T  <Plug>(easymotion-T)
-map            s  <Plug>(easymotion-s2)
-map            S  <Plug>(easymotion-overwin-f2)
-map    <Leader>w  <Plug>(easymotion-w)
-map    <Leader>W  <Plug>(easymotion-W)
-map    <Leader>b  <Plug>(easymotion-b)
-map    <Leader>B  <Plug>(easymotion-B)
-map    <Leader>e  <Plug>(easymotion-e)
-map    <Leader>E  <Plug>(easymotion-E)
-map    <Leader>ge <Plug>(easymotion-ge)
-map    <Leader>gE <Plug>(easymotion-gE)
+
+"nmap            f  <Plug>(easymotion-f)
+"nmap            F  <Plug>(easymotion-F)
+"nmap            t  <Plug>(easymotion-t)
+"nmap            T  <Plug>(easymotion-T)
+"nmap            s  <Plug>(easymotion-s2)
+"nmap            S  <Plug>(easymotion-overwin-f2)
+"nmap    <Leader>w  <Plug>(easymotion-w)
+"nmap    <Leader>W  <Plug>(easymotion-W)
+"nmap    <Leader>b  <Plug>(easymotion-b)
+"nmap    <Leader>B  <Plug>(easymotion-B)
+"nmap    <Leader>e  <Plug>(easymotion-e)
+"nmap    <Leader>E  <Plug>(easymotion-E)
+"nmap    <Leader>ge <Plug>(easymotion-ge)
+"nmap    <Leader>gE <Plug>(easymotion-gE)
 "
 "map    <Leader>gl <Plug>(easymotion-overwin-line)
 "
 "map    <Leader>gn <Plug>(easymotion-next)
 "map    <Leader>gN <Plug>(easymotion-prev)
-map    <Leader>n  <Plug>(easymotion-vim-n)
-map    <Leader>N  <Plug>(easymotion-vim-N)
+"nmap    <Leader>n  <Plug>(easymotion-vim-n)
+"nmap    <Leader>N  <Plug>(easymotion-vim-N)
 "
 ""map    <Leader>h  <Plug>(easymotion-linebackward)
-map    <Leader>j  <Plug>(easymotion-j)
-map    <Leader>k  <Plug>(easymotion-k)
+"nmap    <Leader>j  <Plug>(easymotion-j)
+"nmap    <Leader>k  <Plug>(easymotion-k)
 ""map    <Leader>l  <Plug>(easymotion-lineforward)
+
+call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!.git'])
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
