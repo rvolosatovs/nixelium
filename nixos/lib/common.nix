@@ -104,7 +104,6 @@ in
     security.sudo.enable = true;
     security.sudo.wheelNeedsPassword = false;
 
-    services.ntp.enable = true;
     services.openssh.enable = true;
     services.openssh.hostKeys = [
       { type = "rsa"; bits = 4096; path = "/etc/ssh/ssh_host_rsa_key"; rounds = 100; openSSHFormat = true; }

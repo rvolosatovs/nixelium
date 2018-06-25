@@ -30,17 +30,15 @@ rec {
     asciinema
     clang
     drive
+    go
     julia
     keybase
+    llvm
+    llvmPackages.libclang
     macchanger
-    #nodejs
     playerctl
     poppler_utils
-    #sshfs
-    #stack
-    wireshark
   ] ++ (with unstable; [
-    go
     gotools
   ]);
 
