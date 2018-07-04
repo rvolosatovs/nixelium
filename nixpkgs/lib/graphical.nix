@@ -70,7 +70,7 @@
   programs.browserpass.enable = true;
   programs.firefox.enable = true;
   programs.firefox.enableIcedTea = true;
-  #programs.firefox.package = unstable.firefox;
+  programs.firefox.package = unstable.firefox;
   programs.feh.enable = true;
 
   services.dunst.enable = true;

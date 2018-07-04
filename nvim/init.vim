@@ -278,9 +278,9 @@ let g:gundo_preview_bottom=1
 
 " Essential
 noremap         ;  :
-"noremap        ;;  ; 
-noremap        ;;  <Plug>(easymotion-next)
-noremap        ,   <Plug>(easymotion-prev)
+noremap        ;;  ; 
+"noremap        ;;  <Plug>(easymotion-next)
+"noremap        ,   <Plug>(easymotion-prev)
 nnoremap <SPACE>  <Nop>
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"

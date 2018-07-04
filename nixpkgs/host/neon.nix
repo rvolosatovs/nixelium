@@ -29,6 +29,7 @@ rec {
     arduino
     asciinema
     clang
+    comic-relief
     drive
     go
     julia
@@ -40,9 +41,11 @@ rec {
     poppler_utils
   ] ++ (with unstable; [
     gotools
+    platformio
   ]);
 
 
+  programs.firefox.enableAdobeFlash = true;
   programs.git.signing.key = "3D80C89E";
   programs.git.signing.signByDefault = true;
   programs.home-manager.path = config.xdg.configHome + "/nixpkgs/home-manager";
