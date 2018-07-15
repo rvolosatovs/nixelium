@@ -2,7 +2,6 @@
 
 rec {
   username = "rvolosatovs";
-  hostname = "neon";
 
   homeDir = "/home/${username}";
   email = "${username}@riseup.net";

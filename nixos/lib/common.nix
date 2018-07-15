@@ -1,4 +1,4 @@
-{ config, pkgs, secrets, vars, keys, unstable, ... }:
+{ config, pkgs, secrets, vars, keys, ... }:
 
 let
   mountOpts = if vars.isSSD then [ "noatime" "nodiratime" "discard" ] else [ "noatime" ] ;
@@ -59,12 +59,6 @@ in
     networking.hostName = vars.hostname;
 
     nix.autoOptimiseStore = true;
-    nix.nixPath = [
-      "nixpkgs=/nix/nixpkgs"
-      "nixpkgs-unstable=/nix/var/nix/profiles/per-user/root/channels/nixpkgs"
-      "nixos-config=/etc/nixos/configuration.nix"
-      "/nix/var/nix/profiles/per-user/root/channels"
-    ];
     nix.gc.automatic = true;
     nix.optimise.automatic = true;
     nix.trustedUsers = [ "root" "${vars.username}" "@wheel" ];

@@ -17,7 +17,6 @@ let
 in
 
 rec {
-  # This will be passed to all imports
   _module.args = {
     inherit unstable;
     inherit vars;
@@ -58,7 +57,4 @@ rec {
   services.udev.extraRules = ''
     SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="${vars.netDeviceMAC}", NAME="${vars.netDeviceName}"
   '';
-
-  #virtualisation.virtualbox.host.enable = true;
-  #virtualisation.virtualbox.host.headless = true;
 }
