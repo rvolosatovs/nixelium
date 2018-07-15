@@ -1,8 +1,8 @@
 " ~~~ Plugins ~~~
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/.local/share/nvim/plugins')
@@ -278,23 +278,16 @@ let g:gundo_preview_bottom=1
 
 " Essential
 noremap         ;  :
-noremap        ;;  ; 
+noremap        ;;  ;
 "noremap        ;;  <Plug>(easymotion-next)
 "noremap        ,   <Plug>(easymotion-prev)
 nnoremap <SPACE>  <Nop>
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
-" Insert-mode
-"inoremap      jk  <Esc>
-"inoremap      kj  <Esc>
-
-" Fix yank
 noremap Y y$
 
 noremap K i<CR><Esc>
-noremap H 0
-noremap L $
 
 " Navigation
 "nnoremap      j   gj
@@ -313,10 +306,6 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 " Vim-related
-nmap <Leader>vw   :w<CR>
-nmap <Leader>vW   :wa<CR>
-nmap <Leader>vq   :wqall<CR>
-nmap <Leader>vQ   :qa<CR>
 nmap <Leader>ve   :e ~/.config/nvim/init.vim<CR>
 nmap <Leader>vr   :source ~/.config/nvim/init.vim<CR>
 nmap <Leader>vP   :PlugInstall<CR>
@@ -489,6 +478,49 @@ nmap <Leader>M :Neomake!<CR>
 "autocmd ColorScheme * hi Sneak guifg=black guibg=red ctermfg=black ctermbg=red
 "autocmd ColorScheme * hi SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
 
+" Creates a session
+function! MakeSession()
+    let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
+    if (filewritable(b:sessiondir) != 2)
+        exe 'silent !mkdir -p ' b:sessiondir
+        redraw!
+    endif
+    let b:sessionfile = b:sessiondir . '/session.vim'
+    exe "mksession! " . b:sessionfile
+    echo "Created new session"
+endfunction
+
+function! UpdateSession()
+    if argc() == 0
+        let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
+        let b:sessionfile = b:sessiondir . "/session.vim"
+        if (filereadable(b:sessionfile))
+            exe "mksession! " . b:sessionfile
+            echo "updating session"
+        endif
+    endif
+endfunction
+
+" Loads a session if it exists
+function! LoadSession()
+    if argc() == 0
+        let b:sessionfile = $VIMSESSION
+        let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
+        let b:sessionfile = b:sessiondir . "/session.vim"
+        if (filereadable(b:sessionfile))
+            exe 'source ' b:sessionfile
+        else
+            echo "No session loaded."
+        endif
+    else
+        let b:sessionfile = ""
+        let b:sessiondir = ""
+    endif
+endfunction
+
+au VimEnter * nested :call LoadSession()
+au VimLeave * :call UpdateSession()
+map <leader>s :call MakeSession()<CR>
 
 " ~~~ Autocmd ~~~
 
