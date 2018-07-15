@@ -193,6 +193,7 @@ rec {
   programs.zsh.shellAliases.gR="git reset";
   programs.zsh.shellAliases.gRh="git reset --hard";
   programs.zsh.shellAliases.ge="git config --global --edit";
+
   programs.zsh.shellAliases.d="docker";
   programs.zsh.shellAliases.dl="docker logs";
   programs.zsh.shellAliases.dlt="docker logs --tail 100";
@@ -218,7 +219,8 @@ rec {
   programs.zsh.shellAliases.RR="sudo systemctl reboot";
   programs.zsh.shellAliases.SS="sudo systemctl suspend";
 
-  systemd.user.services.zsh-history-backup.Unit.Description="Backup zsh history file on every write, restore on every delete";
+  systemd.user.services.zsh-history-backup.Install.WantedBy=["default.target"];
   systemd.user.services.zsh-history-backup.Service.ExecStart="%h/.local/bin.go/copier -from %h/${programs.zsh.history.path} -to %h/${programs.zsh.history.path}.bkp";
   systemd.user.services.zsh-history-backup.Service.Restart="always";
+  systemd.user.services.zsh-history-backup.Unit.Description="Backup zsh history file on every write, restore on every delete";
 }

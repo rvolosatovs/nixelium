@@ -31,7 +31,6 @@ rec {
     clang
     comic-relief
     drive
-    go
     julia
     keybase
     llvm
@@ -40,6 +39,7 @@ rec {
     playerctl
     poppler_utils
   ] ++ (with unstable; [
+    go
     gotools
     platformio
   ]);
