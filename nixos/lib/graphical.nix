@@ -1,4 +1,4 @@
-{ config, pkgs, lib, secrets, vars, unstable, ... }:
+{ config, pkgs, lib, secrets, vars, ... }:
 
 {
   #environment.sessionVariables.QT_QPA_PLATFORMTHEME = "gtk2";
@@ -12,19 +12,25 @@
 
   fonts.enableFontDir = true;
   fonts.enableGhostscriptFonts = true;
-  fonts.fonts = with pkgs; [
-    dejavu_fonts
+  fonts.fonts = let
+    hurmit = pkgs.nerdfonts.override {
+      withFont = "Hermit";
+    };
+    fura = pkgs.nerdfonts.override {
+      withFont = "FiraMono";
+    };
+  in
+  with pkgs; [
     fira
-    fira-mono
-    font-awesome-ttf
+    fura
+    hurmit
     roboto-slab
-    symbola
     terminus_font
   ];
   fonts.fontconfig.allowBitmaps = true;
   fonts.fontconfig.allowType1 = false;
   fonts.fontconfig.antialias = true;
-  fonts.fontconfig.defaultFonts.monospace = [ "Hurmit Nerd Font" "Fira Sans Mono" ];
+  fonts.fontconfig.defaultFonts.monospace = [ "Hurmit Nerd Font" "Fura Mono Nerd Font" ];
   fonts.fontconfig.defaultFonts.sansSerif = [ "Fira Sans" ];
   fonts.fontconfig.defaultFonts.serif = [ "Roboto Slab" ];
   fonts.fontconfig.enable = true;
@@ -33,13 +39,15 @@
   programs.chromium.enable = true;
   programs.chromium.homepageLocation = "https://duckduckgo.com/?key=${secrets.duckduckgo.key}";
   programs.chromium.extensions = [
-    "gcbommkclmclpchllfjekcdonpmejbdp" # https everywhere
-    "klbibkeccnjlkjkiokjodocebajanakg" # great suspender
     "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock origin
-    "naepdomgkenhinolocfifgehidddafch" # browserpass-ce
     "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
     "dbepggeogbaibhgnhhndojpepiihcmeb" # vimium
-    "gieohaicffldbmiilohhggbidhephnjj" # vanilla cookie manager
+    "gcbommkclmclpchllfjekcdonpmejbdp" # https everywhere
+    "hlepfoohegkhhmjieoechaddaejaokhf" # refined github
+    "klbibkeccnjlkjkiokjodocebajanakg" # great suspender
+    "naepdomgkenhinolocfifgehidddafch" # browserpass-ce
+    "ognfafcpbkogffpmmdglhbjboeojlefj" # keybase
+    #"gieohaicffldbmiilohhggbidhephnjj" # vanilla cookie manager
   ];
   programs.light.enable = true;
   programs.qt5ct.enable = true;
