@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-getXresColor() {
-   echo `xrdb -query | grep "${1}:" | grep -oE '#[a-zA-Z0-9]{6}' | cut -c 1-`
-}
+getXresColor() xrdb -query | grep "${1}:" | grep -oE '#[a-zA-Z0-9]{6}' | cut -c 1-
 
 initBSPWM() {
     bspc config border_width          2
