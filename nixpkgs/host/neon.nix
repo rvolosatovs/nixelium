@@ -1,27 +1,12 @@
-{ lib, config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
     unstable = import <nixpkgs-unstable> {};
-
-    nixosDir = "${config.home.homeDirectory}/.dotfiles/nixos";
-
-    secrets = import "${nixosDir}/var/secrets.nix";
-    vars = import "${nixosDir}/var/variables.nix" { inherit pkgs; } // {
-      browser = "${pkgs.chromium}/bin/chromium";
-      mailer = "${pkgs.thunderbird}/bin/thunderbird";
-    };
 in
 
 rec {
-  _module.args = {
-    inherit unstable;
-    inherit vars;
-    inherit secrets;
-  };
-
   imports = [
-    ../lib/common.nix
-    ../lib/graphical.nix
+    (import ../lib/common.nix { inherit config pkgs lib; graphical = true; })
   ];
 
   home.packages = with pkgs; [
@@ -46,6 +31,8 @@ rec {
 
 
   programs.firefox.enableAdobeFlash = true;
+  programs.firefox.package = unstable.firefox;
+  programs.git.package = unstable.git;
   programs.git.signing.key = "3D80C89E";
   programs.git.signing.signByDefault = true;
   programs.home-manager.path = config.xdg.configHome + "/nixpkgs/home-manager";

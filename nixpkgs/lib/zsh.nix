@@ -1,4 +1,4 @@
-{ config, pkgs, xdg, vars, ... }:
+{ config, pkgs, dotDir, vars, ... }:
 
 rec {
   programs.zsh.dotDir = ".config/zsh";
@@ -40,7 +40,7 @@ rec {
 
      semver() {
        set -e
-       
+
        majorX=`cut -d '.' -f1 <<< "''${1}"`
        majorX=''${majorX:-"0"}
        minorX=`cut -d '.' -f2 <<< "''${1}"`
@@ -48,7 +48,7 @@ rec {
        patchX=`cut -d '.' -f3 <<< "''${1}"`
        patchX=''${patchX%-*}
        patchX=''${patchX:-"0"}
-       
+
        majorY=`cut -d '.' -f1 <<< "''${2}"`
        majorY=''${majorY:-"0"}
        minorY=`cut -d '.' -f2 <<< "''${2}"`
@@ -56,7 +56,7 @@ rec {
        patchY=`cut -d '.' -f3 <<< "''${2}"`
        patchY=''${patchY%-*}
        patchY=''${patchY:-"0"}
-       
+
        extend() {
            v=''${1}
            while [ ''${#v} -lt ''${2} ]; do
@@ -64,15 +64,15 @@ rec {
            done
            printf "%s" ''${v}
        }
-       
+
        majorX=`extend ''${majorX} ''${#majorY}`
        minorX=`extend ''${minorX} ''${#minorY}`
        patchX=`extend ''${patchX} ''${#patchY}`
-       
+
        majorY=`extend ''${majorY} ''${#majorX}`
        minorY=`extend ''${minorY} ''${#minorX}`
        patchY=`extend ''${patchY} ''${#patchX}`
-       
+
        printf "%d%s%d\n" ''${majorX}''${minorX}''${patchX} ''${3:-" "} ''${majorY}''${minorY}''${patchY}
      }
 
@@ -106,7 +106,7 @@ rec {
 
      bindkey -v
 
-     source ${xdg.dataHome}/base16/scripts/base16-tomorrow-night.sh
+     source ${config.xdg.dataHome}/base16/scripts/base16-tomorrow-night.sh
      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
@@ -223,4 +223,6 @@ rec {
   systemd.user.services.zsh-history-backup.Service.ExecStart="%h/.local/bin.go/copier -from %h/${programs.zsh.history.path} -to %h/${programs.zsh.history.path}.bkp";
   systemd.user.services.zsh-history-backup.Service.Restart="always";
   systemd.user.services.zsh-history-backup.Unit.Description="Backup zsh history file on every write, restore on every delete";
+
+  xdg.configFile."zsh/.zshrc.local".source = dotDir + "/zsh/zshrc.local";
 }

@@ -1,4 +1,4 @@
-{ lib, config, pkgs, unstable, secrets, ... }:
+{ lib, config, pkgs,  secrets, dotDir, ... }:
 
 {
   imports = [
@@ -16,17 +16,9 @@
   ];
 
   home.packages = with pkgs; [
-    #autorandr
-    #electrum
-    #nerdfonts
-    #wireshark
-    #xorg.xset
-    #xorg.xsetroot
-    #xss-lock
     chromium
     dunst
     ffmpeg
-    fira
     font-awesome-ttf
     gnome3.dconf
     gnome3.glib_networking
@@ -38,16 +30,15 @@
     mpv
     networkmanagerapplet
     pavucontrol
+    polybar
     rofi
     rofi-pass
-    siji
     slop
     spotify
     sxhkd
     sxiv
-    symbola
     termite
-    unifont
+    thunderbird
     wmname
     x11_ssh_askpass
     xautolock
@@ -58,19 +49,11 @@
     xtitle
     youtube-dl
     zathura
-  ] ++ (with unstable; [
-    #electrum
-    #electrum-ltc
-    #firefox
-    #spotify
-    polybar
-    thunderbird
-  ]);
+  ];
 
   programs.browserpass.enable = true;
   programs.firefox.enable = true;
   programs.firefox.enableIcedTea = true;
-  programs.firefox.package = unstable.firefox;
   programs.feh.enable = true;
 
   services.dunst.enable = true;
@@ -89,6 +72,17 @@
   services.screen-locker.enable = true;
   services.screen-locker.inactiveInterval = 20;
   services.screen-locker.lockCmd = "${pkgs.i3lock}/bin/i3lock -t -f -i ~/pictures/lock";
+
+  xdg.configFile."bspwm/bspwmrc".source = dotDir + "/bspwm/bspwmrc";
+  xdg.configFile."mpv/config".source = dotDir + "/mpv/config";
+  xdg.configFile."oomox/colors".source = dotDir + "/oomox/colors";
+  xdg.configFile."polybar/config".source = dotDir + "/polybar/config";
+  xdg.configFile."stalonetray/stalonetrayrc".source = dotDir + "/stalonetray/stalonetrayrc";
+  xdg.configFile."sxhkd/sxhkdrc".source = dotDir + "/sxhkd/sxhkdrc";
+  xdg.configFile."termite/config".source = dotDir + "/termite/config"; # TODO: use options
+  xdg.configFile."themes".source = dotDir + "/themes";
+  home.file.".themes".source = dotDir + "/themes";
+  xdg.configFile."zathura/zathurarc".source = dotDir + "/zathura/zathurarc";
 
   xsession.enable = true;
   xsession.windowManager.command = ''
@@ -112,5 +106,4 @@
      SXHKD_SHELL=${pkgs.bash}/bin/bash ${pkgs.sxhkd}/bin/sxhkd -m -1 &
      ${pkgs.bspwm}/bin/bspwm
   '';
-
 }

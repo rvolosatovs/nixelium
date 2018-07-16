@@ -1,21 +1,35 @@
-{ vars, unstable, lib, config, pkgs, ... }:
+{ config, pkgs, lib, graphical ? false, ... }:
 
 let
-  homeDir = config.home.homeDirectory;
-  localDir = "${homeDir}/.local";
+  dotDir = "${config.home.homeDirectory}/.dotfiles";
+
+  vars = import "${dotDir}/nixos/var/variables.nix" { inherit pkgs graphical; };
+
+  localDir = "${config.home.homeDirectory}/.local";
   binDir = "${localDir}/bin";
   goBinDir = "${binDir}.go";
 
+  secrets = import "${dotDir}/nixos/var/secrets.nix";
+
   #rubyVersion = "2.5.0";
-  #rubyBinDir = "${homeDir}.gem/ruby/${rubyVersion}/bin";
+  #rubyBinDir = "${config.home.homeDirectory}.gem/ruby/${rubyVersion}/bin";
 in
 
 rec {
-  imports = [
-    (import ./zsh.nix { inherit config; inherit pkgs; inherit vars; xdg = config.xdg; })
-    #./colors.nix
-    ./neovim.nix
-  ];
+  _module.args = {
+    inherit dotDir vars secrets;
+  };
+
+  imports =
+  let
+    base = [
+      ./zsh.nix
+      ./neovim.nix
+      #./colors.nix
+    ];
+  in
+  if !graphical then base
+  else base ++ [ ./graphical.nix ];
 
   home.packages = with pkgs; [
     #gnum4
@@ -82,7 +96,7 @@ rec {
   home.sessionVariables.EMAIL = vars.email;
   home.sessionVariables.GIMP2_DIRECTORY = "${xdg.configHome}/gimp";
   home.sessionVariables.GOBIN = goBinDir;
-  home.sessionVariables.GOPATH = homeDir;
+  home.sessionVariables.GOPATH = config.home.homeDirectory;
   home.sessionVariables.HISTFILE = "${xdg.cacheHome}/shell-history";
   home.sessionVariables.HISTFILESIZE = vars.histsize;
   home.sessionVariables.HISTSIZE = vars.histsize;
@@ -103,12 +117,10 @@ rec {
   programs.bash.historyFile = home.sessionVariables.HISTFILE;
   programs.bash.historyFileSize = home.sessionVariables.HISTFILESIZE;
   programs.bash.historySize = home.sessionVariables.HISTSIZE;
-  programs.home-manager.enable = true;
   programs.fzf.enable = true;
   programs.fzf.enableBashIntegration = true;
   programs.fzf.enableZshIntegration = true;
   programs.git.enable = true;
-  programs.git.package = unstable.git;
   programs.git.aliases = {
     a = "apply --index";
     p = "format-patch --stdout";
@@ -163,7 +175,7 @@ rec {
   '';
   programs.git.userName = "Roman Volosatovs";
   programs.git.userEmail = vars.email;
-  #programs.ssh.enable = true;
+  programs.home-manager.enable = true;
   programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" ([
     binDir
     goBinDir
@@ -187,7 +199,14 @@ rec {
   systemd.user.startServices = true;
 
   xdg.enable = true;
-  xdg.configHome = "${homeDir}/.config";
   xdg.cacheHome = "${localDir}/cache";
+  xdg.configFile."direnv/direnvrc".source = dotDir + "/direnv/direnvrc";
+  xdg.configFile."git/gitignore".source = dotDir + "/git/gitignore";
+  xdg.configFile."gocode".source = dotDir + "/gocode";
+  xdg.configFile."htop".source = dotDir + "/htop";
+  xdg.configFile."rtorrent/rtorrent.rc".source = dotDir + "/rtorrent/rtorrent.rc";
+  xdg.configFile."user-dirs.dirs".source = dotDir + "/user-dirs.dirs";
+  xdg.configFile."user-dirs.locale".source = dotDir + "/user-dirs.locale";
+  xdg.configHome = "${config.home.homeDirectory}/.config";
   xdg.dataHome = "${localDir}/share";
 }
