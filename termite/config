@@ -8,7 +8,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = false
 clickable_url = true
-font = Hurmit Nerd Font 15
+font = FiraMono Nerd Font 15
 
 scrollback_lines = 10000
 search_wrap = true
