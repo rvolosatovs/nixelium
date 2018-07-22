@@ -83,6 +83,7 @@ rec {
   services.redshift.enable = true;
   services.redshift.latitude = secrets.latitude;
   services.redshift.longitude = secrets.longitude;
+  services.redshift.tray = true;
   services.polybar.config = "${dotDir}/polybar/config";
   services.polybar.enable = true;
   services.polybar.package = pkgs.polybar.override {
