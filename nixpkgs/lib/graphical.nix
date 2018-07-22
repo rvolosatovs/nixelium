@@ -72,12 +72,26 @@ rec {
   #programs.rofi.theme = ../../rofi/themes/base16-tomorrow-dark.rasi;
 
   services.dunst.enable = true;
+  services.dunst.settings."global".browser = vars.browser;
+  services.dunst.settings."global".dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
+  services.dunst.settings."global".follow = "keyboard";
+  services.dunst.settings."global".font = "Monospace 10";
+  services.dunst.settings."global".format = "%a: <b>%p%s</b>\n%b";
+  services.dunst.settings."global".icon_position = "left";
+  services.dunst.settings."global".startup_notification = false;
+  services.dunst.settings."shortcuts".close = "ctrl+space";
+  services.dunst.settings."shortcuts".close_all = "ctrl+shift+space";
+  services.dunst.settings."shortcuts".context = "ctrl+shift+period";
+  services.dunst.settings."shortcuts".history = "ctrl+grave";
   services.dunst.settings."urgency_critical".background = base00;
   services.dunst.settings."urgency_critical".foreground = base08;
+  services.dunst.settings."urgency_critical".timeout = 0;
   services.dunst.settings."urgency_low".background = base00;
   services.dunst.settings."urgency_low".foreground = base07;
+  services.dunst.settings."urgency_low".timeout = 6;
   services.dunst.settings."urgency_normal".background = base00;
   services.dunst.settings."urgency_normal".foreground = base0d;
+  services.dunst.settings."urgency_normal".timeout = 10;
   services.gnome-keyring.enable = true;
   services.network-manager-applet.enable = true;
   services.redshift.enable = true;
@@ -147,7 +161,7 @@ rec {
     set $terminal ${vars.terminal}
     set $rofi ${pkgs.rofi}/bin/rofi
     set $spotify ${pkgs.spotify}/bin/spotify
-    set $run_editor ${vars.terminal} -e "${vars.shell} -i -c 'exec ${vars.editor}'"
+    set $run_editor ${vars.terminal} "${vars.shell} -i -c 'exec ${vars.editor}'"
   '';
   xdg.configFile."sxhkd/sxhkdrc".source = ../../sxhkd/sxhkdrc;
   xdg.configFile."themes".source = ../../themes;
