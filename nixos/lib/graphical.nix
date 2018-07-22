@@ -13,24 +13,23 @@
   fonts.enableFontDir = true;
   fonts.enableGhostscriptFonts = true;
   fonts.fonts = let
-    hurmit = pkgs.nerdfonts.override {
-      withFont = "Hermit";
-    };
-    fura = pkgs.nerdfonts.override {
-      withFont = "FiraMono";
+    furaCode = pkgs.nerdfonts.override {
+      withFont = "FiraCode";
     };
   in
   with pkgs; [
     fira
-    fura
-    hurmit
+    furaCode
     roboto-slab
+    siji
+    symbola
     terminus_font
+    unifont
   ];
   fonts.fontconfig.allowBitmaps = true;
   fonts.fontconfig.allowType1 = false;
   fonts.fontconfig.antialias = true;
-  fonts.fontconfig.defaultFonts.monospace = [ "Hurmit Nerd Font" "Fura Mono Nerd Font" ];
+  fonts.fontconfig.defaultFonts.monospace = [ "FuraCode Nerd Font" ];
   fonts.fontconfig.defaultFonts.sansSerif = [ "Fira Sans" ];
   fonts.fontconfig.defaultFonts.serif = [ "Roboto Slab" ];
   fonts.fontconfig.enable = true;
@@ -52,6 +51,8 @@
   programs.light.enable = true;
   programs.qt5ct.enable = true;
   programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
+  programs.sway.enable = true;
+  users.users."${vars.username}".extraGroups = [ "sway" ];
 
   services.xserver.desktopManager.default = "none";
   services.xserver.desktopManager.xterm.enable = false;

@@ -6,7 +6,10 @@ in
 
 rec {
   imports = [
-    (import ../lib/common.nix { inherit config pkgs lib; graphical = true; })
+    (import ../lib/common.nix {
+      inherit pkgs config lib;
+      graphical = true;
+    })
   ];
 
   home.packages = with pkgs; [
@@ -31,7 +34,7 @@ rec {
 
 
   programs.firefox.enableAdobeFlash = true;
-  programs.firefox.package = unstable.firefox;
+  programs.firefox.package = unstable.firefox-unwrapped;
   programs.git.package = unstable.git;
   programs.git.signing.key = "3D80C89E";
   programs.git.signing.signByDefault = true;

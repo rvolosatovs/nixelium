@@ -17,7 +17,7 @@ in
 
 rec {
   _module.args = {
-    inherit dotDir vars secrets;
+    inherit dotDir vars secrets goBinDir;
   };
 
   imports =
@@ -30,6 +30,15 @@ rec {
   in
   if !graphical then base
   else base ++ [ ./graphical.nix ];
+
+  home.keyboard.layout = "lv,ru";
+  home.keyboard.variant = "qwerty";
+  home.keyboard.options = [
+    "grp:alt_space_toggle"
+    "terminate:ctrl_alt_bksp"
+    "eurosign:5"
+    "caps:escape"
+  ];
 
   home.packages = with pkgs; [
     #gnum4
@@ -110,6 +119,8 @@ rec {
   home.sessionVariables.VISUAL = vars.editor;
   home.sessionVariables.WINEPREFIX = "${xdg.dataHome}/wine";
   home.sessionVariables.__GL_SHADER_DISK_CACHE_PATH ="${xdg.cacheHome}/nv";
+
+  nixpkgs.config = import "${dotDir}/nixpkgs/config.nix";
 
   programs.bash.enable = true;
   programs.bash.enableAutojump = true;
@@ -200,13 +211,14 @@ rec {
 
   xdg.enable = true;
   xdg.cacheHome = "${localDir}/cache";
-  xdg.configFile."direnv/direnvrc".source = dotDir + "/direnv/direnvrc";
-  xdg.configFile."git/gitignore".source = dotDir + "/git/gitignore";
-  xdg.configFile."gocode".source = dotDir + "/gocode";
-  xdg.configFile."htop".source = dotDir + "/htop";
-  xdg.configFile."rtorrent/rtorrent.rc".source = dotDir + "/rtorrent/rtorrent.rc";
-  xdg.configFile."user-dirs.dirs".source = dotDir + "/user-dirs.dirs";
-  xdg.configFile."user-dirs.locale".source = dotDir + "/user-dirs.locale";
+  xdg.configFile."direnv/direnvrc".source = ../../direnv/direnvrc;
+  xdg.configFile."git/gitignore".source = ../../git/gitignore;
+  xdg.configFile."gocode/config.json".source = ../../gocode/config.json;
+  xdg.configFile."htop/htoprc".source = ../../htop/htoprc;
+  xdg.configFile."nixpkgs/config.nix".source = ../../nixpkgs/config.nix;
+  xdg.configFile."rtorrent/rtorrent.rc".source = ../../rtorrent/rtorrent.rc;
+  xdg.configFile."user-dirs.dirs".source = ../../user-dirs.dirs;
+  xdg.configFile."user-dirs.locale".source = ../../user-dirs.locale;
   xdg.configHome = "${config.home.homeDirectory}/.config";
   xdg.dataHome = "${localDir}/share";
 }

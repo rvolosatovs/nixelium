@@ -3,7 +3,7 @@
 #
 
 super + Return
-	termite
+	kitty
 
 super + space
 	rofi -show run -sidebar-mode
@@ -34,7 +34,7 @@ super + shift + o
     $BROWSER
 
 super + shift + e
-    termite -e "$SHELL -i -c $EDITOR"
+    kitty -e "$SHELL -i -c $EDITOR"
 
 super + shift + d
     systemctl --user restart redshift.service
@@ -43,7 +43,7 @@ super + ctrl + l
     xautolock -locknow
 
 XF86MyComputer
-    termite -e "$SHELL -i -c lf"
+    kitty -e "$SHELL -i -c lf"
 
 XF86AudioRaiseVolume
     amixer set Master unmute && amixer set Master 5%+

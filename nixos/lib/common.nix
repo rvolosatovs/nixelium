@@ -4,6 +4,7 @@ let
   mountOpts = if vars.isSSD then [ "noatime" "nodiratime" "discard" ] else [ "noatime" ] ;
 in
   {
+
     environment.extraInit = ''
       export PATH="$HOME/.local/bin:$HOME/.local/bin.go:$PATH"
     '';
@@ -56,7 +57,6 @@ in
     i18n.defaultLocale = "en_US.UTF-8";
 
     networking.firewall.enable = true;
-    networking.hostName = vars.hostname;
 
     nix.autoOptimiseStore = true;
     nix.gc.automatic = true;
@@ -121,7 +121,7 @@ in
 
     time.timeZone = "Europe/Amsterdam";
 
-    users.defaultUserShell = pkgs.zsh;
+    users.defaultUserShell = vars.shell;
     users.users."${vars.username}" = {
       createHome = true;
       extraGroups = [ "users" "wheel" "input" "audio" "video" "networkmanager" "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark" "mopidy" "vboxusers" "adbusers" "rkt" "libvirtd" "vboxusers" "ssh" ];

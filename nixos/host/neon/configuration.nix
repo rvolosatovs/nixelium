@@ -3,15 +3,12 @@
 let
   unstable = import <nixpkgs-unstable> {};
 
+  graphical = true;
+
   keys = import ../../var/keys.nix;
   secrets = import ../../var/secrets.nix;
-  vars = import ../../var/variables.nix { inherit pkgs; } // {
-    browser = "${pkgs.chromium}/bin/chromium";
-    mailer = "${pkgs.thunderbird}/bin/thunderbird";
-    hostname = "neon";
-  };
+  vars = import ../../var/variables.nix { inherit pkgs graphical; };
 in
-
 
 rec {
   _module.args = {
@@ -23,7 +20,7 @@ rec {
   imports = [
     ./hardware-configuration.nix
     ../../lib/hardware/lenovo-x260.nix
-    ../../lib/common.nix
+    ../../lib/common.nix 
     ../../lib/luks.nix
     ../../lib/mopidy.nix
     #../../lib/ovpn.nix
@@ -42,6 +39,7 @@ rec {
   nixpkgs.config.allowUnfree = true;
   networking.firewall.allowedTCPPorts = [ 3001 42424 ];
   networking.firewall.trustedInterfaces = [ "vboxnet0" ];
+  networking.hostName = "neon";
   networking.networkmanager.enable = true;
 
   programs.adb.enable = true;
