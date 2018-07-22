@@ -42,7 +42,6 @@ rec {
     mpv
     networkmanagerapplet
     pavucontrol
-    rofi
     rofi-pass
     slop
     spotify
@@ -65,6 +64,13 @@ rec {
   programs.firefox.enable = true;
   programs.firefox.enableIcedTea = true;
   programs.feh.enable = true;
+  programs.rofi.enable = true;
+  programs.rofi.terminal = vars.terminal;
+  programs.rofi.separator = "none";
+  programs.rofi.lines = 10;
+  programs.rofi.width = 20;
+  programs.rofi.scrollbar = false;
+  #programs.rofi.theme = ../../rofi/themes/base16-tomorrow-dark.rasi;
 
   services.dunst.enable = true;
   services.gnome-keyring.enable = true;
@@ -102,6 +108,7 @@ rec {
   services.screen-locker.lockCmd = "${pkgs.i3lock}/bin/i3lock -t -f -i ~/pictures/lock";
 
   xdg.configFile."bspwm/bspwmrc".source = ../../bspwm/bspwmrc;
+  xdg.configFile."chromium/Default/User StyleSheets/devtools.css".source = ../../chromium/devtools.css;
   xdg.configFile."i3/config" = xdg.configFile."sway/config";
   xdg.configFile."i3/vars" = xdg.configFile."sway/vars";
   xdg.configFile."kitty/kitty.conf".source = ../../kitty/kitty.conf;
@@ -111,6 +118,23 @@ rec {
   xdg.configFile."sway/config".source = ../../sway/config;
   xdg.configFile."sway/vars".text = ''
     include ${pkgs.sway}/etc/sway/config.d/*
+
+    set $base00 ${base00}
+    set $base01 ${base01}
+    set $base02 ${base02}
+    set $base03 ${base03}
+    set $base04 ${base04}
+    set $base05 ${base05}
+    set $base06 ${base06}
+    set $base07 ${base07}
+    set $base08 ${base08}
+    set $base09 ${base09}
+    set $base0a ${base0a}
+    set $base0b ${base0b}
+    set $base0c ${base0c}
+    set $base0d ${base0d}
+    set $base0e ${base0e}
+    set $base0f ${base0f}
 
     set $browser ${vars.browser}
     set $mailer ${vars.mailer}
@@ -123,6 +147,7 @@ rec {
   xdg.configFile."themes".source = ../../themes;
   xdg.configFile."zathura/zathurarc".source = ../../zathura/zathurarc;
 
+  xresources.properties."*.background" = base00;
   xresources.properties."*.base00" = base00;
   xresources.properties."*.base01" = base01;
   xresources.properties."*.base02" = base02;
@@ -139,9 +164,6 @@ rec {
   xresources.properties."*.base0D" = base0d;
   xresources.properties."*.base0E" = base0e;
   xresources.properties."*.base0F" = base0f;
-  xresources.properties."*.background" = base00;
-  xresources.properties."*.foreground" = base05;
-  xresources.properties."*.cursorColor" = base05;
   xresources.properties."*.color0" = base00;
   xresources.properties."*.color1" = base08;
   xresources.properties."*.color2" = base0b;
@@ -164,25 +186,23 @@ rec {
   xresources.properties."*.color19" = base02;
   xresources.properties."*.color20" = base04;
   xresources.properties."*.color21" = base06;
-  xresources.properties."Xft.autohint" = 0;
-  xresources.properties."Xft.lcdfilter" = "lcddefault";
-  xresources.properties."Xft.hintstyle" = "hintslight";
-  xresources.properties."Xft.hinting" = 1;
-  xresources.properties."Xft.antialias" = 1;
-  xresources.properties."Xft.rgba" = "rgb";
-  xresources.properties."Xcursor.size" = 20;
-  xresources.properties."xscreensaver.logFile" = "/var/log/xscreensaver.log";
-  xresources.properties."ssh-askpass*background" = base00;
-  xresources.properties."rofi.width" = 20;
-  xresources.properties."rofi.lines" = 10;
+  xresources.properties."*.cursorColor" = base05;
+  xresources.properties."*.foreground" = base05;
+  xresources.properties."rofi.auto-select" = false;
+  xresources.properties."rofi.color-active" = [ base00 base0b base01 base03 base05 ];
   xresources.properties."rofi.color-normal" = [ base00 base04 base01 base03 base06 ];
   xresources.properties."rofi.color-urgent" = [ base00 base0f base01 base03 base06 ];
-  xresources.properties."rofi.color-active" = [ base00 base0b base01 base03 base05 ];
   xresources.properties."rofi.color-window" = [ base00 base01 ];
-  xresources.properties."rofi.separator-style" = "none";
-  xresources.properties."rofi.hide-scrollbar" = true;
   xresources.properties."rofi.opacity" = 90;
-  xresources.properties."rofi.auto-select" = false;
+  xresources.properties."ssh-askpass*background" = base00;
+  xresources.properties."xscreensaver.logFile" = "/var/log/xscreensaver.log";
+  xresources.properties."Xcursor.size" = 20;
+  xresources.properties."Xft.antialias" = 1;
+  xresources.properties."Xft.autohint" = 0;
+  xresources.properties."Xft.hinting" = 1;
+  xresources.properties."Xft.hintstyle" = "hintslight";
+  xresources.properties."Xft.lcdfilter" = "lcddefault";
+  xresources.properties."Xft.rgba" = "rgb";
 
   xsession.enable = true;
   xsession.windowManager.command = ''

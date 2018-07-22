@@ -3,14 +3,24 @@ include ./vars
 output * bg ~/pictures/wp fill
 output DP-1 resolution 3840x2160@60Hz position 1920,0
 
-font Hurmit Nerd Font 13
+font monospace
+
+client.focused $base0d $base0d $base00 $base01
+client.focused_inactive $base02 $base02 $base03 $base01
+client.unfocused $base01 $base01 $base03 $base01
+client.urgent $base02 $base08 $base07 $base08
 
 bar {
     position top
         colors {
             statusline #ffffff
-                background #323232
-                inactive_workspace #32323200 #32323200 #5c5c5c
+            separator $base03
+            background $base01
+            statusline $base05
+            focused_workspace $base0c $base0d $base00
+            active_workspace $base02 $base02 $base07
+            inactive_workspace $base01 $base01 $base03
+            urgent_workspace $base08 $base08 $base07
         }
 }
 
