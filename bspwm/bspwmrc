@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-getXresColor() xrdb -query | grep "${1}:" | grep -oE '#[a-zA-Z0-9]{6}' | cut -c 1-
+set -x
+
+getXresColor() { 
+    xrdb -query | grep "${1}:" | grep -oE '#[a-zA-Z0-9]{6}' | cut -c 1-
+}
 
 initBSPWM() {
     bspc config border_width          2
@@ -7,7 +11,7 @@ initBSPWM() {
     bspc config split_ratio           0.5
     bspc config borderless_monocle    true
     bspc config gapless_monocle       true
-    bspc config focus_follows_pointer false
+    bspc config focus_follows_pointer false || true
     bspc config click_to_focus        button1
     bspc config normal_border_color   `getXresColor base00`
     bspc config focused_border_color  `getXresColor base05`
@@ -18,13 +22,10 @@ initBSPWM() {
     bspc rule -a "Chromium-browser:crx_eggkanocgddhmamlbiijnphhppkpkmkl" state=floating
     bspc rule -a "mpv" state=floating
     
-    killall -qw polybar
-
     local oldM=`bspc query -M`
     local opt=`randrctl`
 
     local desktops_per_mon=5
-    local i=0
     for m in ${opt}; do
         local name="${m%:*}"
         local mode="${m#*:}"
@@ -40,16 +41,6 @@ initBSPWM() {
         done
     
         bspc monitor "$name" -d ${names[@]}
-
-        local size="-small"
-        [[ ${mode%x*} -gt 1920 ]] && size="-big"
-    
-        local suf=""
-        [[ $i == 0 ]] && suf="-tray"
-    
-        MONITOR="${name}" polybar -r top${size}${suf}&
-
-        let i++
     done
 
     for m in ${oldM}; do
@@ -63,6 +54,7 @@ initBSPWM() {
         bspc monitor "${m}" -r
     done
 
+    systemctl --user restart polybar
     feh --bg-fill "$HOME/pictures/wp"
 }
 
