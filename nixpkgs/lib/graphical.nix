@@ -28,7 +28,6 @@ rec {
 
   home.packages = with pkgs; [
     chromium
-    dunst
     ffmpeg
     font-awesome-ttf
     gnome3.dconf
@@ -73,6 +72,12 @@ rec {
   #programs.rofi.theme = ../../rofi/themes/base16-tomorrow-dark.rasi;
 
   services.dunst.enable = true;
+  services.dunst.settings."urgency_critical".background = base00;
+  services.dunst.settings."urgency_critical".foreground = base08;
+  services.dunst.settings."urgency_low".background = base00;
+  services.dunst.settings."urgency_low".foreground = base07;
+  services.dunst.settings."urgency_normal".background = base00;
+  services.dunst.settings."urgency_normal".foreground = base0d;
   services.gnome-keyring.enable = true;
   services.network-manager-applet.enable = true;
   services.redshift.enable = true;
