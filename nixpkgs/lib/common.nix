@@ -142,7 +142,8 @@ rec {
   };
   programs.git.extraConfig = ''
     [push]
-      default = upstream
+      default = nothing
+      gpgSign = if-asked
     [status]
       short = true
       branch = true
@@ -153,6 +154,7 @@ rec {
     [diff]
       renames = copy
     [branch]
+      autosetupmerge = false
       autosetuprebase = always
     [core]
       autocrlf = false
