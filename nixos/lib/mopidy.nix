@@ -30,11 +30,11 @@
     buffer_time =
   '';
   services.mopidy.extensionPackages = with pkgs; [
-    mopidy-soundcloud
+    #mopidy-mpris TODO: make it work
     mopidy-iris
     mopidy-local-images
     mopidy-local-sqlite
-    #mopidy-mpris TODO: make it work
+    mopidy-soundcloud
     mopidy-spotify
     mopidy-spotify-tunigo
     mopidy-youtube

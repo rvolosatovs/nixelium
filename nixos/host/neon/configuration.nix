@@ -37,7 +37,10 @@ rec {
     "/nix/var/nix/profiles/per-user/root/channels"
   ];
   nixpkgs.config.allowUnfree = true;
-  networking.firewall.allowedTCPPorts = [ 3001 42424 ];
+  networking.firewall.allowedTCPPortRanges = [ { from = 2300; to = 2400; }];
+  networking.firewall.allowedTCPPorts = [ 3001 42424 47624 ];
+  networking.firewall.allowedUDPPortRanges = [ { from = 2300; to = 2400; }];
+  networking.firewall.allowedUDPPorts = [ 47624 ];
   networking.firewall.trustedInterfaces = [ "vboxnet0" ];
   networking.hostName = "neon";
   networking.networkmanager.enable = true;
