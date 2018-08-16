@@ -1,9 +1,0 @@
-[Default Applications]
-x-scheme-handler/http=chromium.desktop
-x-scheme-handler/https=chromium.desktop
-x-scheme-handler/mailto=thunderbird.desktop
-message/rfc822=thunderbird.desktop
-
-[Added Associations]
-x-scheme-handler/mailto=thunderbird.desktop;
-message/rfc822=thunderbird.desktop;

@@ -1,5 +1,0 @@
-[Unit]
-Description=GUI
-
-[Install]
-Alias=default.target

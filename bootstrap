@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+[ -n "${1}" ] || { printf "Usage: ${0} <hostname>\n" >&2; exit 1; }
+nixos-rebuild switch -I nixos-config=hosts/${1}/configuration.nix -I vendor
