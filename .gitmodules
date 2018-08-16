@@ -1,0 +1,12 @@
+[submodule "vendor/nixpkgs"]
+	path = vendor/nixpkgs
+	url = https://github.com/rvolosatovs/nixpkgs.git
+[submodule "vendor/nixos-hardware"]
+	path = vendor/nixos-hardware
+	url = https://github.com/rvolosatovs/nixos-hardware.git
+[submodule "vendor/home-manager"]
+	path = vendor/home-manager
+	url = https://github.com/rvolosatovs/home-manager.git
+[submodule "vendor/base16-shell"]
+	path = vendor/base16-shell
+	url = https://github.com/rvolosatovs/base16-shell.git
