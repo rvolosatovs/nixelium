@@ -136,7 +136,6 @@ rec {
   xdg.configFile."kitty/kitty.conf".source = ../dotfiles/kitty/kitty.conf;
   xdg.configFile."mpv/config".source = ../dotfiles/mpv/config;
   xdg.configFile."oomox/colors".source = ../dotfiles/oomox/colors;
-  xdg.configFile."stalonetray/stalonetrayrc".source = ../dotfiles/stalonetray/stalonetrayrc;
   xdg.configFile."sway/config".source = ../dotfiles/sway/config;
   #xdg.configFile."sway/config.meta".text = ''
     #include ${pkgs.sway}/etc/sway/config.d/*
