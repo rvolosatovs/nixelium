@@ -108,8 +108,6 @@ rec {
 
      source ${config.xdg.dataHome}/base16/scripts/base16-tomorrow-night.sh
      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-     eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
   '';
   programs.zsh.profileExtra = ''
      [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh

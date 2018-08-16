@@ -4,6 +4,7 @@ let
   mountOpts = if vars.isSSD then [ "noatime" "nodiratime" "discard" ] else [ "noatime" ] ;
 in
   {
+    imports = [ ./multi-glibc-locale-paths.nix ];
 
     environment.extraInit = ''
       export PATH="$HOME/.local/bin:$HOME/.local/bin.go:$PATH"
@@ -117,6 +118,17 @@ in
     system.autoUpgrade.enable = true;
     system.stateVersion = "18.03";
 
+    systemd.services.audio-off = {
+      enable = true;
+      description = "Mute audio before suspend";
+      wantedBy = [ "sleep.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        User = "${vars.username}";
+        ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
+        RemainAfterExit = true;
+      };
+    };
     systemd.services.systemd-networkd-wait-online.enable = false;
 
     time.timeZone = "Europe/Amsterdam";

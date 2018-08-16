@@ -51,7 +51,7 @@
   programs.light.enable = true;
   programs.qt5ct.enable = true;
   programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
-  programs.sway.enable = true;
+  #programs.sway.enable = true;
   users.users."${vars.username}".extraGroups = [ "sway" ];
 
   services.xserver.desktopManager.default = "none";

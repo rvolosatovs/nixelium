@@ -47,6 +47,7 @@ rec {
     cowsay
     curl
     desktop_file_utils
+    dex
     direnv
     docker-gc
     docker_compose
@@ -128,6 +129,9 @@ rec {
   programs.bash.historyFile = home.sessionVariables.HISTFILE;
   programs.bash.historyFileSize = home.sessionVariables.HISTFILESIZE;
   programs.bash.historySize = home.sessionVariables.HISTSIZE;
+  programs.direnv.enable = true;
+  programs.direnv.enableBashIntegration = true;
+  programs.direnv.enableZshIntegration = true;
   programs.fzf.enable = true;
   programs.fzf.enableBashIntegration = true;
   programs.fzf.enableZshIntegration = true;

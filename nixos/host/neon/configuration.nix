@@ -2,12 +2,18 @@
 
 let
   unstable = import <nixpkgs-unstable> {};
+  nixos-hardware = builtins.fetchGit { 
+    url = "https://github.com/NixOS/nixos-hardware";
+    rev = "d534770be7f699b3332ef09bd043745a38d115ad";
+  };
 
   graphical = true;
 
   keys = import ../../var/keys.nix;
   secrets = import ../../var/secrets.nix;
-  vars = import ../../var/variables.nix { inherit pkgs graphical; };
+  vars = import ../../var/variables.nix { inherit pkgs graphical; } // { 
+    hostname = "neon";
+  };
 in
 
 rec {
@@ -18,6 +24,7 @@ rec {
   };
 
   imports = [
+    "${nixos-hardware}/lenovo/thinkpad/x250"
     ./hardware-configuration.nix
     ../../lib/hardware/lenovo-x260.nix
     ../../lib/common.nix 
@@ -33,10 +40,11 @@ rec {
   nix.nixPath = [
     "nixpkgs=/nix/nixpkgs"
     "nixpkgs-unstable=/nix/var/nix/profiles/per-user/root/channels/nixpkgs"
-    "nixos-config=/etc/nixos/configuration.nix"
+    "nixos-config=/home/${vars.username}/.dotfiles/nixos/host/${vars.hostname}/configuration.nix"
     "/nix/var/nix/profiles/per-user/root/channels"
   ];
   nixpkgs.config.allowUnfree = true;
+
   networking.firewall.allowedTCPPortRanges = [ { from = 2300; to = 2400; }];
   networking.firewall.allowedTCPPorts = [ 3001 42424 47624 ];
   networking.firewall.allowedUDPPortRanges = [ { from = 2300; to = 2400; }];
@@ -45,9 +53,7 @@ rec {
   networking.hostName = "neon";
   networking.networkmanager.enable = true;
 
-  programs.adb.enable = true;
   #programs.java.enable = true;
-  programs.wireshark.enable = true;
 
   #security.pam.services.i3lock.fprintAuth = true;
 

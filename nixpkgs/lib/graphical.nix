@@ -106,6 +106,7 @@ rec {
     githubSupport = true;
   };
   services.polybar.script = ''
+    set -x
     opt=$(${goBinDir}/randrctl) # TODO: package
     i=0
     for m in ''${opt}; do
@@ -130,39 +131,39 @@ rec {
   xdg.configFile."bspwm/bspwmrc".source = ../../bspwm/bspwmrc;
   xdg.configFile."chromium/Default/User StyleSheets/devtools.css".source = ../../chromium/devtools.css;
   xdg.configFile."i3/config" = xdg.configFile."sway/config";
-  xdg.configFile."i3/vars" = xdg.configFile."sway/vars";
+  #xdg.configFile."i3/vars" = xdg.configFile."sway/vars";
   xdg.configFile."kitty/kitty.conf".source = ../../kitty/kitty.conf;
   xdg.configFile."mpv/config".source = ../../mpv/config;
   xdg.configFile."oomox/colors".source = ../../oomox/colors;
   xdg.configFile."stalonetray/stalonetrayrc".source = ../../stalonetray/stalonetrayrc;
   xdg.configFile."sway/config".source = ../../sway/config;
-  xdg.configFile."sway/vars".text = ''
-    include ${pkgs.sway}/etc/sway/config.d/*
+  #xdg.configFile."sway/vars".text = ''
+    #include ${pkgs.sway}/etc/sway/config.d/*
 
-    set $base00 ${base00}
-    set $base01 ${base01}
-    set $base02 ${base02}
-    set $base03 ${base03}
-    set $base04 ${base04}
-    set $base05 ${base05}
-    set $base06 ${base06}
-    set $base07 ${base07}
-    set $base08 ${base08}
-    set $base09 ${base09}
-    set $base0a ${base0a}
-    set $base0b ${base0b}
-    set $base0c ${base0c}
-    set $base0d ${base0d}
-    set $base0e ${base0e}
-    set $base0f ${base0f}
+    #set $base00 ${base00}
+    #set $base01 ${base01}
+    #set $base02 ${base02}
+    #set $base03 ${base03}
+    #set $base04 ${base04}
+    #set $base05 ${base05}
+    #set $base06 ${base06}
+    #set $base07 ${base07}
+    #set $base08 ${base08}
+    #set $base09 ${base09}
+    #set $base0a ${base0a}
+    #set $base0b ${base0b}
+    #set $base0c ${base0c}
+    #set $base0d ${base0d}
+    #set $base0e ${base0e}
+    #set $base0f ${base0f}
 
-    set $browser ${vars.browser}
-    set $mailer ${vars.mailer}
-    set $terminal ${vars.terminal}
-    set $rofi ${pkgs.rofi}/bin/rofi
-    set $spotify ${pkgs.spotify}/bin/spotify
-    set $run_editor ${vars.terminal} "${vars.shell} -i -c 'exec ${vars.editor}'"
-  '';
+    #set $browser ${vars.browser}
+    #set $mailer ${vars.mailer}
+    #set $terminal ${vars.terminal}
+    #set $rofi ${pkgs.rofi}/bin/rofi
+    #set $spotify ${pkgs.spotify}/bin/spotify
+    #set $run_editor ${vars.terminal} "${vars.shell} -i -c 'exec ${vars.editor}'"
+  #'';
   xdg.configFile."sxhkd/sxhkdrc".source = ../../sxhkd/sxhkdrc;
   xdg.configFile."themes".source = ../../themes;
   xdg.configFile."zathura/zathurarc".source = ../../zathura/zathurarc;

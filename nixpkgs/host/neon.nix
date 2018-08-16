@@ -26,10 +26,12 @@ rec {
     macchanger
     playerctl
     poppler_utils
+    winetricks
   ] ++ (with unstable; [
     go
     gotools
     platformio
+    wineStaging
   ]);
 
 
