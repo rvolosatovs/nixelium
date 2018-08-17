@@ -10,3 +10,6 @@
 [submodule "vendor/base16-shell"]
 	path = vendor/base16-shell
 	url = https://github.com/rvolosatovs/base16-shell.git
+[submodule "meta/secrets"]
+	path = meta/secrets
+	url = keybase://private/rvolosatovs/dotfiles
