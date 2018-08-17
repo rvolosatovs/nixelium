@@ -4,6 +4,7 @@
   home.packages = with pkgs; [ 
     gtk_engines
     gtk-engine-murrine 
+    qt5.qtbase.gtk
   ];
   home.sessionVariables.QT_QPA_PLATFORMTHEME="gtk2";
 

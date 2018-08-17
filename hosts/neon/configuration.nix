@@ -25,17 +25,17 @@ in
   fileSystems."/".options = mountOpts;
   fileSystems."/home".options = mountOpts;
 
-  #nixpkgs.overlays = [
-    #(self: super: {
-      #inherit (unstable)
-      #git
-      #go
-      #gotools
-      #platformio
-      #wine
-      #wineStaging;
-    #})
-  #];
+  nixpkgs.overlays = [
+    (self: super: {
+      inherit (unstable)
+      git
+      go
+      gotools
+      platformio
+      wine
+      wineStaging;
+    })
+  ];
 
   nix.nixPath = [
     "nixos-config=${builtins.toPath ./configuration.nix}"

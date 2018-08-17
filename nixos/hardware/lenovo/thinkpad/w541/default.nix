@@ -1,5 +1,9 @@
 { ... }:
 
 {
-  imports = [ ./.. ];
+  imports = [ 
+    ./.. 
+  ];
+
+  services.xserver.videoDrivers = [ "nvidia" ];
 }
