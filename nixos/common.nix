@@ -153,6 +153,7 @@
   time.timeZone = "Europe/Amsterdam";
 
   users.defaultUserShell = config.meta.programs.shell.executable.path;
+  users.mutableUsers = false;
   users.users.${config.meta.username} = {
     createHome = true;
     extraGroups = [
@@ -160,6 +161,7 @@
       "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark"
       "mopidy" "vboxusers" "adbusers" "rkt" "libvirtd" "vboxusers" "ssh"
     ];
+    hashedPassword = config.meta.user.hashedPassword;
     home = "/home/${config.meta.username}";
     isNormalUser = true;
     openssh.authorizedKeys.keys = config.meta.ssh.publicKeys;

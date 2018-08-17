@@ -36,8 +36,9 @@
 
     ssh.ports = mkOption {
       type = with types; listOf ints.positive;
+      default = [ 22 ];
       example = [ 42 ];
-      description = "Specifies on which ports the SSH daemon listens.";
+      description = "Ports, on which the SSH daemon shall listen.";
     };
 
     gpg.publicKey.fingerprint = mkOption {
@@ -73,6 +74,11 @@
     spotify.clientSecret = mkOption {
       type = types.str;
       description = "Spotify client secret";
+    };
+
+    user.hashedPassword = mkOption {
+      type = types.str;
+      description = "Hashed password of the user. Generated via `mkpasswd -m sha-512`.";
     };
 
     wireguard.client.privateKey = mkOption {
