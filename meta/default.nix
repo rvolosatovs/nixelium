@@ -3,7 +3,7 @@
 {
   imports = [
     ./../modules/meta.nix
-    ./secrets
+    ./../vendor/secrets
   ];
 
   config = {
