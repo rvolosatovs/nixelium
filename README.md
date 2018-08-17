@@ -11,6 +11,6 @@ Definitions of all systems I manage.
 ## Bootstrapping NixOS on a local machine
 ```sh
     cd ${infrastructure}
-    git clone git@github.com:rvolosatovs/infrastructure.git .
+    git clone --recursive git@github.com:rvolosatovs/infrastructure.git .
     ./bootstrap ${hostname}
 ```
