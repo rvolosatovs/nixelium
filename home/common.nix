@@ -13,6 +13,8 @@ in
       ./zsh.nix
     ];
 
+    accounts.email.accounts.${config.meta.email}.address = config.meta.email;
+
     home.keyboard.layout = "lv,ru";
     home.keyboard.variant = "qwerty";
     home.keyboard.options = [
