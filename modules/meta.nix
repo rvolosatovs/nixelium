@@ -122,14 +122,13 @@
       };
 
       mkProgOption = args: mkOption args // {
-        #type = args.type or types.submodule progOption;
-        type = types.submodule progOption;
+        type = if args ? type then args.type else types.submodule progOption;
         apply = (opt:
         let
-          #opt = args.apply or id) opt;
+          _opt = if args ? apply then args.apply opt else opt;
         in rec {
-          inherit (opt) package;
-          executable = opt.executable // {
+          inherit (_opt) package;
+          executable = _opt.executable // {
             path = "${package}/bin/${executable.name}";
           };
         });
