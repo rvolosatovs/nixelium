@@ -10,9 +10,9 @@ rec {
   programs.zsh.history.save = config.meta.histsize;
   programs.zsh.history.share = true;
   programs.zsh.history.size = config.meta.histsize;
-  programs.zsh.initExtra = let 
-    base16-shell = pkgs.copyPathToStore ../vendor/base16-shell;
-  in ''
+  programs.zsh.initExtra = ''
+     base16_tomorrow-night
+
      { wego ''${CITY:-"Eindhoven"} 1 2>/dev/null | head -7 | tail -6 } &|
 
      nixify() {
@@ -108,12 +108,14 @@ rec {
 
      bindkey -v
 
-     if [ -n "$PS1" ] && [ -s "${base16-shell}/profile_helper.sh" ]; then
-        eval "$("${base16-shell}/profile_helper.sh")"
-     fi
-     source ${config.xdg.dataHome}/base16/scripts/base16-tomorrow-night.sh
      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   '';
+  programs.zsh.plugins = [
+    {
+      name = "base16-shell";
+      src = pkgs.copyPathToStore ../vendor/base16-shell;
+    }
+  ];
   programs.zsh.profileExtra = ''
      [ -e ~/.nix-profile/etc/profile.d/nix.sh ] && source ~/.nix-profile/etc/profile.d/nix.sh
   '';
