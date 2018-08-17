@@ -81,6 +81,7 @@
   nix.nixPath = with builtins; [
     "home-manager=${toPath ../vendor/home-manager}"
     "nixos-hardware=${toPath ./../vendor/nixos-hardware}"
+    "nixpkgs-unstable=${toPath ./../vendor/nixpkgs-unstable}"
     "nixpkgs=${toPath ./../vendor/nixpkgs}"
   ];
 

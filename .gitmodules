@@ -10,6 +10,9 @@
 [submodule "vendor/nixpkgs"]
 	path = vendor/nixpkgs
 	url = https://github.com/rvolosatovs/nixpkgs.git
+[submodule "vendor/nixpkgs-unstable"]
+	path = vendor/nixpkgs-unstable
+	url = https://github.com/rvolosatovs/nixpkgs.git
 [submodule "vendor/secrets"]
 	path = vendor/secrets
 	url = keybase://private/rvolosatovs/dotfiles
