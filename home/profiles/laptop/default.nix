@@ -28,7 +28,12 @@
       poppler_utils
       wineStaging
       winetricks
-    ];
+    ] ++ (with gitAndTools; [
+      ghq
+      git-extras
+      git-open
+      tig
+    ]);
 
     meta.graphics.enable = true;
 

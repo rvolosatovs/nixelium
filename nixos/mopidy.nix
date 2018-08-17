@@ -39,4 +39,8 @@
     mopidy-spotify-tunigo
     mopidy-youtube
   ];
+
+  users.users.${config.meta.username}.extraGroups = [
+    "mopidy"
+  ];
 }

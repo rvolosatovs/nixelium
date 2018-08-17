@@ -20,6 +20,7 @@
     BROWSER = browser.executable.path;
     EDITOR = editor.executable.path;
     EMAIL = config.meta.email;
+    GIT_EDITOR = editor.executable.path;
     HISTFILESIZE = toString config.meta.histsize;
     HISTSIZE = toString config.meta.histsize;
     MAILER = mailer.executable.path;
@@ -33,37 +34,8 @@
     pkgs.bashInteractive
   ];
   environment.systemPackages = with pkgs; [
-    curl
-    fzf
-    git
-    gnumake
-    gnupg
-    gnupg1compat
-    htop
-    jq
-    lm_sensors
-    lsof
-    neofetch
-    neovim
-    pciutils
-    psmisc
-    pv
-    rfkill
-    ripgrep
     termite.terminfo
-    tree
-    whois
-    wireguard
-    xdg-user-dirs
-    zip
-  ] ++ (with config.meta.programs; [
-    browser.package
-    editor.package
-    mailer.package
-    pager.package
-    shell.package
-    terminal.package
-  ]);
+  ];
 
   home-manager.users.${config.meta.username} = import ../home;
 
@@ -159,8 +131,8 @@
     createHome = true;
     extraGroups = [
       "users" "wheel" "input" "audio" "video" "networkmanager"
-      "docker" "dialout" "tty" "uucp" "disk" "adm" "wireshark"
-      "mopidy" "vboxusers" "adbusers" "rkt" "libvirtd" "vboxusers" "ssh"
+      "docker" "dialout" "tty" "uucp" "disk" "adm" "rkt"
+      "libvirtd" "ssh"
     ];
     hashedPassword = config.meta.user.hashedPassword;
     home = "/home/${config.meta.username}";

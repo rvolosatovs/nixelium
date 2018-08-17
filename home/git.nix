@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    git-lfs
+  ];
   programs.git.aliases = {
     a = "apply --index";
     p = "format-patch --stdout";

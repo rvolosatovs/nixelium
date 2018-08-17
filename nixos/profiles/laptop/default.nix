@@ -31,4 +31,8 @@
   systemd.services.audio-off.serviceConfig.Type = "oneshot";
   systemd.services.audio-off.serviceConfig.User = "${config.meta.username}";
   systemd.services.audio-off.wantedBy = [ "sleep.target" ];
+
+  users.users.${config.meta.username}.extraGroups = [
+    "adbusers"
+  ];
 }

@@ -39,7 +39,6 @@ in
       fzf
       geoclue
       ghq
-      git-lfs
       gnumake
       gnupg
       gnupg1compat
@@ -69,7 +68,6 @@ in
       shellcheck
       sutils
       termite.terminfo
-      tig
       tree
       universal-ctags
       unzip
@@ -96,6 +94,7 @@ in
       ELINKS_CONFDIR = "${xdg.configHome}/elinks";
       EMAIL = config.meta.email;
       GIMP2_DIRECTORY = "${xdg.configHome}/gimp";
+      GIT_EDITOR = editor.executable.path;
       GOBIN = goBinDir;
       GOPATH = config.home.homeDirectory;
       HISTFILE = "${xdg.cacheHome}/shell-history";
