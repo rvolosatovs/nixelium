@@ -14,6 +14,7 @@
     };
   in
   with pkgs; [
+    comic-relief
     fira
     furaCode
     roboto-slab

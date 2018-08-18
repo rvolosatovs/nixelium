@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -13,7 +13,6 @@
       arduino
       asciinema
       clang
-      comic-relief
       drive
       gocode
       gotools
@@ -42,6 +41,19 @@
     programs.go.enable = true;
     programs.go.goPath = "";
     programs.go.goBin = ".local/bin.go";
+    programs.go.packages = with lib;
+    let
+      fromGitMap = host: namespace: map (name: nameValuePair "${namespace}/${name}" (builtins.fetchGit "${host}/${name}").outPath);
+    in
+    listToAttrs ( fromGitMap "https://github.com" "github.com" [
+      "mohae/deepcopy"
+
+    ] ++ fromGitMap "https://go.googlesource.com" "golang.org/x" [
+      "crypto"
+      "exp"
+      "text"
+      "time"
+    ]);
 
     systemd.user.services.godoc.Unit.Description="Godoc server";
     systemd.user.services.godoc.Service.Environment="'GOPATH=${config.home.sessionVariables.GOPATH}'";

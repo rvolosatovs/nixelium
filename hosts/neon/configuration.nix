@@ -26,18 +26,6 @@ in
     home-manager.users.${config.meta.username} = {
       nixpkgs.overlays = config.nixpkgs.overlays;
       programs.go.package = unstable.go;
-      programs.go.packages = with lib;
-      let
-        fromGit = url: (builtins.fetchGit url).outPath;
-      in 
-      listToAttrs (map (name: nameValuePair "golang.org/x/${name}" (fromGit "https://go.googlesource.com/${name}")) [
-        "crypto"
-        "exp"
-        "text"
-        "time"
-      ] ++ map (name: nameValuePair "github.com/${name}" (fromGit "https://github.com/${name}")) [
-        "mohae/deepcopy"
-      ]);
     };
 
     nixpkgs.overlays = [
