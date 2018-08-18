@@ -16,3 +16,6 @@
 [submodule "vendor/secrets"]
 	path = vendor/secrets
 	url = keybase://private/rvolosatovs/dotfiles
+[submodule "vendor/gorandr"]
+	path = vendor/gorandr
+	url = https://github.com/rvolosatovs/gorandr.git
