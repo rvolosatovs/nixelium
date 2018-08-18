@@ -5,7 +5,7 @@ Definitions of all systems I manage.
 ## Bootstrapping NixOS on a remote machine
 ```sh
     echo "{imports = [<infrastructure/hosts/${hostname}/configuration.nix>];}" > /etc/nixos/configuration.nix
-    nixos-rebuild switch -I infrastructure="https://github.com/rvolosatovs/infrastructure/archive/master.zip"
+    nixos-rebuild switch -I infrastructure="https://github.com/rvolosatovs/infrastructure/archive/master.tar.gz"
 ```
 
 ## Bootstrapping NixOS on a local machine

@@ -28,10 +28,18 @@ in
   nixpkgs.overlays = [
     (self: super: {
       inherit (unstable)
+      bspwm
+      dep
       git
       go
       gotools
+      grml-zsh-config
+      mopidy-iris
+      neovim
+      neovim-unwrapped
+      nerdfonts
       platformio
+      sway
       wine
       wineStaging;
     })
