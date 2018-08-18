@@ -2,15 +2,19 @@
 Definitions of all systems I manage.
 
 # Usage
-## Bootstrapping NixOS on a remote machine
-```sh
-    echo "{imports = [<infrastructure/hosts/${hostname}/configuration.nix>];}" > /etc/nixos/configuration.nix
-    nixos-rebuild switch -I infrastructure="https://github.com/rvolosatovs/infrastructure/archive/master.tar.gz"
-```
+The following sections assume following variables to be set:
+- `${hostname}` - hostname of the host being bootstrapped.
+- `${infrastructure}` - path to the local checkout of this repository.
 
 ## Bootstrapping NixOS on a local machine
 ```sh
-    cd ${infrastructure}
-    git clone --recursive git@github.com:rvolosatovs/infrastructure.git .
-    ./bootstrap ${hostname}
+    git clone --recursive git@github.com:rvolosatovs/infrastructure.git ${infrastructure}
+    nixos-rebuild switch -I nixos-config=${infrastructure}/hosts/${hostname}/configuration.nix -I ${infrastructure}/vendor
+```
+
+## Bootstrapping NixOS on a remote machine
+_This is not possible until https://github.com/NixOS/nix/issues/2151 is resolved_
+```sh
+    echo "{imports = [((builtins.fetchGit { url="https://github.com/rvolosatovs/infrastructure.git"; fetchSubmodules = true;}) + "/hosts/${hostname}/configuration.nix")];}" > /etc/nixos/configuration.nix
+    nixos-rebuild switch
 ```
