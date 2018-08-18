@@ -15,7 +15,6 @@
       clang
       comic-relief
       drive
-      go
       gocode
       gotools
       httpie
@@ -40,6 +39,9 @@
     programs.firefox.enableAdobeFlash = true;
     programs.git.signing.key = config.meta.gpg.publicKey.fingerprint;
     programs.git.signing.signByDefault = true;
+    programs.go.enable = true;
+    programs.go.goPath = "";
+    programs.go.goBin = ".local/bin.go";
 
     systemd.user.services.godoc.Unit.Description="Godoc server";
     systemd.user.services.godoc.Service.Environment="'GOPATH=${config.home.sessionVariables.GOPATH}'";

@@ -95,8 +95,6 @@ in
       EMAIL = config.meta.email;
       GIMP2_DIRECTORY = "${xdg.configHome}/gimp";
       GIT_EDITOR = editor.executable.path;
-      GOBIN = goBinDir;
-      GOPATH = config.home.homeDirectory;
       HISTFILE = "${xdg.cacheHome}/shell-history";
       HISTFILESIZE = toString config.meta.histsize;
       HISTSIZE = toString config.meta.histsize;

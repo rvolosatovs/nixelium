@@ -54,15 +54,15 @@
     "rvolosatovs.cachix.org-1:y1OANEBXt3SqDEUvPFqNHI/I5G7e34EAPIC4AjULqrw="
   ];
   nix.gc.automatic = true;
-  nix.optimise.automatic = true;
-  nix.requireSignedBinaryCaches = true;
-  nix.trustedUsers = [ "root" "${config.meta.username}" "@wheel" ];
   nix.nixPath = with builtins; [
     "home-manager=${toPath ../vendor/home-manager}"
     "nixos-hardware=${toPath ./../vendor/nixos-hardware}"
     "nixpkgs-unstable=${toPath ./../vendor/nixpkgs-unstable}"
     "nixpkgs=${toPath ./../vendor/nixpkgs}"
   ];
+  nix.optimise.automatic = true;
+  nix.requireSignedBinaryCaches = true;
+  nix.trustedUsers = [ "root" "${config.meta.username}" "@wheel" ];
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.neovim.vimAlias = true;

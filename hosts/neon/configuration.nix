@@ -1,53 +1,61 @@
-{ config, ... }:
+{ config, pkgs, lib, ... }:
 let
   mountOpts = [ "noatime" "nodiratime" "discard" ];
+  unstable = import <nixpkgs-unstable> {};
 in
-{
-  imports = [
-    ./../../nixos/hardware/lenovo/thinkpad/x260
-    ./../../nixos/profiles/laptop
-    ./../../vendor/nixos-hardware/common/pc/ssd
-    ./hardware-configuration.nix
-  ];
+  {
+    imports = [
+      ./../../nixos/hardware/lenovo/thinkpad/x260
+      ./../../nixos/profiles/laptop
+      ./../../vendor/nixos-hardware/common/pc/ssd
+      ./hardware-configuration.nix
+    ];
 
-  boot.initrd.luks.devices = [
-    {
-      name="luksroot";
-      device="/dev/sda2";
-      preLVM=true;
-      allowDiscards=true;
-    }
-  ];
+    boot.initrd.luks.devices = [
+      {
+        name="luksroot";
+        device="/dev/sda2";
+        preLVM=true;
+        allowDiscards=true;
+      }
+    ];
 
-  fileSystems."/".options = mountOpts;
-  fileSystems."/home".options = mountOpts;
+    fileSystems."/".options = mountOpts;
+    fileSystems."/home".options = mountOpts;
 
-  home-manager.users.${config.meta.username}.nixpkgs.overlays = config.nixpkgs.overlays;
+    home-manager.users.${config.meta.username} = {
+      nixpkgs.overlays = config.nixpkgs.overlays;
+      programs.go.package = unstable.go;
+      programs.go.packages = with lib;
+      let
+        fromGit = url: (builtins.fetchGit url).outPath;
+      in 
+      listToAttrs (map (name: nameValuePair "golang.org/x/${name}" (fromGit "https://go.googlesource.com/${name}")) [
+        "crypto"
+        "exp"
+        "text"
+        "time"
+      ] ++ map (name: nameValuePair "github.com/${name}" (fromGit "https://github.com/${name}")) [
+        "mohae/deepcopy"
+      ]);
+    };
 
-  nixpkgs.overlays = [
-    (self: super: {
-      inherit (import <nixpkgs-unstable> {})
-      cachix
-      neovim
-      neovim-unwrapped
-      #nerdfonts
-      sway
-      #wine
-      #wineStaging
-      ;
+    nixpkgs.overlays = [
+      (self: super: {
+        inherit (unstable)
+        bspwm
+        cachix
+        dep
+        gotools
+        grml-zsh-config
+        neovim
+        neovim-unwrapped
+        platformio
+        sway
+        wine
+        wineStaging
+        ;
     })
-    #(self: super: {
-      #inherit (import <nixpkgs-unstable> {})
-      #bspwm
-      #dep
-      #git
-      ##go
-      ##gotools
-      #grml-zsh-config
-      #mopidy-iris
-      ##platformio
-      #;
-    #})
   ];
 
   nix.nixPath = [
