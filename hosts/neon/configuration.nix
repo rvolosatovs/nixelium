@@ -1,10 +1,7 @@
-{ config, pkgs, ... }:
-
+{ config, ... }:
 let
   mountOpts = [ "noatime" "nodiratime" "discard" ];
-  unstable = import <nixpkgs-unstable> {};
 in
-
 {
   imports = [
     ./../../nixos/hardware/lenovo/thinkpad/x260
@@ -25,33 +22,37 @@ in
   fileSystems."/".options = mountOpts;
   fileSystems."/home".options = mountOpts;
 
+  home-manager.users.${config.meta.username}.nixpkgs.overlays = config.nixpkgs.overlays;
+
   nixpkgs.overlays = [
     (self: super: {
-      inherit (unstable)
-      bspwm
-      dep
-      git
-      go
-      gotools
-      grml-zsh-config
-      mopidy-iris
+      inherit (import <nixpkgs-unstable> {})
+      cachix
       neovim
       neovim-unwrapped
-      nerdfonts
-      platformio
+      #nerdfonts
       sway
-      wine
-      wineStaging;
+      #wine
+      #wineStaging
+      ;
     })
+    #(self: super: {
+      #inherit (import <nixpkgs-unstable> {})
+      #bspwm
+      #dep
+      #git
+      ##go
+      ##gotools
+      #grml-zsh-config
+      #mopidy-iris
+      ##platformio
+      #;
+    #})
   ];
 
   nix.nixPath = [
     "nixos-config=${builtins.toPath ./configuration.nix}"
   ];
-
-  home-manager.users.${config.meta.username} = {
-    nixpkgs.overlays = config.nixpkgs.overlays;
-  };
 
   networking.hostName = "neon";
 }

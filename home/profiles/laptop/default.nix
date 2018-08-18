@@ -8,6 +8,7 @@
 
   config = {
     home.packages = with pkgs; [
+      #platformio
       alsaUtils
       arduino
       asciinema
@@ -23,7 +24,6 @@
       llvm
       llvmPackages.libclang
       macchanger
-      platformio
       playerctl
       poppler_utils
       wineStaging

@@ -27,6 +27,7 @@ rec {
   home.file.".themes" = xdg.configFile."themes";
 
   home.packages = with pkgs; [
+    #lxappearance
     chromium
     ffmpeg
     font-awesome-ttf
@@ -36,7 +37,6 @@ rec {
     imagemagick
     kitty
     libnotify
-    lxappearance
     maim
     mpv
     networkmanagerapplet
@@ -46,7 +46,6 @@ rec {
     spotify
     sxhkd
     sxiv
-    thunderbird
     wmname
     x11_ssh_askpass
     xautolock

@@ -25,19 +25,27 @@ in
     ];
 
     home.packages = with pkgs; [
+      #bench
+      #desktop_file_utils
+      #direnv
+      #geoclue
+      #lf
+      #ncdu
+      #neofetch
+      #patchelf
+      #whois
+      #wireguard
+      #xdg-user-dirs
       acpi
-      bench
+      cachix
       cowsay
       curl
-      desktop_file_utils
       dex
-      direnv
       docker-gc
       docker_compose
       espeak
       file
       fzf
-      geoclue
       ghq
       gnumake
       gnupg
@@ -46,11 +54,8 @@ in
       htop
       httpie
       jq
-      lf
       lm_sensors
       lsof
-      ncdu
-      neofetch
       nix-index
       nix-prefetch-scripts
       nix-repl
@@ -58,7 +63,6 @@ in
       nox
       pandoc
       pass
-      patchelf
       pciutils
       psmisc
       pv
@@ -66,7 +70,6 @@ in
       rfkill
       ripgrep
       shellcheck
-      sutils
       termite.terminfo
       tree
       universal-ctags
@@ -74,9 +77,6 @@ in
       usbutils
       weechat
       wget
-      whois
-      wireguard
-      xdg-user-dirs
       zip
     ] ++ (with config.meta.programs; [
       browser.package
@@ -131,6 +131,7 @@ in
     programs.fzf.enableBashIntegration = true;
     programs.fzf.enableZshIntegration = true;
     programs.home-manager.enable = true;
+    programs.home-manager.path = "${lib.toPath ../vendor/home-manager}";
     programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" ([
       binDir
       goBinDir

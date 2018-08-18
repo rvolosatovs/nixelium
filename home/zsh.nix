@@ -121,7 +121,6 @@ rec {
   '';
   programs.zsh.sessionVariables.KEYTIMEOUT = "1";
   programs.zsh.shellAliases.dh="dirs -v";
-  programs.zsh.shellAliases.vi="nvim";
   programs.zsh.shellAliases.Vi="sudoedit";
   programs.zsh.shellAliases.Vim="sudoedit";
   programs.zsh.shellAliases.ne="nix-env";

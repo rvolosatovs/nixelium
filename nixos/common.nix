@@ -47,8 +47,15 @@
   networking.networkmanager.enable = true;
 
   nix.autoOptimiseStore = true;
+  nix.binaryCaches = [
+    "https://rvolosatovs.cachix.org"
+  ];
+  nix.binaryCachePublicKeys = [
+    "rvolosatovs.cachix.org-1:y1OANEBXt3SqDEUvPFqNHI/I5G7e34EAPIC4AjULqrw="
+  ];
   nix.gc.automatic = true;
   nix.optimise.automatic = true;
+  nix.requireSignedBinaryCaches = true;
   nix.trustedUsers = [ "root" "${config.meta.username}" "@wheel" ];
   nix.nixPath = with builtins; [
     "home-manager=${toPath ../vendor/home-manager}"

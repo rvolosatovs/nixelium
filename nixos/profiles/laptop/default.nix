@@ -9,10 +9,6 @@
     ./../../virtualbox.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    httpie
-  ];
-
   home-manager.users.${config.meta.username} = import ../../../home/profiles/laptop;
 
   meta.graphics.enable = true;
