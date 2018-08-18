@@ -46,7 +46,10 @@
       fromGitMap = host: namespace: map (name: nameValuePair "${namespace}/${name}" (builtins.fetchGit "${host}/${name}").outPath);
     in
     listToAttrs ( fromGitMap "https://github.com" "github.com" [
+      "BurntSushi/toml"
+      "BurntSushi/xgb"
       "mohae/deepcopy"
+      "pkg/errors"
 
     ] ++ fromGitMap "https://go.googlesource.com" "golang.org/x" [
       "crypto"

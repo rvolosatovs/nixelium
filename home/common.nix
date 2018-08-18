@@ -54,7 +54,6 @@ in
       htop
       httpie
       jq
-      less
       lm_sensors
       lsof
       nix-index
