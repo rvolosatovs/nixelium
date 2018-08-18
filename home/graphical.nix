@@ -226,8 +226,6 @@ rec {
 
   xsession.enable = true;
   xsession.windowManager.command = ''
-    ''${HOME}/.local/bin/turbo disable
-
     ${pkgs.feh}/bin/feh --bg-fill "$HOME/pictures/wp"
     ${pkgs.networkmanagerapplet}/bin/nm-applet &
     ${pkgs.xorg.xset}/bin/xset s off -dpms

@@ -34,6 +34,7 @@
     pkgs.bashInteractive
   ];
   environment.systemPackages = with pkgs; [
+    kitty.terminfo
     termite.terminfo
   ];
 
