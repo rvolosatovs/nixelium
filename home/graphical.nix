@@ -33,6 +33,7 @@ rec {
     font-awesome-ttf
     gnome3.dconf
     gnome3.glib_networking
+    gorandr
     i3lock
     imagemagick
     kitty
@@ -56,6 +57,12 @@ rec {
     xtitle
     youtube-dl
     zathura
+  ];
+
+  nixpkgs.overlays = [
+    (self: super: {
+      gorandr = import ../vendor/gorandr;
+    })
   ];
 
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
@@ -106,15 +113,13 @@ rec {
     githubSupport = true;
   };
   services.polybar.script = ''
-    set -x
-    opt=$(${config.home.sessionVariables.GOBIN}/randrctl) # TODO: package
     i=0
-    for m in ''${opt}; do
+    for m in $(${pkgs.gorandr}/bin/randrq -f '{{.Name}}:{{.Width}}'); do
         name="''${m%:*}"
-        mode="''${m#*:}"
+        width="''${m#*:}"
 
         size="-small"
-        [[ ''${mode%x*} -gt 1920 ]] && size="-big"
+        [[ ''${width} -gt 1920 ]] && size="-big"
 
         suf=""
         [[ $i == 0 ]] && suf="-tray"

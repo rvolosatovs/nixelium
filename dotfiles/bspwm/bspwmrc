@@ -21,16 +21,17 @@ initBSPWM() {
     bspc rule -a "Chromium-browser:crx_eggkanocgddhmamlbiijnphhppkpkmkl" state=floating
     bspc rule -a "mpv" state=floating
     
-    local oldM=`bspc query -M`
-    local opt=`randrctl`
-
     local desktops_per_mon=5
-    for m in ${opt}; do
+
+    local oldM=`bspc query -M`
+    local mons=`randrq`
+
+    local x=0
+    for m in ${mons}; do
         local name="${m%:*}"
         local mode="${m#*:}"
 
-        local pos="${mode#*x*+}"
-        xrandr --output "${name}" --mode "${mode%+*+*}" --pos `tr '+' 'x' <<< ${mode#*x*+}`
+        xrandr --output "${name}" --mode "${mode%+*+*}" --pos ${x}x0
         
         bspc wm -a "${name}" "${mode}"
 
@@ -40,10 +41,12 @@ initBSPWM() {
         done
     
         bspc monitor "$name" -d ${names[@]}
+
+        x=$((${x}+${mode%x*}))
     done
 
     for m in ${oldM}; do
-        local first="`head -1 <<< ${opt} | cut -d':' -f1`/1"
+        local first="`head -1 <<< ${mons} | cut -d':' -f1`/1"
         for n in `bspc query -N -m "${m}"`; do
             bspc node "${n}" -d ${first}
         done

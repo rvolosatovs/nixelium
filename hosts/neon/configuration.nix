@@ -43,12 +43,12 @@ in
         wine
         wineStaging
         ;
-    })
-  ];
+      })
+    ];
 
-  nix.nixPath = [
-    "nixos-config=${builtins.toPath ./configuration.nix}"
-  ];
+    nix.nixPath = [
+      "nixos-config=${builtins.toPath ./configuration.nix}"
+    ];
 
-  networking.hostName = "neon";
-}
+    networking.hostName = "neon";
+  }
