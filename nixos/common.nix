@@ -45,6 +45,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   networking.firewall.enable = true;
+  networking.hostName = config.meta.hostname;
   networking.networkmanager.enable = true;
 
   nix.autoOptimiseStore = true;
@@ -101,6 +102,7 @@
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = false;
 
+  services.avahi.enable = true;
   services.geoclue2.enable = true;
   services.journald.extraConfig = ''
     SystemMaxUse=1G

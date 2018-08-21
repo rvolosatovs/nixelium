@@ -11,44 +11,47 @@ in
       ./hardware-configuration.nix
     ];
 
-    boot.initrd.luks.devices = [
-      {
-        name="luksroot";
-        device="/dev/sda2";
-        preLVM=true;
-        allowDiscards=true;
-      }
-    ];
+    config = {
+      boot.initrd.luks.devices = [
+        {
+          name="luksroot";
+          device="/dev/sda2";
+          preLVM=true;
+          allowDiscards=true;
+        }
+      ];
 
-    fileSystems."/".options = mountOpts;
-    fileSystems."/home".options = mountOpts;
+      fileSystems."/".options = mountOpts;
+      fileSystems."/home".options = mountOpts;
 
-    home-manager.users.${config.meta.username} = {
-      nixpkgs.overlays = config.nixpkgs.overlays;
-      programs.go.package = unstable.go;
+      home-manager.users.${config.meta.username} = {
+        nixpkgs.overlays = config.nixpkgs.overlays;
+        programs.go.package = unstable.go;
+      };
+
+      meta.base16.theme = "tomorrow-night";
+      meta.hostname = "neon";
+
+      nixpkgs.overlays = [
+        (self: super: {
+          inherit (unstable)
+          bspwm
+          cachix
+          dep
+          gotools
+          grml-zsh-config
+          neovim
+          neovim-unwrapped
+          platformio
+          sway
+          wine
+          wineStaging
+          ;
+        })
+      ];
+
+      nix.nixPath = [
+        "nixos-config=${builtins.toPath ./configuration.nix}"
+      ];
     };
-
-    nixpkgs.overlays = [
-      (self: super: {
-        inherit (unstable)
-        bspwm
-        cachix
-        dep
-        gotools
-        grml-zsh-config
-        neovim
-        neovim-unwrapped
-        platformio
-        sway
-        wine
-        wineStaging
-        ;
-      })
-    ];
-
-    nix.nixPath = [
-      "nixos-config=${builtins.toPath ./configuration.nix}"
-    ];
-
-    networking.hostName = "neon";
   }

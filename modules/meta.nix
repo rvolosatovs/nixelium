@@ -14,10 +14,22 @@
       description = "Username";
     };
 
+    hostname = mkOption {
+      type = types.str;
+      example = "foobar";
+      description = "Hostname";
+    };
+
     fullName = mkOption {
       type = types.str;
       example = "John Doe";
       description = "Full name";
+    };
+
+    base16.theme = mkOption {
+      type = types.str;
+      example = "tomorrow-night";
+      description = "Base16 theme name";
     };
 
     graphics.enable = mkEnableOption "graphical user interface";

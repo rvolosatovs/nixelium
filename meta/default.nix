@@ -13,6 +13,8 @@
     meta.ssh.publicKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFSZ+ZWFCat0Fvog7XpS7mnNK9Mig+bi9LRqTHofBzIe" ];
     meta.gpg.publicKey.fingerprint = "57CF72B72BBA3C88A68CFE153AC661943D80C89E";
 
+    meta.base16.theme = lib.mkDefault "tomorrow-night";
+
     meta.programs = let
       pkgToProg = pkg: exe: {
         package = pkg;
