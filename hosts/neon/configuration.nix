@@ -5,9 +5,12 @@ let
 in
   {
     imports = [
+      ./../../meta
       ./../../nixos/hardware/lenovo/thinkpad/x260
       ./../../nixos/profiles/laptop
-      ./../../vendor/nixos-hardware/common/pc/ssd
+      ./../../vendor/nixos-hardware/common/pc/laptop
+      ./../../vendor/nixos-hardware/common/pc/laptop/ssd
+      ./../../vendor/secrets/hosts/neon/nixos
       ./hardware-configuration.nix
     ];
 
@@ -25,11 +28,20 @@ in
       fileSystems."/home".options = mountOpts;
 
       home-manager.users.${config.meta.username} = {
+        meta = {
+          inherit (config.meta)
+          base16
+          graphical
+          hostname
+          ;
+        };
+
         nixpkgs.overlays = config.nixpkgs.overlays;
         programs.go.package = unstable.go;
       };
 
       meta.base16.theme = "tomorrow-night";
+      meta.graphical = true;
       meta.hostname = "neon";
 
       nixpkgs.overlays = [

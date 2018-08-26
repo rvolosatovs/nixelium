@@ -2,7 +2,6 @@
 
 {
   imports = [
-    (import ../vendor/home-manager { inherit pkgs; }).nixos
     ./multi-glibc-locale-paths.nix
   ];
 
@@ -38,7 +37,7 @@
     termite.terminfo
   ];
 
-  home-manager.users.${config.meta.username} = import ../home;
+  home-manager.users.${config.meta.username} = {...}: import ../home;
 
   i18n.consoleFont = "Lat2-Terminus16";
   i18n.consoleKeyMap = "us";
@@ -51,9 +50,11 @@
   nix.autoOptimiseStore = true;
   nix.binaryCaches = [
     "https://rvolosatovs.cachix.org"
+    "https://cache.nixos.org"
   ];
   nix.binaryCachePublicKeys = [
     "rvolosatovs.cachix.org-1:y1OANEBXt3SqDEUvPFqNHI/I5G7e34EAPIC4AjULqrw="
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
   nix.gc.automatic = true;
   nix.nixPath = with builtins; [
@@ -141,8 +142,7 @@
     createHome = true;
     extraGroups = [
       "users" "wheel" "input" "audio" "video" "networkmanager"
-      "docker" "dialout" "tty" "uucp" "disk" "adm" "rkt"
-      "libvirtd" "ssh"
+      "docker" "dialout" "tty" "uucp" "disk" "adm" "libvirtd" "ssh"
     ];
     hashedPassword = config.meta.user.hashedPassword;
     home = "/home/${config.meta.username}";

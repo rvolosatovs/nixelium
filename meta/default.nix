@@ -1,21 +1,17 @@
 { config, pkgs, lib,... }:
 
 {
-  imports = [
-    ./../modules/meta.nix
-    ./../vendor/secrets
-  ];
+  config.meta = lib.mapAttrs (_: v: lib.mkDefault v) {
+    email = "rvolosatovs@riseup.net";
+    username = "rvolosatovs";
+    fullName = "Roman Volosatovs";
 
-  config = {
-    meta.email = "rvolosatovs@riseup.net";
-    meta.username = "rvolosatovs";
-    meta.fullName = "Roman Volosatovs";
-    meta.ssh.publicKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFSZ+ZWFCat0Fvog7XpS7mnNK9Mig+bi9LRqTHofBzIe" ];
-    meta.gpg.publicKey.fingerprint = "57CF72B72BBA3C88A68CFE153AC661943D80C89E";
+    ssh.publicKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFSZ+ZWFCat0Fvog7XpS7mnNK9Mig+bi9LRqTHofBzIe" ];
+    gpg.publicKey.fingerprint = "57CF72B72BBA3C88A68CFE153AC661943D80C89E";
 
-    meta.base16.theme = lib.mkDefault "tomorrow-night";
+    base16.theme = "tomorrow-night";
 
-    meta.programs = let
+    programs = let
       pkgToProg = pkg: exe: {
         package = pkg;
         executable.name = exe;

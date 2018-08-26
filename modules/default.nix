@@ -1,1 +1,5 @@
-import ./meta.nix
+{
+  imports = [
+    ./meta.nix
+  ];
+}

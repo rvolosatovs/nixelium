@@ -11,8 +11,6 @@ rec {
   programs.zsh.history.share = true;
   programs.zsh.history.size = config.meta.histsize;
   programs.zsh.initExtra = ''
-     base16_${config.meta.base16.theme}
-
      { wego ''${CITY:-"Eindhoven"} 1 2>/dev/null | head -7 | tail -6 } &|
 
      nixify() {
@@ -106,9 +104,11 @@ rec {
       export SAVEHIST="$oSAVEHIST"
      fi
 
-     bindkey -v
+     base16_${config.meta.base16.theme}
 
      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+     bindkey -v
   '';
   programs.zsh.plugins = [
     {

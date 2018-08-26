@@ -11,8 +11,6 @@
 
   home-manager.users.${config.meta.username} = import ../../../home/profiles/laptop;
 
-  meta.graphics.enable = true;
-
   programs.adb.enable = true;
 
   services.printing.enable = true;

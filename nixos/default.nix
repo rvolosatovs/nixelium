@@ -1,8 +1,9 @@
-{ config, pkgs, lib,... }:
+{ pkgs, ... }:
 
 {
   imports = [
-    ./../meta
+    (import ../vendor/home-manager { inherit pkgs; }).nixos
+    ./../modules
     ./common.nix
   ];
 }

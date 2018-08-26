@@ -126,7 +126,7 @@ rec {
 
         MONITOR="''${name}" polybar -r top''${size}''${suf}&
 
-        let i++
+        let i=i+1
     done
   '';
   services.screen-locker.enable = true;

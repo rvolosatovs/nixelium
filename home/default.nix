@@ -1,8 +1,6 @@
-{ config, pkgs, lib,... }:
-
 {
   imports = [
-    ./../meta
+    ./../modules
     ./common.nix
   ];
 }

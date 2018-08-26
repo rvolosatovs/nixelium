@@ -1,4 +1,7 @@
 { config, pkgs, lib, ... }:
+let
+  ipType = lib.types.strMatching "([0-255]\.){4}";
+in
 
 {
   options.meta = with lib; {
@@ -14,16 +17,40 @@
       description = "Username";
     };
 
+    fullName = mkOption {
+      type = types.str;
+      example = "John Doe";
+      description = "Full name";
+    };
+
     hostname = mkOption {
       type = types.str;
       example = "foobar";
       description = "Hostname";
     };
 
-    fullName = mkOption {
-      type = types.str;
-      example = "John Doe";
-      description = "Full name";
+    networking.ip = mkOption {
+      type = ipType;
+      example = "1.2.3.4";
+      description = "IPv4 address of the machine";
+    };
+
+    networking.gateway = mkOption {
+      type = ipType;
+      example = "1.2.3.4";
+      description = "IP address of the gateway to route through";
+    };
+
+    networking.netmask = mkOption {
+      type = ipType;
+      example = "1.2.3.4";
+      description = "Netmask";
+    };
+
+    networking.dns = mkOption {
+      type = types.listOf ipType;
+      example = [ "8.8.8.8" "1.2.3.4"];
+      description = "DNS servers";
     };
 
     base16.theme = mkOption {
@@ -111,14 +138,12 @@
               options = {
                 name = mkOption {
                   type = types.str;
-                  example = "less";
                   description = "Name of the executable";
                 };
 
                 path = mkOption {
                   type = types.str;
                   description = "Absolute path to the executable";
-                  internal = true;
                   readonly = true;
                 };
               };
