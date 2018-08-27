@@ -5,12 +5,12 @@ let
 in
   {
     imports = [
-      ./../../meta
-      ./../../nixos/hardware/lenovo/thinkpad/x260
-      ./../../nixos/profiles/laptop
-      ./../../vendor/nixos-hardware/common/pc/laptop
-      ./../../vendor/nixos-hardware/common/pc/laptop/ssd
-      ./../../vendor/secrets/hosts/neon/nixos
+      ./../../../meta/hosts/neon
+      ./../../../vendor/nixos-hardware/common/pc/laptop
+      ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
+      ./../../../vendor/secrets/hosts/neon/nixos
+      ./../../hardware/lenovo/thinkpad/x260
+      ./../../profiles/laptop
       ./hardware-configuration.nix
     ];
 
@@ -27,22 +27,14 @@ in
       fileSystems."/".options = mountOpts;
       fileSystems."/home".options = mountOpts;
 
-      home-manager.users.${config.meta.username} = {
-        meta = {
-          inherit (config.meta)
-          base16
-          graphical
-          hostname
-          ;
-        };
+      home-manager.users.${config.meta.username} = {...}: {
+        imports = [
+          ./../../../meta/hosts/neon
+        ];
 
         nixpkgs.overlays = config.nixpkgs.overlays;
         programs.go.package = unstable.go;
       };
-
-      meta.base16.theme = "tomorrow-night";
-      meta.graphical = true;
-      meta.hostname = "neon";
 
       nixpkgs.overlays = [
         (self: super: {
@@ -63,7 +55,7 @@ in
       ];
 
       nix.nixPath = [
-        "nixos-config=${builtins.toPath ./configuration.nix}"
+        "nixos-config=${builtins.toPath ./.}"
       ];
     };
   }
