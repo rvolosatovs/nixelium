@@ -144,7 +144,6 @@
       "users" "wheel" "input" "audio" "video" "networkmanager"
       "docker" "dialout" "tty" "uucp" "disk" "adm" "libvirtd" "ssh"
     ];
-    hashedPassword = config.meta.user.hashedPassword;
     home = "/home/${config.meta.username}";
     isNormalUser = true;
     openssh.authorizedKeys.keys = config.meta.ssh.publicKeys;

@@ -29,30 +29,6 @@ in
       description = "Hostname";
     };
 
-    networking.ip = mkOption {
-      type = ipType;
-      example = "1.2.3.4";
-      description = "IPv4 address of the machine";
-    };
-
-    networking.gateway = mkOption {
-      type = ipType;
-      example = "1.2.3.4";
-      description = "IP address of the gateway to route through";
-    };
-
-    networking.netmask = mkOption {
-      type = ipType;
-      example = "1.2.3.4";
-      description = "Netmask";
-    };
-
-    networking.dns = mkOption {
-      type = types.listOf ipType;
-      example = [ "8.8.8.8" "1.2.3.4"];
-      description = "DNS servers";
-    };
-
     base16.theme = mkOption {
       type = types.str;
       example = "tomorrow-night";
@@ -71,13 +47,6 @@ in
       type = with types; listOf str;
       example = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFSZ+ZWFCat0Fvog7XpS7mnNK9Mig+bi9LRqTHofBzIe" ];
       description = "Public SSH keys to allow access to";
-    };
-
-    ssh.ports = mkOption {
-      type = with types; listOf ints.positive;
-      default = [ 22 ];
-      example = [ 42 ];
-      description = "Ports, on which the SSH daemon shall listen.";
     };
 
     gpg.publicKey.fingerprint = mkOption {
