@@ -125,7 +125,6 @@
     }
   ];
   services.openssh.passwordAuthentication = false;
-  services.openssh.ports = config.meta.ssh.ports;
   services.openssh.startWhenNeeded = true;
 
   system.autoUpgrade.channel = https://nixos.org/channels/nixos-18.03;
