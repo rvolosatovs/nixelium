@@ -6,9 +6,8 @@ in
   {
     imports = [
       ./../../../meta/hosts/neon
-      ./../../../vendor/nixos-hardware/common/pc/laptop
       ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
-      ./../../../vendor/secrets/hosts/neon/nixos
+      ./../../../vendor/secrets/nixos/hosts/neon
       ./../../hardware/lenovo/thinkpad/x260
       ./../../profiles/laptop
       ./hardware-configuration.nix

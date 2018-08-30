@@ -7,9 +7,11 @@ in
 
 {
   imports = [
-    ./../../nixos/hardware/lenovo/thinkpad/w541
-    ./../../nixos/profiles/laptop
-    ./../../vendor/nixos-hardware/common/pc/ssd
+    ./../../../meta/hosts/argon
+    ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
+    ./../../../vendor/secrets/hosts/argon/nixos
+    ./../../hardware/lenovo/thinkpad/w541
+    ./../../profiles/laptop
     ./hardware-configuration.nix
   ];
 
@@ -26,9 +28,6 @@ in
     fileSystems."/".options = mountOpts;
     fileSystems."/home".options = mountOpts;
 
-    meta.base16.theme = "twilight";
-    meta.hostname = "argon";
-
     nixpkgs.overlays = [
       (self: super: {
         inherit (unstable)
@@ -44,7 +43,7 @@ in
     ];
 
     nix.nixPath = [
-      "nixos-config=${builtins.toPath ./configuration.nix}"
+      "nixos-config=${builtins.toPath ./.}"
     ];
   };
 }

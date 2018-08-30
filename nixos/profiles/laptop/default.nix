@@ -3,6 +3,7 @@
 {
   imports = [
     ./../..
+    ./../../../vendor/nixos-hardware/common/pc/laptop
     ./../../boards.nix
     ./../../graphical.nix
     ./../../mopidy.nix
