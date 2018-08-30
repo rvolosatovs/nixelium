@@ -22,6 +22,7 @@ in
 rec {
   imports = [
     ./gtk.nix
+    ./sxhkd.nix
   ];
 
   home.file.".themes" = xdg.configFile."themes";
@@ -168,7 +169,6 @@ rec {
     #set $spotify ${pkgs.spotify}/bin/spotify
     #set $run_editor ${config.meta.terminal} "${config.meta.shell} -i -c 'exec ${config.meta.editor}'"
   #'';
-  xdg.configFile."sxhkd/sxhkdrc".source = ../dotfiles/sxhkd/sxhkdrc;
   xdg.configFile."themes".source = ../dotfiles/themes;
   xdg.configFile."zathura/zathurarc".source = ../dotfiles/zathura/zathurarc;
 
