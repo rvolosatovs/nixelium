@@ -1,24 +1,27 @@
 [submodule "vendor/base16-shell"]
-	path = vendor/base16-shell
-	url = https://github.com/rvolosatovs/base16-shell.git
+    path = vendor/base16-shell
+    url = https://github.com/rvolosatovs/base16-shell.git
 [submodule "vendor/home-manager"]
-	path = vendor/home-manager
-	url = https://github.com/rvolosatovs/home-manager.git
+    path = vendor/home-manager
+    url = https://github.com/rvolosatovs/home-manager.git
+    branch = release-18.03
 [submodule "vendor/nixos-hardware"]
-	path = vendor/nixos-hardware
-	url = https://github.com/rvolosatovs/nixos-hardware.git
+    path = vendor/nixos-hardware
+    url = https://github.com/rvolosatovs/nixos-hardware.git
 [submodule "vendor/nixpkgs"]
-	path = vendor/nixpkgs
-	url = https://github.com/rvolosatovs/nixpkgs.git
+    path = vendor/nixpkgs
+    url = https://github.com/rvolosatovs/nixpkgs.git
+    branch = nixos-18.03
 [submodule "vendor/nixpkgs-unstable"]
-	path = vendor/nixpkgs-unstable
-	url = https://github.com/rvolosatovs/nixpkgs.git
+    path = vendor/nixpkgs-unstable
+    url = https://github.com/rvolosatovs/nixpkgs.git
+    branch = nixos-unstable
 [submodule "vendor/secrets"]
-	path = vendor/secrets
-	url = keybase://private/rvolosatovs/secrets
+    path = vendor/secrets
+    url = keybase://private/rvolosatovs/secrets
 [submodule "vendor/gorandr"]
-	path = vendor/gorandr
-	url = https://github.com/rvolosatovs/gorandr.git
+    path = vendor/gorandr
+    url = https://github.com/rvolosatovs/gorandr.git
 [submodule "vendor/copier"]
-	path = vendor/copier
-	url = https://github.com/rvolosatovs/copier.git
+    path = vendor/copier
+    url = https://github.com/rvolosatovs/copier.git

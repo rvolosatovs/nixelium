@@ -24,6 +24,7 @@
       macchanger
       playerctl
       poppler_utils
+      taskwarrior
       wineStaging
       winetricks
     ] ++ (with gitAndTools; [
