@@ -33,6 +33,7 @@
     pkgs.bashInteractive
   ];
   environment.systemPackages = with pkgs; [
+    exfat
     kitty.terminfo
     termite.terminfo
   ];
