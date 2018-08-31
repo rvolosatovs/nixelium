@@ -4,8 +4,7 @@
   ];
 
   config.meta = {
-    base16.theme = "eighties";
+    base16.theme = "onedark";
     graphics.enable = false;
-    hostname = "oxygen";
   };
 }

@@ -8,6 +8,7 @@ let
 in
   rec {
     imports = [
+      ./../modules/meta.nix
       ./git.nix
       ./neovim.nix
       ./zsh.nix
@@ -37,7 +38,6 @@ in
       #wireguard
       #xdg-user-dirs
       acpi
-      cachix
       cowsay
       curl
       dex
@@ -84,7 +84,6 @@ in
       mailer.package
       pager.package
       shell.package
-      terminal.package
     ]);
 
     home.sessionVariables = with config.meta.programs; {
@@ -130,6 +129,8 @@ in
     programs.fzf.enableZshIntegration = true;
     programs.home-manager.enable = true;
     programs.home-manager.path = "${lib.toPath ../vendor/home-manager}";
+    #programs.ssh.enable = true;
+    #programs.ssh.serverAliveInterval = 5;
     programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" ([
       binDir
       goBinDir
@@ -143,9 +144,6 @@ in
     services.gpg-agent.enableScDaemon = false;
     services.gpg-agent.enableSshSupport = true;
     services.gpg-agent.grabKeyboardAndMouse = false;
-    services.kbfs.enable = true;
-    services.kbfs.mountPoint = ".local/keybase";
-    services.keybase.enable = true;
     services.syncthing.enable = true;
     services.syncthing.tray = config.meta.graphics.enable;
 

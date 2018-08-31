@@ -23,12 +23,6 @@ in
       description = "Full name";
     };
 
-    hostname = mkOption {
-      type = types.str;
-      example = "foobar";
-      description = "Hostname";
-    };
-
     base16.theme = mkOption {
       type = types.str;
       example = "tomorrow-night";
@@ -82,11 +76,6 @@ in
     spotify.clientSecret = mkOption {
       type = types.str;
       description = "Spotify client secret";
-    };
-
-    user.hashedPassword = mkOption {
-      type = types.str;
-      description = "Hashed password of the user. Generated via `mkpasswd -m sha-512`.";
     };
 
     wireguard.client.privateKey = mkOption {

@@ -1,1 +1,5 @@
-../../all-hosts.nix
+{
+  argon = import ./argon;
+  neon = import ./neon;
+  oxygen = import ./oxygen;
+}

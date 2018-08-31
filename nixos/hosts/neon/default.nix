@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   mountOpts = [ "noatime" "nodiratime" "discard" ];
-  unstable = import <nixpkgs-unstable> {};
 in
   {
     imports = [
@@ -30,28 +29,9 @@ in
         imports = [
           ./../../../meta/hosts/neon
         ];
-
-        nixpkgs.overlays = config.nixpkgs.overlays;
-        programs.go.package = unstable.go;
       };
 
-      nixpkgs.overlays = [
-        (self: super: {
-          inherit (unstable)
-          bspwm
-          cachix
-          dep
-          gotools
-          grml-zsh-config
-          neovim
-          neovim-unwrapped
-          platformio
-          sway
-          wine
-          wineStaging
-          ;
-        })
-      ];
+      networking.hostName = "neon";
 
       nix.nixPath = [
         "nixos-config=${builtins.toPath ./.}"

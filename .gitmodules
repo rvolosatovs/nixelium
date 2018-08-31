@@ -25,3 +25,6 @@
 [submodule "vendor/copier"]
     path = vendor/copier
     url = https://github.com/rvolosatovs/copier.git
+[submodule "vendor/hosts"]
+	path = vendor/hosts
+	url = https://github.com/StevenBlack/hosts.git

@@ -2,7 +2,6 @@
 
 let
   mountOpts = [ "noatime" "nodiratime" "discard" ];
-  unstable = import <nixpkgs-unstable> {};
 in
 
 {
@@ -28,19 +27,13 @@ in
     fileSystems."/".options = mountOpts;
     fileSystems."/home".options = mountOpts;
 
-    nixpkgs.overlays = [
-      (self: super: {
-        inherit (unstable)
-        bspwm
-        cachix
-        grml-zsh-config
-        neovim
-        neovim-unwrapped
-        wine
-        wineStaging
-        ;
-      })
-    ];
+    home-manager.users.${config.meta.username} = {...}: {
+      imports = [
+        ./../../../meta/hosts/argon
+      ];
+    };
+
+    networking.hostName = "argon";
 
     nix.nixPath = [
       "nixos-config=${builtins.toPath ./.}"

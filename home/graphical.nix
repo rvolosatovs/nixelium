@@ -58,7 +58,9 @@ rec {
     xtitle
     youtube-dl
     zathura
-  ];
+  ] ++ (with config.meta.programs; [
+    terminal.package
+  ]);
 
   nixpkgs.overlays = [
     (self: super: {

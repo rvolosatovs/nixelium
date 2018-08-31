@@ -10,13 +10,8 @@
     [local]
     enabled = false
     [soundcloud]
-    auth_token = ${soundcloud.token}
     explore_songs = 25
     [spotify]
-    username = ${spotify.username}
-    password = ${spotify.password}
-    client_id = ${spotify.clientID}
-    client_secret = ${spotify.clientSecret}
     bitrate = 320
     timeout = 30
     [spotify/tunigo]

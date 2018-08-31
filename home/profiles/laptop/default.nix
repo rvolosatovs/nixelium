@@ -4,6 +4,7 @@
   imports = [
     ./../..
     ./../../graphical.nix
+    ./../../keybase.nix
   ];
 
   config = {
@@ -22,6 +23,7 @@
       llvm
       llvmPackages.libclang
       macchanger
+      nixops
       playerctl
       poppler_utils
       taskwarrior

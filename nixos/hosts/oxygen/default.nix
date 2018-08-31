@@ -16,11 +16,14 @@
         preLVM=true;
       }
     ];
+    boot.initrd.network.ssh.hostRSAKey = ./../../../vendor/secrets/nixos/hosts/oxygen/id_rsa.dropbear;
 
     home-manager.users.${config.meta.username} = {...}: {
       imports = [
         ./../../../meta/hosts/oxygen
       ];
     };
+
+    networking.hostName = "oxygen";
   };
 }
