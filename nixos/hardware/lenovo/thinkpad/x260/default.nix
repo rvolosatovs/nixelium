@@ -17,6 +17,9 @@
 
     CPU_SCALING_GOVERNOR_ON_BAT=powersave
     ENERGY_PERF_POLICY_ON_BAT=powersave
+
+    CPU_BOOST_ON_AC=1
+    CPU_BOOST_ON_BAT=0
   '';
   services.xserver.videoDrivers = [ "intel" ];
 }
