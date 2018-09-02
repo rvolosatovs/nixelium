@@ -5,6 +5,7 @@
     ./../..
     ./../../graphical.nix
     ./../../keybase.nix
+    ./../../pass.nix
   ];
 
   config = {

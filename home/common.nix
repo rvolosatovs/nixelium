@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  dotDir = "${config.home.homeDirectory}/.dotfiles";
   localDir = "${config.home.homeDirectory}/.local";
   binDir = "${localDir}/bin";
   goBinDir = "${binDir}.go";
@@ -54,6 +53,7 @@ in
       htop
       httpie
       jq
+      kitty.terminfo
       lm_sensors
       lsof
       nix-index
@@ -92,7 +92,6 @@ in
       ELINKS_CONFDIR = "${xdg.configHome}/elinks";
       EMAIL = config.meta.email;
       GIMP2_DIRECTORY = "${xdg.configHome}/gimp";
-      GIT_EDITOR = editor.executable.path;
       HISTFILE = "${xdg.cacheHome}/shell-history";
       HISTFILESIZE = toString config.meta.histsize;
       HISTSIZE = toString config.meta.histsize;
@@ -107,7 +106,7 @@ in
       __GL_SHADER_DISK_CACHE_PATH ="${xdg.cacheHome}/nv";
     };
 
-    nixpkgs.config = import ../dotfiles/nixpkgs/config.nix;
+    nixpkgs.config = import ./../dotfiles/nixpkgs/config.nix;
 
     programs.bash.enable = true;
     programs.bash.enableAutojump = true;
@@ -126,7 +125,7 @@ in
     programs.fzf.enableBashIntegration = true;
     programs.fzf.enableZshIntegration = true;
     programs.home-manager.enable = true;
-    programs.home-manager.path = "${lib.toPath ../vendor/home-manager}";
+    programs.home-manager.path = "${lib.toPath ./../vendor/home-manager}";
     #programs.ssh.enable = true;
     #programs.ssh.serverAliveInterval = 5;
     programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" ([
@@ -148,14 +147,14 @@ in
     systemd.user.startServices = true;
 
     xdg.cacheHome = "${localDir}/cache";
-    xdg.configFile."direnv/direnvrc".source = ../dotfiles/direnv/direnvrc;
-    xdg.configFile."git/gitignore".source = ../dotfiles/git/gitignore;
-    xdg.configFile."gocode/config.json".source = ../dotfiles/gocode/config.json;
-    xdg.configFile."htop/htoprc".source = ../dotfiles/htop/htoprc;
-    xdg.configFile."nixpkgs/config.nix".source = ../dotfiles/nixpkgs/config.nix;
-    xdg.configFile."rtorrent/rtorrent.rc".source = ../dotfiles/rtorrent/rtorrent.rc;
-    xdg.configFile."user-dirs.dirs".source = ../dotfiles/user-dirs.dirs;
-    xdg.configFile."user-dirs.locale".source = ../dotfiles/user-dirs.locale;
+    xdg.configFile."direnv/direnvrc".source = ./../dotfiles/direnv/direnvrc;
+    xdg.configFile."git/gitignore".source = ./../dotfiles/git/gitignore;
+    xdg.configFile."gocode/config.json".source = ./../dotfiles/gocode/config.json;
+    xdg.configFile."htop/htoprc".source = ./../dotfiles/htop/htoprc;
+    xdg.configFile."nixpkgs/config.nix".source = ./../dotfiles/nixpkgs/config.nix;
+    xdg.configFile."rtorrent/rtorrent.rc".source = ./../dotfiles/rtorrent/rtorrent.rc;
+    xdg.configFile."user-dirs.dirs".source = ./../dotfiles/user-dirs.dirs;
+    xdg.configFile."user-dirs.locale".source = ./../dotfiles/user-dirs.locale;
     xdg.configHome = "${config.home.homeDirectory}/.config";
     xdg.dataHome = "${localDir}/share";
     xdg.enable = true;

@@ -3,6 +3,8 @@
   home.packages = with pkgs; [
     git-lfs
   ];
+  home.sessionVariables.GIT_EDITOR = config.meta.programs.editor.executable.path;
+
   programs.git.aliases = {
     a = "apply --index";
     p = "format-patch --stdout";
@@ -32,7 +34,7 @@
     autocrlf = false
     safecrlf = false
     editor = ${config.meta.programs.editor.executable.path}
-    excludesfile = ${builtins.toPath ../dotfiles/git/gitignore}
+    excludesfile = ${builtins.toPath ./../dotfiles/git/gitignore}
     [merge]
     tool = nvimdiff
     conflictstyle = diff3
