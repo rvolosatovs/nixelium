@@ -62,7 +62,6 @@ in
       nmap
       nox
       pandoc
-      pass
       pciutils
       psmisc
       pv
@@ -101,7 +100,6 @@ in
       LESSHISTFILE = "${xdg.cacheHome}/less/history";
       MAILER = mailer.executable.path;
       PAGER = pager.executable.path;
-      PASSWORD_STORE_DIR = "${localDir}/pass";
       PYTHON_EGG_CACHE = "${xdg.cacheHome}/python-eggs";
       SAVEHIST = toString config.meta.histsize;
       VISUAL = editor.executable.path;

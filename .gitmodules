@@ -28,3 +28,6 @@
 [submodule "vendor/hosts"]
 	path = vendor/hosts
 	url = https://github.com/StevenBlack/hosts.git
+[submodule "vendor/pass"]
+	path = vendor/pass
+	url = keybase://private/rvolosatovs/pass
