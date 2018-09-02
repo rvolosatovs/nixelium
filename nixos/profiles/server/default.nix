@@ -3,6 +3,7 @@
 {
   imports = [
     ./../..
+    ./../../nginx.nix
   ];
 
   boot.initrd.network.enable = true;
@@ -17,6 +18,10 @@
 
   home-manager.users.${config.meta.username} = import ../../../home/profiles/server;
 
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
   networking.useDHCP = false;
   networking.usePredictableInterfaceNames = false;
 }

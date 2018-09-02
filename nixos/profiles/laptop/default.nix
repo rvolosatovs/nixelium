@@ -15,6 +15,7 @@ in
     home-manager.users.${config.meta.username} = {...}: {
       imports = [
         ../../../home/profiles/laptop
+        ../../../vendor/secrets/home
       ];
 
       programs.go.package = unstable.go;
