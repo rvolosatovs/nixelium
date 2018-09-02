@@ -4,6 +4,7 @@
     ./../../../meta/hosts/oxygen
     ./../../../vendor/nixos-hardware/common/pc/hdd
     ./../../../vendor/secrets/nixos/hosts/oxygen
+    ./../../couchpotato.nix
     ./../../deluge.nix
     ./../../profiles/server
     ./hardware-configuration.nix
@@ -26,7 +27,5 @@
     };
 
     networking.hostName = "oxygen";
-
-    services.couchpotato.enable = true;
   };
 }
