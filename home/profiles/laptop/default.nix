@@ -60,6 +60,9 @@
       "time"
     ]);
 
+    programs.ssh.extraConfig = builtins.readFile ./../../../vendor/secrets/dotfiles/ssh/config;
+    programs.ssh.matchBlocks."*.labs.overthewire.org".extraOptions.SendEnv = "OTWUSERDIR";
+
     systemd.user.services.godoc.Unit.Description="Godoc server";
     systemd.user.services.godoc.Service.Environment="'GOPATH=${config.home.sessionVariables.GOPATH}'";
     systemd.user.services.godoc.Service.ExecStart="${pkgs.gotools}/bin/godoc -http=:42002";
