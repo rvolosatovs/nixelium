@@ -68,7 +68,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 "Plug 'lervag/vimtex', { 'for': 'tex' }
 "Plug 'vhda/verilog_systemverilog.vim'
 Plug 'zchee/deoplete-clang', { 'for': 'c,cpp,objc' }
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'nix run nixpkgs.python3 nixpkgs.stdenv.cc -c make'}
 "Plug 'parsonsmatt/intero-neovim', { 'for': 'haskell' }
 "Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 "Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
