@@ -54,10 +54,10 @@
         ${pkgs.alsaUtils}/bin/amixer set Master toggle
 
     XF86MonBrightnessUp
-        ${pkgs.light}/bin/light -A 5%
+        /run/wrappers/bin/light -A 5%
 
     XF86MonBrightnessDown
-        ${pkgs.light}/bin/light -U 5%
+        /run/wrappers/bin/light -U 5%
 
     XF86HomePage
         ${browser.executable.path}
