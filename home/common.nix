@@ -58,7 +58,6 @@ in
       lsof
       nix-index
       nix-prefetch-scripts
-      nix-repl
       nmap
       nox
       pandoc
