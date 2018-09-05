@@ -3,8 +3,8 @@
     ./../..
   ];
 
-  config.meta = {
-    base16.theme = "outrun-dark";
+  config.resources = {
+    base16.theme = "tomorrow-night";
     graphics.enable = true;
   };
 }

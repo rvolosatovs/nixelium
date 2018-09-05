@@ -7,13 +7,13 @@ let
 in
   rec {
     imports = [
-      ./../modules/meta.nix
+      ./../modules/resources.nix
       ./git.nix
       ./neovim.nix
       ./zsh.nix
     ];
 
-    accounts.email.accounts.${config.meta.email}.address = config.meta.email;
+    accounts.email.accounts.${config.resources.email}.address = config.resources.email;
 
     home.keyboard.layout = "lv,ru";
     home.keyboard.variant = "qwerty";
@@ -76,7 +76,7 @@ in
       weechat
       wget
       zip
-    ] ++ (with config.meta.programs; [
+    ] ++ (with config.resources.programs; [
       browser.package
       editor.package
       mailer.package
@@ -84,22 +84,22 @@ in
       shell.package
     ]);
 
-    home.sessionVariables = with config.meta.programs; {
+    home.sessionVariables = with config.resources.programs; {
       BROWSER = browser.executable.path;
       CUDA_CACHE_PATH = "${xdg.cacheHome}/nv";
       EDITOR = editor.executable.path;
       ELINKS_CONFDIR = "${xdg.configHome}/elinks";
-      EMAIL = config.meta.email;
+      EMAIL = config.resources.email;
       GIMP2_DIRECTORY = "${xdg.configHome}/gimp";
       HISTFILE = "${xdg.cacheHome}/shell-history";
-      HISTFILESIZE = toString config.meta.histsize;
-      HISTSIZE = toString config.meta.histsize;
+      HISTFILESIZE = toString config.resources.histsize;
+      HISTSIZE = toString config.resources.histsize;
       INPUTRC = "${xdg.configHome}/readline/inputrc";
       LESSHISTFILE = "${xdg.cacheHome}/less/history";
       MAILER = mailer.executable.path;
       PAGER = pager.executable.path;
       PYTHON_EGG_CACHE = "${xdg.cacheHome}/python-eggs";
-      SAVEHIST = toString config.meta.histsize;
+      SAVEHIST = toString config.resources.histsize;
       VISUAL = editor.executable.path;
       WINEPREFIX = "${xdg.dataHome}/wine";
       __GL_SHADER_DISK_CACHE_PATH ="${xdg.cacheHome}/nv";
@@ -115,8 +115,8 @@ in
       "ignorespace"
     ];
     programs.bash.historyFile = home.sessionVariables.HISTFILE;
-    programs.bash.historyFileSize = config.meta.histsize * 100;
-    programs.bash.historySize = config.meta.histsize;
+    programs.bash.historyFileSize = config.resources.histsize * 100;
+    programs.bash.historySize = config.resources.histsize;
     programs.direnv.enable = true;
     programs.direnv.enableBashIntegration = true;
     programs.direnv.enableZshIntegration = true;
@@ -132,7 +132,7 @@ in
     programs.ssh.matchBlocks."hashbang".hostname = "ny1.hashbang.sh";
     programs.ssh.matchBlocks."hashbang".identitiesOnly = true;
     programs.ssh.matchBlocks."hashbang".identityFile = "~/.ssh/id_ed25519";
-    programs.ssh.matchBlocks."hashbang".user = config.meta.username;
+    programs.ssh.matchBlocks."hashbang".user = config.resources.username;
     programs.ssh.matchBlocks."github.com".extraOptions.KexAlgorithms = "curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1";
     programs.ssh.matchBlocks."github.com".extraOptions.Ciphers = "chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc";
     programs.ssh.matchBlocks."github.com".extraOptions.MACs = "hmac-sha2-256,hmac-sha2-512,hmac-sha1";
@@ -150,7 +150,7 @@ in
     services.gpg-agent.enableSshSupport = true;
     services.gpg-agent.grabKeyboardAndMouse = false;
     services.syncthing.enable = true;
-    services.syncthing.tray = config.meta.graphics.enable;
+    services.syncthing.tray = config.resources.graphics.enable;
 
     systemd.user.startServices = true;
 

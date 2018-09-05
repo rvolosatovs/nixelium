@@ -6,7 +6,7 @@ in
 
 {
   imports = [
-    ./../../../meta/hosts/argon
+    ./../../../resources/hosts/argon
     ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
     ./../../../vendor/secrets/hosts/argon/nixos
     ./../../hardware/lenovo/thinkpad/w541
@@ -27,9 +27,9 @@ in
     fileSystems."/".options = mountOpts;
     fileSystems."/home".options = mountOpts;
 
-    home-manager.users.${config.meta.username} = {...}: {
+    home-manager.users.${config.resources.username} = {...}: {
       imports = [
-        ./../../../meta/hosts/argon
+        ./../../../resources/hosts/argon
       ];
     };
 

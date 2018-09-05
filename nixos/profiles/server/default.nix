@@ -10,13 +10,13 @@
   boot.initrd.network.postCommands = ''
       echo "cryptsetup-askpass; exit" > /root/.profile
   '';
-  boot.initrd.network.ssh.authorizedKeys = config.users.users.${config.meta.username}.openssh.authorizedKeys.keys;
+  boot.initrd.network.ssh.authorizedKeys = config.users.users.${config.resources.username}.openssh.authorizedKeys.keys;
   boot.initrd.network.ssh.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
 
-  home-manager.users.${config.meta.username} = import ../../../home/profiles/server;
+  home-manager.users.${config.resources.username} = import ../../../home/profiles/server;
 
   networking.firewall.allowedTCPPorts = [
     80

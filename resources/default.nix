@@ -1,10 +1,10 @@
 { config, pkgs, lib,... }:
 {
   imports = [
-    ./../modules/meta.nix
+    ./../modules/resources.nix
   ];
 
-  config.meta = with lib; mapAttrs (_: v: mkDefault v) {
+  config.resources = with lib; mapAttrs (_: v: mkDefault v) {
     email = "rvolosatovs@riseup.net";
     username = "rvolosatovs";
     fullName = "Roman Volosatovs";
@@ -44,7 +44,7 @@
       shell.package = pkgs.zsh;
       shell.executable.name ="zsh";
 
-    } // optionalAttrs config.meta.graphics.enable {
+    } // optionalAttrs config.resources.graphics.enable {
       browser.package = pkgs.chromium;
       browser.executable.name ="chromium";
 

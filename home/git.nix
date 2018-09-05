@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     git-lfs
   ];
-  home.sessionVariables.GIT_EDITOR = config.meta.programs.editor.executable.path;
+  home.sessionVariables.GIT_EDITOR = config.resources.programs.editor.executable.path;
 
   programs.git.aliases = {
     a = "apply --index";
@@ -33,7 +33,7 @@
     [core]
     autocrlf = false
     safecrlf = false
-    editor = ${config.meta.programs.editor.executable.path}
+    editor = ${config.resources.programs.editor.executable.path}
     excludesfile = ${builtins.toPath ./../dotfiles/git/gitignore}
     [merge]
     tool = nvimdiff
@@ -60,6 +60,6 @@
     [ghq "https://go.thethings.network"]
     vcs = git
   '';
-  programs.git.userName = config.meta.fullName;
-  programs.git.userEmail = config.meta.email;
+  programs.git.userName = config.resources.fullName;
+  programs.git.userEmail = config.resources.email;
 }

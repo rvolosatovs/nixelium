@@ -2,30 +2,30 @@
 {
   services.udev.extraRules = ''
     # General
-    KERNEL=="ttyACM*", OWNER="${config.meta.username}"
-    KERNEL=="ttyUSB*", OWNER="${config.meta.username}"
+    KERNEL=="ttyACM*", OWNER="${config.resources.username}"
+    KERNEL=="ttyUSB*", OWNER="${config.resources.username}"
 
     # OLKB kerboards
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", OWNER="${config.meta.username}"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", OWNER="${config.resources.username}"
 
     # Keyboardio
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2301", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", OWNER="${config.meta.username}"
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2300", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", OWNER="${config.meta.username}"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2301", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", OWNER="${config.resources.username}"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2300", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", OWNER="${config.resources.username}"
 
     # Atmel ATMega32U4
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", OWNER="${config.meta.username}"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff4", OWNER="${config.resources.username}"
 
     # Atmel USBKEY AT90USB1287
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", OWNER="${config.meta.username}"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ffb", OWNER="${config.resources.username}"
 
     # Atmel ATMega32U2
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", OWNER="${config.meta.username}"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", OWNER="${config.resources.username}"
 
     # SparkFun Pro Micro
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9204", OWNER="${config.meta.username}"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9204", OWNER="${config.resources.username}"
 
     # Teensy
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789ABCD]?", OWNER="${config.meta.username}"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789ABCD]?", OWNER="${config.resources.username}"
     ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789B]?", ENV{ID_MM_DEVICE_IGNORE}="1"
     ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789A]?", ENV{MTP_NO_PROBE}="1"
 

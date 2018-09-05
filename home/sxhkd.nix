@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  xdg.configFile."sxhkd/sxhkdrc".text = with config.meta.programs; ''
+  xdg.configFile."sxhkd/sxhkdrc".text = with config.resources.programs; ''
     super + Return
         ${terminal.executable.path}
 

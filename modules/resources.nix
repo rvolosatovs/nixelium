@@ -4,7 +4,7 @@ let
 in
 
 {
-  options.meta = with lib; {
+  options.resources = with lib; {
     email = mkOption {
       type = types.strMatching ".+@.+\..+";
       example = "foobar@example.com";

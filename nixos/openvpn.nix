@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  confdir = "/home/${config.meta.username}/.config/vpn";
+  confdir = "/home/${config.resources.username}/.config/vpn";
 in
 {
   services.openvpn.servers.${config.secrets.servers.vpn.hostname}.config = 

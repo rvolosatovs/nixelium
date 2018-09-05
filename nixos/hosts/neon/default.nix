@@ -4,7 +4,7 @@ let
 in
   {
     imports = [
-      ./../../../meta/hosts/neon
+      ./../../../resources/hosts/neon
       ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
       ./../../../vendor/secrets/nixos/hosts/neon
       ./../../hardware/lenovo/thinkpad/x260
@@ -25,9 +25,9 @@ in
       fileSystems."/".options = mountOpts;
       fileSystems."/home".options = mountOpts;
 
-      home-manager.users.${config.meta.username} = {...}: {
+      home-manager.users.${config.resources.username} = {...}: {
         imports = [
-          ./../../../meta/hosts/neon
+          ./../../../resources/hosts/neon
         ];
       };
 

@@ -5,7 +5,7 @@ let
 in
   {
     deployment.keys.${secretName} = {
-      text = with config.meta; ''
+      text = with config.resources; ''
         [soundcloud]
         auth_token = ${soundcloud.token}
         [spotify]

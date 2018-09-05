@@ -7,9 +7,9 @@ rec {
   programs.zsh.enableCompletion = true;
   programs.zsh.history.ignoreDups = true;
   programs.zsh.history.path = programs.zsh.dotDir + "/.zsh_history";
-  programs.zsh.history.save = config.meta.histsize;
+  programs.zsh.history.save = config.resources.histsize;
   programs.zsh.history.share = true;
-  programs.zsh.history.size = config.meta.histsize;
+  programs.zsh.history.size = config.resources.histsize;
   programs.zsh.initExtra = ''
      { wego ''${CITY:-"Eindhoven"} 1 2>/dev/null | head -7 | tail -6 } &|
 
@@ -34,7 +34,7 @@ rec {
        ];
      }
      EOF
-         ''${EDITOR:-'${config.meta.programs.editor.executable.path}'} ''${nixfile}
+         ''${EDITOR:-'${config.resources.programs.editor.executable.path}'} ''${nixfile}
        fi
      }
 
@@ -104,7 +104,7 @@ rec {
       export SAVEHIST="$oSAVEHIST"
      fi
 
-     base16_${config.meta.base16.theme}
+     base16_${config.resources.base16.theme}
 
      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

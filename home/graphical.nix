@@ -58,7 +58,7 @@ rec {
     xtitle
     youtube-dl
     zathura
-  ] ++ (with config.meta.programs; [
+  ] ++ (with config.resources.programs; [
     terminal.package
   ]);
 
@@ -75,7 +75,7 @@ rec {
   programs.firefox.enableIcedTea = true;
   programs.feh.enable = true;
   programs.rofi.enable = true;
-  programs.rofi.terminal = config.meta.programs.terminal.executable.path;
+  programs.rofi.terminal = config.resources.programs.terminal.executable.path;
   programs.rofi.separator = "none";
   programs.rofi.lines = 10;
   programs.rofi.width = 20;
@@ -83,7 +83,7 @@ rec {
   #programs.rofi.theme = ../dotfiles/rofi/themes/base16-tomorrow-dark.rasi;
 
   services.dunst.enable = true;
-  services.dunst.settings."global".browser = config.meta.programs.browser.executable.path;
+  services.dunst.settings."global".browser = config.resources.programs.browser.executable.path;
   services.dunst.settings."global".dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
   services.dunst.settings."global".follow = "keyboard";
   services.dunst.settings."global".font = "Monospace 10";
@@ -139,12 +139,12 @@ rec {
   xdg.configFile."bspwm/bspwmrc".source = ../dotfiles/bspwm/bspwmrc;
   xdg.configFile."chromium/Default/User StyleSheets/devtools.css".source = ../dotfiles/chromium/devtools.css;
   xdg.configFile."i3/config" = xdg.configFile."sway/config";
-  #xdg.configFile."i3/config.meta" = xdg.configFile."sway/config.meta";
+  #xdg.configFile."i3/config.resources" = xdg.configFile."sway/config.resources";
   xdg.configFile."kitty/kitty.conf".source = ../dotfiles/kitty/kitty.conf;
   xdg.configFile."mpv/config".source = ../dotfiles/mpv/config;
   xdg.configFile."oomox/colors".source = ../dotfiles/oomox/colors;
   xdg.configFile."sway/config".source = ../dotfiles/sway/config;
-  #xdg.configFile."sway/config.meta".text = ''
+  #xdg.configFile."sway/config.resources".text = ''
     #include ${pkgs.sway}/etc/sway/config.d/*
 
     #set $base00 ${base00}
@@ -164,12 +164,12 @@ rec {
     #set $base0e ${base0e}
     #set $base0f ${base0f}
 
-    #set $browser ${config.meta.browser}
-    #set $mailer ${config.meta.mailer}
-    #set $terminal ${config.meta.terminal}
+    #set $browser ${config.resources.browser}
+    #set $mailer ${config.resources.mailer}
+    #set $terminal ${config.resources.terminal}
     #set $rofi ${pkgs.rofi}/bin/rofi
     #set $spotify ${pkgs.spotify}/bin/spotify
-    #set $run_editor ${config.meta.terminal} "${config.meta.shell} -i -c 'exec ${config.meta.editor}'"
+    #set $run_editor ${config.resources.terminal} "${config.resources.shell} -i -c 'exec ${config.resources.editor}'"
   #'';
   xdg.configFile."themes".source = ../dotfiles/themes;
   xdg.configFile."zathura/zathurarc".source = ../dotfiles/zathura/zathurarc;

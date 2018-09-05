@@ -1,5 +1,5 @@
 {
   imports = [
-    ./meta.nix
+    ./resources.nix
   ];
 }

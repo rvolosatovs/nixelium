@@ -33,7 +33,7 @@
   fonts.fontconfig.hinting.enable = true;
 
   programs.chromium.enable = true;
-  programs.chromium.homepageLocation = "https://duckduckgo.com/?key=${config.meta.duckduckgo.key}";
+  programs.chromium.homepageLocation = "https://duckduckgo.com/?key=${config.resources.duckduckgo.key}";
   programs.chromium.extensions = [
     "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock origin
     "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
@@ -48,12 +48,12 @@
   programs.qt5ct.enable = true;
   programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
   #programs.sway.enable = true;
-  #users.users."${config.meta.username}".extraGroups = [ "sway" ];
+  #users.users."${config.resources.username}".extraGroups = [ "sway" ];
 
   services.xserver.desktopManager.default = "none";
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.lightdm.autoLogin.enable = true;
-  services.xserver.displayManager.lightdm.autoLogin.user = config.meta.username;
+  services.xserver.displayManager.lightdm.autoLogin.user = config.resources.username;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.lightdm.greeters.gtk.theme.package = pkgs.zuki-themes;
   services.xserver.displayManager.lightdm.greeters.gtk.theme.name = "Zukitre";

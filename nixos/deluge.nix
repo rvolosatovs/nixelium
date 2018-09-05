@@ -4,7 +4,7 @@ mkMerge [
   {
     services.deluge.enable = true;
     services.deluge.web.enable = true;
-    users.users.${config.meta.username}.extraGroups = [ "deluge" ];
+    users.users.${config.resources.username}.extraGroups = [ "deluge" ];
   }
   (mkIf config.services.nginx.enable {
     services.nginx.virtualHosts."deluge".enableACME = true;

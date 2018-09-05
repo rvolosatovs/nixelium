@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ./../../../meta/hosts/oxygen
+    ./../../../resources/hosts/oxygen
     ./../../../vendor/nixos-hardware/common/pc/hdd
     ./../../../vendor/secrets/nixos/hosts/oxygen
     ./../../couchpotato.nix
@@ -20,9 +20,9 @@
     ];
     boot.initrd.network.ssh.hostRSAKey = ./../../../vendor/secrets/nixos/hosts/oxygen/id_rsa.dropbear;
 
-    home-manager.users.${config.meta.username} = {...}: {
+    home-manager.users.${config.resources.username} = {...}: {
       imports = [
-        ./../../../meta/hosts/oxygen
+        ./../../../resources/hosts/oxygen
       ];
     };
 

@@ -38,7 +38,7 @@
     ]);
 
     programs.firefox.enableAdobeFlash = true;
-    programs.git.signing.key = config.meta.gpg.publicKey.fingerprint;
+    programs.git.signing.key = config.resources.gpg.publicKey.fingerprint;
     programs.git.signing.signByDefault = true;
     programs.go.enable = true;
     programs.go.goPath = "";

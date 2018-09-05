@@ -2,7 +2,7 @@
 {
   networking.firewall.trustedInterfaces = [ "vboxnet0" ];
 
-  users.users.${config.meta.username}.extraGroups = [
+  users.users.${config.resources.username}.extraGroups = [
     "vboxusers"
   ];
 

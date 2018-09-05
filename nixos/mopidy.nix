@@ -4,7 +4,7 @@
   hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
 
   services.mopidy.enable = true;
-  services.mopidy.configuration = with config.meta; ''
+  services.mopidy.configuration = with config.resources; ''
     [core]
     restore_state = true
     [local]
@@ -35,7 +35,7 @@
     mopidy-youtube
   ];
 
-  users.users.${config.meta.username}.extraGroups = [
+  users.users.${config.resources.username}.extraGroups = [
     "mopidy"
   ];
 }

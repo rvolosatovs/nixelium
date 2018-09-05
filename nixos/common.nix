@@ -4,7 +4,7 @@ let
 in
   {
     imports = [
-      ./../modules/meta.nix
+      ./../modules/resources.nix
       ./multi-glibc-locale-paths.nix
     ];
 
@@ -18,20 +18,20 @@ in
       "/share/bash"
       "/share/zsh"
     ];
-    environment.sessionVariables = with config.meta.programs; {
+    environment.sessionVariables = with config.resources.programs; {
       BROWSER = browser.executable.path;
       EDITOR = editor.executable.path;
-      EMAIL = config.meta.email;
+      EMAIL = config.resources.email;
       GIT_EDITOR = editor.executable.path;
-      HISTFILESIZE = toString config.meta.histsize;
-      HISTSIZE = toString config.meta.histsize;
+      HISTFILESIZE = toString config.resources.histsize;
+      HISTSIZE = toString config.resources.histsize;
       MAILER = mailer.executable.path;
       PAGER = pager.executable.path;
-      SAVEHIST = toString config.meta.histsize;
+      SAVEHIST = toString config.resources.histsize;
       VISUAL = editor.executable.path;
     };
     environment.shells = [
-      config.meta.programs.shell.package
+      config.resources.programs.shell.package
       pkgs.zsh
       pkgs.bashInteractive
     ];
@@ -41,7 +41,7 @@ in
       termite.terminfo
     ];
 
-    home-manager.users.${config.meta.username} = {...}: {
+    home-manager.users.${config.resources.username} = {...}: {
       imports = [
         ./../home
       ];
@@ -74,7 +74,7 @@ in
     ];
     nix.optimise.automatic = true;
     nix.requireSignedBinaryCaches = true;
-    nix.trustedUsers = [ "root" "${config.meta.username}" "@wheel" ];
+    nix.trustedUsers = [ "root" "${config.resources.username}" "@wheel" ];
 
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.neovim.vimAlias = true;
@@ -154,19 +154,19 @@ in
 
     time.timeZone = "Europe/Amsterdam";
 
-    users.defaultUserShell = config.meta.programs.shell.executable.path;
+    users.defaultUserShell = config.resources.programs.shell.executable.path;
     users.mutableUsers = false;
-    users.users.${config.meta.username} = {
+    users.users.${config.resources.username} = {
       createHome = true;
       extraGroups = [
         "users" "wheel" "input" "audio" "video" "networkmanager"
         "docker" "dialout" "tty" "uucp" "disk" "adm" "libvirtd" "ssh"
       ];
-      home = "/home/${config.meta.username}";
+      home = "/home/${config.resources.username}";
       isNormalUser = true;
-      openssh.authorizedKeys.keys = config.meta.ssh.publicKeys;
+      openssh.authorizedKeys.keys = config.resources.ssh.publicKeys;
     };
-    users.users.root.openssh.authorizedKeys.keys = config.meta.ssh.publicKeys;
+    users.users.root.openssh.authorizedKeys.keys = config.resources.ssh.publicKeys;
 
     virtualisation.docker.autoPrune.enable = true;
     virtualisation.docker.enable = true;

@@ -12,7 +12,7 @@ in
       ./../../virtualbox.nix
     ];
 
-    home-manager.users.${config.meta.username} = {...}: {
+    home-manager.users.${config.resources.username} = {...}: {
       imports = [
         ../../../home/profiles/laptop
         ../../../vendor/secrets/home
@@ -42,10 +42,10 @@ in
     systemd.services.audio-off.serviceConfig.ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
     systemd.services.audio-off.serviceConfig.RemainAfterExit = true;
     systemd.services.audio-off.serviceConfig.Type = "oneshot";
-    systemd.services.audio-off.serviceConfig.User = "${config.meta.username}";
+    systemd.services.audio-off.serviceConfig.User = "${config.resources.username}";
     systemd.services.audio-off.wantedBy = [ "sleep.target" ];
 
-    users.users.${config.meta.username}.extraGroups = [
+    users.users.${config.resources.username}.extraGroups = [
       "adbusers"
     ];
   }

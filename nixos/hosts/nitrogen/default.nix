@@ -4,7 +4,7 @@ let
 in
   {
     imports = [
-      ./../../../meta/hosts/nitrogen
+      ./../../../resources/hosts/nitrogen
       ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
       ./../../../vendor/secrets/nixos/hosts/nitrogen
       ./../../hardware/lenovo/thinkpad/x230
@@ -25,9 +25,9 @@ in
       fileSystems."/".options = mountOpts;
       fileSystems."/home".options = mountOpts;
 
-      home-manager.users.${config.meta.username} = {...}: {
+      home-manager.users.${config.resources.username} = {...}: {
         imports = [
-          ./../../../meta/hosts/nitrogen
+          ./../../../resources/hosts/nitrogen
         ];
       };
 
