@@ -130,6 +130,7 @@ in
     security.sudo.wheelNeedsPassword = false;
 
     services.avahi.enable = true;
+    services.fwupd.enable = true;
     services.geoclue2.enable = true;
     services.journald.extraConfig = ''
       SystemMaxUse=1G
