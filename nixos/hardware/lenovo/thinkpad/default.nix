@@ -45,7 +45,6 @@ with lib;
       services.acpid.enable = true;
       services.fprintd.enable = true;
       services.thermald.enable = true;
-      services.thinkfan.sensor = "/sys/class/hwmon/hwmon0/temp1_input";
       services.upower.enable = true;
 
       services.tlp.enable = true;

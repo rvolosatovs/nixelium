@@ -100,7 +100,7 @@ in
     programs.command-not-found.enable = true;
     programs.mosh.enable = true;
     programs.zsh.enable = true;
-    programs.zsh.enableAutosuggestions = true;
+    programs.zsh.autosuggestions.enable = true;
     programs.zsh.enableCompletion = true;
     programs.zsh.interactiveShellInit = ''
       [ -v oHISTFILE ] && echo "WARNING: oHISTFILE is getting overriden" &> 2
@@ -147,9 +147,7 @@ in
     services.openssh.passwordAuthentication = false;
     services.openssh.startWhenNeeded = true;
 
-    system.autoUpgrade.channel = https://nixos.org/channels/nixos-18.03;
-    system.autoUpgrade.enable = false;
-    system.stateVersion = "18.03";
+    system.stateVersion = "18.09";
 
     systemd.services.systemd-networkd-wait-online.enable = false;
 
