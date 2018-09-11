@@ -62,12 +62,6 @@ rec {
     terminal.package
   ]);
 
-  nixpkgs.overlays = [
-    (self: super: {
-      gorandr = import ../vendor/gorandr;
-    })
-  ];
-
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
   programs.browserpass.enable = true;

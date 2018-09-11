@@ -224,7 +224,7 @@ rec {
   programs.zsh.shellAliases.SS="sudo systemctl suspend";
 
   systemd.user.services.zsh-history-backup.Install.WantedBy=["default.target"];
-  systemd.user.services.zsh-history-backup.Service.ExecStart="%h/.local/bin.go/copier -from %h/${programs.zsh.history.path} -to %h/${programs.zsh.history.path}.bkp";
+  systemd.user.services.zsh-history-backup.Service.ExecStart="${pkgs.copier}/bin/copier -from %h/${programs.zsh.history.path} -to %h/${programs.zsh.history.path}.bkp";
   systemd.user.services.zsh-history-backup.Service.Restart="always";
   systemd.user.services.zsh-history-backup.Unit.Description="Backup zsh history file on every write, restore on every delete";
 

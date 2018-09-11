@@ -46,6 +46,7 @@ in
         ./../home
       ];
       nixpkgs.overlays = config.nixpkgs.overlays;
+      nixpkgs.config = config.nixpkgs.config;
     };
 
     i18n.consoleFont = "Lat2-Terminus16";
@@ -69,6 +70,7 @@ in
     nix.nixPath = with builtins; [
       "home-manager=${toPath ./../vendor/home-manager}"
       "nixos-hardware=${toPath ./../vendor/nixos-hardware}"
+      "nixpkgs-overlays=${toPath ./../nixpkgs/overlays.nix}"
       "nixpkgs-unstable=${toPath ./../vendor/nixpkgs-unstable}"
       "nixpkgs=${toPath ./../vendor/nixpkgs}"
     ];
@@ -76,24 +78,27 @@ in
     nix.requireSignedBinaryCaches = true;
     nix.trustedUsers = [ "root" "${config.resources.username}" "@wheel" ];
 
-    nixpkgs.config.allowUnfree = true;
-    nixpkgs.config.neovim.vimAlias = true;
+    nixpkgs.config = import ../nixpkgs/config.nix;
     nixpkgs.overlays = [
-      (self: super: {
+      (_: _: {
         inherit (unstable)
         bspwm
-        dep
         cachix
+        dep
+        go
         grml-zsh-config
         kitty
         neovim
         neovim-unwrapped
         platformio
         sway
+        vim
+        vimPlugins
         wine
         wineStaging
         ;
       })
+      (import ./../nixpkgs/overlays.nix)
     ];
 
     programs.bash.enableCompletion = true;
@@ -147,7 +152,7 @@ in
     services.openssh.passwordAuthentication = false;
     services.openssh.startWhenNeeded = true;
 
-    system.stateVersion = "18.09";
+    system.stateVersion = "18.03";
 
     systemd.services.systemd-networkd-wait-online.enable = false;
 
