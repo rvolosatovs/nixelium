@@ -105,6 +105,9 @@ set updatetime=250
 
 set visualbell
 
+set cursorline
+set cursorcolumn
+
 set rtp^=/usr/share/vim/vimfiles
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 set rtp+=$GOPATH/src/github.com/junegunn/fzf
