@@ -70,7 +70,6 @@ in
     nix.nixPath = with builtins; [
       "home-manager=${toPath ./../vendor/home-manager}"
       "nixos-hardware=${toPath ./../vendor/nixos-hardware}"
-      "nixpkgs-overlays=${toPath ./../nixpkgs/overlays.nix}"
       "nixpkgs-unstable=${toPath ./../vendor/nixpkgs-unstable}"
       "nixpkgs=${toPath ./../vendor/nixpkgs}"
     ];
@@ -86,6 +85,7 @@ in
         cachix
         dep
         go
+        gocode
         grml-zsh-config
         kitty
         neovim
