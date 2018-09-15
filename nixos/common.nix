@@ -81,19 +81,26 @@ in
     nixpkgs.overlays = [
       (_: _: {
         inherit (unstable)
+        arduino
         bspwm
         cachix
         dep
+        direnv
         go
         gocode
+        gotools
         grml-zsh-config
+        i3
         kitty
         neovim
         neovim-unwrapped
         platformio
+        richgo
+        rtorrent
         sway
         vim
         vimPlugins
+        weechat
         wine
         wineStaging
         ;
