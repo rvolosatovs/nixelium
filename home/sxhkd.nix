@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+  home.packages = [ pkgs.light ];
   xdg.configFile."sxhkd/sxhkdrc".text = with config.resources.programs; ''
     super + Return
         ${terminal.executable.path}
