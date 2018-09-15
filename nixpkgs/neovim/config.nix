@@ -94,8 +94,8 @@ pkgs: ''
   let g:deoplete#enable_at_startup = 1
 
   " Clang
-  let g:deoplete#sources#clang#libclang_path="/home/rvolosatovs/.nix-profile/lib/libclang.so"
-  let g:deoplete#sources#clang#clang_header="/home/rvolosatovs/.nix-profile/lib/clang"
+  let g:deoplete#sources#clang#libclang_path="${pkgs.llvmPackages.libclang}/lib/libclang.so"
+  let g:deoplete#sources#clang#clang_header="${pkgs.llvmPackages.clang-unwrapped}/lib/clang"
 
   " JSX
   let g:jsx_ext_required = 0

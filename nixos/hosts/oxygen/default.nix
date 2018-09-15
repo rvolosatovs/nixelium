@@ -20,12 +20,6 @@
     ];
     boot.initrd.network.ssh.hostRSAKey = ./../../../vendor/secrets/nixos/hosts/oxygen/id_rsa.dropbear;
 
-    home-manager.users.${config.resources.username} = {...}: {
-      imports = [
-        ./../../../resources/hosts/oxygen
-      ];
-    };
-
     networking.hostName = "oxygen";
   };
 }

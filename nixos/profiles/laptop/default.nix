@@ -24,7 +24,6 @@ in
     nixpkgs.overlays = [
       (self: super: {
         inherit (unstable)
-        gotools
         ;
       })
     ];

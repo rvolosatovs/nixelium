@@ -27,12 +27,6 @@ in
     fileSystems."/".options = mountOpts;
     fileSystems."/home".options = mountOpts;
 
-    home-manager.users.${config.resources.username} = {...}: {
-      imports = [
-        ./../../../resources/hosts/argon
-      ];
-    };
-
     networking.hostName = "argon";
 
     nix.nixPath = [

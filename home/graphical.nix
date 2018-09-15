@@ -65,9 +65,12 @@ rec {
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
   programs.browserpass.enable = true;
+
   programs.firefox.enable = true;
   programs.firefox.enableIcedTea = true;
+
   programs.feh.enable = true;
+
   programs.rofi.enable = true;
   programs.rofi.terminal = config.resources.programs.terminal.executable.path;
   programs.rofi.separator = "none";
@@ -97,11 +100,15 @@ rec {
   services.dunst.settings."urgency_normal".background = base00;
   services.dunst.settings."urgency_normal".foreground = base0d;
   services.dunst.settings."urgency_normal".timeout = 10;
+
   services.gnome-keyring.enable = true;
+
   services.network-manager-applet.enable = true;
+
   services.redshift.enable = true;
   services.redshift.provider = "geoclue2";
   services.redshift.tray = true;
+
   services.polybar.config = ../dotfiles/polybar/config;
   services.polybar.enable = true;
   services.polybar.package = pkgs.polybar.override {
@@ -126,6 +133,7 @@ rec {
         let i=i+1
     done
   '';
+
   services.screen-locker.enable = true;
   services.screen-locker.inactiveInterval = 20;
   services.screen-locker.lockCmd = "${pkgs.i3lock}/bin/i3lock -t -f -i ~/pictures/lock";

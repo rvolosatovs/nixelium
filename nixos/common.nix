@@ -30,6 +30,19 @@ in
       SAVEHIST = toString config.resources.histsize;
       VISUAL = editor.executable.path;
     };
+    environment.shellAliases = {
+      ll="ls -la";
+      ls="ls -h --color=auto";
+      mkdir="mkdir -pv";
+      o="xdg-open";
+      ping="ping -c 3";
+      q="exit";
+      rm="rm -i";
+      sl="ls";
+      sy="systemctl";
+      Vi="sudoedit";
+      Vim="sudoedit";
+    };
     environment.shells = [
       config.resources.programs.shell.package
       pkgs.zsh
@@ -45,8 +58,11 @@ in
       imports = [
         ./../home
       ];
+
       nixpkgs.overlays = config.nixpkgs.overlays;
       nixpkgs.config = config.nixpkgs.config;
+
+      resources = config.resources;
     };
 
     i18n.consoleFont = "Lat2-Terminus16";
@@ -109,8 +125,11 @@ in
     ];
 
     programs.bash.enableCompletion = true;
+
     programs.command-not-found.enable = true;
+
     programs.mosh.enable = true;
+
     programs.zsh.enable = true;
     programs.zsh.autosuggestions.enable = true;
     programs.zsh.enableCompletion = true;
@@ -132,22 +151,27 @@ in
 
       bindkey -v
 
-      source "`${pkgs.fzf}/bin/fzf-share`/completion.zsh"
-      source "`${pkgs.fzf}/bin/fzf-share`/key-bindings.zsh"
+      source "$(${pkgs.fzf}/bin/fzf-share)/completion.zsh"
+      source "$(${pkgs.fzf}/bin/fzf-share)/key-bindings.zsh"
     '';
     programs.zsh.promptInit="";
+
     programs.zsh.syntaxHighlighting.enable = true;
 
     security.sudo.enable = true;
     security.sudo.wheelNeedsPassword = false;
 
     services.avahi.enable = true;
+
     services.fwupd.enable = true;
+
     services.geoclue2.enable = true;
+
     services.journald.extraConfig = ''
       SystemMaxUse=1G
       MaxRetentionSec=5day
     '';
+
     services.openssh.enable = true;
     services.openssh.hostKeys = [
       {
@@ -167,6 +191,7 @@ in
 
     users.defaultUserShell = config.resources.programs.shell.executable.path;
     users.mutableUsers = false;
+
     users.users.${config.resources.username} = {
       createHome = true;
       extraGroups = [
@@ -181,5 +206,6 @@ in
 
     virtualisation.docker.autoPrune.enable = true;
     virtualisation.docker.enable = true;
+
     virtualisation.libvirtd.enable = true;
   }
