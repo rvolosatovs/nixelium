@@ -43,6 +43,10 @@ pkgs: pkgs.neovim.override {
     vim-unimpaired
     vim-visualstar
   ];
+  configure.plug.plugins = with pkgs.vimPlugins; [
+    vim-go
+  ];
+
   viAlias = true;
   vimAlias = true;
   withPython = true;

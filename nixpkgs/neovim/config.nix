@@ -1,11 +1,6 @@
 pkgs: ''
   set packpath-=~/.vim/after
 
-  so ${pkgs.vimPlugins.vim-plug.rtp}/plug.vim
-  call plug#begin('/dev/null')
-  Plug '${pkgs.vimPlugins.vim-go.rtp}', { 'for': 'go' }
-  call plug#end()
-
   function! Multiple_cursors_before()
     if exists("g:deoplete#disable_auto_complete")
       let g:deoplete#disable_auto_complete = 1
