@@ -186,7 +186,6 @@ in
     xdg.configFile."nixpkgs/overlays.nix".text = ''
       import ${builtins.toPath ./../nixpkgs/overlays.nix}
     '';
-    xdg.configFile."rtorrent/rtorrent.rc".source = ./../dotfiles/rtorrent/rtorrent.rc;
     xdg.configFile."user-dirs.dirs".source = ./../dotfiles/user-dirs.dirs;
     xdg.configFile."user-dirs.locale".source = ./../dotfiles/user-dirs.locale;
     xdg.configHome = "${config.home.homeDirectory}/.config";
