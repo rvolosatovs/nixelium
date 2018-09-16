@@ -128,7 +128,7 @@ rec {
         suf=""
         [[ $i == 0 ]] && suf="-tray"
 
-        MONITOR="''${name}" polybar -r top''${size}''${suf}&
+        MONITOR="''${name}" ${pkgs.polybar}/bin/polybar -r top''${size}''${suf}&
 
         let i=i+1
     done

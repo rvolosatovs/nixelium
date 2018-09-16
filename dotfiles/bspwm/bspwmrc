@@ -23,17 +23,17 @@ initBSPWM() {
     
     local desktops_per_mon=5
 
-    local oldM=`bspc query -M`
-    local mons=`randrq`
+    local oldM=$(bspc query -M)
+    local mons=$(randrq -f '{{.Name}}:{{.Width}}x{{.Height}}')
 
     local x=0
     for m in ${mons}; do
         local name="${m%:*}"
         local mode="${m#*:}"
 
-        xrandr --output "${name}" --mode "${mode%+*+*}" --pos ${x}x0
+        xrandr --output "${name}" --mode "${mode}" --pos ${x}x0
         
-        bspc wm -a "${name}" "${mode}"
+        bspc wm -a "${name}" "${mode}+${x}+0"
 
         local names=()
         for j in `seq $desktops_per_mon`; do
