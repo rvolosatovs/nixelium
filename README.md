@@ -1,20 +1,10 @@
 # Infrastructure
-Definitions of all systems I manage.
+My NixOps network infrastructure.
 
-# Usage
-The following sections assume following variables to be set:
-- `${hostname}` - hostname of the host being bootstrapped.
-- `${infrastructure}` - path to the local checkout of this repository.
+Deployment is done using `nixops` with network defined in `default.nix` (which includes the machine deployment is made from).
 
-## Bootstrapping NixOS on a local machine
-```sh
-    git clone --recursive git@github.com:rvolosatovs/infrastructure.git ${infrastructure}
-    nixos-rebuild switch -I nixos-config=${infrastructure}/nixos/hosts/${hostname} -I ${infrastructure}/vendor
-```
-
-## Bootstrapping NixOS on a remote machine
-_This is not possible until https://github.com/NixOS/nix/issues/2151 is resolved_
-```sh
-    echo "{imports = [((builtins.fetchGit { url="https://github.com/rvolosatovs/infrastructure.git"; fetchSubmodules = true;}) + "/nixos/hosts/${hostname}")];}" > /etc/nixos/configuration.nix
-    nixos-rebuild switch
-```
+- `nixops/*` contains declarations usable by `nixops`.
+- `home/*` _should_ be usable by `home-manager`.
+- `nixos/*` _should_ be usable by `nixos-rebuild`.
+- `nixpkgs` contains `nixpkgs` config and overlays.
+- `vendor` contains dependencies.
