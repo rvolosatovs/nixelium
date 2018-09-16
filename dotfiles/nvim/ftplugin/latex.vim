@@ -1,5 +1,0 @@
-let g:Tex_ViewRule_pdf = 'zathura'
-let g:Tex_ViewRule_dvi = 'zathura'
-let g:Tex_ViewRule_ps = 'zathura'
-let g:Tex_CompileRule_pdf = 'pdflatex -interaction=nonstopmode $*'
-let g:Tex_DefaultTargetFormat = 'pdf'
