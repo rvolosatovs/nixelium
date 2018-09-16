@@ -9,7 +9,6 @@ in
     imports = [
       ./../modules/resources.nix
       ./git.nix
-      ./neovim.nix
       ./zsh.nix
     ];
 
@@ -57,6 +56,7 @@ in
       kitty.terminfo
       lm_sensors
       lsof
+      neovim
       nix-index
       nix-prefetch-scripts
       nmap
@@ -107,7 +107,7 @@ in
     };
 
     nixpkgs.config = import ./../nixpkgs/config.nix;
-    nixpkgs.overlays = [ (import ./../nixpkgs/overlays.nix) ];
+    nixpkgs.overlays = import ./../nixpkgs/overlays.nix;
 
     programs.bash.enable = true;
     programs.bash.enableAutojump = true;
@@ -183,6 +183,9 @@ in
     xdg.configFile."gocode/config.json".source = ./../dotfiles/gocode/config.json;
     xdg.configFile."htop/htoprc".source = ./../dotfiles/htop/htoprc;
     xdg.configFile."nixpkgs/config.nix".source = ./../nixpkgs/config.nix;
+    xdg.configFile."nixpkgs/overlays.nix".text = ''
+      import ${builtins.toPath ./../nixpkgs/overlays.nix}
+    '';
     xdg.configFile."rtorrent/rtorrent.rc".source = ./../dotfiles/rtorrent/rtorrent.rc;
     xdg.configFile."user-dirs.dirs".source = ./../dotfiles/user-dirs.dirs;
     xdg.configFile."user-dirs.locale".source = ./../dotfiles/user-dirs.locale;

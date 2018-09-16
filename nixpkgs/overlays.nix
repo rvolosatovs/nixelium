@@ -1,14 +1,41 @@
-super: self:
+[
+  (_: _: {
+    inherit (import ./../vendor/nixpkgs-unstable { overlays = []; })
+    arduino
+    bspwm
+    cachix
+    dep
+    direnv
+    go
+    gocode
+    godef
+    gotools
+    grml-zsh-config
+    i3
+    kitty
+    neovim
+    neovim-unwrapped
+    platformio
+    richgo
+    rtorrent
+    sway
+    vim
+    vimPlugins
+    weechat
+    wine
+    wineStaging
+    ;
+  })
+  (super: self: {
+    copier = super.callPackage ./../vendor/copier {
+      inherit (self) buildGoPackage stdenv;
+    };
 
-{
-  copier = super.callPackage ./../vendor/copier {
-    inherit (super) buildGoPackage stdenv;
-  };
+    gorandr = super.callPackage ./../vendor/gorandr {
+      inherit (self) buildGoPackage stdenv;
+    };
 
-  gorandr = super.callPackage ./../vendor/gorandr {
-    inherit (super) buildGoPackage stdenv;
-  };
-
-  # NOTE: super.neovim.override fails with infinite recursion.
-  neovim = import ./neovim self;
-}
+    # NOTE: super.neovim.override fails with infinite recursion.
+    neovim = import ./neovim self;
+  })
+]

@@ -1,21 +1,21 @@
 pkgs: pkgs.neovim.override {
   configure.customRC = import ./config.nix pkgs;
-  configure.packages.myVimPackage.opt = with pkgs.vimPlugins; [
+  configure.packages.plugins.opt = with pkgs.vimPlugins; [
     deoplete-clang
     deoplete-go
     deoplete-julia
-    deoplete-nvim
     deoplete-rust
-    vim-go
     vim-table-mode
   ];
-  configure.packages.myVimPackage.start = with pkgs.vimPlugins; [
+  configure.packages.plugins.start = with pkgs.vimPlugins; [
     auto-pairs
     base16-vim
     denite
+    deoplete-nvim
     editorconfig-vim
     fugitive
     fzf-vim
+    fzfWrapper
     gitv
     incsearch-vim
     multiple-cursors
@@ -36,9 +36,10 @@ pkgs: pkgs.neovim.override {
     vim-bufferline
     vim-devicons
     vim-dirvish
+    vim-plug
     vim-plugin-AnsiEsc
+    vim-polyglot
     vim-signify
-    vim-snippets
     vim-unimpaired
     vim-visualstar
   ];
