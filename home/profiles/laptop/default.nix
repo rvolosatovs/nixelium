@@ -16,6 +16,7 @@
       clang
       drive
       gocode
+      godef
       gotools
       httpie
       julia
