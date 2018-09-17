@@ -26,13 +26,7 @@
       browser.package = pkgs.links;
       browser.executable.name = "links";
 
-      editor.package = pkgs.neovim.override {
-        viAlias = true;
-        vimAlias = true;
-        withPython = true;
-        withPython3 = true;
-        withRuby = true;
-      };
+      editor.package = pkgs.neovim;
       editor.executable.name ="nvim";
 
       mailer.package = pkgs.mutt;

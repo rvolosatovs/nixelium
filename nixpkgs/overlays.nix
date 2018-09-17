@@ -35,7 +35,6 @@
       inherit (self) buildGoPackage stdenv;
     };
 
-    # NOTE: super.neovim.override fails with infinite recursion.
-    neovim = import ./neovim self;
+    neovim = self.neovim.override (import ./neovim self);
   })
 ]

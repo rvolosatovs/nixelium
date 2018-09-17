@@ -1,4 +1,4 @@
-pkgs: pkgs.neovim.override {
+pkgs: {
   configure.customRC = import ./config.nix pkgs;
   configure.packages.plugins.opt = with pkgs.vimPlugins; [
     deoplete-clang
