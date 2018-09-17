@@ -31,3 +31,6 @@
 [submodule "vendor/pass"]
 	path = vendor/pass
 	url = keybase://private/rvolosatovs/pass
+[submodule "vendor/docker-jitsi-meet"]
+	path = vendor/docker-jitsi-meet
+	url = https://github.com/jitsi/docker-jitsi-meet
