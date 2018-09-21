@@ -13,6 +13,14 @@
     grml-zsh-config
     i3
     kitty
+    mopidy
+    mopidy-iris
+    mopidy-local-images
+    mopidy-local-sqlite
+    mopidy-soundcloud
+    mopidy-spotify
+    mopidy-spotify-tunigo
+    mopidy-youtube
     neovim
     neovim-unwrapped
     platformio
