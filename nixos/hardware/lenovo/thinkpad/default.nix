@@ -28,8 +28,14 @@ with lib;
       ];
 
       hardware.bluetooth.enable = true;
-      hardware.bluetooth.powerOnBoot = false;
+      hardware.bluetooth.powerOnBoot = true;
+      hardware.bluetooth.extraConfig = ''
+        [General]
+        Enable=Source,Sink,Media,Socket
+      '';
+
       hardware.cpu.intel.updateMicrocode = true;
+
       hardware.pulseaudio.enable = true;
       hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
