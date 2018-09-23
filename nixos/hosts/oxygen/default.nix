@@ -4,8 +4,10 @@
     ./../../../resources/hosts/oxygen
     ./../../../vendor/nixos-hardware/common/pc/hdd
     ./../../../vendor/secrets/nixos/hosts/oxygen
+    ./../../../vendor/secrets/resources/hosts/oxygen
     ./../../couchpotato.nix
     ./../../deluge.nix
+    ./../../meet.nix
     ./../../profiles/server
     ./hardware-configuration.nix
   ];

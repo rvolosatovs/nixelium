@@ -23,6 +23,13 @@ in
       description = "Full name";
     };
 
+    domainName = mkOption {
+      type = types.str;
+      example = "example.com";
+      default = "local";
+      description = "Domain name";
+    };
+
     base16.theme = mkOption {
       type = types.str;
       example = "tomorrow-night";
@@ -51,6 +58,21 @@ in
     duckduckgo.key = mkOption {
       type = types.str;
       description = "DuckDuckGo key";
+    };
+
+    jicofo.authPassword = mkOption {
+      type = types.str;
+      description = "XMPP password for Jicofo client connections";
+    };
+
+    jicofo.componentSecret = mkOption {
+      type = types.str;
+      description = "XMPP component password for Jicofo";
+    };
+
+    jvb.componentSecret = mkOption {
+      type = types.str;
+      description = "XMPP component password for Jitsi Videobridge";
     };
 
     soundcloud.token = mkOption {

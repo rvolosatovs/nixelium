@@ -24,9 +24,14 @@
     neovim
     neovim-unwrapped
     platformio
+    qsyncthingtray
     richgo
+    ripgrep
     rtorrent
     sway
+    syncthing
+    syncthing-cli
+    syncthing-tray
     vim
     vimPlugins
     weechat

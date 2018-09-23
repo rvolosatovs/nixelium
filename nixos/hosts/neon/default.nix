@@ -7,6 +7,7 @@ in
       ./../../../resources/hosts/neon
       ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
       ./../../../vendor/secrets/nixos/hosts/neon
+      ./../../../vendor/secrets/resources/hosts/neon
       ./../../hardware/lenovo/thinkpad/x260
       ./../../profiles/laptop
       ./hardware-configuration.nix
