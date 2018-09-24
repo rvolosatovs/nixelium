@@ -1,7 +1,7 @@
 { config, ... }:
 let
   serviceName = "meet";
-  secretName = "${serviceName}Secrets";
+  secretName = "${serviceName}-secrets";
 in
   {
     deployment.keys.${secretName} = {

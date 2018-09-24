@@ -4,6 +4,7 @@
     arduino
     bspwm
     cachix
+    deluge
     dep
     direnv
     go

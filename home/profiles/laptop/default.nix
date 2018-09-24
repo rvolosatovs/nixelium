@@ -14,6 +14,7 @@
       arduino
       asciinema
       clang
+      deluge
       drive
       gocode
       godef
