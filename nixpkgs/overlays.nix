@@ -8,6 +8,7 @@
     dep
     direnv
     go
+    go-2fa
     gocode
     godef
     gotools
