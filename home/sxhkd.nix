@@ -9,27 +9,16 @@
     super + space
         ${pkgs.rofi}/bin/rofi -modi "window,drun,run,ssh" -show run -sidebar-mode
 
-    super + Escape
-        ${pkgs.procps}/bin/pkill -USR1 -x sxhkd
-        ${pkgs.libnotify}/bin/notify-send "Reloaded sxhkd config"
-
     super + shift + p
-        pass-script insert
+        ${pkgs.xdotool}/bin/xdotool type --clearmodifiers "$( ${pkgs.pass}/bin/pass "$( ${pkgs.findutils}/bin/find $PASSWORD_STORE_DIR -type f -and -name '*.gpg' -printf '%P\n' | sed 's/\.gpg//' | ${pkgs.rofi}/bin/rofi -dmenu )" )"
 
     super + shift + f
-        2fa-script insert
-
+        ${pkgs.xdotool}/bin/xdotool type --clearmodifiers "$( ${pkgs.go-2fa}/bin/2fa "$( ${pkgs.go-2fa}/bin/2fa -list | ${pkgs.rofi}/bin/rofi -dmenu)" )"
     super + ctrl + p
-        pass-script copy
+        ${pkgs.pass}/bin/pass -c "$( ${pkgs.findutils}/bin/find $PASSWORD_STORE_DIR -type f -and -name '*.gpg' -printf '%P\n' | sed 's/\.gpg//' )"
 
     super + ctrl + f
-        2fa-script copy
-
-    super + alt + p
-        pass-script new
-
-    super + alt + f
-        2fa-script new
+        ${pkgs.go-2fa}/bin/2fa -clip "$( ${pkgs.go-2fa}/bin/2fa -list | ${pkgs.rofi}/bin/rofi -dmenu )"
 
     super + shift + o
         ${browser.executable.path}
@@ -65,7 +54,7 @@
         ${browser.executable.path}
 
     Print
-        ${pkgs.maim}/bin/maim -s $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/scrot/$(${pkgs.coreutils}/bin/date +%F-%T)-screenshot.png
+        ${pkgs.maim}/bin/maim -s $( ${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/scrot/$( ${pkgs.coreutils}/bin/date +%F-%T )-screenshot.png
 
     #
     # bspwm hotkeys
