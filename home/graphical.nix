@@ -31,6 +31,7 @@ rec {
     #lxappearance
     chromium
     ffmpeg
+    firefox
     font-awesome-ttf
     gnome3.dconf
     gnome3.glib_networking
@@ -65,9 +66,6 @@ rec {
   home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
   programs.browserpass.enable = true;
-
-  programs.firefox.enable = true;
-  programs.firefox.enableIcedTea = true;
 
   programs.feh.enable = true;
 

@@ -1,6 +1,8 @@
 [
-  (_: _: {
-    inherit (import ./../vendor/nixpkgs-unstable { overlays = []; })
+  (_: _: let
+    unstable = import ./../vendor/nixpkgs-unstable { overlays = []; };
+  in {
+    inherit (unstable)
     arduino
     bspwm
     cachix
@@ -40,6 +42,10 @@
     wine
     wineStaging
     ;
+
+    inherit (unstable.python3Packages)
+    simple-websocket-server
+    ;
   })
   (super: self: {
     copier = super.callPackage ./../vendor/copier {
@@ -49,6 +55,17 @@
     gorandr = super.callPackage ./../vendor/gorandr {
       inherit (self) buildGoPackage stdenv;
     };
+
+    firefox = let
+      pkg = self.firefox;
+      mkConfig = self.lib.setAttrByPath [ pkg.browserName or (builtins.parseDrvName pkg.name).name ];
+    in self.wrapFirefox.override {
+      config = mkConfig {
+        enableBrowserpass = true;
+        enableDjvu = true;
+        enableGoogleTalkPlugin = true;
+      };
+    } pkg {};
 
     neovim = self.neovim.override (import ./neovim self);
   })

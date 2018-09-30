@@ -39,8 +39,8 @@
       shell.executable.name ="zsh";
 
     } // optionalAttrs config.resources.graphics.enable {
-      browser.package = pkgs.chromium;
-      browser.executable.name ="chromium";
+      browser.package = pkgs.firefox;
+      browser.executable.name ="firefox";
 
       mailer.package = pkgs.thunderbird;
       mailer.executable.name ="thunderbird";
