@@ -36,6 +36,7 @@ pkgs: {
     vim-bufferline
     vim-devicons
     vim-dirvish
+    vim-ghost
     vim-plugin-AnsiEsc
     vim-polyglot
     vim-signify
@@ -45,6 +46,11 @@ pkgs: {
   configure.plug.plugins = with pkgs.vimPlugins; [
     vim-go
   ];
+
+  extraPython3Packages = (ps: with ps; [ 
+    python-slugify
+    simple-websocket-server
+  ]);
 
   viAlias = true;
   vimAlias = true;
