@@ -10,12 +10,13 @@
         ${pkgs.rofi}/bin/rofi -modi "window,drun,run,ssh" -show run -sidebar-mode
 
     super + shift + p
-        ${pkgs.xdotool}/bin/xdotool type --clearmodifiers "$( ${pkgs.pass}/bin/pass "$( ${pkgs.findutils}/bin/find $PASSWORD_STORE_DIR -type f -and -name '*.gpg' -printf '%P\n' | sed 's/\.gpg//' | ${pkgs.rofi}/bin/rofi -dmenu )" )"
+        ${pkgs.xdotool}/bin/xdotool type --clearmodifiers "$( ${pkgs.pass}/bin/pass "$( ${pkgs.findutils}/bin/find $PASSWORD_STORE_DIR -type f -and -name '*.gpg' -printf '%P\n' | sed 's/\.gpg//' | ${pkgs.rofi}/bin/rofi -dmenu )" | head -1 )"
 
     super + shift + f
-        ${pkgs.xdotool}/bin/xdotool type --clearmodifiers "$( ${pkgs.go-2fa}/bin/2fa "$( ${pkgs.go-2fa}/bin/2fa -list | ${pkgs.rofi}/bin/rofi -dmenu)" )"
+        ${pkgs.xdotool}/bin/xdotool type --clearmodifiers "$( ${pkgs.go-2fa}/bin/2fa "$( ${pkgs.go-2fa}/bin/2fa -list | ${pkgs.rofi}/bin/rofi -dmenu )" )"
+
     super + ctrl + p
-        ${pkgs.pass}/bin/pass -c "$( ${pkgs.findutils}/bin/find $PASSWORD_STORE_DIR -type f -and -name '*.gpg' -printf '%P\n' | sed 's/\.gpg//' )"
+        ${pkgs.pass}/bin/pass -c "$( ${pkgs.findutils}/bin/find $PASSWORD_STORE_DIR -type f -and -name '*.gpg' -printf '%P\n' | sed 's/\.gpg//' | ${pkgs.rofi}/bin/rofi -dmenu )"
 
     super + ctrl + f
         ${pkgs.go-2fa}/bin/2fa -clip "$( ${pkgs.go-2fa}/bin/2fa -list | ${pkgs.rofi}/bin/rofi -dmenu )"
