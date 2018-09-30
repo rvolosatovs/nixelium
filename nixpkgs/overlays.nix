@@ -27,6 +27,8 @@
     mopidy-youtube
     neovim
     neovim-unwrapped
+    pass
+    passExtensions
     platformio
     qsyncthingtray
     richgo
@@ -68,5 +70,7 @@
     } pkg {};
 
     neovim = self.neovim.override (import ./neovim self);
+
+    pass = self.pass.withExtensions (es: [ es.pass-otp ]);
   })
 ]
