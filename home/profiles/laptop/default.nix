@@ -55,7 +55,9 @@
     listToAttrs ( fromGitMap "https://github.com" "github.com" [
       "BurntSushi/toml"
       "BurntSushi/xgb"
+      "golang/dep"
       "mohae/deepcopy"
+      "oklog/ulid"
       "pkg/errors"
 
     ] ++ fromGitMap "https://go.googlesource.com" "golang.org/x" [
