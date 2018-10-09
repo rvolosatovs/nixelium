@@ -50,7 +50,6 @@ rec {
     sxhkd
     sxiv
     wmname
-    x11_ssh_askpass
     xautolock
     xclip
     xdo
