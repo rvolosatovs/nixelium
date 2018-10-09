@@ -14,6 +14,7 @@
     gocode
     godef
     gotools
+    govendor
     grml-zsh-config
     i3
     kitty
