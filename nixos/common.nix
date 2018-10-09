@@ -152,7 +152,7 @@
   services.openssh.passwordAuthentication = false;
   services.openssh.startWhenNeeded = true;
 
-  system.stateVersion = "18.03";
+  system.stateVersion = "18.09";
 
   systemd.services.systemd-networkd-wait-online.enable = false;
 
