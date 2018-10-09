@@ -41,7 +41,7 @@
     [diff]
     tool = nvimdiff
     [mergetool "nvimdiff"]
-    cmd = ${pkgs.neovim}/bin/nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+    cmd = ${pkgs.neovim}/bin/nvim -c "Gdiff" $MERGED
     [format]
     pretty = %C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n
     [http]
