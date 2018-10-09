@@ -5,6 +5,9 @@
     GTK_PATH = "${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0";
     _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.aatext=true -Dsun.java2d.xrender=true";
   };
+  environment.systemPackages = with pkgs; [
+    lxqt.lxqt-openssh-askpass
+  ];
 
   fonts.enableFontDir = true;
   fonts.enableGhostscriptFonts = true;
@@ -46,7 +49,8 @@
   ];
   programs.light.enable = true;
   programs.qt5ct.enable = true;
-  programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
+  programs.ssh.askPassword = "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
+
   #programs.sway.enable = true;
   #users.users."${config.resources.username}".extraGroups = [ "sway" ];
 
