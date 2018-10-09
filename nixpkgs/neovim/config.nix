@@ -117,6 +117,9 @@ pkgs: ''
   let g:airline_powerline_fonts = 1
   let g:airline_theme='base16'
 
+  let g:ale_go_go_executable = '${pkgs.go}/bin/go'
+  let g:ale_go_gofmt_options = '-s'
+
   let g:AutoPairsFlyMode = 0
   let g:AutoPairsShortcutToggle = '<C-P>'
 
@@ -137,9 +140,15 @@ pkgs: ''
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
   let g:go_auto_type_info = 0
-  let g:go_doc_command = '${pkgs.gotools}/bin/godoc'
+  let g:go_def_reuse_buffer = 1
+  let g:go_doc_command = [ '${pkgs.gotools}/bin/godoc' ]
   let g:go_fmt_autosave = 1
-  let g:go_fmt_command = '${pkgs.gotools}/bin/goimports'
+  let g:go_fmt_command = '${pkgs.go}/bin/gofmt'
+  let g:go_fmt_experimental = '${pkgs.go}/bin/gofmt'
+  let g:go_fmt_options = {
+    \ '${pkgs.go}/bin/gofmt': '-s',
+    \ '${pkgs.gotools}/bin/goimports': '-local go.thethings.network',
+    \ }
   let g:go_highlight_array_whitespace_error = 1
   let g:go_highlight_build_constraints = 1
   let g:go_highlight_chan_whitespace_error = 1
@@ -159,6 +168,8 @@ pkgs: ''
   let g:go_highlight_variable_assignments = 0
   let g:go_highlight_variable_declarations = 0
   let g:go_snippet_engine = "neosnippet"
+  let g:go_term_enabled=1
+  let g:go_test_show_name=1
 
   let g:incsearch#auto_nohlsearch = 1
 
@@ -201,7 +212,7 @@ pkgs: ''
   nmap     g/            <Plug>(incsearch-stay)
   nmap     N             <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
   nmap     n             <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
-  nnoremap K             i<CR><Esc>
+  nnoremap K             ddkPJ
   noremap  ;             :
   noremap  ;;            ;
   noremap  <A-h>         <C-w>h
@@ -210,25 +221,32 @@ pkgs: ''
   noremap  <A-l>         <C-w>l
   noremap  <Leader>af    :Autoformat<CR>
   noremap  <Leader>cd    :cd %:p:h<CR>:pwd<CR>
+  noremap  <Leader>cl    :copen<CR>
+  noremap  <Leader>cn    :cnext<CR>
+  noremap  <Leader>cp    :cprevious<CR>
   noremap  <Leader>f:    :Commands<CR>
   noremap  <Leader>f;    :History:<CR>
+  noremap  <Leader>fG    :Commits<CR>
+  noremap  <Leader>fL    :Lines <CR>
+  noremap  <Leader>fT    :Tags<CR>
   noremap  <Leader>fb    :Buffers <CR>
   noremap  <Leader>fg    :BCommits<CR>
-  noremap  <Leader>fG    :Commits<CR>
   noremap  <Leader>fh    :History<CR>
   noremap  <Leader>fl    :BLines <CR>
-  noremap  <Leader>fL    :Lines <CR>
   noremap  <Leader>fm    :Marks<CR>
+  noremap  <Leader>fo    :Files %:p:h<CR>
   noremap  <Leader>fs    :Snippets<CR>
   noremap  <Leader>ft    :BTags<CR>
-  noremap  <Leader>fT    :Tags<CR>
   noremap  <Leader>fw    :Windows<CR>
-  noremap  <Leader>M     :Neomake!<CR>
-  noremap  <Leader>m     :Neomake<CR>
-  noremap  <Leader>o     :Files %:p:h<CR>
-  noremap  <Leader>O     :GFiles <CR>
-  noremap  <Leader>s     :call MakeSession()<CR>
+  noremap  <Leader>ll    :lopen<CR>
+  noremap  <Leader>ln    :lnext<CR>
+  noremap  <Leader>lp    :lprevious<CR>
+  noremap  <Leader>n     :bnext<CR>
+  noremap  <Leader>o     :GFiles <CR>
+  noremap  <Leader>p     :bprev<CR>
+  noremap  <Leader>s     :sort i<CR>
   noremap  <Leader>ze    :enew <CR>
+  noremap  <Leader>zs    :call MakeSession()<CR>
   noremap  <Leader>zt    :tabnew<CR>
   noremap  <Space>       <Nop>
   noremap  Y             y$
@@ -242,15 +260,21 @@ pkgs: ''
   xmap     <Leader><Tab> <Plug>(fzf-maps-x)
 
   au FileType  c                     packadd deoplete-clang
-  au FileType  conf                  inoremap <buffer> ## <Esc>79i#<Esc>yypO#<Space>
   au FileType  cpp                   packadd deoplete-clang
   au FileType  csharp                packadd deoplete-clang
   au FileType  dirvish               call fugitive#detect(@%)
   au FileType  go                    packadd deoplete-go
-  au FileType  go call               deoplete#custom#source('go', 'rank', 9999)
-  au FileType  go nmap               <Leader>C <Plug>(go-coverage)
-  au FileType  go nmap               <Leader>R <Plug>(go-run)
-  au FileType  go nmap               <Leader>T <Plug>(go-test)
+  au FileType  go                    nmap    <Leader>d  <Plug>(go-def-vertical)
+  au FileType  go                    nmap    <Leader>R  <Plug>(go-rename)
+  au FileType  go                    nmap    <Leader>r  <Plug>(go-run-vertical)
+  au FileType  go                    nmap    <Leader>ta <Plug>(go-alternate-vertical)
+  au FileType  go                    nmap    <Leader>tc <Plug>(go-coverage-toggle)
+  au FileType  go                    nmap    <Leader>tf <Plug>(go-test-func)
+  au FileType  go                    nmap    <Leader>tt <Plug>(go-test)
+  au FileType  go                    noremap <Leader>fd :GoDecls<CR>
+  au FileType  go                    noremap <Leader>fD :GoDeclsDir<CR>
+  au FileType  go                    noremap <Leader>I  :GoImports<CR>
+  au FileType  go                    call deoplete#custom#source('go', 'rank', 9999)
   au FileType  julia                 packadd deoplete-julia
   au FileType  markdown              packadd vim-table-mode
   au FileType  rust                  packadd deoplete-rust

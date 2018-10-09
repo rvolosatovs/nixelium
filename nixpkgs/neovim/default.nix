@@ -8,6 +8,7 @@ pkgs: {
     vim-table-mode
   ];
   configure.packages.plugins.start = with pkgs.vimPlugins; [
+    ale
     auto-pairs
     base16-vim
     denite
@@ -20,7 +21,6 @@ pkgs: {
     incsearch-vim
     multiple-cursors
     neoinclude
-    neomake
     neosnippet
     neosnippet-snippets
     nerdcommenter
