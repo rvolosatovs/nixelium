@@ -59,6 +59,8 @@
     root = ~/src
     [ghq "https://go.thethings.network"]
     vcs = git
+    [url "git@github.com:"]
+	insteadOf = https://github.com/
   '';
   programs.git.userName = config.resources.fullName;
   programs.git.userEmail = config.resources.email;
