@@ -5,8 +5,8 @@
     ./../../../vendor/nixos-hardware/common/pc/laptop
     ./../../boards.nix
     ./../../graphical.nix
-    ./../../mopidy.nix
-    ./../../virtualbox.nix
+    #./../../mopidy.nix
+    #./../../virtualbox.nix
   ];
 
   home-manager.users.${config.resources.username} = {...}: {
