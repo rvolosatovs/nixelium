@@ -1,7 +1,7 @@
 {
   imports = [
     ./../..
-    ./../../mopidy.nix
+    #./../../mopidy.nix
   ];
 
   deployment.storeKeysOnMachine = true;
