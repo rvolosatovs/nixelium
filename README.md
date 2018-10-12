@@ -1,7 +1,8 @@
 # Infrastructure
 My NixOps network infrastructure.
 
-Deployment is done using `nixops` with network defined in `default.nix` (which includes the machine deployment is made from).
+Deployment is done using `nixops`.
+Currently, there only exists one network, declared at `nixops/networks/private`.
 
 - `home` _should_ be usable by `home-manager`.
 - `modules` contains generic Nix modules.
