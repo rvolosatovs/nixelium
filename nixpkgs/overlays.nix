@@ -9,6 +9,7 @@
     deluge
     dep
     direnv
+    geoclue2
     go
     go-2fa
     gocode
@@ -32,6 +33,7 @@
     passExtensions
     platformio
     qsyncthingtray
+    redshift
     richgo
     ripgrep
     rtorrent
