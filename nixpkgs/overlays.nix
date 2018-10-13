@@ -12,6 +12,7 @@
     geoclue2
     go
     go-2fa
+    go-sct
     gocode
     godef
     gotools
@@ -61,16 +62,13 @@
       inherit (self) buildGoPackage stdenv;
     };
 
-    firefox = let
-      pkg = self.firefox;
-      mkConfig = self.lib.setAttrByPath [ pkg.browserName or (builtins.parseDrvName pkg.name).name ];
-    in self.wrapFirefox.override {
-      config = mkConfig {
+    firefox = self.wrapFirefox.override {
+      config = self.lib.setAttrByPath [ self.firefox.browserName or (builtins.parseDrvName self.firefox.name).name ] {
         enableBrowserpass = true;
         enableDjvu = true;
         enableGoogleTalkPlugin = true;
       };
-    } pkg {};
+    } self.firefox {};
 
     neovim = self.neovim.override (import ./neovim self);
 
