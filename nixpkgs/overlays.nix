@@ -3,6 +3,7 @@
     unstable = import ./../vendor/nixpkgs-unstable { overlays = []; };
   in {
     inherit (unstable)
+    alacritty
     arduino
     bspwm
     cachix
