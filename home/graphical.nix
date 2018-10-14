@@ -28,8 +28,6 @@ rec {
   home.file.".themes" = xdg.configFile."themes";
 
   home.packages = with pkgs; [
-    #lxappearance
-    chromium
     ffmpeg
     firefox
     font-awesome-ttf
