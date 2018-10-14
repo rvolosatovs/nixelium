@@ -103,7 +103,7 @@ rec {
   services.network-manager-applet.enable = true;
 
   services.redshift.enable = true;
-  services.redshift.provider = "geoclue2";
+  services.redshift.provider = "manual";
   services.redshift.tray = true;
 
   services.polybar.config = ../dotfiles/polybar/config;
