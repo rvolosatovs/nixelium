@@ -100,14 +100,14 @@ in
       description = "Spotify client secret";
     };
 
-    wireguard.client.privateKey = mkOption {
-      type = types.str;
-      description = "Wireguard client private key";
-    };
-
     wireguard.presharedKey = mkOption {
       type = types.str;
       description = "Wireguard preshared key";
+    };
+
+    wireguard.port = mkOption {
+      type = types.int;
+      description = "Wireguard server port";
     };
 
     programs = let
