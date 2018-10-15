@@ -28,6 +28,7 @@ rec {
   home.file.".themes" = xdg.configFile."themes";
 
   home.packages = with pkgs; [
+    alacritty
     ffmpeg
     firefox
     font-awesome-ttf
@@ -36,7 +37,6 @@ rec {
     gorandr
     i3lock
     imagemagick
-    kitty
     libnotify
     maim
     mpv
