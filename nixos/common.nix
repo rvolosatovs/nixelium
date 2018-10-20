@@ -2,7 +2,7 @@
 {
   imports = [
     ./../modules/resources.nix
-    ./multi-glibc-locale-paths.nix
+    #./multi-glibc-locale-paths.nix
   ];
 
   environment.extraInit = ''
