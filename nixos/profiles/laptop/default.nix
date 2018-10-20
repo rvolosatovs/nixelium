@@ -9,6 +9,9 @@
     #./../../virtualbox.nix
   ];
 
+  hardware.pulseaudio.tcp.enable = true;
+  hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
+
   home-manager.users.${config.resources.username} = {...}: {
     imports = [
       ../../../home/profiles/laptop
