@@ -56,6 +56,7 @@
       "BurntSushi/toml"
       "BurntSushi/xgb"
       "golang/dep"
+      "google/go-github"
       "mohae/deepcopy"
       "oklog/ulid"
       "pkg/errors"
@@ -63,6 +64,7 @@
     ] ++ fromGitMap "https://go.googlesource.com" "golang.org/x" [
       "crypto"
       "exp"
+      "oauth2"
       "text"
       "time"
     ]);
