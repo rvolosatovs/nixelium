@@ -55,7 +55,6 @@
     listToAttrs ( fromGitMap "https://github.com" "github.com" [
       "BurntSushi/toml"
       "BurntSushi/xgb"
-      "go-redis/redis"
       "golang/dep"
       "google/go-github"
       "mohae/deepcopy"
