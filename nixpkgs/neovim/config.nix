@@ -140,7 +140,7 @@ pkgs: ''
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
   let g:go_auto_type_info = 0
-  let g:go_def_reuse_buffer = 1
+  let g:go_def_reuse_buffer = 0
   let g:go_doc_command = [ '${pkgs.gotools}/bin/godoc' ]
   let g:go_fmt_autosave = 1
   let g:go_fmt_command = '${pkgs.go}/bin/gofmt'
