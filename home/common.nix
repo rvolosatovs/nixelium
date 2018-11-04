@@ -56,7 +56,6 @@ in
       kitty.terminfo
       lm_sensors
       lsof
-      nix-index
       nix-prefetch-scripts
       nmap
       nox
