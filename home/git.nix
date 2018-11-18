@@ -15,50 +15,54 @@
   };
   programs.git.enable = true;
   programs.git.extraConfig = ''
-    [push]
-    default = nothing
-    gpgSign = if-asked
-    [status]
-    short = true
-    branch = true
-    submoduleSummary = true
-    showUntrackedFiles = all
-    [color]
-    ui = true
-    [diff]
-    renames = copy
     [branch]
-    autosetupmerge = false
-    autosetuprebase = always
+      autosetupmerge = false
+      autosetuprebase = always
+    [color]
+      ui = true
     [core]
-    autocrlf = false
-    safecrlf = false
-    editor = ${config.resources.programs.editor.executable.path}
-    excludesfile = ${builtins.toPath ./../dotfiles/git/gitignore}
-    [merge]
-    tool = nvimdiff
-    conflictstyle = diff3
+      autocrlf = false
+      editor = ${config.resources.programs.editor.executable.path}
+      excludesfile = ${builtins.toPath ./../dotfiles/git/gitignore}
+      safecrlf = false
     [diff]
-    tool = nvimdiff
-    [mergetool "nvimdiff"]
-    cmd = ${pkgs.neovim}/bin/nvim -c "Gdiff" $MERGED
-    [format]
-    pretty = %C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n
-    [http]
-    cookieFile = ~/.gitcookies
-    [http "https://gopkg.in"]
-    followRedirects = true
+      colorMoved = zebra
+      renames = copy
+      tool = nvimdiff
+    [fetch]
+      prune = true
     [filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
-    [rerere]
-    enabled = true
+      clean = git-lfs clean -- %f
+      process = git-lfs filter-process
+      required = true
+      smudge = git-lfs smudge -- %f
+    [format]
+      pretty = %C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n
     [ghq]
-    root = ~/src
+      root = ~/src
     [ghq "https://go.thethings.network"]
-    vcs = git
+      vcs = git
+    [http]
+      cookieFile = ~/.gitcookies
+    [http "https://gopkg.in"]
+      followRedirects = true
+    [merge]
+      conflictstyle = diff3
+      tool = nvimdiff
+    [mergetool "nvimdiff"]
+      cmd = ${pkgs.neovim}/bin/nvim -c "Gdiff" $MERGED
+    [push]
+      default = nothing
+      gpgSign = if-asked
+    [rebase]
+      autosquash = true
+    [rerere]
+      enabled = true
+    [status]
+      branch = true
+      short = true
+      showUntrackedFiles = all
+      submoduleSummary = true
   '';
   programs.git.userName = config.resources.fullName;
   programs.git.userEmail = config.resources.email;
