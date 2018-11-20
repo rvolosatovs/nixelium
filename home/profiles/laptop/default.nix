@@ -60,6 +60,7 @@
       "mohae/deepcopy"
       "oklog/ulid"
       "pkg/errors"
+      "y0ssar1an/q"
 
     ] ++ fromGitMap "https://go.googlesource.com" "golang.org/x" [
       "crypto"
