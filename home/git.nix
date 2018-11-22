@@ -50,7 +50,7 @@
       conflictstyle = diff3
       tool = nvimdiff
     [mergetool "nvimdiff"]
-      cmd = ${pkgs.neovim}/bin/nvim -c "Gdiff" $MERGED
+      cmd = ${pkgs.neovim}/bin/nvim -c "Gvdiff" $MERGED
     [push]
       default = nothing
       gpgSign = if-asked
