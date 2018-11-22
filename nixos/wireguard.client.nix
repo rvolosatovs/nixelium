@@ -10,4 +10,7 @@
   powerManagement.resumeCommands = ''
     ${pkgs.systemd}/bin/systemctl restart wireguard-wg0
   '';
+
+  systemd.services.wireguard-wg0.after = [ "NetworkManager-wait-online.service" ];
+  systemd.services.wireguard-wg0.wants = [ "NetworkManager-wait-online.service" ];
 }
