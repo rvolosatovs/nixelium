@@ -22,8 +22,6 @@ let
   configHome = "/var/lib/meet";
   httpPort = 24001;
   httpsPort = 24101;
-
-
 in
   {
     services.nginx.enable = true;
@@ -59,7 +57,6 @@ in
       createHome = true;
       description = "Jitsi Meet user";
       home = configHome;
-      #extraGroups = [ "docker" ];
     };
 
     virtualisation.docker.enable = true;
