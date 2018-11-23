@@ -10,6 +10,7 @@
     deluge
     dep
     direnv
+    echoip
     geoclue2
     go
     go-2fa
