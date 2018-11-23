@@ -7,6 +7,7 @@
     ./../../../vendor/secrets/resources/hosts/oxygen
     ./../../couchpotato.nix
     ./../../deluge.nix
+    ./../../echoip.nix
     ./../../meet.nix
     ./../../profiles/server
     ./hardware-configuration.nix
