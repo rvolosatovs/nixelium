@@ -27,10 +27,10 @@
     url = https://github.com/rvolosatovs/copier.git
 [submodule "vendor/hosts"]
 	path = vendor/hosts
-	url = https://github.com/StevenBlack/hosts.git
+	url = https://github.com/rvolosatovs/hosts.git
 [submodule "vendor/pass"]
 	path = vendor/pass
 	url = keybase://private/rvolosatovs/pass
 [submodule "vendor/docker-jitsi-meet"]
 	path = vendor/docker-jitsi-meet
-	url = https://github.com/jitsi/docker-jitsi-meet
+	url = https://github.com/rvolosatovs/docker-jitsi-meet
