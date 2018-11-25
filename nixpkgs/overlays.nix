@@ -21,6 +21,8 @@
     govendor
     grml-zsh-config
     i3
+    kbfs
+    keybase
     kitty
     mopidy
     mopidy-iris
