@@ -17,6 +17,7 @@
     go-sct
     gocode
     godef
+    gopass
     gotools
     govendor
     grml-zsh-config

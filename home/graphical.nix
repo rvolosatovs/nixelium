@@ -42,7 +42,6 @@ rec {
     mpv
     networkmanagerapplet
     pavucontrol
-    rofi-pass
     slop
     spotify
     sxhkd

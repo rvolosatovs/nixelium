@@ -259,6 +259,8 @@ pkgs: ''
   xmap     <C-k>         <Plug>(neosnippet_expand_target)
   xmap     <Leader><Tab> <Plug>(fzf-maps-x)
 
+  au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+
   au FileType  c                     packadd deoplete-clang
   au FileType  cpp                   packadd deoplete-clang
   au FileType  csharp                packadd deoplete-clang
