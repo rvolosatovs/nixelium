@@ -22,6 +22,8 @@
     ];
   };
 
+  networking.networkmanager.wifi.powersave = true;
+
   programs.adb.enable = true;
 
   services.printing.enable = true;
