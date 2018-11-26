@@ -1,6 +1,7 @@
 let
   wg.neon.publicKey = "weyoU0QBHrnjl+2dhibGm5um9+f2sZrg9x8SFd2AVhc=";
   wg.oxygen.publicKey = "xjzZIo0SKBNtwP/puZU4cMDdhOsdeMvC/qEKh6RAuAo=";
+  wg.zinc.publicKey = "QLMUw+yvwXuuEsN06zB+Mj9n/VqD+k4VKa5o2GZrLAk=";
 
   wg.privateKeyName = "wireguard-wg0-private";
 
@@ -37,10 +38,16 @@ in
       ];
       deployment.keys.${wg.privateKeyName}.text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/oxygen/wg.private;
       networking.wireguard.interfaces.wg0.privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
-      networking.wireguard.interfaces.wg0.peers = [{
-        inherit (wg.neon) publicKey;
-        allowedIPs = [ "10.0.0.2/32" ];
-      }];
+      networking.wireguard.interfaces.wg0.peers = [
+        {
+          inherit (wg.neon) publicKey;
+          allowedIPs = [ "10.0.0.2/32" ];
+        }
+        {
+          inherit (wg.zinc) publicKey;
+          allowedIPs = [ "10.0.0.12/32" ];
+        }
+      ];
       systemd.services.wireguard-wg0.after = [ "${wg.privateKeyName}-key.service" ];
       systemd.services.wireguard-wg0.wants = [ "${wg.privateKeyName}-key.service" ];
     };
