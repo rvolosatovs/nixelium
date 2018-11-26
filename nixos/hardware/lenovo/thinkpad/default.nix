@@ -36,9 +36,6 @@ with lib;
 
       hardware.cpu.intel.updateMicrocode = true;
 
-      hardware.pulseaudio.enable = true;
-      hardware.pulseaudio.package = pkgs.pulseaudioFull;
-
       security.polkit.extraConfig = ''
         /* https://wiki.archlinux.org/index.php/Fprint#Restrict_enrolling */
         polkit.addRule(function (action, subject) {

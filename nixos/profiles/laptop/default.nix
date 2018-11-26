@@ -9,8 +9,11 @@
     #./../../virtualbox.nix
   ];
 
-  hardware.pulseaudio.tcp.enable = true;
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.extraModules = [ pkgs.pulseaudio-modules-bt ];
+  hardware.pulseaudio.package = pkgs.pulseaudioFull;
   hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
+  hardware.pulseaudio.tcp.enable = true;
 
   home-manager.users.${config.resources.username} = {...}: {
     imports = [
