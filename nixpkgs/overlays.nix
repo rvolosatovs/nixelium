@@ -38,6 +38,7 @@
     pass
     passExtensions
     platformio
+    pulseaudio-modules-bt
     qsyncthingtray
     redshift
     richgo
