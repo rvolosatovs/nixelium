@@ -30,9 +30,6 @@
     super + shift + d
         ${pkgs.systemd}/bin/systemctl --user restart redshift.service
 
-    super + ctrl + l
-        ${pkgs.xautolock}/bin/xautolock -locknow
-
     XF86MyComputer
         ${terminal.executable.path} -e "${shell.executable.path} -i -c ${pkgs.lf}/bin/lf"
 
@@ -64,6 +61,19 @@
     # quit bspwm normally
     super + alt + Escape
         killall polybar; ${pkgs.bspwm}/bin/bspc quit; sudo ${pkgs.systemd}/bin/systemctl restart display-manager
+
+    # suspend
+    super + alt + s
+        /run/wrappers/bin/sudo ${pkgs.systemd}/bin/systemctl suspend
+
+    # restart wireguard VPN
+    super + alt + w
+        /run/wrappers/bin/sudo ${pkgs.systemd}/bin/systemctl restart wireguard-wg0.service
+
+    # lock
+    super + alt + l
+        ${pkgs.xautolock}/bin/xautolock -locknow
+
 
     # close and kill
     super + {_,shift + }q
