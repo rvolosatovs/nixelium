@@ -698,8 +698,8 @@ format = <ramp> <label>
 format-warn = <ramp> <label-warn>
 format-warn-foreground = ${colors.base09}
 
-label = %temperature%
-label-warn = %temperature%
+label = %temperature-c%
+label-warn = %temperature-c%
 
 ramp-0 = 
 ramp-1 = 
