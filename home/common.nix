@@ -12,7 +12,10 @@ in
       ./zsh.nix
     ];
 
-    accounts.email.accounts.${config.resources.email}.address = config.resources.email;
+    accounts.email.accounts.${config.resources.email} = {
+      address = config.resources.email;
+      primary = true;
+    };
 
     home.file.".inputrc".text = ''
       $include /etc/inputrc
@@ -127,7 +130,7 @@ in
     programs.fzf.enableZshIntegration = true;
 
     programs.home-manager.enable = true;
-    programs.home-manager.path = "${lib.toPath ./../vendor/home-manager}";
+    programs.home-manager.path = "${builtins.toPath ./../vendor/home-manager}";
 
     programs.ssh.enable = true;
     programs.ssh.compression = true;
