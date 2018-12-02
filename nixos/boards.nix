@@ -8,6 +8,9 @@
     # OLKB kerboards
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", OWNER="${config.resources.username}"
 
+    # Planck Rev6 bootloader
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", OWNER="${config.resources.username}"
+
     # Keyboardio
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2301", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", OWNER="${config.resources.username}"
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2300", ENV{ID_MM_DEVICE_IGNORE}:="1", ENV{ID_MM_CANDIDATE}:="0", OWNER="${config.resources.username}"
