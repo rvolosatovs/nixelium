@@ -1,8 +1,5 @@
 { pkgs, ... }:
 {
-  networking.networkmanager.dns = "dnsmasq";
-  networking.networkmanager.unmanaged = [ "wg0" ];
-
   networking.wireguard.interfaces.wg0.allowedIPsAsRoutes = false;
 
   networking.wireguard.interfaces.wg0.postSetup = ''
