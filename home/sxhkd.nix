@@ -70,6 +70,10 @@
     super + alt + w
         /run/wrappers/bin/sudo ${pkgs.systemd}/bin/systemctl restart wireguard-wg0.service
 
+    # reload bspwm
+    super + alt + b
+        /home/${config.resources.username}/.config/bspwm/bspwmrc
+
     # lock
     super + alt + l
         ${pkgs.xautolock}/bin/xautolock -locknow
