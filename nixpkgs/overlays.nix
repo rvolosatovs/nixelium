@@ -37,6 +37,7 @@
     neovim-unwrapped
     pass
     passExtensions
+
     platformio
     pulseaudio-modules-bt
     qsyncthingtray
@@ -79,5 +80,22 @@
     neovim = self.neovim.override (import ./neovim self);
 
     pass = self.pass.withExtensions (es: [ es.pass-otp ]);
+
+    ioquake3Full = let
+      paks = super.stdenv.mkDerivation {
+        name = "quake3-paks";
+        src = ./../vendor/quake3-paks;
+        buildCommand = ''
+          install -D -m644 $src/baseq3/pak0.pk3       $out/baseq3/pak0.pk3
+          install -D -m644 $src/missionpack/pak1.pk3 $out/missionpack/pak1.pk3
+          install -D -m644 $src/missionpack/pak2.pk3 $out/missionpack/pak2.pk3
+          install -D -m644 $src/missionpack/pak3.pk3 $out/missionpack/pak3.pk3
+        '';
+      };
+    in self.quake3wrapper {
+      name = "ioquake3-full";
+      description = "Full ioquake3";
+      paks = [ self.quake3pointrelease paks ];
+    };
   })
 ]
