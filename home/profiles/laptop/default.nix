@@ -21,6 +21,7 @@
       godef
       gotools
       httpie
+      ioquake3Full
       julia
       keybase
       llvm
@@ -30,6 +31,7 @@
       platformio
       playerctl
       poppler_utils
+      sshfs
       taskwarrior
       wineStaging
       winetricks
