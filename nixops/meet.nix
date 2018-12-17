@@ -8,8 +8,10 @@ in
       text = with config.resources; ''
         JICOFO_AUTH_PASSWORD=${jicofo.authPassword}
         JICOFO_COMPONENT_SECRET=${jicofo.componentSecret}
-        JVB_COMPONENT_SECRET=${jvb.componentSecret}
+        JIGASI_XMPP_PASSWORD="${jigasi.xmppPassword}";
+        JVB_AUTH_PASSWORD=${jvb.authPassword}
       '';
+
       user = serviceName;
     };
 

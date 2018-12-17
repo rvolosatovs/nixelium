@@ -70,9 +70,19 @@ in
       description = "XMPP component password for Jicofo";
     };
 
-    jvb.componentSecret = mkOption {
+    jigasi.xmppPassword = mkOption {
       type = types.str;
-      description = "XMPP component password for Jitsi Videobridge";
+      description = "XMPP password for Jigasi MUC client connections";
+    };
+
+    jvb.authPassword = mkOption {
+      type = types.str;
+      description = "XMPP password for JVB MUC client connections";
+    };
+
+    meet.userPassword = mkOption {
+      type = types.str;
+      description = "Meet user password";
     };
 
     soundcloud.token = mkOption {
