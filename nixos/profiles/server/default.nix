@@ -4,6 +4,7 @@
   imports = [
     ./../..
     ./../../nginx.nix
+    ./../../dumpster.nix
   ];
 
   boot.initrd.network.enable = true;

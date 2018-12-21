@@ -34,3 +34,6 @@
 [submodule "vendor/docker-jitsi-meet"]
 	path = vendor/docker-jitsi-meet
 	url = https://github.com/rvolosatovs/docker-jitsi-meet
+[submodule "vendor/dumpster"]
+	path = vendor/dumpster
+	url = https://github.com/rvolosatovs/dumpster.git

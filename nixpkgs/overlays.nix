@@ -37,7 +37,6 @@
     neovim-unwrapped
     pass
     passExtensions
-
     platformio
     pulseaudio-modules-bt
     qsyncthingtray
@@ -61,11 +60,15 @@
     ;
   })
   (super: self: {
-    copier = super.callPackage ./../vendor/copier {
+    copier = self.callPackage ./../vendor/copier {
       inherit (self) buildGoPackage stdenv;
     };
 
-    gorandr = super.callPackage ./../vendor/gorandr {
+    gorandr = self.callPackage ./../vendor/gorandr {
+      inherit (self) buildGoPackage stdenv;
+    };
+
+    dumpster = self.callPackage ./../vendor/dumpster {
       inherit (self) buildGoPackage stdenv;
     };
 
@@ -82,7 +85,7 @@
     pass = self.pass.withExtensions (es: [ es.pass-otp ]);
 
     ioquake3Full = let
-      paks = super.stdenv.mkDerivation {
+      paks = self.stdenv.mkDerivation {
         name = "quake3-paks";
         src = ./../vendor/quake3-paks;
         buildCommand = ''
