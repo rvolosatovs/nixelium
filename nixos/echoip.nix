@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 {
   services.nginx.enable = true;
+  services.nginx.virtualHosts."ifconfig".addSSL = true;
   services.nginx.virtualHosts."ifconfig".enableACME = true;
-  services.nginx.virtualHosts."ifconfig".forceSSL = true;
   services.nginx.virtualHosts."ifconfig".locations."/".proxyPass = "http://localhost:24002";
   services.nginx.virtualHosts."ifconfig".serverName = "ifconfig.${config.resources.domainName}";
   services.nginx.virtualHosts."ifconfig".extraConfig = ''
