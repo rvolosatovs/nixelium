@@ -16,6 +16,9 @@ in
         ./../../profiles/laptop
       ];
       deployment.keys.${wg.privateKeyName}.text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/wg.private;
+
+      networking.nat.externalInterface = "eth0";
+
       networking.wireguard.interfaces.wg0.ips = [ "10.0.0.2/24" ];
       networking.wireguard.interfaces.wg0.privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
       networking.wireguard.interfaces.wg0.peers = [{
@@ -24,6 +27,7 @@ in
         endpoint = "oxygen:${toString resources.wireguard.port}";
         persistentKeepalive = 25;
       }];
+
       systemd.services.wireguard-wg0.after = [ "${wg.privateKeyName}-key.service" ];
       systemd.services.wireguard-wg0.wants = [ "${wg.privateKeyName}-key.service" ];
     };
@@ -37,6 +41,7 @@ in
         ./../../profiles/server
       ];
       deployment.keys.${wg.privateKeyName}.text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/oxygen/wg.private;
+
       networking.wireguard.interfaces.wg0.privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
       networking.wireguard.interfaces.wg0.peers = [
         {
@@ -48,6 +53,7 @@ in
           allowedIPs = [ "10.0.0.12/32" ];
         }
       ];
+
       systemd.services.wireguard-wg0.after = [ "${wg.privateKeyName}-key.service" ];
       systemd.services.wireguard-wg0.wants = [ "${wg.privateKeyName}-key.service" ];
     };
