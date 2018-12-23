@@ -22,6 +22,8 @@
     govendor
     grml-zsh-config
     i3
+    ioquake3
+    ioquake3pointrelease
     kbfs
     keybase
     kitty
@@ -40,6 +42,8 @@
     platformio
     pulseaudio-modules-bt
     qsyncthingtray
+    quake3pointrelease
+    quake3wrapper
     redshift
     richgo
     ripgrep
@@ -84,21 +88,21 @@
 
     pass = self.pass.withExtensions (es: [ es.pass-otp ]);
 
-    ioquake3Full = let
-      paks = self.stdenv.mkDerivation {
-        name = "quake3-paks";
-        src = ./../vendor/quake3-paks;
-        buildCommand = ''
-          install -D -m644 $src/baseq3/pak0.pk3       $out/baseq3/pak0.pk3
-          install -D -m644 $src/missionpack/pak1.pk3 $out/missionpack/pak1.pk3
-          install -D -m644 $src/missionpack/pak2.pk3 $out/missionpack/pak2.pk3
-          install -D -m644 $src/missionpack/pak3.pk3 $out/missionpack/pak3.pk3
-        '';
-      };
-    in self.quake3wrapper {
+    quake3ProprietaryPaks = self.stdenv.mkDerivation {
+      name = "quake3-paks";
+      src = ./../vendor/quake3-paks;
+      buildCommand = ''
+        install -D -m644 $src/baseq3/pak0.pk3      $out/baseq3/pak0.pk3
+        install -D -m644 $src/missionpack/pak1.pk3 $out/missionpack/pak1.pk3
+        install -D -m644 $src/missionpack/pak2.pk3 $out/missionpack/pak2.pk3
+        install -D -m644 $src/missionpack/pak3.pk3 $out/missionpack/pak3.pk3
+      '';
+    };
+
+    ioquake3Full = self.quake3wrapper {
       name = "ioquake3-full";
       description = "Full ioquake3";
-      paks = [ self.quake3pointrelease paks ];
+      paks = [ self.quake3pointrelease self.quake3ProprietaryPaks ];
     };
   })
 ]

@@ -36,6 +36,11 @@ in
       description = "Base16 theme name";
     };
 
+    duckduckgo.key = mkOption {
+      type = types.str;
+      description = "DuckDuckGo key";
+    };
+
     graphics.enable = mkEnableOption "graphical user interface";
 
     histsize = mkOption {
@@ -55,9 +60,14 @@ in
       description = "GPG key fingerprint";
     };
 
-    duckduckgo.key = mkOption {
+    ioquake3.privatePassword = mkOption {
       type = types.str;
-      description = "DuckDuckGo key";
+      description = "ioquake3 private password";
+    };
+
+    ioquake3.rconPassword = mkOption {
+      type = types.str;
+      description = "ioquake3 rcon password";
     };
 
     jicofo.authPassword = mkOption {
