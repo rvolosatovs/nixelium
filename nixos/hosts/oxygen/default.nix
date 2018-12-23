@@ -10,6 +10,7 @@
     ./../../echoip.nix
     ./../../meet.nix
     ./../../profiles/server
+    ./../../quake3.server.nix
     ./hardware-configuration.nix
   ];
 
