@@ -4,14 +4,12 @@
 [submodule "vendor/home-manager"]
     path = vendor/home-manager
     url = https://github.com/rvolosatovs/home-manager.git
-    branch = release-18.03
 [submodule "vendor/nixos-hardware"]
     path = vendor/nixos-hardware
     url = https://github.com/rvolosatovs/nixos-hardware.git
 [submodule "vendor/nixpkgs"]
     path = vendor/nixpkgs
     url = https://github.com/rvolosatovs/nixpkgs.git
-    branch = nixos-18.03
 [submodule "vendor/nixpkgs-unstable"]
     path = vendor/nixpkgs-unstable
     url = https://github.com/rvolosatovs/nixpkgs.git
