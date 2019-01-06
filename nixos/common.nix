@@ -5,8 +5,6 @@
     #./multi-glibc-locale-paths.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   environment.extraInit = ''
       export PATH="$HOME/.local/bin:$HOME/.local/bin.go:$PATH"
   '';
