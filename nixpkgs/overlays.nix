@@ -11,6 +11,7 @@
     dep
     direnv
     echoip
+    fwupd
     geoclue2
     go
     go-2fa
