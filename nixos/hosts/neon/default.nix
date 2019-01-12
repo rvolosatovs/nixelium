@@ -27,6 +27,9 @@ in
       fileSystems."/home".options = mountOpts;
 
       networking.hostName = "neon";
+      networking.firewall.allowedUDPPorts = [
+        1700
+      ];
 
       nix.nixPath = [
         "nixos-config=${builtins.toPath ./.}"
