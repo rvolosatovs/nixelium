@@ -27,6 +27,7 @@
       llvm
       llvmPackages.libclang
       macchanger
+      minicom
       nixops
       platformio
       playerctl
