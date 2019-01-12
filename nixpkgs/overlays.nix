@@ -27,6 +27,7 @@
     ioquake3pointrelease
     kbfs
     keybase
+    keybase-gui
     kitty
     mopidy
     mopidy-iris
