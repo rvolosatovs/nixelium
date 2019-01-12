@@ -130,7 +130,7 @@ in
     programs.fzf.enableZshIntegration = true;
 
     programs.home-manager.enable = true;
-    programs.home-manager.path = "${builtins.toPath ./../vendor/home-manager}";
+    programs.home-manager.path = ./../vendor/home-manager;
 
     programs.ssh.enable = true;
     programs.ssh.compression = true;
@@ -184,9 +184,6 @@ in
     xdg.configFile."gocode/config.json".source = ./../dotfiles/gocode/config.json;
     xdg.configFile."htop/htoprc".source = ./../dotfiles/htop/htoprc;
     xdg.configFile."nixpkgs/config.nix".source = ./../nixpkgs/config.nix;
-    xdg.configFile."nixpkgs/overlays.nix".text = ''
-      import ${builtins.toPath ./../nixpkgs/overlays.nix}
-    '';
     xdg.configFile."user-dirs.dirs".source = ./../dotfiles/user-dirs.dirs;
     xdg.configFile."user-dirs.locale".source = ./../dotfiles/user-dirs.locale;
     xdg.configHome = "${config.home.homeDirectory}/.config";

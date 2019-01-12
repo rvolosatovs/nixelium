@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  composeFile = builtins.path { path = ./../vendor/docker-jitsi-meet/docker-compose.yml; };
+  composeFile = ./../vendor/docker-jitsi-meet/docker-compose.yml;
   composeFileOverrides = builtins.toFile "docker-compose.overrides.yml" ''
     version: '3'
 

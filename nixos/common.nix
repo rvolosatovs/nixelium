@@ -80,11 +80,26 @@
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
   nix.gc.automatic = true;
-  nix.nixPath = with builtins; [
-    "home-manager=${toPath ./../vendor/home-manager}"
-    "nixos-hardware=${toPath ./../vendor/nixos-hardware}"
-    "nixpkgs-unstable=${toPath ./../vendor/nixpkgs-unstable}"
-    "nixpkgs=${toPath ./../vendor/nixpkgs}"
+  nix.nixPath = let
+    overlays = (lib.sourceByRegex ./.. [ 
+      "nixpkgs"
+      "nixpkgs/neovim"
+      "nixpkgs/neovim/.*"
+      "nixpkgs/overlays.nix"
+      "vendor"
+      "vendor/copier"
+      "vendor/copier/.*"
+      "vendor/dumpster"
+      "vendor/dumpster/.*"
+      "vendor/gorandr"
+      "vendor/gorandr/.*"
+    ]) + "/nixpkgs/overlays.nix";
+  in
+  [
+    "home-manager=${./../vendor/home-manager}"
+    "nixpkgs-overlays=${overlays}"
+    "nixpkgs-unstable=${./../vendor/nixpkgs-unstable}"
+    "nixpkgs=${./../vendor/nixpkgs}"
   ];
   nix.optimise.automatic = true;
   nix.requireSignedBinaryCaches = true;

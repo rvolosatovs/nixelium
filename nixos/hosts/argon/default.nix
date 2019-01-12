@@ -28,9 +28,5 @@ in
     fileSystems."/home".options = mountOpts;
 
     networking.hostName = "argon";
-
-    nix.nixPath = [
-      "nixos-config=${builtins.toPath ./.}"
-    ];
   };
 }

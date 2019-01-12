@@ -113,7 +113,7 @@ rec {
   programs.zsh.plugins = [
     {
       name = "base16-shell";
-      src = pkgs.copyPathToStore ../vendor/base16-shell;
+      src =  ./../vendor/base16-shell;
     }
   ];
   programs.zsh.profileExtra = ''

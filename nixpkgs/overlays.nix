@@ -1,6 +1,6 @@
 [
   (_: _: let
-    unstable = import ./../vendor/nixpkgs-unstable { overlays = []; };
+    unstable = import <nixpkgs-unstable> { overlays = []; };
   in {
     inherit (unstable)
     alacritty
@@ -70,11 +70,11 @@
       inherit (self) buildGoPackage stdenv;
     };
 
-    gorandr = self.callPackage ./../vendor/gorandr {
+    dumpster = self.callPackage ./../vendor/dumpster {
       inherit (self) buildGoPackage stdenv;
     };
 
-    dumpster = self.callPackage ./../vendor/dumpster {
+    gorandr = self.callPackage ./../vendor/gorandr {
       inherit (self) buildGoPackage stdenv;
     };
 
@@ -92,7 +92,7 @@
 
     quake3ProprietaryPaks = self.stdenv.mkDerivation {
       name = "quake3-paks";
-      src = ./../vendor/quake3-paks;
+      src = ./../vendor/quake3-paks; # TODO: Move to a stable location and create a package
       buildCommand = ''
         install -D -m644 $src/baseq3/pak0.pk3      $out/baseq3/pak0.pk3
         install -D -m644 $src/missionpack/pak1.pk3 $out/missionpack/pak1.pk3
