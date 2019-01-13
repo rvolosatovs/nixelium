@@ -31,8 +31,12 @@ in
         1700
       ];
 
-      nix.nixPath = [
-        "nixos-config=${builtins.toPath ./.}"
+      nix.nixPath = lib.mkBefore [
+        "home-manager=${toString ./../../../vendor/home-manager}"
+        "nixos-config=${toString ./.}"
+        "nixpkgs-overlays=${toString ../../../nixpkgs/overlays.nix}"
+        "nixpkgs-unstable=${toString ../../../vendor/nixpkgs-unstable}"
+        "nixpkgs=${toString ../../../vendor/nixpkgs}"
       ];
     };
   }

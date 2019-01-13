@@ -81,11 +81,19 @@
   ];
   nix.gc.automatic = true;
   nix.nixPath = let
-    overlays = (lib.sourceByRegex ./.. [ 
+    infrastructure = (lib.sourceByRegex ./.. [ 
+      "dotfiles"
+      "dotfiles/.*"
+      "home"
+      "home/.*"
+      "modules"
+      "modules/.*"
+      "nixos"
+      "nixos/.*"
       "nixpkgs"
-      "nixpkgs/neovim"
-      "nixpkgs/neovim/.*"
-      "nixpkgs/overlays.nix"
+      "nixpkgs/.*"
+      "resources"
+      "resources/.*"
       "vendor"
       "vendor/copier"
       "vendor/copier/.*"
@@ -93,13 +101,14 @@
       "vendor/dumpster/.*"
       "vendor/gorandr"
       "vendor/gorandr/.*"
-    ]) + "/nixpkgs/overlays.nix";
+    ]);
   in
   [
-    "home-manager=${./../vendor/home-manager}"
-    "nixpkgs-overlays=${overlays}"
-    "nixpkgs-unstable=${./../vendor/nixpkgs-unstable}"
-    "nixpkgs=${./../vendor/nixpkgs}"
+    "home-manager=https://github.com/rvolosatovs/home-manager/archive/release-${config.system.stateVersion}.tar.gz"
+    "nixos-config=${infrastructure}/nixos/hosts/${config.networking.hostName}"
+    "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
+    "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/nixos-unstable.tar.gz"
+    "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos-${config.system.stateVersion}.tar.gz"
   ];
   nix.optimise.automatic = true;
   nix.requireSignedBinaryCaches = true;
