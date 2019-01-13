@@ -43,4 +43,4 @@
 	url = https://github.com/rvolosatovs/Model01-Firmware.git
 [submodule "vendor/nur"]
 	path = vendor/nur
-	url = https://github.com/nix-community/NUR.git
+	url = https://github.com/rvolosatovs/NUR.git
