@@ -101,6 +101,8 @@
       "vendor/dumpster/.*"
       "vendor/gorandr"
       "vendor/gorandr/.*"
+      "vendor/nur"
+      "vendor/nur/.*"
     ]);
   in
   [

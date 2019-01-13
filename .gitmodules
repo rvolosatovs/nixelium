@@ -41,3 +41,6 @@
 [submodule "vendor/Model01-Firmware"]
 	path = vendor/Model01-Firmware
 	url = https://github.com/rvolosatovs/Model01-Firmware.git
+[submodule "vendor/nur"]
+	path = vendor/nur
+	url = https://github.com/nix-community/NUR.git

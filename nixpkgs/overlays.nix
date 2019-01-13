@@ -65,7 +65,12 @@
     simple-websocket-server
     ;
   })
-  (super: self: {
+
+  (_: self: {
+    nur = import ./../vendor/nur { pkgs = self; };
+  })
+
+  (_: self: {
     copier = self.callPackage ./../vendor/copier {
       inherit (self) buildGoPackage stdenv;
     };
@@ -78,18 +83,6 @@
       inherit (self) buildGoPackage stdenv;
     };
 
-    firefox = self.wrapFirefox.override {
-      config = self.lib.setAttrByPath [ self.firefox.browserName or (builtins.parseDrvName self.firefox.name).name ] {
-        enableBrowserpass = true;
-        enableDjvu = true;
-        enableGoogleTalkPlugin = true;
-      };
-    } self.firefox {};
-
-    neovim = self.neovim.override (import ./neovim self);
-
-    pass = self.pass.withExtensions (es: [ es.pass-otp ]);
-
     quake3ProprietaryPaks = self.stdenv.mkDerivation {
       name = "quake3-paks";
       src = ./../vendor/quake3-paks; # TODO: Move to a stable location and create a package
@@ -100,11 +93,25 @@
         install -D -m644 $src/missionpack/pak3.pk3 $out/missionpack/pak3.pk3
       '';
     };
+ })
+
+ (super: self: {
+    firefox = self.wrapFirefox.override {
+      config = self.lib.setAttrByPath [ self.firefox.browserName or (builtins.parseDrvName self.firefox.name).name ] {
+        enableBrowserpass = true;
+        enableDjvu = true;
+        enableGoogleTalkPlugin = true;
+      };
+    } self.firefox {};
 
     ioquake3Full = self.quake3wrapper {
       name = "ioquake3-full";
       description = "Full ioquake3";
       paks = [ self.quake3pointrelease self.quake3ProprietaryPaks ];
     };
+
+    neovim = self.neovim.override (import ./neovim self);
+
+    pass = self.pass.withExtensions (es: [ es.pass-otp ]);
   })
 ]
