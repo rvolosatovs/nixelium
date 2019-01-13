@@ -5,6 +5,7 @@
     inherit (unstable)
     alacritty
     arduino
+    brave
     bspwm
     cachix
     deluge

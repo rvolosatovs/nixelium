@@ -39,8 +39,8 @@
       shell.executable.name ="zsh";
 
     } // optionalAttrs config.resources.graphics.enable {
-      browser.package = pkgs.firefox;
-      browser.executable.name ="firefox";
+      browser.package = pkgs.brave;
+      browser.executable.name ="brave --disable-webtorrent-extension";
 
       mailer.package = pkgs.thunderbird;
       mailer.executable.name ="thunderbird";

@@ -30,7 +30,6 @@ rec {
   home.packages = with pkgs; [
     alacritty
     ffmpeg
-    firefox
     font-awesome-ttf
     gnome3.dconf
     gnome3.glib_networking

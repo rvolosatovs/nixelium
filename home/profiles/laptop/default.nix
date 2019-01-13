@@ -43,8 +43,6 @@
       tig
     ]);
 
-    programs.firefox.enableAdobeFlash = true;
-
     programs.git.signing.key = config.resources.gpg.publicKey.fingerprint;
     programs.git.signing.signByDefault = true;
 
