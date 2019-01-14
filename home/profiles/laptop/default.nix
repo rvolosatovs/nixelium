@@ -21,7 +21,6 @@
       godef
       gotools
       httpie
-      ioquake3Full
       julia
       keybase
       llvm
