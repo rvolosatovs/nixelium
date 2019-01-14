@@ -32,6 +32,7 @@
     keybase
     keybase-gui
     kitty
+    mbed-cli
     mopidy
     mopidy-iris
     mopidy-local-images
@@ -42,6 +43,7 @@
     mopidy-youtube
     neovim
     neovim-unwrapped
+    nodePackages
     pass
     passExtensions
     platformio
