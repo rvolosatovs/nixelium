@@ -27,6 +27,8 @@ use_nix() {
   eval "$(< $cache)"
   export PATH=$PATH:$path_backup
 
+  watch_file $cache
+  watch_file .envrc
   if [[ $# = 0 ]]; then
     watch_file default.nix
     watch_file shell.nix
