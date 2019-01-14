@@ -11,6 +11,8 @@
     deluge
     dep
     direnv
+    docker
+    docker_compose
     echoip
     fwupd
     geoclue2
