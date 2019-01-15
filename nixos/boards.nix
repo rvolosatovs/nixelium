@@ -25,7 +25,7 @@
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", OWNER="${config.resources.username}"
 
     # SparkFun Pro Micro
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9204", OWNER="${config.resources.username}"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="920[3456]", ENV{ID_MM_DEVICE_IGNORE}="1", OWNER="${config.resources.username}"
 
     # Teensy
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789ABCD]?", OWNER="${config.resources.username}"
