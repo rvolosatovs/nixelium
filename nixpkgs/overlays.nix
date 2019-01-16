@@ -8,12 +8,14 @@
     brave
     bspwm
     cachix
+    chromium
     deluge
     dep
     direnv
     docker
     docker_compose
     echoip
+    firefox
     fwupd
     geoclue2
     go
@@ -51,9 +53,11 @@
     qsyncthingtray
     quake3pointrelease
     quake3wrapper
+    rclone
     redshift
     richgo
     ripgrep
+    rofi
     rtorrent
     sway
     syncthing
