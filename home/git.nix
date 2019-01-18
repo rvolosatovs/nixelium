@@ -64,6 +64,10 @@
       short = true
       showUntrackedFiles = all
       submoduleSummary = true
+    [url "ssh://git@github.com/TheThingsNetwork"]
+      insteadOf = https://github.com/TheThingsNetwork
+    [url "ssh://git@github.com/TheThingsIndustries"]
+      insteadOf = https://github.com/TheThingsIndustries
   '';
   programs.git.userName = config.resources.fullName;
   programs.git.userEmail = config.resources.email;
