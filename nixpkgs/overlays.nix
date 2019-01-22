@@ -35,6 +35,7 @@
     keybase-gui
     kitty
     mbed-cli
+    miniflux
     mopidy
     mopidy-iris
     mopidy-local-images
