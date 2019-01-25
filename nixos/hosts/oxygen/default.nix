@@ -9,6 +9,7 @@
     ./../../deluge.nix
     ./../../echoip.nix
     ./../../meet.nix
+    ./../../miniflux.nix
     ./../../profiles/server
     #./../../quake3.server.nix
     ./hardware-configuration.nix
