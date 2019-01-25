@@ -173,7 +173,7 @@ in
     services.gpg-agent.enableSshSupport = true;
     services.gpg-agent.grabKeyboardAndMouse = false;
 
-    services.syncthing.enable = true;
+    services.syncthing.enable = false;
     services.syncthing.tray = config.resources.graphics.enable;
 
     systemd.user.startServices = true;
