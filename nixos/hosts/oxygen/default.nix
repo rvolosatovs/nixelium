@@ -11,6 +11,7 @@
     ./../../meet.nix
     ./../../miniflux.nix
     ./../../profiles/server
+    ./../../ttn-docker.nix
     #./../../quake3.server.nix
     ./hardware-configuration.nix
   ];
