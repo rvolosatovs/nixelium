@@ -9,6 +9,7 @@
     bspwm
     cachix
     chromium
+    cockroachdb
     deluge
     dep
     direnv
@@ -55,6 +56,7 @@
     quake3pointrelease
     quake3wrapper
     rclone
+    redis
     redshift
     richgo
     ripgrep
