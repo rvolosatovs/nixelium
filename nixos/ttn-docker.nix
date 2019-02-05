@@ -23,11 +23,6 @@ in
     services.nginx.virtualHosts."ttn".locations."/".proxyPass = "http://localhost:${toString httpPort}";
     services.nginx.virtualHosts."ttn".serverName = "ttn.${config.resources.domainName}";
 
-    services.nginx.virtualHosts."ttn-oauth".addSSL = true;
-    services.nginx.virtualHosts."ttn-oauth".enableACME = true;
-    services.nginx.virtualHosts."ttn-oauth".locations."/".proxyPass = "http://localhost:11885";
-    services.nginx.virtualHosts."ttn-oauth".serverName = "ttn-oauth.${config.resources.domainName}";
-
     systemd.services.ttn.after = [ "network.target" ];
     systemd.services.ttn.description = "The Things Network LoRaWAN stack";
     systemd.services.ttn.enable = true;
