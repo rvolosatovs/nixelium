@@ -45,6 +45,7 @@
     mopidy-spotify
     mopidy-spotify-tunigo
     mopidy-youtube
+    nerdfonts
     neovim
     neovim-unwrapped
     nodePackages
