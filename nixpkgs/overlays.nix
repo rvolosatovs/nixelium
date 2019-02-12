@@ -97,7 +97,7 @@
       inherit (self) buildGoPackage stdenv;
     };
 
-    quake3ProprietaryPaks = self.stdenv.mkDerivation {
+    quake3ProprietaryPaks = with self; stdenv.mkDerivation {
       name = "quake3-paks";
       src = ./../vendor/quake3-paks; # TODO: Move to a stable location and create a package
       buildCommand = ''
@@ -106,10 +106,42 @@
         install -D -m644 $src/missionpack/pak2.pk3 $out/missionpack/pak2.pk3
         install -D -m644 $src/missionpack/pak3.pk3 $out/missionpack/pak3.pk3
       '';
-    };
- })
 
- (super: self: {
+      meta = with stdenv.lib; {
+        description = "Proprietary Quake3 paks";
+      };
+    };
+  })
+
+  (_: self: let
+    nerdfontRelease = fontName: sha256: with self; stdenv.mkDerivation rec {
+      # Inspired by https://github.com/Mic92/nur-packages/blob/20eeaca1de1a385df5b41043a525b9e0942ad927/pkgs/fira-code-nerdfonts/default.nix
+
+      name = "nerdfont-${fontName}-${version}";
+      version = "2.0.0";
+
+      src = fetchzip {
+        inherit sha256;
+        url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${fontName}.zip";
+        stripRoot = false;
+      };
+      buildCommand = ''
+        install --target $out/share/fonts/opentype -D $src/*.otf
+        rm $out/share/fonts/opentype/*Windows\ Compatible.otf
+      '';
+
+      meta = with stdenv.lib; {
+        description = "Nerdfont version of ${fontName}";
+        homepage = https://github.com/ryanoasis/nerd-fonts;
+        license = licenses.mit;
+      };
+    };
+  in
+  {
+    furaCode = nerdfontRelease "FiraCode" "1bnai3k3hg6sxbb1646ahd82dm2ngraclqhdygxhh7fqqnvc3hdy";
+  })
+
+  (super: self: {
     firefox = self.wrapFirefox.override {
       config = self.lib.setAttrByPath [ self.firefox.browserName or (builtins.parseDrvName self.firefox.name).name ] {
         enableBrowserpass = true;
