@@ -183,15 +183,28 @@
   time.timeZone = "Europe/Amsterdam";
 
   users.defaultUserShell = config.resources.programs.shell.executable.path;
+  users.groups.netdev = {};
+  users.groups.plugdev = {};
   users.mutableUsers = false;
-
   users.users.${config.resources.username} = {
-    createHome = true;
     extraGroups = [
-      "users" "wheel" "input" "audio" "video" "networkmanager"
-      "docker" "dialout" "tty" "uucp" "disk" "adm" "libvirtd" "ssh"
+      "adm"
+      "audio"
+      "dialout"
+      "disk"
+      "docker"
+      "input"
+      "libvirtd"
+      "netdev"
+      "networkmanager"
+      "plugdev"
+      "ssh"
+      "tty"
+      "users"
+      "uucp"
+      "video"
+      "wheel"
     ];
-    home = "/home/${config.resources.username}";
     isNormalUser = true;
     openssh.authorizedKeys.keys = config.resources.ssh.publicKeys;
   };
