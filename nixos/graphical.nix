@@ -11,12 +11,7 @@
 
   fonts.enableFontDir = true;
   fonts.enableGhostscriptFonts = true;
-  fonts.fonts = let
-    furaCode = pkgs.nerdfonts.override {
-      withFont = "FiraCode";
-    };
-  in
-  with pkgs; [
+  fonts.fonts = with pkgs; [
     comic-relief
     fira
     furaCode
