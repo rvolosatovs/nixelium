@@ -140,6 +140,7 @@ pkgs: ''
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
   let g:go_auto_type_info = 0
+  let g:go_def_mode = 'godef'
   let g:go_def_reuse_buffer = 0
   let g:go_doc_command = [ '${pkgs.gotools}/bin/godoc' ]
   let g:go_fmt_autosave = 1
@@ -167,7 +168,7 @@ pkgs: ''
   let g:go_highlight_types = 0
   let g:go_highlight_variable_assignments = 0
   let g:go_highlight_variable_declarations = 0
-  let g:go_snippet_engine = "neosnippet"
+  let g:go_snippet_engine = 'neosnippet'
   let g:go_term_enabled=1
   let g:go_test_show_name=1
 
