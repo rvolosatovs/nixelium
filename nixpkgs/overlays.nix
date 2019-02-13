@@ -68,6 +68,7 @@
     syncthing
     syncthing-cli
     syncthing-tray
+    vgo2nix
     vim
     vimPlugins
     weechat
