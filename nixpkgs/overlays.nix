@@ -1,6 +1,6 @@
 [
   (_: _: let
-    unstable = import <nixpkgs-unstable> { overlays = []; };
+    unstable = import <nixpkgs-unstable> { config = import ./config.nix; overlays = []; };
   in {
     inherit (unstable)
     alacritty
