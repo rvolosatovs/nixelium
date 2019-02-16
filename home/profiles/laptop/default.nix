@@ -17,7 +17,6 @@
       deluge
       drive
       go-2fa
-      gocode
       godef
       gotools
       httpie
