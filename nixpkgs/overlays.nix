@@ -24,6 +24,7 @@
     go-2fa
     go-sct
     gocode
+    gocode-gomod
     godef
     gopass
     gotools
