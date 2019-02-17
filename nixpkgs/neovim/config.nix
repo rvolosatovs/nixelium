@@ -132,7 +132,7 @@ pkgs: ''
 
   let g:deoplete#sources#go#auto_goos = 1
   let g:deoplete#sources#go#cgo = 0
-  let g:deoplete#sources#go#gocode_binary = '${pkgs.gocode}/bin/gocode'
+  let g:deoplete#sources#go#gocode_binary = '${pkgs.gocode-gomod}/bin/gocode-gomod'
   let g:deoplete#sources#go#package_dot = 0
   let g:deoplete#sources#go#pointer = 1
   let g:deoplete#sources#go#sort_class = ['package', 'var', 'func', 'const', 'type']
