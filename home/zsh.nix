@@ -11,7 +11,7 @@ rec {
   programs.zsh.history.share = true;
   programs.zsh.history.size = config.resources.histsize;
   programs.zsh.initExtra = ''
-     { wego ''${CITY:-"Eindhoven"} 1 2>/dev/null | head -7 | tail -6 } &|
+     { ${pkgs.wego}/bin/wego ''${CITY:-"Eindhoven"} 1 2>/dev/null | head -7 | tail -6 } &|
 
      nixify() {
        if [ ! -e ./.envrc ]; then
