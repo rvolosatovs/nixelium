@@ -74,6 +74,7 @@
     vim
     vimPlugins
     weechat
+    wego
     wine
     wineStaging
     ;
