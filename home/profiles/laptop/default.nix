@@ -32,6 +32,7 @@
       poppler_utils
       sshfs
       taskwarrior
+      wego
       wineStaging
       winetricks
     ] ++ (with gitAndTools; [
