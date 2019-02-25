@@ -11,7 +11,6 @@ pkgs: {
     ale
     auto-pairs
     base16-vim
-    denite
     deoplete-nvim
     editorconfig-vim
     fugitive
@@ -24,7 +23,6 @@ pkgs: {
     neosnippet
     neosnippet-snippets
     nerdcommenter
-    polyglot
     repeat
     surround
     tabular
