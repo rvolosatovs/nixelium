@@ -44,3 +44,6 @@
 [submodule "vendor/nur"]
 	path = vendor/nur
 	url = https://github.com/rvolosatovs/NUR.git
+[submodule "vendor/nix-darwin"]
+	path = vendor/nix-darwin
+	url = https://github.com/rvolosatovs/nix-darwin.git
