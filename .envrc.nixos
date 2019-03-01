@@ -1,0 +1,3 @@
+source .envrc.common
+export NIX_PATH="nixos-config=$PWD/nixos/hosts/$(hostname):nixpkgs=$PWD/vendor/nixpkgs/nixos:$NIX_PATH"
+#vim:ft=sh
