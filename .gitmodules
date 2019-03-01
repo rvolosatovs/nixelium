@@ -7,13 +7,18 @@
 [submodule "vendor/nixos-hardware"]
     path = vendor/nixos-hardware
     url = https://github.com/rvolosatovs/nixos-hardware.git
-[submodule "vendor/nixpkgs"]
-    path = vendor/nixpkgs
-    url = https://github.com/rvolosatovs/nixpkgs.git
-[submodule "vendor/nixpkgs-unstable"]
-    path = vendor/nixpkgs-unstable
-    url = https://github.com/rvolosatovs/nixpkgs.git
-    branch = nixos-unstable
+[submodule "vendor/nixpkgs/nixos"]
+	path = vendor/nixpkgs/nixos
+	url = https://github.com/rvolosatovs/nixpkgs.git
+	branch = nixos
+[submodule "vendor/nixpkgs/unstable"]
+	path = vendor/nixpkgs/unstable
+	url = https://github.com/rvolosatovs/nixpkgs.git
+	branch = unstable
+[submodule "vendor/nixpkgs/darwin"]
+	path = vendor/nixpkgs/darwin
+	url = https://github.com/rvolosatovs/nixpkgs.git
+	branch = darwin
 [submodule "vendor/secrets"]
     path = vendor/secrets
     url = keybase://private/rvolosatovs/secrets

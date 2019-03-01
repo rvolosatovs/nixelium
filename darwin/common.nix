@@ -77,10 +77,10 @@
   in
   [
     "darwin-config=${infrastructure}/darwin/hosts/${config.networking.hostName}"
-    "home-manager=https://github.com/rvolosatovs/home-manager/archive/release-18.09.tar.gz"
+    "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
     "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
-    "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/nixpkgs-unstable.tar.gz"
-    "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixpkgs-18.09-darwin.tar.gz"
+    "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/unstable.tar.gz"
+    "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/darwin.tar.gz"
   ];
   nix.gc.automatic = true;
   nix.optimise.automatic = true;
