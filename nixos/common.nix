@@ -31,9 +31,8 @@
     ll="ls -la";
     ls="ls -h --color=auto";
     mkdir="mkdir -pv";
-    o="xdg-open";
+    o="${pkgs.xdg_utils}/bin/xdg-open";
     ping="ping -c 3";
-    q="exit";
     rm="rm -i";
     sl="ls";
     sy="systemctl";
