@@ -1,0 +1,3 @@
+source .envrc.common
+export NIX_PATH="darwin=https://github.com/rvolosatovs/nix-darwin/archive/master.tar.gz:home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz:nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/unstable.tar.gz:$NIX_PATH"
+#vim:ft=sh

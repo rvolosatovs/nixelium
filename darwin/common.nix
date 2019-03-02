@@ -42,6 +42,17 @@
     termite.terminfo
   ];
 
+  home-manager.users.${config.resources.username} = {...}: {
+    imports = [
+      ./../home
+    ];
+
+    nixpkgs.overlays = config.nixpkgs.overlays;
+    nixpkgs.config = config.nixpkgs.config;
+
+    resources = config.resources;
+  };
+
   nix.binaryCaches = [
     "https://rvolosatovs.cachix.org"
     "https://cache.nixos.org"
@@ -77,6 +88,7 @@
   in
   [
     "darwin-config=${infrastructure}/darwin/hosts/${config.networking.hostName}"
+    "darwin=https://github.com/rvolosatovs/nix-darwin/archive/master.tar.gz"
     "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
     "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
     "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/unstable.tar.gz"

@@ -1,0 +1,2 @@
+export NIX_PATH="nixos-config=$PWD/nixos/hosts/$(hostname):$NIX_PATH"
+#vim:ft=sh

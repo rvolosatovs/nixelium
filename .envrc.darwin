@@ -1,3 +1,0 @@
-source .envrc.common
-export NIX_PATH="darwin-config=$PWD/darwin/hosts/$(hostname):nixpkgs=$PWD/vendor/nixpkgs/darwin:$NIX_PATH"
-#vim:ft=sh

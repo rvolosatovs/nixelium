@@ -1,2 +1,2 @@
-export NIX_PATH="darwin=$PWD/vendor/nix-darwin:home-manager=$PWD/vendor/home-manager:nixpkgs-overlays=$PWD/nixpkgs/overlays.nix:nixpkgs-unstable=$PWD/vendor/nixpkgs/unstable"
+export NIX_PATH="nixpkgs-overlays=$PWD/nixpkgs/overlays.nix"
 #vim:ft=sh
