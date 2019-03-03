@@ -77,6 +77,12 @@
     wego
     wine
     wineStaging
+    zathura
+    zathura_djvu
+    zathura_pdf_mupdf
+    zathura_pdf_poppler
+    zathura_ps
+    zathuraWrapper
     ;
 
     inherit (unstable.python3Packages)
