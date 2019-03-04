@@ -39,13 +39,10 @@ in
     ];
 
     home.packages = with pkgs; [
-      acpi
       cowsay
       curl
-      dex
       docker-gc
       docker_compose
-      espeak
       file
       fzf
       ghq
@@ -56,34 +53,38 @@ in
       htop
       httpie
       jq
-      kitty.terminfo
-      lm_sensors
       lsof
       nix-prefetch-scripts
       nmap
       nox
       pandoc
-      pciutils
-      psmisc
       pv
       rclone
-      rfkill
       ripgrep
       shellcheck
-      termite.terminfo
       tree
       universal-ctags
       unzip
-      usbutils
       weechat
       wget
       zip
+    ] ++ lib.optionals pkgs.stdenv.isLinux [
+      acpi
+      dex
+      espeak
+      kitty.terminfo # TODO: Fix
+      lm_sensors
+      pciutils
+      psmisc
+      rfkill
+      usbutils
     ] ++ (with config.resources.programs; [
-      browser.package
       editor.package
-      mailer.package
       pager.package
       shell.package
+    ] ++ lib.optionals pkgs.stdenv.isLinux [
+      browser.package
+      mailer.package
     ]);
 
     home.sessionVariables = with config.resources.programs; {
@@ -98,13 +99,14 @@ in
       HISTSIZE = toString config.resources.histsize;
       INPUTRC = "${xdg.configHome}/readline/inputrc";
       LESSHISTFILE = "${xdg.cacheHome}/less/history";
-      MAILER = mailer.executable.path;
       PAGER = pager.executable.path;
       PYTHON_EGG_CACHE = "${xdg.cacheHome}/python-eggs";
       SAVEHIST = toString config.resources.histsize;
       VISUAL = editor.executable.path;
       WINEPREFIX = "${xdg.dataHome}/wine";
       __GL_SHADER_DISK_CACHE_PATH ="${xdg.cacheHome}/nv";
+    } // lib.optionalAttrs pkgs.stdenv.isLinux {
+      MAILER = mailer.executable.path;
     };
 
     nixpkgs.config = import ./../nixpkgs/config.nix;
@@ -176,7 +178,7 @@ in
     services.syncthing.enable = false;
     services.syncthing.tray = config.resources.graphics.enable;
 
-    systemd.user.startServices = true;
+    systemd.user.startServices = pkgs.stdenv.isLinux;
 
     xdg.cacheHome = "${localDir}/cache";
     xdg.configFile."direnv/direnvrc".source = ./../dotfiles/direnv/direnvrc;

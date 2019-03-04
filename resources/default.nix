@@ -38,7 +38,7 @@
       shell.package = pkgs.zsh;
       shell.executable.name ="zsh";
 
-    } // optionalAttrs config.resources.graphics.enable {
+    } // optionalAttrs (config.resources.graphics.enable && pkgs.stdenv.isLinux) {
       browser.package = pkgs.brave;
       browser.executable.name ="brave --disable-webtorrent-extension";
 
@@ -47,6 +47,10 @@
 
       terminal.package = pkgs.kitty;
       terminal.executable.name ="kitty";
+
+    } // optionalAttrs (config.resources.graphics.enable && pkgs.stdenv.isDarwin) {
+      terminal.package = pkgs.alacritty;
+      terminal.executable.name ="alacritty";
     };
   };
 }

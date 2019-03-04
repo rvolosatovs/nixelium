@@ -14,7 +14,7 @@
     "/share/bash"
     "/share/zsh"
   ];
-  environment.sessionVariables = with config.resources.programs; {
+  environment.variables = with config.resources.programs; {
     BROWSER = browser.executable.path;
     EDITOR = editor.executable.path;
     EMAIL = config.resources.email;
@@ -36,11 +36,6 @@
     rm="rm -i";
     sl="ls";
   };
-  environment.systemPackages = with pkgs; [
-    exfat
-    kitty.terminfo
-    termite.terminfo
-  ];
 
   home-manager.users.${config.resources.username} = {...}: {
     imports = [
@@ -62,7 +57,7 @@
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
   nix.nixPath = let
-    infrastructure = (lib.sourceByRegex ./.. [ 
+    infrastructure = (lib.sourceByRegex ./.. [
       "darwin"
       "darwin/.*"
       "dotfiles"
@@ -88,14 +83,10 @@
   in
   [
     "darwin-config=${infrastructure}/darwin/hosts/${config.networking.hostName}"
-    "darwin=https://github.com/rvolosatovs/nix-darwin/archive/master.tar.gz"
-    "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
     "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
-    "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/unstable.tar.gz"
-    "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/darwin.tar.gz"
+    "$HOME/.nix-defexpr/channels"
   ];
   nix.gc.automatic = true;
-  nix.optimise.automatic = true;
   nix.requireSignedBinaryCaches = true;
   nix.trustedUsers = [ "root" "${config.resources.username}" "@wheel" ];
 
@@ -105,4 +96,12 @@
   services.nix-daemon.enable = true;
 
   system.stateVersion = 3;
+
+  time.timeZone = "Europe/Amsterdam";
+
+  users.users.${config.resources.username} = {
+    home = "/Users/${config.resources.username}";
+    createHome = true;
+    shell = config.resources.programs.shell.executable.path;
+  };
 }
