@@ -67,6 +67,7 @@
     ripgrep
     rofi
     rtorrent
+    rust-cbindgen
     sway
     syncthing
     syncthing-cli
