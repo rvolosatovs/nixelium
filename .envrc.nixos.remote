@@ -1,4 +1,4 @@
 source .envrc.common.remote
 source .envrc.nixos.common
-export NIX_PATH="nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz:$NIX_PATH"
+export NIX_PATH="nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz:nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/nixos-unstable.tar.gz:$NIX_PATH"
 #vim:ft=sh
