@@ -52,6 +52,7 @@
     neovim
     neovim-unwrapped
     nodePackages
+    pandoc
     pass
     passExtensions
     platformio
