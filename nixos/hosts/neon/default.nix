@@ -35,8 +35,8 @@ in
         "home-manager=${toString ./../../../vendor/home-manager}"
         "nixos-config=${toString ./.}"
         "nixpkgs-overlays=${toString ../../../nixpkgs/overlays.nix}"
-        "nixpkgs-unstable=${toString ../../../vendor/nixpkgs-unstable}"
-        "nixpkgs=${toString ../../../vendor/nixpkgs}"
+        "nixpkgs-unstable=${toString ../../../vendor/nixpkgs/nixos-unstable}"
+        "nixpkgs=${toString ../../../vendor/nixpkgs/nixos}"
       ];
     };
   }
