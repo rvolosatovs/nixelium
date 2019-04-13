@@ -22,6 +22,7 @@
       httpie
       julia
       keybase
+      libreoffice-fresh
       llvm
       llvmPackages.libclang
       macchanger
