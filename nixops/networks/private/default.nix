@@ -17,8 +17,6 @@ in
       ];
       deployment.keys.${wg.privateKeyName}.text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/wg.private;
 
-      networking.nat.externalInterface = "eth0";
-
       networking.wireguard.interfaces.wg0.ips = [ "10.0.0.2/24" ];
       networking.wireguard.interfaces.wg0.privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
       networking.wireguard.interfaces.wg0.peers = [{
@@ -41,6 +39,8 @@ in
         ./../../profiles/server
       ];
       deployment.keys.${wg.privateKeyName}.text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/oxygen/wg.private;
+
+      networking.nat.externalInterface = "eth0";
 
       networking.wireguard.interfaces.wg0.privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
       networking.wireguard.interfaces.wg0.peers = [
