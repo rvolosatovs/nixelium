@@ -27,6 +27,15 @@ rec {
 
   home.file.".themes" = xdg.configFile."themes";
 
+  home.keyboard.layout = "lv,ru";
+  home.keyboard.variant = "qwerty";
+  home.keyboard.options = [
+    "grp:alt_space_toggle"
+    "terminate:ctrl_alt_bksp"
+    "eurosign:5"
+    "caps:escape"
+  ];
+
   home.packages = with pkgs; [
     alacritty
     ffmpeg
