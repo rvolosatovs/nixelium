@@ -3,6 +3,10 @@ let
   wg.oxygen.publicKey = "xjzZIo0SKBNtwP/puZU4cMDdhOsdeMvC/qEKh6RAuAo=";
   wg.zinc.publicKey = "QLMUw+yvwXuuEsN06zB+Mj9n/VqD+k4VKa5o2GZrLAk=";
 
+  wg.mamaphone.publicKey = "x11PkoJ4uU5RC/OQnFJ8kTlQ8YiGjJBQKe6hUpRIRkk=";
+  wg.papaphone.publicKey = "KMHARoY2eeQhn4iTlecwBDYjoCUIsEaOaPgyGfcI4XU=";
+  wg.papatablet.publicKey = "9Egkv/9PqDhEpOiZWq4dI0zbq4Y1PCYjiqxDp2vbC0Y=";
+
   wg.privateKeyName = "wireguard-wg0-private";
 
   resources.wireguard.port = 51820; # TODO: Fix imports in NixOps
@@ -51,6 +55,18 @@ in
         {
           inherit (wg.zinc) publicKey;
           allowedIPs = [ "10.0.0.12/32" ];
+        }
+        {
+          inherit (wg.papaphone) publicKey;
+          allowedIPs = [ "10.0.0.40/32" ];
+        }
+        {
+          inherit (wg.mamaphone) publicKey;
+          allowedIPs = [ "10.0.0.41/32" ];
+        }
+        {
+          inherit (wg.papatablet) publicKey;
+          allowedIPs = [ "10.0.0.42/32" ];
         }
       ];
 
