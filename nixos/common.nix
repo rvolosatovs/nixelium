@@ -71,11 +71,9 @@
 
   nix.autoOptimiseStore = true;
   nix.binaryCaches = [
-    "https://rvolosatovs.cachix.org"
     "https://cache.nixos.org"
   ];
   nix.binaryCachePublicKeys = [
-    "rvolosatovs.cachix.org-1:y1OANEBXt3SqDEUvPFqNHI/I5G7e34EAPIC4AjULqrw="
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
   nix.gc.automatic = true;
