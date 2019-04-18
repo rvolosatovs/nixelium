@@ -23,6 +23,8 @@ in
         }
       ];
 
+      boot.kernelPackages = pkgs.linuxPackages_4_14;
+
       fileSystems."/".options = mountOpts;
       fileSystems."/home".options = mountOpts;
 
