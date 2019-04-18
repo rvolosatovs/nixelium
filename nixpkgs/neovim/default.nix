@@ -18,7 +18,6 @@ pkgs: {
     fzfWrapper
     gitv
     incsearch-vim
-    multiple-cursors
     neoinclude
     neosnippet
     neosnippet-snippets
@@ -39,6 +38,7 @@ pkgs: {
     vim-polyglot
     vim-signify
     vim-unimpaired
+    vim-visual-multi
     vim-visualstar
   ];
   configure.plug.plugins = with pkgs.vimPlugins; [

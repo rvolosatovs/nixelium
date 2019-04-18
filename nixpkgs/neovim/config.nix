@@ -1,19 +1,6 @@
 pkgs: ''
   set packpath-=~/.vim/after
 
-  function! Multiple_cursors_before()
-    if exists("g:deoplete#disable_auto_complete")
-      let g:deoplete#disable_auto_complete = 1
-    endif
-  endfunction
-
-  function! Multiple_cursors_after()
-    if exists("g:deoplete#disable_auto_complete")
-      let g:deoplete#disable_auto_complete = 0
-    endif
-  endfunction
-
-
   function! MakeSession()
     let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
     if (filewritable(b:sessiondir) != 2)
@@ -175,9 +162,6 @@ pkgs: ''
   let g:incsearch#auto_nohlsearch = 1
 
   let g:jsx_ext_required = 0
-
-  let g:multi_cursor_exit_from_insert_mode = 0
-  let g:multi_cursor_exit_from_visual_mode = 0
 
   let g:neomake_open_list=1
 
