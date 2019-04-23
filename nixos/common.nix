@@ -55,6 +55,8 @@
       ./../home
     ];
 
+    home.stateVersion = config.system.stateVersion;
+
     nixpkgs.overlays = config.nixpkgs.overlays;
     nixpkgs.config = config.nixpkgs.config;
 
