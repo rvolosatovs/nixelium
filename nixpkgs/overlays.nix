@@ -11,7 +11,6 @@
     cachix
     chromium
     cockroachdb
-    darwin
     deluge
     dep
     direnv
