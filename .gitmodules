@@ -11,18 +11,22 @@
 	path = vendor/nixpkgs/nixos
 	url = https://github.com/rvolosatovs/nixpkgs.git
 	branch = nixos
+	shallow = true
 [submodule "vendor/nixpkgs/nixos-unstable"]
 	path = vendor/nixpkgs/nixos-unstable
 	url = https://github.com/rvolosatovs/nixpkgs.git
 	branch = nixos-unstable
+	shallow = true
 [submodule "vendor/nixpkgs/darwin"]
 	path = vendor/nixpkgs/darwin
 	url = https://github.com/rvolosatovs/nixpkgs.git
 	branch = darwin
+	shallow = true
 [submodule "vendor/nixpkgs/darwin-unstable"]
 	path = vendor/nixpkgs/darwin-unstable
 	url = https://github.com/rvolosatovs/nixpkgs.git
 	branch = darwin-unstable
+	shallow = true
 [submodule "vendor/secrets"]
     path = vendor/secrets
     url = keybase://private/rvolosatovs/secrets
