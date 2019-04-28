@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    gitAndTools.git-annex
     git-lfs
   ];
   home.sessionVariables.GIT_EDITOR = config.resources.programs.editor.executable.path;
