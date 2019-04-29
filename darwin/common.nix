@@ -28,7 +28,7 @@
   };
   environment.shellAliases = {
     ll="ls -la";
-    ls="ls -h --color=auto";
+    ls="ls -h -G";
     mkdir="mkdir -pv";
     o="open";
     ping="ping -c 3";
