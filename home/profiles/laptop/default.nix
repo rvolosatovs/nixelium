@@ -67,7 +67,9 @@
       "google.golang.org/grpc"      = builtins.fetchGit "https://github.com/grpc/grpc-go";
     };
 
-    programs.ssh.extraConfig = builtins.readFile ./../../../vendor/secrets/dotfiles/ssh/config;
+    programs.ssh.extraConfig = ''
+      Include config.d/ssh_gateway
+    '';
     programs.ssh.matchBlocks."*.labs.overthewire.org".extraOptions.SendEnv = "OTWUSERDIR";
     programs.zsh.shellAliases.go="${pkgs.richgo}/bin/richgo";
 
