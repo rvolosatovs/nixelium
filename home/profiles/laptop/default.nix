@@ -33,8 +33,6 @@
         sshfs
         taskwarrior
         wego
-        wineStaging
-        winetricks
       ] ++ (with gitAndTools; [
         ghq
         git-extras
@@ -60,6 +58,8 @@
       home.packages = with pkgs; [
         alsaUtils
         playerctl
+        wineStaging
+        winetricks
       ];
 
       systemd.user.services.godoc.Unit.Description="Godoc server";
