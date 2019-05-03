@@ -37,6 +37,7 @@
     sl="ls";
   };
 
+  home-manager.useUserPackages = true;
   home-manager.users.${config.resources.username} = {...}: {
     imports = [
       ./../home
@@ -88,6 +89,9 @@
   nix.gc.user = "${config.resources.username}";
   nix.requireSignedBinaryCaches = true;
   nix.trustedUsers = [ "root" "${config.resources.username}" "@wheel" ];
+
+  nixpkgs.config = import ./../nixpkgs/config.nix;
+  nixpkgs.overlays = import ./../nixpkgs/overlays.nix;
 
   programs.bash.enable = true;
   programs.zsh.enable = true;
