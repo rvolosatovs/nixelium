@@ -24,7 +24,7 @@ in
       ./sxhkd.nix
     ];
 
-    config =  with lib; mkMerge [
+    config = with lib; mkMerge [
       ({
         home.packages = with pkgs; [
           alacritty
@@ -39,10 +39,6 @@ in
         ]);
 
         programs.browserpass.enable = true;
-
-        services.redshift.enable = true;
-        services.redshift.provider = "manual";
-        services.redshift.tray = true;
 
         xdg.configFile."chromium/Default/User StyleSheets/devtools.css".source = ../dotfiles/chromium/devtools.css;
         xdg.configFile."kitty/kitty.conf".source = ../dotfiles/kitty/kitty.conf;
@@ -145,6 +141,12 @@ in
           let i=i+1
           done
         '';
+
+
+        services.redshift.enable = true;
+        services.redshift.provider = "manual";
+        services.redshift.tray = true;
+
         services.screen-locker.enable = true;
         services.screen-locker.inactiveInterval = 20;
         services.screen-locker.lockCmd = "${pkgs.i3lock}/bin/i3lock -t -f -i ~/pictures/lock";
