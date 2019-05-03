@@ -105,10 +105,13 @@
     ]);
   in
   [
+    "home-manager=$HOME/.nix-defexpr/channels/home-manager"
     "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
     "nixos-config=${infrastructure}/nixos/hosts/${config.networking.hostName}"
     "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
+    "nixpkgs-unstable=$HOME/.nix-defexpr/channels/nixpkgs-unstable"
     "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/nixos-unstable.tar.gz"
+    "nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs"
     "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz"
   ];
   nix.optimise.automatic = true;
