@@ -127,12 +127,6 @@
       xdg.configFile."zsh/.zshrc.local".source = ../dotfiles/zsh/zshrc.local;
     })
 
-    (mkIf pkgs.stdenv.isDarwin {
-      home.packages = with pkgs; [
-        darwin-zsh-completions
-      ];
-    })
-
     (mkIf pkgs.stdenv.isLinux {
       systemd.user.services.zsh-history-backup.Install.WantedBy=["default.target"];
       systemd.user.services.zsh-history-backup.Service.ExecStart="${pkgs.copier}/bin/copier -from %h/${config.programs.zsh.history.path} -to %h/${config.programs.zsh.history.path}.bkp";

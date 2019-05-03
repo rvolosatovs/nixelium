@@ -28,5 +28,6 @@
   system.defaults.trackpad.TrackpadRightClick = true;
   system.defaults.trackpad.TrackpadThreeFingerDrag = true;
 
+  system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
 }
