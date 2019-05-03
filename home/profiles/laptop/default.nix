@@ -19,7 +19,6 @@
         godef
         gotools
         httpie
-        julia
         keybase
         llvm
         llvmPackages.libclang
@@ -53,6 +52,7 @@
       home.packages = with pkgs; [
         alsaUtils
         arduino
+        julia
         libreoffice-fresh
         macchanger
         platformio
