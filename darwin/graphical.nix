@@ -11,4 +11,22 @@
     symbola
     unifont
   ];
+
+  services.chunkwm.enable = true;
+  services.skhd.enable = true;
+
+  system.defaults.dock.autohide = true;
+  system.defaults.dock.mru-spaces = false;
+  system.defaults.dock.orientation = "right";
+  system.defaults.dock.showhidden = true;
+
+  system.defaults.finder.AppleShowAllExtensions = true;
+  system.defaults.finder.FXEnableExtensionChangeWarning = false;
+  system.defaults.finder.QuitMenuItem = true;
+
+  system.defaults.trackpad.Clicking = true;
+  system.defaults.trackpad.TrackpadRightClick = true;
+  system.defaults.trackpad.TrackpadThreeFingerDrag = true;
+
+  system.keyboard.remapCapsLockToEscape = true;
 }
