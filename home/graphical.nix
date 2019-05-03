@@ -32,7 +32,6 @@ in
           font-awesome-ttf
           imagemagick
           mpv
-          spotify
           sxiv
           youtube-dl
           zathura
@@ -63,6 +62,7 @@ in
           networkmanagerapplet
           pavucontrol
           slop
+          spotify
           sxhkd
           wmname
           xautolock
