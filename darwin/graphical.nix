@@ -13,6 +13,8 @@
   ];
 
   services.chunkwm.enable = true;
+  services.chunkwm.package = pkgs.chunkwm;
+
   services.skhd.enable = true;
 
   system.defaults.dock.autohide = true;
