@@ -32,7 +32,6 @@ in
           font-awesome-ttf
           imagemagick
           mpv
-          sxiv
           youtube-dl
           zathura
         ] ++ (with config.resources.programs; [
@@ -64,6 +63,7 @@ in
           slop
           spotify
           sxhkd
+          sxiv
           wmname
           xautolock
           xclip
