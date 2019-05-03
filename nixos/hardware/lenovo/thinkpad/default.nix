@@ -29,10 +29,6 @@ with lib;
 
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = true;
-      hardware.bluetooth.extraConfig = ''
-        [General]
-        Enable=Source,Sink,Media,Socket
-      '';
 
       hardware.cpu.intel.updateMicrocode = true;
 
