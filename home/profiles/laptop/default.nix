@@ -11,7 +11,6 @@
   config = with lib; mkMerge [
     ({
       home.packages = with pkgs; [
-        arduino
         asciinema
         clang
         deluge
@@ -57,6 +56,7 @@
     (mkIf pkgs.stdenv.isLinux {
       home.packages = with pkgs; [
         alsaUtils
+        arduino
         playerctl
         wineStaging
         winetricks
