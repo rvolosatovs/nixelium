@@ -42,6 +42,7 @@
     pkgs.bashInteractive
   ];
 
+  home-manager.useUserPackages = true;
   home-manager.users.${config.resources.username} = {...}: {
     imports = [
       ./../home
