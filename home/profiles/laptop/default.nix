@@ -25,7 +25,6 @@
         llvmPackages.libclang
         minicom
         nixops
-        platformio
         poppler_utils
         sshfs
         taskwarrior
@@ -57,6 +56,7 @@
         arduino
         libreoffice-fresh
         macchanger
+        platformio
         playerctl
         wineStaging
         winetricks
