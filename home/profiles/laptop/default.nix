@@ -21,7 +21,6 @@
         httpie
         julia
         keybase
-        libreoffice-fresh
         llvm
         llvmPackages.libclang
         macchanger
@@ -57,6 +56,7 @@
       home.packages = with pkgs; [
         alsaUtils
         arduino
+        libreoffice-fresh
         playerctl
         wineStaging
         winetricks
