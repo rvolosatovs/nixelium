@@ -73,6 +73,8 @@ in
           xtitle
         ];
 
+        home.file.".themes" = xdg.configFile."themes";
+
         home.keyboard.layout = "lv,ru";
         home.keyboard.variant = "qwerty";
         home.keyboard.options = [
