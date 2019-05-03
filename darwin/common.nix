@@ -36,12 +36,18 @@
     rm="rm -i";
     sl="ls";
   };
+  environment.shells = [
+    config.resources.programs.shell.package
+    pkgs.zsh
+    pkgs.bashInteractive
+  ];
 
-  home-manager.useUserPackages = true;
   home-manager.users.${config.resources.username} = {...}: {
     imports = [
       ./../home
     ];
+
+    home.stateVersion = "19.03";
 
     nixpkgs.overlays = config.nixpkgs.overlays;
     nixpkgs.config = config.nixpkgs.config;
@@ -55,6 +61,8 @@
   nix.binaryCachePublicKeys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
+  nix.gc.automatic = true;
+  nix.gc.user = "${config.resources.username}";
   nix.nixPath = let
     infrastructure = (lib.sourceByRegex ./.. [
       "darwin"
@@ -82,11 +90,16 @@
   in
   [
     "darwin-config=${infrastructure}/darwin/hosts/${config.networking.hostName}"
+    "darwin=$HOME/.nix-defexpr/channels/darwin"
+    "darwin=https://github.com/rvolosatovs/nix-darwin/archive/master.tar.gz"
+    "home-manager=$HOME/.nix-defexpr/channels/home-manager"
+    "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
     "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
-    "$HOME/.nix-defexpr/channels"
+    "nixpkgs-unstable=$HOME/.nix-defexpr/channels/nixpkgs-unstable"
+    "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/darwin-unstable.tar.gz"
+    "nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs"
+    "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/darwin.tar.gz"
   ];
-  nix.gc.automatic = true;
-  nix.gc.user = "${config.resources.username}";
   nix.requireSignedBinaryCaches = true;
   nix.trustedUsers = [ "root" "${config.resources.username}" "@wheel" ];
 
@@ -105,6 +118,6 @@
     home = "/Users/${config.resources.username}";
     createHome = true;
     shell = config.resources.programs.shell.executable.path;
-    uid = 550;
+    uid = 501;
   };
 }
