@@ -163,6 +163,8 @@ pkgs: ''
 
   let g:jsx_ext_required = 0
 
+  let g:loaded_netrwPlugin = 1
+
   let g:neomake_open_list=1
 
   let g:polyglot_disabled = [ 'go' ]
@@ -243,6 +245,10 @@ pkgs: ''
   tnoremap <A-l>         <C-\><C-N><C-w>l
   xmap     <C-k>         <Plug>(neosnippet_expand_target)
   xmap     <Leader><Tab> <Plug>(fzf-maps-x)
+
+  command! -nargs=? -complete=dir Explore Dirvish <args>
+  command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
+  command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 
