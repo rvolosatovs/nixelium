@@ -2,13 +2,13 @@
 
 {
   config = with lib; mkMerge [
-    (rec {
+    ({
       programs.zsh.dotDir = ".config/zsh";
       programs.zsh.enable = true;
       programs.zsh.enableAutosuggestions = true;
       programs.zsh.enableCompletion = true;
       programs.zsh.history.ignoreDups = true;
-      programs.zsh.history.path = programs.zsh.dotDir + "/.zsh_history";
+      programs.zsh.history.path = config.programs.zsh.dotDir + "/.zsh_history";
       programs.zsh.history.save = config.resources.histsize;
       programs.zsh.history.share = true;
       programs.zsh.history.size = config.resources.histsize;
@@ -129,7 +129,7 @@
 
     (mkIf pkgs.stdenv.isLinux {
       systemd.user.services.zsh-history-backup.Install.WantedBy=["default.target"];
-      systemd.user.services.zsh-history-backup.Service.ExecStart="${pkgs.copier}/bin/copier -from %h/${programs.zsh.history.path} -to %h/${programs.zsh.history.path}.bkp";
+      systemd.user.services.zsh-history-backup.Service.ExecStart="${pkgs.copier}/bin/copier -from %h/${config.programs.zsh.history.path} -to %h/${config.programs.zsh.history.path}.bkp";
       systemd.user.services.zsh-history-backup.Service.Restart="always";
       systemd.user.services.zsh-history-backup.Unit.Description="Backup zsh history file on every write, restore on every delete";
     })
