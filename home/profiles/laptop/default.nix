@@ -26,7 +26,6 @@
         minicom
         nixops
         poppler_utils
-        sshfs
         taskwarrior
         wego
       ] ++ (with gitAndTools; [
@@ -58,6 +57,7 @@
         macchanger
         platformio
         playerctl
+        sshfs
         wineStaging
         winetricks
       ];
