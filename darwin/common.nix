@@ -85,21 +85,22 @@
     "$HOME/.nix-defexpr/channels"
   ];
   nix.gc.automatic = true;
+  nix.gc.user = "${config.resources.username}";
   nix.requireSignedBinaryCaches = true;
   nix.trustedUsers = [ "root" "${config.resources.username}" "@wheel" ];
 
   programs.bash.enable = true;
   programs.zsh.enable = true;
 
-  services.nix-daemon.enable = true;
-
   system.stateVersion = 3;
 
   time.timeZone = "Europe/Amsterdam";
 
+  users.knownUsers = [ config.resources.username ];
   users.users.${config.resources.username} = {
     home = "/Users/${config.resources.username}";
     createHome = true;
     shell = config.resources.programs.shell.executable.path;
+    uid = 550;
   };
 }
