@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  environment.packages = [
-    services.skhd.package
+  environment.systemPackages = [
+    config.services.skhd.package
   ];
 
   fonts.enableFontDir = true;
