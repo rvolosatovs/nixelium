@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  environment.systemPackages = [
-    config.services.skhd.package
+  imports = [
+    ./skhd.nix
   ];
 
   fonts.enableFontDir = true;
@@ -15,8 +15,6 @@
     symbola
     unifont
   ];
-
-  services.skhd.enable = true;
 
   system.defaults.dock.autohide = true;
   system.defaults.dock.mru-spaces = false;
