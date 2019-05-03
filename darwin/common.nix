@@ -112,8 +112,6 @@
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
 
-  programs.nix-index.enable = true;
-
   programs.zsh.enable = true;
 
   system.stateVersion = 3;
