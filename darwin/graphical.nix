@@ -9,7 +9,6 @@
     roboto-slab
     siji
     symbola
-    terminus_font
     unifont
   ];
 }
