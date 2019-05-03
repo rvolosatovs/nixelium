@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  environment.packages = [
+    services.skhd.package
+  ];
+
   fonts.enableFontDir = true;
   fonts.fonts = with pkgs; [
     comic-relief
