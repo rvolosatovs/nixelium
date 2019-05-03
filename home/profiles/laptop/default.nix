@@ -23,7 +23,6 @@
         keybase
         llvm
         llvmPackages.libclang
-        macchanger
         minicom
         nixops
         platformio
@@ -57,6 +56,7 @@
         alsaUtils
         arduino
         libreoffice-fresh
+        macchanger
         playerctl
         wineStaging
         winetricks
