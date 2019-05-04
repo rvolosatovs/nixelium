@@ -9,6 +9,7 @@ in
     imports = [
       ./../modules/resources.nix
       ./git.nix
+      ./gpg.nix
       ./zsh.nix
     ];
 
@@ -16,6 +17,9 @@ in
       (rec {
         accounts.email.accounts."${config.resources.email}" = {
           address = config.resources.email;
+          gpg.encryptByDefault = true;
+          gpg.key = config.resources.gpg.publicKey.fingerprint;
+          gpg.signByDefault = true;
           primary = true;
         };
 
