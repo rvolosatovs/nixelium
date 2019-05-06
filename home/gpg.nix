@@ -27,7 +27,9 @@
         no-greeting
         personal-cipher-preferences AES256
         personal-digest-preferences SHA512
+      '' + optionalString (pkgs.stdenv.isLinux && config.resources.graphics.enable) ''
         photo-viewer "${pkgs.sxiv}/bin/sxiv -N 'KeyID 0x%f' %i"
+      '' + ''
         s2k-cipher-algo AES256
         s2k-count 65011712
         s2k-digest-algo SHA512
