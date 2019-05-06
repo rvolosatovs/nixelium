@@ -17,9 +17,6 @@ in
       (rec {
         accounts.email.accounts."${config.resources.email}" = {
           address = config.resources.email;
-          gpg.encryptByDefault = true;
-          gpg.key = config.resources.gpg.publicKey.fingerprint;
-          gpg.signByDefault = true;
           primary = true;
         };
 
@@ -204,20 +201,12 @@ in
           acpi
           dex
           espeak
-          kitty.terminfo
           lm_sensors
           pciutils
           psmisc
           rfkill
           usbutils
         ];
-
-        services.gpg-agent.defaultCacheTtl = 180000;
-        services.gpg-agent.defaultCacheTtlSsh = 180000;
-        services.gpg-agent.enable = true;
-        services.gpg-agent.enableScDaemon = false;
-        services.gpg-agent.enableSshSupport = true;
-        services.gpg-agent.grabKeyboardAndMouse = false;
 
         services.syncthing.enable = false;
         services.syncthing.tray = config.resources.graphics.enable;
