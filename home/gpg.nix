@@ -2,38 +2,31 @@
 
 {
   home.file.".gnupg/gpg.conf".text = ''
+    cert-digest-algo SHA512
+    cipher-algo AES256
+    compress-algo ZLIB
     default-key 0x${config.resources.gpg.publicKey.fingerprint}
-    use-agent
-
-    # Avoid information leaked
-    no-emit-version
-    no-comments
+    default-preference-list SHA512 SHA384 SHA256 RIPEMD160 AES256 TWOFISH BLOWFISH ZLIB BZIP2 ZIP Uncompressed
+    default-recipient-self
+    digest-algo SHA512
+    disable-cipher-algo 3DES
     export-options export-minimal
-
-    # Displays the long format of the ID of the keys and their fingerprints
     keyid-format 0xlong
-    with-fingerprint
-
-    # Displays the validity of the keys
+    keyserver-options auto-key-retrieve
     list-options show-uid-validity
-    verify-options show-uid-validity
-
-    # Limits the algorithms used
+    no-comments
+    no-emit-version
+    no-greeting
     personal-cipher-preferences AES256
     personal-digest-preferences SHA512
-    default-preference-list SHA512 SHA384 SHA256 RIPEMD160 AES256 TWOFISH BLOWFISH ZLIB BZIP2 ZIP Uncompressed
-
-    cipher-algo AES256
-    digest-algo SHA512
-    cert-digest-algo SHA512
-    compress-algo ZLIB
-
-    disable-cipher-algo 3DES
-    weak-digest SHA1
-
+    photo-viewer "${pkgs.sxiv}/bin/sxiv -N 'KeyID 0x%f' %i"
     s2k-cipher-algo AES256
+    s2k-count 65011712
     s2k-digest-algo SHA512
     s2k-mode 3
-    s2k-count 65011712
+    use-agent
+    verify-options show-uid-validity
+    weak-digest SHA1
+    with-fingerprint
   '';
 }
