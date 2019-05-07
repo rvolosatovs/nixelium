@@ -141,7 +141,6 @@
          bindkey -M menuselect 'l' vi-forward-char         # right
          bindkey -v
          cdpath=(${lib.concatStringsSep " " cdpath})
-         export MANWIDTH=''${MANWIDTH:-80}
          setopt interactivecomments
          setopt NO_clobber
          setopt nocheckjobs
@@ -152,6 +151,7 @@
          zstyle ':completion:*' completer _expand_alias _complete _approximate
          zstyle ':completion:*' expand prefix suffix
          zstyle ':completion:*:my-accounts' users-hosts {${config.resources.username},root}@{${lib.concatStringsSep "," hosts}}
+         zstyle ':prompt:grml:right:setup' items
       '';
       programs.zsh.plugins = [
         {
