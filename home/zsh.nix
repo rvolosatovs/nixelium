@@ -12,7 +12,25 @@
       programs.zsh.history.save = config.resources.histsize;
       programs.zsh.history.share = true;
       programs.zsh.history.size = config.resources.histsize;
-      programs.zsh.initExtra = ''
+      programs.zsh.initExtra = let
+        # TODO: Derive hostnames from config
+        hosts = [
+          "krypton"
+          "neon"
+          "oxygen"
+          "zinc"
+        ];
+
+        # TODO: Turn into a module
+        cdpath = [
+          "${config.home.homeDirectory}/src/github.com/${config.resources.username}"
+          "${config.home.homeDirectory}/src/go.thethings.network"
+          "${config.home.homeDirectory}/src/github.com/TheThingsIndustries"
+          "${config.home.homeDirectory}/src/github.com/TheThingsNetwork"
+          "${config.home.homeDirectory}/src/github.com"
+          "${config.home.homeDirectory}/src/"
+        ];
+      in ''
          { ${pkgs.wego}/bin/wego ''${CITY:-"Eindhoven"} 1 2>/dev/null | head -7 | tail -6 } &|
 
          nixify() {
@@ -110,7 +128,30 @@
 
          source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+         if (( EUID == 0 )); then
+          umask 002
+         else
+          umask 022
+         fi
+
+         bindkey -M isearch . self-insert
+         bindkey -M menuselect 'h' vi-backward-char        # left
+         bindkey -M menuselect 'j' vi-down-line-or-history # bottom
+         bindkey -M menuselect 'k' vi-up-line-or-history   # up
+         bindkey -M menuselect 'l' vi-forward-char         # right
          bindkey -v
+         cdpath=(${lib.concatStringsSep " " cdpath})
+         export MANWIDTH=''${MANWIDTH:-80}
+         setopt interactivecomments
+         setopt NO_clobber
+         setopt nocheckjobs
+         setopt nonomatch
+         setopt printexitvalue
+         zrcautoload predict-on
+         zstyle ':completion:*' completer _complete _correct _approximate
+         zstyle ':completion:*' completer _expand_alias _complete _approximate
+         zstyle ':completion:*' expand prefix suffix
+         zstyle ':completion:*:my-accounts' users-hosts {${config.resources.username},root}@{${lib.concatStringsSep "," hosts}}
       '';
       programs.zsh.plugins = [
         {
@@ -123,8 +164,6 @@
       programs.zsh.shellAliases.bd="popd";
       programs.zsh.shellAliases.dh="dirs -v";
       programs.zsh.shellAliases.nd="pushd";
-
-      xdg.configFile."zsh/.zshrc.local".source = ../dotfiles/zsh/zshrc.local;
     })
 
     (mkIf pkgs.stdenv.isLinux {
