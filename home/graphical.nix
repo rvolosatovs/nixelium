@@ -112,7 +112,7 @@ in
           tab_separator               " ┇"
           visual_bell_duration        0.0
           window_alert_on_bell        yes
-          x11_hide_window_decorations ${if pkgs.stdenv.isLinux then "yes" else "no"}
+          hide_window_decorations     ${if pkgs.stdenv.isLinux then "yes" else "no"}
         '';
         xdg.configFile."mpv/config".source = ../dotfiles/mpv/config;
         xdg.configFile."oomox/colors".source = ../dotfiles/oomox/colors;
