@@ -30,7 +30,7 @@ in
 
       home-manager.users.${config.resources.username} = {...}: {
         imports = [
-          ./../home/hosts/neon
+          ./../../../home/hosts/neon
         ];
       };
 

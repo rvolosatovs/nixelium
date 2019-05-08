@@ -11,7 +11,7 @@
 
     home-manager.users.${config.resources.username} = {...}: {
       imports = [
-        ./../home/hosts/krypton
+        ./../../../home/hosts/krypton
       ];
     };
 
