@@ -18,11 +18,9 @@ let
   base0e = "#b294bb";
   base0f = "#a3685a";
 
-  retina = lib.optionalString pkgs.stdenv.isDarwin " Retina";
-
-  serif     = "FuraCode Nerd Font${retina}";
-  sansSerif = "FuraCode Nerd Font${retina}";
-  monospace = "FuraCode Nerd Font Mono${retina}";
+  serif     = "FuraCode Nerd Font";
+  sansSerif = "FuraCode Nerd Font";
+  monospace = "FuraCode Nerd Font Mono";
 in
   {
     imports = [
