@@ -47,6 +47,29 @@ in
 
         xdg.configFile."chromium/Default/User StyleSheets/devtools.css".source = ../dotfiles/chromium/devtools.css;
         xdg.configFile."kitty/kitty.conf".text = ''
+          color0                      ${base00}
+          color1                      ${base08}
+          color2                      ${base0b}
+          color3                      ${base0a}
+          color4                      ${base0d}
+          color5                      ${base0e}
+          color6                      ${base0c}
+          color7                      ${base05}
+          color8                      ${base03}
+          color9                      ${base08}
+          color10                     ${base0b}
+          color11                     ${base0a}
+          color12                     ${base0d}
+          color13                     ${base0e}
+          color14                     ${base0c}
+          color15                     ${base07}
+          color16                     ${base09}
+          color17                     ${base0f}
+          color18                     ${base01}
+          color19                     ${base02}
+          color20                     ${base04}
+          color21                     ${base06}
+
           active_tab_background       #eee
           active_tab_font_style       bold-italic
           active_tab_foreground       #000
@@ -60,28 +83,6 @@ in
           box_drawing_scale           0.001, 1, 1.5, 2
           clipboard_control           write-clipboard write-primary
           close_on_child_death        yes
-          color0                      ${base00}
-          color1                      ${base08}
-          color10                     ${base0b}
-          color11                     ${base0a}
-          color12                     ${base0d}
-          color13                     ${base0e}
-          color14                     ${base0c}
-          color15                     ${base07}
-          color16                     ${base09}
-          color17                     ${base0f}
-          color18                     ${base01}
-          color19                     ${base02}
-          color2                      ${base0b}
-          color20                     ${base04}
-          color21                     ${base06}
-          color3                      ${base0a}
-          color4                      ${base0d}
-          color5                      ${base0e}
-          color6                      ${base0c}
-          color7                      ${base05}
-          color8                      ${base03}
-          color9                      ${base08}
           cursor_blink_interval       0
           cursor_shape                underline
           cursor_stop_blinking_after  0
@@ -114,7 +115,34 @@ in
         xdg.configFile."mpv/config".source = ../dotfiles/mpv/config;
         xdg.configFile."oomox/colors".source = ../dotfiles/oomox/colors;
         xdg.configFile."themes".source = ../dotfiles/themes;
-        xdg.configFile."zathura/zathurarc".source = ../dotfiles/zathura/zathurarc;
+        xdg.configFile."zathura/zathurarc".text = ''
+          set completion-bg               "${base02}"
+          set completion-fg               "${base0c}"
+          set completion-highlight-bg     "${base0c}"
+          set completion-highlight-fg     "${base02}"
+          set default-bg                  "${base00}"
+          set default-fg                  "${base01}"
+          set highlight-active-color      "${base0d}"
+          set highlight-color             "${base0a}"
+          set index-active-bg             "${base0d}"
+          set inputbar-bg                 "${base00}"
+          set inputbar-fg                 "${base05}"
+          set notification-bg             "${base0b}"
+          set notification-error-bg       "${base08}"
+          set notification-error-fg       "${base00}"
+          set notification-fg             "${base00}"
+          set notification-warning-bg     "${base08}"
+          set notification-warning-fg     "${base00}"
+          set recolor-darkcolor           "${base06}"
+          set recolor-lightcolor          "${base00}"
+          set statusbar-bg                "${base01}"
+          set statusbar-fg                "${base04}"
+
+          set recolor                     "true"
+          set recolor-keephue             "true"
+          set selection-clipboard         clipboard
+        '';
+
 
         xresources.properties."*.background" = base00;
         xresources.properties."*.base00" = base00;
