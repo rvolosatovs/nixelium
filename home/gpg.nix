@@ -41,7 +41,14 @@
       '';
     })
 
-    (mkIf pkgs.stdenv.isLinux rec {
+    (mkIf pkgs.stdenv.isDarwin {
+      home.file.".gnupg/gpg-agent.conf".text = ''
+        enable-ssh-support
+        pinentry-program ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
+      '';
+    })
+
+    (mkIf pkgs.stdenv.isLinux {
       services.gpg-agent.defaultCacheTtl = 180000;
       services.gpg-agent.defaultCacheTtlSsh = 180000;
       services.gpg-agent.enable = true;
