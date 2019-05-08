@@ -21,6 +21,7 @@
   system.defaults.dock.orientation = "right";
   system.defaults.dock.showhidden = true;
 
+  system.defaults.finder._FXShowPosixPathInTitle = false;
   system.defaults.finder.AppleShowAllExtensions = true;
   system.defaults.finder.FXEnableExtensionChangeWarning = false;
   system.defaults.finder.QuitMenuItem = true;
