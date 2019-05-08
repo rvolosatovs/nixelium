@@ -112,7 +112,9 @@ in
           window_alert_on_bell        yes
           hide_window_decorations     ${if pkgs.stdenv.isLinux then "yes" else "no"}
         '';
-        xdg.configFile."mpv/config".source = ../dotfiles/mpv/config;
+        xdg.configFile."mpv/config".text = ''
+          alang=eng,en,rus,ru
+        '';
         xdg.configFile."oomox/colors".source = ../dotfiles/oomox/colors;
         xdg.configFile."themes".source = ../dotfiles/themes;
         xdg.configFile."zathura/zathurarc".text = ''
