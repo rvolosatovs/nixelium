@@ -193,6 +193,17 @@
     })
 
     (mkIf pkgs.stdenv.isDarwin {
+      home.file.".Brewfile".text = ''
+        brew "choose-gui"
+        cask "brave-browser"
+        cask "keybase"
+        cask "libreoffice"
+        cask "slack"
+        cask "thunderbird"
+        cask "whatsapp"
+        cask "xquartz"
+      '';
+
       home.sessionVariables.CLICOLOR = "1";
       home.sessionVariables.LSCOLORS = "ExGxFxdaCxDaDahbadacec";
     })
