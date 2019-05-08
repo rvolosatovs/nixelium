@@ -96,7 +96,7 @@ in
           inactive_tab_font_style     normal
           inactive_tab_foreground     #444
           initial_window_height       800
-          initial_window_width        640
+          initial_window_width        1200
           italic_font                 auto
           remember_window_size        no
           scrollback_pager            ${pkgs.less}/bin/less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
