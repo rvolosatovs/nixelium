@@ -174,6 +174,10 @@ in
         xresources.properties."Xft.rgba" = "rgb";
       })
 
+      (mkIf pkgs.stdenv.isDarwin {
+        home.file.".terminfo".source = "/etc/profiles/per-user/${config.resources.username}/share/terminfo";
+      })
+
       (mkIf pkgs.stdenv.isLinux {
         home.packages = with pkgs; [
           gnome3.dconf
