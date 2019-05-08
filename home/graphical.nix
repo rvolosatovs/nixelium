@@ -47,6 +47,9 @@ in
 
         xdg.configFile."chromium/Default/User StyleSheets/devtools.css".source = ../dotfiles/chromium/devtools.css;
         xdg.configFile."kitty/kitty.conf".text = ''
+          background                  ${base00}
+          foreground                  ${base05}
+
           color0                      ${base00}
           color1                      ${base08}
           color2                      ${base0b}
@@ -70,47 +73,18 @@ in
           color20                     ${base04}
           color21                     ${base06}
 
-          active_tab_background       #eee
-          active_tab_font_style       bold-italic
-          active_tab_foreground       #000
-          adjust_column_width         0
-          adjust_line_height          0
-          allow_remote_control        no
-          background                  ${base00}
-          bell_on_tab                 yes
-          bold_font                   auto
-          bold_italic_font            auto
-          box_drawing_scale           0.001, 1, 1.5, 2
-          clipboard_control           write-clipboard write-primary
           close_on_child_death        yes
           cursor_blink_interval       0
           cursor_shape                underline
           cursor_stop_blinking_after  0
-          draw_minimal_borders        yes
           editor                      ${config.resources.programs.editor.executable.path}
-          enable_audio_bell           yes
-          enabled_layouts             *
           font_family                 ${monospace}
           font_size                   ${if pkgs.stdenv.isDarwin then "16.0" else "15.0"}
-          foreground                  ${base05}
-          inactive_tab_background     #999
-          inactive_tab_font_style     normal
-          inactive_tab_foreground     #444
+          hide_window_decorations     ${if pkgs.stdenv.isLinux then "yes" else "no"}
           initial_window_height       800
           initial_window_width        1200
-          italic_font                 auto
-          remember_window_size        no
           scrollback_pager            ${pkgs.less}/bin/less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
-          selection_background        #FFFACD
-          selection_foreground        #000000
-          startup_session             none
           tab_bar_edge                top
-          tab_bar_style               fade
-          tab_fade                    0.25 0.5 0.75 1
-          tab_separator               " ┇"
-          visual_bell_duration        0.0
-          window_alert_on_bell        yes
-          hide_window_decorations     ${if pkgs.stdenv.isLinux then "yes" else "no"}
         '';
         xdg.configFile."mpv/config".text = ''
           alang=eng,en,rus,ru
