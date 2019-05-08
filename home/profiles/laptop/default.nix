@@ -19,7 +19,6 @@
         godef
         gotools
         httpie
-        keybase
         llvm
         llvmPackages.libclang
         minicom
