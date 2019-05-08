@@ -33,7 +33,6 @@ in
         home.file.".themes" = xdg.configFile."themes";
 
         home.packages = with pkgs; [
-          alacritty
           ffmpeg
           font-awesome-ttf
           imagemagick
