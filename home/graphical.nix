@@ -17,6 +17,12 @@ let
   base0d = "#81a2be";
   base0e = "#b294bb";
   base0f = "#a3685a";
+
+  retina = lib.optionalString pkgs.stdenv.isDarwin " Retina";
+
+  serif     = "FuraCode Nerd Font${retina}";
+  sansSerif = "FuraCode Nerd Font${retina}";
+  monospace = "FuraCode Nerd Font Mono${retina}";
 in
   {
     imports = [
@@ -25,7 +31,9 @@ in
     ];
 
     config = with lib; mkMerge [
-      ({
+      (rec {
+        home.file.".themes" = xdg.configFile."themes";
+
         home.packages = with pkgs; [
           alacritty
           ffmpeg
@@ -41,12 +49,135 @@ in
         programs.browserpass.enable = true;
 
         xdg.configFile."chromium/Default/User StyleSheets/devtools.css".source = ../dotfiles/chromium/devtools.css;
-        xdg.configFile."kitty/kitty.conf".source = ../dotfiles/kitty/kitty.conf;
+        xdg.configFile."kitty/kitty.conf".text = ''
+          active_tab_background       #eee
+          active_tab_font_style       bold-italic
+          active_tab_foreground       #000
+          adjust_column_width         0
+          adjust_line_height          0
+          allow_remote_control        no
+          background                  ${base00}
+          bell_on_tab                 yes
+          bold_font                   auto
+          bold_italic_font            auto
+          box_drawing_scale           0.001, 1, 1.5, 2
+          clipboard_control           write-clipboard write-primary
+          close_on_child_death        yes
+          color0                      ${base00}
+          color1                      ${base08}
+          color10                     ${base0b}
+          color11                     ${base0a}
+          color12                     ${base0d}
+          color13                     ${base0e}
+          color14                     ${base0c}
+          color15                     ${base07}
+          color16                     ${base09}
+          color17                     ${base0f}
+          color18                     ${base01}
+          color19                     ${base02}
+          color2                      ${base0b}
+          color20                     ${base04}
+          color21                     ${base06}
+          color3                      ${base0a}
+          color4                      ${base0d}
+          color5                      ${base0e}
+          color6                      ${base0c}
+          color7                      ${base05}
+          color8                      ${base03}
+          color9                      ${base08}
+          cursor_blink_interval       0
+          cursor_shape                underline
+          cursor_stop_blinking_after  0
+          draw_minimal_borders        yes
+          editor                      ${config.resources.programs.editor.executable.path}
+          enable_audio_bell           yes
+          enabled_layouts             *
+          font_family                 ${monospace}
+          font_size                   ${if pkgs.stdenv.isDarwin then "18.0" else "15.0"}
+          foreground                  ${base05}
+          inactive_tab_background     #999
+          inactive_tab_font_style     normal
+          inactive_tab_foreground     #444
+          initial_window_height       800
+          initial_window_width        640
+          italic_font                 auto
+          remember_window_size        no
+          scrollback_pager            ${pkgs.less}/bin/less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
+          selection_background        #FFFACD
+          selection_foreground        #000000
+          startup_session             none
+          tab_bar_edge                top
+          tab_bar_style               fade
+          tab_fade                    0.25 0.5 0.75 1
+          tab_separator               " ┇"
+          visual_bell_duration        0.0
+          window_alert_on_bell        yes
+          x11_hide_window_decorations ${if pkgs.stdenv.isLinux then "yes" else "no"}
+        '';
         xdg.configFile."mpv/config".source = ../dotfiles/mpv/config;
+        xdg.configFile."oomox/colors".source = ../dotfiles/oomox/colors;
+        xdg.configFile."themes".source = ../dotfiles/themes;
         xdg.configFile."zathura/zathurarc".source = ../dotfiles/zathura/zathurarc;
+
+        xresources.properties."*.background" = base00;
+        xresources.properties."*.base00" = base00;
+        xresources.properties."*.base01" = base01;
+        xresources.properties."*.base02" = base02;
+        xresources.properties."*.base03" = base03;
+        xresources.properties."*.base04" = base04;
+        xresources.properties."*.base05" = base05;
+        xresources.properties."*.base06" = base06;
+        xresources.properties."*.base07" = base07;
+        xresources.properties."*.base08" = base08;
+        xresources.properties."*.base09" = base09;
+        xresources.properties."*.base0A" = base0a;
+        xresources.properties."*.base0B" = base0b;
+        xresources.properties."*.base0C" = base0c;
+        xresources.properties."*.base0D" = base0d;
+        xresources.properties."*.base0E" = base0e;
+        xresources.properties."*.base0F" = base0f;
+        xresources.properties."*.color0" = base00;
+        xresources.properties."*.color1" = base08;
+        xresources.properties."*.color2" = base0b;
+        xresources.properties."*.color3" = base0a;
+        xresources.properties."*.color4" = base0d;
+        xresources.properties."*.color5" = base0e;
+        xresources.properties."*.color6" = base0c;
+        xresources.properties."*.color7" = base05;
+        xresources.properties."*.color8" = base03;
+        xresources.properties."*.color9" = base08;
+        xresources.properties."*.color10" = base0b;
+        xresources.properties."*.color11" = base0a;
+        xresources.properties."*.color12" = base0d;
+        xresources.properties."*.color13" = base0e;
+        xresources.properties."*.color14" = base0c;
+        xresources.properties."*.color15" = base07;
+        xresources.properties."*.color16" = base09;
+        xresources.properties."*.color17" = base0f;
+        xresources.properties."*.color18" = base01;
+        xresources.properties."*.color19" = base02;
+        xresources.properties."*.color20" = base04;
+        xresources.properties."*.color21" = base06;
+        xresources.properties."*.cursorColor" = base05;
+        xresources.properties."*.foreground" = base05;
+        xresources.properties."rofi.auto-select" = false;
+        xresources.properties."rofi.color-active" = [ base00 base0b base01 base03 base05 ];
+        xresources.properties."rofi.color-normal" = [ base00 base04 base01 base03 base06 ];
+        xresources.properties."rofi.color-urgent" = [ base00 base0f base01 base03 base06 ];
+        xresources.properties."rofi.color-window" = [ base00 base01 ];
+        xresources.properties."rofi.opacity" = 90;
+        xresources.properties."ssh-askpass*background" = base00;
+        xresources.properties."xscreensaver.logFile" = "/var/log/xscreensaver.log";
+        xresources.properties."Xcursor.size" = 20;
+        xresources.properties."Xft.antialias" = 1;
+        xresources.properties."Xft.autohint" = 0;
+        xresources.properties."Xft.hinting" = 1;
+        xresources.properties."Xft.hintstyle" = "hintslight";
+        xresources.properties."Xft.lcdfilter" = "lcddefault";
+        xresources.properties."Xft.rgba" = "rgb";
       })
 
-      (mkIf pkgs.stdenv.isLinux rec {
+      (mkIf pkgs.stdenv.isLinux {
         home.packages = with pkgs; [
           gnome3.dconf
           gnome3.glib_networking
@@ -68,8 +199,6 @@ in
           xsel
           xtitle
         ];
-
-        home.file.".themes" = xdg.configFile."themes";
 
         home.keyboard.layout = "lv,ru";
         home.keyboard.variant = "qwerty";
@@ -152,66 +281,7 @@ in
         services.screen-locker.lockCmd = "${pkgs.i3lock}/bin/i3lock -t -f -i ~/pictures/lock";
 
         xdg.configFile."bspwm/bspwmrc".source = ../dotfiles/bspwm/bspwmrc;
-        xdg.configFile."oomox/colors".source = ../dotfiles/oomox/colors;
         xdg.configFile."sway/config".source = ../dotfiles/sway/config;
-        xdg.configFile."themes".source = ../dotfiles/themes;
-
-        xresources.properties."*.background" = base00;
-        xresources.properties."*.base00" = base00;
-        xresources.properties."*.base01" = base01;
-        xresources.properties."*.base02" = base02;
-        xresources.properties."*.base03" = base03;
-        xresources.properties."*.base04" = base04;
-        xresources.properties."*.base05" = base05;
-        xresources.properties."*.base06" = base06;
-        xresources.properties."*.base07" = base07;
-        xresources.properties."*.base08" = base08;
-        xresources.properties."*.base09" = base09;
-        xresources.properties."*.base0A" = base0a;
-        xresources.properties."*.base0B" = base0b;
-        xresources.properties."*.base0C" = base0c;
-        xresources.properties."*.base0D" = base0d;
-        xresources.properties."*.base0E" = base0e;
-        xresources.properties."*.base0F" = base0f;
-        xresources.properties."*.color0" = base00;
-        xresources.properties."*.color1" = base08;
-        xresources.properties."*.color2" = base0b;
-        xresources.properties."*.color3" = base0a;
-        xresources.properties."*.color4" = base0d;
-        xresources.properties."*.color5" = base0e;
-        xresources.properties."*.color6" = base0c;
-        xresources.properties."*.color7" = base05;
-        xresources.properties."*.color8" = base03;
-        xresources.properties."*.color9" = base08;
-        xresources.properties."*.color10" = base0b;
-        xresources.properties."*.color11" = base0a;
-        xresources.properties."*.color12" = base0d;
-        xresources.properties."*.color13" = base0e;
-        xresources.properties."*.color14" = base0c;
-        xresources.properties."*.color15" = base07;
-        xresources.properties."*.color16" = base09;
-        xresources.properties."*.color17" = base0f;
-        xresources.properties."*.color18" = base01;
-        xresources.properties."*.color19" = base02;
-        xresources.properties."*.color20" = base04;
-        xresources.properties."*.color21" = base06;
-        xresources.properties."*.cursorColor" = base05;
-        xresources.properties."*.foreground" = base05;
-        xresources.properties."rofi.auto-select" = false;
-        xresources.properties."rofi.color-active" = [ base00 base0b base01 base03 base05 ];
-        xresources.properties."rofi.color-normal" = [ base00 base04 base01 base03 base06 ];
-        xresources.properties."rofi.color-urgent" = [ base00 base0f base01 base03 base06 ];
-        xresources.properties."rofi.color-window" = [ base00 base01 ];
-        xresources.properties."rofi.opacity" = 90;
-        xresources.properties."ssh-askpass*background" = base00;
-        xresources.properties."xscreensaver.logFile" = "/var/log/xscreensaver.log";
-        xresources.properties."Xcursor.size" = 20;
-        xresources.properties."Xft.antialias" = 1;
-        xresources.properties."Xft.autohint" = 0;
-        xresources.properties."Xft.hinting" = 1;
-        xresources.properties."Xft.hintstyle" = "hintslight";
-        xresources.properties."Xft.lcdfilter" = "lcddefault";
-        xresources.properties."Xft.rgba" = "rgb";
 
         xsession.enable = true;
         xsession.windowManager.command = ''
@@ -235,7 +305,7 @@ in
         xsession.windowManager.i3.config.focus.followMouse = false;
         xsession.windowManager.i3.config.fonts = [
           "Unifont"
-          "FuraCode Nerd Font"
+          monospace
         ];
       })
     ];
