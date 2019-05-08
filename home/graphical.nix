@@ -93,7 +93,7 @@ in
           enable_audio_bell           yes
           enabled_layouts             *
           font_family                 ${monospace}
-          font_size                   ${if pkgs.stdenv.isDarwin then "18.0" else "15.0"}
+          font_size                   ${if pkgs.stdenv.isDarwin then "16.0" else "15.0"}
           foreground                  ${base05}
           inactive_tab_background     #999
           inactive_tab_font_style     normal
