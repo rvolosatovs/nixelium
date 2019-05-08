@@ -28,6 +28,12 @@ in
       fileSystems."/".options = mountOpts;
       fileSystems."/home".options = mountOpts;
 
+      home-manager.users.${config.resources.username} = {...}: {
+        imports = [
+          ./../home/hosts/neon
+        ];
+      };
+
       networking.hostName = "neon";
       networking.firewall.allowedUDPPorts = [
         1700

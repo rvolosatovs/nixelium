@@ -9,6 +9,12 @@
   config = {
     environment.darwinConfig = toString ./.;
 
+    home-manager.users.${config.resources.username} = {...}: {
+      imports = [
+        ./../home/hosts/krypton
+      ];
+    };
+
     networking.hostName = "krypton";
 
     nix.nixPath = lib.mkBefore [
