@@ -145,7 +145,6 @@
          setopt NO_clobber
          setopt nocheckjobs
          setopt nonomatch
-         setopt printexitvalue
          zrcautoload predict-on
          zstyle ':completion:*' completer _complete _correct _approximate
          zstyle ':completion:*' completer _expand_alias _complete _approximate
