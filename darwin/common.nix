@@ -11,7 +11,10 @@
       set -o vi
   '';
   environment.pathsToLink = [
+    "/Applications"
+    "/Library"
     "/share/bash"
+    "/share/terminfo"
     "/share/zsh"
   ];
   environment.variables = with config.resources.programs; {
