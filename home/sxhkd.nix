@@ -64,7 +64,7 @@
 
         # quit bspwm normally
         super + alt + Escape
-            killall polybar; ${pkgs.bspwm}/bin/bspc quit; sudo ${pkgs.systemd}/bin/systemctl restart display-manager
+            killall polybar; ${pkgs.bspwm}/bin/bspc quit; /run/wrappers/bin/sudo ${pkgs.systemd}/bin/systemctl restart display-manager
 
         # suspend
         super + alt + s

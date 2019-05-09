@@ -117,7 +117,6 @@ in
         xdg.configFile."oomox/colors".source = ../dotfiles/oomox/colors;
         xdg.configFile."themes".source = ../dotfiles/themes;
 
-
         xresources.properties."*.background" = base00;
         xresources.properties."*.base00" = base00;
         xresources.properties."*.base01" = base01;
@@ -295,7 +294,7 @@ in
           ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
           ${pkgs.wmname}/bin/wmname LG3D
 
-          ${pkgs.sudo}/bin/sudo ''${HOME}/.local/bin/fix-keycodes
+          /run/wrappers/bin/sudo ''${HOME}/.local/bin/fix-keycodes
 
           ${pkgs.pulseaudioFull}/bin/pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
           ${pkgs.pulseaudioFull}/bin/pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
