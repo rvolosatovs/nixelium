@@ -190,6 +190,7 @@ in
           maim
           networkmanagerapplet
           pavucontrol
+          rsibreak
           slop
           spotify
           sxhkd
