@@ -40,18 +40,16 @@
         gnupg1compat
         graphviz
         htop
-        httpie
         jq
         kitty.terminfo
         lsof
         nix-prefetch-scripts
-        nmap
         nox
-        pandoc
         pv
         rclone
         ripgrep
         shellcheck
+        sudo
         tree
         universal-ctags
         unzip

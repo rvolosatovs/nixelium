@@ -23,6 +23,8 @@
         llvmPackages.libclang
         minicom
         nixops
+        nmap
+        pandoc
         poppler_utils
         taskwarrior
         wego
