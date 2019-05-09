@@ -38,12 +38,37 @@ in
           imagemagick
           mpv
           youtube-dl
-          zathura
         ] ++ (with config.resources.programs; [
           terminal.package
         ]);
 
         programs.browserpass.enable = true;
+
+        programs.zathura.enable = true;
+        programs.zathura.options.completion-bg = base02;
+        programs.zathura.options.completion-fg = base0c;
+        programs.zathura.options.completion-highlight-bg = base0c;
+        programs.zathura.options.completion-highlight-fg = base02;
+        programs.zathura.options.default-bg = base00;
+        programs.zathura.options.default-fg = base01;
+        programs.zathura.options.highlight-active-color = base0d;
+        programs.zathura.options.highlight-color = base0a;
+        programs.zathura.options.index-active-bg = base0d;
+        programs.zathura.options.inputbar-bg = base00;
+        programs.zathura.options.inputbar-fg = base05;
+        programs.zathura.options.notification-bg = base0b;
+        programs.zathura.options.notification-error-bg = base08;
+        programs.zathura.options.notification-error-fg = base00;
+        programs.zathura.options.notification-fg = base00;
+        programs.zathura.options.notification-warning-bg = base08;
+        programs.zathura.options.notification-warning-fg = base00;
+        programs.zathura.options.recolor = true;
+        programs.zathura.options.recolor-darkcolor = base06;
+        programs.zathura.options.recolor-keephue = true;
+        programs.zathura.options.recolor-lightcolor = base00;
+        programs.zathura.options.selection-clipboard = "clipboard";
+        programs.zathura.options.statusbar-bg = base01;
+        programs.zathura.options.statusbar-fg = base04;
 
         xdg.configFile."chromium/Default/User StyleSheets/devtools.css".source = ../dotfiles/chromium/devtools.css;
         xdg.configFile."kitty/kitty.conf".text = ''
@@ -91,33 +116,6 @@ in
         '';
         xdg.configFile."oomox/colors".source = ../dotfiles/oomox/colors;
         xdg.configFile."themes".source = ../dotfiles/themes;
-        xdg.configFile."zathura/zathurarc".text = ''
-          set completion-bg               "${base02}"
-          set completion-fg               "${base0c}"
-          set completion-highlight-bg     "${base0c}"
-          set completion-highlight-fg     "${base02}"
-          set default-bg                  "${base00}"
-          set default-fg                  "${base01}"
-          set highlight-active-color      "${base0d}"
-          set highlight-color             "${base0a}"
-          set index-active-bg             "${base0d}"
-          set inputbar-bg                 "${base00}"
-          set inputbar-fg                 "${base05}"
-          set notification-bg             "${base0b}"
-          set notification-error-bg       "${base08}"
-          set notification-error-fg       "${base00}"
-          set notification-fg             "${base00}"
-          set notification-warning-bg     "${base08}"
-          set notification-warning-fg     "${base00}"
-          set recolor-darkcolor           "${base06}"
-          set recolor-lightcolor          "${base00}"
-          set statusbar-bg                "${base01}"
-          set statusbar-fg                "${base04}"
-
-          set recolor                     "true"
-          set recolor-keephue             "true"
-          set selection-clipboard         clipboard
-        '';
 
 
         xresources.properties."*.background" = base00;
