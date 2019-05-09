@@ -212,6 +212,10 @@
         cask "xquartz"
       '';
 
+      home.packages = with pkgs; [
+        coreutils
+      ];
+
       home.sessionVariables.CLICOLOR = "1";
       home.sessionVariables.LSCOLORS = "ExGxFxdaCxDaDahbadacec";
     })
