@@ -15,18 +15,6 @@
         primary = true;
       };
 
-      home.file.".inputrc".text = ''
-        $include /etc/inputrc
-        set editing-mode vi
-        set completion-ignore-case on
-        set completion-prefix-display-length 2
-        set show-all-if-ambiguous on
-        set show-all-if-unmodified on
-        set completion-map-case on
-        Control-j: menu-complete
-        Control-k: menu-complete-backward
-      '';
-
       home.packages = with pkgs; [
         cowsay
         curl
@@ -64,27 +52,49 @@
         shell.package
       ]);
 
-      home.sessionVariables = with config.resources.programs; {
-        __GL_SHADER_DISK_CACHE_PATH ="${config.xdg.cacheHome}/nv";
-        BROWSER = browser.executable.path;
-        CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
-        EDITOR = editor.executable.path;
-        ELINKS_CONFDIR = "${config.xdg.configHome}/elinks";
-        EMAIL = config.resources.email;
-        GIMP2_DIRECTORY = "${config.xdg.configHome}/gimp";
-        HISTFILE = "${config.xdg.cacheHome}/shell-history";
-        HISTFILESIZE = toString config.resources.histsize;
-        HISTSIZE = toString config.resources.histsize;
-        INPUTRC = "${config.xdg.configHome}/readline/inputrc";
-        LESSHISTFILE = "${config.xdg.cacheHome}/less/history";
-        MAILER = mailer.executable.path;
-        MANWIDTH = "80";
-        PAGER = pager.executable.path;
-        PYTHON_EGG_CACHE = "${config.xdg.cacheHome}/python-eggs";
-        SAVEHIST = toString config.resources.histsize;
-        VISUAL = editor.executable.path;
-        WINEPREFIX = "${config.xdg.dataHome}/wine";
-      };
+      home.sessionVariables.__GL_SHADER_DISK_CACHE_PATH ="${config.xdg.cacheHome}/nv";
+      home.sessionVariables.BROWSER = config.resources.programs.browser.executable.path;
+      home.sessionVariables.CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
+      home.sessionVariables.EDITOR = config.resources.programs.editor.executable.path;
+      home.sessionVariables.ELINKS_CONFDIR = "${config.xdg.configHome}/elinks";
+      home.sessionVariables.EMAIL = config.resources.email;
+      home.sessionVariables.GIMP2_DIRECTORY = "${config.xdg.configHome}/gimp";
+      home.sessionVariables.HISTFILE = "${config.xdg.cacheHome}/shell-history";
+      home.sessionVariables.HISTFILESIZE = toString config.resources.histsize;
+      home.sessionVariables.HISTSIZE = toString config.resources.histsize;
+      home.sessionVariables.INPUTRC = pkgs.writeText "inputrc" ''
+        $include /etc/inputrc
+        set editing-mode vi
+        $if term=linux
+            set vi-ins-mode-string \1\e[?0c\2
+            set vi-cmd-mode-string \1\e[?8c\2
+        $else
+            set vi-ins-mode-string \1\e[4 q\2
+            set vi-cmd-mode-string \1\e[2 q\2
+        $endif
+        set colored-completion-prefix on
+        set colored-stats on
+        set completion-ignore-case on
+        set completion-map-case on
+        set completion-prefix-display-length 2
+        set mark-symlinked-directories on
+        set menu-complete-display-prefix on
+        set show-all-if-ambiguous on
+        set show-all-if-unmodified on
+        set show-mode-in-prompt on
+        set visible-stats on
+
+        Control-j: menu-complete
+        Control-k: menu-complete-backward
+      '';
+      home.sessionVariables.LESSHISTFILE = "${config.xdg.cacheHome}/less/history";
+      home.sessionVariables.MAILER = config.resources.programs.mailer.executable.path;
+      home.sessionVariables.MANWIDTH = "80";
+      home.sessionVariables.PAGER = config.resources.programs.pager.executable.path;
+      home.sessionVariables.PYTHON_EGG_CACHE = "${config.xdg.cacheHome}/python-eggs";
+      home.sessionVariables.SAVEHIST = toString config.resources.histsize;
+      home.sessionVariables.VISUAL = config.resources.programs.editor.executable.path;
+      home.sessionVariables.WINEPREFIX = "${config.xdg.dataHome}/wine";
 
       nixpkgs.config = import ./../nixpkgs/config.nix;
       nixpkgs.overlays = import ./../nixpkgs/overlays.nix;
