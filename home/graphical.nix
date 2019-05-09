@@ -245,8 +245,6 @@ in
         services.dunst.settings."urgency_normal".foreground = base0d;
         services.dunst.settings."urgency_normal".timeout = 10;
 
-        services.gnome-keyring.enable = true;
-
         services.network-manager-applet.enable = true;
 
         services.polybar.config = ../dotfiles/polybar/config;
