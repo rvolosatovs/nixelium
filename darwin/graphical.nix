@@ -34,7 +34,7 @@
   system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
   system.defaults.NSGlobalDomain.AppleMeasurementUnits = "Centimeters";
   system.defaults.NSGlobalDomain.AppleMetricUnits = 1;
-  system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = true;
+  system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
   system.defaults.NSGlobalDomain.AppleShowAllExtensions = true;
   system.defaults.NSGlobalDomain.AppleShowScrollBars = "Automatic";
   system.defaults.NSGlobalDomain.AppleTemperatureUnit = "Celsius";
