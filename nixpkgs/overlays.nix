@@ -1,7 +1,7 @@
-[
-  (_: _: let
-    unstable = import <nixpkgs-unstable> { config = import ./config.nix; overlays = []; };
-  in {
+let
+  unstable = import <nixpkgs-unstable> { config = import ./config.nix; overlays = []; };
+in [
+  (_: _: {
     inherit (unstable)
     alacritty
     arduino
@@ -85,12 +85,15 @@
     inherit (unstable.python3Packages)
     simple-websocket-server
     ;
-  } // (unstable.lib.mkIf (!unstable.stdenv.isDarwin) {
+  })
+
+  (_: _: if !unstable.stdenv.isDarwin then {
     inherit (unstable)
     brave
-    zathura;
-  })
-  )
+    zathura
+    ;
+
+  } else {})
 
   (_: self: {
     nur = import ./../vendor/nur { pkgs = self; };
