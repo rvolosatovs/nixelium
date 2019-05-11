@@ -57,6 +57,7 @@ in [
     pass
     passExtensions
     platformio
+    polybar
     pulseaudio-modules-bt
     qsyncthingtray
     quake3pointrelease
@@ -174,5 +175,12 @@ in [
     neovim = self.neovim.override (import ./neovim self);
 
     pass = self.pass.withExtensions (es: [ es.pass-otp ]);
+
+    polybar = self.polybar.override {
+      alsaSupport = false;
+      githubSupport = true;
+      mpdSupport = true;
+      pulseSupport = true;
+    };
   })
 ]
