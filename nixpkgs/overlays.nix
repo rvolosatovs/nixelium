@@ -6,7 +6,6 @@
     alacritty
     arduino
     bluez
-    brave
     bspwm
     cachix
     chromium
@@ -86,7 +85,12 @@
     inherit (unstable.python3Packages)
     simple-websocket-server
     ;
+  } // (unstable.lib.mkIf (!unstable.pkgs.stdenv.isDarwin) {
+    inherit (unstable)
+    brave
+    zathura;
   })
+  )
 
   (_: self: {
     nur = import ./../vendor/nur { pkgs = self; };
