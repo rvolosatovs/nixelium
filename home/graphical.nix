@@ -245,11 +245,6 @@ in
 
         services.polybar.config = ../dotfiles/polybar/config;
         services.polybar.enable = true;
-        services.polybar.package = pkgs.polybar.override {
-          alsaSupport = true;
-          mpdSupport = true;
-          githubSupport = true;
-        };
         services.polybar.script = ''
           i=0
           for m in $(${pkgs.gorandr}/bin/randrq -f '{{.Name}}:{{.Width}}'); do
