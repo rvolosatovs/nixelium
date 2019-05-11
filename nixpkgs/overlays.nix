@@ -85,7 +85,7 @@
     inherit (unstable.python3Packages)
     simple-websocket-server
     ;
-  } // (unstable.lib.mkIf (!unstable.pkgs.stdenv.isDarwin) {
+  } // (unstable.lib.mkIf (!unstable.stdenv.isDarwin) {
     inherit (unstable)
     brave
     zathura;
