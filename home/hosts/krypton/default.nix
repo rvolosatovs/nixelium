@@ -1,10 +1,13 @@
 {
   home.file.".Brewfile".text = ''
+    tap "homebrew/cask"
+    tap "homebrew/services"
+    tap "koekeishiya/formulae"
+
     brew "choose-gui"
-    brew "docker"
-    brew "docker-machine"
-    brew "koekeishiya/formulae/chunkwm"
+    brew "chunkwm"
     cask "brave-browser"
+    cask "docker"
     cask "keybase"
     cask "libreoffice"
     cask "slack"
