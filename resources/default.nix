@@ -40,7 +40,7 @@
 
     } // optionalAttrs config.resources.graphics.enable {
       terminal.package = pkgs.kitty;
-      terminal.executable.name ="kitty";
+      terminal.executable.name ="kitty -1";
 
     } // optionalAttrs (config.resources.graphics.enable && pkgs.stdenv.isLinux) {
       browser.package = pkgs.brave;
