@@ -8,7 +8,13 @@
     ./zsh.nix
   ];
 
-  config = with lib; mkMerge [
+  config = let
+    baseNixPath = (lib.concatStringsSep ":" [
+      "home-manager=${config.home.homeDirectory}/.nix-defexpr/channels/home-manager"
+      "nixpkgs-unstable=${config.home.homeDirectory}/.nix-defexpr/channels/nixpkgs-unstable"
+      "nixpkgs=${config.home.homeDirectory}/.nix-defexpr/channels/nixpkgs"
+    ]) + "\${NIX_PATH:+:}\${NIX_PATH}";
+  in with lib; mkMerge [
     ({
       accounts.email.accounts."${config.resources.email}" = {
         address = config.resources.email;
@@ -217,6 +223,8 @@
 
       home.file.".terminfo".source = "/etc/profiles/per-user/${config.resources.username}/share/terminfo";
 
+      home.sessionVariables.NIX_PATH = "${config.home.homeDirectory}/.nix-defexpr/channels/darwin:${baseNixPath}";
+
       programs.zsh.shellAliases.o = "open";
     })
 
@@ -233,6 +241,8 @@
         sudo
         usbutils
       ];
+
+      home.sessionVariables.NIX_PATH = baseNixPath;
 
       programs.zsh.shellAliases.o = "${pkgs.xdg_utils}/bin/xdg-open";
       programs.zsh.shellAliases.sy="${pkgs.systemd}/bin/systemctl";
