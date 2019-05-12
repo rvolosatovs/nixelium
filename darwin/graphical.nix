@@ -20,6 +20,7 @@
   system.defaults.dock.mru-spaces = false;
   system.defaults.dock.orientation = "right";
   system.defaults.dock.showhidden = true;
+  system.defaults.dock.static-only = true;
 
   system.defaults.finder._FXShowPosixPathInTitle = false;
   system.defaults.finder.AppleShowAllExtensions = true;
