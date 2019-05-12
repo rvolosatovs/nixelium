@@ -223,7 +223,7 @@
 
       home.file.".terminfo".source = "/etc/profiles/per-user/${config.resources.username}/share/terminfo";
 
-      home.sessionVariables.NIX_PATH = "${config.home.homeDirectory}/.nix-defexpr/channels/darwin:${baseNixPath}";
+      home.sessionVariables.NIX_PATH = "darwin=${config.home.homeDirectory}/.nix-defexpr/channels/darwin:${baseNixPath}";
 
       programs.zsh.shellAliases.o = "open";
     })
