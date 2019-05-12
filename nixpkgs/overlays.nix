@@ -70,7 +70,9 @@ in [
     rofi
     rtorrent
     rust-cbindgen
+    skhd
     sway
+    sxhkd
     syncthing
     syncthing-cli
     syncthing-tray
