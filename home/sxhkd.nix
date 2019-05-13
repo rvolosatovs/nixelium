@@ -6,7 +6,12 @@
         light
       ];
 
-      xdg.configFile."sxhkd/sxhkdrc".text = with config.resources.programs; ''
+      xdg.configFile."sxhkd/sxhkdrc".text = let
+        # Necessary to limit the length of lines for sxhkd, see https://github.com/baskerville/sxhkd/issues/139.
+        choosePass = pkgs.writeShellScript "choose-pass" ''
+          ${pkgs.gopass}/bin/gopass list --flat ''${@} | ${pkgs.rofi}/bin/rofi -dmenu
+        '';
+      in with config.resources.programs; ''
         super + Return
             ${terminal.executable.path}
 
@@ -14,16 +19,16 @@
             ${pkgs.rofi}/bin/rofi -modi "window,drun,run,ssh" -show run -sidebar-mode
 
         super + shift + p
-            ${pkgs.gopass}/bin/gopass ls -f | sort -df | ${pkgs.rofi}/bin/rofi -dmenu | xargs -r ${pkgs.gopass}/bin/gopass show -f | head -n 1 | ${pkgs.xdotool}/bin/xdotool type --clearmodifiers --file -
+            ${choosePass} | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass show -f | ${pkgs.coreutils}/bin/head -n 1 | ${pkgs.xdotool}/bin/xdotool type --clearmodifiers --file -
 
         super + shift + f
-            ${pkgs.xdotool}/bin/xdotool type --clearmodifiers "$( ${pkgs.go-2fa}/bin/2fa "$( ${pkgs.go-2fa}/bin/2fa -list | ${pkgs.rofi}/bin/rofi -dmenu )" )"
+            ${choosePass} 2fa | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass otp | ${pkgs.coreutils}/bin/cut -d' ' -f1 | ${pkgs.xdotool}/bin/xdotool type --clearmodifiers --file -
 
         super + ctrl + p
-            ${pkgs.gopass}/bin/gopass ls -f | sort -df | ${pkgs.rofi}/bin/rofi -dmenu | xargs -r ${pkgs.gopass}/bin/gopass show -c
+            ${choosePass} | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass -c
 
         super + ctrl + f
-            ${pkgs.go-2fa}/bin/2fa -clip "$( ${pkgs.go-2fa}/bin/2fa -list | ${pkgs.rofi}/bin/rofi -dmenu )"
+            ${choosePass} 2fa | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass otp -c
 
         super + shift + o
             ${browser.executable.path}

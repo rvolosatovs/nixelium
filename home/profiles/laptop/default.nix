@@ -16,7 +16,6 @@
         deluge
         drive
         git-rebase-all
-        go-2fa
         godef
         gotools
         httpie
