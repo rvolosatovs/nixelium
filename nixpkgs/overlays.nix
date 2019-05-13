@@ -159,6 +159,23 @@ in [
     furaCode = nerdfontRelease "FiraCode" "1bnai3k3hg6sxbb1646ahd82dm2ngraclqhdygxhh7fqqnvc3hdy";
   })
 
+  (_: self: {
+    git-rebase-all = self.writeShellScriptBin "git-rebase-all" ''
+      set -e
+      
+      base=''${1:-master}
+      for b in $(${self.git}/bin/git for-each-ref --no-contains "''${base}" refs/heads --format '%(refname:lstrip=2)'); do 
+          ${self.git}/bin/git checkout -q "''${b}"
+          if ! ${self.git}/bin/git rebase -q "''${base}" &> /dev/null; then 
+              echo "''${b} can not be rebased automatically"
+              ${self.git}/bin/git rebase --abort
+          fi
+      done
+      
+      ${self.git}/bin/git checkout -q "''${base}" && ${self.git}/bin/git branch --merged | grep -v '\*' | ${self.findutils}/bin/xargs -r ${self.git}/bin/git branch -d
+    '';
+  })
+
   (super: self: {
     firefox = self.wrapFirefox.override {
       config = self.lib.setAttrByPath [ self.firefox.browserName or (builtins.parseDrvName self.firefox.name).name ] {
