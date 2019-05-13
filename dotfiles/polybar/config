@@ -175,11 +175,6 @@ tray-detached = false
 ; Tray icon max size
 tray-maxsize = 16
 
-; Enable pseudo transparency
-; Will automatically be enabled if a fully transparent
-; background color is defined using `tray-background`
-tray-transparent = false
-
 ; Background color for the tray container
 ; By default the tray container will use the bar
 ; background color.
