@@ -23,7 +23,16 @@
   };
 
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
+
+  networking.networkmanager.appendNameservers = config.networking.nameservers;
+  networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = true;
+  networking.networkmanager.extraConfig = ''
+    [device]
+    wifi.backend = iwd
+  '';
+
+  networking.wireless.iwd.enable = true;
 
   programs.adb.enable = true;
 
@@ -42,5 +51,6 @@
 
   users.users.${config.resources.username}.extraGroups = [
     "adbusers"
+    "networkmanager"
   ];
 }

@@ -7,6 +7,6 @@
     ${pkgs.iproute}/bin/ip route add default via 10.0.0.1 dev wg0
   '';
 
-  systemd.services.wireguard-wg0.after = [ "NetworkManager-wait-online.service" ];
-  systemd.services.wireguard-wg0.wants = [ "NetworkManager-wait-online.service" ];
+  systemd.services.wireguard-wg0.after = [ "network-online.target" ];
+  systemd.services.wireguard-wg0.wants = [ "network-online.target" ];
 }

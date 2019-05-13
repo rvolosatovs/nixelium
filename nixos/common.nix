@@ -69,7 +69,6 @@
 
   networking.firewall.enable = true;
   networking.extraHosts = builtins.readFile ./../vendor/hosts/hosts;
-  networking.networkmanager.enable = true;
 
   nix.autoOptimiseStore = true;
   nix.binaryCaches = [
@@ -177,8 +176,6 @@
 
   system.stateVersion = "19.03";
 
-  systemd.services.systemd-networkd-wait-online.enable = false;
-
   time.timeZone = "Europe/Amsterdam";
 
   users.defaultUserShell = config.resources.programs.shell.executable.path;
@@ -195,7 +192,6 @@
       "input"
       "libvirtd"
       "netdev"
-      "networkmanager"
       "plugdev"
       "ssh"
       "tty"
