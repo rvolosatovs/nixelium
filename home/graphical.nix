@@ -248,7 +248,6 @@ in
           i3lock
           libnotify
           maim
-          networkmanagerapplet
           pavucontrol
           rsibreak
           slop
@@ -306,8 +305,6 @@ in
         services.dunst.settings."urgency_normal".foreground = base0d;
         services.dunst.settings."urgency_normal".timeout = 10;
 
-        services.network-manager-applet.enable = true;
-
         services.polybar.config = ../dotfiles/polybar/config;
         services.polybar.enable = true;
         services.polybar.script = ''
@@ -328,7 +325,6 @@ in
           done
         '';
 
-
         services.redshift.enable = true;
         services.redshift.provider = "manual";
         services.redshift.tray = true;
@@ -343,7 +339,6 @@ in
         xsession.enable = true;
         xsession.windowManager.command = ''
           ${pkgs.feh}/bin/feh --bg-fill "$HOME/pictures/wp"
-          ${pkgs.networkmanagerapplet}/bin/nm-applet &
           ${pkgs.xorg.xset}/bin/xset s off -dpms
           ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
           ${pkgs.wmname}/bin/wmname LG3D
