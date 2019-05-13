@@ -176,68 +176,66 @@ in
       })
 
       (mkIf pkgs.stdenv.isDarwin {
-        home.file.".chunkwmrc" = {
-          executable = true;
-          text = ''
-            #!${pkgs.bash}/bin/bash
-            chunkc core::log_file stdout
-            chunkc core::log_level warn
-            chunkc core::plugin_dir /usr/local/opt/chunkwm/share/chunkwm/plugins
-            chunkc core::hotload 0
+        home.file.".chunkwmrc".executable = true;
+        home.file.".chunkwmrc".text = ''
+          #!${pkgs.bash}/bin/bash
+          chunkc core::log_file stdout
+          chunkc core::log_level warn
+          chunkc core::plugin_dir /usr/local/opt/chunkwm/share/chunkwm/plugins
+          chunkc core::hotload 0
 
-            chunkc set bsp_optimal_ratio             1.618
-            chunkc set bsp_spawn_left                1
-            chunkc set bsp_split_mode                optimal
-            chunkc set bsp_split_ratio               0.5
-            chunkc set custom_bar_all_monitors       0
-            chunkc set custom_bar_enabled            0
-            chunkc set custom_bar_offset_bottom      0
-            chunkc set custom_bar_offset_left        0
-            chunkc set custom_bar_offset_right       0
-            chunkc set custom_bar_offset_top         22
-            chunkc set desktop_gap_step_size         5.0
-            chunkc set desktop_padding_step_size     10.0
-            chunkc set ffm_bypass_modifier           fn
-            chunkc set ffm_standby_on_float          1
-            chunkc set focused_border_color          0xff0f6288
-            chunkc set focused_border_outline        0
-            chunkc set focused_border_radius         0
-            chunkc set focused_border_skip_floating  0
-            chunkc set focused_border_skip_monocle   0
-            chunkc set focused_border_width          5
-            chunkc set global_desktop_mode           bsp
-            chunkc set global_desktop_offset_bottom  3
-            chunkc set global_desktop_offset_gap     2
-            chunkc set global_desktop_offset_left    3
-            chunkc set global_desktop_offset_right   3
-            chunkc set global_desktop_offset_top     3
-            chunkc set monitor_focus_cycle           1
-            chunkc set mouse_follows_focus           intrinsic
-            chunkc set mouse_motion_interval         35
-            chunkc set mouse_move_window             \"cmd 1\"
-            chunkc set mouse_resize_window           \"cmd 2\"
-            chunkc set preselect_border_color        0xffd75f5f
-            chunkc set preselect_border_outline      0
-            chunkc set preselect_border_radius       0
-            chunkc set preselect_border_width        5
-            chunkc set window_fade_alpha             0.85
-            chunkc set window_fade_duration          0.25
-            chunkc set window_fade_inactive          0
-            chunkc set window_float_next             0
-            chunkc set window_float_topmost          0
-            chunkc set window_focus_cycle            monitor
-            chunkc set window_region_locked          1
-            chunkc set window_use_cgs_move           0
+          chunkc set bsp_optimal_ratio             1.618
+          chunkc set bsp_spawn_left                1
+          chunkc set bsp_split_mode                optimal
+          chunkc set bsp_split_ratio               0.5
+          chunkc set custom_bar_all_monitors       0
+          chunkc set custom_bar_enabled            0
+          chunkc set custom_bar_offset_bottom      0
+          chunkc set custom_bar_offset_left        0
+          chunkc set custom_bar_offset_right       0
+          chunkc set custom_bar_offset_top         22
+          chunkc set desktop_gap_step_size         5.0
+          chunkc set desktop_padding_step_size     10.0
+          chunkc set ffm_bypass_modifier           fn
+          chunkc set ffm_standby_on_float          1
+          chunkc set focused_border_color          0xff0f6288
+          chunkc set focused_border_outline        0
+          chunkc set focused_border_radius         0
+          chunkc set focused_border_skip_floating  0
+          chunkc set focused_border_skip_monocle   0
+          chunkc set focused_border_width          5
+          chunkc set global_desktop_mode           bsp
+          chunkc set global_desktop_offset_bottom  3
+          chunkc set global_desktop_offset_gap     2
+          chunkc set global_desktop_offset_left    3
+          chunkc set global_desktop_offset_right   3
+          chunkc set global_desktop_offset_top     3
+          chunkc set monitor_focus_cycle           1
+          chunkc set mouse_follows_focus           intrinsic
+          chunkc set mouse_motion_interval         35
+          chunkc set mouse_move_window             \"cmd 1\"
+          chunkc set mouse_resize_window           \"cmd 2\"
+          chunkc set preselect_border_color        0xffd75f5f
+          chunkc set preselect_border_outline      0
+          chunkc set preselect_border_radius       0
+          chunkc set preselect_border_width        5
+          chunkc set window_fade_alpha             0.85
+          chunkc set window_fade_duration          0.25
+          chunkc set window_fade_inactive          0
+          chunkc set window_float_next             0
+          chunkc set window_float_topmost          0
+          chunkc set window_focus_cycle            monitor
+          chunkc set window_region_locked          1
+          chunkc set window_use_cgs_move           0
 
-            chunkc core::load border.so
-            chunkc core::load tiling.so
-            chunkc core::load ffm.so
+          chunkc core::load border.so
+          chunkc core::load tiling.so
+          chunkc core::load ffm.so
 
-            chunkc tiling::rule --owner Finder --name Copy --state float &
-            chunkc tiling::rule --owner \"App Store\" --state float &
-            chunkc tiling::rule --owner \"Calculator\" --state float &
-          '';
-        };
+          chunkc tiling::rule --owner Finder --name Copy --state float &
+          chunkc tiling::rule --owner \"App Store\" --state float &
+          chunkc tiling::rule --owner \"Calculator\" --state float &
+        '';
       })
 
       (mkIf pkgs.stdenv.isLinux {
@@ -310,18 +308,18 @@ in
         services.polybar.script = ''
           i=0
           for m in $(${pkgs.gorandr}/bin/randrq -f '{{.Name}}:{{.Width}}'); do
-          name="''${m%:*}"
-          width="''${m#*:}"
+            name="''${m%:*}"
+            width="''${m#*:}"
 
-          size="-small"
-          [[ ''${width} -gt 1920 ]] && size="-big"
+            size="-small"
+            [[ ''${width} -gt 1920 ]] && size="-big"
 
-          suf=""
-          [[ $i == 0 ]] && suf="-tray"
+            suf=""
+            [[ $i == 0 ]] && suf="-tray"
 
-          MONITOR="''${name}" ${pkgs.polybar}/bin/polybar -r top''${size}''${suf}&
+            MONITOR="''${name}" ${pkgs.polybar}/bin/polybar -r top''${size}''${suf}&
 
-          let i=i+1
+            let i=i+1
           done
         '';
 
@@ -333,22 +331,86 @@ in
         services.screen-locker.inactiveInterval = 20;
         services.screen-locker.lockCmd = "${pkgs.i3lock}/bin/i3lock -t -f -i ~/pictures/lock";
 
-        xdg.configFile."bspwm/bspwmrc".source = ../dotfiles/bspwm/bspwmrc;
+        xdg.configFile."bspwm/bspwmrc".executable = true;
+        xdg.configFile."bspwm/bspwmrc".text = ''
+          #!${pkgs.bash}/bin/bash
+          initBSPWM() {
+              ${pkgs.bspwm}/bin/bspc config automatic_scheme      spiral
+              ${pkgs.bspwm}/bin/bspc config initial_polarity      first_child
+
+              ${pkgs.bspwm}/bin/bspc config border_width          2
+              ${pkgs.bspwm}/bin/bspc config window_gap            5
+              ${pkgs.bspwm}/bin/bspc config split_ratio           0.5
+              ${pkgs.bspwm}/bin/bspc config borderless_monocle    true
+              ${pkgs.bspwm}/bin/bspc config gapless_monocle       true
+              ${pkgs.bspwm}/bin/bspc config focus_follows_pointer false
+              ${pkgs.bspwm}/bin/bspc config click_to_focus        button1
+
+              ${pkgs.bspwm}/bin/bspc config normal_border_color   "${base00}"
+              ${pkgs.bspwm}/bin/bspc config focused_border_color  "${base05}"
+              ${pkgs.bspwm}/bin/bspc config active_border_color   "${base03}"
+              ${pkgs.bspwm}/bin/bspc config presel_feedback_color "${base0a}"
+
+              ${pkgs.bspwm}/bin/bspc rule -a "Spotify" desktop=^5
+              ${pkgs.bspwm}/bin/bspc rule -a "Chromium-browser:crx_eggkanocgddhmamlbiijnphhppkpkmkl" state=floating
+              ${pkgs.bspwm}/bin/bspc rule -a "mpv" state=floating
+
+              local desktops_per_mon=5
+
+              local oldM=$(${pkgs.bspwm}/bin/bspc query -M)
+              local mons=$(${pkgs.gorandr}/bin/randrq -f '{{.Name}}:{{.Width}}x{{.Height}}')
+
+              local x=0
+              for m in ''${mons}; do
+                  local name="''${m%:*}"
+                  local mode="''${m#*:}"
+
+                  xrandr --output "''${name}" --mode "''${mode}" --pos ''${x}x0
+
+                  ${pkgs.bspwm}/bin/bspc wm -a "''${name}" "''${mode}+''${x}+0"
+
+                  local names=()
+                  for j in $(${pkgs.coreutils}/bin/seq $desktops_per_mon); do
+                      names+=("$name/$j")
+                  done
+
+                  ${pkgs.bspwm}/bin/bspc monitor "$name" -d ''${names[@]}
+
+                  x=$((''${x}+''${mode%x*}))
+              done
+
+              for m in ''${oldM}; do
+                  local first="$(${pkgs.coreutils}/bin/head -1 <<< ''${mons} | ${pkgs.coreutils}/bin/cut -d':' -f1)/1"
+                  for n in $(${pkgs.bspwm}/bin/bspc query -N -m "''${m}"); do
+                      ${pkgs.bspwm}/bin/bspc node "''${n}" -d ''${first}
+                  done
+                  for d in $(${pkgs.bspwm}/bin/bspc query -D -m "''${m}"); do
+                      ${pkgs.bspwm}/bin/bspc desktop "''${d}" -r
+                  done
+                  ${pkgs.bspwm}/bin/bspc monitor "''${m}" -r
+              done
+
+              ${pkgs.feh}/bin/feh --bg-fill "$HOME/pictures/wp"
+              ${pkgs.systemd}/bin/systemctl --user restart polybar
+          }
+
+          initBSPWM
+        '';
         xdg.configFile."sway/config".source = ../dotfiles/sway/config;
 
         xsession.enable = true;
         xsession.windowManager.command = ''
-          ${pkgs.feh}/bin/feh --bg-fill "$HOME/pictures/wp"
           ${pkgs.xorg.xset}/bin/xset s off -dpms
           ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
           ${pkgs.wmname}/bin/wmname LG3D
-
-          /run/wrappers/bin/sudo ''${HOME}/.local/bin/fix-keycodes
 
           ${pkgs.pulseaudioFull}/bin/pactl upload-sample /usr/share/sounds/freedesktop/stereo/bell.oga x11-bell
           ${pkgs.pulseaudioFull}/bin/pactl load-module module-x11-bell sample=x11-bell display=$DISPLAY
 
           ${pkgs.xbanish}/bin/xbanish &
+
+          /run/wrappers/bin/sudo setkeycodes 0e 43
+          /run/wrappers/bin/sudo setkeycodes 2b 14
 
           SXHKD_SHELL=${pkgs.bash}/bin/bash ${pkgs.sxhkd}/bin/sxhkd -m -1 &
           ${pkgs.bspwm}/bin/bspwm
