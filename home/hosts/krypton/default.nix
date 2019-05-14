@@ -6,6 +6,8 @@
 
     brew "choose-gui"
     brew "chunkwm"
+    brew "ykman"
+
     cask "brave-browser"
     cask "docker"
     cask "keybase"
