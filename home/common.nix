@@ -22,6 +22,7 @@
       };
 
       home.packages = with pkgs; [
+        (lib.lowPrio coreutils)
         cowsay
         curl
         docker-gc
@@ -165,11 +166,8 @@
       programs.zsh.shellAliases.ll = "${pkgs.coreutils}/bin/ls -la";
       programs.zsh.shellAliases.ls = "${pkgs.coreutils}/bin/ls -h --color=auto";
       programs.zsh.shellAliases.mkdir = "${pkgs.coreutils}/bin/mkdir -pv";
-      programs.zsh.shellAliases.ping = "/run/wrappers/bin/ping -c 3";
       programs.zsh.shellAliases.rm = "${pkgs.coreutils}/bin/rm -i";
       programs.zsh.shellAliases.sl = "${pkgs.coreutils}/bin/ls";
-      programs.zsh.shellAliases.Vi = "/run/wrappers/bin/sudoedit";
-      programs.zsh.shellAliases.Vim = "/run/wrappers/bin/sudoedit";
 
       xdg.cacheHome = "${config.home.homeDirectory}/.local/cache";
       xdg.configFile."direnv/direnvrc".source = ./../dotfiles/direnv/direnvrc;
@@ -217,21 +215,17 @@
     })
 
     (mkIf pkgs.stdenv.isDarwin {
-      home.packages = with pkgs; [
-        coreutils-prefixed
-      ];
-
       home.file.".terminfo".source = "/etc/profiles/per-user/${config.resources.username}/share/terminfo";
 
       home.sessionVariables.NIX_PATH = "darwin=${config.home.homeDirectory}/.nix-defexpr/channels/darwin:${baseNixPath}";
 
       programs.zsh.shellAliases.o = "open";
+      programs.zsh.shellAliases.ping = "/sbin/ping -c 3";
     })
 
     (mkIf pkgs.stdenv.isLinux {
       home.packages = with pkgs; [
         acpi
-        (lib.lowPrio coreutils)
         dex
         espeak
         lm_sensors
@@ -245,7 +239,10 @@
       home.sessionVariables.NIX_PATH = baseNixPath;
 
       programs.zsh.shellAliases.o = "${pkgs.xdg_utils}/bin/xdg-open";
+      programs.zsh.shellAliases.ping = "/run/wrappers/bin/ping -c 3";
       programs.zsh.shellAliases.sy="${pkgs.systemd}/bin/systemctl";
+      programs.zsh.shellAliases.Vi = "/run/wrappers/bin/sudoedit";
+      programs.zsh.shellAliases.Vim = "/run/wrappers/bin/sudoedit";
 
       services.syncthing.enable = false;
       services.syncthing.tray = config.resources.graphics.enable;
