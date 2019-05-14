@@ -176,7 +176,7 @@ pkgs: ''
 
   let g:tex_conceal="ag"
 
-  let g:vimtex_view_method='${pkgs.zathura}/zathura'
+  let g:vimtex_view_method='${pkgs.zathura}/bin/zathura'
 
   let mapleader = "\<Space>"
   let maplocalleader = "\<Space>"
