@@ -262,7 +262,6 @@ in
         ];
 
         home.keyboard.layout = "lv,ru";
-        home.keyboard.variant = "qwerty";
         home.keyboard.options = [
           "grp:alt_space_toggle"
           "terminate:ctrl_alt_bksp"
