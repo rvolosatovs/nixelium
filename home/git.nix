@@ -21,7 +21,7 @@ let
     .direnv*
     .DS_Store
     .DS_Store?
-    .envrc
+    .envrc*
     .Spotlight-V100
     .Trashes
     .vscode
