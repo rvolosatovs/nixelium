@@ -3,6 +3,7 @@ stdenv.mkDerivation {
   name = "env";
   buildInputs = let
     keybaseRepos = [ "vendor/pass" "vendor/pass-ttn-shared" "vendor/pass-otp" ];
+
     writeAllReposScriptBin = name: action: writeShellScriptBin name (''
       set -x
       ${action}
@@ -21,8 +22,11 @@ stdenv.mkDerivation {
   in [
     fetchAll
     pullAll
-    pushAll
-
     pullAndDeploy
-  ];
+    pushAll
+  ] ++ [
+    git
+    neovim
+    nixops
+  ] ++ lib.optional stdenv.isLinux keybase;
 }
