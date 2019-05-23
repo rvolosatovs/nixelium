@@ -1,3 +1,4 @@
+use nix
 source .envrc.common
 export NIX_PATH="darwin=$PWD/vendor/nix-darwin:home-manager=$PWD/vendor/home-manager:$NIX_PATH"
 #vim:ft=sh
