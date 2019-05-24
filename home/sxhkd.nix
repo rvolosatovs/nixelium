@@ -18,17 +18,23 @@
         super + space
             ${pkgs.rofi}/bin/rofi -modi "window,drun,run,ssh" -show run -sidebar-mode
 
+        super + shift + u
+            ${pkgs.gopass}/bin/gopass show -f "$(${choosePass})" username | ${pkgs.xdotool}/bin/xdotool type --clearmodifiers --file -
+
         super + shift + p
-            ${choosePass} | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass show -f | ${pkgs.coreutils}/bin/head -n 1 | ${pkgs.xdotool}/bin/xdotool type --clearmodifiers --file -
+            ${pkgs.gopass}/bin/gopass show -f "$(${choosePass})" | ${pkgs.coreutils}/bin/head -n 1 | ${pkgs.xdotool}/bin/xdotool type --clearmodifiers --file -
 
         super + shift + f
-            ${choosePass} 2fa | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass otp | ${pkgs.coreutils}/bin/cut -d' ' -f1 | ${pkgs.xdotool}/bin/xdotool type --clearmodifiers --file -
+            ${pkgs.gopass}/bin/gopass otp "$(${choosePass} 2fa)" | ${pkgs.coreutils}/bin/cut -d' ' -f1 | ${pkgs.xdotool}/bin/xdotool type --clearmodifiers --file -
+
+        super + ctrl + u
+            ${pkgs.gopass}/bin/gopass -c "$(${choosePass})" username
 
         super + ctrl + p
-            ${choosePass} | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass -c
+            ${pkgs.gopass}/bin/gopass -c "$(${choosePass})"
 
         super + ctrl + f
-            ${choosePass} 2fa | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass otp -c
+            ${pkgs.gopass}/bin/gopass otp -c "$(${choosePass} 2fa)"
 
         super + shift + o
             ${browser.executable.path}
