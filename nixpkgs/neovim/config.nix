@@ -49,6 +49,7 @@ pkgs: ''
   syntax enable
 
   set autoindent
+  set cmdheight=2
   set completeopt+=menu,menuone
   set concealcursor=nc
   set conceallevel=0
@@ -78,7 +79,10 @@ pkgs: ''
   set nrformats=alpha,octal,hex,bin
   set number
   set relativenumber
+  set shell=${pkgs.stdenv.shell}
   set shiftwidth=4
+  set shortmess+=c
+  set signcolumn=yes
   set smartcase
   set softtabstop=4
   set t_Co=256
@@ -112,22 +116,11 @@ pkgs: ''
 
   let g:bufferline_echo = 0
 
-  let g:deoplete#enable_at_startup = 1
-
-  let g:deoplete#sources#clang#clang_header="${pkgs.llvmPackages.clang-unwrapped}/lib/clang"
-  let g:deoplete#sources#clang#libclang_path="${pkgs.llvmPackages.libclang}/lib/libclang.so"
-
-  let g:deoplete#sources#go#auto_goos = 1
-  let g:deoplete#sources#go#cgo = 0
-  let g:deoplete#sources#go#gocode_binary = '${pkgs.gocode-gomod}/bin/gocode-gomod'
-  let g:deoplete#sources#go#package_dot = 0
-  let g:deoplete#sources#go#pointer = 1
-  let g:deoplete#sources#go#sort_class = ['package', 'var', 'func', 'const', 'type']
-
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
   let g:go_auto_type_info = 0
-  let g:go_def_mode = 'godef'
+  let g:go_def_mapping_enabled = 0
+  let g:go_def_mode = 'gopls'
   let g:go_def_reuse_buffer = 0
   let g:go_doc_command = [ '${pkgs.gotools}/bin/godoc' ]
   let g:go_fmt_autosave = 1
@@ -155,6 +148,7 @@ pkgs: ''
   let g:go_highlight_types = 0
   let g:go_highlight_variable_assignments = 0
   let g:go_highlight_variable_declarations = 0
+  let g:go_info_mode = 'gopls'
   let g:go_snippet_engine = 'neosnippet'
   let g:go_term_enabled=1
   let g:go_test_show_name=1
@@ -181,70 +175,81 @@ pkgs: ''
   let mapleader = "\<Space>"
   let maplocalleader = "\<Space>"
 
-  imap     <C-k>         <Plug>(neosnippet_expand_or_jump)
-  imap     <C-x><C-f>    <Plug>(fzf-complete-path)
-  imap     <C-x><C-j>    <Plug>(fzf-complete-file-ag)
-  imap     <C-x><C-l>    <Plug>(fzf-complete-line)
-  inoremap <A-h>         <C-\><C-N><C-w>h
-  inoremap <A-j>         <C-\><C-N><C-w>j
-  inoremap <A-k>         <C-\><C-N><C-w>k
-  inoremap <A-l>         <C-\><C-N><C-w>l
-  nmap     #             <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
-  nmap     *             <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
-  nmap     /             <Plug>(incsearch-forward)
-  nmap     <Leader><Tab> <Plug>(fzf-maps-n)
-  nmap     ?             <Plug>(incsearch-backward)
-  nmap     g#            <Plug>(incsearch-nohl-g#)<Plug>(anzu-update-search-status-with-echo)
-  nmap     g*            <Plug>(incsearch-nohl-g*)<Plug>(anzu-update-search-status-with-echo)
-  nmap     g/            <Plug>(incsearch-stay)
-  nmap     N             <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
-  nmap     n             <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
-  nnoremap K             ddkPJ
-  noremap  ;             :
-  noremap  ;;            ;
-  noremap  <A-h>         <C-w>h
-  noremap  <A-j>         <C-w>j
-  noremap  <A-k>         <C-w>k
-  noremap  <A-l>         <C-w>l
-  noremap  <Leader>af    :Autoformat<CR>
-  noremap  <Leader>cd    :cd %:p:h<CR>:pwd<CR>
-  noremap  <Leader>cl    :copen<CR>
-  noremap  <Leader>cn    :cnext<CR>
-  noremap  <Leader>cp    :cprevious<CR>
-  noremap  <Leader>f:    :Commands<CR>
-  noremap  <Leader>f;    :History:<CR>
-  noremap  <Leader>fG    :Commits<CR>
-  noremap  <Leader>fL    :Lines <CR>
-  noremap  <Leader>fT    :Tags<CR>
-  noremap  <Leader>fb    :Buffers <CR>
-  noremap  <Leader>fg    :BCommits<CR>
-  noremap  <Leader>fh    :History<CR>
-  noremap  <Leader>fl    :BLines <CR>
-  noremap  <Leader>fm    :Marks<CR>
-  noremap  <Leader>fo    :Files %:p:h<CR>
-  noremap  <Leader>fs    :Snippets<CR>
-  noremap  <Leader>ft    :BTags<CR>
-  noremap  <Leader>fw    :Windows<CR>
-  noremap  <Leader>ll    :lopen<CR>
-  noremap  <Leader>ln    :lnext<CR>
-  noremap  <Leader>lp    :lprevious<CR>
-  noremap  <Leader>n     :bnext<CR>
-  noremap  <Leader>o     :GFiles <CR>
-  noremap  <Leader>p     :bprev<CR>
-  noremap  <Leader>s     :sort i<CR>
-  noremap  <Leader>ze    :enew <CR>
-  noremap  <Leader>zs    :call MakeSession()<CR>
-  noremap  <Leader>zt    :tabnew<CR>
-  noremap  <Space>       <Nop>
-  noremap  Y             y$
-  omap     <Leader><Tab> <Plug>(fzf-maps-o)
-  smap     <C-k>         <Plug>(neosnippet_expand_or_jump)
-  tnoremap <A-h>         <C-\><C-N><C-w>h
-  tnoremap <A-j>         <C-\><C-N><C-w>j
-  tnoremap <A-k>         <C-\><C-N><C-w>k
-  tnoremap <A-l>         <C-\><C-N><C-w>l
-  xmap     <C-k>         <Plug>(neosnippet_expand_target)
-  xmap     <Leader><Tab> <Plug>(fzf-maps-x)
+
+  imap              <C-k>         <Plug>(neosnippet_expand_or_jump)
+  imap              <C-x><C-f>    <Plug>(fzf-complete-path)
+  imap              <C-x><C-j>    <Plug>(fzf-complete-file-ag)
+  imap              <C-x><C-l>    <Plug>(fzf-complete-line)
+  inoremap          <A-h>         <C-\><C-N><C-w>h
+  inoremap          <A-j>         <C-\><C-N><C-w>j
+  inoremap          <A-k>         <C-\><C-N><C-w>k
+  inoremap          <A-l>         <C-\><C-N><C-w>l
+  nmap              #             <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
+  nmap              *             <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
+  nmap              /             <Plug>(incsearch-forward)
+  nmap              <C-]>         gd
+  nmap              <Leader>f     <Plug>(coc-format-selected)
+  nmap              ?             <Plug>(incsearch-backward)
+  nmap              g#            <Plug>(incsearch-nohl-g#)<Plug>(anzu-update-search-status-with-echo)
+  nmap              g*            <Plug>(incsearch-nohl-g*)<Plug>(anzu-update-search-status-with-echo)
+  nmap              g/            <Plug>(incsearch-stay)
+  nmap              N             <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+  nmap              n             <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+  nmap              R             <Plug>(coc-rename)
+  nmap     <silent> [c            <Plug>(coc-diagnostic-prev)
+  nmap     <silent> ]c            <Plug>(coc-diagnostic-next)
+  nmap     <silent> gd            <Plug>(coc-definition)
+  nmap     <silent> gi            <Plug>(coc-implementation)
+  nmap     <silent> gr            <Plug>(coc-references)
+  nmap     <silent> gy            <Plug>(coc-type-definition)
+  nnoremap          <Leader><Tab> <Plug>(fzf-maps-n)
+  nnoremap          K             ddkPJ
+  noremap           ;             :
+  noremap           ;;            ;
+  noremap           <A-h>         <C-w>h
+  noremap           <A-j>         <C-w>j
+  noremap           <A-k>         <C-w>k
+  noremap           <A-l>         <C-w>l
+  noremap           <Leader>af    :Autoformat<CR>
+  noremap           <Leader>cd    :cd %:p:h<CR>:pwd<CR>
+  noremap           <Leader>cl    :copen<CR>
+  noremap           <Leader>cn    :cnext<CR>
+  noremap           <Leader>cp    :cprevious<CR>
+  noremap           <Leader>f:    :Commands<CR>
+  noremap           <Leader>f;    :History:<CR>
+  noremap           <Leader>fb    :Buffers <CR>
+  noremap           <Leader>fg    :BCommits<CR>
+  noremap           <Leader>fG    :Commits<CR>
+  noremap           <Leader>fh    :History<CR>
+  noremap           <Leader>fl    :BLines <CR>
+  noremap           <Leader>fL    :Lines <CR>
+  noremap           <Leader>fm    :Marks<CR>
+  noremap           <Leader>fo    :Files %:p:h<CR>
+  noremap           <Leader>fs    :Snippets<CR>
+  noremap           <Leader>ft    :BTags<CR>
+  noremap           <Leader>fT    :Tags<CR>
+  noremap           <Leader>fw    :Windows<CR>
+  noremap           <Leader>ll    :lopen<CR>
+  noremap           <Leader>ln    :lnext<CR>
+  noremap           <Leader>lp    :lprevious<CR>
+  noremap           <Leader>n     :bnext<CR>
+  noremap           <Leader>o     :GFiles <CR>
+  noremap           <Leader>p     :bprev<CR>
+  noremap           <Leader>s     :sort i<CR>
+  noremap           <Leader>ze    :enew <CR>
+  noremap           <Leader>zs    :call MakeSession()<CR>
+  noremap           <Leader>zt    :tabnew<CR>
+  noremap           <Space>       <Nop>
+  noremap           Y             y$
+  onoremap          <Leader><Tab> <Plug>(fzf-maps-o)
+  smap              <C-k>         <Plug>(neosnippet_expand_or_jump)
+  tnoremap          <A-h>         <C-\><C-N><C-w>h
+  tnoremap          <A-j>         <C-\><C-N><C-w>j
+  tnoremap          <A-k>         <C-\><C-N><C-w>k
+  tnoremap          <A-l>         <C-\><C-N><C-w>l
+  vmap              <Leader>f     <Plug>(coc-format-selected)
+  xmap              <C-k>         <Plug>(neosnippet_expand_target)
+  xnoremap          <Leader><Tab> <Plug>(fzf-maps-x)
 
   command! -nargs=? -complete=dir Explore Dirvish <args>
   command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
@@ -252,25 +257,16 @@ pkgs: ''
 
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 
-  au FileType  c                     packadd deoplete-clang
-  au FileType  cpp                   packadd deoplete-clang
-  au FileType  csharp                packadd deoplete-clang
   au FileType  dirvish               call fugitive#detect(@%)
-  au FileType  go                    packadd deoplete-go
-  au FileType  go                    nmap    <Leader>d  <Plug>(go-def-vertical)
-  au FileType  go                    nmap    <Leader>R  <Plug>(go-rename)
-  au FileType  go                    nmap    <Leader>r  <Plug>(go-run-vertical)
-  au FileType  go                    nmap    <Leader>ta <Plug>(go-alternate-vertical)
-  au FileType  go                    nmap    <Leader>tc <Plug>(go-coverage-toggle)
-  au FileType  go                    nmap    <Leader>tf <Plug>(go-test-func)
-  au FileType  go                    nmap    <Leader>tt <Plug>(go-test)
-  au FileType  go                    noremap <Leader>fd :GoDecls<CR>
-  au FileType  go                    noremap <Leader>fD :GoDeclsDir<CR>
-  au FileType  go                    noremap <Leader>I  :GoImports<CR>
-  au FileType  go                    call deoplete#custom#source('go', 'rank', 9999)
-  au FileType  julia                 packadd deoplete-julia
+  au FileType  go                    nmap <Leader>fd :GoDecls<CR>
+  au FileType  go                    nmap <Leader>fD :GoDeclsDir<CR>
+  au FileType  go                    nmap <Leader>I  :GoImports<CR>
+  au FileType  go                    nmap <Leader>r  <Plug>(go-run-vertical)
+  au FileType  go                    nmap <Leader>ta <Plug>(go-alternate-vertical)
+  au FileType  go                    nmap <Leader>tc <Plug>(go-coverage-toggle)
+  au FileType  go                    nmap <Leader>tf <Plug>(go-test-func)
+  au FileType  go                    nmap <Leader>tt <Plug>(go-test)
   au FileType  markdown              packadd vim-table-mode
-  au FileType  rust                  packadd deoplete-rust
   au FileType  typescript            setlocal noexpandtab
   au FileType  verilog_systemverilog VerilogErrorFormat verilator 2
   au FileType  verilog_systemverilog setlocal makeprg=verilator\ --lint-only\ %
