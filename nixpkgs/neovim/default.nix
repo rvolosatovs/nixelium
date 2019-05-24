@@ -1,17 +1,13 @@
 pkgs: {
   configure.customRC = import ./config.nix pkgs;
   configure.packages.plugins.opt = with pkgs.vimPlugins; [
-    deoplete-clang
-    deoplete-go
-    deoplete-julia
-    deoplete-rust
     vim-table-mode
   ];
   configure.packages.plugins.start = with pkgs.vimPlugins; [
     ale
     auto-pairs
     base16-vim
-    deoplete-nvim
+    coc-nvim
     editorconfig-vim
     fugitive
     fzf-vim
@@ -52,6 +48,7 @@ pkgs: {
 
   viAlias = true;
   vimAlias = true;
+  withNodeJs = true;
   withPython = true;
   withPython3 = true;
   withRuby = true;
