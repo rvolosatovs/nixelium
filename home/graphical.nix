@@ -104,7 +104,7 @@ in
           cursor_stop_blinking_after  0
           editor                      ${config.resources.programs.editor.executable.path}
           font_family                 ${monospace}
-          font_size                   ${if pkgs.stdenv.isDarwin then "20.0" else "15.0"}
+          font_size                   ${if pkgs.stdenv.isDarwin then "18.0" else "15.0"}
           hide_window_decorations     yes
           initial_window_height       800
           initial_window_width        1200
