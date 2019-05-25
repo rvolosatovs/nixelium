@@ -167,7 +167,7 @@
       programs.zsh.shellAliases.ls = "${pkgs.coreutils}/bin/ls -h --color=auto";
       programs.zsh.shellAliases.mkdir = "${pkgs.coreutils}/bin/mkdir -pv";
       programs.zsh.shellAliases.rm = "${pkgs.coreutils}/bin/rm -i";
-      programs.zsh.shellAliases.sl = "${pkgs.coreutils}/bin/ls";
+      programs.zsh.shellAliases.sl = config.programs.zsh.shellAliases.ls;
 
       xdg.cacheHome = "${config.home.homeDirectory}/.local/cache";
       xdg.configFile."direnv/direnvrc".source = ./../dotfiles/direnv/direnvrc;
