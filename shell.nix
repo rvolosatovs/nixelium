@@ -12,7 +12,7 @@ stdenv.mkDerivation {
 
     fetchAll = writeAllReposScriptBin "fetch-all" "${git}/bin/git fetch --prune --all";
     pullAll = writeAllReposScriptBin "pull-all" "${git}/bin/git pull";
-    pushAll = writeAllReposScriptBin "push-all" "${git}/bin/git push --prune origin :";
+    pushAll = writeAllReposScriptBin "push-all" "${git}/bin/git push -f --prune origin :";
 
     pullAndDeploy = writeShellScriptBin "pull-and-deploy" ''
       set -e
