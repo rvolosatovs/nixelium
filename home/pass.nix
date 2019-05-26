@@ -4,5 +4,5 @@
     gopass
   ];
 
-  programs.zsh.shellAliases.pass="${pkgs.gopass}/bin/gopass";
+  programs.zsh.shellAliases.pass="gopass";
 }

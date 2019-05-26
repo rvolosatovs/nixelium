@@ -15,7 +15,7 @@
       "nixpkgs=${config.home.homeDirectory}/.nix-defexpr/channels/nixpkgs"
     ]) + "\${NIX_PATH:+:}\${NIX_PATH}";
   in with lib; mkMerge [
-    ({
+    (rec {
       accounts.email.accounts."${config.resources.email}" = {
         address = config.resources.email;
         primary = true;
@@ -149,25 +149,25 @@
         "\${PATH}"
       ]);
 
-      programs.zsh.shellAliases.d = "${pkgs.docker}/bin/docker";
-      programs.zsh.shellAliases.dc = "${pkgs.docker_compose}/bin/docker-compose";
-      programs.zsh.shellAliases.dck = "${pkgs.docker_compose}/bin/docker-compose kill";
-      programs.zsh.shellAliases.dcl = "${pkgs.docker_compose}/bin/docker-compose logs";
-      programs.zsh.shellAliases.dcp = "${pkgs.docker_compose}/bin/docker-compose pull";
-      programs.zsh.shellAliases.dcP = "${pkgs.docker_compose}/bin/docker-compose push";
-      programs.zsh.shellAliases.dcs = "${pkgs.docker_compose}/bin/docker-compose start";
-      programs.zsh.shellAliases.dcS = "${pkgs.docker_compose}/bin/docker-compose stop";
-      programs.zsh.shellAliases.dcu = "${pkgs.docker_compose}/bin/docker-compose up";
-      programs.zsh.shellAliases.dk = "${pkgs.docker}/bin/docker kill";
-      programs.zsh.shellAliases.dl = "${pkgs.docker}/bin/docker logs";
-      programs.zsh.shellAliases.dlt = "${pkgs.docker}/bin/docker logs --tail 100";
-      programs.zsh.shellAliases.dp = "${pkgs.docker}/bin/docker ps";
-      programs.zsh.shellAliases.dpq = "${pkgs.docker}/bin/docker ps -q";
-      programs.zsh.shellAliases.ll = "${pkgs.coreutils}/bin/ls -la";
-      programs.zsh.shellAliases.ls = "${pkgs.coreutils}/bin/ls -h --color=auto";
-      programs.zsh.shellAliases.mkdir = "${pkgs.coreutils}/bin/mkdir -pv";
-      programs.zsh.shellAliases.rm = "${pkgs.coreutils}/bin/rm -i";
-      programs.zsh.shellAliases.sl = config.programs.zsh.shellAliases.ls;
+      programs.zsh.shellAliases.d = "docker";
+      programs.zsh.shellAliases.dc = "docker-compose";
+      programs.zsh.shellAliases.dck = "docker-compose kill";
+      programs.zsh.shellAliases.dcl = "docker-compose logs";
+      programs.zsh.shellAliases.dcp = "docker-compose pull";
+      programs.zsh.shellAliases.dcP = "docker-compose push";
+      programs.zsh.shellAliases.dcs = "docker-compose start";
+      programs.zsh.shellAliases.dcS = "docker-compose stop";
+      programs.zsh.shellAliases.dcu = "docker-compose up";
+      programs.zsh.shellAliases.dk = "docker kill";
+      programs.zsh.shellAliases.dl = "docker logs";
+      programs.zsh.shellAliases.dlt = "docker logs --tail 100";
+      programs.zsh.shellAliases.dp = "docker ps";
+      programs.zsh.shellAliases.dpq = "docker ps -q";
+      programs.zsh.shellAliases.ll = "ls -la";
+      programs.zsh.shellAliases.ls = "ls -h --color=auto";
+      programs.zsh.shellAliases.mkdir = "mkdir -pv";
+      programs.zsh.shellAliases.rm = "rm -i";
+      programs.zsh.shellAliases.sl = programs.zsh.shellAliases.ls;
 
       xdg.cacheHome = "${config.home.homeDirectory}/.local/cache";
       xdg.configFile."direnv/direnvrc".source = ./../dotfiles/direnv/direnvrc;
@@ -220,7 +220,7 @@
       home.sessionVariables.NIX_PATH = "darwin=${config.home.homeDirectory}/.nix-defexpr/channels/darwin:${baseNixPath}";
 
       programs.zsh.shellAliases.o = "open";
-      programs.zsh.shellAliases.ping = "/sbin/ping -c 3";
+      programs.zsh.shellAliases.ping = "ping -c 3";
     })
 
     (mkIf pkgs.stdenv.isLinux {
@@ -233,16 +233,18 @@
         psmisc
         rfkill
         sudo
+        systemd
         usbutils
+        xdg_utils
       ];
 
       home.sessionVariables.NIX_PATH = baseNixPath;
 
-      programs.zsh.shellAliases.o = "${pkgs.xdg_utils}/bin/xdg-open";
-      programs.zsh.shellAliases.ping = "/run/wrappers/bin/ping -c 3";
-      programs.zsh.shellAliases.sy="${pkgs.systemd}/bin/systemctl";
-      programs.zsh.shellAliases.Vi = "/run/wrappers/bin/sudoedit";
-      programs.zsh.shellAliases.Vim = "/run/wrappers/bin/sudoedit";
+      programs.zsh.shellAliases.o = "xdg-open";
+      programs.zsh.shellAliases.ping = "ping -c 3";
+      programs.zsh.shellAliases.sy="systemctl";
+      programs.zsh.shellAliases.Vi = "sudoedit";
+      programs.zsh.shellAliases.Vim = "sudoedit";
 
       services.syncthing.enable = false;
       services.syncthing.tray = config.resources.graphics.enable;
