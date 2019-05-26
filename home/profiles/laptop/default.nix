@@ -19,6 +19,7 @@
         godef
         gotools
         httpie
+        julia
         llvm
         llvmPackages.libclang
         minicom
@@ -26,6 +27,7 @@
         nmap
         pandoc
         poppler_utils
+        richgo
         taskwarrior
         wego
       ] ++ (with gitAndTools; [

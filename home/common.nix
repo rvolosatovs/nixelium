@@ -28,11 +28,15 @@
         docker-gc
         docker_compose
         file
+        findutils
         fzf
-        ghq
+        gnufdisk
+        gnugrep
         gnumake
         gnupg
         gnupg1compat
+        gnused
+        gnutar
         graphviz
         htop
         jq
