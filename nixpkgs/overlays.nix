@@ -52,7 +52,6 @@ in [
     neovim
     neovim-unwrapped
     nodePackages
-    pandoc
     pass
     passExtensions
     platformio
@@ -67,8 +66,6 @@ in [
     richgo
     ripgrep
     rofi
-    rtorrent
-    rust-cbindgen
     skhd
     sway
     sxhkd
