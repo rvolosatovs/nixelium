@@ -32,7 +32,6 @@ in [
     i3
     ioquake3
     ioquake3pointrelease
-    julia
     kbfs
     keybase
     keybase-gui
