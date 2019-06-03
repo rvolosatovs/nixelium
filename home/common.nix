@@ -171,7 +171,7 @@
       programs.zsh.shellAliases.ls = "ls -h --color=auto";
       programs.zsh.shellAliases.mkdir = "mkdir -pv";
       programs.zsh.shellAliases.rm = "rm -i";
-      programs.zsh.shellAliases.sl = programs.zsh.shellAliases.ls;
+      programs.zsh.shellAliases.sl = "ls";
 
       xdg.cacheHome = "${config.home.homeDirectory}/.local/cache";
       xdg.configFile."direnv/direnvrc".source = ./../dotfiles/direnv/direnvrc;
