@@ -48,6 +48,19 @@ pkgs: ''
   filetype plugin indent on
   syntax enable
 
+  call coc#config('coc.preferences', {
+    \ 'timeout': 1000,
+    \ 'extensionUpdateCheck': "never",
+    \})
+  call coc#config('languageserver', {
+    \ 'golang': {
+    \   "command": "${pkgs.gotools}/bin/gopls",
+    \   "args": [],
+    \   "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+    \   "filetypes": ["go"],
+    \ }
+    \})
+
   set autoindent
   set cmdheight=2
   set completeopt+=menu,menuone
@@ -79,7 +92,6 @@ pkgs: ''
   set nrformats=alpha,octal,hex,bin
   set number
   set relativenumber
-  set shell=${pkgs.stdenv.shell}
   set shiftwidth=4
   set shortmess+=c
   set signcolumn=yes
@@ -123,6 +135,7 @@ pkgs: ''
   let g:go_def_mode = 'gopls'
   let g:go_def_reuse_buffer = 0
   let g:go_doc_command = [ '${pkgs.gotools}/bin/godoc' ]
+  let g:go_echo_go_info = 0
   let g:go_fmt_autosave = 1
   let g:go_fmt_command = '${pkgs.go}/bin/gofmt'
   let g:go_fmt_experimental = '${pkgs.go}/bin/gofmt'

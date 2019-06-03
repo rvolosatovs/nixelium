@@ -7,7 +7,6 @@ pkgs: {
     ale
     auto-pairs
     base16-vim
-    coc-nvim
     editorconfig-vim
     fugitive
     fzf-vim
@@ -38,6 +37,7 @@ pkgs: {
     vim-visualstar
   ];
   configure.plug.plugins = with pkgs.vimPlugins; [
+    coc-nvim
     vim-go
   ];
 
