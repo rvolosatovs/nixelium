@@ -30,7 +30,6 @@
         file
         findutils
         fzf
-        gnufdisk
         gnugrep
         gnumake
         gnupg
@@ -233,6 +232,7 @@
         acpi
         dex
         espeak
+        gnufdisk
         lm_sensors
         pciutils
         psmisc
