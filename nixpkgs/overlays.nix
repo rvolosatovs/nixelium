@@ -6,10 +6,12 @@ in [
     alacritty
     arduino
     bluez
+    brave
     bspwm
     cachix
     chromium
     cockroachdb
+    deadcode
     deluge
     dep
     direnv
@@ -88,7 +90,6 @@ in [
 
   (_: _: if !unstable.stdenv.isDarwin then {
     inherit (unstable)
-    brave
     zathura
     ;
 
@@ -172,7 +173,30 @@ in [
     '';
   })
 
-  (super: self: {
+  (_: self: {
+    gotools = self.gotools.overrideAttrs (_: rec {
+      rev = "07ccec708ace1246fa1fe960937fb5a4530202f2";
+      src = self.fetchFromGitHub {
+        inherit rev;
+        owner = "saibing";
+        repo = "tools";
+        sha256 = "1vsd12s34z7z7vhyqzq4hjk6q0g9pk21vi4m5w9r1rxd4xgb347b";
+      };
+    });
+
+    neovim-unwrapped = self.neovim-unwrapped.overrideAttrs (_: rec {
+      version = "nightly";
+      rev = "b65a7b7f6692da9c9b18a1fb68817644a119fbed";
+      src = self.fetchFromGitHub {
+        inherit rev;
+        owner = "neovim";
+        repo = "neovim";
+        sha256 = "1b0xriqkn3hx3dvkjwcypl34w7p6h9k647vm26pq8jjwb9a5jx4f";
+      };
+    });
+  })
+
+  (super: self: rec {
     firefox = self.wrapFirefox.override {
       config = self.lib.setAttrByPath [ self.firefox.browserName or (builtins.parseDrvName self.firefox.name).name ] {
         enableBrowserpass = true;
@@ -187,7 +211,7 @@ in [
       paks = [ self.quake3pointrelease self.quake3ProprietaryPaks ];
     };
 
-    neovim = self.neovim.override (import ./neovim self);
+    neovim = self.wrapNeovim self.neovim-unwrapped (import ./neovim self);
 
     pass = self.pass.withExtensions (es: [ es.pass-otp ]);
 
