@@ -171,6 +171,10 @@ in [
       
       ${self.git}/bin/git checkout -q "''${base}" && ${self.git}/bin/git branch --merged | grep -v '\*' | ${self.findutils}/bin/xargs -r ${self.git}/bin/git branch -d
     '';
+
+    copy-sha-git = self.writeShellScriptBin "copy-sha-git" ''
+      ${self.nix-prefetch-git}/bin/nix-prefetch-git ''${@} | jq -c -r '.sha256' | xclip -sel clip
+    '';
   })
 
   (_: self: {
