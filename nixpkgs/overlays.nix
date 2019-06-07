@@ -179,12 +179,12 @@ in [
 
   (_: self: {
     gotools = self.gotools.overrideAttrs (_: rec {
-      rev = "07ccec708ace1246fa1fe960937fb5a4530202f2";
+      rev = "de7a6bf1a38c48ec770448d119cd5e708975c687";
       src = self.fetchFromGitHub {
         inherit rev;
-        owner = "saibing";
+        owner = "rvolosatovs";
         repo = "tools";
-        sha256 = "1vsd12s34z7z7vhyqzq4hjk6q0g9pk21vi4m5w9r1rxd4xgb347b";
+        sha256 = "0nsn8xdlflj27yffwsl7jl43cvaj1z6js6p3c4pwfpfga1mpimn8";
       };
     });
 
