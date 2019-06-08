@@ -38,8 +38,6 @@ in [
     keybase
     keybase-gui
     kitty
-    libreoffice
-    libreoffice-fresh
     mbed-cli
     miniflux
     mopidy
