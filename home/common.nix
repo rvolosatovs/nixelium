@@ -45,6 +45,7 @@
         nix-prefetch-scripts
         nox
         pv
+        qrencode
         rclone
         ripgrep
         shellcheck
