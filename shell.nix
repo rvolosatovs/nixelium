@@ -15,9 +15,17 @@ stdenv.mkDerivation {
     pushAll = writeAllReposScriptBin "push-all" "${git}/bin/git push -f --prune origin :";
 
     pullAndDeploy = writeShellScriptBin "pull-and-deploy" ''
-      set -e
+      set -ex
       ${pullAll}/bin/pull-all
       ${nixops}/bin/nixops deploy "''${@}"
+    '';
+
+    upgradeMac = writeShellScriptBin "upgrade-mac" ''
+      set -ex
+      ${git}/bin/git pull
+      ${nix}/bin/nix-channel --update
+      darwin-rebuild switch "''${@}"
+      brew update --global
     '';
   in [
     fetchAll
@@ -28,5 +36,8 @@ stdenv.mkDerivation {
     git
     neovim
     nixops
-  ] ++ lib.optional stdenv.isLinux keybase;
+  ]
+  ++ lib.optional stdenv.isLinux keybase
+  ++ lib.optional stdenv.isDarwin upgradeMac
+  ;
 }
