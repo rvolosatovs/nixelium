@@ -7,6 +7,7 @@ pkgs: {
     ale
     auto-pairs
     base16-vim
+    direnv-vim
     editorconfig-vim
     fugitive
     fzf-vim
