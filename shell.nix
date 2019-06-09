@@ -23,6 +23,7 @@ stdenv.mkDerivation {
     upgradeMac = writeShellScriptBin "upgrade-mac" ''
       set -ex
       ${git}/bin/git pull
+      ${git}/bin/git submodule update
       ${nix}/bin/nix-channel --update
       darwin-rebuild switch "''${@}"
       brew update --global
