@@ -26,7 +26,7 @@ stdenv.mkDerivation {
       ${git}/bin/git submodule update
       ${nix}/bin/nix-channel --update
       darwin-rebuild switch "''${@}"
-      brew update --global
+      brew bundle install --global
     '';
   in [
     fetchAll
