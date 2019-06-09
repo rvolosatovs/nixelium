@@ -19,7 +19,6 @@
         godef
         gotools
         httpie
-        julia
         llvm
         llvmPackages.libclang
         minicom
