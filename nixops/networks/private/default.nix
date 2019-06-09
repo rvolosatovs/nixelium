@@ -8,30 +8,46 @@ let
   wg.papatablet.publicKey = "9Egkv/9PqDhEpOiZWq4dI0zbq4Y1PCYjiqxDp2vbC0Y=";
 
   wg.privateKeyName = "wireguard-wg0-private";
-
-  resources.wireguard.port = 51820; # TODO: Fix imports in NixOps
 in
   rec {
     neon = { config, pkgs, ... }: {
       imports = [
         ./../../../nixos/hosts/neon
-        ./../../../nixos/wireguard.client.nix
         ./../../../vendor/secrets/nixops/hosts/neon
         ./../../profiles/laptop
       ];
-      deployment.keys.${wg.privateKeyName}.text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/wg.private;
 
-      networking.wireguard.interfaces.wg0.ips = [ "10.0.0.2/24" ];
-      networking.wireguard.interfaces.wg0.privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
-      networking.wireguard.interfaces.wg0.peers = [{
-        inherit (wg.oxygen) publicKey;
-        allowedIPs = [ "0.0.0.0/0" "::/0" ];
-        endpoint = "oxygen:${toString resources.wireguard.port}";
-        persistentKeepalive = 25;
-      }];
+      systemd.network.netdevs."30-wg0" = {
+        netdevConfig.Kind = "wireguard";
+        netdevConfig.Name = "wg0";
+        extraConfig = ''
+          [WireGuard]
+          PrivateKey=${builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/wg.private}
 
-      systemd.services.wireguard-wg0.after = [ "${wg.privateKeyName}-key.service" ];
-      systemd.services.wireguard-wg0.wants = [ "${wg.privateKeyName}-key.service" ];
+          [WireGuardPeer]
+          PublicKey=${wg.oxygen.publicKey}
+          AllowedIPs=0.0.0.0/0, ::/0
+          Endpoint=${config.resources.wireguard.serverIP}:${toString config.resources.wireguard.port}
+          PersistentKeepalive=25
+        '';
+      };
+
+      systemd.network.networks."30-wg0" = {
+        matchConfig.Name = "wg0";
+        networkConfig.Address = "10.0.0.2/32";
+        routes = [
+           {
+             routeConfig.Destination = "0.0.0.0/0";
+             routeConfig.Gateway = "10.0.0.1";
+             routeConfig.GatewayOnlink = "true";
+           }
+        ];
+        extraConfig = ''
+          [RoutingPolicyRule]
+          To=${config.resources.wireguard.serverIP}
+          Table=2468
+        '';
+      };
     };
 
     oxygen = { config, ... }: {
@@ -43,8 +59,6 @@ in
         ./../../profiles/server
       ];
       deployment.keys.${wg.privateKeyName}.text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/oxygen/wg.private;
-
-      networking.nat.externalInterface = "eth0";
 
       networking.wireguard.interfaces.wg0.privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
       networking.wireguard.interfaces.wg0.peers = [

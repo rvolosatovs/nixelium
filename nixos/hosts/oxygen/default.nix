@@ -27,5 +27,7 @@
     boot.initrd.network.ssh.hostRSAKey = ./../../../vendor/secrets/nixos/hosts/oxygen/id_rsa.dropbear;
 
     networking.hostName = "oxygen";
+
+    networking.nat.externalInterface = "eth0";
   };
 }

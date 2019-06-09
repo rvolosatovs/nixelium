@@ -176,6 +176,12 @@
 
   system.stateVersion = "19.03";
 
+  systemd.network.networks."40-virtualisation" = {
+    matchConfig.Name = "virbr* veth* docker* br-*";
+    linkConfig.Unmanaged = "yes";
+    linkConfig.RequiredForOnline = false;
+  };
+
   time.timeZone = "Europe/Amsterdam";
 
   users.defaultUserShell = config.resources.programs.shell.executable.path;

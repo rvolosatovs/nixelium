@@ -46,5 +46,15 @@ in
         "nixpkgs-unstable=${toString ../../../vendor/nixpkgs/nixos-unstable}"
         "nixpkgs=${toString ../../../vendor/nixpkgs/nixos}"
       ];
+
+      systemd.network.networks."20-wired" = {
+        dhcpConfig.RouteMetric = "10";
+        matchConfig.Name = "enp0s31f6";
+      };
+
+      systemd.network.networks."25-wireless" = {
+        dhcpConfig.RouteMetric = "20";
+        matchConfig.Name = "wlp4s0";
+      };
     };
   }

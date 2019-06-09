@@ -22,13 +22,29 @@
     ];
   };
 
+  networking.dhcpcd.enable = false;
+
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
+  networking.useNetworkd = true;
 
   networking.wireless.iwd.enable = true;
 
   programs.adb.enable = true;
 
   services.printing.enable = true;
+  services.resolved.enable = true;
+
+  systemd.network.enable = true;
+  systemd.network.networks."10-physical" = {
+    dhcpConfig.Anonymize = true;
+    dhcpConfig.RouteTable = 2468;
+    dhcpConfig.UseDNS = false;
+    dhcpConfig.UseHostname = false;
+    dhcpConfig.UseNTP = false;
+    matchConfig.Name = "en* eth* wl*";
+    networkConfig.DHCP = "yes";
+    networkConfig.IPv6AcceptRA = true;
+  };
 
   sound.enable = true;
   sound.mediaKeys.enable = true;
