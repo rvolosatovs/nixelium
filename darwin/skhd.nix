@@ -10,10 +10,11 @@ in
 
   services.skhd.enable = true;
   services.skhd.skhdConfig = with config.resources.programs; ''
+    alt + ctrl - p  :        ${pkgs.gopass}/bin/gopass list --flat | choose | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass --clip
     alt + shift - e :        ${runTerminal} -e "${shell.executable.path} -i -c ${editor.executable.path}"
     alt + shift - o :        ${brave}
-    alt - return :           ${runTerminal}
-    alt + ctrl - p :         ${pkgs.gopass}/bin/gopass list --flat | choose | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass --clip
+    alt + shift - p :        /usr/bin/env osascript -e "tell application \"System Events\" to keystroke \"$(${pkgs.gopass}/bin/gopass list --flat | choose | ${pkgs.findutils}/bin/xargs -r ${pkgs.gopass}/bin/gopass | head -1)\""
+    alt - return    :        ${runTerminal}
 
     alt - q :                chunkc tiling::window --close
 
