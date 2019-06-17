@@ -24,6 +24,9 @@
 
   networking.dhcpcd.enable = false;
 
+  networking.hosts = {
+    "127.0.0.1" = [ "thethings.localhost" ];
+  };
   networking.nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
   networking.useNetworkd = true;
 
