@@ -24,6 +24,7 @@ in [
     go
     go-2fa
     go-sct
+    go-tools
     gocode
     gocode-gomod
     godef
