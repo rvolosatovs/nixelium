@@ -178,12 +178,12 @@ in [
 
   (_: self: {
     gotools = self.gotools.overrideAttrs (_: rec {
-      rev = "de7a6bf1a38c48ec770448d119cd5e708975c687";
+      rev = "bca40ea543d58b9e0a62883e71588c3b98d2767f";
       src = self.fetchFromGitHub {
         inherit rev;
         owner = "rvolosatovs";
         repo = "tools";
-        sha256 = "0nsn8xdlflj27yffwsl7jl43cvaj1z6js6p3c4pwfpfga1mpimn8";
+        sha256 = "0bfqb1s6izdsryy5ll7j3awv31lyiyj8khy70si6gg43zi03c6xm";
       };
     });
 
