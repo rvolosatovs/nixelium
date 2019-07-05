@@ -138,8 +138,11 @@ in [
         stripRoot = false;
       };
       buildCommand = ''
-        install --target $out/share/fonts/opentype -D $src/*.otf
+        install -m444 -Dt $out/share/fonts/opentype $src/*.otf
         rm $out/share/fonts/opentype/*Windows\ Compatible.otf
+
+        install -m444 -Dt $out/share/fonts/truetype $src/*.ttf
+        rm $out/share/fonts/truetype/*Windows\ Compatible.ttf
       '';
 
       meta = with stdenv.lib; {
