@@ -12,9 +12,7 @@
     cask "docker"
     cask "keybase"
     cask "libreoffice"
-    cask "slack"
     cask "thunderbird"
-    cask "whatsapp"
     cask "xquartz"
   '';
 
