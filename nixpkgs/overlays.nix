@@ -78,6 +78,7 @@ in [
     vimPlugins
     weechat
     wego
+    zathura
     ;
 
     inherit (unstable.python3Packages)
