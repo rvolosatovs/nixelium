@@ -78,8 +78,6 @@ in [
     vimPlugins
     weechat
     wego
-    wine
-    wineStaging
     ;
 
     inherit (unstable.python3Packages)
