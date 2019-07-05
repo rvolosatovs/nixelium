@@ -179,16 +179,6 @@ in [
   })
 
   (_: self: {
-    gotools = self.gotools.overrideAttrs (_: rec {
-      rev = "bca40ea543d58b9e0a62883e71588c3b98d2767f";
-      src = self.fetchFromGitHub {
-        inherit rev;
-        owner = "rvolosatovs";
-        repo = "tools";
-        sha256 = "0bfqb1s6izdsryy5ll7j3awv31lyiyj8khy70si6gg43zi03c6xm";
-      };
-    });
-
     neovim-unwrapped = self.neovim-unwrapped.overrideAttrs (_: rec {
       version = "nightly";
       rev = "b65a7b7f6692da9c9b18a1fb68817644a119fbed";
