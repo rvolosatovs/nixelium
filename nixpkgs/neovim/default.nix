@@ -4,7 +4,6 @@ pkgs: {
     vim-table-mode
   ];
   configure.packages.plugins.start = with pkgs.vimPlugins; [
-    ale
     auto-pairs
     base16-vim
     direnv-vim

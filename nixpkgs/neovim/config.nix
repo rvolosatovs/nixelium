@@ -120,9 +120,6 @@ pkgs: ''
   let g:airline_powerline_fonts = 1
   let g:airline_theme='base16'
 
-  let g:ale_go_go_executable = '${pkgs.go}/bin/go'
-  let g:ale_go_gofmt_options = '-s'
-
   let g:AutoPairsFlyMode = 0
   let g:AutoPairsShortcutToggle = '<C-P>'
 
@@ -138,7 +135,7 @@ pkgs: ''
   let g:go_echo_go_info = 0
   let g:go_fmt_autosave = 1
   let g:go_fmt_command = '${pkgs.go}/bin/gofmt'
-  let g:go_fmt_experimental = '${pkgs.go}/bin/gofmt'
+  let g:go_fmt_experimental = 1
   let g:go_fmt_options = {
     \ '${pkgs.go}/bin/gofmt': '-s',
     \ '${pkgs.gotools}/bin/goimports': '-local go.thethings.network',
