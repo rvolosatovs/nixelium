@@ -2,24 +2,27 @@ pkgs: {
   configure.customRC = import ./config.nix pkgs;
   configure.packages.plugins.opt = with pkgs.vimPlugins; [
     vim-table-mode
+    tabular
   ];
-  configure.packages.plugins.start = with pkgs.vimPlugins; [
+  configure.plug.plugins = with pkgs.vimPlugins; [
     auto-pairs
     base16-vim
+    coc-html
+    coc-json
+    coc-lists
+    coc-nvim
+    coc-rls
+    coc-smartf
     direnv-vim
     editorconfig-vim
     fugitive
-    fzf-vim
-    fzfWrapper
     gitv
     incsearch-vim
-    neoinclude
     neosnippet
     neosnippet-snippets
     nerdcommenter
     repeat
     surround
-    tabular
     vim-abolish
     vim-airline
     vim-airline-themes
@@ -29,16 +32,13 @@ pkgs: {
     vim-devicons
     vim-dirvish
     vim-ghost
+    vim-go
     vim-plugin-AnsiEsc
     vim-polyglot
     vim-signify
     vim-unimpaired
     vim-visual-multi
     vim-visualstar
-  ];
-  configure.plug.plugins = with pkgs.vimPlugins; [
-    coc-nvim
-    vim-go
   ];
 
   extraPython3Packages = (ps: with ps; [ 

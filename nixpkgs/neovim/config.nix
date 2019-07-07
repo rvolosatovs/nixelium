@@ -1,44 +1,7 @@
+let 
+  debug = false;
+in
 pkgs: ''
-  set packpath-=~/.vim/after
-
-  function! MakeSession()
-    let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
-    if (filewritable(b:sessiondir) != 2)
-      exe "silent !mkdir -p " b:sessiondir
-      redraw!
-    endif
-    let b:sessionfile = b:sessiondir . "/session.vim"
-    exe "mksession! " . b:sessionfile
-    echo "Created new session"
-  endfunction
-
-  function! UpdateSession()
-    if argc() == 0
-      let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
-      let b:sessionfile = b:sessiondir . "/session.vim"
-      if (filereadable(b:sessionfile))
-        exe "mksession! " . b:sessionfile
-        echo "updating session"
-      endif
-    endif
-  endfunction
-
-  function! LoadSession()
-    if argc() == 0
-      let b:sessionfile = $VIMSESSION
-      let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
-      let b:sessionfile = b:sessiondir . "/session.vim"
-      if (filereadable(b:sessionfile))
-        exe "source " b:sessionfile
-      else
-        echo "No session loaded."
-      endif
-    else
-      let b:sessionfile = ""
-      let b:sessiondir = ""
-    endif
-  endfunction
-
   if $TERM!="linux"
     let base16colorspace=256
   endif
@@ -47,19 +10,6 @@ pkgs: ''
 
   filetype plugin indent on
   syntax enable
-
-  call coc#config('coc.preferences', {
-    \ 'timeout': 1000,
-    \ 'extensionUpdateCheck': "never",
-    \})
-  call coc#config('languageserver', {
-    \ 'golang': {
-    \   "command": "${pkgs.gotools}/bin/gopls",
-    \   "args": [],
-    \   "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-    \   "filetypes": ["go"],
-    \ }
-    \})
 
   set autoindent
   set cmdheight=2
@@ -107,6 +57,41 @@ pkgs: ''
   set visualbell
   set wrapscan
 
+  call coc#config('coc.preferences', {
+    \ 'timeout': 1000,
+    \ 'extensionUpdateCheck': "never",
+    \ 'codeLens.enable': "true",
+    \})
+  call coc#config('languageserver', {
+    \ 'bash': {
+    \   "command": "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server",
+    \   "args": ["start"],
+    \   "filetypes": ["sh"],
+    \   "ignoredRootPaths": ["~"],
+    \ },
+    \ 'ccls': {
+    \   "command": "${pkgs.ccls}/bin/ccls",
+    \   "filetypes": ["c", "cpp", "objc", "objcpp"],
+    \   "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+    \   "initializationOptions": {
+    \      "cache": {
+    \        "directory": "/tmp/ccls",
+    \      }
+    \   },
+    \ },
+    \ 'dockerfile': {
+    \   "command": "${pkgs.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver",
+    \   "filetypes": ["dockerfile"],
+    \   "args": ["--stdio"],
+    \ },
+    \ 'golang': {
+    \   "command": "${pkgs.gotools}/bin/gopls",
+    \   "args": [],
+    \   "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+    \   "filetypes": ["go"],
+    \ }
+    \})
+
   let g:airline#extensions#branch#enabled = 1
   let g:airline#extensions#bufferline#enabled = 1
   let g:airline#extensions#syntastic#enabled = 1
@@ -128,14 +113,17 @@ pkgs: ''
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
   let g:go_auto_type_info = 0
+  let g:go_build_tags = 'tti'
+  let g:go_code_completion_enabled = 0
+  '' + pkgs.lib.optionalString debug ''
+  let g:go_debug = [ 'shell-commands', 'lsp' ]
+  '' + ''
   let g:go_def_mapping_enabled = 0
-  let g:go_def_mode = 'gopls'
   let g:go_def_reuse_buffer = 0
   let g:go_doc_command = [ '${pkgs.gotools}/bin/godoc' ]
   let g:go_echo_go_info = 0
   let g:go_fmt_autosave = 1
   let g:go_fmt_command = '${pkgs.go}/bin/gofmt'
-  let g:go_fmt_experimental = 1
   let g:go_fmt_options = {
     \ '${pkgs.go}/bin/gofmt': '-s',
     \ '${pkgs.gotools}/bin/goimports': '-local go.thethings.network',
@@ -158,16 +146,19 @@ pkgs: ''
   let g:go_highlight_types = 0
   let g:go_highlight_variable_assignments = 0
   let g:go_highlight_variable_declarations = 0
-  let g:go_info_mode = 'gopls'
+  let g:go_list_autoclose = 1
   let g:go_snippet_engine = 'neosnippet'
   let g:go_term_enabled=1
   let g:go_test_show_name=1
+  let g:go_textobj_enabled=0
 
   let g:incsearch#auto_nohlsearch = 1
 
   let g:jsx_ext_required = 0
 
   let g:loaded_netrwPlugin = 1
+
+  let g:markdown_fenced_languages = ['css', 'js=javascript']
 
   let g:neomake_open_list=1
 
@@ -185,15 +176,15 @@ pkgs: ''
   let mapleader = "\<Space>"
   let maplocalleader = "\<Space>"
 
-
   imap              <C-k>         <Plug>(neosnippet_expand_or_jump)
-  imap              <C-x><C-f>    <Plug>(fzf-complete-path)
-  imap              <C-x><C-j>    <Plug>(fzf-complete-file-ag)
-  imap              <C-x><C-l>    <Plug>(fzf-complete-line)
   inoremap          <A-h>         <C-\><C-N><C-w>h
   inoremap          <A-j>         <C-\><C-N><C-w>j
   inoremap          <A-k>         <C-\><C-N><C-w>k
   inoremap          <A-l>         <C-\><C-N><C-w>l
+  nmap              f             <Plug>(coc-smartf-forward)
+  nmap              F             <Plug>(coc-smartf-backward)
+  nmap              ;             <Plug>(coc-smartf-repeat)
+  nmap              ,             <Plug>(coc-smartf-repeat-opposite)
   nmap              #             <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
   nmap              *             <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
   nmap              /             <Plug>(incsearch-forward)
@@ -212,7 +203,6 @@ pkgs: ''
   nmap     <silent> gi            <Plug>(coc-implementation)
   nmap     <silent> gr            <Plug>(coc-references)
   nmap     <silent> gy            <Plug>(coc-type-definition)
-  nnoremap          <Leader><Tab> <Plug>(fzf-maps-n)
   nnoremap          K             ddkPJ
   noremap           ;             :
   noremap           ;;            ;
@@ -225,33 +215,16 @@ pkgs: ''
   noremap           <Leader>cl    :copen<CR>
   noremap           <Leader>cn    :cnext<CR>
   noremap           <Leader>cp    :cprevious<CR>
-  noremap           <Leader>f:    :Commands<CR>
-  noremap           <Leader>f;    :History:<CR>
-  noremap           <Leader>fb    :Buffers <CR>
-  noremap           <Leader>fg    :BCommits<CR>
-  noremap           <Leader>fG    :Commits<CR>
-  noremap           <Leader>fh    :History<CR>
-  noremap           <Leader>fl    :BLines <CR>
-  noremap           <Leader>fL    :Lines <CR>
-  noremap           <Leader>fm    :Marks<CR>
-  noremap           <Leader>fo    :Files %:p:h<CR>
-  noremap           <Leader>fs    :Snippets<CR>
-  noremap           <Leader>ft    :BTags<CR>
-  noremap           <Leader>fT    :Tags<CR>
-  noremap           <Leader>fw    :Windows<CR>
   noremap           <Leader>ll    :lopen<CR>
   noremap           <Leader>ln    :lnext<CR>
   noremap           <Leader>lp    :lprevious<CR>
   noremap           <Leader>n     :bnext<CR>
-  noremap           <Leader>o     :GFiles <CR>
   noremap           <Leader>p     :bprev<CR>
   noremap           <Leader>s     :sort i<CR>
   noremap           <Leader>ze    :enew <CR>
-  noremap           <Leader>zs    :call MakeSession()<CR>
   noremap           <Leader>zt    :tabnew<CR>
   noremap           <Space>       <Nop>
   noremap           Y             y$
-  onoremap          <Leader><Tab> <Plug>(fzf-maps-o)
   smap              <C-k>         <Plug>(neosnippet_expand_or_jump)
   tnoremap          <A-h>         <C-\><C-N><C-w>h
   tnoremap          <A-j>         <C-\><C-N><C-w>j
@@ -259,11 +232,15 @@ pkgs: ''
   tnoremap          <A-l>         <C-\><C-N><C-w>l
   vmap              <Leader>f     <Plug>(coc-format-selected)
   xmap              <C-k>         <Plug>(neosnippet_expand_target)
-  xnoremap          <Leader><Tab> <Plug>(fzf-maps-x)
 
   command! -nargs=? -complete=dir Explore Dirvish <args>
   command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
   command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
+
+  augroup Smartf
+    autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+    autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+  augroup end
 
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 
