@@ -12,7 +12,7 @@ pkgs: {
     coc-lists
     coc-nvim
     coc-rls
-    coc-smartf
+    coc-yank
     direnv-vim
     editorconfig-vim
     fugitive
@@ -27,12 +27,10 @@ pkgs: {
     vim-airline
     vim-airline-themes
     vim-anzu
-    vim-autoformat
     vim-bufferline
     vim-devicons
     vim-dirvish
     vim-ghost
-    vim-go
     vim-plugin-AnsiEsc
     vim-polyglot
     vim-signify

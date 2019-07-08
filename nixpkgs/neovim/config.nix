@@ -2,6 +2,10 @@ let
   debug = false;
 in
 pkgs: ''
+  '' + pkgs.lib.optionalString debug '' 
+  let $NVIM_COC_LOG_LEVEL = 'debug' 
+  '' + ''
+
   if $TERM!="linux"
     let base16colorspace=256
   endif
@@ -57,40 +61,50 @@ pkgs: ''
   set visualbell
   set wrapscan
 
-  call coc#config('coc.preferences', {
-    \ 'timeout': 1000,
-    \ 'extensionUpdateCheck': "never",
-    \ 'codeLens.enable': "true",
-    \})
+  call coc#config('coc', {
+  \ 'preferences': {
+  \   'codeLens.enable': "true",
+  \   'colorSupport': "true",
+  \   'extensionUpdateCheck': "never",
+  \   'formatOnSaveFiletypes': [ "go" ],
+  \ },
+  \ 'suggest': {
+  \   'acceptSuggestionOnCommitCharacter': "true",
+  \   'enablePreview': "true",
+  \   'timeout': 2000,
+  \   'triggerAfterInsertEnter': "true",
+  \ },
+  \})
+
   call coc#config('languageserver', {
-    \ 'bash': {
-    \   "command": "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server",
-    \   "args": ["start"],
-    \   "filetypes": ["sh"],
-    \   "ignoredRootPaths": ["~"],
-    \ },
-    \ 'ccls': {
-    \   "command": "${pkgs.ccls}/bin/ccls",
-    \   "filetypes": ["c", "cpp", "objc", "objcpp"],
-    \   "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-    \   "initializationOptions": {
-    \      "cache": {
-    \        "directory": "/tmp/ccls",
-    \      }
-    \   },
-    \ },
-    \ 'dockerfile': {
-    \   "command": "${pkgs.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver",
-    \   "filetypes": ["dockerfile"],
-    \   "args": ["--stdio"],
-    \ },
-    \ 'golang': {
-    \   "command": "${pkgs.gotools}/bin/gopls",
-    \   "args": [],
-    \   "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-    \   "filetypes": ["go"],
-    \ }
-    \})
+  \ 'bash': {
+  \   "command": "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server",
+  \   "args": ["start"],
+  \   "filetypes": ["sh"],
+  \   "ignoredRootPaths": ["~"],
+  \ },
+  \ 'ccls': {
+  \   "command": "${pkgs.ccls}/bin/ccls",
+  \   "filetypes": ["c", "cpp", "objc", "objcpp"],
+  \   "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+  \   "initializationOptions": {
+  \      "cache": {
+  \        "directory": "/tmp/ccls",
+  \      }
+  \   },
+  \ },
+  \ 'dockerfile': {
+  \   "command": "${pkgs.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver",
+  \   "filetypes": ["dockerfile"],
+  \   "args": ["--stdio"],
+  \ },
+  \ 'golang': {
+  \   "command": "${pkgs.gotools}/bin/gopls",
+  \   "args": [],
+  \   "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+  \   "filetypes": ["go"],
+  \ },
+  \})
 
   let g:airline#extensions#branch#enabled = 1
   let g:airline#extensions#bufferline#enabled = 1
@@ -112,22 +126,6 @@ pkgs: ''
 
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
-  let g:go_auto_type_info = 0
-  let g:go_build_tags = 'tti'
-  let g:go_code_completion_enabled = 0
-  '' + pkgs.lib.optionalString debug ''
-  let g:go_debug = [ 'shell-commands', 'lsp' ]
-  '' + ''
-  let g:go_def_mapping_enabled = 0
-  let g:go_def_reuse_buffer = 0
-  let g:go_doc_command = [ '${pkgs.gotools}/bin/godoc' ]
-  let g:go_echo_go_info = 0
-  let g:go_fmt_autosave = 1
-  let g:go_fmt_command = '${pkgs.go}/bin/gofmt'
-  let g:go_fmt_options = {
-    \ '${pkgs.go}/bin/gofmt': '-s',
-    \ '${pkgs.gotools}/bin/goimports': '-local go.thethings.network',
-    \ }
   let g:go_highlight_array_whitespace_error = 1
   let g:go_highlight_build_constraints = 1
   let g:go_highlight_chan_whitespace_error = 1
@@ -146,11 +144,6 @@ pkgs: ''
   let g:go_highlight_types = 0
   let g:go_highlight_variable_assignments = 0
   let g:go_highlight_variable_declarations = 0
-  let g:go_list_autoclose = 1
-  let g:go_snippet_engine = 'neosnippet'
-  let g:go_term_enabled=1
-  let g:go_test_show_name=1
-  let g:go_textobj_enabled=0
 
   let g:incsearch#auto_nohlsearch = 1
 
@@ -160,15 +153,6 @@ pkgs: ''
 
   let g:markdown_fenced_languages = ['css', 'js=javascript']
 
-  let g:neomake_open_list=1
-
-  let g:polyglot_disabled = [ 'go' ]
-
-  let g:sneak#label = 1
-  let g:sneak#s_next = 1
-  let g:sneak#target_labels = 'hjkluiobnmxcvwersdfg'
-  let g:sneak#use_ic_scs = 1
-
   let g:tex_conceal="ag"
 
   let g:vimtex_view_method='${pkgs.zathura}/bin/zathura'
@@ -176,62 +160,59 @@ pkgs: ''
   let mapleader = "\<Space>"
   let maplocalleader = "\<Space>"
 
-  imap              <C-k>         <Plug>(neosnippet_expand_or_jump)
-  inoremap          <A-h>         <C-\><C-N><C-w>h
-  inoremap          <A-j>         <C-\><C-N><C-w>j
-  inoremap          <A-k>         <C-\><C-N><C-w>k
-  inoremap          <A-l>         <C-\><C-N><C-w>l
-  nmap              f             <Plug>(coc-smartf-forward)
-  nmap              F             <Plug>(coc-smartf-backward)
-  nmap              ;             <Plug>(coc-smartf-repeat)
-  nmap              ,             <Plug>(coc-smartf-repeat-opposite)
-  nmap              #             <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
-  nmap              *             <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
-  nmap              /             <Plug>(incsearch-forward)
-  nmap              <C-]>         gd
-  nmap              <Leader>f     <Plug>(coc-format-selected)
-  nmap              ?             <Plug>(incsearch-backward)
-  nmap              g#            <Plug>(incsearch-nohl-g#)<Plug>(anzu-update-search-status-with-echo)
-  nmap              g*            <Plug>(incsearch-nohl-g*)<Plug>(anzu-update-search-status-with-echo)
-  nmap              g/            <Plug>(incsearch-stay)
-  nmap              N             <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
-  nmap              n             <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
-  nmap              R             <Plug>(coc-rename)
-  nmap     <silent> [c            <Plug>(coc-diagnostic-prev)
-  nmap     <silent> ]c            <Plug>(coc-diagnostic-next)
-  nmap     <silent> gd            <Plug>(coc-definition)
-  nmap     <silent> gi            <Plug>(coc-implementation)
-  nmap     <silent> gr            <Plug>(coc-references)
-  nmap     <silent> gy            <Plug>(coc-type-definition)
-  nnoremap          K             ddkPJ
-  noremap           ;             :
-  noremap           ;;            ;
-  noremap           <A-h>         <C-w>h
-  noremap           <A-j>         <C-w>j
-  noremap           <A-k>         <C-w>k
-  noremap           <A-l>         <C-w>l
-  noremap           <Leader>af    :Autoformat<CR>
-  noremap           <Leader>cd    :cd %:p:h<CR>:pwd<CR>
-  noremap           <Leader>cl    :copen<CR>
-  noremap           <Leader>cn    :cnext<CR>
-  noremap           <Leader>cp    :cprevious<CR>
-  noremap           <Leader>ll    :lopen<CR>
-  noremap           <Leader>ln    :lnext<CR>
-  noremap           <Leader>lp    :lprevious<CR>
-  noremap           <Leader>n     :bnext<CR>
-  noremap           <Leader>p     :bprev<CR>
-  noremap           <Leader>s     :sort i<CR>
-  noremap           <Leader>ze    :enew <CR>
-  noremap           <Leader>zt    :tabnew<CR>
-  noremap           <Space>       <Nop>
-  noremap           Y             y$
-  smap              <C-k>         <Plug>(neosnippet_expand_or_jump)
-  tnoremap          <A-h>         <C-\><C-N><C-w>h
-  tnoremap          <A-j>         <C-\><C-N><C-w>j
-  tnoremap          <A-k>         <C-\><C-N><C-w>k
-  tnoremap          <A-l>         <C-\><C-N><C-w>l
-  vmap              <Leader>f     <Plug>(coc-format-selected)
-  xmap              <C-k>         <Plug>(neosnippet_expand_target)
+  imap                         <C-k>         <Plug>(neosnippet_expand_or_jump)
+  inoremap                     <A-h>         <C-\><C-N><C-w>h
+  inoremap                     <A-j>         <C-\><C-N><C-w>j
+  inoremap                     <A-k>         <C-\><C-N><C-w>k
+  inoremap                     <A-l>         <C-\><C-N><C-w>l
+  nmap                         #             <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
+  nmap                         *             <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
+  nmap                         /             <Plug>(incsearch-forward)
+  nmap                         <C-]>         gd
+  nmap                         <Leader>f     <Plug>(coc-format-selected)
+  nmap                         ?             <Plug>(incsearch-backward)
+  nmap                         g#            <Plug>(incsearch-nohl-g#)<Plug>(anzu-update-search-status-with-echo)
+  nmap                         g*            <Plug>(incsearch-nohl-g*)<Plug>(anzu-update-search-status-with-echo)
+  nmap                         g/            <Plug>(incsearch-stay)
+  nmap                         N             <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+  nmap                         n             <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+  nmap                         <Leader>R     <Plug>(coc-rename)
+  nmap                <silent> [c            <Plug>(coc-diagnostic-prev)
+  nmap                <silent> ]c            <Plug>(coc-diagnostic-next)
+  nmap                <silent> gd            <Plug>(coc-definition)
+  nmap                <silent> gi            <Plug>(coc-implementation)
+  nmap                <silent> gr            <Plug>(coc-references)
+  nmap                <silent> gy            <Plug>(coc-type-definition)
+  nnoremap                     K             ddkPJ
+  noremap                      ;             :
+  noremap                      ;;            ;
+  noremap                      <A-h>         <C-w>h
+  noremap                      <A-j>         <C-w>j
+  noremap                      <A-k>         <C-w>k
+  noremap                      <A-l>         <C-w>l
+  noremap                      <Leader>cd    :cd %:p:h<CR>:pwd<CR>
+  noremap                      <Leader>cl    :copen<CR>
+  noremap                      <Leader>cn    :cnext<CR>
+  noremap                      <Leader>cp    :cprevious<CR>
+  noremap                      <Leader>ll    :lopen<CR>
+  noremap                      <Leader>ln    :lnext<CR>
+  noremap                      <Leader>lp    :lprevious<CR>
+  noremap                      <Leader>n     :bnext<CR>
+  noremap                      <Leader>p     :bprev<CR>
+  noremap                      <Leader>s     :sort i<CR>
+  noremap                      <Leader>ze    :enew <CR>
+  noremap                      <Leader>zt    :tabnew<CR>
+  noremap                      <Space>       <Nop>
+  noremap                      Y             y$
+  smap                         <C-k>         <Plug>(neosnippet_expand_or_jump)
+  tnoremap                     <A-h>         <C-\><C-N><C-w>h
+  tnoremap                     <A-j>         <C-\><C-N><C-w>j
+  tnoremap                     <A-k>         <C-\><C-N><C-w>k
+  tnoremap                     <A-l>         <C-\><C-N><C-w>l
+  vmap                         <Leader>f     <Plug>(coc-format-selected)
+  xmap                         <C-k>         <Plug>(neosnippet_expand_target)
+
+  au FileType go nmap <silent> <Leader>i     :call CocActionAsync('runCommand', 'editor.action.organizeImport')<CR>
 
   command! -nargs=? -complete=dir Explore Dirvish <args>
   command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
@@ -245,20 +226,10 @@ pkgs: ''
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 
   au FileType  dirvish               call fugitive#detect(@%)
-  au FileType  go                    nmap <Leader>fd :GoDecls<CR>
-  au FileType  go                    nmap <Leader>fD :GoDeclsDir<CR>
-  au FileType  go                    nmap <Leader>I  :GoImports<CR>
-  au FileType  go                    nmap <Leader>r  <Plug>(go-run-vertical)
-  au FileType  go                    nmap <Leader>ta <Plug>(go-alternate-vertical)
-  au FileType  go                    nmap <Leader>tc <Plug>(go-coverage-toggle)
-  au FileType  go                    nmap <Leader>tf <Plug>(go-test-func)
-  au FileType  go                    nmap <Leader>tt <Plug>(go-test)
   au FileType  markdown              packadd vim-table-mode
   au FileType  typescript            setlocal noexpandtab
   au FileType  verilog_systemverilog VerilogErrorFormat verilator 2
   au FileType  verilog_systemverilog setlocal makeprg=verilator\ --lint-only\ %
 
   au FocusLost *                     wa
-  au VimEnter  * nested              call LoadSession()
-  au VimLeave  *                     call UpdateSession()
 ''
