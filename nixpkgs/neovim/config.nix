@@ -1,11 +1,13 @@
-let 
+pkgs: 
+let
   debug = false;
-in
-pkgs: ''
-  '' + pkgs.lib.optionalString debug '' 
+  gonicepls = pkgs.writeShellScript "gonicepls" ''
+    ${pkgs.coreutils}/bin/nice -n 19 ${pkgs.gotools}/bin/gopls
+  '';
+in pkgs.lib.optionalString debug '' 
   let $NVIM_COC_LOG_LEVEL = 'debug' 
-  '' + ''
 
+'' + ''
   if $TERM!="linux"
     let base16colorspace=256
   endif
@@ -99,7 +101,7 @@ pkgs: ''
   \   "args": ["--stdio"],
   \ },
   \ 'golang': {
-  \   "command": "${pkgs.gotools}/bin/gopls",
+  \   "command": "${gonicepls}",
   \   "args": [],
   \   "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
   \   "filetypes": ["go"],
@@ -219,8 +221,8 @@ pkgs: ''
   command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 
   augroup Smartf
-    autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-    autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
   augroup end
 
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
