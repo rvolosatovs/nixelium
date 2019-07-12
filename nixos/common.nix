@@ -47,6 +47,7 @@
   environment.systemPackages = with pkgs; [
     exfat
     kitty.terminfo
+    libcgroup
     termite.terminfo
   ];
 
