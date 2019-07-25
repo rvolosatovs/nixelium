@@ -39,6 +39,7 @@
 
   systemd.network.enable = true;
   systemd.network.networks."10-physical" = {
+    linkConfig.RequiredForOnline = false;
     dhcpConfig.Anonymize = true;
     dhcpConfig.RouteTable = 2468;
     dhcpConfig.UseDNS = false;
