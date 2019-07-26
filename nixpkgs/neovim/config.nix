@@ -83,21 +83,23 @@ in pkgs.lib.optionalString debug ''
   \   "command": "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server",
   \   "args": ["start"],
   \   "filetypes": ["sh"],
+  \   "rootPatterns": [".vim/", ".git/", ".hg/"],
   \   "ignoredRootPaths": ["~"],
   \ },
   \ 'ccls': {
   \   "command": "${pkgs.ccls}/bin/ccls",
-  \   "filetypes": ["c", "cpp", "objc", "objcpp"],
+  \   "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
   \   "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
   \   "initializationOptions": {
   \      "cache": {
-  \        "directory": "/tmp/ccls",
+  \        "directory": ".ccls-cache",
   \      }
   \   },
   \ },
   \ 'dockerfile': {
   \   "command": "${pkgs.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver",
   \   "filetypes": ["dockerfile"],
+  \   "rootPatterns": [".vim/", ".git/", ".hg/"],
   \   "args": ["--stdio"],
   \ },
   \ 'golang': {
