@@ -29,6 +29,7 @@
         richgo
         taskwarrior
         wego
+        zoom-us
       ] ++ (with gitAndTools; [
         ghq
         git-extras
