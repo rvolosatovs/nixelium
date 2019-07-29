@@ -178,19 +178,6 @@ in [
     '';
   })
 
-  (_: self: {
-    neovim-unwrapped = self.neovim-unwrapped.overrideAttrs (_: rec {
-      version = "nightly";
-      rev = "b65a7b7f6692da9c9b18a1fb68817644a119fbed";
-      src = self.fetchFromGitHub {
-        inherit rev;
-        owner = "neovim";
-        repo = "neovim";
-        sha256 = "1b0xriqkn3hx3dvkjwcypl34w7p6h9k647vm26pq8jjwb9a5jx4f";
-      };
-    });
-  })
-
   (super: self: rec {
     firefox = self.wrapFirefox.override {
       config = self.lib.setAttrByPath [ self.firefox.browserName or (builtins.parseDrvName self.firefox.name).name ] {
