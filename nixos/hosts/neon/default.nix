@@ -9,6 +9,7 @@ in
       ./../../../vendor/secrets/nixos/hosts/neon
       ./../../../vendor/secrets/resources/hosts/neon
       ./../../hardware/lenovo/thinkpad/x260
+      ./../../minidlna.nix
       ./../../profiles/laptop
       ./hardware-configuration.nix
     ];

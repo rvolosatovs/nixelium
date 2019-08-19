@@ -1,12 +1,12 @@
 { config, pkgs, ... }:
 {
+  # TODO: Make this generic
+
   services.minidlna.enable = true;
   services.minidlna.config = ''
-    enable_tivo=no
     friendly_name=neon
     inotify=yes
-    model_number=AllShare1.0
-    network_interface=wlp4s0
+    network_interface=enp0s31f6
     notify_interval=900
     serial=
     strict_dlna=no
