@@ -17,6 +17,7 @@
         drive
         git-rebase-all
         godef
+        gofumpt
         gotools
         httpie
         llvm
