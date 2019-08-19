@@ -28,6 +28,7 @@ in [
     gocode
     gocode-gomod
     godef
+    gofumpt
     gopass
     gotools
     govendor
