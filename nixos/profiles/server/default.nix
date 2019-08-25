@@ -13,7 +13,7 @@
   '';
   boot.initrd.network.ssh.authorizedKeys = config.users.users.${config.resources.username}.openssh.authorizedKeys.keys;
   boot.initrd.network.ssh.enable = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_4_19;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
