@@ -77,6 +77,7 @@ in [
     vgo2nix
     vim
     vimPlugins
+    vimUtils
     weechat
     wego
     zathura
