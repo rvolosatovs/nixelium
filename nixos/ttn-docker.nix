@@ -2,7 +2,7 @@
 let
   composeFile = ./../../../../go.thethings.network/lorawan-stack/docker-compose.yml;
   composeFileOverrides = builtins.toFile "docker-compose.overrides.yml" ''
-    version: '3.5'
+    version: '3.7'
 
     secrets:
       cert.pem:
