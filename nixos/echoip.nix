@@ -13,7 +13,7 @@
   systemd.services.echoip.after = [ "network.target" ];
   systemd.services.echoip.description = "Echoip service";
   systemd.services.echoip.enable = true;
-  systemd.services.echoip.serviceConfig.ExecStart = "${pkgs.echoip}/bin/echoip -l :24002 -H X-Real-IP -t ${pkgs.echoip.out}/index.html -p";
+  systemd.services.echoip.serviceConfig.ExecStart = "${pkgs.echoip}/bin/echoip -l :24002 -H X-Real-IP -t ${pkgs.echoip.index}/index.html -p";
   systemd.services.echoip.serviceConfig.User = "echoip";
   systemd.services.echoip.wantedBy = [ "multi-user.target" ];
 
