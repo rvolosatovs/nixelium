@@ -58,12 +58,11 @@
         arduino
         julia
         libreoffice-fresh
+        lutris
         macchanger
         platformio
         playerctl
         sshfs
-        wineStaging
-        winetricks
       ];
 
       systemd.user.services.godoc.Unit.Description="Godoc server";
