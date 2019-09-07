@@ -40,6 +40,7 @@ in [
     keybase
     keybase-gui
     kitty
+    lutris
     mbed-cli
     miniflux
     mopidy
@@ -78,6 +79,10 @@ in [
     vim
     vimPlugins
     vimUtils
+    vulkan-headers
+    vulkan-loader
+    vulkan-tools
+    vulkan-validation-layers
     weechat
     wego
     zathura
