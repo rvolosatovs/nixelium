@@ -49,7 +49,7 @@
       '';
       programs.ssh.matchBlocks."*.labs.overthewire.org".extraOptions.SendEnv = "OTWUSERDIR";
 
-      programs.zsh.shellAliases.go="richgo";
+      programs.zsh.shellAliases.go="${pkgs.richgo}/bin/richgo";
     })
 
     (mkIf pkgs.stdenv.isLinux {
