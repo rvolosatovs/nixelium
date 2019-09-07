@@ -181,7 +181,7 @@ in [
     '';
 
     copy-sha-git = self.writeShellScriptBin "copy-sha-git" ''
-      ${self.nix-prefetch-git}/bin/nix-prefetch-git ''${@} | jq -c -r '.sha256' | xclip -sel clip
+      ${self.nix-prefetch-git}/bin/nix-prefetch-git ''${@} | ${self.jq}/bin/jq -c -r '.sha256' | ${self.xclip}/bin/xclip -sel clip
     '';
   })
 
