@@ -13,6 +13,7 @@
       home.packages = with pkgs; [
         asciinema
         clang
+        copy-sha-git
         deluge
         drive
         git-rebase-all
