@@ -65,7 +65,6 @@
         transparent-standalone-image
         ublock-origin
         vim-vixen
-        zoom-page-we
       ];
 
       programs.ssh.extraConfig = ''
