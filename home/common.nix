@@ -251,9 +251,6 @@
       programs.zsh.shellAliases.Vi = "sudoedit";
       programs.zsh.shellAliases.Vim = "sudoedit";
 
-      services.syncthing.enable = false;
-      services.syncthing.tray = config.resources.graphics.enable;
-
       systemd.user.startServices = true;
     })
   ];
