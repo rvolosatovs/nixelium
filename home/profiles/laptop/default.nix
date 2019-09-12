@@ -44,6 +44,30 @@
       programs.go.goPath = "";
       programs.go.goBin = ".local/bin.go";
 
+      programs.firefox.enable = true;
+      programs.firefox.package = pkgs.firefox;
+      programs.firefox.extensions =  with pkgs.nur.repos.rycee.firefox-addons; [
+        auto-tab-discard
+        cookie-autodelete
+        dark-night-mode
+        gopass-bridge
+        https-everywhere
+        link-cleaner
+        multi-account-containers
+        octotree
+        peertubeify
+        privacy-badger
+        reddit-enhancement-suite
+        refined-github
+        save-page-we
+        stylus
+        text-contrast-for-dark-themes
+        transparent-standalone-image
+        ublock-origin
+        vim-vixen
+        zoom-page-we
+      ];
+
       programs.ssh.extraConfig = ''
         Include config.d/ssh_gateway
       '';
