@@ -257,7 +257,6 @@ in
           xclip
           xdo
           xdotool
-          xsel
           xtitle
         ];
 
