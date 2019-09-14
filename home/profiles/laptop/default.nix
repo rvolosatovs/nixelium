@@ -22,6 +22,7 @@
         llvm
         llvmPackages.libclang
         minicom
+        mkvtoolnix
         nixops
         nmap
         pandoc
