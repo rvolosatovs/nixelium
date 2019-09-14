@@ -5,7 +5,6 @@ in [
     inherit (unstable)
     alacritty
     arduino
-    bluez
     brave
     bspwm
     cachix
@@ -40,9 +39,9 @@ in [
     keybase
     keybase-gui
     kitty
-    lutris
     mbed-cli
     miniflux
+    mkvtoolnix
     mopidy
     mopidy-iris
     mopidy-local-images
@@ -79,12 +78,11 @@ in [
     vim
     vimPlugins
     vimUtils
-    vulkan-headers
-    vulkan-loader
-    vulkan-tools
-    vulkan-validation-layers
     weechat
     wego
+    wine
+    wineStaging
+    winetricks
     zathura
     ;
 
