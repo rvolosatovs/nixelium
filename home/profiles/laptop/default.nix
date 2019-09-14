@@ -30,6 +30,8 @@
         richgo
         taskwarrior
         wego
+        wineStaging
+        winetricks
         zoom-us
       ] ++ (with gitAndTools; [
         ghq
@@ -82,7 +84,6 @@
         arduino
         julia
         libreoffice-fresh
-        lutris
         macchanger
         platformio
         playerctl
