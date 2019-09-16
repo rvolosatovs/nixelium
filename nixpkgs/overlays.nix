@@ -39,6 +39,7 @@ in [
     keybase
     keybase-gui
     kitty
+    lutris
     mbed-cli
     miniflux
     mkvtoolnix
@@ -54,6 +55,7 @@ in [
     neovim
     neovim-unwrapped
     nodePackages
+    nox
     pass
     passExtensions
     platformio
@@ -80,23 +82,11 @@ in [
     vimUtils
     weechat
     wego
-    wine
-    wineStaging
+    winePackagesFor
     winetricks
     zathura
     ;
-
-    inherit (unstable.python3Packages)
-    simple-websocket-server
-    ;
   })
-
-  (_: _: if !unstable.stdenv.isDarwin then {
-    inherit (unstable)
-    zathura
-    ;
-
-  } else {})
 
   (_: self: {
     nur = import ./../vendor/nur { pkgs = self; };
