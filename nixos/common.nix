@@ -78,7 +78,6 @@
   nix.binaryCachePublicKeys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
-  nix.gc.automatic = true;
   nix.nixPath = let
     infrastructure = (lib.sourceByRegex ./.. [ 
       "dotfiles"
