@@ -10,9 +10,7 @@
 
   config = with lib; mkMerge [
     ({
-      home.packages = with pkgs; let
-        winePkg = wineWowPackages.staging;
-      in [
+      home.packages = with pkgs; [
         asciinema
         clang
         copy-sha-git
@@ -32,8 +30,6 @@
         richgo
         taskwarrior
         wego
-        winePkg
-        (winetricks.override { wine = winePkg; })
         zoom-us
       ] ++ (with gitAndTools; [
         ghq
