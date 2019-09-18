@@ -51,9 +51,9 @@ in [
     mopidy-spotify
     mopidy-spotify-tunigo
     mopidy-youtube
-    nerdfonts
     neovim
     neovim-unwrapped
+    nerdfonts
     nodePackages
     nox
     pass
@@ -80,10 +80,15 @@ in [
     vim
     vimPlugins
     vimUtils
+    vulkan-headers
+    vulkan-loader
+    vulkan-tools
     weechat
     wego
+    winePackages
     winePackagesFor
     winetricks
+    wineWowPackages
     zathura
     ;
   })
