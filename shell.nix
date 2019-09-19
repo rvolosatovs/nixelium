@@ -188,16 +188,14 @@ stdenv.mkDerivation {
       ${vendorGitHubSourceStable "home-manager"}
       ${vendorGitHubSourceStable "Model01-Firmware"}
       ${vendorGitHubSourceStable "qmk_firmware"}
-
-      ${nixDarwin}/sw/bin/darwin-rebuild switch "''${@}"
     '';
 
     upgrade-mac = writeShellScriptBin "upgrade-mac" ''
       set -ex
       ${git}/bin/git pull
       ${git}/bin/git submodule update
-      ${nixDarwin}/sw/bin/darwin-rebuild switch "''${@}"
-      brew bundle install --global
+      $(${nix}/bin/nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild switch "''${@}"
+      ./vendor/brew/bin/brew bundle install --global
     '';
   in [
     fetchAll
