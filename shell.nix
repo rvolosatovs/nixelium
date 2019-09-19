@@ -164,7 +164,7 @@ stdenv.mkDerivation {
 
     nixDarwin = (import <darwin> {}).system;
 
-    bootstrap-mac = writeShellScriptBin "upgrade-mac" ''
+    bootstrap-mac = writeShellScriptBin "bootstrap-mac" ''
       set -e
 
       ${cloneGitHubFork "NixOS" "nixpkgs" "master" ''
