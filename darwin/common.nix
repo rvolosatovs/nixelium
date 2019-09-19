@@ -10,6 +10,7 @@
   environment.interactiveShellInit = ''
       set -o vi
   '';
+  environment.loginShell = "/run/current-system/sw/bin/${config.resources.programs.shell.executable}";
   environment.pathsToLink = [
     "/Applications"
     "/Library"
@@ -17,18 +18,6 @@
     "/share/terminfo"
     "/share/zsh"
   ];
-  environment.variables = with config.resources.programs; {
-    BROWSER = browser.executable.path;
-    EDITOR = editor.executable.path;
-    EMAIL = config.resources.email;
-    GIT_EDITOR = editor.executable.path;
-    HISTFILESIZE = toString config.resources.histsize;
-    HISTSIZE = toString config.resources.histsize;
-    MAILER = mailer.executable.path;
-    PAGER = pager.executable.path;
-    SAVEHIST = toString config.resources.histsize;
-    VISUAL = editor.executable.path;
-  };
   environment.shellAliases = {
     ll="ls -la";
     ls="ls -h -G";
@@ -44,6 +33,18 @@
     pkgs.zsh
     pkgs.bashInteractive
   ];
+  environment.variables = with config.resources.programs; {
+    BROWSER = browser.executable.path;
+    EDITOR = editor.executable.path;
+    EMAIL = config.resources.email;
+    GIT_EDITOR = editor.executable.path;
+    HISTFILESIZE = toString config.resources.histsize;
+    HISTSIZE = toString config.resources.histsize;
+    MAILER = mailer.executable.path;
+    PAGER = pager.executable.path;
+    SAVEHIST = toString config.resources.histsize;
+    VISUAL = editor.executable.path;
+  };
 
   home-manager.useUserPackages = true;
   home-manager.users.${config.resources.username} = {...}: {
