@@ -86,6 +86,7 @@ in pkgs.lib.optionalString debug ''
   \   "rootPatterns": [".vim/", ".git/", ".hg/"],
   \   "ignoredRootPaths": ["~"],
   \ },
+'' + pkgs.lib.optionalString pkgs.stdenv.isLinux ''
   \ 'ccls': {
   \   "command": "${pkgs.ccls}/bin/ccls",
   \   "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
@@ -96,6 +97,7 @@ in pkgs.lib.optionalString debug ''
   \      }
   \   },
   \ },
+'' + ''
   \ 'dockerfile': {
   \   "command": "${pkgs.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver",
   \   "filetypes": ["dockerfile"],
@@ -159,7 +161,9 @@ in pkgs.lib.optionalString debug ''
 
   let g:tex_conceal="ag"
 
+'' + pkgs.lib.optionalString pkgs.stdenv.isLinux ''
   let g:vimtex_view_method='${pkgs.zathura}/bin/zathura'
+'' +''
 
   let mapleader = "\<Space>"
   let maplocalleader = "\<Space>"
