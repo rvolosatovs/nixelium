@@ -6,12 +6,20 @@ stdenv.mkDerivation {
 
     keybaseRepos = [ "vendor/pass" "vendor/pass-ttn-shared" "vendor/pass-otp" "vendor/secrets" ];
 
-    cloneIfEmpty = path: url: branch: ''
-      if [ -d "${path}" ]; then
-        echo "${path} already exists, skip cloning"
+    doIfEmpty = path: action: cmd: ''
+      if [ -d "${path}" ] && [ "$(${coreutils}/bin/ls -A "${path}")" ]; then
+        echo "${path} already exists and is non-empty, skip ${action}"
       else
-        ${git}/bin/git clone --branch "${branch}" "${url}" "${path}"
+        ${cmd}
       fi
+    '';
+
+    cloneIfEmpty = path: url: branch: doIfEmpty path "cloning" ''
+      ${git}/bin/git clone --branch "${branch}" "${url}" "${path}"
+    '';
+
+    addWorkTreeIfEmpty  = path: commitish: doIfEmpty path "adding worktree" ''
+      ${git}/bin/git worktree add "${path}" "${commitish}"
     '';
 
     upsertRemote = name: url: ''
@@ -20,14 +28,6 @@ stdenv.mkDerivation {
         ${git}/bin/git remote set-url "${name}" "${url}"
       else
         ${git}/bin/git remote add "${name}" "${url}"
-      fi
-    '';
-
-    addWorkTreeIfEmpty = path: commitish: ''
-      if [ -d "${path}" ]; then
-        echo "${path} already exists, skip adding worktree"
-      else
-        ${git}/bin/git worktree add "${path}" "${commitish}"
       fi
     '';
 
@@ -124,7 +124,7 @@ stdenv.mkDerivation {
         popd
       ''}
 
-      ${vendorGitHubFork "rycee" "home-manager" "stable" "upstream/release-${nixosVersion}"}
+      ${vendorGitHubFork "rycee" "home-manager" "stable" "release-${nixosVersion}"}
 
       ${vendorGitHubForkMaster "chriskempson" "base16-shell"}
       ${vendorGitHubForkMaster "Homebrew" "brew"}
