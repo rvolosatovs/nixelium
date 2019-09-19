@@ -6,11 +6,11 @@ stdenv.mkDerivation {
 
     keybaseRepos = [ "vendor/pass" "vendor/pass-ttn-shared" "vendor/pass-otp" "vendor/secrets" ];
 
-    cloneIfEmpty = path: url: ''
+    cloneIfEmpty = path: url: branch: ''
       if [ -d "${path}" ]; then
         echo "${path} already exists, skip cloning"
       else
-        ${git}/bin/git clone --branch master "${url}" "${path}"
+        ${git}/bin/git clone --branch "${branch}" "${url}" "${path}"
       fi
     '';
 
@@ -31,8 +31,8 @@ stdenv.mkDerivation {
       fi
     '';
 
-    cloneGitHubSource = repo: preFetch: postFetch: ''
-      ${cloneIfEmpty "../${repo}" "https://github.com/rvolosatovs/${repo}.git"}
+    cloneGitHubSource = repo: branch: preFetch: postFetch: ''
+      ${cloneIfEmpty "../${repo}" "https://github.com/rvolosatovs/${repo}.git" branch}
 
       pushd "../${repo}"
 
@@ -47,8 +47,8 @@ stdenv.mkDerivation {
       popd
     '';
 
-    cloneGitHubFork = owner: repo: preFetch: postFetch: ''
-      ${cloneIfEmpty "../../${owner}/${repo}" "https://github.com/rvolosatovs/${repo}.git"}
+    cloneGitHubFork = owner: repo: branch: preFetch: postFetch: ''
+      ${cloneIfEmpty "../../${owner}/${repo}" "https://github.com/rvolosatovs/${repo}.git" branch}
 
       pushd "../../${owner}/${repo}"
 
@@ -64,34 +64,41 @@ stdenv.mkDerivation {
       popd
     '';
 
-    vendorGitHubFork = owner: repo: ''
-      ${cloneGitHubFork owner repo "" ''
-        ${git}/bin/git checkout origin/master
-        ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/${repo}" "master"}
+    vendorGitHubFork = owner: repo: forkBranch: upstreamBranch: ''
+      ${cloneGitHubFork owner repo forkBranch "" ''
+        ${git}/bin/git checkout "origin/${forkBranch}"
+        ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/${repo}" forkBranch}
         pushd "../../rvolosatovs/infrastructure/vendor/${repo}"
-        ${git}/bin/git branch --set-upstream-to=upstream/master
+        ${git}/bin/git branch --set-upstream-to="upstream/${upstreamBranch}"
         popd
       ''}
     '';
 
-    vendorGitHubSource = repo: ''
-      ${cloneGitHubSource repo "" ''
-        ${git}/bin/git checkout origin/master
-        ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/${repo}" "master"}
+    vendorGitHubForkMaster = owner: repo: vendorGitHubFork owner repo "master" "master";
+
+    vendorGitHubSource = repo: branch: ''
+      ${cloneGitHubSource repo branch "" ''
+        ${git}/bin/git checkout "origin/${branch}"
+        ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/${repo}" branch}
         pushd "../../rvolosatovs/infrastructure/vendor/${repo}"
-        ${git}/bin/git branch --set-upstream-to=origin/master
+        ${git}/bin/git branch --set-upstream-to="origin/${branch}"
         popd
       ''}
     '';
 
-    vendorKeybasePrivateSource = repo: ''
-      ${cloneIfEmpty "vendor/${repo}" "keybase://private/rvolosatovs/${repo}" }
+    vendorGitHubSourceMaster = repo: vendorGitHubSource repo "master";
+    vendorGitHubSourceStable = repo: vendorGitHubSource repo "stable";
+
+    vendorKeybasePrivateSource = repo: branch: ''
+      ${cloneIfEmpty "vendor/${repo}" "keybase://private/rvolosatovs/${repo}" branch}
     '';
 
-    bootstrap = writeShellScriptBin "bootstrap" ''
+    vendorKeybasePrivateSourceMaster = repo: vendorKeybasePrivateSource repo "master";
+
+    bootstrap-master = writeShellScriptBin "bootstrap-master" ''
       set -e
 
-      ${cloneGitHubFork "NixOS" "nixpkgs" ''
+      ${cloneGitHubFork "NixOS" "nixpkgs" "master" ''
         ${upsertRemote "channels" "https://github.com/NixOS/nixpkgs-channels.git"}
       '' ''
         ${git}/bin/git checkout master
@@ -117,32 +124,26 @@ stdenv.mkDerivation {
         popd
       ''}
 
-      ${cloneGitHubFork "rycee" "home-manager" "" ''
-        ${git}/bin/git checkout master
+      ${vendorGitHubFork "rycee" "home-manager" "stable" "upstream/release-${nixosVersion}"}
 
-        ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/home-manager" "stable"}
-        pushd ../../rvolosatovs/infrastructure/vendor/home-manager
-        ${git}/bin/git branch --set-upstream-to="upstream/release-${nixosVersion}"
-        popd
-      ''}
+      ${vendorGitHubForkMaster "chriskempson" "base16-shell"}
+      ${vendorGitHubForkMaster "Homebrew" "brew"}
+      ${vendorGitHubForkMaster "jitsi" "docker-jitsi-meet"}
+      ${vendorGitHubForkMaster "keyboardio" "Model01-Firmware"}
+      ${vendorGitHubForkMaster "LnL7" "nix-darwin"}
+      ${vendorGitHubForkMaster "nix-community" "nur"}
+      ${vendorGitHubForkMaster "NixOS" "nixos-hardware"}
+      ${vendorGitHubForkMaster "qmk" "qmk_firmware"}
+      ${vendorGitHubForkMaster "StevenBlack" "hosts"}
 
-      ${vendorGitHubFork "chriskempson" "base16-shell"}
-      ${vendorGitHubFork "jitsi" "docker-jitsi-meet"}
-      ${vendorGitHubFork "keyboardio" "Model01-Firmware"}
-      ${vendorGitHubFork "LnL7" "nix-darwin"}
-      ${vendorGitHubFork "nix-community" "nur"}
-      ${vendorGitHubFork "NixOS" "nixos-hardware"}
-      ${vendorGitHubFork "qmk" "qmk_firmware"}
-      ${vendorGitHubFork "StevenBlack" "hosts"}
+      ${vendorGitHubSourceMaster "copier"}
+      ${vendorGitHubSourceMaster "dumpster"}
+      ${vendorGitHubSourceMaster "gorandr"}
 
-      ${vendorGitHubSource "copier"}
-      ${vendorGitHubSource "dumpster"}
-      ${vendorGitHubSource "gorandr"}
-
-      ${vendorKeybasePrivateSource "pass"}
-      ${vendorKeybasePrivateSource "pass-otp"}
-      ${vendorKeybasePrivateSource "pass-ttn-shared"}
-      ${vendorKeybasePrivateSource "secrets"}
+      ${vendorKeybasePrivateSourceMaster "pass"}
+      ${vendorKeybasePrivateSourceMaster "pass-otp"}
+      ${vendorKeybasePrivateSourceMaster "pass-ttn-shared"}
+      ${vendorKeybasePrivateSourceMaster "secrets"}
     '';
 
     writeAllReposScriptBin = name: action: writeShellScriptBin name (''
@@ -161,16 +162,44 @@ stdenv.mkDerivation {
       ${nixops}/bin/nixops deploy "''${@}"
     '';
 
-    upgradeMac = writeShellScriptBin "upgrade-mac" ''
+    nixDarwin = (import <darwin> {}).system;
+
+    bootstrap-mac = writeShellScriptBin "upgrade-mac" ''
+      set -e
+
+      ${cloneGitHubFork "NixOS" "nixpkgs" "master" ''
+        ${upsertRemote "channels" "https://github.com/NixOS/nixpkgs-channels.git"}
+      '' ''
+        ${git}/bin/git checkout master
+
+        ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin" "darwin"}
+        ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin-unstable" "darwin-unstable"}
+      ''}
+
+      ${vendorGitHubSourceMaster "base16-shell"}
+      ${vendorGitHubSourceMaster "copier"}
+      ${vendorGitHubSourceMaster "dumpster"}
+      ${vendorGitHubSourceMaster "gorandr"}
+      ${vendorGitHubSourceMaster "brew"}
+      ${vendorGitHubSourceMaster "hosts"}
+      ${vendorGitHubSourceMaster "nix-darwin"}
+      ${vendorGitHubSourceMaster "nur"}
+
+      ${vendorGitHubSourceStable "home-manager"}
+      ${vendorGitHubSourceStable "Model01-Firmware"}
+      ${vendorGitHubSourceStable "qmk_firmware"}
+
+      ${nixDarwin}/sw/bin/darwin-rebuild switch "''${@}"
+    '';
+
+    upgrade-mac = writeShellScriptBin "upgrade-mac" ''
       set -ex
       ${git}/bin/git pull
       ${git}/bin/git submodule update
-      ${nix}/bin/nix-channel --update
-      darwin-rebuild switch "''${@}"
+      ${nixDarwin}/sw/bin/darwin-rebuild switch "''${@}"
       brew bundle install --global
     '';
   in [
-    bootstrap
     fetchAll
     pullAll
     pullAndDeploy
@@ -179,8 +208,11 @@ stdenv.mkDerivation {
     git
     neovim
     nixops
-  ]
-  ++ lib.optional stdenv.isLinux keybase
-  ++ lib.optional stdenv.isDarwin upgradeMac
-  ;
+  ] ++ lib.optionals stdenv.isLinux [
+    bootstrap-master
+    keybase
+  ] ++ lib.optionals stdenv.isDarwin [
+    bootstrap-mac
+    upgrade-mac
+  ];
 }
