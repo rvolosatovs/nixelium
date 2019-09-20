@@ -8,6 +8,12 @@ let
   wg.papatablet.publicKey = "9Egkv/9PqDhEpOiZWq4dI0zbq4Y1PCYjiqxDp2vbC0Y=";
 
   wg.privateKeyName = "wireguard-wg0-private";
+
+  mkVPNBypassRule = ip: ''
+    [RoutingPolicyRule]
+    To=${ip}
+    Table=2468
+  '';
 in
   rec {
     neon = { config, pkgs, ... }: {
@@ -35,18 +41,18 @@ in
       systemd.network.networks."30-wg0" = {
         matchConfig.Name = "wg0";
         networkConfig.Address = "10.0.0.2/32";
-        routes = [
-           {
-             routeConfig.Destination = "0.0.0.0/0";
-             routeConfig.Gateway = "10.0.0.1";
-             routeConfig.GatewayOnlink = "true";
-           }
+        routes = pkgs.lib.singleton {
+          routeConfig.Destination = "0.0.0.0/0";
+          routeConfig.Gateway = "10.0.0.1";
+          routeConfig.GatewayOnlink = "true";
+        };
+        extraConfig = pkgs.lib.concatMapStringsSep "\n" mkVPNBypassRule [ 
+          config.resources.wireguard.serverIP
+          "172.16.0.0/12"
+          "192.168.0.0/16"
+          "224.0.0.0/4"
+          "37.244.32.0/19" # Blizzard EU
         ];
-        extraConfig = ''
-          [RoutingPolicyRule]
-          To=${config.resources.wireguard.serverIP}
-          Table=2468
-        '';
       };
     };
 
