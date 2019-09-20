@@ -44,7 +44,7 @@ in
         routes = pkgs.lib.singleton {
           routeConfig.Destination = "0.0.0.0/0";
           routeConfig.Gateway = "10.0.0.1";
-          routeConfig.GatewayOnlink = "true";
+          routeConfig.GatewayOnLink = "true";
         };
         extraConfig = pkgs.lib.concatMapStringsSep "\n" mkVPNBypassRule [ 
           config.resources.wireguard.serverIP

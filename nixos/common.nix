@@ -174,7 +174,7 @@
   services.openssh.passwordAuthentication = false;
   services.openssh.startWhenNeeded = true;
 
-  system.stateVersion = "19.03";
+  system.stateVersion = "19.09";
 
   systemd.network.networks."40-virtualisation" = {
     matchConfig.Name = "virbr* veth* docker* br-*";
