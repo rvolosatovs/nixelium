@@ -126,7 +126,7 @@ in
     };
 
     wireguard.serverIP = mkOption {
-      type = types.string;
+      type = types.str;
       description = "Wireguard server IP";
     };
 
