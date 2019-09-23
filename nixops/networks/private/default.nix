@@ -48,9 +48,6 @@ in
         };
         extraConfig = pkgs.lib.concatMapStringsSep "\n" mkVPNBypassRule [ 
           config.resources.wireguard.serverIP
-          "172.16.0.0/12"
-          "192.168.0.0/16"
-          "224.0.0.0/4"
           "37.244.32.0/19" # Blizzard EU
         ];
       };
