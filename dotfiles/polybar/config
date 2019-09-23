@@ -533,7 +533,7 @@ label-disconnected-foreground = ${colors.base09}
 
 [module/wifi]
 inherit = module/network
-interface = wlp4s0
+interface = wlan0
 
 format-connected-prefix = " "
 format-disconnected-prefix = " "
