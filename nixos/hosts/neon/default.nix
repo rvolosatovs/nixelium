@@ -36,6 +36,10 @@ in
       };
 
       networking.hostName = "neon";
+      networking.firewall.allowedTCPPorts = [
+        1885
+        8885
+      ];
       networking.firewall.allowedUDPPorts = [
         1700
       ];
