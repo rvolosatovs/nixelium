@@ -90,6 +90,7 @@ in [
     winetricks
     wineWowPackages
     zathura
+    zoom-us
     ;
   })
 
