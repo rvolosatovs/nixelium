@@ -70,6 +70,7 @@ in [
     richgo
     ripgrep
     rofi
+    sidequest
     skhd
     sway
     sxhkd
