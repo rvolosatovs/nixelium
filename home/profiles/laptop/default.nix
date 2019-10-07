@@ -85,6 +85,7 @@
         macchanger
         platformio
         playerctl
+        sidequest
         sshfs
       ];
 
