@@ -54,7 +54,7 @@
         weechat
         wget
         zip
-      ] ++ (with config.resources.programs; [
+      ] ++ (with config.resources.programs; map lowPrio [
         browser.package
         editor.package
         mailer.package
