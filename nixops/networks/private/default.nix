@@ -59,6 +59,7 @@ in
         ./../../../nixos/wireguard.server.nix
         ./../../../vendor/secrets/nixops/hosts/oxygen
         ./../../meet.nix
+        ./../../miniflux.nix
         ./../../profiles/server
       ];
       deployment.keys.${wg.privateKeyName}.text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/oxygen/wg.private;

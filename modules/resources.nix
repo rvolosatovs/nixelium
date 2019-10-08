@@ -95,6 +95,11 @@ in
       description = "Meet user password";
     };
 
+    miniflux.adminPassword = mkOption {
+      type = types.str;
+      description = "Miniflux admin password";
+    };
+
     soundcloud.token = mkOption {
       type = types.str;
       description = "SoundCloud API token";
