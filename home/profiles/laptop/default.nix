@@ -46,7 +46,6 @@
       programs.go.goBin = ".local/bin.go";
 
       programs.firefox.enable = true;
-      programs.firefox.package = pkgs.firefox;
       programs.firefox.extensions =  with pkgs.nur.repos.rycee.firefox-addons; [
         auto-tab-discard
         cookie-autodelete

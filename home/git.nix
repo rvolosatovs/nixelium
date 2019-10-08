@@ -31,61 +31,6 @@ let
     Thumbs.db
     token
   '';
-
-  extraConfig = ''
-    [branch]
-      autosetupmerge = false
-      autosetuprebase = always
-    [color]
-      ui = true
-    [core]
-      autocrlf = false
-      editor = ${config.resources.programs.editor.executable.path}
-      excludesfile = ${gitignore}
-      safecrlf = false
-    [diff]
-      colorMoved = zebra
-      renames = copy
-      tool = nvimdiff
-    [fetch]
-      prune = true
-    [filter "lfs"]
-      clean = git-lfs clean -- %f
-      process = git-lfs filter-process
-      required = true
-      smudge = git-lfs smudge -- %f
-    [format]
-      pretty = %C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n
-    [ghq]
-      root = ~/src
-    [ghq "https://go.thethings.network"]
-      vcs = git
-    [http]
-      cookieFile = ~/.gitcookies
-    [http "https://gopkg.in"]
-      followRedirects = true
-    [merge]
-      conflictstyle = diff3
-      tool = nvimdiff
-    [mergetool "nvimdiff"]
-      cmd = ${pkgs.neovim}/bin/nvim -c "Gvdiff" $MERGED
-    [push]
-      default = nothing
-      gpgSign = if-asked
-    [rebase]
-      autosquash = true
-    [rerere]
-      enabled = true
-    [status]
-      branch = true
-      short = true
-      showUntrackedFiles = all
-      submoduleSummary = true
-    [url "ssh://git@github.com/TheThingsNetwork"]
-      insteadOf = https://github.com/TheThingsNetwork
-    [url "ssh://git@github.com/TheThingsIndustries"]
-      insteadOf = https://github.com/TheThingsIndustries
-  '';
 in
   {
     home.packages = with pkgs; [
@@ -101,9 +46,40 @@ in
     programs.git.aliases.xclean = "clean -xdf -e .envrc -e .direnv.* -e shell.nix -e default.nix -e vendor -e .vscode";
 
     programs.git.enable = true;
-    programs.git.extraConfig = extraConfig;
-    programs.git.userName = config.resources.fullName;
+    programs.git.extraConfig."filter \"lfs\"".clean = "${pkgs.git-lfs}/bin/git-lfs clean -- %f";
+    programs.git.extraConfig."filter \"lfs\"".process = "${pkgs.git-lfs}/bin/git-lfs filter-process";
+    programs.git.extraConfig."filter \"lfs\"".required = true;
+    programs.git.extraConfig."filter \"lfs\"".smudge = "${pkgs.git-lfs}/bin/git-lfs smudge -- %f";
+    programs.git.extraConfig."ghq \"https://go.thethings.network\"".vcs = "git";
+    programs.git.extraConfig."http \"https://gopkg.in\"".followRedirects = true;
+    programs.git.extraConfig."mergetool \"nvimdiff\"".cmd = "${pkgs.neovim}/bin/nvim -c Gvdiff $MERGED";
+    programs.git.extraConfig."url \"ssh://git@github.com/TheThingsIndustries\"".insteadOf = "https://github.com/TheThingsIndustries";
+    programs.git.extraConfig."url \"ssh://git@github.com/TheThingsNetwork\"".insteadOf = "https://github.com/TheThingsNetwork";
+    programs.git.extraConfig.branch.autosetupmerge = false;
+    programs.git.extraConfig.branch.autosetuprebase = "always";
+    programs.git.extraConfig.color.ui = true;
+    programs.git.extraConfig.core.autocrlf = false;
+    programs.git.extraConfig.core.editor = config.resources.programs.editor.executable.path;
+    programs.git.extraConfig.core.excludesfile = toString gitignore;
+    programs.git.extraConfig.core.safecrlf = false;
+    programs.git.extraConfig.diff.colorMoved = "zebra";
+    programs.git.extraConfig.diff.renames = "copy";
+    programs.git.extraConfig.diff.tool = "nvimdiff";
+    programs.git.extraConfig.fetch.prune = true;
+    programs.git.extraConfig.format.pretty = "%C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n";
+    programs.git.extraConfig.ghq.root = "~/src";
+    programs.git.extraConfig.http.cookieFile = "~/.gitcookies";
+    programs.git.extraConfig.merge.conflictstyle = "diff3";
+    programs.git.extraConfig.merge.tool = "nvimdiff";
+    programs.git.extraConfig.push.default = "nothing";
+    programs.git.extraConfig.rebase.autosquash = true;
+    programs.git.extraConfig.rerere.enabled = true;
+    programs.git.extraConfig.status.branch = true;
+    programs.git.extraConfig.status.short = true;
+    programs.git.extraConfig.status.showUntrackedFiles = "all";
+    programs.git.extraConfig.status.submoduleSummary = true;
     programs.git.userEmail = config.resources.email;
+    programs.git.userName = config.resources.fullName;
 
     programs.zsh.shellAliases.ga="git add .";
     programs.zsh.shellAliases.gaf="git add";

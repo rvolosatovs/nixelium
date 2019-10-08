@@ -62,5 +62,4 @@
 
   services.xserver.layout = config.home-manager.users.${config.resources.username}.home.keyboard.layout;
   services.xserver.xkbOptions = lib.concatStringsSep ", " config.home-manager.users.${config.resources.username}.home.keyboard.options;
-  services.xserver.xkbVariant = config.home-manager.users.${config.resources.username}.home.keyboard.variant;
 }
