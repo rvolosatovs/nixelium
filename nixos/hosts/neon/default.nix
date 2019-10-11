@@ -43,6 +43,8 @@ in
       networking.firewall.allowedUDPPorts = [
         1700
       ];
+      networking.interfaces.enp0s31f6.useDHCP = true;
+      networking.interfaces.wlan0.useDHCP = true;
 
       nix.nixPath = lib.mkBefore [
         "home-manager=${toString ./../../../vendor/home-manager}"
@@ -59,7 +61,7 @@ in
 
       systemd.network.networks."25-wireless" = {
         dhcpConfig.RouteMetric = "20";
-        matchConfig.Name = "wlp4s0";
+        matchConfig.Name = "wlan0";
       };
     };
   }
