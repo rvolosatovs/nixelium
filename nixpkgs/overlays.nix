@@ -59,6 +59,7 @@ in [
     neovim
     neovim-unwrapped
     nerdfonts
+    nix-du
     nodePackages
     nox
     pass
