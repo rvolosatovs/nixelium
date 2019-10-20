@@ -35,6 +35,7 @@ in [
     i3
     ioquake3
     ioquake3pointrelease
+    iwd
     kbfs
     keybase
     keybase-gui
