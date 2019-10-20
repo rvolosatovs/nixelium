@@ -137,7 +137,6 @@
       programs.ssh.enable = true;
       programs.ssh.compression = true;
       programs.ssh.serverAliveInterval = 5;
-      programs.ssh.matchBlocks."*".identityFile = "~/.ssh/id_ed25519";
       programs.ssh.matchBlocks."hashbang".hostname = "ny1.hashbang.sh";
       programs.ssh.matchBlocks."hashbang".identitiesOnly = true;
       programs.ssh.matchBlocks."hashbang".identityFile = "~/.ssh/id_ed25519";

@@ -1,5 +1,6 @@
 let
   wg.neon.publicKey = "weyoU0QBHrnjl+2dhibGm5um9+f2sZrg9x8SFd2AVhc=";
+  wg.cobalt.publicKey = "6L6uG3nflK0GJt1468gV38jWX1BkVIj22XuqXtE99gk=";
   wg.oxygen.publicKey = "xjzZIo0SKBNtwP/puZU4cMDdhOsdeMvC/qEKh6RAuAo=";
   wg.zinc.publicKey = "QLMUw+yvwXuuEsN06zB+Mj9n/VqD+k4VKa5o2GZrLAk=";
 
@@ -16,6 +17,43 @@ let
   '';
 in
   rec {
+    cobalt = { config, pkgs, ... }: {
+      imports = [
+        ./../../../nixos/hosts/cobalt
+        ./../../../vendor/secrets/nixops/hosts/cobalt
+        ./../../profiles/laptop
+      ];
+
+      systemd.network.netdevs."30-wg0" = {
+        netdevConfig.Kind = "wireguard";
+        netdevConfig.Name = "wg0";
+        extraConfig = ''
+          [WireGuard]
+          PrivateKey=${builtins.readFile ./../../../vendor/secrets/nixos/hosts/cobalt/wg.private}
+
+          [WireGuardPeer]
+          PublicKey=${wg.oxygen.publicKey}
+          AllowedIPs=0.0.0.0/0, ::/0
+          Endpoint=${config.resources.wireguard.serverIP}:${toString config.resources.wireguard.port}
+          PersistentKeepalive=25
+        '';
+      };
+
+      systemd.network.networks."30-wg0" = {
+        matchConfig.Name = "wg0";
+        networkConfig.Address = "10.0.0.3/32";
+        routes = pkgs.lib.singleton {
+          routeConfig.Destination = "0.0.0.0/0";
+          routeConfig.Gateway = "10.0.0.1";
+          routeConfig.GatewayOnLink = "true";
+        };
+        extraConfig = pkgs.lib.concatMapStringsSep "\n" mkVPNBypassRule [ 
+          config.resources.wireguard.serverIP
+          "37.244.32.0/19" # Blizzard EU
+        ];
+      };
+    };
+
     neon = { config, pkgs, ... }: {
       imports = [
         ./../../../nixos/hosts/neon
@@ -69,6 +107,10 @@ in
         {
           inherit (wg.neon) publicKey;
           allowedIPs = [ "10.0.0.2/32" ];
+        }
+        {
+          inherit (wg.cobalt) publicKey;
+          allowedIPs = [ "10.0.0.3/32" ];
         }
         {
           inherit (wg.zinc) publicKey;

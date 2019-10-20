@@ -18,6 +18,7 @@ in [
     docker_compose
     echoip
     firefox
+    firmwareLinuxNonFree
     fwupd
     geoclue2
     go

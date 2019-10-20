@@ -4,12 +4,12 @@ let
 in
   {
     imports = [
-      ./../../../resources/hosts/neon
+      ./../../../resources/hosts/cobalt
       ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
-      ./../../../vendor/secrets/nixos/hosts/neon
-      ./../../../vendor/secrets/resources/hosts/neon
-      ./../../hardware/lenovo/thinkpad/intel/x260
-      ./../../minidlna.nix
+      ./../../../vendor/secrets/nixos/hosts/cobalt
+      ./../../../vendor/secrets/resources/hosts/cobalt
+      ./../../hardware/lenovo/thinkpad/amd/x395
+      #./../../minidlna.nix
       ./../../profiles/laptop
       ./hardware-configuration.nix
     ];
@@ -18,7 +18,7 @@ in
       boot.initrd.luks.devices = [
         {
           name="luksroot";
-          device="/dev/sda2";
+          device="/dev/nvme0n1p2";
           preLVM=true;
           allowDiscards=true;
         }
@@ -29,11 +29,11 @@ in
 
       home-manager.users.${config.resources.username} = {...}: {
         imports = [
-          ./../../../home/hosts/neon
+          ./../../../home/hosts/cobalt
         ];
       };
 
-      networking.hostName = "neon";
+      networking.hostName = "cobalt";
       networking.firewall.allowedTCPPorts = [
         1885
         8885

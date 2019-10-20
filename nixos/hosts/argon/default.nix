@@ -9,7 +9,7 @@ in
     ./../../../resources/hosts/argon
     ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
     ./../../../vendor/secrets/hosts/argon/nixos
-    ./../../hardware/lenovo/thinkpad/w541
+    ./../../hardware/lenovo/thinkpad/intel/w541
     ./../../profiles/laptop
     ./hardware-configuration.nix
   ];
