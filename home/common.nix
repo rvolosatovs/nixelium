@@ -41,6 +41,7 @@
         jq
         kitty.terminfo
         lsof
+        nix-du
         nix-prefetch-scripts
         nox
         pv
