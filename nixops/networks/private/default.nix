@@ -5,7 +5,7 @@ let
   wg.cobalt.ip = "10.0.0.11/32";
   wg.cobalt.publicKey = "6L6uG3nflK0GJt1468gV38jWX1BkVIj22XuqXtE99gk=";
 
-  wg.zinc.ip = "10.0.0.12/32";
+  wg.zinc.ip = "10.0.0.30/32";
   wg.zinc.publicKey = "QLMUw+yvwXuuEsN06zB+Mj9n/VqD+k4VKa5o2GZrLAk=";
 
   wg.oxygen.publicKey = "xjzZIo0SKBNtwP/puZU4cMDdhOsdeMvC/qEKh6RAuAo=";
