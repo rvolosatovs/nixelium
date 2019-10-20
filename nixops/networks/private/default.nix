@@ -1,12 +1,14 @@
 let
+  wg.neon.ip = "10.0.0.10/32";
   wg.neon.publicKey = "weyoU0QBHrnjl+2dhibGm5um9+f2sZrg9x8SFd2AVhc=";
+
+  wg.cobalt.ip = "10.0.0.11/32";
   wg.cobalt.publicKey = "6L6uG3nflK0GJt1468gV38jWX1BkVIj22XuqXtE99gk=";
-  wg.oxygen.publicKey = "xjzZIo0SKBNtwP/puZU4cMDdhOsdeMvC/qEKh6RAuAo=";
+
+  wg.zinc.ip = "10.0.0.12/32";
   wg.zinc.publicKey = "QLMUw+yvwXuuEsN06zB+Mj9n/VqD+k4VKa5o2GZrLAk=";
 
-  wg.mamaphone.publicKey = "x11PkoJ4uU5RC/OQnFJ8kTlQ8YiGjJBQKe6hUpRIRkk=";
-  wg.papaphone.publicKey = "KMHARoY2eeQhn4iTlecwBDYjoCUIsEaOaPgyGfcI4XU=";
-  wg.papatablet.publicKey = "9Egkv/9PqDhEpOiZWq4dI0zbq4Y1PCYjiqxDp2vbC0Y=";
+  wg.oxygen.publicKey = "xjzZIo0SKBNtwP/puZU4cMDdhOsdeMvC/qEKh6RAuAo=";
 
   wg.privateKeyName = "wireguard-wg0-private";
 
@@ -41,7 +43,7 @@ in
 
       systemd.network.networks."30-wg0" = {
         matchConfig.Name = "wg0";
-        networkConfig.Address = "10.0.0.3/32";
+        networkConfig.Address = wg.cobalt.ip;
         routes = pkgs.lib.singleton {
           routeConfig.Destination = "0.0.0.0/0";
           routeConfig.Gateway = "10.0.0.1";
@@ -78,7 +80,7 @@ in
 
       systemd.network.networks."30-wg0" = {
         matchConfig.Name = "wg0";
-        networkConfig.Address = "10.0.0.2/32";
+        networkConfig.Address = wg.neon.ip;
         routes = pkgs.lib.singleton {
           routeConfig.Destination = "0.0.0.0/0";
           routeConfig.Gateway = "10.0.0.1";
@@ -86,7 +88,6 @@ in
         };
         extraConfig = pkgs.lib.concatMapStringsSep "\n" mkVPNBypassRule [ 
           config.resources.wireguard.serverIP
-          "37.244.32.0/19" # Blizzard EU
         ];
       };
     };
@@ -106,27 +107,15 @@ in
       networking.wireguard.interfaces.wg0.peers = [
         {
           inherit (wg.neon) publicKey;
-          allowedIPs = [ "10.0.0.2/32" ];
+          allowedIPs = [ wg.neon.ip ];
         }
         {
           inherit (wg.cobalt) publicKey;
-          allowedIPs = [ "10.0.0.3/32" ];
+          allowedIPs = [ wg.cobalt.ip ];
         }
         {
           inherit (wg.zinc) publicKey;
-          allowedIPs = [ "10.0.0.12/32" ];
-        }
-        {
-          inherit (wg.papaphone) publicKey;
-          allowedIPs = [ "10.0.0.40/32" ];
-        }
-        {
-          inherit (wg.mamaphone) publicKey;
-          allowedIPs = [ "10.0.0.41/32" ];
-        }
-        {
-          inherit (wg.papatablet) publicKey;
-          allowedIPs = [ "10.0.0.42/32" ];
+          allowedIPs = [ wg.zinc.ip ];
         }
       ];
 
