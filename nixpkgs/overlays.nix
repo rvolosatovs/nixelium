@@ -40,6 +40,8 @@ in [
     keybase
     keybase-gui
     kitty
+    linuxPackages_5_2
+    linuxPackages_5_3
     lutris
     mbed-cli
     miniflux
