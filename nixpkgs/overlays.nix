@@ -51,6 +51,7 @@ in [
     mopidy-spotify
     mopidy-spotify-tunigo
     mopidy-youtube
+    mpv
     neovim
     neovim-unwrapped
     nerdfonts
