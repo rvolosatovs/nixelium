@@ -15,6 +15,8 @@
   hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
   hardware.pulseaudio.tcp.enable = true;
 
+  hardware.steam-hardware.enable = true;
+
   home-manager.users.${config.resources.username} = {...}: {
     imports = [
       ../../../home/profiles/laptop
