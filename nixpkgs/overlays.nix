@@ -85,6 +85,7 @@ in [
     syncthing
     syncthing-cli
     syncthing-tray
+    thunderbird
     vgo2nix
     vim
     vimPlugins
