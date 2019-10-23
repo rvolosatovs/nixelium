@@ -28,6 +28,7 @@
         pandoc
         poppler_utils
         richgo
+        steam
         taskwarrior
         wego
         zoom-us
