@@ -10,7 +10,7 @@ in
       ./../../../vendor/secrets/resources/hosts/neon
       ./../../hardware/lenovo/thinkpad/intel/x260
       ./../../minidlna.nix
-      ./../../profiles/laptop
+      ./../../profiles/server
       ./hardware-configuration.nix
     ];
 
