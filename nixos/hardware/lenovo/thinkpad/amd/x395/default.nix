@@ -10,6 +10,7 @@ in
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_5_3;
+  boot.kernelParams = [ "acpi_backlight=vendor" ];
 
   networking.interfaces."${wiredInterface}".useDHCP = true;
   networking.interfaces."${wirelessInterface}".useDHCP = true;
