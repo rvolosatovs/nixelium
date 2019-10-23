@@ -26,8 +26,14 @@
     ];
     boot.initrd.network.ssh.hostRSAKey = ./../../../vendor/secrets/nixos/hosts/oxygen/id_rsa.dropbear;
 
+    boot.loader.grub.device = "/dev/sda";
+    boot.loader.grub.enable = true;
+    boot.loader.grub.version = 2;
+
     networking.hostName = "oxygen";
 
     networking.nat.externalInterface = "eth0";
+
+    networking.usePredictableInterfaceNames = false;
   };
 }

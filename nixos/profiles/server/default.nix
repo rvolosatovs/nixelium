@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -13,10 +13,7 @@
   '';
   boot.initrd.network.ssh.authorizedKeys = config.users.users.${config.resources.username}.openssh.authorizedKeys.keys;
   boot.initrd.network.ssh.enable = true;
-  boot.kernelPackages = pkgs.linuxPackages_4_19;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_4_19;
 
   home-manager.users.${config.resources.username} = import ../../../home/profiles/server;
 
@@ -25,7 +22,6 @@
     443
   ];
   networking.useDHCP = false;
-  networking.usePredictableInterfaceNames = false;
 
   services.logind.lidSwitch = "ignore";
 }

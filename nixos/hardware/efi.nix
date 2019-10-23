@@ -1,6 +1,7 @@
+{ lib, ... }:
 {
-  boot.loader.grub.enable = false;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.cleanTmpDir = true;
+  boot.loader.grub.enable = lib.mkDefault false;
+  boot.loader.systemd-boot.enable = lib.mkDefault true;
+  boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
+  boot.cleanTmpDir = lib.mkDefault true;
 }
