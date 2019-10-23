@@ -550,7 +550,7 @@ label-disconnected = n/c
 
 [module/eth]
 inherit = module/network
-interface = enp0s31f6
+interface = enp3s0f0
 
 format-connected-prefix = " "
 format-disconnected-prefix = " "
