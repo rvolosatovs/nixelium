@@ -26,4 +26,6 @@
   ];
   networking.useDHCP = false;
   networking.usePredictableInterfaceNames = false;
+
+  services.logind.lidSwitch = "ignore";
 }
