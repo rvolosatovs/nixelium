@@ -79,6 +79,7 @@ in [
     rofi
     sidequest
     skhd
+    steam
     sway
     sxhkd
     syncthing
