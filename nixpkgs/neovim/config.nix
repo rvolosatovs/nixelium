@@ -126,7 +126,7 @@ in pkgs.lib.optionalString debug ''
   let g:airline_theme='base16'
 
   let g:AutoPairsFlyMode = 0
-  let g:AutoPairsShortcutToggle = '<C-P>'
+  let g:AutoPairsShortcutToggle = '<M-P>'
 
   let g:bufferline_echo = 0
 
