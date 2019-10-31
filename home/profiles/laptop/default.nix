@@ -29,6 +29,7 @@
         poppler_utils
         richgo
         steam
+        steam-run-native
         taskwarrior
         wego
         zoom-us
