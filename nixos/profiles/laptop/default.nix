@@ -37,13 +37,8 @@
 
   programs.adb.enable = true;
 
-  services.logind.lidSwitch = "suspend-then-hibernate";
-
   services.printing.enable = true;
   services.resolved.enable = true;
-
-  sound.enable = true;
-  sound.mediaKeys.enable = true;
 
   systemd.network.enable = true;
   systemd.network.networks."10-physical" = {
@@ -57,6 +52,9 @@
     networkConfig.DHCP = "yes";
     networkConfig.IPv6AcceptRA = true;
   };
+
+  sound.enable = true;
+  sound.mediaKeys.enable = true;
 
   systemd.services.audio-off.description = "Mute audio before suspend";
   systemd.services.audio-off.enable = true;

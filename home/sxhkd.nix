@@ -79,7 +79,7 @@
 
         # suspend
         super + alt + s
-            /run/wrappers/bin/sudo ${pkgs.systemd}/bin/systemctl suspend-then-hibernate
+            /run/wrappers/bin/sudo ${pkgs.systemd}/bin/systemctl suspend
 
         # reload bspwm
         super + alt + b
