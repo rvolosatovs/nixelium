@@ -44,6 +44,9 @@ in [
     kitty
     linuxPackages_5_2
     linuxPackages_5_3
+    linuxPackages_5_4
+    linuxPackages_latest
+    linuxPackagesFor
     lutris
     mbed-cli
     miniflux
