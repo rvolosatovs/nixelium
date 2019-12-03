@@ -33,7 +33,5 @@
     networking.hostName = "oxygen";
 
     networking.nat.externalInterface = "eth0";
-
-    networking.usePredictableInterfaceNames = false;
   };
 }
