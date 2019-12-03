@@ -22,6 +22,7 @@
     443
   ];
   networking.useDHCP = false;
+  networking.usePredictableInterfaceNames = false; # required for initrd ssh to work. See https://github.com/NixOS/nixpkgs/pull/68953.
 
   services.logind.lidSwitch = "ignore";
 }
