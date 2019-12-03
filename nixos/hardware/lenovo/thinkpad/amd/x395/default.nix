@@ -31,12 +31,6 @@ in
 
   services.thermald.enable = false;
 
-  systemd.network.networks."20-wired" = {
-    dhcpConfig.RouteMetric = "10";
-    matchConfig.Name = wiredInterface;
-  };
-  systemd.network.networks."25-wireless" = {
-    dhcpConfig.RouteMetric = "20";
-    matchConfig.Name = wirelessInterface;
-  };
+  systemd.network.networks."50-wired".matchConfig.Name = wiredInterface;
+  systemd.network.networks."50-wireless".matchConfig.Name = wirelessInterface;
 }
