@@ -9,7 +9,7 @@ in
     ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x260
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_4_14;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_4_14;
   boot.kernelParams = [ "i915.fastboot=1" ];
 
   networking.interfaces."${wiredInterface}".useDHCP = true;
