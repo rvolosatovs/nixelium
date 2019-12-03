@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
-  wiredInterface = "enp0s31f6";
+  wiredInterface = if config.networking.usePredictableInterfaceNames then "enp0s31f6" else "eth0";
   wirelessInterface = "wlan0";
 in
 {
