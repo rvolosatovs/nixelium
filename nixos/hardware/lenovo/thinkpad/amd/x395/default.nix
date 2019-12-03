@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   wiredInterface = "enp3s0f0";
   wirelessInterface = "wlan0";
@@ -9,7 +9,7 @@ in
     ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x395
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_5_3;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_4;
   boot.kernelParams = [ "acpi_backlight=vendor" ];
 
   networking.interfaces."${wiredInterface}".useDHCP = true;
