@@ -35,6 +35,12 @@ in
         ];
       };
 
+      networking.dhcpcd.enable = false;
+
+      networking.nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
+      networking.useNetworkd = true;
+      networking.useDHCP = false;
+
       networking.hostName = "neon";
       networking.firewall.allowedTCPPorts = [
         1885
@@ -44,12 +50,23 @@ in
         1700
       ];
 
-      nix.nixPath = lib.mkBefore [
-        "home-manager=${toString ./../../../vendor/home-manager}"
-        "nixos-config=${toString ./.}"
-        "nixpkgs-overlays=${toString ../../../nixpkgs/overlays.nix}"
-        "nixpkgs-unstable=${toString ../../../vendor/nixpkgs/nixos-unstable}"
-        "nixpkgs=${toString ../../../vendor/nixpkgs/nixos}"
-      ];
+      services.resolved.enable = true;
+      services.wakeonlan.interfaces = [{
+        interface = "eth0";
+        method = "magicpacket";
+      }];
+
+      systemd.network.enable = true;
+      systemd.network.networks."10-physical" = {
+        linkConfig.RequiredForOnline = false;
+        dhcpConfig.Anonymize = true;
+        dhcpConfig.RouteTable = 2468;
+        dhcpConfig.UseDNS = false;
+        dhcpConfig.UseHostname = false;
+        dhcpConfig.UseNTP = false;
+        matchConfig.Name = "eth0 wlan0";
+        networkConfig.DHCP = "yes";
+        networkConfig.IPv6AcceptRA = true;
+      };
     };
   }
