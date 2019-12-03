@@ -13,7 +13,7 @@
   '';
   boot.initrd.network.ssh.authorizedKeys = config.users.users.${config.resources.username}.openssh.authorizedKeys.keys;
   boot.initrd.network.ssh.enable = true;
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_4_19;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   home-manager.users.${config.resources.username} = import ../../../home/profiles/server;
 
