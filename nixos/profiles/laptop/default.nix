@@ -5,6 +5,7 @@
     ./../../../vendor/nixos-hardware/common/pc/laptop
     ./../../boards.nix
     ./../../graphical.nix
+    ./../../rtl-sdr.nix
     #./../../mopidy.nix
     #./../../virtualbox.nix
   ];

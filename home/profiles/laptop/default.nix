@@ -28,6 +28,7 @@
         pandoc
         poppler_utils
         richgo
+        rtl-sdr
         steam
         steam-run-native
         taskwarrior
