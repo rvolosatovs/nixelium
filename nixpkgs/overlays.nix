@@ -71,6 +71,7 @@ in [
     platformio
     polybar
     pulseaudio-modules-bt
+    python-miio
     qsyncthingtray
     quake3pointrelease
     quake3wrapper
