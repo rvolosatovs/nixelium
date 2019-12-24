@@ -163,7 +163,9 @@
       MaxRetentionSec=5day
   '';
 
+
   services.openssh.enable = true;
+  services.openssh.forwardX11 = true;
   services.openssh.hostKeys = [
     {
       type = "ed25519";
