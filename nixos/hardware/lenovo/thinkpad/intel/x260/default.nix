@@ -9,6 +9,11 @@ in
     ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x260
   ];
 
+  boot.initrd.availableKernelModules = [
+    "iwlwifi"
+    "e1000e"
+  ];
+
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_4_14;
   boot.kernelParams = [ "i915.fastboot=1" ];
 
