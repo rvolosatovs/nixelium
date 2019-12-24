@@ -85,7 +85,6 @@
         julia
         libreoffice-fresh
         macchanger
-        platformio
         playerctl
         sidequest
         sshfs
