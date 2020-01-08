@@ -6,6 +6,7 @@
   services.minidlna.config = ''
     friendly_name=neon
     inotify=yes
+    network_interface=enp3s0f0,eth0,wlan0
     notify_interval=900
     serial=
     strict_dlna=no
