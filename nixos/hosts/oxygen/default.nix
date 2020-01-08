@@ -7,6 +7,7 @@
     ./../../../vendor/secrets/resources/hosts/oxygen
     ./../../couchpotato.nix
     ./../../deluge.nix
+    ./../../dumpster.nix
     ./../../echoip.nix
     ./../../meet.nix
     ./../../miniflux.nix

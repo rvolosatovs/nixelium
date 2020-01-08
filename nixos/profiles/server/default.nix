@@ -4,7 +4,6 @@
   imports = [
     ./../..
     ./../../nginx.nix
-    ./../../dumpster.nix
   ];
 
   boot.initrd.network.enable = true;
@@ -23,6 +22,8 @@
   ];
   networking.useDHCP = false;
   networking.usePredictableInterfaceNames = false; # required for initrd ssh to work. See https://github.com/NixOS/nixpkgs/pull/68953.
+
+  programs.ssh.askPassword = "${pkgs.pinentry_ncurses}/bin/pinentry";
 
   services.logind.lidSwitch = "ignore";
 }
