@@ -18,6 +18,7 @@ let
     *.zip
     *~
     ._*
+    .ccls-cache/
     .direnv*
     .DS_Store
     .DS_Store?
