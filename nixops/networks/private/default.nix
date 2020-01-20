@@ -17,8 +17,10 @@ let
     To=${ip}
     Table=2468
   '';
+
+  isLANip = pkgs: ip: pkgs.lib.strings.hasPrefix "192.168." ip;
 in
-  rec {
+  {
     cobalt = { config, pkgs, ... }: {
       imports = [
         ./../../../nixos/hosts/cobalt
@@ -63,6 +65,8 @@ in
         ./../../profiles/laptop
       ];
 
+      deployment.hasFastConnection = isLANip pkgs config.deployment.targetHost;
+
       systemd.network.netdevs."30-wg0" = {
         netdevConfig.Kind = "wireguard";
         netdevConfig.Name = "wg0";
@@ -92,7 +96,7 @@ in
       };
     };
 
-    oxygen = { config, ... }: {
+    oxygen = { config, pkgs, ... }: rec {
       imports = [
         ./../../../nixos/hosts/oxygen
         ./../../../nixos/wireguard.server.nix
@@ -101,6 +105,8 @@ in
         ./../../miniflux.nix
         ./../../profiles/server
       ];
+
+      deployment.hasFastConnection = isLANip pkgs config.deployment.targetHost;
       deployment.keys.${wg.privateKeyName}.text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/oxygen/wg.private;
 
       networking.wireguard.interfaces.wg0.privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
