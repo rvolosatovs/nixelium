@@ -10,6 +10,11 @@
     #./../../virtualbox.nix
   ];
 
+  hardware.bluetooth.extraConfig = ''
+    [General]
+    Enable=Source,Sink,Media,Socket
+  '';
+
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.extraModules = [ pkgs.pulseaudio-modules-bt ];
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
