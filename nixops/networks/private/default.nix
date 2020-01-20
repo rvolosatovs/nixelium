@@ -96,7 +96,7 @@ in
       };
     };
 
-    oxygen = { config, pkgs, ... }: rec {
+    oxygen = { config, pkgs, ... }: {
       imports = [
         ./../../../nixos/hosts/oxygen
         ./../../../nixos/wireguard.server.nix
