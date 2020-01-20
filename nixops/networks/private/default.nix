@@ -28,6 +28,8 @@ in
         ./../../profiles/laptop
       ];
 
+      deployment.hasFastConnection = true;
+
       systemd.network.netdevs."30-wg0" = {
         netdevConfig.Kind = "wireguard";
         netdevConfig.Name = "wg0";
