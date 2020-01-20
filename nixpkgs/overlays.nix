@@ -103,6 +103,7 @@ in [
     winePackagesFor
     winetricks
     wineWowPackages
+    wrapNeovim
     zathura
     zoom-us
     ;
