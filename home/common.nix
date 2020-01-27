@@ -173,8 +173,9 @@
       programs.zsh.shellAliases.rm = "rm -i";
       programs.zsh.shellAliases.sl = "ls";
 
+      services.lorri.enable = true;
+
       xdg.cacheHome = "${config.home.homeDirectory}/.local/cache";
-      xdg.configFile."direnv/direnvrc".source = ./../dotfiles/direnv/direnvrc;
       xdg.configFile."htop/htoprc".text = ''
         account_guest_in_cpu_meter=0
         color_scheme=0
