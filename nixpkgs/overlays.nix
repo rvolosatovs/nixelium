@@ -47,6 +47,7 @@ in [
     linuxPackages_5_4
     linuxPackages_latest
     linuxPackagesFor
+    lorri
     lutris
     mbed-cli
     miniflux
