@@ -27,6 +27,8 @@ in
 
     CPU_BOOST_ON_AC=1
     CPU_BOOST_ON_BAT=0
+
+    USB_AUTOSUSPEND=0
   '';
 
   services.thermald.enable = false;
