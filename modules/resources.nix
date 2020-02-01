@@ -130,11 +130,6 @@ in
       description = "Wireguard preshared key";
     };
 
-    wireguard.serverIP = mkOption {
-      type = types.str;
-      description = "Wireguard server IP";
-    };
-
     wireguard.port = mkOption {
       type = types.int;
       description = "Wireguard server port";

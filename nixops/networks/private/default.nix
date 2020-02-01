@@ -1,16 +1,32 @@
 let
-  wg.neon.ip = "10.0.0.10/32";
-  wg.neon.publicKey = "weyoU0QBHrnjl+2dhibGm5um9+f2sZrg9x8SFd2AVhc=";
+  wg.interfaceName = "wg0";
+  wg.privateKeyName = "wireguard-${wg.interfaceName}-private";
 
-  wg.cobalt.ip = "10.0.0.11/32";
-  wg.cobalt.publicKey = "6L6uG3nflK0GJt1468gV38jWX1BkVIj22XuqXtE99gk=";
+  wg.hosts.cobalt.ip = "10.0.0.11";
+  wg.hosts.cobalt.publicKey = "6L6uG3nflK0GJt1468gV38jWX1BkVIj22XuqXtE99gk=";
+  wg.hosts.cobalt.privateKey = builtins.readFile ./../../../vendor/secrets/nixos/hosts/cobalt/wg.private;
 
-  wg.zinc.ip = "10.0.0.30/32";
-  wg.zinc.publicKey = "QLMUw+yvwXuuEsN06zB+Mj9n/VqD+k4VKa5o2GZrLAk=";
+  wg.hosts.neon.ip = "10.0.0.10";
+  wg.hosts.neon.publicKey = "weyoU0QBHrnjl+2dhibGm5um9+f2sZrg9x8SFd2AVhc=";
+  wg.hosts.neon.privateKey = builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/wg.private;
 
-  wg.oxygen.publicKey = "xjzZIo0SKBNtwP/puZU4cMDdhOsdeMvC/qEKh6RAuAo=";
+  wg.hosts.oxygen.ip = "10.0.0.1";
+  wg.hosts.oxygen.publicKey = "xjzZIo0SKBNtwP/puZU4cMDdhOsdeMvC/qEKh6RAuAo=";
+  wg.hosts.oxygen.privateKey = builtins.readFile ./../../../vendor/secrets/nixos/hosts/oxygen/wg.private;
 
-  wg.privateKeyName = "wireguard-wg0-private";
+  wg.hosts.zinc.ip = "10.0.0.30";
+  wg.hosts.zinc.publicKey = "QLMUw+yvwXuuEsN06zB+Mj9n/VqD+k4VKa5o2GZrLAk=";
+
+  wg.serverName = "oxygen";
+  wg.server = wg.hosts.${wg.serverName};
+
+  wg.hostNames = builtins.attrNames wg.hosts;
+
+  mkVPNNode = pkgs: {
+    networking.hosts = pkgs.lib.foldr (name: hosts: hosts // {
+      "${wg.hosts.${name}.ip}" = [ "${name}.vpn" ];
+    }) {} wg.hostNames;
+  };
 
   mkVPNBypassRule = ip: ''
     [RoutingPolicyRule]
@@ -18,10 +34,45 @@ let
     Table=2468
   '';
 
+  mkVPNClient = pkgs: name: nodes: mkVPNNode pkgs // {
+    systemd.network.netdevs."30-${wg.interfaceName}" = {
+      netdevConfig.Kind = "wireguard";
+      netdevConfig.Name = wg.interfaceName;
+      extraConfig = ''
+        [WireGuard]
+        PrivateKey=${wg.hosts.${name}.privateKey}
+
+        [WireGuardPeer]
+        PublicKey=${wg.server.publicKey}
+        AllowedIPs=0.0.0.0/0, ::/0
+        Endpoint=${nodes.${wg.serverName}.config.deployment.targetHost}:${toString nodes.${wg.serverName}.config.networking.wireguard.interfaces.${wg.interfaceName}.listenPort}
+        PersistentKeepalive=25
+      '';
+    };
+
+    systemd.network.networks."30-${wg.interfaceName}" = {
+      matchConfig.Name = wg.interfaceName;
+      networkConfig.Address = "${wg.hosts.${name}.ip}/32";
+      routes = pkgs.lib.singleton {
+        routeConfig.Destination = "0.0.0.0/0";
+        routeConfig.Gateway = wg.server.ip;
+        routeConfig.GatewayOnLink = "true";
+      };
+      extraConfig = pkgs.lib.concatMapStringsSep "\n" mkVPNBypassRule [ 
+        nodes.${wg.serverName}.config.deployment.targetHost
+      ];
+    };
+  };
+
   isLANip = pkgs: ip: pkgs.lib.strings.hasPrefix "192.168." ip;
 in
   {
-    cobalt = { config, pkgs, ... }: {
+    network.description = "Private network of rvolosatovs";
+    network.enableRollback = true;
+
+    defaults.networking.firewall.trustedInterfaces = [ wg.interfaceName ];
+
+    cobalt = { config, pkgs, name, nodes, ... }: mkVPNClient pkgs name nodes // {
       imports = [
         ./../../../nixos/hosts/cobalt
         ./../../../vendor/secrets/nixops/hosts/cobalt
@@ -29,38 +80,9 @@ in
       ];
 
       deployment.hasFastConnection = true;
-
-      systemd.network.netdevs."30-wg0" = {
-        netdevConfig.Kind = "wireguard";
-        netdevConfig.Name = "wg0";
-        extraConfig = ''
-          [WireGuard]
-          PrivateKey=${builtins.readFile ./../../../vendor/secrets/nixos/hosts/cobalt/wg.private}
-
-          [WireGuardPeer]
-          PublicKey=${wg.oxygen.publicKey}
-          AllowedIPs=0.0.0.0/0, ::/0
-          Endpoint=${config.resources.wireguard.serverIP}:${toString config.resources.wireguard.port}
-          PersistentKeepalive=25
-        '';
-      };
-
-      systemd.network.networks."30-wg0" = {
-        matchConfig.Name = "wg0";
-        networkConfig.Address = wg.cobalt.ip;
-        routes = pkgs.lib.singleton {
-          routeConfig.Destination = "0.0.0.0/0";
-          routeConfig.Gateway = "10.0.0.1";
-          routeConfig.GatewayOnLink = "true";
-        };
-        extraConfig = pkgs.lib.concatMapStringsSep "\n" mkVPNBypassRule [ 
-          config.resources.wireguard.serverIP
-          "37.244.32.0/19" # Blizzard EU
-        ];
-      };
     };
 
-    neon = { config, pkgs, ... }: {
+    neon = { config, pkgs, name, nodes, ... }: mkVPNClient pkgs name nodes // {
       imports = [
         ./../../../nixos/hosts/neon
         ./../../../vendor/secrets/nixops/hosts/neon
@@ -68,37 +90,9 @@ in
       ];
 
       deployment.hasFastConnection = isLANip pkgs config.deployment.targetHost;
-
-      systemd.network.netdevs."30-wg0" = {
-        netdevConfig.Kind = "wireguard";
-        netdevConfig.Name = "wg0";
-        extraConfig = ''
-          [WireGuard]
-          PrivateKey=${builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/wg.private}
-
-          [WireGuardPeer]
-          PublicKey=${wg.oxygen.publicKey}
-          AllowedIPs=0.0.0.0/0, ::/0
-          Endpoint=${config.resources.wireguard.serverIP}:${toString config.resources.wireguard.port}
-          PersistentKeepalive=25
-        '';
-      };
-
-      systemd.network.networks."30-wg0" = {
-        matchConfig.Name = "wg0";
-        networkConfig.Address = wg.neon.ip;
-        routes = pkgs.lib.singleton {
-          routeConfig.Destination = "0.0.0.0/0";
-          routeConfig.Gateway = "10.0.0.1";
-          routeConfig.GatewayOnLink = "true";
-        };
-        extraConfig = pkgs.lib.concatMapStringsSep "\n" mkVPNBypassRule [ 
-          config.resources.wireguard.serverIP
-        ];
-      };
     };
 
-    oxygen = { config, pkgs, ... }: {
+    oxygen = { config, pkgs, name, ... }: mkVPNNode pkgs // {
       imports = [
         ./../../../nixos/hosts/oxygen
         ./../../../nixos/wireguard.server.nix
@@ -109,28 +103,20 @@ in
       ];
 
       deployment.hasFastConnection = isLANip pkgs config.deployment.targetHost;
-      deployment.keys.${wg.privateKeyName}.text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/oxygen/wg.private;
 
-      networking.wireguard.interfaces.wg0.privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
-      networking.wireguard.interfaces.wg0.peers = [
-        {
-          inherit (wg.neon) publicKey;
-          allowedIPs = [ wg.neon.ip ];
-        }
-        {
-          inherit (wg.cobalt) publicKey;
-          allowedIPs = [ wg.cobalt.ip ];
-        }
-        {
-          inherit (wg.zinc) publicKey;
-          allowedIPs = [ wg.zinc.ip ];
-        }
-      ];
+      deployment.keys.${wg.privateKeyName}.text = wg.hosts.${name}.privateKey;
 
-      systemd.services.wireguard-wg0.after = [ "${wg.privateKeyName}-key.service" ];
-      systemd.services.wireguard-wg0.wants = [ "${wg.privateKeyName}-key.service" ];
+      networking.wireguard.interfaces.${wg.interfaceName} = {
+        peers = pkgs.lib.foldr (peerName: peers: peers ++ pkgs.lib.optional (peerName != name) {
+          allowedIPs = [ "${wg.hosts.${peerName}.ip}/32" ];
+          publicKey = wg.hosts.${peerName}.publicKey;
+        }) [] wg.hostNames;
+        privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
+      };
+
+      systemd.services."wireguard-${wg.interfaceName}" = {
+        after = [ "${wg.privateKeyName}-key.service" ];
+        wants = [ "${wg.privateKeyName}-key.service" ];
+      };
     };
-
-    network.description = "Private network of rvolosatovs";
-    network.enableRollback = true;
   }
