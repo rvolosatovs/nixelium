@@ -233,7 +233,6 @@ in pkgs.lib.optionalString debug ''
 
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 
-  au FileType  dirvish               call fugitive#detect(@%)
   au FileType  markdown              packadd vim-table-mode
   au FileType  typescript            setlocal noexpandtab
   au FileType  verilog_systemverilog VerilogErrorFormat verilator 2
