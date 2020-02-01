@@ -9,6 +9,7 @@ in
       ./../../../vendor/secrets/nixos/hosts/neon
       ./../../../vendor/secrets/resources/hosts/neon
       ./../../hardware/lenovo/thinkpad/intel/x260
+      ./../../lan.nix
       ./../../minidlna.nix
       ./../../profiles/server
       ./hardware-configuration.nix
@@ -35,11 +36,6 @@ in
 
       networking.dhcpcd.enable = false;
 
-      networking.nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
-      networking.useNetworkd = true;
-      networking.useDHCP = false;
-
-      networking.hostName = "neon";
       networking.firewall.allowedTCPPorts = [
         1885
         8885
@@ -47,6 +43,12 @@ in
       networking.firewall.allowedUDPPorts = [
         1700
       ];
+
+      networking.hostName = "neon";
+
+      networking.nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
+      networking.useNetworkd = true;
+      networking.useDHCP = false;
 
       services.resolved.enable = true;
       services.wakeonlan.interfaces = [{
