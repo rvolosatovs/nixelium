@@ -73,7 +73,6 @@ in [
     platformio
     polybar
     pulseaudio-modules-bt
-    python-miio
     qsyncthingtray
     quake3pointrelease
     quake3wrapper
@@ -108,6 +107,10 @@ in [
     wrapNeovim
     zathura
     zoom-us
+    ;
+
+    inherit (unstable.python3Packages)
+    python-miio
     ;
   })
 
