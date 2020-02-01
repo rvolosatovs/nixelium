@@ -12,8 +12,6 @@
     ./../../meet.nix
     ./../../miniflux.nix
     ./../../profiles/server
-    #./../../ttn-docker.nix
-    #./../../quake3.server.nix
     ./hardware-configuration.nix
   ];
 
@@ -30,6 +28,12 @@
     boot.loader.grub.device = "/dev/sda";
     boot.loader.grub.enable = true;
     boot.loader.grub.version = 2;
+
+    home-manager.users.${config.resources.username} = {...}: {
+      imports = [
+        ./../../../home/hosts/oxygen
+      ];
+    };
 
     networking.hostName = "oxygen";
 
