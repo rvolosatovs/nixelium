@@ -2,6 +2,7 @@
 {
   imports = [
     ./../modules/resources.nix
+    ./../vendor/secrets/resources
   ];
 
   environment.extraInit = ''
