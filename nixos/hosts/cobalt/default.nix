@@ -39,7 +39,7 @@ in
       networking.firewall.allowedUDPPorts = [
         1700
         1701
-        54321 # Xiaomi Smart Home
+        35421 # Xiaomi Smart Home
       ];
 
       networking.hostName = "cobalt";
