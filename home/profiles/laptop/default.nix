@@ -3,6 +3,8 @@
 {
   imports = [
     ./../..
+    ./../../../vendor/secrets/home
+    ./../../../vendor/secrets/resources
     ./../../graphical.nix
     ./../../keybase.nix
     ./../../pass.nix

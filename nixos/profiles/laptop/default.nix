@@ -23,12 +23,7 @@
 
   hardware.steam-hardware.enable = true;
 
-  home-manager.users.${config.resources.username} = {...}: {
-    imports = [
-      ../../../home/profiles/laptop
-      ../../../vendor/secrets/home
-    ];
-  };
+  home-manager.users.${config.resources.username} = import ../../../home/profiles/laptop;
 
   networking.dhcpcd.enable = false;
 
