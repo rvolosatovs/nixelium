@@ -3,6 +3,8 @@
 {
   imports = [
     ./../modules/resources.nix
+    ./../vendor/secrets/home
+    ./../vendor/secrets/resources
     ./git.nix
     ./gpg.nix
     ./zsh.nix
