@@ -30,11 +30,7 @@ in
       fileSystems."/".options = mountOpts;
       fileSystems."/home".options = mountOpts;
 
-      home-manager.users.${config.resources.username} = {...}: {
-        imports = [
-          ./../../../home/hosts/cobalt
-        ];
-      };
+      home-manager.users.${config.resources.username} = {...}: import ./../../../home/hosts/cobalt;
 
       networking.firewall.allowedTCPPorts = [
         1885

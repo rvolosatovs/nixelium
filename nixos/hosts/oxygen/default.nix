@@ -29,11 +29,7 @@
     boot.loader.grub.enable = true;
     boot.loader.grub.version = 2;
 
-    home-manager.users.${config.resources.username} = {...}: {
-      imports = [
-        ./../../../home/hosts/oxygen
-      ];
-    };
+    home-manager.users.${config.resources.username} = import ./../../../home/hosts/oxygen;
 
     networking.hostName = "oxygen";
 
