@@ -29,8 +29,6 @@
         poppler_utils
         richgo
         rtl-sdr
-        steam
-        steam-run-native
         taskwarrior
         wego
         zoom-us
@@ -88,6 +86,8 @@
         playerctl
         sidequest
         sshfs
+        steam
+        steam-run-native
       ];
 
       systemd.user.services.godoc.Unit.Description="Godoc server";
