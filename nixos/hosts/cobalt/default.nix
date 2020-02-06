@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  mountOpts = [ "noatime" "nodiratime" "discard" ];
+  mountOpts = [ "ssd" "noatime" "autodefrag" "compress=zstd" ];
 in
   {
     imports = [
