@@ -20,6 +20,7 @@ in [
     firefox
     firefoxWrapper
     firmwareLinuxNonFree
+    fprintd
     fwupd
     geoclue2
     go
@@ -42,6 +43,7 @@ in [
     keybase
     keybase-gui
     kitty
+    libfprint
     linuxPackages_5_2
     linuxPackages_5_3
     linuxPackages_5_4
