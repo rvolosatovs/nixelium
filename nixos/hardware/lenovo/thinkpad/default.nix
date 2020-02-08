@@ -40,7 +40,6 @@ with lib;
 
       services.acpid.enable = true;
       services.fprintd.enable = true;
-      services.thermald.enable = lib.mkDefault true;
       services.upower.enable = true;
     }
 

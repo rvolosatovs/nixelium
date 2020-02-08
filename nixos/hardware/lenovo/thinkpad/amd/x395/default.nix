@@ -35,8 +35,6 @@ in
     USB_AUTOSUSPEND=0
   '';
 
-  services.thermald.enable = false;
-
   systemd.network.networks."50-wired".matchConfig.Name = wiredInterface;
   systemd.network.networks."50-wireless".matchConfig.Name = wirelessInterface;
 }

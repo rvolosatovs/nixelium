@@ -18,6 +18,8 @@ with lib;
       ];
 
       hardware.cpu.intel.updateMicrocode = true;
+
+      services.thermald.enable = true;
     }
 
     (mkIf config.services.xserver.enable {
