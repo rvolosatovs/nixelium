@@ -45,9 +45,6 @@
         super + shift + d
             ${pkgs.systemd}/bin/systemctl --user restart redshift.service
 
-        XF86MyComputer
-            ${terminal.executable.path} -e "${shell.executable.path} -i -c ${pkgs.lf}/bin/lf"
-
         XF86AudioRaiseVolume
             ${pkgs.alsaUtils}/bin/amixer set Master unmute && ${pkgs.alsaUtils}/bin/amixer set Master 5%+
 
