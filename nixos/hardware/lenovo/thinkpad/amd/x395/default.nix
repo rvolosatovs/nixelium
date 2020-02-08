@@ -9,8 +9,12 @@ in
     ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x395
   ];
 
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_4;
-  boot.kernelParams = [ "acpi_backlight=vendor" ];
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_5;
+  boot.kernelParams = [
+    "acpi_backlight=vendor"
+    "acpi_osi=Linux"
+    "idle=nomwait"
+  ];
 
   networking.interfaces."${wiredInterface}".useDHCP = true;
   networking.interfaces."${wirelessInterface}".useDHCP = true;
