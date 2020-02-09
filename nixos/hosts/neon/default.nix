@@ -12,6 +12,7 @@ in
       ./../../lan.nix
       ./../../minidlna.nix
       ./../../profiles/server
+      ./../../syncthing.nix
       ./hardware-configuration.nix
     ];
 

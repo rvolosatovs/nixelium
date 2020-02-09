@@ -6,8 +6,7 @@
     ./../../boards.nix
     ./../../graphical.nix
     ./../../rtl-sdr.nix
-    #./../../mopidy.nix
-    #./../../virtualbox.nix
+    ./../../syncthing.nix
   ];
 
   hardware.bluetooth.extraConfig = ''

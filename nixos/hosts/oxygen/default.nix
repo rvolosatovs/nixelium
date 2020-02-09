@@ -12,6 +12,7 @@
     ./../../meet.nix
     ./../../miniflux.nix
     ./../../profiles/server
+    ./../../syncthing.nix
     ./hardware-configuration.nix
   ];
 
@@ -34,5 +35,9 @@
     networking.hostName = "oxygen";
 
     networking.nat.externalInterface = "eth0";
+
+    users.users.syncthing.extraGroups = [
+      "deluge"
+    ];
   };
 }
