@@ -4,7 +4,7 @@
 
   services.minidlna.enable = true;
   services.minidlna.config = ''
-    friendly_name=neon
+    friendly_name=${config.networking.hostName}-dlna
     inotify=yes
     network_interface=enp3s0f0,eth0,wlan0
     notify_interval=900
@@ -12,7 +12,8 @@
     strict_dlna=no
   '';
   services.minidlna.mediaDirs = [
-    "V,/var/lib/minidlna/video"
+    "P,/home/${config.resources.username}/pictures"
+    "V,/home/${config.resources.username}/video"
   ];
 
   networking.firewall.allowedTCPPorts = [
