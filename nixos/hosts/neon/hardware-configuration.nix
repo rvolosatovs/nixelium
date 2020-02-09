@@ -13,21 +13,9 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call wireguard ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/95f03ff6-b94c-4a7b-b122-9ef73507e26b";
-      fsType = "btrfs";
-      options = [ "subvol=@" ];
-    };
-
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/372F-04E6";
       fsType = "vfat";
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/95f03ff6-b94c-4a7b-b122-9ef73507e26b";
-      fsType = "btrfs";
-      options = [ "subvol=@home" ];
     };
 
   swapDevices =

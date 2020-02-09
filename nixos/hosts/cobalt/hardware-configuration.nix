@@ -11,23 +11,11 @@
   boot.initrd.availableKernelModules = [ "nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
-
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/23996086-ccb9-4e94-8ece-e45fe6f47718";
-      fsType = "btrfs";
-      options = [ "subvol=@" ];
-    };
+  boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/5B73-239A";
       fsType = "vfat";
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/23996086-ccb9-4e94-8ece-e45fe6f47718";
-      fsType = "btrfs";
-      options = [ "subvol=@home" ];
     };
 
   swapDevices =

@@ -9,6 +9,7 @@ in
       ./../../../vendor/secrets/nixos/hosts/neon
       ./../../../vendor/secrets/resources/hosts/neon
       ./../../hardware/lenovo/thinkpad/intel/x260
+      ./../../btrfs.nix
       ./../../lan.nix
       ./../../minidlna.nix
       ./../../profiles/server
@@ -25,9 +26,6 @@ in
           allowDiscards=true;
         }
       ];
-
-      fileSystems."/".options = mountOpts;
-      fileSystems."/home".options = mountOpts;
 
       home-manager.users.${config.resources.username} = {...}: import ./../../../home/hosts/neon;
 

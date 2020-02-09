@@ -10,23 +10,11 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "kvm-intel" "igb" ];
-  boot.extraModulePackages = [ ];
-
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/343fa7d4-d8a6-43c2-88c2-e8c0531dfe2e";
-      fsType = "btrfs";
-      options = [ "subvol=@" ];
-    };
+  boot.extraModulePackages = with config.boot.kernelPackages; [  wireguard ];
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/c82b5c72-ba18-407a-90aa-c804c15167f8";
       fsType = "ext4";
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/343fa7d4-d8a6-43c2-88c2-e8c0531dfe2e";
-      fsType = "btrfs";
-      options = [ "subvol=@home" ];
     };
 
   swapDevices =
