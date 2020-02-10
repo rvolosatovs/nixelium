@@ -17,5 +17,11 @@
   ];
 
   services.snapper.configs.home.subvolume = "/home";
+  services.snapper.configs.home.extraConfig = ''
+    TIMELINE_CREATE=yes
+  '';
   services.snapper.configs.root.subvolume = "/";
+  services.snapper.configs.root.extraConfig = ''
+    TIMELINE_CREATE=yes
+  '';
 }
