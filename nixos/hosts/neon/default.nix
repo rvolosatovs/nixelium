@@ -8,11 +8,15 @@ in
       ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
       ./../../../vendor/secrets/nixos/hosts/neon
       ./../../../vendor/secrets/resources/hosts/neon
-      ./../../hardware/lenovo/thinkpad/intel/x260
       ./../../btrfs.nix
+      ./../../hardware/lenovo/thinkpad/intel/x260
+      ./../../jackett.nix
       ./../../lan.nix
+      ./../../lidarr.nix
       ./../../minidlna.nix
       ./../../profiles/server
+      ./../../radarr.nix
+      ./../../sonarr.nix
       ./../../syncthing.nix
       ./hardware-configuration.nix
     ];
@@ -33,6 +37,7 @@ in
 
       networking.firewall.allowedTCPPorts = [
         1885
+        8384 # syncthing GUI
         8885
       ];
       networking.firewall.allowedUDPPorts = [
@@ -45,7 +50,21 @@ in
       networking.useNetworkd = true;
       networking.useDHCP = false;
 
+      services.jackett.openFirewall = true;
+      services.lidarr.openFirewall = true;
+      services.radarr.openFirewall = true;
+      services.sonarr.openFirewall = true;
+
+      services.minidlna.mediaDirs = [
+        "A,/var/lib/lidarr/music"
+        "V,/var/lib/radarr/movies"
+        "V,/var/lib/sonarr/TV"
+      ];
+
       services.resolved.enable = true;
+
+      # TODO: Configure syncthing /var/lib/deluge/completed sync from oxygen
+
       services.wakeonlan.interfaces = [{
         interface = "eth0";
         method = "magicpacket";
@@ -63,5 +82,17 @@ in
         networkConfig.DHCP = "yes";
         networkConfig.IPv6AcceptRA = true;
       };
+
+      users.users.radarr.extraGroups = [
+        "syncthing"
+      ];
+      users.users.minidlna.extraGroups = [
+        "radarr"
+        "sonarr"
+        "syncthing"
+      ];
+      users.users.sonarr.extraGroups = [
+        "syncthing"
+      ];
     };
   }
