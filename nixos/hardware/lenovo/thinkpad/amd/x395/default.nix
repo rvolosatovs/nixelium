@@ -13,7 +13,9 @@ in
   boot.kernelParams = [
     "acpi_backlight=vendor"
     "acpi_osi=Linux"
+    "amdgpu.gpu_recovery=1"
     "idle=nomwait"
+    "init_on_free=1"
   ];
 
   networking.interfaces."${wiredInterface}".useDHCP = true;
