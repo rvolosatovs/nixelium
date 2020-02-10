@@ -39,11 +39,13 @@ in [
     ioquake3
     ioquake3pointrelease
     iwd
+    jackett
     kbfs
     keybase
     keybase-gui
     kitty
     libfprint
+    lidarr
     linuxPackages_5_2
     linuxPackages_5_3
     linuxPackages_5_4
@@ -78,6 +80,7 @@ in [
     qsyncthingtray
     quake3pointrelease
     quake3wrapper
+    radarr
     rclone
     redis
     redshift
@@ -86,6 +89,7 @@ in [
     rofi
     sidequest
     skhd
+    sonarr
     steam
     sway
     sxhkd
