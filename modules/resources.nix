@@ -75,6 +75,11 @@ in
       description = "Deluge local client password";
     };
 
+    deluge.port = mkOption {
+      type = types.int;
+      description = "Deluge daemon port";
+    };
+
     deluge.userPassword = mkOption {
       type = types.str;
       description = "Deluge user client password";
