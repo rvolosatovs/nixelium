@@ -83,6 +83,7 @@ in
         networkConfig.DHCP = "yes";
         networkConfig.IPv6AcceptRA = true;
       };
+      systemd.network.networks."50-wireless".enable = false;
 
       users.users.radarr.extraGroups = [
         "deluge"
