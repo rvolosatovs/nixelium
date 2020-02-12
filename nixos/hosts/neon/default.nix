@@ -9,6 +9,7 @@ in
       ./../../../vendor/secrets/nixos/hosts/neon
       ./../../../vendor/secrets/resources/hosts/neon
       ./../../btrfs.nix
+      ./../../deluge.nix
       ./../../hardware/lenovo/thinkpad/intel/x260
       ./../../jackett.nix
       ./../../lan.nix
@@ -84,14 +85,17 @@ in
       };
 
       users.users.radarr.extraGroups = [
+        "deluge"
         "syncthing"
       ];
       users.users.minidlna.extraGroups = [
+        "deluge"
         "radarr"
         "sonarr"
         "syncthing"
       ];
       users.users.sonarr.extraGroups = [
+        "deluge"
         "syncthing"
       ];
     };
