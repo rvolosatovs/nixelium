@@ -6,7 +6,6 @@
     ./../../../vendor/secrets/nixos/hosts/oxygen
     ./../../../vendor/secrets/resources/hosts/oxygen
     ./../../btrfs.nix
-    ./../../deluge.nix
     ./../../dumpster.nix
     ./../../echoip.nix
     ./../../meet.nix
