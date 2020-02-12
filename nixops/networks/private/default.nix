@@ -22,10 +22,13 @@ let
 
   wg.hostNames = builtins.attrNames wg.hosts;
 
-  mkVPNNode = pkgs: {
-    networking.hosts = pkgs.lib.foldr (name: hosts: hosts // {
-      "${wg.hosts.${name}.ip}" = [ "${name}.vpn" ];
-    }) {} wg.hostNames;
+  mkVPNNode = lib: {
+    networking.hosts = with lib; foldr (name: hosts: mkMerge [
+      hosts
+      {
+        "${wg.hosts.${name}.ip}" = [ "${name}.vpn" ];
+      }
+    ]) {} wg.hostNames;
   };
 
   mkVPNBypassRule = ip: ''
@@ -34,37 +37,50 @@ let
     Table=2468
   '';
 
-  mkVPNClient = pkgs: name: nodes: mkVPNNode pkgs // {
-    systemd.network.netdevs."30-${wg.interfaceName}" = {
-      netdevConfig.Kind = "wireguard";
-      netdevConfig.Name = wg.interfaceName;
-      extraConfig = ''
-        [WireGuard]
-        PrivateKey=${wg.hosts.${name}.privateKey}
+  mkVPNClient = lib: name: nodes: with lib; mkMerge [
+    (mkVPNNode lib)
+    {
+      systemd.network.netdevs."30-${wg.interfaceName}" = {
+        netdevConfig.Kind = "wireguard";
+        netdevConfig.Name = wg.interfaceName;
+        extraConfig = ''
+          [WireGuard]
+          PrivateKey=${wg.hosts.${name}.privateKey}
 
-        [WireGuardPeer]
-        PublicKey=${wg.server.publicKey}
-        AllowedIPs=0.0.0.0/0, ::/0
-        Endpoint=${nodes.${wg.serverName}.config.deployment.targetHost}:${toString nodes.${wg.serverName}.config.networking.wireguard.interfaces.${wg.interfaceName}.listenPort}
-        PersistentKeepalive=25
-      '';
-    };
-
-    systemd.network.networks."30-${wg.interfaceName}" = {
-      matchConfig.Name = wg.interfaceName;
-      networkConfig.Address = "${wg.hosts.${name}.ip}/32";
-      routes = pkgs.lib.singleton {
-        routeConfig.Destination = "0.0.0.0/0";
-        routeConfig.Gateway = wg.server.ip;
-        routeConfig.GatewayOnLink = "true";
+          [WireGuardPeer]
+          PublicKey=${wg.server.publicKey}
+          AllowedIPs=0.0.0.0/0, ::/0
+          Endpoint=${nodes.${wg.serverName}.config.deployment.targetHost}:${toString nodes.${wg.serverName}.config.networking.wireguard.interfaces.${wg.interfaceName}.listenPort}
+          PersistentKeepalive=25
+        '';
       };
-      extraConfig = pkgs.lib.concatMapStringsSep "\n" mkVPNBypassRule [ 
-        nodes.${wg.serverName}.config.deployment.targetHost
-      ];
+
+      systemd.network.networks."30-${wg.interfaceName}" = {
+        matchConfig.Name = wg.interfaceName;
+        networkConfig.Address = "${wg.hosts.${name}.ip}/32";
+        routes = singleton {
+          routeConfig.Destination = "0.0.0.0/0";
+          routeConfig.Gateway = wg.server.ip;
+          routeConfig.GatewayOnLink = "true";
+        };
+        extraConfig = concatMapStringsSep "\n" mkVPNBypassRule [
+          nodes.${wg.serverName}.config.deployment.targetHost
+        ];
+      };
+    }
+  ];
+
+  mkNginxTLSProxy = config: name: addr: {
+    services.nginx.enable = true;
+    services.nginx.virtualHosts."${name}" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/".proxyPass = addr;
+      serverName = "${name}.${config.resources.domainName}";
     };
   };
 
-  isLANip = pkgs: ip: pkgs.lib.strings.hasPrefix "192.168." ip;
+  isLANip = lib: ip: lib.strings.hasPrefix "192.168." ip;
 in
   {
     network.description = "Private network of rvolosatovs";
@@ -72,17 +88,22 @@ in
 
     defaults.networking.firewall.trustedInterfaces = [ wg.interfaceName ];
 
-    cobalt = { config, pkgs, name, nodes, ... }: mkVPNClient pkgs name nodes // {
+    cobalt = { config, lib, name, nodes, ... }: {
       imports = [
         ./../../../nixos/hosts/cobalt
         ./../../../vendor/secrets/nixops/hosts/cobalt
         ./../../profiles/laptop
       ];
 
-      deployment.hasFastConnection = true;
+      config = lib.mkMerge [
+        (mkVPNClient lib name nodes)
+        {
+          deployment.hasFastConnection = true;
+        }
+      ];
     };
 
-    neon = { config, pkgs, name, nodes, ... }: mkVPNClient pkgs name nodes // {
+    neon = { config, lib, name, nodes, ... }: {
       imports = [
         ./../../../nixos/hosts/neon
         ./../../../vendor/secrets/nixops/hosts/neon
@@ -90,10 +111,15 @@ in
         ./../../profiles/laptop
       ];
 
-      deployment.hasFastConnection = isLANip pkgs config.deployment.targetHost;
+      config = lib.mkMerge [
+        (mkVPNClient lib name nodes)
+        {
+          deployment.hasFastConnection = isLANip lib config.deployment.targetHost;
+        }
+      ];
     };
 
-    oxygen = { config, pkgs, name, ... }: mkVPNNode pkgs // {
+    oxygen = { config, lib, name, ... }: {
       imports = [
         ./../../../nixos/hosts/oxygen
         ./../../../nixos/wireguard.server.nix
@@ -102,22 +128,32 @@ in
         ./../../miniflux.nix
         ./../../profiles/server
       ];
-
-      deployment.hasFastConnection = isLANip pkgs config.deployment.targetHost;
-
-      deployment.keys.${wg.privateKeyName}.text = wg.hosts.${name}.privateKey;
-
-      networking.wireguard.interfaces.${wg.interfaceName} = {
-        peers = pkgs.lib.foldr (peerName: peers: peers ++ pkgs.lib.optional (peerName != name) {
-          allowedIPs = [ "${wg.hosts.${peerName}.ip}/32" ];
-          publicKey = wg.hosts.${peerName}.publicKey;
-        }) [] wg.hostNames;
-        privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
-      };
-
-      systemd.services."wireguard-${wg.interfaceName}" = {
-        after = [ "${wg.privateKeyName}-key.service" ];
-        wants = [ "${wg.privateKeyName}-key.service" ];
-      };
+      
+      config = with lib; mkMerge [
+        (mkVPNNode lib)
+        (mkNginxTLSProxy config "deluge" "http://${wg.hosts.neon.ip}:8112")
+        (mkNginxTLSProxy config "jackett" "http://${wg.hosts.neon.ip}:9117")
+        (mkNginxTLSProxy config "lidarr" "http://${wg.hosts.neon.ip}:8686")
+        (mkNginxTLSProxy config "radarr" "http://${wg.hosts.neon.ip}:7878")
+        (mkNginxTLSProxy config "sonarr" "http://${wg.hosts.neon.ip}:8989")
+        {
+          deployment.hasFastConnection = isLANip lib config.deployment.targetHost;
+      
+          deployment.keys.${wg.privateKeyName}.text = wg.hosts.${name}.privateKey;
+      
+          networking.wireguard.interfaces.${wg.interfaceName} = {
+            peers = foldr (peerName: peers: peers ++ optional (peerName != name) {
+              allowedIPs = [ "${wg.hosts.${peerName}.ip}/32" ];
+              publicKey = wg.hosts.${peerName}.publicKey;
+            }) [] wg.hostNames;
+            privateKeyFile = config.deployment.keys.${wg.privateKeyName}.path;
+          };
+      
+          systemd.services."wireguard-${wg.interfaceName}" = {
+            after = [ "${wg.privateKeyName}-key.service" ];
+            wants = [ "${wg.privateKeyName}-key.service" ];
+          };
+        }
+      ];
     };
   }
