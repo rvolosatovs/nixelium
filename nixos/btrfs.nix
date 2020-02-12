@@ -1,4 +1,10 @@
 { config, pkgs, lib, ... }:
+let
+  snapperConfig = ''
+    TIMELINE_CLEANUP=yes
+    TIMELINE_CREATE=yes
+  '';
+in
 {
   fileSystems = lib.mapAttrs (_: sub: {
     device = "/dev/disk/by-uuid/${config.resources.btrfs.uuid}";
@@ -16,12 +22,9 @@
     "/"
   ];
 
+  services.snapper.configs.home.extraConfig = snapperConfig;
   services.snapper.configs.home.subvolume = "/home";
-  services.snapper.configs.home.extraConfig = ''
-    TIMELINE_CREATE=yes
-  '';
+
+  services.snapper.configs.root.extraConfig = snapperConfig;
   services.snapper.configs.root.subvolume = "/";
-  services.snapper.configs.root.extraConfig = ''
-    TIMELINE_CREATE=yes
-  '';
 }
