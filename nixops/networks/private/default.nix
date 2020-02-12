@@ -86,6 +86,7 @@ in
       imports = [
         ./../../../nixos/hosts/neon
         ./../../../vendor/secrets/nixops/hosts/neon
+        ./../../deluge.nix
         ./../../profiles/laptop
       ];
 
