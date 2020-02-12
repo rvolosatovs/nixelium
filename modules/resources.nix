@@ -70,6 +70,16 @@ in
       description = "GPG key fingerprint";
     };
 
+    deluge.localclientPassword = mkOption {
+      type = types.str;
+      description = "Deluge local client password";
+    };
+
+    deluge.userPassword = mkOption {
+      type = types.str;
+      description = "Deluge user client password";
+    };
+
     ioquake3.privatePassword = mkOption {
       type = types.str;
       description = "ioquake3 private password";
@@ -82,22 +92,22 @@ in
 
     jicofo.authPassword = mkOption {
       type = types.str;
-      description = "XMPP password for Jicofo client connections";
+      description = "Jicofo password";
     };
 
     jicofo.componentSecret = mkOption {
       type = types.str;
-      description = "XMPP component password for Jicofo";
+      description = "Jicofo component secret";
     };
 
     jigasi.xmppPassword = mkOption {
       type = types.str;
-      description = "XMPP password for Jigasi MUC client connections";
+      description = "Jigasi XMPP password";
     };
 
     jvb.authPassword = mkOption {
       type = types.str;
-      description = "XMPP password for JVB MUC client connections";
+      description = "JVB MUC password";
     };
 
     meet.userPassword = mkOption {
