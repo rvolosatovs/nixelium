@@ -17,8 +17,8 @@ in
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_4_14;
   boot.kernelParams = [ "i915.fastboot=1" ];
 
-  networking.interfaces."${wiredInterface}".useDHCP = true;
-  networking.interfaces."${wirelessInterface}".useDHCP = true;
+  networking.interfaces."${wiredInterface}".useDHCP = lib.mkDefault true;
+  networking.interfaces."${wirelessInterface}".useDHCP = lib.mkDefault true;
 
   # See https://linrunner.de/en/tlp/docs/tlp-faq.html#battery https://wiki.archlinux.org/index.php/TLP#Btrfs
   services.tlp.extraConfig = ''
