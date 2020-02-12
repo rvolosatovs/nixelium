@@ -153,6 +153,13 @@ in [
     };
   })
 
+  (_: self: {
+    # TODO: Use mkvmerge -J | jq to remove everything except `eng` unless `rus` is the only option
+    mkUnrusScript = path: ''
+      [ ${self.mkvtoolnix}/bin/mkvinfo "${path}" | grep 'Language: rus' ] && ${self.mkvtoolnix}/bin/mkvmerge -o "${path}.eng" -a '!rus' -s '!rus' "${path}" && ${self.coreutils}/bin/mv "${path}.eng" "${path}"
+    '';
+  })
+
   (_: self: let
     nerdfontRelease = fontName: sha256: with self; stdenv.mkDerivation rec {
       # Inspired by https://github.com/Mic92/nur-packages/blob/20eeaca1de1a385df5b41043a525b9e0942ad927/pkgs/fira-code-nerdfonts/default.nix
