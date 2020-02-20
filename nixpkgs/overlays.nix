@@ -5,6 +5,7 @@ in [
     inherit (unstable)
     alacritty
     arduino
+    borgbackup
     brave
     bspwm
     cachix
