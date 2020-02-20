@@ -33,11 +33,8 @@ in
         home.file.".themes" = xdg.configFile."themes";
 
         home.packages = with pkgs; [
-          ffmpeg
           font-awesome-ttf
-          imagemagick
           mpv
-          youtube-dl
         ] ++ (with config.resources.programs; [
           terminal.package
         ]);
@@ -247,7 +244,6 @@ in
           libnotify
           maim
           pavucontrol
-          rsibreak
           slop
           spotify
           sxhkd
@@ -278,6 +274,28 @@ in
         programs.rofi.lines = 10;
         programs.rofi.width = 20;
         programs.rofi.scrollbar = false;
+
+        programs.firefox.enable = true;
+        programs.firefox.extensions =  with pkgs.nur.repos.rycee.firefox-addons; [
+          auto-tab-discard
+          cookie-autodelete
+          dark-night-mode
+          gopass-bridge
+          https-everywhere
+          link-cleaner
+          multi-account-containers
+          octotree
+          peertubeify
+          privacy-badger
+          reddit-enhancement-suite
+          refined-github
+          save-page-we
+          stylus
+          text-contrast-for-dark-themes
+          transparent-standalone-image
+          ublock-origin
+          vim-vixen
+        ];
 
         services.dunst.enable = true;
         services.dunst.settings."global".browser = config.resources.programs.browser.executable.path;

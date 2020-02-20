@@ -36,7 +36,9 @@ in
   {
     home.packages = with pkgs; [
       git-lfs
-    ];
+    ] ++ (with gitAndTools; [
+      git-extras
+    ]);
     home.sessionVariables.GIT_EDITOR = config.resources.programs.editor.executable.path;
 
     programs.git.aliases.a = "apply --index";
@@ -79,6 +81,8 @@ in
     programs.git.extraConfig.status.short = true;
     programs.git.extraConfig.status.showUntrackedFiles = "all";
     programs.git.extraConfig.status.submoduleSummary = true;
+    programs.git.signing.key = config.resources.gpg.publicKey.fingerprint;
+    programs.git.signing.signByDefault = true;
     programs.git.userEmail = config.resources.email;
     programs.git.userName = config.resources.fullName;
 

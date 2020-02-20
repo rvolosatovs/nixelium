@@ -16,9 +16,11 @@
         copy-sha-git
         deluge
         drive
+        ffmpeg
         git-rebase-all
         gofumpt
         gotools
+        imagemagick
         llvm
         llvmPackages.libclang
         minicom
@@ -28,45 +30,22 @@
         pandoc
         poppler_utils
         richgo
+        rsibreak
         rtl-sdr
+        spotify
         taskwarrior
         wego
+        youtube-dl
         zoom-us
       ] ++ (with gitAndTools; [
         ghq
-        git-extras
         git-open
         tig
       ]);
 
-      programs.git.signing.key = config.resources.gpg.publicKey.fingerprint;
-      programs.git.signing.signByDefault = true;
-
       programs.go.enable = true;
       programs.go.goPath = "";
       programs.go.goBin = ".local/bin.go";
-
-      programs.firefox.enable = true;
-      programs.firefox.extensions =  with pkgs.nur.repos.rycee.firefox-addons; [
-        auto-tab-discard
-        cookie-autodelete
-        dark-night-mode
-        gopass-bridge
-        https-everywhere
-        link-cleaner
-        multi-account-containers
-        octotree
-        peertubeify
-        privacy-badger
-        reddit-enhancement-suite
-        refined-github
-        save-page-we
-        stylus
-        text-contrast-for-dark-themes
-        transparent-standalone-image
-        ublock-origin
-        vim-vixen
-      ];
 
       programs.ssh.extraConfig = ''
         Include config.d/ssh_gateway
