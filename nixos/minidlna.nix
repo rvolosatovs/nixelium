@@ -2,6 +2,14 @@
 {
   # TODO: Make this generic
 
+  networking.firewall.allowedTCPPorts = [
+    8200
+  ];
+
+  networking.firewall.allowedUDPPorts = [
+    1900
+  ];
+
   services.minidlna.enable = true;
   services.minidlna.config = ''
     friendly_name=${config.networking.hostName}-dlna
@@ -12,15 +20,12 @@
     strict_dlna=no
   '';
   services.minidlna.mediaDirs = [
-    "P,/home/${config.resources.username}/pictures"
-    "V,/home/${config.resources.username}/video"
+    "A,/var/lib/minidlna/audio"
+    "P,/var/lib/minidlna/pictures"
+    "V,/var/lib/minidlna/video"
   ];
 
-  networking.firewall.allowedTCPPorts = [
-    8200
-  ];
-
-  networking.firewall.allowedUDPPorts = [
-    1900
+  users.users.${config.resources.username}.extraGroups = [
+    "minidlna"
   ];
 }
