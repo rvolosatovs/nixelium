@@ -33,6 +33,8 @@
   networking.useNetworkd = true;
   networking.useDHCP = false;
 
+  networking.mullvad.enable = true;
+
   networking.wireless.iwd.enable = true;
 
   programs.adb.enable = true;
