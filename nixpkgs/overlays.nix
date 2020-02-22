@@ -51,6 +51,7 @@ in [
     linuxPackages_5_3
     linuxPackages_5_4
     linuxPackages_5_5
+    linuxPackages_5_6
     linuxPackages_latest
     linuxPackagesFor
     lorri
