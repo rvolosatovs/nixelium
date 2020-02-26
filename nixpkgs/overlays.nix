@@ -25,6 +25,9 @@ in [
     fwupd
     geoclue2
     go
+    go_1_12
+    go_1_13
+    go_1_14
     go-2fa
     go-sct
     go-tools
