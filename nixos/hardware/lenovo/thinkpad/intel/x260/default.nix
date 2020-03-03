@@ -18,7 +18,8 @@ in
   boot.kernelParams = [ "i915.fastboot=1" ];
 
   networking.interfaces."${wiredInterface}".useDHCP = lib.mkDefault true;
-  networking.interfaces."${wirelessInterface}".useDHCP = lib.mkDefault true;
+  # TODO: Find a way to disable this per-host. An option maybe?
+  #networking.interfaces."${wirelessInterface}".useDHCP = lib.mkDefault true;
 
   # See https://linrunner.de/en/tlp/docs/tlp-faq.html#battery https://wiki.archlinux.org/index.php/TLP#Btrfs
   services.tlp.extraConfig = ''
@@ -38,5 +39,6 @@ in
   services.xserver.videoDrivers = [ "intel" ];
 
   systemd.network.networks."50-wired".matchConfig.Name = wiredInterface;
-  systemd.network.networks."50-wireless".matchConfig.Name = wirelessInterface;
+  # TODO: Find a way to disable this per-host. An option maybe?
+  #systemd.network.networks."50-wireless".matchConfig.Name = wirelessInterface;
 }
