@@ -54,6 +54,15 @@ in
       networking.useNetworkd = true;
       networking.useDHCP = false;
 
+      services.borgbackup.repos.home.path = "/var/lib/borgbackup/home";
+      services.borgbackup.repos.home.authorizedKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG7bHvo7Fen2ZkdcCoZKztgkWcPIOfuckbv5Lon/aBi5"
+      ];
+      services.borgbackup.repos.root.path = "/var/lib/borgbackup/root";
+      services.borgbackup.repos.root.authorizedKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILMo5GlPNjHac6q4k9F0t50OoefQ7McxAd1UXndtVCcg"
+      ];
+
       services.btrfs.butter.uuid = "95f03ff6-b94c-4a7b-b122-9ef73507e26b";
 
       services.jackett.openFirewall = true;
