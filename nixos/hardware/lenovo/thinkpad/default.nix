@@ -29,17 +29,17 @@ with lib;
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = true;
 
-      security.polkit.extraConfig = ''
-        /* https://wiki.archlinux.org/index.php/Fprint#Restrict_enrolling */
-        polkit.addRule(function (action, subject) {
-          if (action.id == "net.reactivated.fprint.device.enroll") {
-            return subject.user == "root" ? polkit.Result.YES : polkit.result.NO
-          }
-        })
-      '';
+      #security.polkit.extraConfig = ''
+      #  /* https://wiki.archlinux.org/index.php/Fprint#Restrict_enrolling */
+      #  polkit.addRule(function (action, subject) {
+      #    if (action.id == "net.reactivated.fprint.device.enroll") {
+      #      return subject.user == "root" ? polkit.Result.YES : polkit.result.NO
+      #    }
+      #  })
+      #'';
 
       services.acpid.enable = true;
-      services.fprintd.enable = true;
+      #services.fprintd.enable = true;
       services.upower.enable = true;
     }
 
