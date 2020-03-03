@@ -24,6 +24,7 @@
       };
 
       home.packages = with pkgs; [
+        borgbackup
         (lib.lowPrio coreutils)
         cowsay
         curl
