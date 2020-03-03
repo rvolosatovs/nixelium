@@ -5,7 +5,6 @@
     ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
     ./../../../vendor/secrets/nixos/hosts/cobalt
     ./../../../vendor/secrets/resources/hosts/cobalt
-    ./../../btrfs.nix
     ./../../hardware/lenovo/thinkpad/amd/x395
     ./../../lan.nix
     ./../../minidlna.nix
@@ -47,5 +46,7 @@
       "nixpkgs-unstable=${toString ../../../vendor/nixpkgs/nixos-unstable}"
       "nixpkgs=${toString ../../../vendor/nixpkgs/nixos}"
     ];
+
+    services.btrfs.butter.uuid = "23996086-ccb9-4e94-8ece-e45fe6f47718";
   };
 }

@@ -8,7 +8,6 @@ in
       ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
       ./../../../vendor/secrets/nixos/hosts/neon
       ./../../../vendor/secrets/resources/hosts/neon
-      ./../../btrfs.nix
       ./../../deluge.nix
       ./../../hardware/lenovo/thinkpad/intel/x260
       ./../../jackett.nix
@@ -53,6 +52,8 @@ in
       networking.nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
       networking.useNetworkd = true;
       networking.useDHCP = false;
+
+      services.btrfs.butter.uuid = "95f03ff6-b94c-4a7b-b122-9ef73507e26b";
 
       services.jackett.openFirewall = true;
       services.lidarr.openFirewall = true;

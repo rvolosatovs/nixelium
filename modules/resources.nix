@@ -36,16 +36,6 @@ in
       description = "Base16 theme name";
     };
 
-    btrfs.uuid = mkOption {
-      type = types.str;
-      description = "BTRFS UUID";
-    };
-
-    btrfs.isSSD = mkOption {
-      type = types.bool;
-      description = "BTRFS is on an SSD";
-    };
-
     duckduckgo.key = mkOption {
       type = types.str;
       description = "DuckDuckGo key";

@@ -156,6 +156,9 @@
 
   services.avahi.enable = true;
 
+  services.btrfs.butter.enable = true;
+  services.btrfs.butter.isSSD = lib.mkDefault true;
+
   services.fwupd.enable = true;
 
   services.journald.extraConfig = ''
