@@ -14,6 +14,7 @@ in
       ./../../lan.nix
       ./../../lidarr.nix
       ./../../minidlna.nix
+      ./../../miniflux.nix
       ./../../profiles/server
       ./../../radarr.nix
       ./../../sonarr.nix
