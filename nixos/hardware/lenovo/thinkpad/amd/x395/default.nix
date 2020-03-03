@@ -9,7 +9,7 @@ in
     ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x395
   ];
 
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_5;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_6;
   boot.kernelParams = [
     "acpi_backlight=vendor"
     "acpi_osi=Linux"
