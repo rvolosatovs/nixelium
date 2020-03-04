@@ -67,7 +67,7 @@ in
     };
 
     config = mkIf cfg.enable {
-      environment.etc."${cfg.interfaceName}-key" = {
+      environment.etc."keys/${cfg.interfaceName}" = {
         mode = "0600";
         text = cfg.client.privateKey;
         user = "systemd-network";
@@ -76,7 +76,7 @@ in
       systemd.network.netdevs."30-${cfg.interfaceName}" = {
         netdevConfig.Kind = "wireguard";
         netdevConfig.Name = cfg.interfaceName;
-        wireguardConfig.PrivateKeyFile = "/etc/${config.environment.etc."${cfg.interfaceName}-key".target}";
+        wireguardConfig.PrivateKeyFile = "/etc/${config.environment.etc."keys/${cfg.interfaceName}".target}";
         wireguardPeers = singleton {
           wireguardPeerConfig.PublicKey = cfg.server.publicKey;
           wireguardPeerConfig.AllowedIPs = [ "0.0.0.0/0" "::0/0" ];
