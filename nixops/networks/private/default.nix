@@ -14,7 +14,9 @@ let
     };
   };
 
-  mkBorgRepoPath = config: name: "${config.services.borgbackup.repos.${name}.user}@${config.network.wireguard.ip}:${config.services.borgbackup.repos.${name}.path}";
+  mkBorgRepoPath = config: name: addr: "ssh://${config.services.borgbackup.repos.${name}.user}@${addr}:${toString (builtins.head config.services.openssh.ports)}${config.services.borgbackup.repos.${name}.path}";
+  mkBorgWireguardRepoPath = config: name: mkBorgRepoPath config name config.network.wireguard.ip;
+  mkBorgLocalRepoPath = config: name: mkBorgRepoPath config name "localhost";
 
   isLANip = lib: ip: lib.strings.hasPrefix "192.168." ip;
 in
@@ -45,14 +47,14 @@ in
 
         services.btrfs.snapshotBackup.enable = true;
         services.btrfs.snapshotBackup.subvolumes."/.snapshots" = {
-          repo = mkBorgRepoPath nodes.neon.config "root";
+          repo = mkBorgWireguardRepoPath nodes.neon.config "root";
           passphrase = builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/borg.root.repokey;
-          sshKey = builtins.readFile ./../../../vendor/secrets/nixops/hosts/cobalt/borg.root.id_ed25519;
+          ssh.key = builtins.readFile ./../../../vendor/secrets/nixops/hosts/cobalt/borg.root.id_ed25519;
         };
         services.btrfs.snapshotBackup.subvolumes."/home/.snapshots" = {
-          repo = mkBorgRepoPath nodes.neon.config "home";
+          repo = mkBorgWireguardRepoPath nodes.neon.config "home";
           passphrase = builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/borg.home.repokey;
-          sshKey = builtins.readFile ./../../../vendor/secrets/nixops/hosts/cobalt/borg.home.id_ed25519;
+          ssh.key = builtins.readFile ./../../../vendor/secrets/nixops/hosts/cobalt/borg.home.id_ed25519;
         };
       };
     };
