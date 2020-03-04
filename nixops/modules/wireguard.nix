@@ -13,6 +13,9 @@ let
 
   peerNames = attrNames nodes;
   serverNode = nodes."${cfg.server.name}";
+
+  # TODO: Extract this into a generic function.
+  mkSecretPath = name: if config.deployment.storeKeysOnMachine then "/etc/${config.environment.etc."keys/${name}".target}" else config.deployment.keys.${name}.path;
 in
   {
     # TODO: Support custom hosts.
@@ -78,11 +81,6 @@ in
 
     config = mkIf cfg.enable (mkMerge [
       {
-        deployment.keys."${privateKeyName}" = {
-          text = cfg.privateKey;
-          user = "systemd-network";
-        };
-
         networking.firewall.trustedInterfaces = [ cfg.interfaceName ];
 
         networking.hosts = foldr (peerName: hosts: mkMerge [
@@ -95,28 +93,19 @@ in
         systemd.network.netdevs."${netdevName}" = {
           netdevConfig.Kind = "wireguard";
           netdevConfig.Name = cfg.interfaceName;
-          wireguardConfig.PrivateKeyFile = config.deployment.keys."${privateKeyName}".path;
         };
-
         systemd.network.networks."${networkName}" = {
           address = [ "${cfg.ip}/32" ];
           name = cfg.interfaceName;
         };
-
-        systemd.services."${serviceName}" = {
-          after = [ "${privateKeyName}-key.service" ];
-          wants = [ "${privateKeyName}-key.service" ];
-        };
-
-        users.users.systemd-network.extraGroups = [ "keys" ];
       }
 
       (mkIf (cfg.dns != null) {
         systemd.network.networks."${networkName}".dns = cfg.dns;
       })
 
+      # Server
       (mkIf (name == cfg.server.name) {
-        # Server
         boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
         boot.kernel.sysctl."net.ipv4.conf.all.proxy_arp" = 1;
 
@@ -127,6 +116,7 @@ in
 
         systemd.network.netdevs."${netdevName}" = {
           wireguardConfig.ListenPort = cfg.server.port;
+          wireguardConfig.PrivateKeyFile = mkSecretPath privateKeyName;
           wireguardPeers = foldr (peerName: peers: peers ++ optional (peerName != name) {
             wireguardPeerConfig.AllowedIPs = [ "${nodes."${peerName}".config.network.wireguard.ip}/32" ];
             wireguardPeerConfig.PersistentKeepalive = 25;
@@ -144,8 +134,8 @@ in
         };
       })
 
+      # Client
       (mkIf (name != cfg.server.name) {
-        # Client
         systemd.network.netdevs."${netdevName}".wireguardPeers = [
           {
             wireguardPeerConfig.AllowedIPs = [ "0.0.0.0/0" "::0/0" ];
@@ -164,6 +154,26 @@ in
             }
           ];
         };
+      })
+
+      (mkIf config.deployment.storeKeysOnMachine {
+        environment.etc."keys/${privateKeyName}" = {
+          mode = "0600";
+          text = cfg.privateKey;
+          user = "systemd-network";
+        };
+      })
+
+      (mkIf (!config.deployment.storeKeysOnMachine) {
+        deployment.keys."${privateKeyName}" = {
+          text = cfg.privateKey;
+          user = "systemd-network";
+        };
+        systemd.services."${serviceName}" = {
+          after = [ "${privateKeyName}-key.service" ];
+          wants = [ "${privateKeyName}-key.service" ];
+        };
+        users.users.systemd-network.extraGroups = [ "keys" ];
       })
     ]);
   }
