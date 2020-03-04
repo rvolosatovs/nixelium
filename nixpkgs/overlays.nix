@@ -89,6 +89,7 @@ in [
     rclone
     redis
     redshift
+    restic
     richgo
     ripgrep
     rofi
