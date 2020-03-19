@@ -103,6 +103,7 @@ in [
     syncthing-cli
     syncthing-tray
     thunderbird
+    travis
     vgo2nix
     vim
     vimPlugins
