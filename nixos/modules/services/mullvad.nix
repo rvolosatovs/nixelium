@@ -15,7 +15,7 @@ in
           description = "Whether to enable Mullvad VPN WireGuard connection.";
         };
 
-        interfaceName = mkOption {
+        interfaceNamePrefix = mkOption {
           example = "wg-mullvad";
           default = "wg-mullvad";
           type = types.str;
@@ -41,66 +41,81 @@ in
           description = ''
             Base64 private key.
 
-            This will be copied to /etc/''${interfaceName}-key with 0600 mode and owned by systemd-network user.
+            This will be copied to /etc/''${interfaceNamePrefix}-key with 0600 mode and owned by systemd-network user.
           '';
         };
 
-        server.ip = mkOption {
-          example = "1.2.3.4";
-          type = types.str;
-          description = "The server IP address.";
-        };
+        servers = mkOption {
+          default = {};
+          type = types.listOf (types.submodule ({ name, ... }: {
+            options = {
+              ip = mkOption {
+                example = "1.2.3.4";
+                type = types.str;
+                description = "The server IP address.";
+              };
 
-        server.port = mkOption {
-          example = 51820;
-          default = 51820;
-          type = types.int;
-          description = "The server port.";
-        };
+              port = mkOption {
+                example = 51820;
+                default = 51820;
+                type = types.int;
+                description = "The server port.";
+              };
 
-        server.publicKey = mkOption {
-          example = "xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=";
-          type = types.str;
-          description = "Base64 public key of the server.";
+              publicKey = mkOption {
+                example = "xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=";
+                type = types.str;
+                description = "Base64 public key of the server.";
+              };
+            };
+          }));
         };
       };
     };
 
     config = mkIf cfg.enable {
-      environment.etc."keys/${cfg.interfaceName}" = {
+      environment.etc."keys/${cfg.interfaceNamePrefix}" = {
         mode = "0600";
         text = cfg.client.privateKey;
         user = "systemd-network";
       };
 
-      systemd.network.netdevs."30-${cfg.interfaceName}" = {
-        netdevConfig.Kind = "wireguard";
-        netdevConfig.Name = cfg.interfaceName;
-        wireguardConfig.PrivateKeyFile = "/etc/${config.environment.etc."keys/${cfg.interfaceName}".target}";
-        wireguardPeers = singleton {
-          wireguardPeerConfig.PublicKey = cfg.server.publicKey;
-          wireguardPeerConfig.AllowedIPs = [ "0.0.0.0/0" "::0/0" ];
-          wireguardPeerConfig.Endpoint = "${cfg.server.ip}:${toString cfg.server.port}";
+      systemd.network = mkMerge (imap0 (i: serverCfg: let
+        interfaceName = "${cfg.interfaceNamePrefix}-${toString i}";
+        metric = "${toString (i+1)}00";
+      in
+      {
+        netdevs."30-${interfaceName}" = {
+          netdevConfig.Kind = "wireguard";
+          netdevConfig.Name = interfaceName;
+          wireguardConfig.PrivateKeyFile = "/etc/${config.environment.etc."keys/${cfg.interfaceNamePrefix}".target}";
+          wireguardPeers = singleton {
+            wireguardPeerConfig.PublicKey = serverCfg.publicKey;
+            wireguardPeerConfig.AllowedIPs = [ "0.0.0.0/0" "::0/0" ];
+            wireguardPeerConfig.Endpoint = "${serverCfg.ip}:${toString serverCfg.port}";
+          };
         };
-      };
 
-      systemd.network.networks."30-${cfg.interfaceName}" = {
-        address = cfg.client.ips;
-        dns = cfg.client.dns;
-        name = cfg.interfaceName;
-        routes = [
-          {
-            routeConfig.Destination = "0.0.0.0/0";
-          }
-          {
-            routeConfig.Destination = "::/0";
-          }
-        ];
-        extraConfig = ''
-          [RoutingPolicyRule]
-          To=${cfg.server.ip}
-          Table=2468
-        '';
-      };
+        networks."30-${interfaceName}" = {
+          address = cfg.client.ips;
+          dns = cfg.client.dns;
+          name = interfaceName;
+          routes = [
+            {
+              routeConfig.Destination = "0.0.0.0/0";
+              routeConfig.Metric = metric;
+            }
+            {
+              routeConfig.Destination = "::/0";
+              routeConfig.Metric = metric;
+            }
+          ];
+          extraConfig = ''
+            [RoutingPolicyRule]
+            To=${serverCfg.ip}
+            Table=2468
+          '';
+        };
+      }) cfg.servers);
     };
   }
