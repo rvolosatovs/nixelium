@@ -16,6 +16,7 @@
         copy-sha-git
         deluge
         drive
+        engify
         ffmpeg
         git-rebase-all
         gofumpt

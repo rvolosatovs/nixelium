@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    (pkgs.writeShellScriptBin "sonarr-unrus" ''
+    (pkgs.writeShellScriptBin "sonarr-engify" ''
       if [ "''${sonarr_eventtype}" = "Download" ]; then
-        ${mkUnrusScript "\${sonarr_series_path}"}
+        ${pkgs.engify}/bin/engify "''${sonarr_series_path}"
       fi
     '')
   ];

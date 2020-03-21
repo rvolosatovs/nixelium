@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    (pkgs.writeShellScriptBin "radarr-unrus" ''
+    (pkgs.writeShellScriptBin "radarr-engify" ''
       if [ "''${radarr_eventtype}" = "Download" ]; then
-        ${mkUnrusScript "\${radarr_movie_path}"}
+        ${pkgs.engify}/bin/engify "''${radarr_movie_path}"
       fi
     '')
   ];

@@ -160,13 +160,6 @@ in [
     };
   })
 
-  (_: self: {
-    # TODO: Use mkvmerge -J | jq to remove everything except `eng` unless `rus` is the only option
-    mkUnrusScript = path: ''
-      [ ${self.mkvtoolnix}/bin/mkvinfo "${path}" | grep 'Language: rus' ] && ${self.mkvtoolnix}/bin/mkvmerge -o "${path}.eng" -a '!rus' -s '!rus' "${path}" && ${self.coreutils}/bin/mv "${path}.eng" "${path}"
-    '';
-  })
-
   (_: self: let
     nerdfontRelease = fontName: sha256: with self; stdenv.mkDerivation rec {
       # Inspired by https://github.com/Mic92/nur-packages/blob/20eeaca1de1a385df5b41043a525b9e0942ad927/pkgs/fira-code-nerdfonts/default.nix
@@ -216,6 +209,42 @@ in [
 
     copy-sha-git = self.writeShellScriptBin "copy-sha-git" ''
       ${self.nix-prefetch-git}/bin/nix-prefetch-git ''${@} | ${self.jq}/bin/jq -c -r '.sha256' | ${self.xclip}/bin/xclip -sel clip
+    '';
+
+    engify = with self; writeShellScriptBin "engify" ''
+      set -euo pipefail
+      IFS=$'\n\t'
+
+      function englishTracks {
+        ${mkvtoolnix}/bin/mkvmerge -J "''${2}" | ${jq}/bin/jq -r "[ .tracks | .[] | select(.type==\"''${1}\") | select(.properties.language==\"eng\") | .id ] | join(\",\")"
+      }
+
+      function engify {
+        local subs="$(englishTracks "subtitles" "''${1}")"
+        local audio="$(englishTracks "audio" "''${1}")"
+
+        if [ -z "''${subs}" ] && [ -z "''${audio}" ]; then
+          return 0
+        fi
+        local args=()
+        if [ -n "''${subs}" ]; then
+          args+=( -s "''${subs}" )
+        fi
+        if [ -n "''${audio}" ]; then
+          args+=( -a "''${audio}" )
+        fi
+        ${mkvtoolnix}/bin/mkvmerge ''${args[*]} -o "''${1}.eng" "''${1}" && ${busybox}/bin/mv -f "''${1}.eng" "''${1}"
+      }
+
+      function usage {
+        echo "Usage: $(${busybox}/bin/basename "$0") <file>"
+        exit 1
+      }
+      [[ $# -eq 0 ]] && usage
+
+      for f in ''${@}; do
+        engify "''${f}"
+      done
     '';
   })
 
