@@ -71,6 +71,7 @@ in [
     mopidy-spotify-tunigo
     mopidy-youtube
     mpv
+    mullvad-vpn
     neovim
     neovim-unwrapped
     nerdfonts
