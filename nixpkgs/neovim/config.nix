@@ -2,7 +2,7 @@ pkgs:
 let
   debug = false;
   gonicepls = pkgs.writeShellScript "gonicepls" ''
-    ${pkgs.coreutils}/bin/nice -n 19 ${pkgs.gotools}/bin/gopls
+    ${pkgs.busybox}/bin/nice -n 19 ${pkgs.gotools}/bin/gopls
   '';
 in pkgs.lib.optionalString debug '' 
   let $NVIM_COC_LOG_LEVEL = 'debug' 

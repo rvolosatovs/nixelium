@@ -348,33 +348,33 @@ in
         services.screen-locker.lockCmd = "${pkgs.i3lock}/bin/i3lock -t -f -i ~/pictures/lock";
 
         xdg.configFile."bspwm/bspwmrc".executable = true;
-        xdg.configFile."bspwm/bspwmrc".text = ''
-          #!${pkgs.bash}/bin/bash
-          initBSPWM() {
-              ${pkgs.bspwm}/bin/bspc config automatic_scheme      spiral
-              ${pkgs.bspwm}/bin/bspc config initial_polarity      first_child
+        xdg.configFile."bspwm/bspwmrc".text = with pkgs; ''
+          #!${bash}/bin/bash
+          function initBSPWM {
+              ${bspwm}/bin/bspc config automatic_scheme      spiral
+              ${bspwm}/bin/bspc config initial_polarity      first_child
 
-              ${pkgs.bspwm}/bin/bspc config border_width          2
-              ${pkgs.bspwm}/bin/bspc config window_gap            5
-              ${pkgs.bspwm}/bin/bspc config split_ratio           0.5
-              ${pkgs.bspwm}/bin/bspc config borderless_monocle    true
-              ${pkgs.bspwm}/bin/bspc config gapless_monocle       true
-              ${pkgs.bspwm}/bin/bspc config focus_follows_pointer false
-              ${pkgs.bspwm}/bin/bspc config click_to_focus        button1
+              ${bspwm}/bin/bspc config border_width          2
+              ${bspwm}/bin/bspc config window_gap            5
+              ${bspwm}/bin/bspc config split_ratio           0.5
+              ${bspwm}/bin/bspc config borderless_monocle    true
+              ${bspwm}/bin/bspc config gapless_monocle       true
+              ${bspwm}/bin/bspc config focus_follows_pointer false
+              ${bspwm}/bin/bspc config click_to_focus        button1
 
-              ${pkgs.bspwm}/bin/bspc config normal_border_color   "${base00}"
-              ${pkgs.bspwm}/bin/bspc config focused_border_color  "${base05}"
-              ${pkgs.bspwm}/bin/bspc config active_border_color   "${base03}"
-              ${pkgs.bspwm}/bin/bspc config presel_feedback_color "${base0a}"
+              ${bspwm}/bin/bspc config normal_border_color   "${base00}"
+              ${bspwm}/bin/bspc config focused_border_color  "${base05}"
+              ${bspwm}/bin/bspc config active_border_color   "${base03}"
+              ${bspwm}/bin/bspc config presel_feedback_color "${base0a}"
 
-              ${pkgs.bspwm}/bin/bspc rule -a "Spotify" desktop=^5
-              ${pkgs.bspwm}/bin/bspc rule -a "Chromium-browser:crx_eggkanocgddhmamlbiijnphhppkpkmkl" state=floating
-              ${pkgs.bspwm}/bin/bspc rule -a "mpv" state=floating
+              ${bspwm}/bin/bspc rule -a "Spotify" desktop=^5
+              ${bspwm}/bin/bspc rule -a "Chromium-browser:crx_eggkanocgddhmamlbiijnphhppkpkmkl" state=floating
+              ${bspwm}/bin/bspc rule -a "mpv" state=floating
 
               local desktops_per_mon=5
 
-              local oldM=$(${pkgs.bspwm}/bin/bspc query -M)
-              local mons=$(${pkgs.gorandr}/bin/randrq -f '{{.Name}}:{{.Width}}x{{.Height}}')
+              local oldM=$(${bspwm}/bin/bspc query -M)
+              local mons=$(${gorandr}/bin/randrq -f '{{.Name}}:{{.Width}}x{{.Height}}')
 
               local x=0
               for m in ''${mons}; do
@@ -383,33 +383,32 @@ in
 
                   xrandr --output "''${name}" --mode "''${mode}" --pos ''${x}x0
 
-                  ${pkgs.bspwm}/bin/bspc wm -a "''${name}" "''${mode}+''${x}+0"
+                  ${bspwm}/bin/bspc wm -a "''${name}" "''${mode}+''${x}+0"
 
                   local names=()
-                  for j in $(${pkgs.coreutils}/bin/seq $desktops_per_mon); do
+                  for j in $(${busybox}/bin/seq $desktops_per_mon); do
                       names+=("$name/$j")
                   done
 
-                  ${pkgs.bspwm}/bin/bspc monitor "$name" -d ''${names[@]}
+                  ${bspwm}/bin/bspc monitor "$name" -d ''${names[@]}
 
                   x=$((''${x}+''${mode%x*}))
               done
 
               for m in ''${oldM}; do
-                  local first="$(${pkgs.coreutils}/bin/head -1 <<< ''${mons} | ${pkgs.coreutils}/bin/cut -d':' -f1)/1"
-                  for n in $(${pkgs.bspwm}/bin/bspc query -N -m "''${m}"); do
-                      ${pkgs.bspwm}/bin/bspc node "''${n}" -d ''${first}
+                  local first="$(${busybox}/bin/head -1 <<< ''${mons} | ${busybox}/bin/cut -d':' -f1)/1"
+                  for n in $(${bspwm}/bin/bspc query -N -m "''${m}"); do
+                      ${bspwm}/bin/bspc node "''${n}" -d ''${first}
                   done
-                  for d in $(${pkgs.bspwm}/bin/bspc query -D -m "''${m}"); do
-                      ${pkgs.bspwm}/bin/bspc desktop "''${d}" -r
+                  for d in $(${bspwm}/bin/bspc query -D -m "''${m}"); do
+                      ${bspwm}/bin/bspc desktop "''${d}" -r
                   done
-                  ${pkgs.bspwm}/bin/bspc monitor "''${m}" -r
+                  ${bspwm}/bin/bspc monitor "''${m}" -r
               done
 
-              ${pkgs.feh}/bin/feh --bg-fill "$HOME/pictures/wp"
-              ${pkgs.systemd}/bin/systemctl --user restart polybar
+              ${feh}/bin/feh --bg-fill "$HOME/pictures/wp"
+              ${systemd}/bin/systemctl --user restart polybar
           }
-
           initBSPWM
         '';
         xdg.configFile."sway/config".source = ../dotfiles/sway/config;

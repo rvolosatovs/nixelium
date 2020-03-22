@@ -25,7 +25,7 @@
 
       home.packages = with pkgs; [
         borgbackup
-        (lib.lowPrio coreutils)
+        (setPrio 9 busybox) # Avoid collision with systemd
         cowsay
         curl
         docker-gc
@@ -33,12 +33,9 @@
         file
         findutils
         fzf
-        gnugrep
         gnumake
         gnupg
         gnupg1compat
-        gnused
-        gnutar
         graphviz
         htop
         jq
@@ -58,7 +55,7 @@
         weechat
         wget
         zip
-      ] ++ (with config.resources.programs; map lowPrio [
+      ] ++ (with config.resources.programs; map hiPrio [
         browser.package
         editor.package
         mailer.package
