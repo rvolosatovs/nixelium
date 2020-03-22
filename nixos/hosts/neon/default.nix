@@ -32,7 +32,7 @@ in
         }
       ];
 
-      home-manager.users.${config.resources.username} = {...}: import ./../../../home/hosts/neon;
+      home-manager.users.${config.resources.username} = import ./../../../home/hosts/neon;
 
       networking.dhcpcd.enable = false;
 
