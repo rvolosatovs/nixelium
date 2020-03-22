@@ -41,11 +41,7 @@ in
     ]);
     home.sessionVariables.GIT_EDITOR = config.resources.programs.editor.executable.path;
 
-    programs.git.aliases.a = "apply --index";
-    programs.git.aliases.p = "format-patch --stdout";
     programs.git.aliases.tree = "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";
-    programs.git.aliases.bigtree = "log --graph --decorate --pretty=format:'%C(auto)%d%n%h %s%+b%n(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n'";
-    programs.git.aliases.hist = "log --date=short --pretty=format:'%C(auto)%ad %h (%G?) %s [%an] %d'";
     programs.git.aliases.xclean = "clean -xdf -e .envrc -e .direnv.* -e shell.nix -e default.nix -e vendor -e .vscode";
 
     programs.git.enable = true;
@@ -86,13 +82,11 @@ in
     programs.git.userEmail = config.resources.email;
     programs.git.userName = config.resources.fullName;
 
-    programs.zsh.shellAliases.ga="git add .";
-    programs.zsh.shellAliases.gaf="git add";
+    programs.zsh.shellAliases.ga="git add";
     programs.zsh.shellAliases.gb="git branch";
     programs.zsh.shellAliases.gB="git rebase";
-    programs.zsh.shellAliases.gBC="git add . && git rebase --continue";
     programs.zsh.shellAliases.gBc="git rebase --continue";
-    programs.zsh.shellAliases.gbi="git branch -lvv";
+    programs.zsh.shellAliases.gBs="git rebase --skip";
     programs.zsh.shellAliases.gC="git commit -am";
     programs.zsh.shellAliases.gc="git commit";
     programs.zsh.shellAliases.gca="git commit --amend";
@@ -100,20 +94,12 @@ in
     programs.zsh.shellAliases.gd="git diff --word-diff=color";
     programs.zsh.shellAliases.gdc="git diff --word-diff=color --cached";
     programs.zsh.shellAliases.gf="git fetch --all --prune";
-    programs.zsh.shellAliases.gH1="git hist --shortstat --oneline";
-    programs.zsh.shellAliases.gh1="git hist --oneline";
-    programs.zsh.shellAliases.gH="git hist --shortstat";
-    programs.zsh.shellAliases.gh="git hist";
-    programs.zsh.shellAliases.gHH="git hist --shortstat --all";
-    programs.zsh.shellAliases.ghh="git hist --all";
-    programs.zsh.shellAliases.gL1="git log --word-diff=color --patch-with-stat --oneline";
-    programs.zsh.shellAliases.gl1="git log --stat --date=short --oneline";
     programs.zsh.shellAliases.gl="git log --stat --date=short";
     programs.zsh.shellAliases.gL="git log --word-diff=color --patch-with-stat";
-    programs.zsh.shellAliases.gLL="git log --word-diff=color --patch-with-stat --all";
-    programs.zsh.shellAliases.gll="git log --stat --date=short --all";
     programs.zsh.shellAliases.gm="git cherry-pick";
     programs.zsh.shellAliases.gM="git merge";
+    programs.zsh.shellAliases.gmc="git cherry-pick --continue";
+    programs.zsh.shellAliases.gms="git cherry-pick --skip";
     programs.zsh.shellAliases.gn="git checkout";
     programs.zsh.shellAliases.gnb="git checkout -b";
     programs.zsh.shellAliases.gno="git checkout --orphan";
@@ -123,14 +109,13 @@ in
     programs.zsh.shellAliases.gPp="git push --prune";
     programs.zsh.shellAliases.gr="git remote";
     programs.zsh.shellAliases.gR="git reset";
+    programs.zsh.shellAliases.gra="git remote add";
     programs.zsh.shellAliases.gRh="git reset --hard";
     programs.zsh.shellAliases.grl="git reflog";
     programs.zsh.shellAliases.gS="git show --word-diff=color";
     programs.zsh.shellAliases.gs="git status";
-    programs.zsh.shellAliases.gsl="git shortlog";
-    programs.zsh.shellAliases.gT="git bigtree --summary --shortstat --dirstat";
+    programs.zsh.shellAliases.gT="git tag";
     programs.zsh.shellAliases.gt="git tree";
-    programs.zsh.shellAliases.gTT="git bigtree --summary --shortstat --dirstat --all";
     programs.zsh.shellAliases.gtt="git tree --all";
     programs.zsh.shellAliases.gy="git stash";
     programs.zsh.shellAliases.gyd="git stash drop";
