@@ -18,6 +18,9 @@ in [
     docker
     docker_compose
     echoip
+    fahclient
+    fahcontrol
+    fahviewer
     firefox
     firefoxWrapper
     firmwareLinuxNonFree
