@@ -12,14 +12,13 @@ pkgs: {
     coc-lists
     coc-nvim
     coc-rls
+    coc-snippets
     coc-yank
     direnv-vim
     editorconfig-vim
     fugitive
     gitv
     incsearch-vim
-    neosnippet
-    neosnippet-snippets
     nerdcommenter
     repeat
     surround

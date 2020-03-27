@@ -168,11 +168,13 @@ in pkgs.lib.optionalString debug ''
   let mapleader = "\<Space>"
   let maplocalleader = "\<Space>"
 
-  imap                         <C-k>         <Plug>(neosnippet_expand_or_jump)
   inoremap                     <A-h>         <C-\><C-N><C-w>h
   inoremap                     <A-j>         <C-\><C-N><C-w>j
   inoremap                     <A-k>         <C-\><C-N><C-w>k
   inoremap                     <A-l>         <C-\><C-N><C-w>l
+  inoremap                     <silent><expr> <c-space> coc#refresh()
+  inoremap                     <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+				                             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
   nmap                         #             <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
   nmap                         *             <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
   nmap                         /             <Plug>(incsearch-forward)
@@ -212,13 +214,11 @@ in pkgs.lib.optionalString debug ''
   noremap                      <Leader>zt    :tabnew<CR>
   noremap                      <Space>       <Nop>
   noremap                      Y             y$
-  smap                         <C-k>         <Plug>(neosnippet_expand_or_jump)
   tnoremap                     <A-h>         <C-\><C-N><C-w>h
   tnoremap                     <A-j>         <C-\><C-N><C-w>j
   tnoremap                     <A-k>         <C-\><C-N><C-w>k
   tnoremap                     <A-l>         <C-\><C-N><C-w>l
   vmap                         <Leader>f     <Plug>(coc-format-selected)
-  xmap                         <C-k>         <Plug>(neosnippet_expand_target)
 
   au FileType go nmap <silent> <Leader>i     :call CocActionAsync('runCommand', 'editor.action.organizeImport')<CR>
 
