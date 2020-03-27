@@ -25,5 +25,11 @@
 
   programs.ssh.askPassword = "${pkgs.pinentry_ncurses}/bin/pinentry";
 
+  services.boinc.enable = true;
+
+  services.foldingathome.enable = true;
+  services.foldingathome.user = "rvolosatovs";
+  services.foldingathome.team = 251175;
+
   services.logind.lidSwitch = "ignore";
 }
