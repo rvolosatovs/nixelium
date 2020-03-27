@@ -26,6 +26,7 @@
       home.packages = with pkgs; [
         borgbackup
         (setPrio 9 busybox) # Avoid collision with systemd
+        coreutils
         cowsay
         curl
         docker-gc
@@ -231,13 +232,12 @@
         acpi
         dex
         espeak
-        gnufdisk
+        iproute
         lm_sensors
         pciutils
         psmisc
         rfkill
         sudo
-        systemd
         usbutils
         xdg_utils
       ];
