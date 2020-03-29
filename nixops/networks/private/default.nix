@@ -1,8 +1,4 @@
 let
-  # TODO: Configure these in WireGuard module, once supported.
-  wg.home.hosts.zinc.ip = "10.0.0.30";
-  wg.home.hosts.zinc.publicKey = "QLMUw+yvwXuuEsN06zB+Mj9n/VqD+k4VKa5o2GZrLAk=";
-
   # TODO: Refactor into a NixOS module.
   mkNginxTLSProxy = config: name: addr: {
     services.nginx.enable = true;
@@ -28,6 +24,9 @@ in
     defaults.network.wireguard.interfaceName = "wg-private";
     defaults.network.wireguard.server.name = "neon";
     defaults.network.wireguard.subnet = "10.0.0.0/24";
+
+    defaults.network.wireguard.extraPeers.zinc.ip = "10.0.0.30";
+    defaults.network.wireguard.extraPeers.zinc.publicKey = "QLMUw+yvwXuuEsN06zB+Mj9n/VqD+k4VKa5o2GZrLAk=";
 
     cobalt = { config, lib, nodes, ... }: {
       imports = [
@@ -78,8 +77,6 @@ in
         network.wireguard.privateKey= builtins.readFile ./../../../vendor/secrets/nixops/hosts/neon/wg.home.private;
 
         networking.privateIPv4 = "192.168.188.10";
-        # TODO: Figure out why host is unreachable from outside LAN.
-        networking.publicIPv4 = lib.mkForce config.networking.privateIPv4;
       };
     };
 

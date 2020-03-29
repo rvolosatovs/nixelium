@@ -1,4 +1,4 @@
-{ config, lib, name, nodes, ... }:
+{ config, pkgs, lib, name, nodes, ... }:
 
 with lib;
 
@@ -11,16 +11,30 @@ let
 
   privateKeyName = "wireguard-${cfg.interfaceName}-private";
 
-  peerNames = attrNames nodes;
   serverNode = nodes."${cfg.server.name}";
 
   # TODO: Extract this into a generic function.
   mkSecretPath = name: if config.deployment.storeKeysOnMachine then "/etc/${config.environment.etc."keys/${name}".target}" else config.deployment.keys.${name}.path;
+
+  peerOptions = {
+    ip = mkOption {
+      example = "10.0.0.2";
+      type = types.str;
+      description = "WireGuard peer IP address.";
+    };
+
+    publicKey = mkOption {
+      example = "yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=";
+      type = types.str;
+      description = "Base64 public key.";
+    };
+  };
 in
   {
-    # TODO: Support custom hosts.
     options = {
       network.wireguard = {
+        inherit (peerOptions) ip publicKey;
+
         enable = mkOption {
           example = true;
           default = false;
@@ -34,12 +48,6 @@ in
           description = "WireGuard interface name";
         };
 
-        ip = mkOption {
-          example = "10.0.0.2";
-          type = types.str;
-          description = "WireGuard peer IP address.";
-        };
-
         subnet = mkOption {
           example = "10.0.0.0/24";
           type = types.str;
@@ -51,17 +59,18 @@ in
           description = "Base64 private key.";
         };
 
-        publicKey = mkOption {
-          example = "yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=";
-          type = types.str;
-          description = "Base64 public key.";
-        };
-
         dns = mkOption {
           example = [ "1.1.1.1" ];
           default = null;
           type = with types; nullOr (listOf str);
           description = "DNS servers to use";
+        };
+
+        extraPeers = mkOption {
+          default = {};
+          type = types.attrsOf (types.submodule ({ name, ... }: {
+            options = peerOptions;
+          }));
         };
 
         server.name = mkOption {
@@ -79,20 +88,29 @@ in
       };
     };
 
-    config = mkIf cfg.enable (mkMerge [
+    config = let
+      peers = foldr (peerName: peers: 
+      assert lib.asserts.assertMsg (! peers ? peerName) "duplicate peer '${peerName}'";
+      peers // {
+        "${peerName}" = {
+          inherit (nodes."${peerName}".config.network.wireguard) ip publicKey;
+        };
+      }) cfg.extraPeers (attrNames nodes);
+    in
+    mkIf cfg.enable (mkMerge [
       {
+        environment.systemPackages = [ pkgs.wireguard ];
+
         networking.firewall.trustedInterfaces = [ cfg.interfaceName ];
 
-        networking.hosts = foldr (peerName: hosts: mkMerge [
-          hosts
-          {
-            "${nodes."${peerName}".config.network.wireguard.ip}" = [ "${peerName}.vpn" ];
-          }
-        ]) {} peerNames;
+        networking.hosts = mapAttrs' (name: peer:
+        nameValuePair peer.ip [ "${name}.vpn" ]
+        ) peers;
 
         systemd.network.netdevs."${netdevName}" = {
           netdevConfig.Kind = "wireguard";
           netdevConfig.Name = cfg.interfaceName;
+          wireguardConfig.PrivateKeyFile = mkSecretPath privateKeyName;
         };
         systemd.network.networks."${networkName}" = {
           address = [ "${cfg.ip}/32" ];
@@ -116,12 +134,11 @@ in
 
         systemd.network.netdevs."${netdevName}" = {
           wireguardConfig.ListenPort = cfg.server.port;
-          wireguardConfig.PrivateKeyFile = mkSecretPath privateKeyName;
-          wireguardPeers = foldr (peerName: peers: peers ++ optional (peerName != name) {
-            wireguardPeerConfig.AllowedIPs = [ "${nodes."${peerName}".config.network.wireguard.ip}/32" ];
+          wireguardPeers = mapAttrsToList (peerName: peer: {
+            wireguardPeerConfig.AllowedIPs = [ "${peer.ip}/32" ];
             wireguardPeerConfig.PersistentKeepalive = 25;
-            wireguardPeerConfig.PublicKey = nodes."${peerName}".config.network.wireguard.publicKey;
-          }) [] peerNames;
+            wireguardPeerConfig.PublicKey = peer.publicKey;
+          }) (filterAttrs (peerName: _: peerName != name) peers);
         };
 
         systemd.network.networks."${networkName}" = {
