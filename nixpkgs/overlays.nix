@@ -16,7 +16,8 @@ in [
     dep
     direnv
     docker
-    docker_compose
+    docker-compose
+    docker-credential-helpers
     echoip
     fahclient
     fahcontrol
@@ -27,6 +28,10 @@ in [
     fprintd
     fwupd
     geoclue2
+    gcc-arm-embedded-6
+    gcc-arm-embedded-7
+    gcc-arm-embedded-8
+    gcc-arm-embedded-9
     go
     go_1_12
     go_1_13
@@ -37,6 +42,7 @@ in [
     gocode
     gocode-gomod
     godef
+    godot
     gofumpt
     gopass
     gotools
@@ -79,7 +85,17 @@ in [
     neovim-unwrapped
     nerdfonts
     nix-du
+    nodejs
+    nodejs-10_x
+    nodejs-12_x
+    nodejs-slim
+    nodejs-slim-10_x
+    nodejs-slim-12_x
+    nodejs-slim_latest
+    nodejs_latest
     nodePackages
+    nodePackages_10_x
+    nodePackages_12_x
     nox
     pass
     passExtensions
@@ -108,6 +124,8 @@ in [
     syncthing-tray
     thunderbird
     travis
+    unity3d
+    unityhub
     vgo2nix
     vim
     vimPlugins
@@ -122,6 +140,7 @@ in [
     winetricks
     wineWowPackages
     wrapNeovim
+    yarn
     zathura
     zoom-us
     ;
