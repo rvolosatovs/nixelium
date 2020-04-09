@@ -271,14 +271,6 @@ in [
     '';
   })
 
-  (_: self: let
-    dockerBuild = paths: "$(${self.docker}/bin/docker build -q - < ${builtins.toString (self.copyPathsToStore paths)})";
-  in {
-    dockerImages.mbed = self.writeShellScriptBin "mbed" ''
-      ${self.docker}/bin/docker run -itv $(pwd):/mbed:cached ${dockerBuild [ ./external/dockerfiles/Dockerfile.mbed ]} ''${@}
-    '';
-  })
-
   (super: self: rec {
     firefox = self.wrapFirefox.override {
       config = self.lib.setAttrByPath [ self.firefox.browserName or (builtins.parseDrvName self.firefox.name).name ] {
