@@ -279,6 +279,10 @@ in [
 
     pass = self.pass.withExtensions (es: [ es.pass-otp ]);
 
+    gopass = self.gopass.override {
+      passAlias = true;
+    };
+
     polybar = self.polybar.override {
       alsaSupport = false;
       githubSupport = true;
