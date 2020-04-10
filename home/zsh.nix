@@ -35,7 +35,7 @@
 
          nixify() {
            if [ ! -e ./.envrc ]; then
-             echo "use nix" > .envrc
+             echo 'eval "$(lorri direnv)"' > .envrc
              ${pkgs.direnv}/bin/direnv allow
            fi
 
