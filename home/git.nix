@@ -83,13 +83,17 @@ in
     programs.git.userName = config.resources.fullName;
 
     programs.zsh.shellAliases.ga="git add";
+    programs.zsh.shellAliases.gap="git add -p";
     programs.zsh.shellAliases.gb="git branch";
     programs.zsh.shellAliases.gB="git rebase";
+    programs.zsh.shellAliases.gBi="git rebase -i";
+    programs.zsh.shellAliases.gBI="git rebase -i --no-autosquash";
     programs.zsh.shellAliases.gBc="git rebase --continue";
     programs.zsh.shellAliases.gBs="git rebase --skip";
     programs.zsh.shellAliases.gC="git commit -am";
     programs.zsh.shellAliases.gc="git commit";
     programs.zsh.shellAliases.gca="git commit --amend";
+    programs.zsh.shellAliases.gcf="git commit --fixup";
     programs.zsh.shellAliases.gcm="git commit -m";
     programs.zsh.shellAliases.gd="git diff --word-diff=color";
     programs.zsh.shellAliases.gdc="git diff --word-diff=color --cached";
