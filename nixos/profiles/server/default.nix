@@ -29,7 +29,6 @@
 
   services.foldingathome.enable = true;
   services.foldingathome.user = "rvolosatovs";
-  services.foldingathome.team = 251175;
 
   services.logind.lidSwitch = "ignore";
 }
