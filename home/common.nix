@@ -23,14 +23,21 @@
         primary = true;
       };
 
-      home.packages = with pkgs; [
+      home.packages = with config.resources.programs; map hiPrio [
+        browser.package
+        editor.package
+        mailer.package
+        pager.package
+        shell.package
+      ] ++ (with pkgs; [
         borgbackup
-        (setPrio 9 busybox) # Avoid collision with systemd
         coreutils
         cowsay
         curl
         docker-gc
-        docker_compose
+        docker-compose
+        docker-credential-helpers
+        dumpster
         file
         findutils
         fzf
@@ -56,12 +63,6 @@
         weechat
         wget
         zip
-      ] ++ (with config.resources.programs; map hiPrio [
-        browser.package
-        editor.package
-        mailer.package
-        pager.package
-        shell.package
       ]);
 
       home.sessionVariables.__GL_SHADER_DISK_CACHE_PATH ="${config.xdg.cacheHome}/nv";
