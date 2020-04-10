@@ -86,17 +86,20 @@ in
       }];
 
       systemd.network.enable = true;
-      systemd.network.networks."10-physical" = {
-        linkConfig.RequiredForOnline = false;
-        dhcpConfig.Anonymize = true;
-        dhcpConfig.RouteTable = 2468;
-        dhcpConfig.UseDNS = false;
-        dhcpConfig.UseHostname = false;
-        dhcpConfig.UseNTP = false;
-        matchConfig.Name = "eth0 wlan0";
-        networkConfig.DHCP = "yes";
-        networkConfig.IPv6AcceptRA = true;
-      };
+      systemd.network.networks."10-physical".dhcpConfig.Anonymize = true;
+      systemd.network.networks."10-physical".dhcpConfig.RouteTable = 2;
+      systemd.network.networks."10-physical".dhcpConfig.UseDNS = false;
+      systemd.network.networks."10-physical".dhcpConfig.UseHostname = false;
+      systemd.network.networks."10-physical".dhcpConfig.UseNTP = false;
+      systemd.network.networks."10-physical".linkConfig.RequiredForOnline = false;
+      systemd.network.networks."10-physical".matchConfig.Name = "eth0";
+      systemd.network.networks."10-physical".networkConfig.DHCP = "yes";
+      systemd.network.networks."10-physical".networkConfig.IPv6AcceptRA = true;
+      systemd.network.networks."10-physical".extraConfig = ''
+        [RoutingPolicyRule]
+        FirewallMark=2
+        Table=2
+      '';
       systemd.network.networks."50-wireless".enable = false;
 
       users.users.radarr.extraGroups = [

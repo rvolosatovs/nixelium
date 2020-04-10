@@ -89,6 +89,7 @@ in
           netdevConfig.Kind = "wireguard";
           netdevConfig.Name = interfaceName;
           wireguardConfig.PrivateKeyFile = "/etc/${config.environment.etc."keys/${cfg.interfaceNamePrefix}".target}";
+          wireguardConfig.FwMark = 2;
           wireguardPeers = singleton {
             wireguardPeerConfig.PublicKey = serverCfg.publicKey;
             wireguardPeerConfig.AllowedIPs = [ "0.0.0.0/0" "::0/0" ];
@@ -115,7 +116,7 @@ in
           extraConfig = ''
             [RoutingPolicyRule]
             To=${serverCfg.ip}
-            Table=2468
+            Table=2
           '';
         };
       }) cfg.servers);

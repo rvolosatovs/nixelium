@@ -44,13 +44,18 @@
 
   systemd.network.enable = true;
   systemd.network.networks."10-physical".dhcpConfig.Anonymize = true;
-  systemd.network.networks."10-physical".dhcpConfig.RouteTable = 2468;
+  systemd.network.networks."10-physical".dhcpConfig.RouteTable = 2;
   systemd.network.networks."10-physical".dhcpConfig.UseHostname = false;
   systemd.network.networks."10-physical".dhcpConfig.UseNTP = false;
   systemd.network.networks."10-physical".linkConfig.RequiredForOnline = false;
   systemd.network.networks."10-physical".matchConfig.Name = "en* eth* wl*";
   systemd.network.networks."10-physical".networkConfig.DHCP = "yes";
   systemd.network.networks."10-physical".networkConfig.IPv6AcceptRA = true;
+  systemd.network.networks."10-physical".extraConfig = ''
+    [RoutingPolicyRule]
+    FirewallMark=2
+    Table=2
+  '';
 
   sound.enable = true;
   sound.mediaKeys.enable = true;
