@@ -212,6 +212,12 @@ in [
       '';
       meta.description = "Proprietary Quake3 paks";
     };
+
+    ioquake3Full = super.quake3wrapper {
+      name = "ioquake3-full";
+      description = "Full ioquake3";
+      paks = with self; [ quake3pointrelease quake3ProprietaryPaks ];
+    };
   })
 
   (self: super: with self; {
@@ -271,7 +277,7 @@ in [
     '';
   })
 
-  (self: super: with super; {
+  (self: super: {
     firefox = wrapFirefox.override rec {
       config = lib.setAttrByPath [ firefox.browserName or (builtins.parseDrvName firefox.name).name ] {
         enableBrowserpass = true;
@@ -280,21 +286,15 @@ in [
       };
     } firefox {};
 
-    ioquake3Full = quake3wrapper {
-      name = "ioquake3-full";
-      description = "Full ioquake3";
-      paks = [ quake3pointrelease quake3ProprietaryPaks ];
-    };
+    neovim = super.wrapNeovim self.neovim-unwrapped (import ./neovim self);
 
-    neovim = wrapNeovim neovim-unwrapped (import ./neovim self);
+    pass = super.pass.withExtensions (es: [ es.pass-otp ]);
 
-    pass = pass.withExtensions (es: [ es.pass-otp ]);
-
-    gopass = gopass.override {
+    gopass = super.gopass.override {
       passAlias = true;
     };
 
-    polybar = polybar.override {
+    polybar = super.polybar.override {
       alsaSupport = false;
       githubSupport = true;
       mpdSupport = true;
