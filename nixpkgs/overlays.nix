@@ -278,14 +278,6 @@ in [
   })
 
   (self: super: {
-    firefox = wrapFirefox.override rec {
-      config = lib.setAttrByPath [ firefox.browserName or (builtins.parseDrvName firefox.name).name ] {
-        enableBrowserpass = true;
-        enableDjvu = true;
-        enableGoogleTalkPlugin = true;
-      };
-    } firefox {};
-
     neovim = super.wrapNeovim self.neovim-unwrapped (import ./neovim self);
 
     pass = super.pass.withExtensions (es: [ es.pass-otp ]);

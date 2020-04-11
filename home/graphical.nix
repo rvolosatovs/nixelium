@@ -299,6 +299,13 @@ in
           ublock-origin
           vim-vixen
         ];
+        programs.firefox.package = with pkgs; wrapFirefox.override {
+          config = lib.setAttrByPath [ firefox.browserName or (builtins.parseDrvName firefox.name).name ] {
+            enableBrowserpass = true;
+            enableDjvu = true;
+            enableGoogleTalkPlugin = true;
+          };
+        } firefox {};
 
         services.dunst.enable = true;
         services.dunst.settings."global".browser = config.resources.programs.browser.executable.path;
