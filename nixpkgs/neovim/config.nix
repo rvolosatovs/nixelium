@@ -88,6 +88,11 @@ in pkgs.lib.optionalString debug ''
   \   "rootPatterns": [".vim/", ".git/", ".hg/"],
   \   "ignoredRootPaths": ["~"],
   \ },
+  \ 'godot': {
+  \   "host": "127.0.0.1",
+  \   "filetypes": ["gd","gdscript3"],
+  \   "port": 6008,
+  \ },
 '' + pkgs.lib.optionalString pkgs.stdenv.isLinux ''
   \ 'ccls': {
   \   "command": "${pkgs.ccls}/bin/ccls",
