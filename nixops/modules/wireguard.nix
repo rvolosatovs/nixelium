@@ -127,6 +127,7 @@ in
       (mkIf (name == cfg.server.name) {
         boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
         boot.kernel.sysctl."net.ipv4.conf.all.proxy_arp" = 1;
+        boot.kernel.sysctl."net.ipv4.conf.all.rp_filter" = 2;
 
         networking.nat.enable = true;
         networking.nat.internalInterfaces = [ cfg.interfaceName ];
