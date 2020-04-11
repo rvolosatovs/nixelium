@@ -5,15 +5,16 @@ pkgs: {
     tabular
   ];
   configure.plug.plugins = with pkgs.vimPlugins; [
-    auto-pairs
-    base16-vim
+    coc-nvim # must be loaded before extensions
     coc-html
     coc-json
     coc-lists
-    coc-nvim
     coc-rls
     coc-snippets
     coc-yank
+
+    auto-pairs
+    base16-vim
     direnv-vim
     editorconfig-vim
     fugitive
