@@ -10,20 +10,9 @@ with lib;
 
   config = mkMerge [
     {
-      boot.extraModulePackages = with config.boot.kernelPackages; [
-        acpi_call
-      ];
-
       boot.extraModprobeConfig = ''
         options thinkpad_acpi force-load=1
       '';
-      boot.kernelModules = [
-        "acpi_call"
-      ];
-
-      environment.systemPackages = with config.boot.kernelPackages; [
-        acpi_call
-      ];
 
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = true;
