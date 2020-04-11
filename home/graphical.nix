@@ -36,8 +36,11 @@ in
           font-awesome-ttf
           mpv
         ] ++ (with config.resources.programs; [
+          browser.package
           terminal.package
         ]);
+
+        home.sessionVariables.BROWSER = config.resources.programs.browser.executable.path;
 
         programs.browserpass.enable = true;
 

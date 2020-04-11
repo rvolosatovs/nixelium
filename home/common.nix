@@ -24,7 +24,6 @@
       };
 
       home.packages = with config.resources.programs; map hiPrio [
-        browser.package
         editor.package
         mailer.package
         pager.package
@@ -66,7 +65,6 @@
       ]);
 
       home.sessionVariables.__GL_SHADER_DISK_CACHE_PATH ="${config.xdg.cacheHome}/nv";
-      home.sessionVariables.BROWSER = config.resources.programs.browser.executable.path;
       home.sessionVariables.CLICOLOR = "1";
       home.sessionVariables.CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
       home.sessionVariables.EDITOR = config.resources.programs.editor.executable.path;

@@ -23,9 +23,6 @@
         executable.name = exe;
       };
     in {
-      browser.package = pkgs.links;
-      browser.executable.name = "links";
-
       editor.package = pkgs.neovim;
       editor.executable.name ="nvim";
 

@@ -16,7 +16,6 @@
     "/share/zsh"
   ];
   environment.sessionVariables = with config.resources.programs; {
-    BROWSER = browser.executable.path;
     EDITOR = editor.executable.path;
     EMAIL = config.resources.email;
     GIT_EDITOR = editor.executable.path;
@@ -45,6 +44,7 @@
     pkgs.bashInteractive
   ];
   environment.systemPackages = with pkgs; [
+    config.resources.programs.editor.package
     exfat
     kitty.terminfo
     libcgroup

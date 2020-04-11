@@ -2,10 +2,12 @@
 
 {
   environment.sessionVariables = {
-    GTK_PATH = "${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0";
     _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.aatext=true -Dsun.java2d.xrender=true";
+    BROWSER = config.resources.programs.browser.executable.path;
+    GTK_PATH = "${config.system.path}/lib/gtk-2.0:${config.system.path}/lib/gtk-3.0";
   };
   environment.systemPackages = with pkgs; [
+    config.resources.programs.browser.package
     lxqt.lxqt-openssh-askpass
   ];
 
