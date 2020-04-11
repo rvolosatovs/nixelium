@@ -77,7 +77,9 @@ in pkgs.lib.optionalString debug ''
   \   'triggerAfterInsertEnter': "true",
   \ },
   \})
-
+  call coc#config('rust-client', {
+  \ 'disableRustup': "true",
+  \})
   call coc#config('languageserver', {
   \ 'bash': {
   \   "command": "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server",
