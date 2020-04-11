@@ -12,7 +12,6 @@ with lib;
     {
       boot.extraModulePackages = with config.boot.kernelPackages; [
         acpi_call
-        wireguard
       ];
 
       boot.extraModprobeConfig = ''
@@ -22,8 +21,8 @@ with lib;
         "acpi_call"
       ];
 
-      environment.systemPackages = with pkgs; [
-        linuxPackages.acpi_call
+      environment.systemPackages = with config.boot.kernelPackages; [
+        acpi_call
       ];
 
       hardware.bluetooth.enable = true;

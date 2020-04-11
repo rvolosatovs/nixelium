@@ -11,7 +11,6 @@
   boot.initrd.availableKernelModules = [ "nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/5B73-239A";
