@@ -27,18 +27,18 @@ in [
     firmwareLinuxNonFree
     fprintd
     fwupd
-    geoclue2
     gcc-arm-embedded-6
     gcc-arm-embedded-7
     gcc-arm-embedded-8
     gcc-arm-embedded-9
+    geoclue2
     go
-    go_1_12
-    go_1_13
-    go_1_14
     go-2fa
     go-sct
     go-tools
+    go_1_12
+    go_1_13
+    go_1_14
     gocode
     gocode-gomod
     godef
@@ -112,6 +112,7 @@ in [
     restic
     richgo
     ripgrep
+    rls
     rofi
     sidequest
     skhd
