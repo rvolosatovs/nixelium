@@ -20,7 +20,7 @@
   ];
   environment.sessionVariables = with config.resources.programs; {
     EDITOR = editor.executable.path;
-    EMAIL = config.resources.email;
+    EMAIL = builtins.replaceStrings ["@"] ["\\@"] config.resources.email;
     GIT_EDITOR = editor.executable.path;
     HISTFILESIZE = toString config.resources.histsize;
     HISTSIZE = toString config.resources.histsize;
