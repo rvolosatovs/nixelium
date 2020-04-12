@@ -84,7 +84,6 @@ in [
     neovim
     neovim-unwrapped
     nerdfonts
-    nix-du
     nodejs
     nodejs-10_x
     nodejs-12_x
