@@ -56,6 +56,7 @@
         rclone
         ripgrep
         shellcheck
+        tcpdump
         tree
         universal-ctags
         unzip
