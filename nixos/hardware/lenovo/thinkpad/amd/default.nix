@@ -10,6 +10,8 @@ with lib;
   config = mkMerge [
     {
       hardware.cpu.amd.updateMicrocode = true;
+
+      environment.sessionVariables.RADV_PERFTEST="aco";
     }
 
     (mkIf config.services.xserver.enable {
