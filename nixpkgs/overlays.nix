@@ -4,6 +4,7 @@ in [
   (_: _: {
     inherit (unstable)
     alacritty
+    amdvlk
     arduino
     borgbackup
     brave
