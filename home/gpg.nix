@@ -55,7 +55,7 @@
 
     (mkIf (pkgs.stdenv.isLinux && !config.resources.graphics.enable) {
       services.gpg-agent.extraConfig = ''
-        pinentry-program ${pkgs.pinentry_ncurses}/bin/pinentry
+        pinentry-program ${pkgs.pinentry-curses}/bin/pinentry
       '';
     })
 

@@ -8,7 +8,7 @@
       programs.zsh.enableAutosuggestions = true;
       programs.zsh.enableCompletion = true;
       programs.zsh.history.ignoreDups = true;
-      programs.zsh.history.path = config.programs.zsh.dotDir + "/.zsh_history";
+      programs.zsh.history.path = "${config.home.homeDirectory}/${config.programs.zsh.dotDir}/.zsh_history";
       programs.zsh.history.save = config.resources.histsize;
       programs.zsh.history.share = true;
       programs.zsh.history.size = config.resources.histsize;

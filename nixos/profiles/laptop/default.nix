@@ -9,10 +9,8 @@
     ./../../syncthing.nix
   ];
 
-  hardware.bluetooth.extraConfig = ''
-    [General]
-    Enable=Source,Sink,Media,Socket
-  '';
+  hardware.bluetooth.config.General.Enable = "Source,Sink,Media,Socket";
+  hardware.bluetooth.config.General.ControllerMode = "dual";
 
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.extraModules = [ pkgs.pulseaudio-modules-bt ];

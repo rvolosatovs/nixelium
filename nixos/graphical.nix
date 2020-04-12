@@ -50,8 +50,8 @@
   #programs.sway.enable = true;
   #users.users."${config.resources.username}".extraGroups = [ "sway" ];
 
-  services.xserver.desktopManager.default = "none";
   services.xserver.desktopManager.xterm.enable = false;
+  services.xserver.displayManager.defaultSession = "none+bspwm";
   services.xserver.displayManager.lightdm.autoLogin.enable = true;
   services.xserver.displayManager.lightdm.autoLogin.user = config.resources.username;
   services.xserver.displayManager.lightdm.enable = true;
@@ -60,7 +60,6 @@
   services.xserver.enable = true;
   services.xserver.exportConfiguration = true;
   services.xserver.windowManager.bspwm.enable = true;
-  services.xserver.windowManager.default = "bspwm";
 
   services.xserver.layout = config.home-manager.users.${config.resources.username}.home.keyboard.layout;
   services.xserver.xkbOptions = lib.concatStringsSep ", " config.home-manager.users.${config.resources.username}.home.keyboard.options;

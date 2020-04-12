@@ -13,14 +13,9 @@
   ];
 
   config = {
-    boot.initrd.luks.devices = [
-      {
-        name="luksroot";
-        device="/dev/nvme0n1p2";
-        preLVM=true;
-        allowDiscards=true;
-      }
-    ];
+    boot.initrd.luks.devices.luksroot.device="/dev/nvme0n1p2";
+    boot.initrd.luks.devices.luksroot.preLVM=true;
+    boot.initrd.luks.devices.luksroot.allowDiscards=true;
 
     boot.kernelPackages = pkgs.linuxPackages_latest;
 

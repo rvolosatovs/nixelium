@@ -5,6 +5,9 @@
     ./../vendor/secrets/resources
   ];
 
+  console.font = "Lat2-Terminus16";
+  console.keyMap = "us";
+
   environment.extraInit = ''
       export PATH="$HOME/.local/bin:$HOME/.local/bin.go:$PATH"
   '';
@@ -64,8 +67,6 @@
     resources = config.resources;
   };
 
-  i18n.consoleFont = "Lat2-Terminus16";
-  i18n.consoleKeyMap = "us";
   i18n.defaultLocale = "en_US.UTF-8";
 
   networking.firewall.enable = true;
@@ -178,7 +179,7 @@
   services.openssh.passwordAuthentication = false;
   services.openssh.startWhenNeeded = true;
 
-  system.stateVersion = "19.09";
+  system.stateVersion = "20.03";
 
   systemd.network.networks."40-virtualisation" = {
     matchConfig.Name = "virbr* veth* docker* br-*";
