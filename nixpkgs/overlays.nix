@@ -116,6 +116,7 @@ in [
     sidequest
     skhd
     sonarr
+    spotify
     steam
     sway
     sxhkd
