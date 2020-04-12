@@ -21,7 +21,6 @@
     443
   ];
   networking.useDHCP = false;
-  networking.usePredictableInterfaceNames = false; # required for initrd ssh to work. See https://github.com/NixOS/nixpkgs/pull/68953.
 
   programs.ssh.askPassword = "${pkgs.pinentry_ncurses}/bin/pinentry";
 

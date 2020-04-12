@@ -76,7 +76,7 @@ in
       # TODO: Configure syncthing /var/lib/deluge/completed sync from oxygen
 
       services.wakeonlan.interfaces = [{
-        interface = "eth0";
+        interface = "enp0s31f6";
         method = "magicpacket";
       }];
 
@@ -87,7 +87,7 @@ in
       systemd.network.networks."10-physical".dhcpConfig.UseHostname = false;
       systemd.network.networks."10-physical".dhcpConfig.UseNTP = false;
       systemd.network.networks."10-physical".linkConfig.RequiredForOnline = false;
-      systemd.network.networks."10-physical".matchConfig.Name = "eth0";
+      systemd.network.networks."10-physical".matchConfig.Name = "enp0s31f6";
       systemd.network.networks."10-physical".networkConfig.DHCP = "yes";
       systemd.network.networks."10-physical".networkConfig.IPv6AcceptRA = true;
       systemd.network.networks."10-physical".extraConfig = ''
