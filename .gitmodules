@@ -73,4 +73,4 @@
 	url = keybase://private/rvolosatovs/pass-ttn-shared
 [submodule "vendor/nixpkgs-mozilla"]
 	path = vendor/nixpkgs-mozilla
-	url = https://github.com/mozilla/nixpkgs-mozilla.git
+	url = https://github.com/rvolosatovs/nixpkgs-mozilla.git
