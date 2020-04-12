@@ -105,12 +105,10 @@ in
             {
               routeConfig.Destination = "0.0.0.0/0";
               routeConfig.Metric = metric;
-              routeConfig.MultiPathRoute = imap1 (i: serverCfg: "${serverCfg.ip} ${toString i}") cfg.servers;
             }
             {
               routeConfig.Destination = "::/0";
               routeConfig.Metric = metric;
-              routeConfig.MultiPathRoute = imap1 (i: serverCfg: "${serverCfg.ip} ${toString i}") cfg.servers;
             }
           ];
           extraConfig = ''
