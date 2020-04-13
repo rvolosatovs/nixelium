@@ -7,6 +7,7 @@
     ./../vendor/secrets/resources
     ./git.nix
     ./gpg.nix
+    ./modules
     ./zsh.nix
   ];
 

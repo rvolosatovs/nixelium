@@ -1,8 +1,26 @@
 { config, pkgs, lib, ... }:
 let
-  ipType = lib.types.strMatching "([0-255]\.){4}";
-in
+  cfg = config.resources;
 
+  ipType = lib.types.strMatching "([0-255]\.){4}";
+
+  schemes.tomorrow-night.base00 = "#1d1f21";
+  schemes.tomorrow-night.base01 = "#282a2e";
+  schemes.tomorrow-night.base02 = "#373b41";
+  schemes.tomorrow-night.base03 = "#969896";
+  schemes.tomorrow-night.base04 = "#b4b7b4";
+  schemes.tomorrow-night.base05 = "#c5c8c6";
+  schemes.tomorrow-night.base06 = "#e0e0e0";
+  schemes.tomorrow-night.base07 = "#ffffff";
+  schemes.tomorrow-night.base08 = "#cc6666";
+  schemes.tomorrow-night.base09 = "#de935f";
+  schemes.tomorrow-night.base0A = "#f0c674";
+  schemes.tomorrow-night.base0B = "#b5bd68";
+  schemes.tomorrow-night.base0C = "#8abeb7";
+  schemes.tomorrow-night.base0D = "#81a2be";
+  schemes.tomorrow-night.base0E = "#b294bb";
+  schemes.tomorrow-night.base0F = "#a3685a";
+in
 {
   options.resources = with lib; {
     email = mkOption {
@@ -33,7 +51,104 @@ in
     base16.theme = mkOption {
       type = types.str;
       example = "tomorrow-night";
+      default = "tomorrow-night";
       description = "Base16 theme name";
+    };
+
+    base16.colors.base00 = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base00;
+    };
+
+    base16.colors.base01 = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base01;
+    };
+
+    base16.colors.base02 = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base02;
+    };
+
+    base16.colors.base03 = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base03;
+    };
+
+    base16.colors.base04 = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base04;
+    };
+
+    base16.colors.base05 = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base05;
+    };
+
+    base16.colors.base06 = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base06;
+    };
+
+    base16.colors.base07 = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base07;
+    };
+
+    base16.colors.base08 = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base08;
+    };
+
+    base16.colors.base09 = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base09;
+    };
+
+    base16.colors.base0A = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base0A;
+    };
+
+    base16.colors.base0B = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base0B;
+    };
+
+    base16.colors.base0C = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base0C;
+    };
+
+    base16.colors.base0D = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base0D;
+    };
+
+    base16.colors.base0E = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base0E;
+    };
+
+    base16.colors.base0F = mkOption {
+      type = types.str;
+      visible = false;
+      default = schemes."${cfg.base16.theme}".base0F;
     };
 
     duckduckgo.key = mkOption {
@@ -164,7 +279,7 @@ in
                 path = mkOption {
                   type = types.str;
                   description = "Absolute path to the executable";
-                  readonly = true;
+                  readOnly = true;
                 };
               };
             };

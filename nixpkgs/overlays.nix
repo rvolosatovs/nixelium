@@ -6,6 +6,7 @@ in [
     alacritty
     amdvlk
     arduino
+    bemenu
     borgbackup
     brave
     bspwm
@@ -48,12 +49,15 @@ in [
     gopass
     gotools
     govendor
+    grim
     grml-zsh-config
     i3
+    imv
     ioquake3
     ioquake3pointrelease
     iwd
     jackett
+    kanshi
     kbfs
     keybase
     keybase-gui
@@ -109,6 +113,7 @@ in [
     rclone
     redis
     redshift
+    redshift-wlr
     restic
     richgo
     ripgrep
@@ -116,6 +121,7 @@ in [
     rofi
     sidequest
     skhd
+    slurp
     sonarr
     spotify
     steam
@@ -135,14 +141,19 @@ in [
     vulkan-headers
     vulkan-loader
     vulkan-tools
+    waybar
     weechat
     wego
     winePackages
     winePackagesFor
     winetricks
     wineWowPackages
+    wl-clipboard
+    wl-recorder
+    wofi
     wrapNeovim
     yarn
+    ydotool
     zathura
     zoom-us
     ;

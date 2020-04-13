@@ -163,6 +163,8 @@
   services.btrfs.butter.enable = true;
   services.btrfs.butter.isSSD = lib.mkDefault true;
 
+  services.dbus.socketActivated = true;
+
   services.fwupd.enable = true;
 
   services.journald.extraConfig = ''
@@ -189,6 +191,16 @@
     linkConfig.Unmanaged = "yes";
     linkConfig.RequiredForOnline = false;
   };
+
+  systemd.services.backspace-swap.description = "Swap backspace and \\";
+  systemd.services.backspace-swap.enable = true;
+  systemd.services.backspace-swap.script = ''
+    ${pkgs.kbd}/bin/setkeycodes 0e 43
+    ${pkgs.kbd}/bin/setkeycodes 2b 14
+  '';
+  systemd.services.backspace-swap.serviceConfig.RemainAfterExit = true;
+  systemd.services.backspace-swap.serviceConfig.Type = "oneshot";
+  systemd.services.backspace-swap.wantedBy = [ "multi-user.target" ];
 
   time.timeZone = "Europe/Amsterdam";
 
