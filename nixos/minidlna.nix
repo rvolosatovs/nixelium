@@ -14,7 +14,7 @@
   services.minidlna.config = ''
     friendly_name=${config.networking.hostName}-dlna
     inotify=yes
-    network_interface=enp3s0f0,eth0,wlan0
+    network_interface=enp0s31f6,enp3s0f0,eth0,wlan0
     notify_interval=900
     serial=
     strict_dlna=no
