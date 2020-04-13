@@ -154,6 +154,7 @@ in [
     wrapNeovim
     yarn
     ydotool
+    ytop
     zathura
     zoom-us
     ;
