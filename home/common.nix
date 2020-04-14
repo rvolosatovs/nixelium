@@ -63,6 +63,7 @@
         unzip
         weechat
         wget
+        ytop
         zip
       ]);
 

@@ -238,6 +238,7 @@ in
 
       (mkIf pkgs.stdenv.isLinux {
         home.packages = with pkgs; [
+          clipman
           gnome3.dconf
           gnome3.glib_networking
           grim
@@ -249,6 +250,7 @@ in
           spotify
           waybar
           wl-clipboard
+          wofi
           ydotool
         ];
 
@@ -332,7 +334,7 @@ in
           }
         '';
 
-        # Colors based on https://github.com/Eluminae/base16-mako/blob/f46c99682c03d30f52436741f1902db36738bf06/templates/default.mustache#L6-L18
+        # Based on https://github.com/Eluminae/base16-mako/blob/f46c99682c03d30f52436741f1902db36738bf06/templates/default.mustache#L6-L18
         xdg.configFile."mako/config".text = mkAfter ''
           [urgency=low]
           background-color=${base00}
