@@ -347,6 +347,46 @@ in
           border-color=${base0D}
         '';
 
+        # Based on https://github.com/Calinou/base16-godot/blob/72af0d32c6944ce1030139cdba2f25a708c37382/templates/default.mustache#L4-L38
+        xdg.configFile."godot/text_editor_themes/base16.tet".text = ''
+          [color_theme]
+
+          background_color="ff${base00}"
+          base_type_color="ff${base0C}"
+          brace_mismatch_color="ff${base08}"
+          breakpoint_color="30${base0A}"
+          caret_background_color="ff${base05}"
+          caret_color="ff${base05}"
+          code_folding_color="ff${base04}"
+          comment_color="ff${base03}"
+          completion_background_color="ff${base01}"
+          completion_existing_color="40${base03}"
+          completion_font_color="ff${base04}"
+          completion_scroll_color="ff${base04}"
+          completion_selected_color="90${base02}"
+          current_line_color="25${base03}"
+          engine_type_color="ff${base0A}"
+          function_color="ff${base0D}"
+          gdscript/function_definition_color="ff${base0D}"
+          gdscript/node_path_color="ff${base0F}"
+          keyword_color="ff${base0E}"
+          line_length_guideline_color="ff${base01}"
+          line_number_color="ff${base03}"
+          mark_color="40ff5555"
+          member_variable_color="ff${base08}"
+          number_color="ff${base09}"
+          safe_line_number_color="ff${base04}"
+          search_result_border_color="30${base0A}"
+          search_result_color="30${base0A}"
+          selection_color="90${base02}"
+          string_color="ff${base0B}"
+          symbol_color="ff${base05}"
+          text_color="ff${base05}"
+          text_selected_color="ff${base05}"
+          word_highlighted_color="25${base05}"
+        '';
+
+
         # TODO: Configure
         xdg.configFile."waybar/config".text = builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/config";
         xdg.configFile."waybar/style.css".text = builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css";
