@@ -126,6 +126,8 @@
 
   programs.mosh.enable = true;
 
+  programs.wireshark.enable = true;
+
   programs.zsh.enable = true;
   programs.zsh.autosuggestions.enable = true;
   programs.zsh.enableCompletion = true;
@@ -152,7 +154,6 @@
       source "$(${pkgs.fzf}/bin/fzf-share)/key-bindings.zsh"
   '';
   programs.zsh.promptInit="";
-
   programs.zsh.syntaxHighlighting.enable = true;
 
   security.sudo.enable = true;
@@ -225,6 +226,7 @@
       "uucp"
       "video"
       "wheel"
+      "wireshark"
     ];
     isNormalUser = true;
     openssh.authorizedKeys.keys = config.resources.ssh.publicKeys;
