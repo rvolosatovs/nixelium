@@ -8,7 +8,12 @@ let
   choosePass = "${pkgs.gopass}/bin/gopass list --flat \${@} | ${pkgs.wofi}/bin/wofi --dmenu";
   typeStdin = "${pkgs.ydotool}/bin/ydotool type --file -";
 
+  headphones = "70:26:05:CF:7F:C2";
+  wirelessInterface = "wlan0"; # TODO: make generic
+
   cfg = config.wayland.windowManager.sway;
+
+  exec = cmd: "exec '${cmd}'";
 in
   {
     config =
@@ -16,6 +21,20 @@ in
       with config.resources.programs;
       with config.resources.base16.colors; 
       lib.mkIf cfg.enable { 
+        home.packages = with pkgs; [
+          clipman
+          grim
+          ip-link-toggle
+          kanshi
+          spotify
+          waybar
+          wl-clipboard
+          wofi
+          ydotool
+        ];
+
+        programs.mako.enable = true;
+
         wayland.windowManager.sway.config.input."*".xkb_layout = config.home.keyboard.layout;
         wayland.windowManager.sway.config.input."*".xkb_options = lib.concatStringsSep "," config.home.keyboard.options;
         wayland.windowManager.sway.config.output."*".bg = "${config.home.homeDirectory}/pictures/wp fill";
@@ -94,6 +113,12 @@ in
           }
           {
             command = "${mailer.executable.path}";
+          }
+          {
+            command = "${wl-clipboard}/bin/wl-paste -t text --watch ${clipman}/bin/clipman store";
+          }
+          {
+            command = "${clipman}/bin/clipman restore";
           }
         ];
 
@@ -187,39 +212,46 @@ in
 
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+q" = "kill";
 
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Escape" = "exec ${pkgs.swaylock}/bin/swaylock -t -f -i ${config.home.homeDirectory}/pictures/lock";
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+s" = "exec '/run/wrappers/bin/sudo ${systemd}/bin/systemctl suspend'";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Escape" = exec "${pkgs.swaylock}/bin/swaylock -t -f -i ${config.home.homeDirectory}/pictures/lock";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+s" = exec "${systemd}/bin/systemctl suspend";
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+c" = "reload";
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+Escape" = "exit";
 
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Return" = "exec ${cfg.config.terminal}";
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+o" = "exec ${browser.executable.path}";
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+space" = "exec ${cfg.config.menu}";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Return" = exec "${cfg.config.terminal}";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+o" = exec "${browser.executable.path}";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+space" = exec "${cfg.config.menu}";
 
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+f" = "exec ${gopass}/bin/gopass otp -c \"$(${choosePass} 2fa)\"";
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+p" = "exec ${gopass}/bin/gopass -c \"$(${choosePass})\"";
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+u" = "exec ${gopass}/bin/gopass -c \"$(${choosePass})\" username";
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+f" = "exec '${gopass}/bin/gopass otp \"$(${choosePass} 2fa)\" | ${busybox}/bin/cut -d \" \" -f 1 | ${typeStdin}'";
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+p" = "exec '${gopass}/bin/gopass show -f \"$(${choosePass})\" | ${busybox}/bin/head -n 1 | ${typeStdin}'";
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+u" = "exec '${gopass}/bin/gopass show -f \"$(${choosePass})\" username | ${typeStdin}'";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+f" = exec ''${gopass}/bin/gopass otp -c "$(${choosePass} 2fa)"'';
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+p" = exec ''${gopass}/bin/gopass -c "$(${choosePass})"'';
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+u" = exec ''${gopass}/bin/gopass -c "$(${choosePass})" username'';
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+f" = exec ''${gopass}/bin/gopass otp "$(${choosePass} 2fa)" | ${busybox}/bin/cut -d " " -f 1 | ${typeStdin}'';
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+p" = exec ''${gopass}/bin/gopass show -f "$(${choosePass})" | ${busybox}/bin/head -n 1 | ${typeStdin}'';
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+u" = exec ''${gopass}/bin/gopass show -f "$(${choosePass})" username | ${typeStdin}'';
 
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+d" = "exec '${systemd}/bin/systemctl --user restart redshift.service'";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+p" = exec "${clipman}/bin/clipman pick -t wofi";
 
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+n" = "exec ${pkgs.mako}/bin/makoctl dismiss";
+        # TODO: Bind to XF86 button
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+w" = exec "/run/wrappers/bin/sudo ${ip-link-toggle}/bin/ip-link-toggle ${wirelessInterface}";
 
-        wayland.windowManager.sway.config.keybindings.XF86MonBrightnessDown = "exec ${light}/bin/light -U 5%";
-        wayland.windowManager.sway.config.keybindings.XF86MonBrightnessUp = "exec ${light}/bin/light -A 5%";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+b" = exec "${bluez}/bin/bluetoothctl connect ${headphones}";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+b" = exec "${bluez}/bin/bluetoothctl disconnect ${headphones}";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+n" = exec "${pkgs.mako}/bin/makoctl dismiss";
 
-        wayland.windowManager.sway.config.keybindings.XF86AudioMute = "exec ${alsaUtils}/bin/amixer set Master toggle";
-        wayland.windowManager.sway.config.keybindings.XF86AudioMicMute = "exec \"${alsaUtils}/bin/amixer set Capture toggle";
-        wayland.windowManager.sway.config.keybindings.XF86AudioLowerVolume = "exec \"${alsaUtils}/bin/amixer set Master unmute && ${alsaUtils}/bin/amixer set Master 5%-\"";
-        wayland.windowManager.sway.config.keybindings.XF86AudioRaiseVolume = "exec \"${alsaUtils}/bin/amixer set Master unmute && ${alsaUtils}/bin/amixer set Master 5%+\"";
-        wayland.windowManager.sway.config.keybindings.XF86AudioNext = "exec ${playerctl}/bin/playerctl next";
-        wayland.windowManager.sway.config.keybindings.XF86AudioPlay = "exec ${playerctl}/bin/playerctl play-pause";
-        wayland.windowManager.sway.config.keybindings.XF86AudioPrev = "exec ${playerctl}/bin/playerctl previous";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+d" = exec "${systemd}/bin/systemctl --user restart redshift.service";
 
-        wayland.windowManager.sway.config.keybindings.XF86HomePage = "exec ${browser.executable.path}";
-        wayland.windowManager.sway.config.keybindings.Print = "exec '${grim}/bin/grim -g \"$(${slurp}/bin/slurp)\" \"$(${xdg-user-dirs}/bin/xdg-user-dir PICTURES)/scrot/$(${busybox}/bin/date +%F-%T)-screenshot.png\"'";
-        wayland.windowManager.sway.config.keybindings."Print+Ctrl" = "exec '${grim}/bin/grim -g \"$(${slurp}/bin/slurp)\" - | ${wl-clipboard}/bin/wl-copy'";
+        wayland.windowManager.sway.config.keybindings.XF86MonBrightnessDown = exec "${light}/bin/light -U 5%";
+        wayland.windowManager.sway.config.keybindings.XF86MonBrightnessUp = exec "${light}/bin/light -A 5%";
+
+        wayland.windowManager.sway.config.keybindings.XF86AudioMute = exec "${alsaUtils}/bin/amixer set Master toggle";
+        wayland.windowManager.sway.config.keybindings.XF86AudioMicMute = exec "${alsaUtils}/bin/amixer set Capture toggle";
+        wayland.windowManager.sway.config.keybindings.XF86AudioLowerVolume = exec "${alsaUtils}/bin/amixer set Master unmute && ${alsaUtils}/bin/amixer set Master 5%-";
+        wayland.windowManager.sway.config.keybindings.XF86AudioRaiseVolume = exec "${alsaUtils}/bin/amixer set Master unmute && ${alsaUtils}/bin/amixer set Master 5%+";
+        wayland.windowManager.sway.config.keybindings.XF86AudioNext = exec "${playerctl}/bin/playerctl next";
+        wayland.windowManager.sway.config.keybindings.XF86AudioPlay = exec "${playerctl}/bin/playerctl play-pause";
+        wayland.windowManager.sway.config.keybindings.XF86AudioPrev = exec "${playerctl}/bin/playerctl previous";
+
+        wayland.windowManager.sway.config.keybindings.XF86HomePage = exec "${browser.executable.path}";
+        wayland.windowManager.sway.config.keybindings.Print = exec ''${grim}/bin/grim -g "$(${slurp}/bin/slurp)" "$(${xdg-user-dirs}/bin/xdg-user-dir PICTURES)/scrot/$(${busybox}/bin/date +%F-%T)-screenshot.png"'';
+        wayland.windowManager.sway.config.keybindings."Print+Ctrl" = exec ''${grim}/bin/grim -g "$(${slurp}/bin/slurp)" - | ${wl-clipboard}/bin/wl-copy'';
       };
     }
