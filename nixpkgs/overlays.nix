@@ -288,6 +288,23 @@ in [
         engify "''${f}"
       done
     '';
+
+    ip-link-toggle = super.writeShellScriptBin "ip-link-toggle" ''
+      set -euo pipefail
+      IFS=$'\n\t'
+
+      function usage {
+        echo "Usage: $(${busybox}/bin/basename "$0") <interface>"
+        exit 1
+      }
+      [[ $# -ne 1 ]] && usage
+
+      if [ "$(${iproute}/bin/ip link show dev "''${1}" | ${busybox}/bin/head -1 | ${busybox}/bin/sed 's/.*state \([[:alnum:]]\+\) .*/\1/g')" == "UP" ]; then
+        ${iproute}/bin/ip link set "''${1}" down
+      else
+        ${iproute}/bin/ip link set "''${1}" up
+      fi
+    '';
   })
 
   (self: super: {
