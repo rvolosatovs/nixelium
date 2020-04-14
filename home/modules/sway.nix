@@ -14,6 +14,10 @@ let
   cfg = config.wayland.windowManager.sway;
 
   exec = cmd: "exec '${cmd}'";
+
+  mkXkbOptions = lib.concatStringsSep ",";
+  defaultXkbOptions = mkXkbOptions config.home.keyboard.options;
+  extendDefaultXkbOptions = xs: mkXkbOptions (config.home.keyboard.options ++ xs);
 in
   {
     config =
@@ -35,8 +39,21 @@ in
 
         programs.mako.enable = true;
 
-        wayland.windowManager.sway.config.input."*".xkb_layout = config.home.keyboard.layout;
-        wayland.windowManager.sway.config.input."*".xkb_options = lib.concatStringsSep "," config.home.keyboard.options;
+        wayland.windowManager.sway.config.input."1:1:AT_Translated_Set_2_keyboard" = {
+          xkb_layout = config.home.keyboard.layout;
+          xkb_options = extendDefaultXkbOptions [
+            "caps:escape"
+          ];
+        };
+        wayland.windowManager.sway.config.input."4617:8961:Keyboardio_Model_01_Keyboard" = {
+          xkb_layout = config.home.keyboard.layout;
+          xkb_options = defaultXkbOptions;
+        };
+        wayland.windowManager.sway.config.input."1149:8264:Primax_Kensington_Eagle_Trackball" = {
+          pointer_accel = "0.5";
+          scroll_factor = "2";
+        };
+
         wayland.windowManager.sway.config.output."*".bg = "${config.home.homeDirectory}/pictures/wp fill";
         wayland.windowManager.sway.config.workspaceAutoBackAndForth = true;
         wayland.windowManager.sway.config.focus.followMouse = false;
