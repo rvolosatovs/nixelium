@@ -19,6 +19,7 @@
         engify
         ffmpeg
         git-rebase-all
+        godot
         gofumpt
         gotools
         imagemagick
