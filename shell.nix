@@ -131,6 +131,7 @@ stdenv.mkDerivation {
       ${vendorGitHubForkMaster "jitsi" "docker-jitsi-meet"}
       ${vendorGitHubForkMaster "keyboardio" "Model01-Firmware"}
       ${vendorGitHubForkMaster "LnL7" "nix-darwin"}
+      ${vendorGitHubForkMaster "mozilla" "nixpkgs-mozilla"}
       ${vendorGitHubForkMaster "nix-community" "nur"}
       ${vendorGitHubForkMaster "NixOS" "nixos-hardware"}
       ${vendorGitHubForkMaster "qmk" "qmk_firmware"}
@@ -178,11 +179,12 @@ stdenv.mkDerivation {
 
       ${vendorGitHubSourceMaster "base16-shell"}
       ${vendorGitHubSourceMaster "copier"}
+      ${vendorGitHubSourceMaster "brew"}
       ${vendorGitHubSourceMaster "dumpster"}
       ${vendorGitHubSourceMaster "gorandr"}
-      ${vendorGitHubSourceMaster "brew"}
       ${vendorGitHubSourceMaster "hosts"}
       ${vendorGitHubSourceMaster "nix-darwin"}
+      ${vendorGitHubSourceMaster "nixpkgs-mozilla"}
       ${vendorGitHubSourceMaster "nur"}
 
       ${vendorGitHubSourceStable "home-manager"}
