@@ -62,32 +62,32 @@ in
         wayland.windowManager.sway.wrapperFeatures.gtk = true;
 
         # Based on https://github.com/khamer/base16-i3/blob/78292138812a3f88c3fc4794f615f5b36b0b6d7c/templates/default.mustache#L41-L48
-        wayland.windowManager.sway.config.colors.focused.border = base05;
-        wayland.windowManager.sway.config.colors.focused.background = base0D;
-        wayland.windowManager.sway.config.colors.focused.text = base00;
-        wayland.windowManager.sway.config.colors.focused.indicator = base0D;
-        wayland.windowManager.sway.config.colors.focused.childBorder = base0C;
-        wayland.windowManager.sway.config.colors.focusedInactive.border = base01;
-        wayland.windowManager.sway.config.colors.focusedInactive.background = base01;
-        wayland.windowManager.sway.config.colors.focusedInactive.text = base05;
-        wayland.windowManager.sway.config.colors.focusedInactive.indicator = base03;
-        wayland.windowManager.sway.config.colors.focusedInactive.childBorder = base01;
-        wayland.windowManager.sway.config.colors.unfocused.border = base01;
-        wayland.windowManager.sway.config.colors.unfocused.background = base00;
-        wayland.windowManager.sway.config.colors.unfocused.text = base05;
-        wayland.windowManager.sway.config.colors.unfocused.indicator = base01;
-        wayland.windowManager.sway.config.colors.unfocused.childBorder = base01;
-        wayland.windowManager.sway.config.colors.urgent.border = base08;
-        wayland.windowManager.sway.config.colors.urgent.background = base08;
-        wayland.windowManager.sway.config.colors.urgent.text = base00;
-        wayland.windowManager.sway.config.colors.urgent.indicator = base08;
-        wayland.windowManager.sway.config.colors.urgent.childBorder = base08;
-        wayland.windowManager.sway.config.colors.placeholder.border = base00;
-        wayland.windowManager.sway.config.colors.placeholder.background = base00;
-        wayland.windowManager.sway.config.colors.placeholder.text = base05;
-        wayland.windowManager.sway.config.colors.placeholder.indicator = base00;
-        wayland.windowManager.sway.config.colors.placeholder.childBorder = base00;
-        wayland.windowManager.sway.config.colors.background = base07;
+        wayland.windowManager.sway.config.colors.focused.border = "#${base05}";
+        wayland.windowManager.sway.config.colors.focused.background = "#${base0D}";
+        wayland.windowManager.sway.config.colors.focused.text = "#${base00}";
+        wayland.windowManager.sway.config.colors.focused.indicator = "#${base0D}";
+        wayland.windowManager.sway.config.colors.focused.childBorder = "#${base0C}";
+        wayland.windowManager.sway.config.colors.focusedInactive.border = "#${base01}";
+        wayland.windowManager.sway.config.colors.focusedInactive.background = "#${base01}";
+        wayland.windowManager.sway.config.colors.focusedInactive.text = "#${base05}";
+        wayland.windowManager.sway.config.colors.focusedInactive.indicator = "#${base03}";
+        wayland.windowManager.sway.config.colors.focusedInactive.childBorder = "#${base01}";
+        wayland.windowManager.sway.config.colors.unfocused.border = "#${base01}";
+        wayland.windowManager.sway.config.colors.unfocused.background = "#${base00}";
+        wayland.windowManager.sway.config.colors.unfocused.text = "#${base05}";
+        wayland.windowManager.sway.config.colors.unfocused.indicator = "#${base01}";
+        wayland.windowManager.sway.config.colors.unfocused.childBorder = "#${base01}";
+        wayland.windowManager.sway.config.colors.urgent.border = "#${base08}";
+        wayland.windowManager.sway.config.colors.urgent.background = "#${base08}";
+        wayland.windowManager.sway.config.colors.urgent.text = "#${base00}";
+        wayland.windowManager.sway.config.colors.urgent.indicator = "#${base08}";
+        wayland.windowManager.sway.config.colors.urgent.childBorder = "#${base08}";
+        wayland.windowManager.sway.config.colors.placeholder.border = "#${base00}";
+        wayland.windowManager.sway.config.colors.placeholder.background = "#${base00}";
+        wayland.windowManager.sway.config.colors.placeholder.text = "#${base05}";
+        wayland.windowManager.sway.config.colors.placeholder.indicator = "#${base00}";
+        wayland.windowManager.sway.config.colors.placeholder.childBorder = "#${base00}";
+        wayland.windowManager.sway.config.colors.background = "#${base07}";
 
         wayland.windowManager.sway.config.bars = [
           {
@@ -96,24 +96,24 @@ in
             command = "${waybar}/bin/waybar";
 
             # Based on https://github.com/khamer/base16-i3/blob/78292138812a3f88c3fc4794f615f5b36b0b6d7c/templates/default.mustache#L28-L38
-            colors.background = base00;
-            colors.separator = base01;
-            colors.statusline = base04;
-            colors.focusedWorkspace.border = base05;
-            colors.focusedWorkspace.background = base0D;
-            colors.focusedWorkspace.text = base00;
-            colors.activeWorkspace.border = base05;
-            colors.activeWorkspace.background = base03;
-            colors.activeWorkspace.text = base00;
-            colors.inactiveWorkspace.border = base03;
-            colors.inactiveWorkspace.background = base01;
-            colors.inactiveWorkspace.text = base05;
-            colors.urgentWorkspace.border = base08;
-            colors.urgentWorkspace.background = base08;
-            colors.urgentWorkspace.text = base00;
-            colors.bindingMode.border = base00;
-            colors.bindingMode.background = base0A;
-            colors.bindingMode.text = base00;
+            colors.background = "#${base00}";
+            colors.separator = "#${base01}";
+            colors.statusline = "#${base04}";
+            colors.focusedWorkspace.border = "#${base05}";
+            colors.focusedWorkspace.background = "#${base0D}";
+            colors.focusedWorkspace.text = "#${base00}";
+            colors.activeWorkspace.border = "#${base05}";
+            colors.activeWorkspace.background = "#${base03}";
+            colors.activeWorkspace.text = "#${base00}";
+            colors.inactiveWorkspace.border = "#${base03}";
+            colors.inactiveWorkspace.background = "#${base01}";
+            colors.inactiveWorkspace.text = "#${base05}";
+            colors.urgentWorkspace.border = "#${base08}";
+            colors.urgentWorkspace.background = "#${base08}";
+            colors.urgentWorkspace.text = "#${base00}";
+            colors.bindingMode.border = "#${base00}";
+            colors.bindingMode.background = "#${base0A}";
+            colors.bindingMode.text = "#${base00}";
           }
         ];
 

@@ -4,22 +4,22 @@ let
 
   ipType = lib.types.strMatching "([0-255]\.){4}";
 
-  schemes.tomorrow-night.base00 = "#1d1f21";
-  schemes.tomorrow-night.base01 = "#282a2e";
-  schemes.tomorrow-night.base02 = "#373b41";
-  schemes.tomorrow-night.base03 = "#969896";
-  schemes.tomorrow-night.base04 = "#b4b7b4";
-  schemes.tomorrow-night.base05 = "#c5c8c6";
-  schemes.tomorrow-night.base06 = "#e0e0e0";
-  schemes.tomorrow-night.base07 = "#ffffff";
-  schemes.tomorrow-night.base08 = "#cc6666";
-  schemes.tomorrow-night.base09 = "#de935f";
-  schemes.tomorrow-night.base0A = "#f0c674";
-  schemes.tomorrow-night.base0B = "#b5bd68";
-  schemes.tomorrow-night.base0C = "#8abeb7";
-  schemes.tomorrow-night.base0D = "#81a2be";
-  schemes.tomorrow-night.base0E = "#b294bb";
-  schemes.tomorrow-night.base0F = "#a3685a";
+  schemes.tomorrow-night.base00 = "1d1f21";
+  schemes.tomorrow-night.base01 = "282a2e";
+  schemes.tomorrow-night.base02 = "373b41";
+  schemes.tomorrow-night.base03 = "969896";
+  schemes.tomorrow-night.base04 = "b4b7b4";
+  schemes.tomorrow-night.base05 = "c5c8c6";
+  schemes.tomorrow-night.base06 = "e0e0e0";
+  schemes.tomorrow-night.base07 = "ffffff";
+  schemes.tomorrow-night.base08 = "cc6666";
+  schemes.tomorrow-night.base09 = "de935f";
+  schemes.tomorrow-night.base0A = "f0c674";
+  schemes.tomorrow-night.base0B = "b5bd68";
+  schemes.tomorrow-night.base0C = "8abeb7";
+  schemes.tomorrow-night.base0D = "81a2be";
+  schemes.tomorrow-night.base0E = "b294bb";
+  schemes.tomorrow-night.base0F = "a3685a";
 in
 {
   options.resources = with lib; {
