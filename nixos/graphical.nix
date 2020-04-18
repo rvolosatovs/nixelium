@@ -16,7 +16,8 @@
   fonts.fonts = with pkgs; [
     comic-relief
     fira
-    furaCode
+    fira-code
+    nerdfonts
     roboto-slab
     siji
     symbola
@@ -26,7 +27,7 @@
   fonts.fontconfig.allowBitmaps = true;
   fonts.fontconfig.allowType1 = false;
   fonts.fontconfig.antialias = true;
-  fonts.fontconfig.defaultFonts.monospace = [ "FuraCode Nerd Font" ];
+  fonts.fontconfig.defaultFonts.monospace = [ "Fira Code" "FiraCode Nerd Font" ];
   fonts.fontconfig.defaultFonts.sansSerif = [ "Fira Sans" ];
   fonts.fontconfig.defaultFonts.serif = [ "Roboto Slab" ];
   fonts.fontconfig.enable = true;

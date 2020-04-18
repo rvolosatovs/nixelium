@@ -24,6 +24,8 @@ in [
     fahclient
     fahcontrol
     fahviewer
+    fira
+    fira-code
     firefox
     firefoxWrapper
     firmwareLinuxNonFree
@@ -184,36 +186,7 @@ in [
     gorandr = callGoPackage ./../vendor/gorandr;
   })
 
-  (self: super: let
-    nerdfontRelease = fontName: sha256: with self; super.stdenv.mkDerivation rec {
-      # Inspired by https://github.com/Mic92/nur-packages/blob/20eeaca1de1a385df5b41043a525b9e0942ad927/pkgs/fira-code-nerdfonts/default.nix
-
-      name = "nerdfont-${fontName}-${version}";
-      version = "2.0.0";
-
-      src = fetchzip {
-        inherit sha256;
-        url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${fontName}.zip";
-        stripRoot = false;
-      };
-      buildCommand = ''
-        install -m444 -Dt $out/share/fonts/opentype $src/*.otf
-        rm $out/share/fonts/opentype/*Windows\ Compatible.otf
-
-        install -m444 -Dt $out/share/fonts/truetype $src/*.ttf
-        rm $out/share/fonts/truetype/*Windows\ Compatible.ttf
-      '';
-
-      meta = with stdenv.lib; {
-        description = "Nerdfont version of ${fontName}";
-        homepage = https://github.com/ryanoasis/nerd-fonts;
-        license = licenses.mit;
-      };
-    };
-  in
-  {
-    furaCode = nerdfontRelease "FiraCode" "1bnai3k3hg6sxbb1646ahd82dm2ngraclqhdygxhh7fqqnvc3hdy";
-
+  (self: super: {
     quake3ProprietaryPaks = super.stdenv.mkDerivation {
       name = "quake3-paks";
       src = ./../vendor/quake3-paks; # TODO: Move to a stable location and create a package
@@ -309,6 +282,12 @@ in [
 
   (self: super: {
     neovim = super.wrapNeovim self.neovim-unwrapped (import ./neovim self);
+
+    nerdfonts = super.nerdfonts.override {
+      fonts = [
+        "FiraCode"
+      ];
+    };
 
     pass = super.pass.withExtensions (es: [ es.pass-otp ]);
 

@@ -63,7 +63,7 @@ margin-top = 0
 margin-bottom = 3
 
 [bar/top]
-font-0 = FuraCode Nerd Font:size=12;2
+font-0 = FiraCode Nerd Font:size=12;2
 
 ; Use the following command to list available outputs:
 ; If unspecified, the application will pick the first one it finds.
