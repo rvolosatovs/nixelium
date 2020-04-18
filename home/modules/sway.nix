@@ -1,10 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  serif     = "FuraCode Nerd Font";
-  sansSerif = "FuraCode Nerd Font";
-  monospace = "FuraCode Nerd Font Mono";
-
   choosePass = "${pkgs.gopass}/bin/gopass list --flat \${@} | ${pkgs.wofi}/bin/wofi --dmenu";
   typeStdin = "${pkgs.ydotool}/bin/ydotool type --file -";
 

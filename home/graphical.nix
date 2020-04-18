@@ -100,8 +100,8 @@ in
           cursor_blink_interval       0
           cursor_shape                underline
           cursor_stop_blinking_after  0
+          disable_ligatures           cursor
           editor                      ${config.resources.programs.editor.executable.path}
-          font_family                 ${monospace}
           font_size                   ${if pkgs.stdenv.isDarwin then "18.0" else "15.0"}
           hide_window_decorations     yes
           initial_window_height       800
@@ -303,7 +303,7 @@ in
         programs.mako.backgroundColor = "#${base00}";
         programs.mako.borderColor = "#${base0D}";
         programs.mako.textColor = "#${base05}";
-        programs.mako.font = "${monospace} 10";
+        programs.mako.font = "monospace 10";
 
         programs.zsh.loginExtra = ''
           if [ "$(${pkgs.busybox}/bin/tty)" = "/dev/tty1" ]; then
