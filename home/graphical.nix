@@ -1,10 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  serif     = "FiraCode Nerd Font";
-  sansSerif = "FiraCode Nerd Font";
-  monospace = "FiraCode Nerd Font Mono";
-
   internalMonitor = "eDP-1";
   externalMonitor = "Ancor Communications Inc PA328 F7LMQS054477";
 in
