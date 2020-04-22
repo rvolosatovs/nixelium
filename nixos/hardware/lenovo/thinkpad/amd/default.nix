@@ -14,7 +14,7 @@ with lib;
       environment.sessionVariables.RADV_PERFTEST="aco";
     }
 
-    (mkIf config.services.xserver.enable {
+    (mkIf config.resources.graphics.enable {
       services.xserver.videoDrivers = [
         "amdgpu"
       ];

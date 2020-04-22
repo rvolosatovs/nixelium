@@ -33,6 +33,8 @@
   fonts.fontconfig.enable = true;
   fonts.fontconfig.hinting.enable = true;
 
+  hardware.opengl.enable = true;
+
   programs.chromium.homepageLocation = "https://duckduckgo.com/?key=${config.resources.duckduckgo.key}";
   programs.chromium.extensions = [
     "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock origin

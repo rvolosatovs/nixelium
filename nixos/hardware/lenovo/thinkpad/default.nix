@@ -14,9 +14,6 @@ with lib;
         options thinkpad_acpi force-load=1
       '';
 
-      hardware.bluetooth.enable = true;
-      hardware.bluetooth.powerOnBoot = true;
-
       #security.polkit.extraConfig = ''
       #  /* https://wiki.archlinux.org/index.php/Fprint#Restrict_enrolling */
       #  polkit.addRule(function (action, subject) {
@@ -31,10 +28,7 @@ with lib;
       services.upower.enable = true;
     }
 
-    (mkIf config.services.xserver.enable {
-      hardware.opengl.driSupport32Bit = true;
-      hardware.opengl.enable = true;
-
+    (mkIf config.resources.graphics.enable {
       hardware.trackpoint.emulateWheel = true;
       hardware.trackpoint.enable = true;
       hardware.trackpoint.sensitivity = 250;

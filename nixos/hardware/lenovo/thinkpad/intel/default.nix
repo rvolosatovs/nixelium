@@ -22,7 +22,7 @@ with lib;
       services.thermald.enable = true;
     }
 
-    (mkIf config.services.xserver.enable {
+    (mkIf config.resources.graphics.enable {
       hardware.opengl.extraPackages = with pkgs; [
         vaapiIntel
         vaapiVdpau

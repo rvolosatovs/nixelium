@@ -9,8 +9,12 @@
     ./../../syncthing.nix
   ];
 
-  hardware.bluetooth.config.General.Enable = "Source,Sink,Media,Socket";
+  hardware.bluetooth.enable = true;
   hardware.bluetooth.config.General.ControllerMode = "dual";
+  hardware.bluetooth.config.General.Enable = "Source,Sink,Media,Socket";
+  hardware.bluetooth.powerOnBoot = true;
+
+  hardware.opengl.driSupport32Bit = true;
 
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.extraModules = [ pkgs.pulseaudio-modules-bt ];
@@ -40,6 +44,9 @@
   services.printing.enable = true;
   services.resolved.enable = true;
 
+  sound.enable = true;
+  sound.mediaKeys.enable = true;
+
   systemd.network.enable = true;
   systemd.network.networks."10-physical".dhcpConfig.Anonymize = true;
   systemd.network.networks."10-physical".dhcpConfig.RouteTable = 2;
@@ -55,15 +62,12 @@
     Table=2
   '';
 
-  sound.enable = true;
-  sound.mediaKeys.enable = true;
-
   systemd.services.audio-off.description = "Mute audio before suspend";
   systemd.services.audio-off.enable = true;
   systemd.services.audio-off.serviceConfig.ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
   systemd.services.audio-off.serviceConfig.RemainAfterExit = true;
   systemd.services.audio-off.serviceConfig.Type = "oneshot";
-  systemd.services.audio-off.serviceConfig.User = "${config.resources.username}";
+  systemd.services.audio-off.serviceConfig.User = config.resources.username;
   systemd.services.audio-off.wantedBy = [ "sleep.target" ];
 
   users.users.${config.resources.username}.extraGroups = [
