@@ -49,6 +49,7 @@ in [
     godot
     gofumpt
     gopass
+    gopls
     gotools
     govendor
     grim
