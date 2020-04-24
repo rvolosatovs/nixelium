@@ -77,6 +77,7 @@ in
         network.wireguard.privateKey= builtins.readFile ./../../../vendor/secrets/nixops/hosts/neon/wg.home.private;
 
         networking.privateIPv4 = "192.168.188.10";
+        networking.publicIPv4 = lib.mkForce config.networking.privateIPv4;
       };
     };
 
