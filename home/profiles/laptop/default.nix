@@ -21,6 +21,7 @@
         git-rebase-all
         godot
         gofumpt
+        gopls
         gotools
         imagemagick
         llvm
