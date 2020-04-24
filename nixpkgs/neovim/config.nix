@@ -1,9 +1,6 @@
 pkgs: 
 let
   debug = false;
-  gonicepls = pkgs.writeShellScript "gonicepls" ''
-    ${pkgs.busybox}/bin/nice -n 19 ${pkgs.gotools}/bin/gopls
-  '';
 in pkgs.lib.optionalString debug '' 
   let $NVIM_COC_LOG_LEVEL = 'debug' 
 
@@ -112,7 +109,7 @@ in pkgs.lib.optionalString debug ''
   \   "args": ["--stdio"],
   \ },
   \ 'golang': {
-  \   "command": "${gonicepls}",
+  \   "command": "${pkgs.gopls}/bin/gopls",
   \   "args": [],
   \   "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
   \   "filetypes": ["go"],
