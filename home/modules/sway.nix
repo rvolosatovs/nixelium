@@ -158,6 +158,10 @@ in
             app_id = "^firefox$";
             title="^Picture-in-Picture$";
           }
+          {
+            app_id = "^firefox$";
+            title="^Firefox - Sharing Indicator$";
+          }
         ];
 
         wayland.windowManager.sway.config.modifier = "Mod4";
