@@ -92,6 +92,7 @@ in [
     neovim
     neovim-unwrapped
     nerdfonts
+    nixpgs-fmt
     nodejs
     nodejs-10_x
     nodejs-12_x
