@@ -40,8 +40,6 @@ in [
     go-2fa
     go-sct
     go-tools
-    go_1_12
-    go_1_13
     go_1_14
     gocode
     gocode-gomod
@@ -67,10 +65,6 @@ in [
     kitty
     libfprint
     lidarr
-    linuxPackages_5_2
-    linuxPackages_5_3
-    linuxPackages_5_4
-    linuxPackages_5_5
     linuxPackages_5_6
     linuxPackages_latest
     linuxPackagesFor
