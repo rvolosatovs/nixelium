@@ -90,6 +90,11 @@ in pkgs.lib.optionalString debug ''
   \   "filetypes": ["gd","gdscript3"],
   \   "port": 6008,
   \ },
+  \ 'nix': {
+  \   "command": "${pkgs.rnix-lsp}/bin/rnix-lsp",
+  \   "filetypes": ["nix"],
+  \   "rootPatterns": [".vim/", ".git/", ".hg/"],
+  \ },
 '' + pkgs.lib.optionalString pkgs.stdenv.isLinux ''
   \ 'ccls': {
   \   "command": "${pkgs.ccls}/bin/ccls",
