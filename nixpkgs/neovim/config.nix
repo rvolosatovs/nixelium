@@ -15,6 +15,7 @@ in pkgs.lib.optionalString debug ''
   syntax enable
 
   set autoindent
+  set backup
   set cmdheight=2
   set completeopt+=menu,menuone
   set concealcursor=nc
