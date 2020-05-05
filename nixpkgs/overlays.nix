@@ -54,7 +54,6 @@ in [
     i3
     imv
     ioquake3
-    ioquake3pointrelease
     iwd
     jackett
     kanshi
@@ -187,9 +186,8 @@ in [
       src = ./../vendor/quake3-paks; # TODO: Move to a stable location and create a package
       buildCommand = ''
         install -D -m644 $src/baseq3/pak0.pk3      $out/baseq3/pak0.pk3
-        install -D -m644 $src/missionpack/pak1.pk3 $out/missionpack/pak1.pk3
-        install -D -m644 $src/missionpack/pak2.pk3 $out/missionpack/pak2.pk3
-        install -D -m644 $src/missionpack/pak3.pk3 $out/missionpack/pak3.pk3
+        install -D -m644 $src/baseq3/xcsv_bq3hi-res.pk3      $out/baseq3/xcsv_bq3hi-res.pk3
+        install -D -m644 $src/missionpack/pak0.pk3 $out/missionpack/pak0.pk3
       '';
       meta.description = "Proprietary Quake3 paks";
     };
