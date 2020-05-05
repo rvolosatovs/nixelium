@@ -14,7 +14,6 @@ in [
     chromium
     cockroachdb
     deadcode
-    deluge
     dep
     direnv
     docker
