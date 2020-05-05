@@ -11,7 +11,6 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.config.General.ControllerMode = "dual";
-  hardware.bluetooth.config.General.Enable = "Source,Sink,Media,Socket";
   hardware.bluetooth.powerOnBoot = true;
 
   hardware.opengl.driSupport32Bit = true;
