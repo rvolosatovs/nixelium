@@ -14,6 +14,7 @@ in
       ./../../lan.nix
       ./../../lidarr.nix
       ./../../minidlna.nix
+      ./../../quake3.server.nix
       ./../../miniflux.nix
       ./../../profiles/server
       ./../../radarr.nix
