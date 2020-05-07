@@ -103,6 +103,8 @@ in [
     polybar
     pulseaudio-modules-bt
     qsyncthingtray
+    quake3e
+    quake3hires
     quake3pointrelease
     quake3wrapper
     radarr
@@ -181,21 +183,34 @@ in [
   })
 
   (self: super: {
-    quake3ProprietaryPaks = super.stdenv.mkDerivation {
+    quake3Paks = super.stdenv.mkDerivation {
       name = "quake3-paks";
-      src = ./../vendor/quake3-paks; # TODO: Move to a stable location and create a package
-      buildCommand = ''
-        install -D -m644 $src/baseq3/pak0.pk3      $out/baseq3/pak0.pk3
-        install -D -m644 $src/baseq3/xcsv_bq3hi-res.pk3      $out/baseq3/xcsv_bq3hi-res.pk3
-        install -D -m644 $src/missionpack/pak0.pk3 $out/missionpack/pak0.pk3
+      src = super.fetchFromGitHub {
+        owner = "rvolosatovs";
+        repo = "ioquake3-mac-install";
+        rev = "91e37f075ebf65510e130981bdfdbfdc47265938";
+        sha256 = "1rdjfcqp4df1cazgbkv6bcj5ddfg8ggg96kjickynnxw7xjxjanf";
+      };
+      buildCommand = with super; ''
+        cat $src/dependencies/baseq3/pak0/pak0.z01 \
+            $src/dependencies/baseq3/pak0/pak0.z02 \
+            $src/dependencies/baseq3/pak0/pak0.z03 \
+            $src/dependencies/baseq3/pak0/pak0.z04 \
+            $src/dependencies/baseq3/pak0/pak0.zip > pak0-master.zip
+        ${unzip}/bin/unzip -a pak0-master.zip || true
+        install -Dm444 pak0.pk3 $out/baseq3/pak0.pk3
+        install -Dm444 $src/dependencies/baseq3/q3key $out/baseq3/q3key
+        install -Dm444 $src/extras/extra-pack-resolution.pk3 $out/baseq3/pak9hqq37test20181106.pk3
+        install -Dm444 $src/extras/quake3-live-sounds.pk3 $out/baseq3/quake3-live-soundpack.pk3
+        install -Dm444 $src/extras/hd-weapons.pk3 $out/baseq3/pakxy01Tv5.pk3
       '';
-      meta.description = "Proprietary Quake3 paks";
+      meta.description = "Quake3 paks";
     };
 
-    ioquake3Full = super.quake3wrapper {
-      name = "ioquake3-full";
-      description = "Full ioquake3";
-      paks = with self; [ quake3pointrelease quake3ProprietaryPaks ];
+    quake3 = super.quake3wrapper {
+      name = "quake3";
+      description = "quake3e with HD textures and sounds";
+      paks = with self; [ quake3pointrelease quake3hires quake3Paks ];
     };
   })
 
