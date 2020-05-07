@@ -57,8 +57,6 @@
 [submodule "vendor/nix-darwin"]
 	path = vendor/nix-darwin
 	url = https://github.com/rvolosatovs/nix-darwin.git
-[submodule "vendor/quake3-paks"]
-	path = vendor/quake3-paks
 [submodule "vendor/brew"]
 	path = vendor/brew
 	url = https://github.com/rvolosatovs/brew.git
