@@ -66,7 +66,7 @@ in pkgs.lib.optionalString debug ''
   \   'codeLens.enable': "true",
   \   'colorSupport': "true",
   \   'extensionUpdateCheck': "never",
-  \   'formatOnSaveFiletypes': [ "go" ],
+  \   'formatOnSaveFiletypes': [ "go", "elm", "rust" ],
   \ },
   \ 'suggest': {
   \   'acceptSuggestionOnCommitCharacter': "true",
@@ -86,13 +86,15 @@ in pkgs.lib.optionalString debug ''
   \   "rootPatterns": [".vim/", ".git/", ".hg/"],
   \   "ignoredRootPaths": ["~"],
   \ },
-  \ 'elm': {
+  \ 'elmLS': {
   \   "command": "${pkgs.elmPackages.elm-language-server}/bin/elm-language-server",
-  \   "args": ["start"],
   \   "filetypes": ["elm"],
   \   "rootPatterns": ["elm.json"],
   \   "initializationOptions": {
   \      "elmAnalyseTrigger": "change",
+  \      "elmPath": "${pkgs.elmPackages.elm}/bin/elm",
+  \      "elmFormatPath": "${pkgs.elmPackages.elm-format}/bin/elm-format",
+  \      "elmTestPath": "${pkgs.elmPackages.elm-test}/bin/elm-test",
   \   },
   \ },
   \ 'godot': {
