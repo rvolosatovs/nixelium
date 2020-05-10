@@ -86,6 +86,15 @@ in pkgs.lib.optionalString debug ''
   \   "rootPatterns": [".vim/", ".git/", ".hg/"],
   \   "ignoredRootPaths": ["~"],
   \ },
+  \ 'elm': {
+  \   "command": "${pkgs.elmPackages.elm-language-server}/bin/elm-language-server",
+  \   "args": ["start"],
+  \   "filetypes": ["elm"],
+  \   "rootPatterns": ["elm.json"],
+  \   "initializationOptions": {
+  \      "elmAnalyseTrigger": "change",
+  \   },
+  \ },
   \ 'godot': {
   \   "host": "127.0.0.1",
   \   "filetypes": ["gd","gdscript3"],
