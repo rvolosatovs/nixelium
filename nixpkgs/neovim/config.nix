@@ -187,59 +187,72 @@ in pkgs.lib.optionalString debug ''
   let mapleader = "\<Space>"
   let maplocalleader = "\<Space>"
 
-  inoremap                     <A-h>         <C-\><C-N><C-w>h
-  inoremap                     <A-j>         <C-\><C-N><C-w>j
-  inoremap                     <A-k>         <C-\><C-N><C-w>k
-  inoremap                     <A-l>         <C-\><C-N><C-w>l
+  inoremap                     <A-h>          <C-\><C-N><C-w>h
+  inoremap                     <A-j>          <C-\><C-N><C-w>j
+  inoremap                     <A-k>          <C-\><C-N><C-w>k
+  inoremap                     <A-l>          <C-\><C-N><C-w>l
   inoremap                     <silent><expr> <c-space> coc#refresh()
   inoremap                     <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-				                             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-  nmap                         #             <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
-  nmap                         *             <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
-  nmap                         /             <Plug>(incsearch-forward)
-  nmap                         <C-]>         gd
-  nmap                         <Leader>f     <Plug>(coc-format-selected)
-  nmap                         ?             <Plug>(incsearch-backward)
-  nmap                         g#            <Plug>(incsearch-nohl-g#)<Plug>(anzu-update-search-status-with-echo)
-  nmap                         g*            <Plug>(incsearch-nohl-g*)<Plug>(anzu-update-search-status-with-echo)
-  nmap                         g/            <Plug>(incsearch-stay)
-  nmap                         N             <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
-  nmap                         n             <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
-  nmap                         <Leader>R     <Plug>(coc-rename)
-  nmap                <silent> [c            <Plug>(coc-diagnostic-prev)
-  nmap                <silent> ]c            <Plug>(coc-diagnostic-next)
-  nmap                <silent> gd            <Plug>(coc-definition)
-  nmap                <silent> gi            <Plug>(coc-implementation)
-  nmap                <silent> gr            <Plug>(coc-references)
-  nmap                <silent> gy            <Plug>(coc-type-definition)
-  nnoremap                     K             ddkPJ
-  noremap                      ;             :
-  noremap                      ;;            ;
-  noremap                      <A-h>         <C-w>h
-  noremap                      <A-j>         <C-w>j
-  noremap                      <A-k>         <C-w>k
-  noremap                      <A-l>         <C-w>l
-  noremap                      <Leader>cd    :cd %:p:h<CR>:pwd<CR>
-  noremap                      <Leader>cl    :copen<CR>
-  noremap                      <Leader>cn    :cnext<CR>
-  noremap                      <Leader>cp    :cprevious<CR>
-  noremap                      <Leader>ll    :lopen<CR>
-  noremap                      <Leader>ln    :lnext<CR>
-  noremap                      <Leader>lp    :lprevious<CR>
-  noremap                      <Leader>n     :bnext<CR>
-  noremap                      <Leader>p     :bprev<CR>
-  noremap                      <Leader>s     :sort i<CR>
-  noremap                      <Leader>ze    :enew <CR>
-  noremap                      <Leader>zt    :tabnew<CR>
-  noremap                      <Space>       <Nop>
-  noremap                      Y             y$
-  tnoremap                     <A-h>         <C-\><C-N><C-w>h
-  tnoremap                     <A-j>         <C-\><C-N><C-w>j
-  tnoremap                     <A-k>         <C-\><C-N><C-w>k
-  tnoremap                     <A-l>         <C-\><C-N><C-w>l
-  vmap                         <Leader>f     <Plug>(coc-format-selected)
-
-  au FileType go nmap <silent> <Leader>i     :call CocActionAsync('runCommand', 'editor.action.organizeImport')<CR>
+				                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  nmap                         #              <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
+  nmap                         *              <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
+  nmap                         /              <Plug>(incsearch-forward)
+  nmap                         <C-]>          gd
+  nmap                         <Leader>a      <Plug>(coc-codeaction-selected)
+  nmap                         <Leader>ac     <Plug>(coc-codeaction)
+  nmap                         <Leader>f      <Plug>(coc-format-selected)
+  nmap                         <leader>qf     <Plug>(coc-fix-current)
+  nmap                         <Leader>R      <Plug>(coc-rename)
+  nmap                         ?              <Plug>(incsearch-backward)
+  nmap                         g#             <Plug>(incsearch-nohl-g#)<Plug>(anzu-update-search-status-with-echo)
+  nmap                         g*             <Plug>(incsearch-nohl-g*)<Plug>(anzu-update-search-status-with-echo)
+  nmap                         g/             <Plug>(incsearch-stay)
+  nmap                         N              <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
+  nmap                         n              <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
+  nmap                <silent> <Leader>i      :call CocActionAsync('runCommand', 'editor.action.organizeImport')<CR>
+  nmap                <silent> <TAB>          <Plug>(coc-range-select)
+  nmap                <silent> [g             <Plug>(coc-diagnostic-prev)
+  nmap                <silent> ]g             <Plug>(coc-diagnostic-next)
+  nmap                <silent> gd             <Plug>(coc-definition)
+  nmap                <silent> gi             <Plug>(coc-implementation)
+  nmap                <silent> gr             <Plug>(coc-references)
+  nmap                <silent> gy             <Plug>(coc-type-definition)
+  nnoremap                     K              ddkPJ
+  noremap                      ;              :
+  noremap                      ;;             ;
+  noremap                      <A-h>          <C-w>h
+  noremap                      <A-j>          <C-w>j
+  noremap                      <A-k>          <C-w>k
+  noremap                      <A-l>          <C-w>l
+  noremap                      <Leader>cd     :cd %:p:h<CR>:pwd<CR>
+  noremap                      <Leader>cl     :copen<CR>
+  noremap                      <Leader>cn     :cnext<CR>
+  noremap                      <Leader>cp     :cprevious<CR>
+  noremap                      <Leader>ll     :lopen<CR>
+  noremap                      <Leader>ln     :lnext<CR>
+  noremap                      <Leader>lp     :lprevious<CR>
+  noremap                      <Leader>n      :bnext<CR>
+  noremap                      <Leader>p      :bprev<CR>
+  noremap                      <Leader>s      :sort i<CR>
+  noremap                      <Leader>ze     :enew <CR>
+  noremap                      <Leader>zt     :tabnew<CR>
+  noremap                      <Space>        <Nop>
+  noremap                      Y              y$
+  omap                         ac             <Plug>(coc-classobj-a)
+  omap                         af             <Plug>(coc-funcobj-a)
+  omap                         ic             <Plug>(coc-classobj-i)
+  omap                         if             <Plug>(coc-funcobj-i)
+  tnoremap                     <A-h>          <C-\><C-N><C-w>h
+  tnoremap                     <A-j>          <C-\><C-N><C-w>j
+  tnoremap                     <A-k>          <C-\><C-N><C-w>k
+  tnoremap                     <A-l>          <C-\><C-N><C-w>l
+  xmap                         <Leader>a      <Plug>(coc-codeaction-selected)
+  xmap                         <Leader>f      <Plug>(coc-format-selected)
+  xmap                         ac             <Plug>(coc-classobj-a)
+  xmap                         af             <Plug>(coc-funcobj-a)
+  xmap                         ic             <Plug>(coc-classobj-i)
+  xmap                         if             <Plug>(coc-funcobj-i)
+  xmap                <silent> <TAB>          <Plug>(coc-range-select)
 
   command! -nargs=? -complete=dir Explore Dirvish <args>
   command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
@@ -251,6 +264,9 @@ in pkgs.lib.optionalString debug ''
   augroup end
 
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+
+  " Highlight the symbol and its references when holding the cursor.
+  au CursorHold * silent call CocActionAsync('highlight')
 
   au FileType  markdown              packadd vim-table-mode
   au FileType  typescript            setlocal noexpandtab
