@@ -190,16 +190,6 @@ in
       description = "Deluge user client password";
     };
 
-    ioquake3.privatePassword = mkOption {
-      type = types.str;
-      description = "ioquake3 private password";
-    };
-
-    ioquake3.rconPassword = mkOption {
-      type = types.str;
-      description = "ioquake3 rcon password";
-    };
-
     jicofo.authPassword = mkOption {
       type = types.str;
       description = "Jicofo password";
@@ -228,6 +218,21 @@ in
     miniflux.adminPassword = mkOption {
       type = types.str;
       description = "Miniflux admin password";
+    };
+
+    quake3.privatePassword = mkOption {
+      type = types.str;
+      description = "quake3 private password";
+    };
+
+    quake3.rconPassword = mkOption {
+      type = types.str;
+      description = "quake3 rcon password";
+    };
+
+    quake3.serverPassword = mkOption {
+      type = types.str;
+      description = "quake3 server password";
     };
 
     soundcloud.token = mkOption {

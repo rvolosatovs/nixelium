@@ -3,41 +3,42 @@ let
   port = 27960;
 in
   {
-    systemd.services.ioquake3.after = [ "network.target" ];
-    systemd.services.ioquake3.description = "ioquake3 server";
-    systemd.services.ioquake3.enable = true;
-    systemd.services.ioquake3.serviceConfig.ExecStart = let
+    systemd.services.quake3.after = [ "network.target" ];
+    systemd.services.quake3.description = "quake3 server";
+    systemd.services.quake3.enable = true;
+    systemd.services.quake3.serviceConfig.ExecStart = let
       cfg = pkgs.writeTextFile {
         name = "server.cfg";
         destination = "/baseq3/server.cfg";
         text = ''
-          g_needpass "0"
+          set bot_enable "1"
+          set bot_minplayers "2"
+          set bot_nochat "1"
+          set fraglimit "25"
           set g_allowvote "1"
+          set g_forcerespawn "0"
+          set g_gametype "0"
+          set g_inactivity "300"
+          set g_motd "Time to fight!"
+          set g_needpass "1"
+          set g_password "${config.resources.quake3.serverPassword}"
+          set g_quadfactor "3"
+          set g_weaponrespawn "10"
           set net_port ${builtins.toString port}
-          seta bot_enable "1"
-          seta bot_minplayers "2"
-          seta bot_nochat "1"
-          seta fraglimit "25"
-          seta g_forcerespawn "0"
-          seta g_gametype "0"
-          seta g_inactivity "300"
-          seta g_motd "Time to fight!"
-          seta g_quadfactor "3"
-          seta g_weaponrespawn "5"
-          seta pmove_fixed "1"
-          seta r_smp "1"
-          seta rconpassword "${config.resources.ioquake3.rconPassword}"
-          seta sv_allowdownload "0"
-          seta sv_floodProtect "1"
-          seta sv_fps "60"
-          seta sv_hostname "Stinky"
-          seta sv_maxclients "12"
-          seta sv_maxRate "10000"
-          seta sv_privateClients "2"
-          seta sv_privatePassword "${config.resources.ioquake3.privatePassword}"
-          seta sv_pure "0"
-          seta sv_strictauth "0"
-          seta timelimit "15"
+          set pmove_fixed "1"
+          set r_smp "1"
+          set rconpassword "${config.resources.quake3.rconPassword}"
+          set sv_allowdownload "0"
+          set sv_floodProtect "1"
+          set sv_fps "60"
+          set sv_hostname "The Things Bloodshed"
+          set sv_maxclients "12"
+          set sv_maxRate "10000"
+          set sv_privateClients "2"
+          set sv_privatePassword "${config.resources.quake3.privatePassword}"
+          set sv_pure "1"
+          set sv_strictauth "0"
+          set timelimit "15"
           sets ".Admin" "${config.resources.fullName}"
           sets ".email" "${config.resources.email}"
           set d1 "map q3dm1 ; set nextmap vstr d2"
@@ -45,30 +46,27 @@ in
           set d3 "map q3dm3 ; set nextmap vstr d4"
           set d4 "map q3dm4 ; set nextmap vstr d5"
           set d5 "map q3dm5 ; set nextmap vstr d6"
-          set d6 "map q3dm6 ; set nextmap vstr d7"
-          set d7 "map q3dm7 ; set nextmap vstr d8"
-          set d8 "map q3dm8 ; set nextmap vstr d9"
-          set d9 "map q3dm9 ; set nextmap vstr d1"
+          set d6 "map q3dm6 ; set nextmap vstr d1"
           vstr d1
         '';
       };
 
       quake = pkgs.quake3wrapper {
-        name = "ioquake3-full-server";
-        description = "Full ioquake3 server";
-        paks = [ pkgs.quake3pointrelease pkgs.quake3ProprietaryPaks cfg ];
+        name = "quake3-server";
+        description = "Quake3 server";
+        paks = with pkgs; [ quake3pointrelease quake3hires quake3Paks cfg ];
       };
-    in "${quake}/bin/quake3-server +set dedicated 2 +exec server.cfg";
+    in "${quake}/bin/quake3-server +set dedicated 1 +exec server.cfg";
 
-    systemd.services.ioquake3.serviceConfig.User = "ioquake3";
-    systemd.services.ioquake3.wantedBy = [ "multi-user.target" ];
+    systemd.services.quake3.serviceConfig.User = "quake3";
+    systemd.services.quake3.wantedBy = [ "multi-user.target" ];
 
     networking.firewall.allowedTCPPorts = [ port ];
     networking.firewall.allowedUDPPorts = [ port ];
 
-    users.users.ioquake3 = {
+    users.users.quake3 = {
       createHome = true;
-      description = "ioquake3 user";
-      home = "/var/lib/ioquake3";
+      description = "quake3 user";
+      home = "/var/lib/quake3";
     };
   }
