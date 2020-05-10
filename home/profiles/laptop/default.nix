@@ -32,6 +32,7 @@
         nmap
         pandoc
         poppler_utils
+        quake3
         richgo
         rsibreak
         rtl-sdr
