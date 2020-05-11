@@ -1,5 +1,6 @@
 {
   imports = [
-    ./sway.nix
+    ./sway
+    ./waybar
   ];
 }

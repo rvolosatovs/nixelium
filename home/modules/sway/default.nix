@@ -21,7 +21,7 @@ in
       with config.resources.programs;
       with config.resources.base16.colors; 
       lib.mkIf cfg.enable { 
-        home.packages = with pkgs; [
+        home.packages = [
           clipman
           grim
           ip-link-toggle
@@ -115,7 +115,7 @@ in
 
         wayland.windowManager.sway.config.startup = [
           {
-            command = "${pkgs.kanshi}/bin/kanshi";
+            command = "${kanshi}/bin/kanshi";
             always = true;
           }
           {
@@ -229,7 +229,7 @@ in
 
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+q" = "kill";
 
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Escape" = exec "${pkgs.swaylock}/bin/swaylock -t -f -i ${config.home.homeDirectory}/pictures/lock";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Escape" = exec "${swaylock}/bin/swaylock -t -f -i ${config.home.homeDirectory}/pictures/lock";
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+s" = exec "${systemd}/bin/systemctl suspend";
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+c" = "reload";
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+Escape" = "exit";
@@ -252,7 +252,7 @@ in
 
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+b" = exec "${bluez}/bin/bluetoothctl connect ${headphones}";
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+b" = exec "${bluez}/bin/bluetoothctl disconnect ${headphones}";
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+n" = exec "${pkgs.mako}/bin/makoctl dismiss";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+n" = exec "${mako}/bin/makoctl dismiss";
 
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+d" = exec "${systemd}/bin/systemctl --user restart redshift.service";
 

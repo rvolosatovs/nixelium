@@ -381,11 +381,6 @@ in
           text_selected_color="ff${base05}"
           word_highlighted_color="25${base05}"
         '';
-
-
-        # TODO: Configure
-        xdg.configFile."waybar/config".text = builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/config";
-        xdg.configFile."waybar/style.css".text = builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css";
       })
     ];
   }
