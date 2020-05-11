@@ -163,6 +163,7 @@ in
         xresources.properties."Xcursor.size" = 20;
         xresources.properties."Xft.antialias" = 1;
         xresources.properties."Xft.autohint" = 0;
+        xresources.properties."Xft.dpi" = 96;
         xresources.properties."Xft.hinting" = 1;
         xresources.properties."Xft.hintstyle" = "hintslight";
         xresources.properties."Xft.lcdfilter" = "lcddefault";
