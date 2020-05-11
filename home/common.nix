@@ -252,8 +252,6 @@
       programs.zsh.shellAliases.Vi = "sudoedit";
       programs.zsh.shellAliases.Vim = "sudoedit";
 
-      services.lorri.enable = true;
-
       systemd.user.startServices = true;
     })
   ];
