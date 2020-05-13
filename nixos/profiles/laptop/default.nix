@@ -41,7 +41,14 @@
   programs.adb.enable = true;
 
   services.printing.enable = true;
+  services.pcscd.enable = true;
   services.resolved.enable = true;
+
+  services.udev.packages = with pkgs; [
+    libu2f-host
+    yubikey-personalization
+    yubioath-desktop
+  ];
 
   sound.enable = true;
   sound.mediaKeys.enable = true;
