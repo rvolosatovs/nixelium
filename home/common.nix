@@ -48,6 +48,7 @@
         htop
         jq
         kitty.terminfo
+        lorri
         lsof
         nix-du
         nix-prefetch-scripts
