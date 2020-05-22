@@ -300,6 +300,7 @@ in
         programs.mako.enable = true;
         programs.mako.backgroundColor = "#${base00}";
         programs.mako.borderColor = "#${base0D}";
+        programs.mako.defaultTimeout = 30;
         programs.mako.textColor = "#${base05}";
         programs.mako.font = "monospace 10";
 
