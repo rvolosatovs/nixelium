@@ -16,6 +16,7 @@ in pkgs.lib.optionalString debug ''
 
   set autoindent
   set backup
+  set backupdir=~/.local/share/nvim/backup//
   set cmdheight=2
   set completeopt+=menu,menuone
   set concealcursor=nc
