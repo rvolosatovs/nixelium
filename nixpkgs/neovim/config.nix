@@ -266,6 +266,8 @@ in pkgs.lib.optionalString debug ''
   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
   augroup end
 
+  au TextYankPost * silent! lua require'highlight'.on_yank("IncSearch", 500, vim.v.event)
+
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 
   " Highlight the symbol and its references when holding the cursor.
