@@ -137,10 +137,13 @@ in [
     rust-analyzer-unwrapped
     rust-bindgen
     rust-cbindgen
+    rust_1_42
+    rust_1_43
     rustc
     rustfmt
     rustPackages
     rustPackages_1_42
+    rustPackages_1_43
     rustPlatform
     sidequest
     skhd
