@@ -12,7 +12,9 @@
     ({
       home.packages = with pkgs; [
         asciinema
+        cargo
         clang
+        clippy
         copy-sha-git
         deluge
         drive
@@ -34,8 +36,11 @@
         poppler_utils
         quake3
         richgo
+        rls
         rsibreak
         rtl-sdr
+        rustc
+        rustfmt
         spotify
         taskwarrior
         wego

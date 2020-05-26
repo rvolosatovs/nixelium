@@ -76,8 +76,12 @@ in pkgs.lib.optionalString debug ''
   \   'triggerAfterInsertEnter': "true",
   \ },
   \})
+  call coc#config('rust', {
+  \ 'rustfmt_path': "${pkgs.rustfmt}/bin/rustfmt",
+  \})
   call coc#config('rust-client', {
   \ 'disableRustup': "true",
+  \ 'rlsPath': "${pkgs.rls}/bin/rls",
   \})
   call coc#config('languageserver', {
   \ 'bash': {
