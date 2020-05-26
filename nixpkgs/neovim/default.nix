@@ -9,7 +9,7 @@ pkgs: {
     coc-html
     coc-json
     coc-lists
-    coc-rls
+    coc-rust-analyzer
     coc-snippets
     coc-yank
 

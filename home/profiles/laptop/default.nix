@@ -39,6 +39,7 @@
         rls
         rsibreak
         rtl-sdr
+        rust-analyzer
         rustc
         rustfmt
         spotify
