@@ -12,6 +12,7 @@ in [
     bspwm
     cachix
     chromium
+    clippy
     cockroachdb
     deadcode
     dep
@@ -34,7 +35,6 @@ in [
     gcc-arm-embedded-7
     gcc-arm-embedded-8
     gcc-arm-embedded-9
-    geoclue2
     go
     go-2fa
     go-sct
@@ -52,6 +52,7 @@ in [
     grim
     grml-zsh-config
     i3
+    imagemagick
     imv
     ioquake3
     iwd
@@ -62,6 +63,13 @@ in [
     keybase-gui
     kitty
     libfprint
+    libreoffice
+    libreoffice-fresh
+    libreoffice-fresh-unwrapped
+    libreoffice-still
+    libreoffice-still-unwrapped
+    libreoffice-unwrapped
+    librsvg
     lidarr
     linuxPackages_5_6
     linuxPackages_latest
@@ -84,21 +92,27 @@ in [
     neovim
     neovim-unwrapped
     nerdfonts
+    nix-du
     nixpgs-fmt
     nodejs
     nodejs-10_x
     nodejs-12_x
+    nodejs-13_x
     nodejs-slim
     nodejs-slim-10_x
     nodejs-slim-12_x
+    nodejs-slim-13_x
     nodejs-slim_latest
     nodejs_latest
     nodePackages
     nodePackages_10_x
     nodePackages_12_x
+    nodePackages_13_x
+    noto-fonts-emoji
     nox
     pass
     passExtensions
+    pavucontrol
     platformio
     polybar
     pulseaudio-modules-bt
@@ -116,7 +130,18 @@ in [
     richgo
     ripgrep
     rls
+    rnix-lsp
     rofi
+    rust
+    rust-analyzer
+    rust-analyzer-unwrapped
+    rust-bindgen
+    rust-cbindgen
+    rustc
+    rustfmt
+    rustPackages
+    rustPackages_1_42
+    rustPlatform
     sidequest
     skhd
     slurp
@@ -140,6 +165,10 @@ in [
     vulkan-loader
     vulkan-tools
     waybar
+    webkit
+    webkitgtk
+    webkitgtk24x-gtk2
+    webkitgtk24x-gtk3
     weechat
     wego
     winePackages
