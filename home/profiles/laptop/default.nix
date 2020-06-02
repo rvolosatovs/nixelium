@@ -69,7 +69,6 @@
       home.packages = with pkgs; [
         alsaUtils
         arduino
-        julia
         libreoffice-fresh
         macchanger
         playerctl

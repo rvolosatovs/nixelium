@@ -47,6 +47,7 @@
         graphviz
         htop
         jq
+        julia
         kitty.terminfo
         lorri
         lsof
