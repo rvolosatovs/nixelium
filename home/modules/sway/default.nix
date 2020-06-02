@@ -172,6 +172,8 @@ in
         wayland.windowManager.sway.config.terminal = terminal.executable.path;
         wayland.windowManager.sway.config.menu = "${wofi}/bin/wofi --show drun,run";
 
+        wayland.windowManager.sway.config.bindkeysToCode = true;
+
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+${cfg.config.left}" = "focus left";
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+${cfg.config.down}" = "focus down";
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+${cfg.config.up}" = "focus up";
