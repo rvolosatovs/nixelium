@@ -93,7 +93,8 @@ in [
     neovim-unwrapped
     nerdfonts
     nix-du
-    nixpgs-fmt
+    nixfmt
+    nixpkgs-fmt
     nodejs
     nodejs-10_x
     nodejs-12_x
@@ -145,6 +146,7 @@ in [
     rustPackages_1_42
     rustPackages_1_43
     rustPlatform
+    rustup
     sidequest
     skhd
     slurp
