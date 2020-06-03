@@ -30,6 +30,7 @@ pkgs: {
     vim-bufferline
     vim-devicons
     vim-dirvish
+    vim-eunuch
     vim-plugin-AnsiEsc
     vim-polyglot
     vim-signify
