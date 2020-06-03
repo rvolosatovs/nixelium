@@ -22,6 +22,8 @@ pkgs: {
     incsearch-vim
     nerdcommenter
     repeat
+    skim
+    skim-vim
     surround
     vim-abolish
     vim-airline

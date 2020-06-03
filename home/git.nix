@@ -38,6 +38,7 @@ in
       git-lfs
     ] ++ (with gitAndTools; [
       git-extras
+      delta
     ]);
     home.sessionVariables.GIT_EDITOR = config.resources.programs.editor.executable.path;
 
@@ -60,6 +61,7 @@ in
     programs.git.extraConfig.core.autocrlf = false;
     programs.git.extraConfig.core.editor = config.resources.programs.editor.executable.path;
     programs.git.extraConfig.core.excludesfile = toString gitignore;
+    programs.git.extraConfig.core.pager = "${pkgs.gitAndTools.delta}/bin/delta --theme='base16'";
     programs.git.extraConfig.core.safecrlf = false;
     programs.git.extraConfig.diff.colorMoved = "zebra";
     programs.git.extraConfig.diff.renames = "copy";
@@ -68,6 +70,7 @@ in
     programs.git.extraConfig.format.pretty = "%C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n";
     programs.git.extraConfig.ghq.root = "~/src";
     programs.git.extraConfig.http.cookieFile = "~/.gitcookies";
+    programs.git.extraConfig.interactive.diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --theme='base16' --color-only";
     programs.git.extraConfig.merge.conflictstyle = "diff3";
     programs.git.extraConfig.merge.tool = "nvimdiff";
     programs.git.extraConfig.push.default = "nothing";
@@ -95,11 +98,11 @@ in
     programs.zsh.shellAliases.gca="git commit --amend";
     programs.zsh.shellAliases.gcf="git commit --fixup";
     programs.zsh.shellAliases.gcm="git commit -m";
-    programs.zsh.shellAliases.gd="git diff --word-diff=color";
-    programs.zsh.shellAliases.gdc="git diff --word-diff=color --cached";
+    programs.zsh.shellAliases.gd="git diff";
+    programs.zsh.shellAliases.gdc="git diff --cached";
     programs.zsh.shellAliases.gf="git fetch --all --prune";
     programs.zsh.shellAliases.gl="git log --stat --date=short";
-    programs.zsh.shellAliases.gL="git log --word-diff=color --patch-with-stat";
+    programs.zsh.shellAliases.gL="git log --patch-with-stat";
     programs.zsh.shellAliases.gm="git cherry-pick";
     programs.zsh.shellAliases.gM="git merge";
     programs.zsh.shellAliases.gmc="git cherry-pick --continue";
@@ -116,7 +119,7 @@ in
     programs.zsh.shellAliases.gra="git remote add";
     programs.zsh.shellAliases.gRh="git reset --hard";
     programs.zsh.shellAliases.grl="git reflog";
-    programs.zsh.shellAliases.gS="git show --word-diff=color";
+    programs.zsh.shellAliases.gS="git show";
     programs.zsh.shellAliases.gs="git status";
     programs.zsh.shellAliases.gT="git tag";
     programs.zsh.shellAliases.gt="git tree";

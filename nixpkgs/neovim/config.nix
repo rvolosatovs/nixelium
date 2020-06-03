@@ -262,10 +262,7 @@ in pkgs.lib.optionalString debug ''
   command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
   command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 
-  augroup Smartf
-  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
-  augroup end
+  command! -nargs=* -bang         Rg call fzf#vim#rg_interactive(<q-args>, fzf#vim#with_preview('right:50%:hidden', 'alt-h'))
 
   au TextYankPost * silent! lua require'highlight'.on_yank("IncSearch", 500, vim.v.event)
 

@@ -30,22 +30,30 @@
         pager.package
         shell.package
       ] ++ (with pkgs; [
+        bat
+        bat-extras.batgrep
+        bat-extras.batman
+        bat-extras.batwatch
+        bat-extras.prettybat
         borgbackup
         coreutils
         cowsay
         curl
-        docker-gc
         docker-compose
         docker-credential-helpers
+        docker-gc
         dumpster
+        dust
+        exa
+        fd
         file
         findutils
-        fzf
         gnumake
         gnupg
         gnupg1compat
         graphviz
         htop
+        hyperfine
         jq
         julia
         kitty.terminfo
@@ -54,22 +62,28 @@
         nix-du
         nix-prefetch-scripts
         nox
+        procs
         pv
         qrencode
         rclone
         ripgrep
+        sd
         shellcheck
+        skim
         tcpdump
+        tokei
         tree
         universal-ctags
         unzip
         weechat
         wget
         ytop
+        zenith
         zip
       ]);
 
       home.sessionVariables.__GL_SHADER_DISK_CACHE_PATH ="${config.xdg.cacheHome}/nv";
+      home.sessionVariables.BAT_THEME = "base16";
       home.sessionVariables.CLICOLOR = "1";
       home.sessionVariables.CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
       home.sessionVariables.EDITOR = config.resources.programs.editor.executable.path;
@@ -133,12 +147,22 @@
       programs.direnv.enableBashIntegration = true;
       programs.direnv.enableZshIntegration = true;
 
-      programs.fzf.enable = true;
-      programs.fzf.enableBashIntegration = true;
-      programs.fzf.enableZshIntegration = true;
-
       programs.home-manager.enable = true;
       programs.home-manager.path = ./../vendor/home-manager;
+
+      programs.skim.enable = true;
+      programs.skim.changeDirWidgetCommand = "${pkgs.fd}/bin/fd -H --color=always --type d";
+      programs.skim.defaultCommand = "${pkgs.fd}/bin/fd -H --color=always --type f";
+      programs.skim.defaultOptions = [
+        "--ansi"
+        "--bind='ctrl-e:execute(\${EDITOR:-${config.resources.programs.editor.executable.path}} {})'"
+      ];
+      programs.skim.enableBashIntegration = true;
+      programs.skim.enableZshIntegration = true;
+      programs.skim.fileWidgetCommand = "${pkgs.fd}/bin/fd -H --color=always --type f --exclude '.git'";
+      programs.skim.fileWidgetOptions = [
+        "--preview '${pkgs.bat}/bin/bat --color=always {}'"
+      ];
 
       programs.ssh.enable = true;
       programs.ssh.compression = true;
@@ -154,10 +178,12 @@
       programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" ([
         "${config.home.homeDirectory}/.local/bin"
         "${config.home.homeDirectory}/.local/bin.go"
+        "${config.home.homeDirectory}/.cargo/bin"
         "${config.xdg.dataHome}/npm/bin"
         "\${PATH}"
       ]);
 
+      programs.zsh.shellAliases.cat = "bat";
       programs.zsh.shellAliases.d = "docker";
       programs.zsh.shellAliases.dc = "docker-compose";
       programs.zsh.shellAliases.dck = "docker-compose kill";
@@ -172,8 +198,10 @@
       programs.zsh.shellAliases.dlt = "docker logs --tail 100";
       programs.zsh.shellAliases.dp = "docker ps";
       programs.zsh.shellAliases.dpq = "docker ps -q";
-      programs.zsh.shellAliases.ll = "ls -la";
-      programs.zsh.shellAliases.ls = "ls -h --color=auto";
+      programs.zsh.shellAliases.l = "ls -lhg";
+      programs.zsh.shellAliases.la = "l --git -a";
+      programs.zsh.shellAliases.ll = "l --git -G";
+      programs.zsh.shellAliases.ls = "exa --group-directories-first";
       programs.zsh.shellAliases.mkdir = "mkdir -pv";
       programs.zsh.shellAliases.rm = "rm -i";
       programs.zsh.shellAliases.sl = "ls";

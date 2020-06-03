@@ -1,11 +1,13 @@
 let
   unstable = import <nixpkgs-unstable> { config = import ./config.nix; overlays = []; };
 in [
-  (_: _: {
+  (_: super: {
     inherit (unstable)
     alacritty
     amdvlk
     arduino
+    bat
+    bat-extras
     bemenu
     borgbackup
     brave
@@ -21,9 +23,11 @@ in [
     docker-compose
     docker-credential-helpers
     echoip
+    exa
     fahclient
     fahcontrol
     fahviewer
+    fd
     fira
     fira-code
     firefox
@@ -31,6 +35,7 @@ in [
     firmwareLinuxNonFree
     fprintd
     fwupd
+    fzf
     gcc-arm-embedded-6
     gcc-arm-embedded-7
     gcc-arm-embedded-8
@@ -51,6 +56,7 @@ in [
     govendor
     grim
     grml-zsh-config
+    hyperfine
     i3
     imagemagick
     imv
@@ -116,6 +122,7 @@ in [
     pavucontrol
     platformio
     polybar
+    procs
     pulseaudio-modules-bt
     qsyncthingtray
     quake3e
@@ -147,8 +154,10 @@ in [
     rustPackages_1_43
     rustPlatform
     rustup
+    sd
     sidequest
     skhd
+    skim
     slurp
     sonarr
     spotify
@@ -159,6 +168,7 @@ in [
     syncthing-cli
     syncthing-tray
     thunderbird
+    tokei
     travis
     unity3d
     unityhub
@@ -188,12 +198,21 @@ in [
     ydotool
     ytop
     zathura
+    zenith
     zoom-us
     ;
 
-    inherit (unstable.python3Packages)
-    python-miio
-    ;
+    gitAndTools = super.gitAndTools // {
+      inherit (unstable.gitAndTools)
+      delta
+      ;
+    };
+
+    python3Packages = super.python3Packages // {
+      inherit (unstable.python3Packages)
+      python-miio
+      ;
+    };
   })
 
   (self: super: {

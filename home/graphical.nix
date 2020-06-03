@@ -231,6 +231,10 @@ in
           chunkc tiling::rule --owner \"App Store\" --state float &
           chunkc tiling::rule --owner \"Calculator\" --state float &
         '';
+
+        programs.skim.defaultOptions = [
+          "--bind='ctrl-y:execute(echo {} | pbcopy)'"
+        ];
       })
 
       (mkIf pkgs.stdenv.isLinux {
@@ -303,6 +307,11 @@ in
         programs.mako.defaultTimeout = 5000;
         programs.mako.textColor = "#${base05}";
         programs.mako.font = "monospace 10";
+
+        programs.skim.defaultOptions = [
+          "--bind='ctrl-d:execute(\${TERM:-${config.resources.programs.terminal.executable.path}} -d $(${pkgs.busybox}/bin/dirname {}))'"
+          "--bind='ctrl-y:execute(echo {} | ${pkgs.wl-clipboard}/bin/wl-copy)'"
+        ];
 
         programs.zsh.loginExtra = ''
           if [ "$(${pkgs.busybox}/bin/tty)" = "/dev/tty1" ]; then
