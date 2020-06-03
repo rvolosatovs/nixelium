@@ -1,17 +1,12 @@
 pkgs: {
   configure.customRC = import ./config.nix pkgs;
   configure.packages.plugins.opt = with pkgs.vimPlugins; [
-    vim-table-mode
     tabular
+    vim-table-mode
   ];
   configure.plug.plugins = with pkgs.vimPlugins; [
-    coc-nvim # must be loaded before extensions
-    coc-html
-    coc-json
-    coc-lists
-    coc-rust-analyzer
-    coc-snippets
-    coc-yank
+    nvim-lsp
+    completion-nvim
 
     auto-pairs
     base16-vim

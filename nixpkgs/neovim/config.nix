@@ -1,10 +1,4 @@
-pkgs: 
-let
-  debug = false;
-in pkgs.lib.optionalString debug '' 
-  let $NVIM_COC_LOG_LEVEL = 'debug' 
-
-'' + ''
+pkgs: ''
   if $TERM!="linux"
     let base16colorspace=256
   endif
@@ -18,7 +12,7 @@ in pkgs.lib.optionalString debug ''
   set backup
   set backupdir=~/.local/share/nvim/backup//
   set cmdheight=2
-  set completeopt+=menu,menuone
+  set completeopt+=menuone,noinsert,noselect
   set concealcursor=nc
   set conceallevel=0
   set cursorcolumn
@@ -46,6 +40,7 @@ in pkgs.lib.optionalString debug ''
   set nofoldenable
   set nrformats=alpha,octal,hex,bin
   set number
+  set omnifunc=v:lua.vim.lsp.omnifunc
   set relativenumber
   set shiftwidth=4
   set shortmess+=c
@@ -62,78 +57,51 @@ in pkgs.lib.optionalString debug ''
   set visualbell
   set wrapscan
 
-  call coc#config('coc', {
-  \ 'preferences': {
-  \   'codeLens.enable': "true",
-  \   'colorSupport': "true",
-  \   'extensionUpdateCheck': "never",
-  \   'formatOnSaveFiletypes': [ "go", "elm", "rust" ],
-  \ },
-  \ 'suggest': {
-  \   'acceptSuggestionOnCommitCharacter': "true",
-  \   'enablePreview': "true",
-  \   'timeout': 2000,
-  \   'triggerAfterInsertEnter': "true",
-  \ },
-  \})
-  call coc#config('rust-analyzer', {
-  \ 'serverPath': "${pkgs.rust-analyzer}/bin/rust-analyzer",
-  \ 'rustfmt.overrideCommand': "${pkgs.rustfmt}/bin/rustfmt",
-  \})
-  call coc#config('languageserver', {
-  \ 'bash': {
-  \   "command": "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server",
-  \   "args": ["start"],
-  \   "filetypes": ["sh"],
-  \   "rootPatterns": [".vim/", ".git/", ".hg/"],
-  \   "ignoredRootPaths": ["~"],
-  \ },
-  \ 'elmLS': {
-  \   "command": "${pkgs.elmPackages.elm-language-server}/bin/elm-language-server",
-  \   "filetypes": ["elm"],
-  \   "rootPatterns": ["elm.json"],
-  \   "initializationOptions": {
-  \      "elmAnalyseTrigger": "change",
-  \      "elmPath": "${pkgs.elmPackages.elm}/bin/elm",
-  \      "elmFormatPath": "${pkgs.elmPackages.elm-format}/bin/elm-format",
-  \      "elmTestPath": "${pkgs.elmPackages.elm-test}/bin/elm-test",
-  \   },
-  \ },
-  \ 'godot': {
-  \   "host": "127.0.0.1",
-  \   "filetypes": ["gd","gdscript3"],
-  \   "port": 6008,
-  \ },
-  \ 'nix': {
-  \   "command": "${pkgs.rnix-lsp}/bin/rnix-lsp",
-  \   "filetypes": ["nix"],
-  \   "rootPatterns": [".vim/", ".git/", ".hg/"],
-  \ },
-'' + pkgs.lib.optionalString pkgs.stdenv.isLinux ''
-  \ 'ccls': {
-  \   "command": "${pkgs.ccls}/bin/ccls",
-  \   "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
-  \   "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-  \   "initializationOptions": {
-  \      "cache": {
-  \        "directory": ".ccls-cache",
-  \      }
-  \   },
-  \ },
-'' + ''
-  \ 'dockerfile': {
-  \   "command": "${pkgs.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver",
-  \   "filetypes": ["dockerfile"],
-  \   "rootPatterns": [".vim/", ".git/", ".hg/"],
-  \   "args": ["--stdio"],
-  \ },
-  \ 'golang': {
-  \   "command": "${pkgs.gopls}/bin/gopls",
-  \   "args": [],
-  \   "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-  \   "filetypes": ["go"],
-  \ },
-  \})
+  lua << EOF
+    require'nvim_lsp'.bashls.setup{
+      on_attach=require'completion'.on_attach;
+      cmd = { '${pkgs.nodePackages.bash-language-server}/bin/bash-language-server', 'start' };
+    }
+    require'nvim_lsp'.clangd.setup{
+      on_attach=require'completion'.on_attach;
+      cmd = { '${pkgs.clang-tools}/bin/clangd', '--background-index' };
+    }
+    require'nvim_lsp'.dockerls.setup{
+      on_attach=require'completion'.on_attach;
+      cmd = { '${pkgs.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver', '--stdio' };
+    }
+    require'nvim_lsp'.elmls.setup{
+      on_attach=require'completion'.on_attach;
+      cmd = { '${pkgs.elmPackages.elm-language-server}/bin/elm-language-server' };
+      settings = {
+        elmLS = {
+          elmFormatPath = '${pkgs.elmPackages.elm-format}/bin/elm-format';
+        };
+        elmPath = '${pkgs.elmPackages.elm}/bin/elm';
+        elmTestPath = '${pkgs.elmPackages.elm-test}/bin/elm-test';
+      };
+    }
+    require'nvim_lsp'.gopls.setup{
+      on_attach=require'completion'.on_attach;
+      cmd = { '${pkgs.gopls}/bin/gopls' };
+    }
+    require'nvim_lsp'.julials.setup{
+      on_attach=require'completion'.on_attach;
+      settings = {
+        julia = {
+          executablePath = '${pkgs.julia}/bin/julia';
+        };
+      };
+    }
+    require'nvim_lsp'.rnix.setup{
+      on_attach=require'completion'.on_attach;
+      cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' }
+    }
+    require'nvim_lsp'.rust_analyzer.setup{
+      on_attach=require'completion'.on_attach;
+      cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' }
+    }
+  EOF
 
   let g:airline#extensions#branch#enabled = 1
   let g:airline#extensions#bufferline#enabled = 1
@@ -176,17 +144,9 @@ in pkgs.lib.optionalString debug ''
 
   let g:incsearch#auto_nohlsearch = 1
 
-  let g:jsx_ext_required = 0
-
   let g:loaded_netrwPlugin = 1
 
   let g:markdown_fenced_languages = ['css', 'js=javascript']
-
-  let g:tex_conceal="ag"
-
-'' + pkgs.lib.optionalString pkgs.stdenv.isLinux ''
-  let g:vimtex_view_method='${pkgs.zathura}/bin/zathura'
-'' +''
 
   let mapleader = "\<Space>"
   let maplocalleader = "\<Space>"
@@ -195,32 +155,28 @@ in pkgs.lib.optionalString debug ''
   inoremap                     <A-j>          <C-\><C-N><C-w>j
   inoremap                     <A-k>          <C-\><C-N><C-w>k
   inoremap                     <A-l>          <C-\><C-N><C-w>l
-  inoremap                     <silent><expr> <c-space> coc#refresh()
-  inoremap                     <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-				                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  inoremap                     <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap                     <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
   nmap                         #              <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
   nmap                         *              <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
   nmap                         /              <Plug>(incsearch-forward)
   nmap                         <C-]>          gd
-  nmap                         <Leader>a      <Plug>(coc-codeaction-selected)
-  nmap                         <Leader>ac     <Plug>(coc-codeaction)
-  nmap                         <Leader>f      <Plug>(coc-format-selected)
-  nmap                         <leader>qf     <Plug>(coc-fix-current)
-  nmap                         <Leader>R      <Plug>(coc-rename)
   nmap                         ?              <Plug>(incsearch-backward)
   nmap                         g#             <Plug>(incsearch-nohl-g#)<Plug>(anzu-update-search-status-with-echo)
   nmap                         g*             <Plug>(incsearch-nohl-g*)<Plug>(anzu-update-search-status-with-echo)
   nmap                         g/             <Plug>(incsearch-stay)
   nmap                         N              <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
   nmap                         n              <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
-  nmap                <silent> <Leader>i      :call CocActionAsync('runCommand', 'editor.action.organizeImport')<CR>
-  nmap                <silent> <TAB>          <Plug>(coc-range-select)
-  nmap                <silent> [g             <Plug>(coc-diagnostic-prev)
-  nmap                <silent> ]g             <Plug>(coc-diagnostic-next)
-  nmap                <silent> gd             <Plug>(coc-definition)
-  nmap                <silent> gi             <Plug>(coc-implementation)
-  nmap                <silent> gr             <Plug>(coc-references)
-  nmap                <silent> gy             <Plug>(coc-type-definition)
+  nnoremap            <silent> <Leader>i      <Cmd>lua vim.lsp.buf.code_action({context = 'organizeImport'})<CR>
+  nnoremap            <silent> 1gD            <Cmd>lua vim.lsp.buf.type_definition()<CR>
+  nnoremap            <silent> <C-]>          <Cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap            <silent> <C-K>          <Cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap            <silent> <C-k>          <Cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap            <silent> g0             <Cmd>lua vim.lsp.buf.document_symbol()<CR>
+  nnoremap            <silent> gd             <Cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap            <silent> gD             <Cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap            <silent> gr             <Cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap            <silent> gW             <Cmd>lua vim.lsp.buf.workspace_symbol()<CR>
   nnoremap                     K              ddkPJ
   noremap                      ;              :
   noremap                      ;;             ;
@@ -242,21 +198,10 @@ in pkgs.lib.optionalString debug ''
   noremap                      <Leader>zt     :tabnew<CR>
   noremap                      <Space>        <Nop>
   noremap                      Y              y$
-  omap                         ac             <Plug>(coc-classobj-a)
-  omap                         af             <Plug>(coc-funcobj-a)
-  omap                         ic             <Plug>(coc-classobj-i)
-  omap                         if             <Plug>(coc-funcobj-i)
   tnoremap                     <A-h>          <C-\><C-N><C-w>h
   tnoremap                     <A-j>          <C-\><C-N><C-w>j
   tnoremap                     <A-k>          <C-\><C-N><C-w>k
   tnoremap                     <A-l>          <C-\><C-N><C-w>l
-  xmap                         <Leader>a      <Plug>(coc-codeaction-selected)
-  xmap                         <Leader>f      <Plug>(coc-format-selected)
-  xmap                         ac             <Plug>(coc-classobj-a)
-  xmap                         af             <Plug>(coc-funcobj-a)
-  xmap                         ic             <Plug>(coc-classobj-i)
-  xmap                         if             <Plug>(coc-funcobj-i)
-  xmap                <silent> <TAB>          <Plug>(coc-range-select)
 
   command! -nargs=? -complete=dir Explore Dirvish <args>
   command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
@@ -269,12 +214,12 @@ in pkgs.lib.optionalString debug ''
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 
   " Highlight the symbol and its references when holding the cursor.
-  au CursorHold * silent call CocActionAsync('highlight')
+  au CursorHold             <buffer> lua vim.lsp.buf.hover()
 
   au FileType  markdown              packadd vim-table-mode
   au FileType  typescript            setlocal noexpandtab
-  au FileType  verilog_systemverilog VerilogErrorFormat verilator 2
-  au FileType  verilog_systemverilog setlocal makeprg=verilator\ --lint-only\ %
+
+  autocmd BufEnter * lua require'completion'.on_attach()
 
   au FocusLost *                     wa
 ''
