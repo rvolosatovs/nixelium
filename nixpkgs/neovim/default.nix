@@ -20,6 +20,7 @@ pkgs: {
     fugitive
     gitv
     incsearch-vim
+    julia-vim
     nerdcommenter
     repeat
     skim
