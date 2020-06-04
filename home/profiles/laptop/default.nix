@@ -31,12 +31,14 @@
         minicom
         mkvtoolnix
         nixops
+        nixpkgs-fmt
         nmap
         pandoc
         poppler_utils
         quake3
         richgo
         rls
+        rnix-lsp
         rsibreak
         rtl-sdr
         rust-analyzer
