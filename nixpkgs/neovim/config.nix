@@ -6,27 +6,24 @@ pkgs: ''
   set background=dark
 
   filetype plugin indent on
-  syntax enable
+  syntax on
 
   set autoindent
+  set autowriteall
   set backup
   set backupdir=~/.local/share/nvim/backup//
   set cmdheight=2
   set completeopt+=menuone,noinsert,noselect
   set concealcursor=nc
   set conceallevel=0
+  set confirm
   set cursorcolumn
   set cursorline
   set encoding=utf-8
   set expandtab
   set fileencoding=utf-8
   set fileformat=unix
-  set foldcolumn=1
-  set foldignore=""
-  set foldlevel=20
-  set foldlevelstart=7
-  set foldmethod=syntax
-  set foldnestmax=20
+  set foldcolumn=auto:9
   set gdefault
   set grepformat^=%f:%l:%c:%m
   set grepprg=${pkgs.ripgrep}/bin/rg\ --vimgrep
@@ -35,12 +32,11 @@ pkgs: ''
   set hlsearch
   set ignorecase
   set incsearch
+  set inccommand=nosplit
   set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
   set mouse=a
-  set nofoldenable
   set nrformats=alpha,octal,hex,bin
   set number
-  set omnifunc=v:lua.vim.lsp.omnifunc
   set relativenumber
   set shiftwidth=4
   set shortmess+=c
@@ -58,20 +54,25 @@ pkgs: ''
   set wrapscan
 
   lua << EOF
-    require'nvim_lsp'.bashls.setup{
-      on_attach=require'completion'.on_attach;
+    local nvim_lsp = require'nvim_lsp'
+    local on_attach = function(_, bufnr)
+      vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    end
+
+    nvim_lsp.bashls.setup{
+      on_attach = on_attach;
       cmd = { '${pkgs.nodePackages.bash-language-server}/bin/bash-language-server', 'start' };
     }
-    require'nvim_lsp'.clangd.setup{
-      on_attach=require'completion'.on_attach;
+    nvim_lsp.clangd.setup{
+      on_attach = on_attach;
       cmd = { '${pkgs.clang-tools}/bin/clangd', '--background-index' };
     }
-    require'nvim_lsp'.dockerls.setup{
-      on_attach=require'completion'.on_attach;
+    nvim_lsp.dockerls.setup{
+      on_attach = on_attach;
       cmd = { '${pkgs.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver', '--stdio' };
     }
-    require'nvim_lsp'.elmls.setup{
-      on_attach=require'completion'.on_attach;
+    nvim_lsp.elmls.setup{
+      on_attach = on_attach;
       cmd = { '${pkgs.elmPackages.elm-language-server}/bin/elm-language-server' };
       settings = {
         elmLS = {
@@ -81,25 +82,32 @@ pkgs: ''
         elmTestPath = '${pkgs.elmPackages.elm-test}/bin/elm-test';
       };
     }
-    require'nvim_lsp'.gopls.setup{
-      on_attach=require'completion'.on_attach;
+    nvim_lsp.gdscript.setup{
+      on_attach = on_attach;
+    }
+    nvim_lsp.gopls.setup{
+      on_attach = on_attach;
       cmd = { '${pkgs.gopls}/bin/gopls' };
     }
-    require'nvim_lsp'.julials.setup{
-      on_attach=require'completion'.on_attach;
+    nvim_lsp.julials.setup{
+      on_attach = on_attach;
       settings = {
         julia = {
           executablePath = '${pkgs.julia}/bin/julia';
         };
       };
     }
-    require'nvim_lsp'.rnix.setup{
-      on_attach=require'completion'.on_attach;
-      cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' }
+    nvim_lsp.rnix.setup{
+      on_attach = on_attach;
+      cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' };
     }
-    require'nvim_lsp'.rust_analyzer.setup{
-      on_attach=require'completion'.on_attach;
-      cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' }
+    nvim_lsp.rust_analyzer.setup{
+      on_attach = on_attach;
+      settings = {
+        rust_analyzer = {
+          serverPath = '${pkgs.rust-analyzer}/bin/rust-analyzer';
+        };
+      };
     }
   EOF
 
@@ -126,21 +134,14 @@ pkgs: ''
   let g:go_highlight_array_whitespace_error = 1
   let g:go_highlight_build_constraints = 1
   let g:go_highlight_chan_whitespace_error = 1
-  let g:go_highlight_extra_types = 0
-  let g:go_highlight_fields = 0
-  let g:go_highlight_format_strings = 1
-  let g:go_highlight_function_arguments = 0
   let g:go_highlight_function_calls = 1
   let g:go_highlight_functions = 1
   let g:go_highlight_generate_tags = 1
-  let g:go_highlight_interfaces = 0
-  let g:go_highlight_methods = 1
   let g:go_highlight_operators = 1
-  let g:go_highlight_structs = 1
   let g:go_highlight_trailing_whitespace_error = 1
-  let g:go_highlight_types = 0
-  let g:go_highlight_variable_assignments = 0
-  let g:go_highlight_variable_declarations = 0
+
+  let g:rustc_path = '${pkgs.rustup}/bin/rustc'
+  let g:rustfmt_autosave_if_config_present = 1
 
   let g:incsearch#auto_nohlsearch = 1
 
@@ -151,6 +152,10 @@ pkgs: ''
   let mapleader = "\<Space>"
   let maplocalleader = "\<Space>"
 
+  imap                         <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+  imap                         <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+  imap                         <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+  imap                         <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
   inoremap                     <A-h>          <C-\><C-N><C-w>h
   inoremap                     <A-j>          <C-\><C-N><C-w>j
   inoremap                     <A-k>          <C-\><C-N><C-w>k
@@ -167,17 +172,17 @@ pkgs: ''
   nmap                         g/             <Plug>(incsearch-stay)
   nmap                         N              <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
   nmap                         n              <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
-  nnoremap            <silent> <Leader>i      <Cmd>lua vim.lsp.buf.code_action({context = 'organizeImport'})<CR>
+  nnoremap                     K              ddkPJ
   nnoremap            <silent> 1gD            <Cmd>lua vim.lsp.buf.type_definition()<CR>
   nnoremap            <silent> <C-]>          <Cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap            <silent> <C-K>          <Cmd>lua vim.lsp.buf.hover()<CR>
   nnoremap            <silent> <C-k>          <Cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap            <silent> <Leader>f      <Cmd>lua vim.lsp.buf.formatting()<CR>
+  nnoremap            <silent> <Leader>i      <Cmd>lua vim.lsp.buf.code_action({context = 'organizeImport'})<CR>
   nnoremap            <silent> g0             <Cmd>lua vim.lsp.buf.document_symbol()<CR>
   nnoremap            <silent> gd             <Cmd>lua vim.lsp.buf.declaration()<CR>
   nnoremap            <silent> gD             <Cmd>lua vim.lsp.buf.implementation()<CR>
   nnoremap            <silent> gr             <Cmd>lua vim.lsp.buf.references()<CR>
   nnoremap            <silent> gW             <Cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-  nnoremap                     K              ddkPJ
   noremap                      ;              :
   noremap                      ;;             ;
   noremap                      <A-h>          <C-w>h
@@ -198,6 +203,9 @@ pkgs: ''
   noremap                      <Leader>zt     :tabnew<CR>
   noremap                      <Space>        <Nop>
   noremap                      Y              y$
+  smap                         <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+  smap                         <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+  smap                         <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
   tnoremap                     <A-h>          <C-\><C-N><C-w>h
   tnoremap                     <A-j>          <C-\><C-N><C-w>j
   tnoremap                     <A-k>          <C-\><C-N><C-w>k
@@ -214,12 +222,10 @@ pkgs: ''
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 
   " Highlight the symbol and its references when holding the cursor.
-  au CursorHold             <buffer> lua vim.lsp.buf.hover()
+  au CursorHold             <silent> <buffer> lua vim.lsp.buf.hover()
 
   au FileType  markdown              packadd vim-table-mode
   au FileType  typescript            setlocal noexpandtab
 
   autocmd BufEnter * lua require'completion'.on_attach()
-
-  au FocusLost *                     wa
 ''

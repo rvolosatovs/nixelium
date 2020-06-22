@@ -10,7 +10,6 @@ pkgs: {
 
     auto-pairs
     base16-vim
-    direnv-vim
     editorconfig-vim
     fugitive
     gitv
@@ -18,6 +17,7 @@ pkgs: {
     julia-vim
     nerdcommenter
     repeat
+    rust-vim
     skim
     skim-vim
     surround
@@ -35,12 +35,16 @@ pkgs: {
     vim-unimpaired
     vim-visual-multi
     vim-visualstar
+    vim-vsnip
+    vim-vsnip-integ
   ];
 
-  extraPython3Packages = (ps: with ps; [ 
-    python-slugify
-    simple-websocket-server
-  ]);
+  extraPython3Packages = (
+    ps: with ps; [
+      python-slugify
+      simple-websocket-server
+    ]
+  );
 
   viAlias = true;
   vimAlias = true;
