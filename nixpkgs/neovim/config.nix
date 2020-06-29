@@ -8,6 +8,8 @@ pkgs: ''
   filetype plugin indent on
   syntax on
 
+  let g:polyglot_disabled = ['go']
+
   set autoindent
   set autowriteall
   set backup
@@ -104,7 +106,7 @@ pkgs: ''
     nvim_lsp.rust_analyzer.setup{
       on_attach = on_attach;
       settings = {
-        rust_analyzer = {
+        ['rust-analyzer'] = {
           serverPath = '${pkgs.rust-analyzer}/bin/rust-analyzer';
         };
       };
@@ -131,6 +133,11 @@ pkgs: ''
 
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
+  let g:go_code_completion_enabled = 0
+  let g:go_def_mapping_enabled = 0
+  let g:go_fmt_autosave = 1
+  let g:go_fmt_command = '${pkgs.gofumpt}/bin/gofumpt'
+  let g:go_gopls_enabled = 0
   let g:go_highlight_array_whitespace_error = 1
   let g:go_highlight_build_constraints = 1
   let g:go_highlight_chan_whitespace_error = 1
@@ -139,6 +146,7 @@ pkgs: ''
   let g:go_highlight_generate_tags = 1
   let g:go_highlight_operators = 1
   let g:go_highlight_trailing_whitespace_error = 1
+  let g:go_test_show_name = 1
 
   let g:rustc_path = '${pkgs.rustup}/bin/rustc'
   let g:rustfmt_autosave_if_config_present = 1
@@ -178,6 +186,7 @@ pkgs: ''
   nnoremap            <silent> <C-k>          <Cmd>lua vim.lsp.buf.signature_help()<CR>
   nnoremap            <silent> <Leader>f      <Cmd>lua vim.lsp.buf.formatting()<CR>
   nnoremap            <silent> <Leader>i      <Cmd>lua vim.lsp.buf.code_action({context = 'organizeImport'})<CR>
+  nnoremap            <silent> <Leader>r      <Cmd>lua vim.lsp.buf.rename()<CR>
   nnoremap            <silent> g0             <Cmd>lua vim.lsp.buf.document_symbol()<CR>
   nnoremap            <silent> gd             <Cmd>lua vim.lsp.buf.declaration()<CR>
   nnoremap            <silent> gD             <Cmd>lua vim.lsp.buf.implementation()<CR>

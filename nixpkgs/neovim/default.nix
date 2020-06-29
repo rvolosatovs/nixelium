@@ -29,6 +29,7 @@ pkgs: {
     vim-devicons
     vim-dirvish
     vim-eunuch
+    vim-go
     vim-plugin-AnsiEsc
     vim-polyglot
     vim-signify
