@@ -49,6 +49,7 @@
               docker-gc
               dumpster
               dust
+              entr
               exa
               fd
               file
@@ -82,6 +83,7 @@
               unzip
               weechat
               wget
+              xxd
               ytop
               zenith
               zip
