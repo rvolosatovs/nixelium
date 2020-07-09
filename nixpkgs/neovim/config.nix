@@ -133,6 +133,8 @@ pkgs: ''
 
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
+  let g:completion_enable_snippet = "vim-vsnip"
+
   let g:go_code_completion_enabled = 0
   let g:go_def_mapping_enabled = 0
   let g:go_fmt_autosave = 1
