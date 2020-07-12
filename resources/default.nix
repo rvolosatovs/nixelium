@@ -39,10 +39,10 @@
       terminal.package = pkgs.kitty;
       terminal.executable.name ="kitty -1";
 
-      browser.package = pkgs.firefox;
+    } // optionalAttrs (config.resources.graphics.enable && pkgs.stdenv.isLinux) {
+      browser.package = pkgs.firefox-wayland;
       browser.executable.name ="firefox";
 
-    } // optionalAttrs (config.resources.graphics.enable && pkgs.stdenv.isLinux) {
       mailer.package = pkgs.thunderbird;
       mailer.executable.name ="thunderbird";
     };

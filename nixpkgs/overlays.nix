@@ -36,6 +36,7 @@ in
         fira
         fira-code
         firefox
+        firefox-wayland
         firefoxWrapper
         firmwareLinuxNonFree
         fprintd

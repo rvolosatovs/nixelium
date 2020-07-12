@@ -306,7 +306,7 @@ in
               enableDjvu = true;
               enableGoogleTalkPlugin = true;
             };
-          } firefox {};
+          } firefox-wayland {};
 
           programs.mako.enable = true;
           programs.mako.backgroundColor = "#${base00}";
