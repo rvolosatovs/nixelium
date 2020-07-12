@@ -82,7 +82,7 @@ in
         libreoffice-unwrapped
         librsvg
         lidarr
-        linuxPackages_5_6
+        linuxPackages_5_7
         linuxPackages_latest
         linuxPackagesFor
         lorri
