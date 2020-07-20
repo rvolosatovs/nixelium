@@ -13,7 +13,6 @@ pkgs: {
     editorconfig-vim
     fugitive
     gitv
-    incsearch-vim
     julia-vim
     nerdcommenter
     repeat

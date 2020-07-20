@@ -159,8 +159,6 @@ pkgs: ''
   let g:rustc_path = '${pkgs.rustup}/bin/rustc'
   let g:rustfmt_autosave_if_config_present = 1
 
-  let g:incsearch#auto_nohlsearch = 1
-
   let g:loaded_netrwPlugin = 1
 
   let g:markdown_fenced_languages = ['css', 'js=javascript']
@@ -178,16 +176,7 @@ pkgs: ''
   inoremap                     <A-l>          <C-\><C-N><C-w>l
   inoremap                     <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
   inoremap                     <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-  nmap                         #              <Plug>(incsearch-nohl)<Plug>(anzu-sharp-with-echo)
-  nmap                         *              <Plug>(incsearch-nohl)<Plug>(anzu-star-with-echo)
-  nmap                         /              <Plug>(incsearch-forward)
   nmap                         <C-]>          gd
-  nmap                         ?              <Plug>(incsearch-backward)
-  nmap                         g#             <Plug>(incsearch-nohl-g#)<Plug>(anzu-update-search-status-with-echo)
-  nmap                         g*             <Plug>(incsearch-nohl-g*)<Plug>(anzu-update-search-status-with-echo)
-  nmap                         g/             <Plug>(incsearch-stay)
-  nmap                         N              <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
-  nmap                         n              <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
   nnoremap                     K              ddkPJ
   nnoremap            <silent> 1gD            <Cmd>lua vim.lsp.buf.type_definition()<CR>
   nnoremap            <silent> <C-]>          <Cmd>lua vim.lsp.buf.definition()<CR>
