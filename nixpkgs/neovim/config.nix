@@ -90,6 +90,12 @@ pkgs: ''
     nvim_lsp.gopls.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.gopls}/bin/gopls' };
+      settings = {
+        gopls = {
+          staticcheck = true;
+          gofumpt = true;
+        };
+      };
     }
     nvim_lsp.julials.setup{
       on_attach = on_attach;
