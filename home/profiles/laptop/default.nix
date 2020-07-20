@@ -78,7 +78,6 @@
           sidequest
           sshfs
           steam
-          steam-run-native
         ];
 
         systemd.user.services.godoc.Unit.Description = "Godoc server";
