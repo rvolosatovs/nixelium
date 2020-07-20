@@ -233,5 +233,5 @@ pkgs: ''
   au FileType  markdown              packadd vim-table-mode
   au FileType  typescript            setlocal noexpandtab
 
-  autocmd BufEnter * lua require'completion'.on_attach()
+  au BufEnter * lua require'completion'.on_attach()
 ''
