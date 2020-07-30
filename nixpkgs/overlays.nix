@@ -28,6 +28,7 @@ in
         docker-compose
         docker-credential-helpers
         echoip
+        elmPackages
         exa
         fahclient
         fahcontrol
