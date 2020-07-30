@@ -99,6 +99,7 @@ in
         mopidy-spotify
         mopidy-spotify-tunigo
         mopidy-youtube
+        motion
         mpv
         mullvad-vpn
         neovim
