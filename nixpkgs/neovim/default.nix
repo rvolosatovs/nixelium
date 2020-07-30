@@ -10,6 +10,7 @@ pkgs: {
 
     auto-pairs
     base16-vim
+    diagnostic-nvim
     editorconfig-vim
     fugitive
     gitv
