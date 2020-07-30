@@ -213,6 +213,7 @@
     extraGroups = [
       "adm"
       "audio"
+      "camera"
       "dialout"
       "disk"
       "docker"
