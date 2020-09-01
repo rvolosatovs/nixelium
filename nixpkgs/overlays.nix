@@ -18,10 +18,12 @@ in
         brave
         bspwm
         cachix
+        cargo-web
         chromium
         clippy
         cockroachdb
         deadcode
+        deno
         dep
         direnv
         docker
@@ -52,6 +54,7 @@ in
         go-sct
         go-tools
         go_1_14
+        go_1_15
         gocode
         gocode-gomod
         godef
@@ -84,8 +87,11 @@ in
         libreoffice-unwrapped
         librsvg
         lidarr
+        linux_zen
         linuxPackages_5_7
+        linuxPackages_5_8
         linuxPackages_latest
+        linuxPackages_zen
         linuxPackagesFor
         lorri
         lutris
@@ -187,6 +193,7 @@ in
         vulkan-headers
         vulkan-loader
         vulkan-tools
+        wasm-pack
         waybar
         webkit
         webkitgtk
@@ -213,6 +220,7 @@ in
       gitAndTools = super.gitAndTools // {
         inherit (unstable.gitAndTools)
           delta
+          hub
           ;
       };
 
