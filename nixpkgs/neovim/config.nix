@@ -137,9 +137,9 @@ pkgs: ''
 
   let g:bufferline_echo = 0
 
-  let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-
   let g:completion_enable_snippet = "vim-vsnip"
+
+  let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
   let g:go_code_completion_enabled = 0
   let g:go_def_mapping_enabled = 0
@@ -156,8 +156,26 @@ pkgs: ''
   let g:go_highlight_trailing_whitespace_error = 1
   let g:go_test_show_name = 1
 
+  let g:NERDCreateDefaultMappings = 0
+
   let g:rustc_path = '${pkgs.rustup}/bin/rustc'
   let g:rustfmt_autosave_if_config_present = 1
+
+  function! OpenFloatingWindow(width, height)
+    let buf = nvim_create_buf(v:false, v:true)
+    call setbufvar(buf, '&signcolumn', 'no')
+
+    let width = float2nr(&columns * a:width)
+    call nvim_open_win(buf, v:true, {
+    \   'relative': 'editor',
+    \   'row': &lines * 2 / 10,
+    \   'col': float2nr((&columns - width) / 2),
+    \   'width': width,
+    \   'height': float2nr(&lines * a:height)
+    \ })
+  endfunction
+
+  let g:skim_layout = { 'window': 'call OpenFloatingWindow(0.6, 0.6)' }
 
   let g:loaded_netrwPlugin = 1
 
@@ -166,62 +184,82 @@ pkgs: ''
   let mapleader = "\<Space>"
   let maplocalleader = "\<Space>"
 
-  imap                         <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-  imap                         <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-  imap                         <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-  imap                         <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-  inoremap                     <A-h>          <C-\><C-N><C-w>h
-  inoremap                     <A-j>          <C-\><C-N><C-w>j
-  inoremap                     <A-k>          <C-\><C-N><C-w>k
-  inoremap                     <A-l>          <C-\><C-N><C-w>l
-  inoremap                     <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  inoremap                     <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-  nmap                         <C-]>          gd
-  nnoremap                     K              ddkPJ
-  nnoremap            <silent> 1gD            <Cmd>lua vim.lsp.buf.type_definition()<CR>
-  nnoremap            <silent> <C-]>          <Cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap            <silent> <C-k>          <Cmd>lua vim.lsp.buf.signature_help()<CR>
-  nnoremap            <silent> <Leader>f      <Cmd>lua vim.lsp.buf.formatting()<CR>
-  nnoremap            <silent> <Leader>i      <Cmd>lua vim.lsp.buf.code_action({context = 'organizeImport'})<CR>
-  nnoremap            <silent> <Leader>r      <Cmd>lua vim.lsp.buf.rename()<CR>
-  nnoremap            <silent> g0             <Cmd>lua vim.lsp.buf.document_symbol()<CR>
-  nnoremap            <silent> gd             <Cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap            <silent> gD             <Cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap            <silent> gr             <Cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap            <silent> gW             <Cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-  noremap                      ;              :
-  noremap                      ;;             ;
-  noremap                      <A-h>          <C-w>h
-  noremap                      <A-j>          <C-w>j
-  noremap                      <A-k>          <C-w>k
-  noremap                      <A-l>          <C-w>l
-  noremap                      <Leader>cd     :cd %:p:h<CR>:pwd<CR>
-  noremap                      <Leader>cl     :copen<CR>
-  noremap                      <Leader>cn     :cnext<CR>
-  noremap                      <Leader>cp     :cprevious<CR>
-  noremap                      <Leader>ll     :lopen<CR>
-  noremap                      <Leader>ln     :lnext<CR>
-  noremap                      <Leader>lp     :lprevious<CR>
-  noremap                      <Leader>n      :bnext<CR>
-  noremap                      <Leader>p      :bprev<CR>
-  noremap                      <Leader>s      :sort i<CR>
-  noremap                      <Leader>ze     :enew <CR>
-  noremap                      <Leader>zt     :tabnew<CR>
-  noremap                      <Space>        <Nop>
-  noremap                      Y              y$
-  smap                         <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-  smap                         <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-  smap                         <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-  tnoremap                     <A-h>          <C-\><C-N><C-w>h
-  tnoremap                     <A-j>          <C-\><C-N><C-w>j
-  tnoremap                     <A-k>          <C-\><C-N><C-w>k
-  tnoremap                     <A-l>          <C-\><C-N><C-w>l
+  imap                         <expr> <C-j>      vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+  imap                         <expr> <C-l>      vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+  imap                         <expr> <S-Tab>    vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+  imap                         <expr> <Tab>      vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+  inoremap                     <A-h>             <C-\><C-N><C-w>h
+  inoremap                     <A-j>             <C-\><C-N><C-w>j
+  inoremap                     <A-k>             <C-\><C-N><C-w>k
+  inoremap                     <A-l>             <C-\><C-N><C-w>l
+  inoremap                     <expr> <S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap                     <expr> <Tab>      pumvisible() ? "\<C-n>" : "\<Tab>"
+  map                          <Leader>c$        <Plug>NERDCommenterToEOL
+  map                          <Leader>cA        <Plug>NERDCommenterAppend
+  map                          <Leader>c<Leader> <Plug>NERDCommenterToggle
+  map                          <Leader>cy        <Plug>NERDCommenterYank
+  nmap                         <C-]>             gd
+  nnoremap                     K                 ddkPJ
+  nnoremap            <silent> 1gD               <Cmd>lua vim.lsp.buf.type_definition()<CR>
+  nnoremap            <silent> <C-]>             <Cmd>lua vim.lsp.buf.definition()<CR>
+  nnoremap            <silent> <C-k>             <Cmd>lua vim.lsp.buf.signature_help()<CR>
+  nnoremap            <silent> <Leader>f         <Cmd>lua vim.lsp.buf.formatting()<CR>
+  nnoremap            <silent> <Leader>i         <Cmd>lua vim.lsp.buf.code_action({context = 'organizeImport'})<CR>
+  nnoremap            <silent> <Leader>r         <Cmd>lua vim.lsp.buf.rename()<CR>
+  nnoremap            <silent> g0                <Cmd>lua vim.lsp.buf.document_symbol()<CR>
+  nnoremap            <silent> gd                <Cmd>lua vim.lsp.buf.declaration()<CR>
+  nnoremap            <silent> gD                <Cmd>lua vim.lsp.buf.implementation()<CR>
+  nnoremap            <silent> gr                <Cmd>lua vim.lsp.buf.references()<CR>
+  nnoremap            <silent> gW                <Cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+  noremap                      <A-h>             <C-w>h
+  noremap                      <A-j>             <C-w>j
+  noremap                      <A-k>             <C-w>k
+  noremap                      <A-l>             <C-w>l
+  noremap                      <Leader>:         :Commands<CR>
+  noremap                      <Leader>a         :wa<CR>
+  noremap                      <Leader>cd        :cd %:p:h<CR>:pwd<CR>
+  noremap                      <Leader>cl        :copen<CR>
+  noremap                      <Leader>cl        :copen<CR>
+  noremap                      <Leader>cn        :cnext<CR>
+  noremap                      <Leader>cN        :cprevious<CR>
+  noremap                      <Leader>cP        :cnext<CR>
+  noremap                      <Leader>cp        :cprevious<CR>
+  noremap                      <Leader>g/        :History/<CR>
+  noremap                      <Leader>g:        :History:<CR>
+  noremap                      <Leader>gb        :Buffers<CR>
+  noremap                      <Leader>gc        :Commits<CR>
+  noremap                      <Leader>gd        :Helptags<CR>
+  noremap                      <Leader>gf        :Files<CR>
+  noremap                      <Leader>gg        :GFiles<CR>
+  noremap                      <Leader>gh        :History<CR>
+  noremap                      <Leader>gl        :BLines<CR>
+  noremap                      <Leader>gL        :Lines<CR>
+  noremap                      <Leader>gm        :Marks<CR>
+  noremap                      <Leader>gs        :G<CR>
+  noremap                      <Leader>gS        :GFiles?<CR>
+  noremap                      <Leader>gt        :FileTypes<CR>
+  noremap                      <Leader>gw        :Windows<CR>
+  noremap                      <Leader>ll        :lopen<CR>
+  noremap                      <Leader>ln        :lnext<CR>
+  noremap                      <Leader>lN        :lprevious<CR>
+  noremap                      <Leader>lP        :lnext<CR>
+  noremap                      <Leader>lp        :lprevious<CR>
+  noremap                      <Leader>q         :q<CR>
+  noremap                      <Leader>s         :sort i<CR>
+  noremap                      <Leader>w         :w<CR>
+  noremap                      <Space>           <Nop>
+  noremap                      Y                 y$
+  smap                         <expr> <C-l>      vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+  smap                         <expr> <S-Tab>    vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+  smap                         <expr> <Tab>      vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+  tnoremap                     <A-h>             <C-\><C-N><C-w>h
+  tnoremap                     <A-j>             <C-\><C-N><C-w>j
+  tnoremap                     <A-k>             <C-\><C-N><C-w>k
+  tnoremap                     <A-l>             <C-\><C-N><C-w>l
 
   command! -nargs=? -complete=dir Explore Dirvish <args>
   command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
   command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
-
-  command! -nargs=* -bang         Rg call fzf#vim#rg_interactive(<q-args>, fzf#vim#with_preview('right:50%:hidden', 'alt-h'))
 
   au TextYankPost * silent! lua require'highlight'.on_yank("IncSearch", 500, vim.v.event)
 
