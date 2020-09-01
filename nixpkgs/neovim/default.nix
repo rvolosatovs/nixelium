@@ -17,6 +17,7 @@ pkgs: {
     julia-vim
     nerdcommenter
     repeat
+    rhubarb
     rust-vim
     skim
     skim-vim
