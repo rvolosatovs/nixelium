@@ -17,7 +17,7 @@
     boot.initrd.luks.devices.luksroot.preLVM=true;
     boot.initrd.luks.devices.luksroot.allowDiscards=true;
 
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_zen;
 
     home-manager.users.${config.resources.username} = {...}: import ./../../../home/hosts/cobalt;
 
