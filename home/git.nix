@@ -37,8 +37,9 @@ in
     home.packages = with pkgs; [
       git-lfs
     ] ++ (with gitAndTools; [
-      git-extras
       delta
+      git-extras
+      hub
     ]);
     home.sessionVariables.GIT_EDITOR = config.resources.programs.editor.executable.path;
 
@@ -70,6 +71,7 @@ in
     programs.git.extraConfig.format.pretty = "%C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n";
     programs.git.extraConfig.ghq.root = "~/src";
     programs.git.extraConfig.http.cookieFile = "~/.gitcookies";
+    programs.git.extraConfig.hub.protocol = "https";
     programs.git.extraConfig.interactive.diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --theme='base16' --color-only";
     programs.git.extraConfig.merge.conflictstyle = "diff3";
     programs.git.extraConfig.merge.tool = "nvimdiff";
@@ -85,6 +87,7 @@ in
     programs.git.userEmail = config.resources.email;
     programs.git.userName = config.resources.fullName;
 
+    programs.zsh.shellAliases.git="${pkgs.gitAndTools.hub}/bin/hub";
     programs.zsh.shellAliases.ga="git add";
     programs.zsh.shellAliases.gap="git add -p";
     programs.zsh.shellAliases.gb="git branch";
