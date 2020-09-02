@@ -17,12 +17,6 @@ in
         borgbackup
         brave
         bspwm
-        buildGo114Module
-        buildGo114Package
-        buildGo115Module
-        buildGo115Package
-        buildGoModule
-        buildGoPackage
         cachix
         cargo-web
         chromium
