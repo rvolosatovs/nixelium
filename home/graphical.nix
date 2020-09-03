@@ -322,7 +322,7 @@ in
 
           programs.zsh.loginExtra = ''
             if [ "$(${pkgs.busybox}/bin/tty)" = "/dev/tty1" ]; then
-              exec "${config.wayland.windowManager.sway.package}/bin/sway" > ${config.xdg.cacheHome}/sway/log/$(${pkgs.busybox}/bin/date +%F-%T).log
+              exec "${config.wayland.windowManager.sway.package}/bin/sway"
             fi
           '';
 
