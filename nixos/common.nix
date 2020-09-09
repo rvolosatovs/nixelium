@@ -98,8 +98,6 @@
       "vendor/copier/.*"
       "vendor/dumpster"
       "vendor/dumpster/.*"
-      "vendor/gorandr"
-      "vendor/gorandr/.*"
       "vendor/nixpkgs-mozilla"
       "vendor/nixpkgs-mozilla/.*"
       "vendor/nur"

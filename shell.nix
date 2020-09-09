@@ -142,7 +142,6 @@ stdenv.mkDerivation {
 
         ${vendorGitHubSourceMaster "copier"}
         ${vendorGitHubSourceMaster "dumpster"}
-        ${vendorGitHubSourceMaster "gorandr"}
 
         ${vendorKeybasePrivateSourceMaster "pass"}
         ${vendorKeybasePrivateSourceMaster "pass-otp"}

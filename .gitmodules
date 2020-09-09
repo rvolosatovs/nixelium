@@ -17,9 +17,6 @@
 	url = https://github.com/rvolosatovs/nixpkgs.git
 	branch = nixos-unstable
 	shallow = true
-[submodule "vendor/gorandr"]
-    path = vendor/gorandr
-    url = https://github.com/rvolosatovs/gorandr.git
 [submodule "vendor/copier"]
     path = vendor/copier
     url = https://github.com/rvolosatovs/copier.git

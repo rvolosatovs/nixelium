@@ -255,7 +255,6 @@ in
       {
         copier = callGoPackage ./../vendor/copier;
         dumpster = callGoPackage ./../vendor/dumpster;
-        gorandr = callGoPackage ./../vendor/gorandr;
       }
   )
 
