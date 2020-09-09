@@ -15,10 +15,6 @@ with lib;
     }
 
     (mkIf config.resources.graphics.enable {
-      hardware.opengl.extraPackages = with pkgs; [
-        amdvlk
-      ];
-
       services.xserver.videoDrivers = [
         "amdgpu"
       ];

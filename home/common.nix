@@ -284,9 +284,9 @@
             lm_sensors
             pciutils
             psmisc
+            rfkill
             sudo
             usbutils
-            utillinux
             xdg_utils
           ];
 
