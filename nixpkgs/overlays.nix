@@ -195,7 +195,6 @@ in
         vulkan-loader
         vulkan-tools
         wasm-pack
-        waybar
         webkit
         webkitgtk
         webkitgtk24x-gtk2
@@ -216,6 +215,9 @@ in
         zathura
         zenith
         zoom-us
+
+        # TODO: Add waybar once https://github.com/NixOS/nixpkgs/issues/97585 is resolved.
+        #waybar
         ;
 
       gitAndTools = super.gitAndTools // {
