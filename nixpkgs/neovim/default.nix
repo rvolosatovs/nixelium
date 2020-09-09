@@ -5,7 +5,7 @@ pkgs: {
     vim-table-mode
   ];
   configure.plug.plugins = with pkgs.vimPlugins; [
-    nvim-lsp
+    nvim-lspconfig
     completion-nvim
 
     auto-pairs
