@@ -1,4 +1,0 @@
-source .envrc.common.local
-source .envrc.darwin.common
-export NIX_PATH="nixpkgs=$PWD/vendor/nixpkgs/darwin:nixpkgs-unstable=$PWD/vendor/nixpkgs/darwin-unstable:$NIX_PATH"
-#vim:ft=sh

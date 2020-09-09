@@ -17,16 +17,6 @@
 	url = https://github.com/rvolosatovs/nixpkgs.git
 	branch = nixos-unstable
 	shallow = true
-[submodule "vendor/nixpkgs/darwin"]
-	path = vendor/nixpkgs/darwin
-	url = https://github.com/rvolosatovs/nixpkgs.git
-	branch = darwin
-	shallow = true
-[submodule "vendor/nixpkgs/darwin-unstable"]
-	path = vendor/nixpkgs/darwin-unstable
-	url = https://github.com/rvolosatovs/nixpkgs.git
-	branch = darwin-unstable
-	shallow = true
 [submodule "vendor/gorandr"]
     path = vendor/gorandr
     url = https://github.com/rvolosatovs/gorandr.git
@@ -51,9 +41,6 @@
 [submodule "vendor/nur"]
 	path = vendor/nur
 	url = https://github.com/rvolosatovs/NUR.git
-[submodule "vendor/nix-darwin"]
-	path = vendor/nix-darwin
-	url = https://github.com/rvolosatovs/nix-darwin.git
 [submodule "vendor/brew"]
 	path = vendor/brew
 	url = https://github.com/rvolosatovs/brew.git

@@ -1,2 +1,0 @@
-export NIX_PATH="darwin-config=$PWD/darwin/hosts/$(hostname):$NIX_PATH"
-#vim:ft=sh
