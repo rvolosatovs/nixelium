@@ -241,11 +241,11 @@ in
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+space" = exec "${cfg.config.menu}";
 
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+f" = exec ''${gopass}/bin/gopass otp -c "$(${choosePass} 2fa)"'';
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+p" = exec ''${gopass}/bin/gopass -c "$(${choosePass})"'';
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+u" = exec ''${gopass}/bin/gopass -c "$(${choosePass})" username'';
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+f" = exec ''${gopass}/bin/gopass otp "$(${choosePass} 2fa)" | ${busybox}/bin/cut -d " " -f 1 | ${typeStdin}'';
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+p" = exec ''${gopass}/bin/gopass show -f "$(${choosePass})" | ${busybox}/bin/head -n 1 | ${typeStdin}'';
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+u" = exec ''${gopass}/bin/gopass show -f "$(${choosePass})" username | ${typeStdin}'';
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+p" = exec ''${gopass}/bin/gopass show -c "$(${choosePass})"'';
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Ctrl+u" = exec ''${gopass}/bin/gopass show -c "$(${choosePass})" username'';
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+f" = exec ''${gopass}/bin/gopass otp -o "$(${choosePass} 2fa)" | ${busybox}/bin/cut -d " " -f 1 | ${typeStdin}'';
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+p" = exec ''${gopass}/bin/gopass show -o -f "$(${choosePass})" | ${busybox}/bin/head -n 1 | ${typeStdin}'';
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+u" = exec ''${gopass}/bin/gopass show -o -f "$(${choosePass})" username | ${typeStdin}'';
 
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+p" = exec "${clipman}/bin/clipman pick -t wofi";
 
