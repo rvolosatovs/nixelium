@@ -28,6 +28,8 @@ in
       boot.initrd.luks.devices.luksroot.preLVM=true;
       boot.initrd.luks.devices.luksroot.allowDiscards=true;
 
+      boot.initrd.network.ssh.hostRSAKey = "/etc/secrets/initrd/ssh_host_rsa_key";
+
       home-manager.users.${config.resources.username} = import ./../../../home/hosts/neon;
 
       networking.dhcpcd.enable = false;
