@@ -162,11 +162,15 @@ in
         rust-cbindgen
         rust_1_42
         rust_1_43
+        rust_1_44
+        rust_1_45
         rustc
         rustfmt
         rustPackages
         rustPackages_1_42
         rustPackages_1_43
+        rustPackages_1_44
+        rustPackages_1_45
         rustPlatform
         rustup
         sd
