@@ -18,7 +18,7 @@ in
         brave
         bspwm
         cachix
-        cargo-add
+        cargo-edit
         cargo-web
         chromium
         clippy
