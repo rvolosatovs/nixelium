@@ -74,6 +74,7 @@ in
         ioquake3
         iwd
         jackett
+        julia
         kanshi
         kbfs
         keybase
