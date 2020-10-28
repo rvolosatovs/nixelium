@@ -41,6 +41,7 @@
               bat-extras.batwatch
               bat-extras.prettybat
               borgbackup
+              bottom
               coreutils
               cowsay
               curl
@@ -82,7 +83,6 @@
               weechat
               wget
               xxd
-              ytop
               zenith
               zip
             ]
@@ -140,8 +140,9 @@
           nixpkgs.config = import ./../nixpkgs/config.nix;
           nixpkgs.overlays = import ./../nixpkgs/overlays.nix;
 
+          programs.autojump.enable = true;
+
           programs.bash.enable = true;
-          programs.bash.enableAutojump = true;
           programs.bash.historyControl = [
             "erasedups"
             "ignoredups"
@@ -272,9 +273,9 @@
             lm_sensors
             pciutils
             psmisc
-            rfkill
             sudo
             usbutils
+            utillinux
             xdg_utils
           ];
 

@@ -15,6 +15,7 @@ in
         bat-extras
         bemenu
         borgbackup
+        bottom
         brave
         bspwm
         cachix
@@ -218,7 +219,6 @@ in
         wrapNeovim
         yarn
         ydotool
-        ytop
         zathura
         zenith
         zoom-us

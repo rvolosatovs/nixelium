@@ -110,7 +110,7 @@ in
         systemd.network.netdevs."${netdevName}" = {
           netdevConfig.Kind = "wireguard";
           netdevConfig.Name = cfg.interfaceName;
-          wireguardConfig.FwMark = 2;
+          wireguardConfig.FirewallMark = 2;
           wireguardConfig.PrivateKeyFile = mkSecretPath privateKeyName;
         };
         systemd.network.networks."${networkName}" = {
