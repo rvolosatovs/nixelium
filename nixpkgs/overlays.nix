@@ -91,6 +91,7 @@ in
         linux_zen
         linuxPackages_5_7
         linuxPackages_5_8
+        linuxPackages_5_9
         linuxPackages_latest
         linuxPackages_zen
         linuxPackagesFor
