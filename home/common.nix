@@ -61,7 +61,6 @@
               htop
               hyperfine
               jq
-              julia
               kitty.terminfo
               lsof
               nix-du

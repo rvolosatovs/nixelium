@@ -97,14 +97,6 @@ pkgs: ''
         };
       };
     }
-    nvim_lsp.julials.setup{
-      on_attach = on_attach;
-      settings = {
-        julia = {
-          executablePath = '${pkgs.julia}/bin/julia';
-        };
-      };
-    }
     nvim_lsp.rnix.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' };
