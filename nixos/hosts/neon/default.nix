@@ -28,7 +28,13 @@ in
       boot.initrd.luks.devices.luksroot.preLVM=true;
       boot.initrd.luks.devices.luksroot.allowDiscards=true;
 
-      boot.initrd.network.ssh.hostRSAKey = "/etc/secrets/initrd/ssh_host_rsa_key";
+      boot.initrd.network.ssh.hostKeys = [
+        "/etc/secrets/initrd/ssh_host_rsa_key"
+        "/etc/secrets/initrd/ssh_host_ed25519_key"
+      ];
+
+      environment.etc."secrets/initrd/ssh_host_rsa_key".text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/initrd_rsa_key;
+      environment.etc."secrets/initrd/ssh_host_ed25519_key".text = builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/initrd_ed25519_key;
 
       home-manager.users.${config.resources.username} = import ./../../../home/hosts/neon;
 
@@ -84,11 +90,11 @@ in
       }];
 
       systemd.network.enable = true;
-      systemd.network.networks."10-physical".dhcpConfig.Anonymize = true;
-      systemd.network.networks."10-physical".dhcpConfig.RouteTable = 2;
-      systemd.network.networks."10-physical".dhcpConfig.UseDNS = false;
-      systemd.network.networks."10-physical".dhcpConfig.UseHostname = false;
-      systemd.network.networks."10-physical".dhcpConfig.UseNTP = false;
+      systemd.network.networks."10-physical".dhcpV4Config.Anonymize = true;
+      systemd.network.networks."10-physical".dhcpV4Config.RouteTable = 2;
+      systemd.network.networks."10-physical".dhcpV4Config.UseDNS = false;
+      systemd.network.networks."10-physical".dhcpV4Config.UseHostname = false;
+      systemd.network.networks."10-physical".dhcpV4Config.UseNTP = false;
       systemd.network.networks."10-physical".linkConfig.RequiredForOnline = false;
       systemd.network.networks."10-physical".matchConfig.Name = "enp0s31f6";
       systemd.network.networks."10-physical".networkConfig.DHCP = "yes";

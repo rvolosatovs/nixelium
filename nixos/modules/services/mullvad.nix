@@ -82,14 +82,14 @@ in
 
       systemd.network = mkMerge (imap0 (i: serverCfg: let
         interfaceName = "${cfg.interfaceNamePrefix}-${toString i}";
-        metric = "${toString (i+1)}00";
+        metric = (i+1)*100;
       in
       {
         netdevs."30-${interfaceName}" = {
           netdevConfig.Kind = "wireguard";
           netdevConfig.Name = interfaceName;
           wireguardConfig.PrivateKeyFile = "/etc/${config.environment.etc."keys/${cfg.interfaceNamePrefix}".target}";
-          wireguardConfig.FwMark = 2;
+          wireguardConfig.FirewallMark = 2;
           wireguardPeers = singleton {
             wireguardPeerConfig.PublicKey = serverCfg.publicKey;
             wireguardPeerConfig.AllowedIPs = [ "0.0.0.0/0" "::0/0" ];

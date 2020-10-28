@@ -54,10 +54,10 @@
   sound.mediaKeys.enable = true;
 
   systemd.network.enable = true;
-  systemd.network.networks."10-physical".dhcpConfig.Anonymize = true;
-  systemd.network.networks."10-physical".dhcpConfig.RouteTable = 2;
-  systemd.network.networks."10-physical".dhcpConfig.UseHostname = false;
-  systemd.network.networks."10-physical".dhcpConfig.UseNTP = false;
+  systemd.network.networks."10-physical".dhcpV4Config.Anonymize = true;
+  systemd.network.networks."10-physical".dhcpV4Config.RouteTable = 2;
+  systemd.network.networks."10-physical".dhcpV4Config.UseHostname = false;
+  systemd.network.networks."10-physical".dhcpV4Config.UseNTP = false;
   systemd.network.networks."10-physical".linkConfig.RequiredForOnline = false;
   systemd.network.networks."10-physical".matchConfig.Name = "en* eth* wl*";
   systemd.network.networks."10-physical".networkConfig.DHCP = "yes";
