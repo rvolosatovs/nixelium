@@ -63,7 +63,6 @@
               jq
               julia
               kitty.terminfo
-              lorri
               lsof
               nix-du
               nix-prefetch-scripts
@@ -155,6 +154,7 @@
 
           programs.direnv.enable = true;
           programs.direnv.enableBashIntegration = true;
+          programs.direnv.enableNixDirenvIntegration = true;
           programs.direnv.enableZshIntegration = true;
 
           programs.home-manager.enable = true;
