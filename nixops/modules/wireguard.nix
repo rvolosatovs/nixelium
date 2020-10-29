@@ -170,6 +170,7 @@ in
               routeConfig.Destination = cfg.subnet;
               routeConfig.Gateway = serverNode.config.network.wireguard.ip;
               routeConfig.GatewayOnLink = true;
+              routeConfig.Metric = 512;
             }
           ];
         };
