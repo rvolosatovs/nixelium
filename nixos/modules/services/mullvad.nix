@@ -82,7 +82,7 @@ in
 
       systemd.network = mkMerge (imap0 (i: serverCfg: let
         interfaceName = "${cfg.interfaceNamePrefix}-${toString i}";
-        metric = (i+1)*100;
+        metric = (i+1)*16;
       in
       {
         netdevs."30-${interfaceName}" = {
