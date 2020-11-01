@@ -1,18 +1,27 @@
 # Oomox GTK Theme (Numix Fork)
 
 gtk-color-scheme =
-"base_color:#373b41\nbg_color:#282a2e\ntooltip_bg_color:#282a2e\nselected_bg_color:#cc6666\ntext_color:#ffffff\nfg_color:#e0e0e0\ntooltip_fg_color:#e0e0e0\nselected_fg_color:#1d1f21\nmenubar_bg_color:#1d1f21\nmenubar_fg_color:#f0c674\ntoolbar_bg_color:#282a2e\ntoolbar_fg_color:#e0e0e0\nmenu_bg_color:#1d1f21\nmenu_fg_color:#f0c674\npanel_bg_color:#282a2e\npanel_fg_color:#e0e0e0\nlink_color:#cc6666\nbtn_bg_color:#1d1f21\nbtn_fg_color:#f0c674\ntitlebar_bg_color:#1d1f21\ntitlebar_fg_color:#f0c674\n"
+"base_color:#373b41\nbg_color:#282a2e\ntooltip_bg_color:#282a2e\nselected_bg_color:#cc6666\ntext_color:#ffffff\nfg_color:#e0e0e0\ntooltip_fg_color:#e0e0e0\nselected_fg_color:#1d1f21\nmenubar_bg_color:#1d1f21\nmenubar_fg_color:#f0c674\ntoolbar_bg_color:#282a2e\ntoolbar_fg_color:#e0e0e0\nmenu_bg_color:#1d1f21\nmenu_fg_color:#f0c674\npanel_bg_color:#282a2e\npanel_fg_color:#e0e0e0\nlink_color:#5f1dab\nbtn_bg_color:#1d1f21\nbtn_fg_color:#f0c674\ntitlebar_bg_color:#1d1f21\ntitlebar_fg_color:#f0c674\nprimary_caret_color:#ffffff\nsecondary_caret_color:#ffffff\naccent_bg_color:#cc6666\n"
 # Default Style
 
 style "murrine-default" {
-	GtkArrow::arrow-scaling= 0.6
+	GtkArrow::arrow-scaling= 1.0
 
 	GtkButton::child-displacement-x = 0
 	GtkButton::child-displacement-y = 0
 
-	GtkButton::default-border = { 0, 0, 0, 0 }
+	#GtkButton::default-border = { 0, 0, 0, 0 }
+    GtkButton::inner-border        = { 0, 0, 1, 0 }
+    GtkButton::focus-line-width    = 2
+    #GtkButton::focus-padding       = 4
+    GtkButton::focus-padding       = 2
+    #GtkButton::interior-focus = 1
 
-	GtkButtonBox::child-min-height = 52
+    GtkEntry::inner-border        = { 4, 4, 5, 4 }
+    GtkComboBox::inner-border        = { 4, 4, 6, 5 }
+    GtkComboBoxText::inner-border        = { 4, 4, 6, 5 }
+
+	#GtkButtonBox::child-min-height = 52
 
 	GtkCheckButton::indicator-size = 30
 
@@ -127,7 +136,7 @@ style "murrine-default" {
 		colorize_scrollbar = FALSE
 		comboboxstyle = 0 # 0 = normal combobox, 1 = colorized combobox below arrow
 		contrast = 0.8 # overal contrast with borders
-		focusstyle = 1 # 0 = none, 1 = grey dotted, 2 = colored with fill, 3 = colored glow
+		focusstyle = 3 # 0 = none, 1 = grey dotted, 2 = colored with fill, 3 = colored glow
 		glazestyle = 0 # 0 = flat highlight, 1 = curved highlight, 2 = concave, 3 = top curved highlight, 4 = beryl highlight
 		glowstyle = 0 # 0 = glow on top, 1 = glow on bottom, 2 = glow on top and bottom, 3 = glow on middle vertically, 4 = glow on middle horizontally, 5 = glow on all sides
 		glow_shade = 1.0 # amount of glow
@@ -157,8 +166,8 @@ style "murrine-wide" {
 }
 
 style "murrine-wider" {
-	xthickness = 4
-	ythickness = 8
+	xthickness = 10
+	ythickness = 10
 }
 
 style "murrine-thin" {
@@ -187,13 +196,18 @@ style "clearlooks-notebook" = "clearlooks-notebook-bg" {
 style "murrine-button"  = "murrine-wider" {
 	bg[NORMAL] = @btn_bg_color
 	bg[PRELIGHT] = shade (1.04, @btn_bg_color)
-	bg[SELECTED] = shade (0.7, @btn_bg_color)
+	bg[SELECTED] = mix (0.5, @selected_bg_color, @bg_color)
 	bg[ACTIVE] = shade (0.95, @btn_bg_color)
 	bg[INSENSITIVE] = shade (0.75, @btn_bg_color)
+    xthickness = 10
+    ythickness = 10
+    #xthickness = 5
+    #ythickness = 5
 
 	engine "murrine" {
-		border_colors = { mix(0.4, @btn_fg_color, @btn_bg_color), mix(0.4, @btn_fg_color, @btn_bg_color) }
+		border_colors = { mix(0.25, @btn_fg_color, @btn_bg_color), mix(0.25, @btn_fg_color, @btn_bg_color) }
 		roundness = 0
+		gradient_shades = { 1.0, 1.0, 1.0, 1.0 }
 	}
 }
 
@@ -202,10 +216,32 @@ style "murrine-buttonlabel" {
 	fg[PRELIGHT] = @btn_fg_color
 	fg[SELECTED] = @btn_fg_color
 	fg[ACTIVE] = @btn_fg_color
-	fg[INSENSITIVE] = @btn_fg_color
+    fg[INSENSITIVE] = mix (0.4, @btn_bg_color, @btn_fg_color)
+
+    text[NORMAL] = @btn_fg_color
+    text[PRELIGHT] = @btn_fg_color
+    text[SELECTED] = @btn_fg_color
+    text[ACTIVE] = @btn_fg_color
+    text[INSENSITIVE] = @btn_fg_color
+    text[INSENSITIVE] = mix (0.4, @btn_bg_color, @btn_fg_color)
 
 	engine "murrine" {
 	}
+}
+
+style "murrine-comboboxtext" = "murrine-buttonlabel" {
+    xthickness = 10
+    ythickness = 10
+}
+
+style "murrine-togglebutton" = "murrine-buttonlabel" {
+    xthickness = 10
+    ythickness = 10
+}
+
+style "murrine-radiocheck" = "murrine-togglebutton" {
+	text[NORMAL] = @accent_bg_color
+	text[PRELIGHT] = @accent_bg_color
 }
 
 style "murrine-scrollbar" {
@@ -232,22 +268,24 @@ style "murrine-overlay-scrollbar" {
 
 style "murrine-scale" = "murrine-thin" {
 	bg[NORMAL] = @btn_bg_color
-	bg[ACTIVE] = @bg_color
+	bg[ACTIVE] = mix(0.2, @fg_color, @bg_color)
 	bg[SELECTED] = @selected_bg_color
-	bg[INSENSITIVE] = shade (0.95, @btn_bg_color)
+	bg[INSENSITIVE] = mix(0.95, @bg_color, @btn_bg_color)
 
 	engine "murrine" {
-		roundness = 25
+        roundness = 25
+		#roundness = 0
 		gradient_shades = { 1.08, 1.08, 1.08, 1.08 }
-		border_shades = { 0.5, 0.5 }
-		trough_shades = { 1.08, 1.08 }
-		trough_border_shades = { 0.8, 0.8 }
+		#border_shades = { 0.5, 0.5 }
+		border_colors = { mix(0.25, @btn_fg_color, @btn_bg_color), mix(0.25, @btn_fg_color, @btn_bg_color) }
+        #trough_shades = { 1.08, 1.08 }
+        trough_border_shades = { 0.8, 0.8 }
 	}
 }
 
 style "murrine-progressbar" = "murrine-thin" {
 	bg[NORMAL] = @bg_color
-	bg[ACTIVE] = shade (1.08, @bg_color)
+	bg[ACTIVE] = mix(0.08, @bg_color, @base_color)
 
 	fg[PRELIGHT] = @selected_fg_color
 
@@ -259,17 +297,11 @@ style "murrine-progressbar" = "murrine-thin" {
 }
 
 style "murrine-treeview-header" = "murrine-button" {
-	#bg[NORMAL] = @base_color
-	bg[NORMAL] = mix(0.12, @bg_color, @base_color)
-	bg[PRELIGHT] = shade (1.04, @base_color)
-	bg[SELECTED] = shade (0.7, @base_color)
-	bg[ACTIVE] = shade (0.95, @base_color)
-	fg[INSENSITIVE] = mix(0.20, @bg_color, @base_color)
-	fg[NORMAL] = @text_color
-	fg[PRELIGHT] = @text_color
-	fg[SELECTED] = @text_color
-	fg[ACTIVE] = @text_color
-	fg[INSENSITIVE] = mix(0.20, @bg_color, @text_color)
+	fg[NORMAL] = @fg_color
+	fg[PRELIGHT] = @fg_color
+	fg[SELECTED] = @fg_color
+	fg[ACTIVE] = @fg_color
+	fg[INSENSITIVE] = mix(0.20, @bg_color, @fg_color)
   	engine "murrine" {
 		roundness = 0
 	}
@@ -306,6 +338,8 @@ style "murrine-tooltips" {
 }
 
 style "murrine-spinbutton" = "murrine-button" {
+    xthickness = 10
+    ythickness = 10
 	engine "murrine" {
 	}
 }
@@ -314,8 +348,8 @@ style "clearlooks-radiocheck" = "murrine-default" {
 	bg[SELECTED] = @base_color
 	bg[PRELIGHT] = @bg_color
 
-	text[NORMAL] = @selected_bg_color
-	text[PRELIGHT] = @selected_bg_color
+	text[NORMAL] = @accent_bg_color
+	text[PRELIGHT] = @accent_bg_color
 
 	engine "clearlooks" {
 		radius = 0.0
@@ -323,13 +357,29 @@ style "clearlooks-radiocheck" = "murrine-default" {
 }
 
 style "clearlooks-base-radiocheck" = "clearlooks-radiocheck" {
-	bg[PRELIGHT] = @base_color
+	bg[PRELIGHT] = @bg_color
+}
+
+style "clearlooks-radiocheck-label" = "clearlooks-radiocheck" {
+    fg[NORMAL] = @fg_color
+    fg[PRELIGHT] = @fg_color
+    fg[SELECTED] = @fg_color
+    fg[ACTIVE] = @fg_color
+    fg[INSENSITIVE] = mix (0.5, @bg_color, @fg_color)
 }
 
 style "murrine-entry" = "murrine-wider" {
+    text[NORMAL] = @text_color
+    text[PRELIGHT] = @text_color
+    text[SELECTED] = @text_color
+    text[ACTIVE] = @text_color
+    text[INSENSITIVE] = mix (0.5, @base_color, @text_color)
+
+	xthickness = 10
+	ythickness = 10
 	engine "murrine" {
 		#border_shades = { 1.15, 1.15 }
-		border_colors = { mix(0.4, @text_color, @base_color), mix(0.4, @text_color, @base_color) }
+		border_colors = { mix(0.22, @text_color, @base_color), mix(0.22, @text_color, @base_color) }
 		roundness = 0
 	}
 }
@@ -462,6 +512,17 @@ style "murrine-toolbutton" = "murrine-button" {
 	}
 }
 
+style "murrine-toolbutton-label" = "murrine-toolbutton" {
+	fg[NORMAL] = @toolbar_fg_color
+	fg[PRELIGHT] = @toolbar_fg_color
+	fg[SELECTED] = @selected_fg_color
+	fg[ACTIVE] = @toolbar_fg_color
+	fg[INSENSITIVE] = mix (0.5, @toolbar_bg_color, @toolbar_fg_color)
+
+	engine "murrine" {
+	}
+}
+
 class "GtkToolbar" style "murrine-toolbar"
 class "GtkHandleBox" style "murrine-toolbar"
 widget_class "*Toolbar*.*Separator*" style "murrine-toolbar"
@@ -562,15 +623,15 @@ style "xfdesktop-icon-view" {
        XfdesktopIconView::shadow-y-offset = 1
        XfdesktopIconView::selected-shadow-x-offset = 0
        XfdesktopIconView::selected-shadow-y-offset = 1
-       XfdesktopIconView::shadow-color = "#000000"
-       XfdesktopIconView::selected-shadow-color = "#000000"
+       XfdesktopIconView::shadow-color = @fg_color
+       XfdesktopIconView::selected-shadow-color = @fg_color
        XfdesktopIconView::shadow-blur-radius = 2
        XfdesktopIconView::cell-spacing = 2
        XfdesktopIconView::cell-padding = 6
        XfdesktopIconView::cell-text-width-proportion = 1.9
 
-       fg[NORMAL] = @selected_fg_color
-       fg[ACTIVE] = @selected_fg_color
+       fg[NORMAL] = @bg_color
+       fg[ACTIVE] = @bg_color
 
 }
 
@@ -922,6 +983,13 @@ widget "xfwm4-tabwin*GtkButton*" style "xfwm-tabwin-button"
 widget_class "*XfsmLogoutDialog*" style "xfsm-logout"
 widget_class "*XfsmLogoutDialog*GtkButton" style "xfsm-logout-button"
 
-# button fg workaround:
+
+# button fg workarounds:
 widget_class "*.<GtkButton>.<GtkLabel>" style "murrine-buttonlabel"
 widget_class "*<GtkButton>*<GtkLabel>*" style:highest "murrine-buttonlabel"
+widget_class "*<GtkCheckButton>*<GtkLabel>*" style:highest "clearlooks-radiocheck-label"
+widget_class "*<GtkComboBoxText>*" style "murrine-comboboxtext"
+widget_class "*<GtkToggleButton>*" style "murrine-togglebutton"
+widget_class "*.<GtkCheckButton>" style "murrine-radiocheck"
+widget_class "*<GtkComboBoxText>*<GtkEntry>*" style:highest "murrine-entry"
+widget_class "*<GtkToolbar>*<GtkToolButton>*<GtkLabel>*" style:highest "murrine-toolbutton-label"
