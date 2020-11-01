@@ -17,7 +17,6 @@ in
         borgbackup
         bottom
         brave
-        bspwm
         cachix
         cargo-edit
         cargo-web
@@ -26,7 +25,6 @@ in
         cockroachdb
         deadcode
         deno
-        dep
         direnv
         docker
         docker-compose
@@ -34,9 +32,6 @@ in
         echoip
         elmPackages
         exa
-        fahclient
-        fahcontrol
-        fahviewer
         fd
         fira
         fira-code
@@ -55,7 +50,6 @@ in
         go-2fa
         go-sct
         go-tools
-        go_1_14
         go_1_15
         gocode
         gocode-gomod
@@ -65,12 +59,9 @@ in
         gopass
         gopls
         gotools
-        govendor
         grim
         grml-zsh-config
         hyperfine
-        i3
-        imagemagick
         imv
         ioquake3
         iwd
@@ -178,14 +169,12 @@ in
         rustup
         sd
         sidequest
-        skhd
         skim
         slurp
         sonarr
         spotify
         steam
         sway
-        sxhkd
         syncthing
         syncthing-cli
         syncthing-tray
