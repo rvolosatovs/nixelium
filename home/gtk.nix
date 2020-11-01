@@ -40,18 +40,20 @@
       gtk.gtk3.extraConfig.gtk-xft-hintstyle="hintslight";
       gtk.gtk3.extraConfig.gtk-xft-rgba="rgb";
       gtk.gtk3.extraCss = ''
-        .window-frame, .window-frame:backdrop {
-        box-shadow: 0 0 0 black;
-        border-style: none;
-        margin: 0;
-        border-radius: 0;
+        /* remove window title from Client-Side Decorations */
+        .solid-csd headerbar .title {
+            font-size: 0;
         }
-        .titlebar {
-        border-radius: 0;
-        }
+        
+        /* hide extra window decorations/double border */
         window decoration {
-        margin: 0;
-        border: 0;
+            margin: 0;
+            border: none;
+            padding: 0;
+        }
+
+        * {
+            text-shadow: none;
         }
       '';
     })
