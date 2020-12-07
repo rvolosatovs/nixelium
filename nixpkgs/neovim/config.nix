@@ -56,24 +56,24 @@ pkgs: ''
   set wrapscan
 
   lua << EOF
-    local nvim_lsp = require'nvim_lsp'
+    local lspconfig = require'lspconfig'
     local on_attach = function(_, bufnr)
       vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     end
 
-    nvim_lsp.bashls.setup{
+    lspconfig.bashls.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.nodePackages.bash-language-server}/bin/bash-language-server', 'start' };
     }
-    nvim_lsp.clangd.setup{
+    lspconfig.clangd.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.clang-tools}/bin/clangd', '--background-index' };
     }
-    nvim_lsp.dockerls.setup{
+    lspconfig.dockerls.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver', '--stdio' };
     }
-    nvim_lsp.elmls.setup{
+    lspconfig.elmls.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.elmPackages.elm-language-server}/bin/elm-language-server' };
       settings = {
@@ -84,10 +84,10 @@ pkgs: ''
         elmTestPath = '${pkgs.elmPackages.elm-test}/bin/elm-test';
       };
     }
-    nvim_lsp.gdscript.setup{
+    lspconfig.gdscript.setup{
       on_attach = on_attach;
     }
-    nvim_lsp.gopls.setup{
+    lspconfig.gopls.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.gopls}/bin/gopls' };
       settings = {
@@ -97,11 +97,11 @@ pkgs: ''
         };
       };
     }
-    nvim_lsp.rnix.setup{
+    lspconfig.rnix.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' };
     }
-    nvim_lsp.rust_analyzer.setup{
+    lspconfig.rust_analyzer.setup{
       on_attach = on_attach;
       settings = {
         ['rust-analyzer'] = {
