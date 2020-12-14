@@ -7,13 +7,14 @@
         gtk_engines
         gtk-engine-murrine
       ];
-      home.sessionVariables.QT_QPA_PLATFORMTHEME="gtk2";
 
       gtk.enable = true;
       gtk.font.name = "Fira Sans 10";
       gtk.font.package = pkgs.fira;
-      gtk.theme.name = "oomox-Tomorrow-Dark";
-      gtk.iconTheme.name = "oomox-Tomorrow-Dark-flat";
+      gtk.iconTheme.name = "Adwaita-dark";
+      gtk.iconTheme.package = pkgs.gnome3.gnome_themes_standard;
+      gtk.theme.name = "Adwaita-dark";
+      gtk.theme.package = pkgs.gnome3.gnome_themes_standard;
       gtk.gtk2.extraConfig = ''
         gtk-cursor-theme-size=0
         gtk-toolbar-style=GTK_TOOLBAR_BOTH
@@ -50,10 +51,6 @@
             margin: 0;
             border: none;
             padding: 0;
-        }
-
-        * {
-            text-shadow: none;
         }
       '';
     })

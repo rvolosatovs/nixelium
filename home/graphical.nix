@@ -13,8 +13,6 @@ in
     config = with lib; mkMerge [
       (
         rec {
-          home.file.".themes" = xdg.configFile."themes";
-
           home.packages = with pkgs; [
             font-awesome-ttf
             mpv
@@ -111,8 +109,6 @@ in
           xdg.configFile."mpv/config".text = ''
             alang=eng,en,rus,ru
           '';
-          xdg.configFile."oomox/colors".source = ../dotfiles/oomox/colors;
-          xdg.configFile."themes".source = ../dotfiles/themes;
 
           xresources.properties."*.background" = "#${base00}";
           xresources.properties."*.base00" = "#${base00}";
@@ -257,12 +253,16 @@ in
             fi
           '';
 
+          qt.enable = true;
+          qt.platformTheme = "gtk";
+
           services.redshift.enable = true;
           services.redshift.package = pkgs.redshift-wlr;
           services.redshift.provider = "manual";
           services.redshift.tray = true;
 
           wayland.windowManager.sway.enable = true;
+          wayland.windowManager.sway.wrapperFeatures.gtk = true;
           wayland.windowManager.sway.extraConfig = ''
             focus output "${externalMonitor}"
           '';
