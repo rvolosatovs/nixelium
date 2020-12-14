@@ -99,11 +99,16 @@ in
       systemd.network.networks."10-physical".matchConfig.Name = "enp0s31f6";
       systemd.network.networks."10-physical".networkConfig.DHCP = "yes";
       systemd.network.networks."10-physical".networkConfig.IPv6AcceptRA = true;
-      systemd.network.networks."10-physical".extraConfig = ''
-        [RoutingPolicyRule]
-        FirewallMark=2
-        Table=2
-      '';
+      systemd.network.networks."10-physical".routingPolicyRules = [
+        {
+          routingPolicyRuleConfig.FirewallMark = 2;
+          routingPolicyRuleConfig.Table = 2;
+        }
+        {
+          routingPolicyRuleConfig.To = "192.168.0.0/16";
+          routingPolicyRuleConfig.Table = 2;
+        }
+      ];
       systemd.network.networks."50-wireless".enable = false;
 
       users.users.radarr.extraGroups = [
