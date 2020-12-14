@@ -11,6 +11,7 @@ in
         alacritty
         amdvlk
         arduino
+        asciinema
         bat
         bat-extras
         borgbackup
@@ -24,6 +25,7 @@ in
         docker
         docker-compose
         docker-credential-helpers
+        drive
         echoip
         elmPackages
         exa
@@ -84,6 +86,7 @@ in
         lorri
         lutris
         mbed-cli
+        minicom
         miniflux
         mkvtoolnix
         mopidy
@@ -103,6 +106,7 @@ in
         nix-du
         nixfmt
         nixpkgs-fmt
+        nmap
         noto-fonts-emoji
         nox
         pass
@@ -126,6 +130,7 @@ in
         ripgrep
         rnix-lsp
         rofi
+        rtl-sdr
         rust-analyzer
         rustup
         sd
@@ -166,6 +171,7 @@ in
         wrapNeovim
         yarn
         ydotool
+        youtube-dl
         zathura
         zoom-us
         ;
@@ -173,7 +179,9 @@ in
       gitAndTools = super.gitAndTools // {
         inherit (unstable.gitAndTools)
           delta
+          ghq
           hub
+          tig
           ;
       };
 
