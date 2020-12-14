@@ -97,6 +97,14 @@ pkgs: ''
         };
       };
     }
+    lspconfig.julials.setup{
+      on_attach = on_attach;
+      settings = {
+        julia = {
+          executablePath = '${pkgs.julia}/bin/julia';
+        };
+      };
+    }
     lspconfig.rnix.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' };
