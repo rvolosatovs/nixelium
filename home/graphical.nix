@@ -53,8 +53,6 @@ in
           programs.zathura.options.statusbar-bg = "#${base01}";
           programs.zathura.options.statusbar-fg = "#${base04}";
 
-          xdg.configFile."chromium/Default/User StyleSheets/devtools.css".source = ../dotfiles/chromium/devtools.css;
-
           # Colors based on https://github.com/kdrag0n/base16-kitty/blob/742d0326db469cae2b77ede3e10bedc323a41547/templates/default-256.mustache#L3-L42
           xdg.configFile."kitty/kitty.conf".text = ''
             background                  #${base00}
