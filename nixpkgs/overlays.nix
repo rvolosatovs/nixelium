@@ -13,15 +13,10 @@ in
         arduino
         bat
         bat-extras
-        bemenu
         borgbackup
         bottom
         brave
         cachix
-        cargo-edit
-        cargo-web
-        chromium
-        clippy
         cockroachdb
         deadcode
         deno
@@ -40,7 +35,6 @@ in
         firefoxWrapper
         firmwareLinuxNonFree
         fprintd
-        fwupd
         fzf
         gcc-arm-embedded-6
         gcc-arm-embedded-7
@@ -79,7 +73,6 @@ in
         libreoffice-still
         libreoffice-still-unwrapped
         libreoffice-unwrapped
-        librsvg
         lidarr
         linux_zen
         linuxPackages_5_7
@@ -110,20 +103,6 @@ in
         nix-du
         nixfmt
         nixpkgs-fmt
-        nodejs
-        nodejs-10_x
-        nodejs-12_x
-        nodejs-13_x
-        nodejs-slim
-        nodejs-slim-10_x
-        nodejs-slim-12_x
-        nodejs-slim-13_x
-        nodejs-slim_latest
-        nodejs_latest
-        nodePackages
-        nodePackages_10_x
-        nodePackages_12_x
-        nodePackages_13_x
         noto-fonts-emoji
         nox
         pass
@@ -132,7 +111,6 @@ in
         platformio
         polybar
         procs
-        pulseaudio-modules-bt
         qsyncthingtray
         quake3e
         quake3hires
@@ -146,26 +124,9 @@ in
         restic
         richgo
         ripgrep
-        rls
         rnix-lsp
         rofi
-        rust
         rust-analyzer
-        rust-analyzer-unwrapped
-        rust-bindgen
-        rust-cbindgen
-        rust_1_42
-        rust_1_43
-        rust_1_44
-        rust_1_45
-        rustc
-        rustfmt
-        rustPackages
-        rustPackages_1_42
-        rustPackages_1_43
-        rustPackages_1_44
-        rustPackages_1_45
-        rustPlatform
         rustup
         sd
         sidequest
@@ -187,9 +148,6 @@ in
         vim
         vimPlugins
         vimUtils
-        vulkan-headers
-        vulkan-loader
-        vulkan-tools
         wasm-pack
         waybar
         webkit
@@ -209,7 +167,6 @@ in
         yarn
         ydotool
         zathura
-        zenith
         zoom-us
         ;
 
