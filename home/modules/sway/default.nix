@@ -133,6 +133,27 @@ in
           {
             command = "${clipman}/bin/clipman restore";
           }
+          {
+            command = "unset LESS_TERMCAP_mb";
+          }
+          {
+            command = "unset LESS_TERMCAP_md";
+          }
+          {
+            command = "unset LESS_TERMCAP_me";
+          }
+          {
+            command = "unset LESS_TERMCAP_se";
+          }
+          {
+            command = "unset LESS_TERMCAP_so";
+          }
+          {
+            command = "unset LESS_TERMCAP_ue";
+          }
+          {
+            command = "unset LESS_TERMCAP_us";
+          }
         ];
 
 
