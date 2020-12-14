@@ -196,6 +196,7 @@ in
           ];
 
           home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
+          home.sessionVariables._JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.aatext=true -Dsun.java2d.xrender=true";
           home.sessionVariables.ECORE_EVAS_ENGINE = "wayland_egl";
           home.sessionVariables.ELM_ENGINE = "wayland_egl";
           home.sessionVariables.MOZ_ENABLE_WAYLAND = "1";
