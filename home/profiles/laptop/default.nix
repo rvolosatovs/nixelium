@@ -37,7 +37,6 @@
           quake3
           richgo
           rnix-lsp
-          rsibreak
           rtl-sdr
           rust-analyzer
           rustup
