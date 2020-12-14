@@ -179,6 +179,8 @@ in
             kanshi
             libnotify
             pavucontrol
+            qt5.qtwayland
+            redshift-wlr
             slurp
             spotify
             waybar
