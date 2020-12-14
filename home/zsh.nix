@@ -48,11 +48,10 @@
 
               if [ ! -e ''${nixfile} ]; then
                 cat > ''${nixfile} <<'EOF'
-            with import <nixpkgs> {};
-            stdenv.mkDerivation {
-              name = "env";
-              buildInputs = [
-                go
+            { pkgs ? import <nixpkgs> {} }:
+            
+            pkgs.mkShell {
+              buildInputs = with pkgs; [
               ];
             }
             EOF
