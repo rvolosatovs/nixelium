@@ -7,18 +7,16 @@ let
 
   mkEscapedPath = subvol: utils.escapeSystemdPath subvol.path;
 
-  mkJobName = subvol: "${mkEscapedPath subvol}@";
-  mkJobServiceName = subvol: "borgbackup-job-${mkJobName subvol}";
-
-  mkRepoKeyName = subvol: "btrfs-backup-${mkEscapedPath subvol}-repo";
+  mkBackupName = subvol: "${mkEscapedPath subvol}@";
+  mkSystemdServiceName = subvol: "btrfs-backup-${mkBackupName subvol}";
+  mkSystemdPathName = subvol: "btrfs-backup-${mkEscapedPath subvol}";
+  mkPasswordName = subvol: "btrfs-backup-${mkEscapedPath subvol}-password";
   mkSSHKeyName = subvol: "btrfs-backup-${mkEscapedPath subvol}-ssh";
-  mkPathName = subvol: "btrfs-backup-${mkEscapedPath subvol}";
 
   # TODO: Extract this into a generic function.
-  mkSecretPath = mkName: subvol: if config.deployment.storeKeysOnMachine then "/etc/${config.environment.etc."keys/${mkName subvol}".target}" else config.deployment.keys.${mkName subvol}.path ;
+  mkSecretPath = mkName: subvol: if config.deployment.storeKeysOnMachine then "/etc/${config.environment.etc."keys/${mkName subvol}".target}" else config.deployment.keys.${mkName subvol}.path;
 
-  mkPassCommand = subvol: "cat ${mkSecretPath mkRepoKeyName subvol}";
-  mkSSHCommand = subvol: "${pkgs.openssh}/bin/ssh" + optionalString (subvol.ssh != null && subvol.ssh.key != null) " -i ${mkSecretPath mkSSHKeyName subvol}";
+  mkPasswordPath = subvol: mkSecretPath mkPasswordName subvol;
 in
   {
     options = {
@@ -36,16 +34,16 @@ in
                 description = "Path containing subvolume snapshots.";
               };
 
-              repo = mkOption {
-                example = "/var/lib/borgbackup/foo";
+              repository = mkOption {
+                example = "sftp://restic@192.168.1.100:1234//var/lib/restic/foo";
                 type = types.str;
-                description = "Path to borgbackup repo to backup subvolume snapshots to.";
+                description = "Restic repository to backup subvolume snapshots to.";
               };
 
-              passphrase = mkOption {
-                example = "test-password";
-                type = types.str;
-                description = "The passphrase the backups are encrypted with.";
+              passwordFile = mkOption {
+                example = "/path/to/password";
+                type = types.path;
+                description = "The file containing the Restic repository password.";
               };
 
               ssh = mkOption {
@@ -54,7 +52,7 @@ in
                   options = {
                     key = mkOption {
                       type = types.str;
-                      description = "The SSH private key used to access the repo.";
+                      description = "The SSH private key used to access the Restic repository.";
                     };
                   };
                 });
@@ -67,7 +65,28 @@ in
 
     config = mkIf cfg.enable (mkMerge [
       {
-        services.borgbackup.jobs = mapAttrs' (_: subvol: nameValuePair (mkJobName subvol) {
+        services.restic.backups = mapAttrs' (_: subvol: nameValuePair (mkBackupName subvol) {
+          inherit (subvol) repository;
+          timerConfig = {};
+          extraOptions = optional (ssh != null && ssh.key != "") "sftp.command='${mkSFTPCommand subvol}'";
+          preHook = ''
+            archiveName="${config.networking.hostName}-''${1}"
+            if [ "$(borg list $extraArgs -a "''${archiveName}''${archiveSuffix}")" ]; then
+              borg delete $extraArgs "::''${archiveName}''${archiveSuffix}"
+            fi
+            if [ "$(borg list $extraArgs -a "''${archiveName}")" ]; then
+              exit 0
+            fi
+            cd "${subvol.path}/''${1}/snapshot"
+          '';
+          prune.keep = {
+            within = "2d";
+            daily = 20;
+          };
+          startAt = [];
+        }) cfg.subvolumes;
+
+        services.borgbackup.jobs = mapAttrs' (_: subvol: nameValuePair (mkBackupName subvol) {
           inherit (subvol) repo;
           archiveBaseName = config.networking.hostName;
           compression = "auto,zstd,9";
@@ -95,20 +114,29 @@ in
         }) cfg.subvolumes;
 
         systemd = mkMerge (mapAttrsToList (_: subvol: {
-          paths.${mkPathName subvol} = {
+          paths.${mkSystemdPathName subvol} = {
             pathConfig.PathChanged = subvol.path;
             wantedBy = [ "multi-user.target" ];
           };
-          services.${mkPathName subvol} = {
+          services.${mkSystemdPathName subvol} = {
             script = ''
               cd "${subvol.path}"
               for d in *; do
-                systemctl start --wait "${mkJobServiceName subvol}''${d}.service"
+                systemctl start --wait "${mkSystemdServiceName subvol}''${d}.service"
               done
             '';
             wantedBy = [ "multi-user.target" ];
           };
-          services.${mkJobServiceName subvol}.scriptArgs = "%I";
+
+          services.${mkSystemdServiceName subvol} = {
+            script = ''
+              cd ${subvol.path}
+              RESTIC_PASSWORD_FILE=${subvol.passwordFile} ${pkgs.restic}/bin/restic -r ${subvol.repository} backup ${
+                optionalString (subvol.ssh != null && subvol.ssh.key != null) "-o sftp.command='${pkgs.openssh}/bin/ssh -s sftp -i ${mkSecretPath mkSSHKeyName subvol}'"
+              } ./%I
+            '';
+            scriptArgs = "%I";
+          };
         }) cfg.subvolumes);
       }
 
@@ -121,7 +149,7 @@ in
           };
         in
           {
-          "keys/${mkRepoKeyName subvol}" = mkKey subvol.passphrase;
+          "keys/${mkPasswordName subvol}" = mkKey subvol.passphrase;
           "keys/${mkSSHKeyName subvol}" = mkIf (subvol.ssh != null && subvol.ssh.key != "") (mkKey subvol.ssh.key);
         }) cfg.subvolumes);
       })
@@ -134,13 +162,13 @@ in
           };
         in
           {
-          "${mkRepoKeyName subvol}" = mkKey subvol.passphrase;
+          "${mkPasswordName subvol}" = mkKey subvol.passphrase;
           "${mkSSHKeyName subvol}" = mkIf (subvol.ssh != null && subvol.ssh.key != "") (mkKey subvol.ssh.key);
         }) cfg.subvolumes);
 
         systemd.services = mkMerge (mapAttrsToList (_: subvol: {
-          ${mkJobServiceName subvol} = let
-            keyDeps = [ "${mkRepoKeyName subvol}-key.service" ] ++ optional (subvol.ssh != null && subvol.ssh.key != "") "${mkSSHKeyName subvol}-key.service";
+          ${mkSystemdServiceName subvol} = let
+            keyDeps = [ "${mkPasswordName subvol}-key.service" ] ++ optional (subvol.ssh != null && subvol.ssh.key != "") "${mkSSHKeyName subvol}-key.service";
           in {
             after = keyDeps;
             wants = keyDeps;
