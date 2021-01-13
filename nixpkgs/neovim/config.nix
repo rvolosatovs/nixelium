@@ -56,11 +56,59 @@ pkgs: ''
   set wrapscan
 
   lua << EOF
-    local lspconfig = require'lspconfig'
-    local on_attach = function(_, bufnr)
-      vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_command [[autocmd TextYankPost * silent! lua require('highlight').on_yank("IncSearch", 500, vim.v.event)]]
+
+    local map_lua_fn = function(type, key, value)
+      vim.api.nvim_buf_set_keymap(0, type, key, '<cmd>lua '..value..'<CR>', {noremap = true})
     end
 
+    local on_attach = function(client)
+      print('LSP loaded.')
+
+      vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+      require('completion').on_attach(client)
+
+      map_lua_fn('n', '<c-]>',     'vim.lsp.buf.definition()')
+      map_lua_fn('n', '<c-k>',     'vim.lsp.buf.signature_help()')
+      map_lua_fn('n', '<leader>f', 'vim.lsp.buf.formatting()')
+      map_lua_fn('n', '<leader>r', 'vim.lsp.buf.rename()')
+      map_lua_fn('n', '<leader>a', 'vim.lsp.buf.code_action()')
+      map_lua_fn('n', 'gc',        'vim.lsp.buf.incoming_calls()')
+      map_lua_fn('n', 'gC',        'vim.lsp.buf.outgoing_calls()')
+      map_lua_fn('n', 'gd',        'vim.lsp.buf.declaration()')
+      map_lua_fn('n', 'gD',        'vim.lsp.buf.implementation()')
+      map_lua_fn('n', 'gr',        'vim.lsp.buf.references()')
+      map_lua_fn('n', 'gs',        'vim.lsp.buf.document_symbol()')
+      map_lua_fn('n', 'gS',        'vim.lsp.buf.workspace_symbol()')
+      map_lua_fn('n', 'gt',        'vim.lsp.buf.type_definition()')
+      map_lua_fn('n', 'K',         'vim.lsp.buf.hover()')
+
+      vim.api.nvim_command [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
+      vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
+      vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+    end
+
+    function goimports(timeoutms)
+        local context = { source = { organizeImports = true } }
+        vim.validate { context = { context, "t", true } }
+
+        local params = vim.lsp.util.make_range_params()
+        params.context = context
+
+        local method = "textDocument/codeAction"
+        local resp = vim.lsp.buf_request_sync(0, method, params, timeoutms)
+        if resp and resp[1] then
+          local result = resp[1].result
+          if result and result[1] then
+            local edit = result[1].edit
+            vim.lsp.util.apply_workspace_edit(edit)
+          end
+        end
+      vim.lsp.buf.formatting()
+    end
+
+    local lspconfig = require('lspconfig')
     lspconfig.bashls.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.nodePackages.bash-language-server}/bin/bash-language-server', 'start' };
@@ -88,12 +136,19 @@ pkgs: ''
       on_attach = on_attach;
     }
     lspconfig.gopls.setup{
-      on_attach = on_attach;
-      cmd = { '${pkgs.gopls}/bin/gopls' };
+      on_attach = function(client)
+        on_attach(client)
+        map_lua_fn('n', '<leader>i', 'goimports(10000)')
+      end;
+      cmd = { '${pkgs.gopls}/bin/gopls', 'serve' };
       settings = {
         gopls = {
-          staticcheck = true;
+          analyses = {
+           fieldalignment = true;
+           unusedparams = true;
+          };
           gofumpt = true;
+          staticcheck = true;
         };
       };
     }
@@ -198,25 +253,11 @@ pkgs: ''
   map                          <Leader>cA        <Plug>NERDCommenterAppend
   map                          <Leader>c<Leader> <Plug>NERDCommenterToggle
   map                          <Leader>cy        <Plug>NERDCommenterYank
-  nmap                         <C-]>             gd
-  nnoremap                     K                 ddkPJ
-  nnoremap            <silent> 1gD               <Cmd>lua vim.lsp.buf.type_definition()<CR>
-  nnoremap            <silent> <C-]>             <Cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap            <silent> <C-k>             <Cmd>lua vim.lsp.buf.signature_help()<CR>
-  nnoremap            <silent> <Leader>f         <Cmd>lua vim.lsp.buf.formatting()<CR>
-  nnoremap            <silent> <Leader>i         <Cmd>lua vim.lsp.buf.code_action({context = 'organizeImport'})<CR>
-  nnoremap            <silent> <Leader>r         <Cmd>lua vim.lsp.buf.rename()<CR>
-  nnoremap            <silent> g0                <Cmd>lua vim.lsp.buf.document_symbol()<CR>
-  nnoremap            <silent> gd                <Cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap            <silent> gD                <Cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap            <silent> gr                <Cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap            <silent> gW                <Cmd>lua vim.lsp.buf.workspace_symbol()<CR>
   noremap                      <A-h>             <C-w>h
   noremap                      <A-j>             <C-w>j
   noremap                      <A-k>             <C-w>k
   noremap                      <A-l>             <C-w>l
   noremap                      <Leader>:         :Commands<CR>
-  noremap                      <Leader>a         :wa<CR>
   noremap                      <Leader>cd        :cd %:p:h<CR>:pwd<CR>
   noremap                      <Leader>cl        :copen<CR>
   noremap                      <Leader>cl        :copen<CR>
@@ -245,8 +286,8 @@ pkgs: ''
   noremap                      <Leader>lP        :lnext<CR>
   noremap                      <Leader>lp        :lprevious<CR>
   noremap                      <Leader>q         :q<CR>
-  noremap                      <Leader>s         :sort i<CR>
   noremap                      <Leader>w         :w<CR>
+  noremap                      <Leader>W         :wa<CR>
   noremap                      <Space>           <Nop>
   noremap                      Y                 y$
   smap                         <expr> <C-l>      vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
@@ -261,15 +302,8 @@ pkgs: ''
   command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
   command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 
-  au TextYankPost * silent! lua require'highlight'.on_yank("IncSearch", 500, vim.v.event)
-
   au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
-
-  " Highlight the symbol and its references when holding the cursor.
-  au CursorHold             <silent> <buffer> lua vim.lsp.buf.hover()
 
   au FileType  markdown              packadd vim-table-mode
   au FileType  typescript            setlocal noexpandtab
-
-  au BufEnter * lua require'completion'.on_attach()
 ''
