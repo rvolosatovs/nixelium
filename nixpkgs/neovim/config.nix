@@ -15,7 +15,7 @@ pkgs: ''
   set backup
   set backupdir=~/.local/share/nvim/backup//
   set cmdheight=2
-  set completeopt+=menuone,noinsert,noselect
+  set completeopt=menuone,noinsert,noselect
   set concealcursor=nc
   set conceallevel=0
   set confirm
@@ -57,6 +57,7 @@ pkgs: ''
 
   lua << EOF
     vim.api.nvim_command [[autocmd TextYankPost * silent! lua require('highlight').on_yank("IncSearch", 500, vim.v.event)]]
+    vim.api.nvim_command [[autocmd BufEnter * lua require('completion').on_attach()]]
 
     local map_lua_fn = function(type, key, value)
       vim.api.nvim_buf_set_keymap(0, type, key, '<cmd>lua '..value..'<CR>', {noremap = true})
@@ -66,8 +67,6 @@ pkgs: ''
       print('LSP loaded.')
 
       vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-      require('completion').on_attach(client)
 
       map_lua_fn('n', '<c-]>',     'vim.lsp.buf.definition()')
       map_lua_fn('n', '<c-k>',     'vim.lsp.buf.signature_help()')
