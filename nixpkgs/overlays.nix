@@ -35,7 +35,7 @@ in
         firefox
         firefox-wayland
         firefoxWrapper
-        firmwareLinuxNonFree
+        firmwareLinuxNonfree
         fprintd
         fzf
         gcc-arm-embedded-6
@@ -77,9 +77,6 @@ in
         libreoffice-unwrapped
         lidarr
         linux_zen
-        linuxPackages_5_7
-        linuxPackages_5_8
-        linuxPackages_5_9
         linuxPackages_latest
         linuxPackages_zen
         linuxPackagesFor
@@ -109,8 +106,6 @@ in
         nmap
         noto-fonts-emoji
         nox
-        pass
-        passExtensions
         pavucontrol
         platformio
         polybar
@@ -161,12 +156,12 @@ in
         webkitgtk24x-gtk3
         weechat
         wego
+        wf-recorder
         winePackages
         winePackagesFor
         winetricks
         wineWowPackages
         wl-clipboard
-        wl-recorder
         wofi
         wrapNeovim
         yarn
@@ -337,8 +332,6 @@ in
           "FiraCode"
         ];
       };
-
-      pass = super.pass.withExtensions (es: [ es.pass-otp ]);
 
       gopass = super.gopass.override {
         passAlias = true;
