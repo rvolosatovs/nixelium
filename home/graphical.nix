@@ -200,7 +200,6 @@ in
           home.sessionVariables.ECORE_EVAS_ENGINE = "wayland_egl";
           home.sessionVariables.ELM_ENGINE = "wayland_egl";
           home.sessionVariables.MOZ_ENABLE_WAYLAND = "1";
-          home.sessionVariables.QT_QPA_PLATFORM = "wayland-egl";
           home.sessionVariables.QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
           home.sessionVariables.QT_WAYLAND_FORCE_DPI = "physical";
           home.sessionVariables.SAL_USE_VCLPLUGIN = "gtk3";
