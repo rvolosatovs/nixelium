@@ -47,6 +47,7 @@ in
         go-sct
         go-tools
         go_1_15
+        go_1_16
         gocode
         gocode-gomod
         godef
@@ -110,6 +111,8 @@ in
         platformio
         polybar
         procs
+        qmk_cli
+        qmk_firmware
         qsyncthingtray
         quake3e
         quake3hires
