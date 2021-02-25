@@ -210,7 +210,6 @@ in
           programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
             auto-tab-discard
             cookie-autodelete
-            dark-night-mode
             gopass-bridge
             https-everywhere
             link-cleaner
