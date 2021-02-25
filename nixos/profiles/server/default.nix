@@ -26,7 +26,6 @@
 
   services.boinc.enable = true;
 
-  services.foldingathome.enable = true;
   services.foldingathome.user = "rvolosatovs";
 
   services.logind.lidSwitch = "ignore";
