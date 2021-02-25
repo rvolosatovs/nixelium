@@ -8,7 +8,7 @@ pkgs: ''
   filetype plugin indent on
   syntax on
 
-  let g:polyglot_disabled = ['go']
+  let g:polyglot_disabled = ['go', 'rust']
 
   set autoindent
   set autowriteall
@@ -56,17 +56,21 @@ pkgs: ''
   set wrapscan
 
   lua << EOF
-    vim.api.nvim_command [[autocmd TextYankPost * silent! lua require('highlight').on_yank("IncSearch", 500, vim.v.event)]]
-    vim.api.nvim_command [[autocmd BufEnter * lua require('completion').on_attach()]]
+    vim.api.nvim_command [[ autocmd TextYankPost * silent! lua require('highlight').on_yank("IncSearch", 500, vim.v.event) ]]
 
     local map_lua_fn = function(type, key, value)
       vim.api.nvim_buf_set_keymap(0, type, key, '<cmd>lua '..value..'<CR>', {noremap = true})
     end
 
+    local completion = require('completion')
+    local illuminate = require('illuminate')
     local on_attach = function(client)
       print('LSP loaded.')
 
       vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+      completion.on_attach(client)
+      illuminate.on_attach(client)
 
       map_lua_fn('n', '<c-]>',     'vim.lsp.buf.definition()')
       map_lua_fn('n', '<c-k>',     'vim.lsp.buf.signature_help()')
@@ -83,9 +87,7 @@ pkgs: ''
       map_lua_fn('n', 'gt',        'vim.lsp.buf.type_definition()')
       map_lua_fn('n', 'K',         'vim.lsp.buf.hover()')
 
-      vim.api.nvim_command [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
-      vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
-      vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+      vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
     end
 
     function goimports(timeoutms)
@@ -104,7 +106,7 @@ pkgs: ''
             vim.lsp.util.apply_workspace_edit(edit)
           end
         end
-      vim.lsp.buf.formatting()
+        vim.lsp.buf.formatting()
     end
 
     local lspconfig = require('lspconfig')
@@ -197,8 +199,7 @@ pkgs: ''
 
   let g:go_code_completion_enabled = 0
   let g:go_def_mapping_enabled = 0
-  let g:go_fmt_autosave = 1
-  let g:go_fmt_command = '${pkgs.gofumpt}/bin/gofumpt'
+  let g:go_fmt_autosave = 0
   let g:go_gopls_enabled = 0
   let g:go_highlight_array_whitespace_error = 1
   let g:go_highlight_build_constraints = 1
@@ -213,7 +214,6 @@ pkgs: ''
   let g:NERDCreateDefaultMappings = 0
 
   let g:rustc_path = '${pkgs.rustup}/bin/rustc'
-  let g:rustfmt_autosave_if_config_present = 1
 
   function! OpenFloatingWindow(width, height)
     let buf = nvim_create_buf(v:false, v:true)

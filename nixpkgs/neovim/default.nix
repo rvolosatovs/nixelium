@@ -10,7 +10,6 @@ pkgs: {
 
     auto-pairs
     base16-vim
-    diagnostic-nvim
     editorconfig-vim
     fugitive
     gitv
@@ -31,6 +30,7 @@ pkgs: {
     vim-dirvish
     vim-eunuch
     vim-go
+    vim-illuminate
     vim-plugin-AnsiEsc
     vim-polyglot
     vim-signify
