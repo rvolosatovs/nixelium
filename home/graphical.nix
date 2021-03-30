@@ -180,7 +180,6 @@ in
             libnotify
             pavucontrol
             qt5.qtwayland
-            redshift-wlr
             slurp
             spotify
             waybar
