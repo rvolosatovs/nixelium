@@ -2,6 +2,7 @@ pkgs: {
   configure.customRC = import ./config.nix pkgs;
   configure.packages.plugins.opt = with pkgs.vimPlugins; [
     tabular
+    vim-polyglot
     vim-table-mode
   ];
   configure.plug.plugins = with pkgs.vimPlugins; [
@@ -32,7 +33,6 @@ pkgs: {
     vim-go
     vim-illuminate
     vim-plugin-AnsiEsc
-    vim-polyglot
     vim-signify
     vim-unimpaired
     vim-visual-multi

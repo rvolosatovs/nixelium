@@ -8,7 +8,8 @@ pkgs: ''
   filetype plugin indent on
   syntax on
 
-  let g:polyglot_disabled = ['go', 'rust']
+  let g:polyglot_disabled = ['go', 'rust', 'haskell']
+  packadd vim-polyglot
 
   set autoindent
   set autowriteall
@@ -152,6 +153,10 @@ pkgs: ''
           staticcheck = true;
         };
       };
+    }
+    lspconfig.hls.setup{
+      on_attach = on_attach;
+      cmd = { '${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server-wrapper', '--lsp' };
     }
     lspconfig.julials.setup{
       on_attach = on_attach;
