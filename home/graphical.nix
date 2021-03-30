@@ -203,7 +203,8 @@ in
           home.sessionVariables.QT_WAYLAND_FORCE_DPI = "physical";
           home.sessionVariables.SAL_USE_VCLPLUGIN = "gtk3";
           home.sessionVariables.SDL_VIDEODRIVER = "wayland";
-          home.sessionVariables.XDG_CURRENT_DESKOP = "Unity";
+          home.sessionVariables.XDG_CURRENT_DESKOP = "sway";
+          home.sessionVariables.XDG_SESSION_TYPE = "wayland";
 
           programs.firefox.enable = true;
           programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
