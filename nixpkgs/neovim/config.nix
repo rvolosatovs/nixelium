@@ -6,9 +6,11 @@ pkgs: ''
   set background=dark
 
   filetype plugin indent on
-  syntax on
+  syntax enable
 
-  let g:polyglot_disabled = ['go', 'rust', 'haskell']
+  " by some reason XML support conflicts with Rust.
+  " perhaps related to https://github.com/NixOS/nixpkgs/issues/118953
+  let g:polyglot_disabled = ['go', 'rust', 'haskell', 'xml']
   packadd vim-polyglot
 
   set autoindent
