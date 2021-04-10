@@ -58,5 +58,7 @@
     xwayland
   ];
 
+  services.pipewire.enable = true;
+
   systemd.defaultUnit = "graphical.target";
 }
