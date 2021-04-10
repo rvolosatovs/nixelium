@@ -9,6 +9,10 @@
     ./../../syncthing.nix
   ];
 
+  boot.kernelParams = [
+    "systemd.unified_cgroup_hierarchy=1"
+  ];
+
   hardware.bluetooth.enable = true;
   hardware.bluetooth.config.General.ControllerMode = "dual";
   hardware.bluetooth.powerOnBoot = true;
@@ -84,4 +88,6 @@
   users.users.${config.resources.username}.extraGroups = [
     "adbusers"
   ];
+
+  security.unprivilegedUsernsClone = true;
 }
