@@ -140,7 +140,6 @@ in
         sonarr
         spotify
         steam
-        sway
         syncthing
         syncthing-cli
         syncthing-tray
