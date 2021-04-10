@@ -33,6 +33,7 @@ in
         fira
         fira-code
         firefox
+        firefox-unwrapped
         firefox-wayland
         firefoxWrapper
         firmwareLinuxNonfree
@@ -107,6 +108,7 @@ in
         noto-fonts-emoji
         nox
         pavucontrol
+        pipewire
         platformio
         polybar
         procs
@@ -165,7 +167,10 @@ in
         wineWowPackages
         wl-clipboard
         wofi
+        wrapFirefox
         wrapNeovim
+        xdg-desktop-portal
+        xdg-desktop-portal-wlr
         yarn
         ydotool
         youtube-dl
