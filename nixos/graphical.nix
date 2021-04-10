@@ -49,6 +49,14 @@
   programs.ssh.askPassword = "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
 
   programs.sway.enable = true;
+  programs.sway.extraPackages = with pkgs; [
+    swayidle
+    swaylock
+    v4l-utils
+    wf-recorder
+    wofi
+    xwayland
+  ];
 
   systemd.defaultUnit = "graphical.target";
 }
