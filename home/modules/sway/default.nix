@@ -277,7 +277,7 @@ in
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+b" = exec "${bluez}/bin/bluetoothctl disconnect ${headphones}";
         wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+n" = exec "${mako}/bin/makoctl dismiss";
 
-        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+d" = exec "${systemd}/bin/systemctl --user restart redshift.service";
+        wayland.windowManager.sway.config.keybindings."${cfg.config.modifier}+Shift+d" = exec "${systemd}/bin/systemctl --user restart wlsunset.service";
 
         wayland.windowManager.sway.config.keybindings.XF86MonBrightnessDown = exec "${light}/bin/light -U 5%";
         wayland.windowManager.sway.config.keybindings.XF86MonBrightnessUp = exec "${light}/bin/light -A 5%";

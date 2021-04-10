@@ -255,10 +255,11 @@ in
           qt.enable = true;
           qt.platformTheme = "gtk";
 
-          services.redshift.enable = true;
-          services.redshift.package = pkgs.redshift-wlr;
-          services.redshift.provider = "manual";
-          services.redshift.tray = true;
+          services.wlsunset.enable = true;
+          systemd.user.services.wlsunset.Service = {
+            Restart = "always";
+            RestartSec = 3;
+          };
 
           wayland.windowManager.sway.enable = true;
           wayland.windowManager.sway.wrapperFeatures.gtk = true;
