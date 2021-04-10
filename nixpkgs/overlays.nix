@@ -80,7 +80,6 @@ in
         linux_zen
         linuxPackages_latest
         linuxPackages_zen
-        linuxPackagesFor
         lorri
         lutris
         mbed-cli
