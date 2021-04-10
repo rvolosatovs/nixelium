@@ -49,6 +49,7 @@ in
         go-tools
         go_1_15
         go_1_16
+        go_2-dev
         gocode
         gocode-gomod
         godef
@@ -166,6 +167,7 @@ in
         winetricks
         wineWowPackages
         wl-clipboard
+        wlsunset
         wofi
         wrapFirefox
         wrapNeovim
