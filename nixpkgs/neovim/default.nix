@@ -7,6 +7,8 @@ pkgs: {
   ];
   configure.plug.plugins = with pkgs.vimPlugins; [
     nvim-lspconfig
+    lsp_extensions-nvim
+
     completion-nvim
 
     auto-pairs
