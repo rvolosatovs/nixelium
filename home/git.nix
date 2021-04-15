@@ -75,6 +75,7 @@ in
     programs.git.extraConfig.interactive.diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --theme='base16' --color-only";
     programs.git.extraConfig.merge.conflictstyle = "diff3";
     programs.git.extraConfig.merge.tool = "nvimdiff";
+    programs.git.extraConfig.pull.rebase = "true";
     programs.git.extraConfig.push.default = "nothing";
     programs.git.extraConfig.rebase.autosquash = true;
     programs.git.extraConfig.rerere.enabled = true;
