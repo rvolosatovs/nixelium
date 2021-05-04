@@ -66,6 +66,15 @@ in
         iwd
         jackett
         julia
+        julia-lts
+        julia-mono  
+        julia-stable
+        julia_07
+        julia_1
+        julia_10
+        julia_11
+        julia_13
+        julia_15
         kanshi
         kbfs
         keybase
