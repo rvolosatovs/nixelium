@@ -166,7 +166,7 @@ pkgs: ''
       on_attach = on_attach;
       settings = {
         julia = {
-          executablePath = '${pkgs.julia}/bin/julia';
+          executablePath = '${pkgs.julia-stable}/bin/julia';
         };
       };
     }
