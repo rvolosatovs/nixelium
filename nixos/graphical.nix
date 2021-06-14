@@ -9,7 +9,6 @@
     lxqt.lxqt-openssh-askpass
   ];
 
-  fonts.enableFontDir = true;
   fonts.enableGhostscriptFonts = true;
   fonts.fonts = with pkgs; [
     comic-relief
@@ -30,6 +29,8 @@
   fonts.fontconfig.defaultFonts.serif = [ "Roboto Slab" ];
   fonts.fontconfig.enable = true;
   fonts.fontconfig.hinting.enable = true;
+
+  fonts.fontDir.enable = true;
 
   hardware.opengl.enable = true;
 

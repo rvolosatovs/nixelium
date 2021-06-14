@@ -68,5 +68,6 @@ in
       createHome = true;
       description = "quake3 user";
       home = "/var/lib/quake3";
+      isSystemUser = true;
     };
   }

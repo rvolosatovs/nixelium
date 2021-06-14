@@ -53,7 +53,6 @@ pkgs: {
   viAlias = true;
   vimAlias = true;
   withNodeJs = true;
-  withPython = true;
   withPython3 = true;
   withRuby = true;
 }

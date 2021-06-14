@@ -35,8 +35,8 @@ with lib;
       hardware.trackpoint.speed = 120;
 
       services.xserver.libinput.enable = true;
-      services.xserver.libinput.middleEmulation = false;
-      services.xserver.libinput.scrollButton = 1;
+      services.xserver.libinput.touchpad.middleEmulation = false;
+      services.xserver.libinput.touchpad.scrollButton = 1;
       services.xserver.xkbModel = "thinkpad60";
     })
   ];

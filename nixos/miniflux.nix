@@ -7,4 +7,6 @@ in
 
     services.miniflux.enable = true;
     services.miniflux.config.LISTEN_ADDR = ":${toString httpPort}";
+
+    users.users.miniflux.isSystemUser = true;
   }

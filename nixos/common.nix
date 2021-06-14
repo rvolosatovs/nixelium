@@ -162,8 +162,6 @@
   services.btrfs.butter.enable = true;
   services.btrfs.butter.isSSD = lib.mkDefault true;
 
-  services.dbus.socketActivated = true;
-
   services.fwupd.enable = true;
 
   services.journald.extraConfig = ''
@@ -183,7 +181,7 @@
   services.openssh.passwordAuthentication = false;
   services.openssh.startWhenNeeded = true;
 
-  system.stateVersion = "20.09";
+  system.stateVersion = "21.05";
 
   systemd.network.networks."40-virtualisation" = {
     matchConfig.Name = "virbr* veth* docker* br-*";

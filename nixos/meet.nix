@@ -82,6 +82,7 @@ in
       createHome = true;
       description = "Jitsi Meet user";
       home = configHome;
+      isSystemUser = true;
     };
 
     virtualisation.docker.enable = true;

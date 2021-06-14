@@ -2,7 +2,7 @@ with import <nixpkgs> {};
 stdenv.mkDerivation {
   name = "env";
   buildInputs = let
-    nixosVersion = "20.09";
+    nixosVersion = "21.05";
 
     keybaseRepos = [ "vendor/pass" "vendor/pass-ttn-shared" "vendor/pass-otp" "vendor/secrets" ];
 
