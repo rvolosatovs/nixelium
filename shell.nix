@@ -117,22 +117,22 @@ stdenv.mkDerivation {
 
           ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/nixos" "nixos"}
           pushd "../../rvolosatovs/infrastructure/vendor/nixpkgs/nixos"
-          ${git}/bin/git branch --set-upstream-to=channels/nixos-${nixosVersion}
+          ${git}/bin/git branch --set-upstream-to=upstream/nixos-${nixosVersion}
           popd
 
           ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/nixos-unstable" "nixos-unstable"}
           pushd "../../rvolosatovs/infrastructure/vendor/nixpkgs/nixos-unstable"
-          ${git}/bin/git branch --set-upstream-to=channels/nixos-unstable
+          ${git}/bin/git branch --set-upstream-to=upstream/nixos-unstable
           popd
 
           ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin" "darwin"}
           pushd "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin"
-          ${git}/bin/git branch --set-upstream-to=channels/nixpkgs-${nixosVersion}-darwin
+          ${git}/bin/git branch --set-upstream-to=upstream/nixpkgs-${nixosVersion}-darwin
           popd
 
           ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin-unstable" "darwin-unstable"}
           pushd "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin-unstable"
-          ${git}/bin/git branch --set-upstream-to=channels/nixpkgs-unstable
+          ${git}/bin/git branch --set-upstream-to=upstream/nixpkgs-unstable
           popd
         ''}
 
