@@ -61,6 +61,8 @@
 
   services.pipewire.enable = true;
 
+  security.rtkit.enable = true;
+
   systemd.defaultUnit = "graphical.target";
 
   xdg.portal.enable = true;
