@@ -52,7 +52,7 @@
       ./../home
     ];
 
-    home.stateVersion = "19.03";
+    home.stateVersion = "21.05";
 
     nixpkgs.overlays = config.nixpkgs.overlays;
     nixpkgs.config = config.nixpkgs.config;
