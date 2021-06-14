@@ -1,0 +1,4 @@
+source .envrc.common.remote
+source .envrc.darwin.common
+export NIX_PATH="nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/darwin.tar.gz:nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/darwin-unstable.tar.gz:$NIX_PATH"
+#vim:ft=sh
