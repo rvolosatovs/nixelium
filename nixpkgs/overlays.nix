@@ -9,7 +9,6 @@ in
       inherit (unstable)
         act
         alacritty
-        amdvlk
         arduino
         asciinema
         bat
@@ -88,8 +87,10 @@ in
         libreoffice-still-unwrapped
         libreoffice-unwrapped
         lidarr
+        linux_lqx
         linux_zen
         linuxPackages_latest
+        linuxPackages_lqx
         linuxPackages_zen
         lorri
         lutris
@@ -149,6 +150,7 @@ in
         sonarr
         spotify
         steam
+        stt
         syncthing
         syncthing-cli
         syncthing-tray
