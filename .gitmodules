@@ -54,9 +54,6 @@
 [submodule "vendor/brew"]
 	path = vendor/brew
 	url = https://github.com/rvolosatovs/brew.git
-[submodule "vendor/nixpkgs-mozilla"]
-	path = vendor/nixpkgs-mozilla
-	url = https://github.com/rvolosatovs/nixpkgs-mozilla.git
 [submodule "vendor/secrets"]
     path = vendor/secrets
     url = keybase://private/rvolosatovs/secrets

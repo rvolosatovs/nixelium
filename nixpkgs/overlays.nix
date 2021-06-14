@@ -216,8 +216,6 @@ in
     }
   )
 
-  (import ./../vendor/nixpkgs-mozilla/rust-overlay.nix)
-
   (
     self: super: let
       callGoPackage = p: super.callPackage p {

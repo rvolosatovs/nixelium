@@ -143,7 +143,6 @@ stdenv.mkDerivation {
         ${vendorGitHubForkMaster "jitsi" "docker-jitsi-meet"}
         ${vendorGitHubForkMaster "keyboardio" "Model01-Firmware"}
         ${vendorGitHubForkMaster "LnL7" "nix-darwin"}
-        ${vendorGitHubForkMaster "mozilla" "nixpkgs-mozilla"}
         ${vendorGitHubForkMaster "nix-community" "nur"}
         ${vendorGitHubForkMaster "NixOS" "nixos-hardware"}
         ${vendorGitHubForkMaster "qmk" "qmk_firmware"}
@@ -195,7 +194,6 @@ stdenv.mkDerivation {
         ${vendorGitHubSourceMaster "dumpster"}
         ${vendorGitHubSourceMaster "hosts"}
         ${vendorGitHubSourceMaster "nix-darwin"}
-        ${vendorGitHubSourceMaster "nixpkgs-mozilla"}
         ${vendorGitHubSourceMaster "nur"}
 
         ${vendorGitHubSourceStable "home-manager"}
@@ -209,7 +207,7 @@ stdenv.mkDerivation {
         ${git}/bin/git pull
         ${git}/bin/git submodule update
         $(${nix}/bin/nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild switch "''${@}"
-        ./opt/homebrew/bin/brew bundle install --global
+        /opt/homebrew/bin/brew bundle install --global
       '';
   in
     [
