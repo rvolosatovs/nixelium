@@ -27,12 +27,6 @@ stdenv.mkDerivation {
 
     upsertRemote = name: url:
       ''
-        if [ $(${git}/bin/git remote | ${ripgrep}/bin/rg "${name}") ]; then
-          echo "remote ${name} already exists, setting URL to ${url}"
-          ${git}/bin/git remote set-url "${name}" "${url}"
-        else
-          ${git}/bin/git remote add "${name}" "${url}"
-        fi
       '';
 
     cloneGitHubSource = repo: branch: preFetch: postFetch:
@@ -52,27 +46,34 @@ stdenv.mkDerivation {
         popd
       '';
 
-    cloneGitHubFork = owner: repo: branch: preFetch: postFetch:
-      ''
-        ${cloneIfEmpty "../../${owner}/${repo}" "https://github.com/rvolosatovs/${repo}.git" branch}
+    cloneGitHubFork = owner: repo: branch: postFetch:
+      let
+        upstreamURL = "https://github.com/${owner}/${repo}.git";
+      in
+        ''
+          ${cloneIfEmpty "../../${owner}/${repo}" "https://github.com/rvolosatovs/${repo}.git" branch}
 
-        pushd "../../${owner}/${repo}"
+          pushd "../../${owner}/${repo}"
 
-        ${git}/bin/git remote set-url origin --push git@github.com:rvolosatovs/${repo}.git
-        ${upsertRemote "upstream" "https://github.com/${owner}/${repo}.git"}
+          ${git}/bin/git remote set-url origin --push git@github.com:rvolosatovs/${repo}.git
 
-        ${preFetch}
+          if [ $(${git}/bin/git remote | ${ripgrep}/bin/rg "upstream") ]; then
+            echo "remote 'upstream' already exists, setting URL to '${upstreamURL}'"
+            ${git}/bin/git remote set-url "upstream" "${upstreamURL}"
+          else
+            ${git}/bin/git remote add "upstream" "${upstreamURL}"
+          fi
 
-        ${git}/bin/git fetch --all
+          ${git}/bin/git fetch --all
 
-        ${postFetch}
+          ${postFetch}
 
-        popd
-      '';
+          popd
+        '';
 
     vendorGitHubFork = owner: repo: forkBranch: upstreamBranch:
       ''
-        ${cloneGitHubFork owner repo forkBranch ""
+        ${cloneGitHubFork owner repo forkBranch
         ''
           ${git}/bin/git checkout "origin/${forkBranch}"
           ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/${repo}" forkBranch}
@@ -111,9 +112,6 @@ stdenv.mkDerivation {
         set -e
 
         ${cloneGitHubFork "NixOS" "nixpkgs" "master"
-        ''
-          ${upsertRemote "channels" "https://github.com/NixOS/nixpkgs-channels.git"}
-        ''
         ''
           ${git}/bin/git checkout master
 
@@ -187,9 +185,6 @@ stdenv.mkDerivation {
 
         ${cloneGitHubFork "NixOS" "nixpkgs" "master"
         ''
-          ${upsertRemote "channels" "https://github.com/NixOS/nixpkgs-channels.git"}
-        ''
-        ''
           ${git}/bin/git checkout master
 
           ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin" "darwin"}
@@ -200,7 +195,6 @@ stdenv.mkDerivation {
         ${vendorGitHubSourceMaster "copier"}
         ${vendorGitHubSourceMaster "brew"}
         ${vendorGitHubSourceMaster "dumpster"}
-        ${vendorGitHubSourceMaster "gorandr"}
         ${vendorGitHubSourceMaster "hosts"}
         ${vendorGitHubSourceMaster "nix-darwin"}
         ${vendorGitHubSourceMaster "nixpkgs-mozilla"}
