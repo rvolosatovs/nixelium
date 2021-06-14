@@ -4,7 +4,7 @@ stdenv.mkDerivation {
   buildInputs = let
     nixosVersion = "21.05";
 
-    keybaseRepos = [ "vendor/pass" "vendor/pass-ttn-shared" "vendor/pass-otp" "vendor/secrets" ];
+    keybaseRepos = [ "vendor/pass" "vendor/pass-otp" "vendor/secrets" ];
 
     doIfEmpty = path: action: cmd:
       ''
@@ -153,7 +153,6 @@ stdenv.mkDerivation {
 
         ${vendorKeybasePrivateSourceMaster "pass"}
         ${vendorKeybasePrivateSourceMaster "pass-otp"}
-        ${vendorKeybasePrivateSourceMaster "pass-ttn-shared"}
         ${vendorKeybasePrivateSourceMaster "secrets"}
       '';
 
@@ -199,6 +198,9 @@ stdenv.mkDerivation {
         ${vendorGitHubSourceStable "home-manager"}
         ${vendorGitHubSourceStable "Model01-Firmware"}
         ${vendorGitHubSourceStable "qmk_firmware"}
+
+        ${vendorKeybasePrivateSourceMaster "pass"}
+        ${vendorKeybasePrivateSourceMaster "secrets"}
       '';
 
     upgrade-mac = writeShellScriptBin "upgrade-mac"

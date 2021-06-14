@@ -63,6 +63,3 @@
 [submodule "vendor/pass-otp"]
 	path = vendor/pass-otp
 	url = keybase://private/rvolosatovs/pass-otp
-[submodule "vendor/pass-ttn-shared"]
-	path = vendor/pass-ttn-shared
-	url = keybase://private/rvolosatovs/pass-ttn-shared
