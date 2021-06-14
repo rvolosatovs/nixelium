@@ -14,16 +14,12 @@ pkgs: {
     auto-pairs
     base16-vim
     editorconfig-vim
-    fugitive
     gitv
     julia-vim
     nerdcommenter
-    repeat
-    rhubarb
     rust-vim
     skim
     skim-vim
-    surround
     vim-abolish
     vim-airline
     vim-airline-themes
@@ -32,10 +28,14 @@ pkgs: {
     vim-devicons
     vim-dirvish
     vim-eunuch
+    vim-fugitive
     vim-go
     vim-illuminate
     vim-plugin-AnsiEsc
+    vim-repeat
+    vim-rhubarb
     vim-signify
+    vim-surround
     vim-unimpaired
     vim-visual-multi
     vim-visualstar
