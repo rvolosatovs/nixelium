@@ -177,8 +177,6 @@ stdenv.mkDerivation {
         ${nixops}/bin/nixops deploy "''${@}"
       '';
 
-    nixDarwin = (import <darwin> {}).system;
-
     bootstrap-mac = writeShellScriptBin "bootstrap-mac"
       ''
         set -e
@@ -211,7 +209,7 @@ stdenv.mkDerivation {
         ${git}/bin/git pull
         ${git}/bin/git submodule update
         $(${nix}/bin/nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild switch "''${@}"
-        ./vendor/brew/bin/brew bundle install --global
+        ./opt/homebrew/bin/brew bundle install --global
       '';
   in
     [
