@@ -226,13 +226,13 @@ in
             ublock-origin
             vim-vixen
           ];
-          programs.firefox.package = with pkgs; wrapFirefox.override {
-            config = lib.setAttrByPath [ firefox.browserName or (builtins.parseDrvName firefox.name).name ] {
-              enableBrowserpass = true;
-              enableDjvu = true;
-              enableGoogleTalkPlugin = true;
-            };
-          } firefox-wayland {};
+          programs.firefox.package = with pkgs; wrapFirefox firefox-unwrapped {
+            forceWayland = true;
+
+            # TODO: Setup extraPolicies
+            ## Documentation available at:
+            ## https://github.com/mozilla/policy-templates 
+          };
 
           programs.mako.enable = true;
           programs.mako.backgroundColor = "#${base00}";
