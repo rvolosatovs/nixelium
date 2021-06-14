@@ -25,9 +25,8 @@
           # TODO: Turn into a module
           cdpath = [
             "${config.home.homeDirectory}/src/github.com/${config.resources.username}"
-            "${config.home.homeDirectory}/src/go.thethings.network"
-            "${config.home.homeDirectory}/src/github.com/TheThingsIndustries"
-            "${config.home.homeDirectory}/src/github.com/TheThingsNetwork"
+            "${config.home.homeDirectory}/src/github.com/docker"
+            "${config.home.homeDirectory}/src/github.com/moby"
             "${config.home.homeDirectory}/src/github.com"
             "${config.home.homeDirectory}/src/"
           ];

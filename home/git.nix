@@ -51,11 +51,8 @@ in
     programs.git.extraConfig."filter \"lfs\"".process = "${pkgs.git-lfs}/bin/git-lfs filter-process";
     programs.git.extraConfig."filter \"lfs\"".required = true;
     programs.git.extraConfig."filter \"lfs\"".smudge = "${pkgs.git-lfs}/bin/git-lfs smudge -- %f";
-    programs.git.extraConfig."ghq \"https://go.thethings.network\"".vcs = "git";
     programs.git.extraConfig."http \"https://gopkg.in\"".followRedirects = true;
     programs.git.extraConfig."mergetool \"nvimdiff\"".cmd = "${pkgs.neovim}/bin/nvim -c Gvdiff $MERGED";
-    programs.git.extraConfig."url \"ssh://git@github.com/TheThingsIndustries\"".insteadOf = "https://github.com/TheThingsIndustries";
-    programs.git.extraConfig."url \"ssh://git@github.com/TheThingsNetwork\"".insteadOf = "https://github.com/TheThingsNetwork";
     programs.git.extraConfig.branch.autosetupmerge = false;
     programs.git.extraConfig.branch.autosetuprebase = "always";
     programs.git.extraConfig.color.ui = true;
