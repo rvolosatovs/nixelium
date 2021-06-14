@@ -1,4 +1,8 @@
-pkgs: ''
+pkgs:
+let
+  julia = pkgs.julia_16-bin;
+in
+''
   if $TERM!="linux"
     let base16colorspace=256
   endif
@@ -166,7 +170,7 @@ pkgs: ''
       on_attach = on_attach;
       settings = {
         julia = {
-          executablePath = '${pkgs.julia-stable}/bin/julia';
+          executablePath = '${julia}/bin/julia';
         };
       };
     }

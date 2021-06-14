@@ -62,7 +62,7 @@
               htop
               hyperfine
               jq
-              julia-stable
+              julia_16-bin
               kitty.terminfo
               lsof
               nix-du
