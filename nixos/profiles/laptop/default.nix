@@ -17,6 +17,7 @@
   hardware.bluetooth.settings.General.ControllerMode = "dual";
   hardware.bluetooth.powerOnBoot = true;
 
+  hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 
   hardware.pulseaudio.enable = true;
