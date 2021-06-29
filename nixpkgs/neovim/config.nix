@@ -164,7 +164,6 @@ in
     }
     lspconfig.hls.setup{
       on_attach = on_attach;
-      cmd = { '${pkgs.haskellPackages.haskell-language-server}/bin/haskell-language-server-wrapper', '--lsp' };
     }
     lspconfig.julials.setup{
       on_attach = on_attach;

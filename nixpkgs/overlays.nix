@@ -49,6 +49,7 @@ in
         go_1_15
         go_1_16
         go_2-dev
+        go_typeparams
         gocode
         gocode-gomod
         godef
