@@ -155,8 +155,8 @@
 
           programs.direnv.enable = true;
           programs.direnv.enableBashIntegration = true;
-          programs.direnv.enableNixDirenvIntegration = true;
           programs.direnv.enableZshIntegration = true;
+          programs.direnv.nix-direnv.enable = true;
 
           programs.home-manager.enable = true;
           programs.home-manager.path = ./../vendor/home-manager;
