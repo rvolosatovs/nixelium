@@ -63,7 +63,7 @@ in
         ./../../../nixos/hosts/neon
         ./../../../vendor/secrets/nixops/hosts/neon
         ./../../deluge.nix
-        ./../../meet.nix
+        #./../../meet.nix TODO: Fix and enable
         ./../../miniflux.nix
         ./../../profiles/server
       ];
