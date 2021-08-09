@@ -87,26 +87,33 @@ in
     programs.git.userName = config.resources.fullName;
 
     programs.zsh.shellAliases.git="${pkgs.gitAndTools.hub}/bin/hub";
+
     programs.zsh.shellAliases.ga="git add";
     programs.zsh.shellAliases.gap="git add -p";
     programs.zsh.shellAliases.gb="git branch";
     programs.zsh.shellAliases.gB="git rebase";
-    programs.zsh.shellAliases.gBi="git rebase -i";
-    programs.zsh.shellAliases.gBI="git rebase -i --no-autosquash";
+    programs.zsh.shellAliases.gBa="git rebase --abort";
     programs.zsh.shellAliases.gBc="git rebase --continue";
+    programs.zsh.shellAliases.gBI="git rebase -i --no-autosquash";
+    programs.zsh.shellAliases.gBi="git rebase -i";
     programs.zsh.shellAliases.gBs="git rebase --skip";
-    programs.zsh.shellAliases.gC="git commit -am";
     programs.zsh.shellAliases.gc="git commit";
     programs.zsh.shellAliases.gca="git commit --amend";
     programs.zsh.shellAliases.gcf="git commit --fixup";
     programs.zsh.shellAliases.gcm="git commit -m";
     programs.zsh.shellAliases.gd="git diff";
     programs.zsh.shellAliases.gdc="git diff --cached";
-    programs.zsh.shellAliases.gf="git fetch --all --prune";
-    programs.zsh.shellAliases.gl="git log --stat --date=short";
+    programs.zsh.shellAliases.gf="git fetch";
+    programs.zsh.shellAliases.gfa="git fetch --all";
+    programs.zsh.shellAliases.gfp="git fetch --prune";
+    programs.zsh.shellAliases.gfpa="git fetch --prune --all";
     programs.zsh.shellAliases.gL="git log --patch-with-stat";
+    programs.zsh.shellAliases.gl="git log --stat --date=short";
+    programs.zsh.shellAliases.glr="git reflog";
     programs.zsh.shellAliases.gm="git cherry-pick";
     programs.zsh.shellAliases.gM="git merge";
+    programs.zsh.shellAliases.gma="git cherry-pick --abort";
+    programs.zsh.shellAliases.gMa="git merge --abort";
     programs.zsh.shellAliases.gmc="git cherry-pick --continue";
     programs.zsh.shellAliases.gms="git cherry-pick --skip";
     programs.zsh.shellAliases.gn="git checkout";
