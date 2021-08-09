@@ -79,6 +79,8 @@
   nix.binaryCachePublicKeys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
+  nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
+    "experimental-features = nix-command flakes";
   nix.nixPath = let
     infrastructure = (lib.sourceByRegex ./.. [ 
       "dotfiles"
@@ -112,6 +114,7 @@
     "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz"
   ];
   nix.optimise.automatic = true;
+  nix.package = pkgs.nixFlakes;
   nix.requireSignedBinaryCaches = true;
   nix.trustedUsers = [ "root" "${config.resources.username}" "@wheel" ];
 
