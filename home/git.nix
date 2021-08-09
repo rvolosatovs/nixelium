@@ -109,6 +109,7 @@ in
     programs.zsh.shellAliases."gc"="git commit";
     programs.zsh.shellAliases."gca"="git commit --amend";
     programs.zsh.shellAliases."gcf"="git commit --fixup";
+    programs.zsh.shellAliases."gcf^"="git commit --fixup HEAD^";
     programs.zsh.shellAliases."gcm"="git commit -m";
     programs.zsh.shellAliases."gd"="git diff";
     programs.zsh.shellAliases."gdc"="git diff --cached";
