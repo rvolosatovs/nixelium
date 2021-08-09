@@ -93,6 +93,7 @@
           home.sessionVariables.BAT_THEME = "base16";
           home.sessionVariables.CLICOLOR = "1";
           home.sessionVariables.CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
+          home.sessionVariables.DO_NOT_TRACK = "1"; # https://consoledonottrack.com/
           home.sessionVariables.EDITOR = config.resources.programs.editor.executable.path;
           home.sessionVariables.ELINKS_CONFDIR = "${config.xdg.configHome}/elinks";
           home.sessionVariables.EMAIL = config.resources.email;
