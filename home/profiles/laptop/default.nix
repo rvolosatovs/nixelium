@@ -44,7 +44,6 @@
           taskwarrior
           wego
           youtube-dl
-          zoom-us
         ] ++ (
           with gitAndTools; [
             ghq
