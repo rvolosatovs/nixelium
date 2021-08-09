@@ -42,6 +42,7 @@
           rustup
           spotify
           taskwarrior
+          ungoogled-chromium
           wego
           youtube-dl
         ] ++ (
