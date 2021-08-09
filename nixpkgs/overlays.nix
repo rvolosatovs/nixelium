@@ -158,6 +158,7 @@ in
         tokei
         travis
         tree-sitter
+        ungoogled-chromium
         unity3d
         unityhub
         vgo2nix
