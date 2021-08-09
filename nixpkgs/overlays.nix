@@ -157,12 +157,14 @@ in
         thunderbird
         tokei
         travis
+        tree-sitter
         unity3d
         unityhub
         vgo2nix
         vim
         vimPlugins
         vimUtils
+        vndr
         wasm-pack
         waybar
         webkit
