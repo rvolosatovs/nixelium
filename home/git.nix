@@ -95,6 +95,7 @@ in
     programs.zsh.shellAliases."gBi"="git rebase -i";
     programs.zsh.shellAliases."gBs"="git rebase --skip";
     programs.zsh.shellAliases."gL"="git log --patch-with-stat";
+    programs.zsh.shellAliases."gLh"="git log --patch-with-stat --reverse upstream/master..HEAD";
     programs.zsh.shellAliases."gM"="git merge";
     programs.zsh.shellAliases."gMa"="git merge --abort";
     programs.zsh.shellAliases."gP"="git push";
