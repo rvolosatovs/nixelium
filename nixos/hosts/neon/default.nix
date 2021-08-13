@@ -51,7 +51,6 @@ in
       networking.mullvad.enable = true;
       networking.mullvad.client.privateKey = builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/wg.mullvad.private;
 
-      networking.nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
       networking.useNetworkd = true;
       networking.useDHCP = false;
 

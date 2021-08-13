@@ -71,6 +71,7 @@
 
   networking.firewall.enable = true;
   networking.extraHosts = builtins.readFile ./../vendor/hosts/hosts;
+  networking.nameservers = [ "84.200.69.80" "84.200.70.40" ]; # https://dns.watch/
 
   nix.autoOptimiseStore = true;
   nix.binaryCaches = [
