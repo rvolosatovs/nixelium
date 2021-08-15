@@ -42,6 +42,27 @@
       "nixpkgs=${toString ../../../vendor/nixpkgs/nixos}"
     ];
 
+    nix.registry.nixpkgs = {
+      from = {
+        type = "indirect";
+        id = "nixpkgs";
+      };
+      to = {
+        type = "path";
+        path = toString ../../../vendor/nixpkgs/nixos;
+      };
+    };
+    nix.registry.nixpkgs-unstable = {
+      from = {
+        type = "indirect";
+        id = "nixpkgs-unstable";
+      };
+      to = {
+        type = "path";
+        path = toString ../../../vendor/nixpkgs/nixos-unstable;
+      };
+    };
+
     services.btrfs.butter.uuid = "23996086-ccb9-4e94-8ece-e45fe6f47718";
   };
 }
