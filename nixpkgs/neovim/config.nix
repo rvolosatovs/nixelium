@@ -229,6 +229,7 @@ in
   let g:NERDCreateDefaultMappings = 0
 
   let g:rustc_path = '${pkgs.rustup}/bin/rustc'
+  let g:rust_clip_command = '${pkgs.wl-clipboard}/bin/wl-copy'
 
   function! OpenFloatingWindow(width, height)
     let buf = nvim_create_buf(v:false, v:true)
