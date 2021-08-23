@@ -25,8 +25,6 @@ pkgs: {
     nerdcommenter
     rust-tools-nvim
     rust-vim
-    skim
-    skim-vim
     vim-abolish
     vim-airline
     vim-airline-themes
