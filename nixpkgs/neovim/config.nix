@@ -118,6 +118,17 @@ in
         vim.lsp.buf.formatting()
     end
 
+    require('rust-tools').setup({
+      server = {
+        on_attach = on_attach;
+        settings = {
+          ['rust-analyzer'] = {
+            serverPath = '${pkgs.rust-analyzer}/bin/rust-analyzer';
+          };
+        };
+      }
+    })
+
     local lspconfig = require('lspconfig')
     lspconfig.bashls.setup{
       on_attach = on_attach;
@@ -176,26 +187,6 @@ in
     lspconfig.rnix.setup{
       on_attach = on_attach;
       cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' };
-    }
-    lspconfig.rust_analyzer.setup{
-      on_attach = function(client)
-        on_attach(client)
-        vim.api.nvim_command [[ autocmd InsertLeave,BufEnter,BufReadPost,BufWinEnter,TabEnter,BufWritePost <buffer> :lua require('lsp_extensions').inlay_hints{
-          highlight = 'NonText',
-          prefix = '    » ',
-          enabled = {
-            -- From https://github.com/rust-analyzer/rust-analyzer/blob/a35f7cb6355f00a71a24338eb2d3bfc2920eccb4/docs/dev/lsp-extensions.md#inlay-hints
-            'ChainingHint',
-            'TypeHint',
-            'ParameterHint'
-          }
-        } ]]
-      end;
-      settings = {
-        ['rust-analyzer'] = {
-          serverPath = '${pkgs.rust-analyzer}/bin/rust-analyzer';
-        };
-      };
     }
   EOF
 

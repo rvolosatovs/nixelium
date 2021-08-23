@@ -11,12 +11,19 @@ pkgs: {
 
     completion-nvim
 
+    plenary-nvim
+
+    nvim-dap
+    popup-nvim
+    telescope-nvim
+
     auto-pairs
     base16-vim
     editorconfig-vim
     gitv
     julia-vim
     nerdcommenter
+    rust-tools-nvim
     rust-vim
     skim
     skim-vim
