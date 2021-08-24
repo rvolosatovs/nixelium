@@ -17,50 +17,12 @@ in
   let g:polyglot_disabled = ['go', 'rust', 'haskell', 'xml']
   packadd vim-polyglot
 
-  set autoindent
-  set autowriteall
-  set backup
   set backupdir=~/.local/share/nvim/backup//
-  set cmdheight=2
-  set completeopt=menuone,noinsert,noselect
-  set concealcursor=nc
-  set conceallevel=0
-  set confirm
-  set cursorcolumn
-  set cursorline
-  set encoding=utf-8
-  set expandtab
-  set fileencoding=utf-8
-  set fileformat=unix
-  set foldcolumn=auto:9
-  set gdefault
   set grepformat^=%f:%l:%c:%m
   set grepprg=${pkgs.ripgrep}/bin/rg\ --vimgrep
-  set guicursor=
-  set hidden
-  set hlsearch
-  set ignorecase
-  set incsearch
-  set inccommand=nosplit
   set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
-  set mouse=a
-  set nrformats=alpha,octal,hex,bin
-  set number
-  set relativenumber
-  set shiftwidth=4
   set shortmess+=c
-  set signcolumn=yes
-  set smartcase
-  set softtabstop=4
   set t_Co=256
-  set tabstop=4
-  set termguicolors
-  set title
-  set undofile
-  set updatetime=250
-  set viewoptions=cursor,slash,unix
-  set visualbell
-  set wrapscan
 
   lua << EOF
     -- Imports
@@ -99,9 +61,47 @@ in
 
     -- Options
 
+    vim.opt.autoindent = true
+    vim.opt.autowriteall = true
+    vim.opt.backup = true
+    vim.opt.cmdheight = 2
+    vim.opt.completeopt = 'menuone,noinsert,noselect'
+    vim.opt.concealcursor = 'nc'
+    vim.opt.conceallevel = 0
+    vim.opt.confirm = true
+    vim.opt.cursorcolumn = true
+    vim.opt.cursorline = true
+    vim.opt.encoding = 'utf-8'
+    vim.opt.expandtab = true
+    vim.opt.fileencoding = 'utf-8'
+    vim.opt.fileformat = 'unix'
+    vim.opt.foldcolumn = 'auto:9'
+    vim.opt.gdefault = true
+    vim.opt.guicursor = ""
+    vim.opt.hidden = true
+    vim.opt.hlsearch = true
+    vim.opt.ignorecase = true
+    vim.opt.incsearch = true
+    vim.opt.inccommand = 'nosplit'
+    vim.opt.mouse = 'a'
+    vim.opt.nrformats = 'alpha,octal,hex,bin'
+    vim.opt.number = true
+    vim.opt.relativenumber = true
+    vim.opt.shiftwidth = 4
+    vim.opt.signcolumn = 'yes'
+    vim.opt.smartcase = true
+    vim.opt.softtabstop = 4
+    vim.opt.tabstop = 4
+    vim.opt.termguicolors = true
+    vim.opt.title = true
+    vim.opt.undofile = true
+    vim.opt.updatetime = 250
+    vim.opt.viewoptions = 'cursor,slash,unix'
+    vim.opt.visualbell = true
+    vim.opt.wrapscan = true
+
     -- use space as the leader key
     vim.g.mapleader = ' '
-    vim.g.maplocalleader = ' '
 
     -- Autocommands
 
