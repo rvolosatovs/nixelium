@@ -3,7 +3,7 @@ let
   julia = pkgs.julia_16-bin;
 in
 ''
-  if $TERM!="linux"
+  if $TERM!='linux'
     let base16colorspace=256
   endif
   color base16-tomorrow-night
@@ -38,12 +38,12 @@ in
 
     function goimports(bufnr, timeoutms)
       local context = { source = { organizeImports = true } }
-      vim.validate { context = { context, "t", true } }
+      vim.validate { context = { context, 't', true } }
 
       local params = vim.lsp.util.make_range_params()
       params.context = context
 
-      local method = "textDocument/codeAction"
+      local method = 'textDocument/codeAction'
       local resp = vim.lsp.buf_request_sync(bufnr, method, params, timeoutms)
       if resp and resp[1] then
         local result = resp[1].result
@@ -105,7 +105,7 @@ in
 
     -- Autocommands
 
-    vim.api.nvim_command [[ autocmd TextYankPost * silent! lua require('highlight').on_yank("IncSearch", 500, vim.v.event) ]]
+    vim.api.nvim_command [[ autocmd TextYankPost * silent! lua require('highlight').on_yank('IncSearch', 500, vim.v.event) ]]
 
     -- Keybindings
 
@@ -249,9 +249,9 @@ in
       cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' };
     }
 
-    -- Diagnostics
+    --- Diagnostics
 
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
       vim.lsp.diagnostic.on_publish_diagnostics, {
         virtual_text = true,
         signs = true,
@@ -278,7 +278,7 @@ in
 
   let g:bufferline_echo = 0
 
-  let g:completion_enable_snippet = "vim-vsnip"
+  let g:completion_enable_snippet = 'vim-vsnip'
 
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
