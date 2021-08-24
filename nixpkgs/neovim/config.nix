@@ -25,7 +25,7 @@ in
   set t_Co=256
 
   lua << EOF
-    -- Imports
+    --- Imports
 
     require('lsp_extensions')
 
@@ -34,7 +34,7 @@ in
 
     telescope = require('telescope.builtin')
 
-    -- Functions
+    --- Functions
 
     function goimports(bufnr, timeoutms)
       local context = { source = { organizeImports = true } }
@@ -59,7 +59,7 @@ in
       vim.api.nvim_buf_set_keymap(bufnr, 'n', bind, '<cmd>lua '..command..'<CR>', { noremap = true })
     end
 
-    -- Options
+    --- Options
 
     vim.opt.autoindent = true
     vim.opt.autowriteall = true
@@ -103,11 +103,11 @@ in
     -- use space as the leader key
     vim.g.mapleader = ' '
 
-    -- Autocommands
+    --- Autocommands
 
     vim.api.nvim_command [[ autocmd TextYankPost * silent! lua require('highlight').on_yank('IncSearch', 500, vim.v.event) ]]
 
-    -- Keybindings
+    --- Keybindings
 
     table.foreach({
       ['<leader>-']  = 'telescope.file_browser()',
@@ -140,7 +140,7 @@ in
       vim.api.nvim_set_keymap('n', bind, '<cmd>lua '..command..'<CR>', { noremap = true })
     end)
 
-    -- LSP
+    --- LSP
 
     local on_attach = function(client, bufnr)
       print('LSP loaded.')
