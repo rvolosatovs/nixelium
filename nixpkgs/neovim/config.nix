@@ -63,34 +63,56 @@ in
   set wrapscan
 
   lua << EOF
-    vim.api.nvim_command [[ autocmd TextYankPost * silent! lua require('highlight').on_yank("IncSearch", 500, vim.v.event) ]]
+    -- Imports
 
-    function goimports(bufnr, timeoutms)
-        local context = { source = { organizeImports = true } }
-        vim.validate { context = { context, "t", true } }
-
-        local params = vim.lsp.util.make_range_params()
-        params.context = context
-
-        local method = "textDocument/codeAction"
-        local resp = vim.lsp.buf_request_sync(bufnr, method, params, timeoutms)
-        if resp and resp[1] then
-          local result = resp[1].result
-          if result and result[1] then
-            local edit = result[1].edit
-            vim.lsp.util.apply_workspace_edit(edit)
-          end
-        end
-        vim.lsp.buf.formatting()
-    end
+    require('lsp_extensions')
 
     local completion = require('completion')
-    local extensions = require('lsp_extensions')
     local illuminate = require('illuminate')
 
-    local nmap_lua_fn = function(bufnr, bind, command)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', bind, '<cmd>lua '..command..'<CR>', { noremap = true })
+    -- Functions
+
+    function goimports(bufnr, timeoutms)
+      local context = { source = { organizeImports = true } }
+      vim.validate { context = { context, "t", true } }
+
+      local params = vim.lsp.util.make_range_params()
+      params.context = context
+
+      local method = "textDocument/codeAction"
+      local resp = vim.lsp.buf_request_sync(bufnr, method, params, timeoutms)
+      if resp and resp[1] then
+        local result = resp[1].result
+        if result and result[1] then
+          local edit = result[1].edit
+          vim.lsp.util.apply_workspace_edit(edit)
+        end
+      end
+      vim.lsp.buf.formatting()
     end
+
+    function noremap_fn_buf(bufnr, bind, command)
+      vim.api.nvim_buf_set_keymap(bufnr, 'n', bind, '<cmd>lua '..command..'<CR>', { noremap = true })
+    end
+
+    -- Options
+
+    -- use space as the leader key
+    vim.g.mapleader = ' '
+    vim.g.maplocalleader = ' '
+
+    -- Autocommands
+
+    vim.api.nvim_command [[ autocmd TextYankPost * silent! lua require('highlight').on_yank("IncSearch", 500, vim.v.event) ]]
+
+    -- Keybindings
+
+    table.foreach({
+    }, function (bind, command)
+      vim.api.nvim_set_keymap('n', bind, '<cmd>lua '..command..'<CR>', { noremap = true })
+    end)
+
+    -- LSP
 
     local on_attach = function(client, bufnr)
       print('LSP loaded.')
@@ -171,7 +193,7 @@ in
     lspconfig.gopls.setup{
       on_attach = function(client, bufnr)
         on_attach(client, bufnr)
-        nmap_lua_fn(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
+        noremap_fn_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
       end;
       cmd = { '${pkgs.gopls}/bin/gopls', 'serve' };
       settings = {
@@ -200,6 +222,8 @@ in
       on_attach = on_attach;
       cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' };
     }
+
+    -- Diagnostics
 
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
       vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -270,9 +294,6 @@ in
   let g:loaded_netrwPlugin = 1
 
   let g:markdown_fenced_languages = ['css', 'js=javascript']
-
-  let mapleader = "\<Space>"
-  let maplocalleader = "\<Space>"
 
   imap                         <expr> <C-j>      vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
   imap                         <expr> <C-l>      vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
