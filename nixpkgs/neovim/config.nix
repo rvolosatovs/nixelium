@@ -70,6 +70,8 @@ in
     local completion = require('completion')
     local illuminate = require('illuminate')
 
+    telescope = require('telescope.builtin')
+
     -- Functions
 
     function goimports(bufnr, timeoutms)
@@ -108,6 +110,32 @@ in
     -- Keybindings
 
     table.foreach({
+      ['<leader>-']  = 'telescope.file_browser()',
+      ['<leader>/']  = 'telescope.current_buffer_fuzzy_find()',
+      ['<leader>:']  = 'telescope.commands()',
+      ['<leader>ff'] = 'telescope.find_files()',
+      ['<leader>fT'] = 'telescope.filetypes()',
+      ['<leader>ft'] = 'telescope.tagstack()',
+      ['<leader>g/'] = 'telescope.search_history()',
+      ['<leader>g:'] = 'telescope.command_history()',
+      ['<leader>gb'] = 'telescope.buffers()',
+      ['<leader>gg'] = 'telescope.git_files()',
+      ['<leader>gH'] = 'telescope.help_tags()',
+      ['<leader>gh'] = 'telescope.oldfiles()',
+      ['<leader>gj'] = 'telescope.jumplist()',
+      ['<leader>gl'] = 'telescope.git_bcommits()',
+      ['<leader>gL'] = 'telescope.loclist()',
+      ['<leader>gM'] = 'telescope.man_pages()',
+      ['<leader>gm'] = 'telescope.marks()',
+      ['<leader>go'] = 'telescope.vim_options()',
+      ['<leader>gp'] = 'telescope.builtin()',
+      ['<leader>gq'] = 'telescope.quickfix()',
+      ['<leader>gR'] = 'telescope.registers()',
+      ['<leader>gs'] = 'telescope.git_status()',
+      ['<leader>gt'] = 'telescope.git_commits()',
+      ['<leader>gy'] = 'telescope.git_stash()',
+      ['<leader>sp'] = 'telescope.spell_suggest()',
+      ['<leader>ts'] = 'telescope.treesitter()',
     }, function (bind, command)
       vim.api.nvim_set_keymap('n', bind, '<cmd>lua '..command..'<CR>', { noremap = true })
     end)
@@ -122,32 +150,30 @@ in
       completion.on_attach(client)
       illuminate.on_attach(client)
 
-      for bind, command in pairs({
-        ['<c-]>']      = 'vim.lsp.buf.definition()',
+      table.foreach({
+        ['<c-]>']      = 'telescope.lsp_definitions()',
         ['<c-k>']      = 'vim.lsp.buf.signature_help()',
-        ['<leader>D']  = 'vim.lsp.buf.type_definition()',
-        ['<leader>a']  = 'vim.lsp.buf.code_action()',
-        ['<leader>ds'] = 'vim.lsp.diagnostic.show_line_diagnostics()',
-        ['<leader>f']  = 'vim.lsp.buf.formatting()',
+        ['<leader>a']  = 'telescope.lsp_code_actions()',
+        ['<leader>A']  = 'telescope.lsp_range_code_actions()',
+        ['<leader>dd'] = 'telescope.lsp_document_diagnostics()',
         ['<leader>dl'] = 'vim.lsp.diagnostic.set_loclist()',
+        ['<leader>f']  = 'vim.lsp.buf.formatting()',
         ['<leader>r']  = 'vim.lsp.buf.rename()',
         ['<leader>wa'] = 'vim.lsp.buf.add_workspace_folder()',
         ['<leader>wl'] = 'print(vim.inspect(vim.lsp.buf.list_workspace_folders()))',
         ['<leader>wr'] = 'vim.lsp.buf.remove_workspace_folder()',
-        ['K']          = 'vim.lsp.buf.hover()',
         ['[d']         = 'vim.lsp.diagnostic.goto_prev()',
         [']d']         = 'vim.lsp.diagnostic.goto_next()',
-        ['gC']         = 'vim.lsp.buf.outgoing_calls()',
-        ['gd']         = 'vim.lsp.buf.declaration()',
-        ['gS']         = 'vim.lsp.buf.workspace_symbol()',
         ['gc']         = 'vim.lsp.buf.incoming_calls()',
-        ['gD']         = 'vim.lsp.buf.implementation()',
-        ['gr']         = 'vim.lsp.buf.references()',
-        ['gs']         = 'vim.lsp.buf.document_symbol()',
-        ['gt']         = 'vim.lsp.buf.type_definition()',
-      }) do 
-        nmap_lua_fn(bufnr, bind, command)
-      end
+        ['gC']         = 'vim.lsp.buf.outgoing_calls()',
+        ['gd']         = 'telescope.lsp_implementations()',
+        ['gD']         = 'vim.lsp.buf.declaration()',
+        ['gr']         = 'telescope.lsp_references()',
+        ['gs']         = 'telescope.lsp_document_symbols()',
+        ['gS']         = 'telescope.lsp_dynamic_workspace_symbols()',
+        ['gT']         = 'vim.lsp.buf.type_definition()',
+        ['K']          = 'vim.lsp.buf.hover()',
+      }, function(bind, command) noremap_fn_buf(bufnr, bind, command) end)
 
       vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
     end
@@ -306,14 +332,13 @@ in
   inoremap                     <expr> <S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
   inoremap                     <expr> <Tab>      pumvisible() ? "\<C-n>" : "\<Tab>"
   map                          <Leader>c$        <Plug>NERDCommenterToEOL
-  map                          <Leader>cA        <Plug>NERDCommenterAppend
   map                          <Leader>c<Leader> <Plug>NERDCommenterToggle
+  map                          <Leader>cA        <Plug>NERDCommenterAppend
   map                          <Leader>cy        <Plug>NERDCommenterYank
   noremap                      <A-h>             <C-w>h
   noremap                      <A-j>             <C-w>j
   noremap                      <A-k>             <C-w>k
   noremap                      <A-l>             <C-w>l
-  noremap                      <Leader>:         :Commands<CR>
   noremap                      <Leader>cd        :cd %:p:h<CR>:pwd<CR>
   noremap                      <Leader>cl        :copen<CR>
   noremap                      <Leader>cl        :copen<CR>
@@ -321,21 +346,6 @@ in
   noremap                      <Leader>cN        :cprevious<CR>
   noremap                      <Leader>cP        :cnext<CR>
   noremap                      <Leader>cp        :cprevious<CR>
-  noremap                      <Leader>g/        :History/<CR>
-  noremap                      <Leader>g:        :History:<CR>
-  noremap                      <Leader>gb        :Buffers<CR>
-  noremap                      <Leader>gc        :Commits<CR>
-  noremap                      <Leader>gd        :Helptags<CR>
-  noremap                      <Leader>gf        :Files<CR>
-  noremap                      <Leader>gg        :GFiles<CR>
-  noremap                      <Leader>gh        :History<CR>
-  noremap                      <Leader>gl        :BLines<CR>
-  noremap                      <Leader>gL        :Lines<CR>
-  noremap                      <Leader>gm        :Marks<CR>
-  noremap                      <Leader>gs        :G<CR>
-  noremap                      <Leader>gS        :GFiles?<CR>
-  noremap                      <Leader>gt        :FileTypes<CR>
-  noremap                      <Leader>gw        :Windows<CR>
   noremap                      <Leader>ll        :lopen<CR>
   noremap                      <Leader>ln        :lnext<CR>
   noremap                      <Leader>lN        :lprevious<CR>

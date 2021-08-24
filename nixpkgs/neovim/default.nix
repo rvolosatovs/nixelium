@@ -14,6 +14,7 @@ pkgs: {
     plenary-nvim
 
     nvim-dap
+    nvim-treesitter
     popup-nvim
     telescope-nvim
 
@@ -33,7 +34,6 @@ pkgs: {
     vim-devicons
     vim-dirvish
     vim-eunuch
-    vim-fugitive
     vim-go
     vim-illuminate
     vim-plugin-AnsiEsc
