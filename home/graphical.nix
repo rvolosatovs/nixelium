@@ -298,9 +298,20 @@ in
           programs.firefox.package = with pkgs; wrapFirefox firefox-unwrapped {
             forceWayland = true;
 
-            # TODO: Setup extraPolicies
+            # TODO: Use once module is updated
             ## Documentation available at:
             ## https://github.com/mozilla/policy-templates 
+            #extraPolicies = {
+            #extraPolicies.CaptivePortal = true;
+            #extraPolicies.DisableFirefoxStudies = true;
+            #extraPolicies.DisablePocket = true;
+            #extraPolicies.DisableTelemetry = true;
+            #extraPolicies.DisableFirefoxAccounts = true;
+            #extraPolicies.ExtensionSettings = {};
+            #extraPolicies.FirefoxHome.Pocket = false;
+            #extraPolicies.FirefoxHome.Snippets = false;
+            #extraPolicies.UserMessaging.ExtensionRecommendations = false;
+            #extraPolicies.UserMessaging.SkipOnboarding = true;
           };
 
           programs.mako.enable = true;
