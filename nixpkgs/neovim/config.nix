@@ -109,36 +109,76 @@ in
 
     --- Keybindings
 
-    table.foreach({
-      ['<leader>-']  = 'telescope.file_browser()',
-      ['<leader>/']  = 'telescope.current_buffer_fuzzy_find()',
-      ['<leader>:']  = 'telescope.commands()',
-      ['<leader>ff'] = 'telescope.find_files()',
-      ['<leader>fT'] = 'telescope.filetypes()',
-      ['<leader>ft'] = 'telescope.tagstack()',
-      ['<leader>g/'] = 'telescope.search_history()',
-      ['<leader>g:'] = 'telescope.command_history()',
-      ['<leader>gb'] = 'telescope.buffers()',
-      ['<leader>gg'] = 'telescope.git_files()',
-      ['<leader>gH'] = 'telescope.help_tags()',
-      ['<leader>gh'] = 'telescope.oldfiles()',
-      ['<leader>gj'] = 'telescope.jumplist()',
-      ['<leader>gl'] = 'telescope.git_bcommits()',
-      ['<leader>gL'] = 'telescope.loclist()',
-      ['<leader>gM'] = 'telescope.man_pages()',
-      ['<leader>gm'] = 'telescope.marks()',
-      ['<leader>go'] = 'telescope.vim_options()',
-      ['<leader>gp'] = 'telescope.builtin()',
-      ['<leader>gq'] = 'telescope.quickfix()',
-      ['<leader>gR'] = 'telescope.registers()',
-      ['<leader>gs'] = 'telescope.git_status()',
-      ['<leader>gt'] = 'telescope.git_commits()',
-      ['<leader>gy'] = 'telescope.git_stash()',
-      ['<leader>sp'] = 'telescope.spell_suggest()',
-      ['<leader>ts'] = 'telescope.treesitter()',
-    }, function (bind, command)
-      vim.api.nvim_set_keymap('n', bind, '<cmd>lua '..command..'<CR>', { noremap = true })
-    end)
+    local cmd = function(v) return '<cmd>'..v..'<cr>' end
+    local lua = function(v) return cmd('lua '..v) end
+    local plg = function(v) return '<plug>'..v end
+
+    for _, v in ipairs({
+      -- general
+      { '<a-h>',             '<c-\\><c-N><c-w>h',                          { "i", "t" }, { noremap = true } },
+      { '<a-h>',             '<c-w>h',                                     { "" },       { noremap = true } },
+      { '<a-j>',             '<c-\\><c-N><c-w>j',                          { "i", "t" }, { noremap = true } },
+      { '<a-j>',             '<c-w>j',                                     { "" },       { noremap = true } },
+      { '<a-k>',             '<c-\\><c-N><c-w>k',                          { "i", "t" }, { noremap = true } },
+      { '<a-k>',             '<c-w>k',                                     { "" },       { noremap = true } },
+      { '<a-l>',             '<c-\\><c-N><c-w>l',                          { "i", "t" }, { noremap = true } },
+      { '<a-l>',             '<c-w>l',                                     { "" },       { noremap = true } },
+      { '<leader>"',         lua('telescope.registers()'),                 { "" },       { noremap = true } },
+      { '<leader>*',         lua('telescope.grep_string()'),               { "" },       { noremap = true } },
+      { '<leader>-',         lua('telescope.file_browser()'),              { "" },       { noremap = true } },
+      { '<leader>/',         lua('telescope.search_history()'),            { "" },       { noremap = true } },
+      { '<leader>:',         lua('telescope.command_history()'),           { "" },       { noremap = true } },
+      { '<leader>;',         lua('telescope.commands()'),                  { "" },       { noremap = true } },
+      { '<leader>?',         lua('telescope.live_grep()'),                 { "" },       { noremap = true } },
+      { '<leader>b',         lua('telescope.buffers()'),                   { "" },       { noremap = true } },
+      { '<leader>cd',        cmd('cd %:p:h<cr>:pwd'),                      { "" },       { noremap = true } },
+      { '<leader>e',         lua('telescope.find_files()'),                { "" },       { noremap = true } },
+      { '<leader>H',         lua('telescope.help_tags()'),                 { "" },       { noremap = true } },
+      { '<leader>h',         lua('telescope.oldfiles()'),                  { "" },       { noremap = true } },
+      { '<leader>j',         lua('telescope.jumplist()'),                  { "" },       { noremap = true } },
+      { '<leader>M',         lua('telescope.man_pages()'),                 { "" },       { noremap = true } },
+      { '<leader>m',         lua('telescope.marks()'),                     { "" },       { noremap = true } },
+      { '<leader>o',         lua('telescope.vim_options()'),               { "" },       { noremap = true } },
+      { '<leader>p',         lua('telescope.builtin()'),                   { "" },       { noremap = true } },
+      { '<leader>q',         cmd('q'),                                     { "" },       { noremap = true } },
+      { '<leader>S',         lua('telescope.spell_suggest()'),             { "" },       { noremap = true } },
+      { '<leader>T',         lua('telescope.filetypes()'),                 { "" },       { noremap = true } },
+      { '<leader>w',         cmd('w'),                                     { "" },       { noremap = true } },
+      { '<leader>W',         cmd('wa'),                                    { "" },       { noremap = true } },
+      { '<space>',           '<nop>',                                      { "" },       { noremap = true } },
+      { 'Y',                 'y$',                                         { "" },       { noremap = true } },
+
+      -- quickfix
+      { '<leader>cc',        lua('telescope.quickfix()'),                  { "" },       { noremap = true } },
+      { '<leader>]c',        cmd('cnext'),                                 { "" },       { noremap = true } },
+      { '<leader>[c',        cmd('cprevious'),                             { "" },       { noremap = true } },
+
+      -- loclist
+      { '<leader>ll',        lua('telescope.loclist()'),                   { "" },       { noremap = true } },
+      { '<leader>[l',        cmd('lprevious'),                             { "" },       { noremap = true } },
+      { '<leader>]l',        cmd('lnext'),                                 { "" },       { noremap = true } },
+
+      -- treesitter
+      { '<leader>t',         lua('telescope.treesitter()'),                { "" },       { noremap = true } },
+
+      -- git
+      { '<leader>ge',        lua('telescope.git_files()'),                 { "" },       { noremap = true } },
+      { '<leader>gs',        lua('telescope.git_status()'),                { "" },       { noremap = true } },
+      { '<leader>gt',        lua('telescope.git_bcommits()'),              { "" },       { noremap = true } },
+      { '<leader>gT',        lua('telescope.git_commits()'),               { "" },       { noremap = true } },
+      { '<leader>gy',        lua('telescope.git_stash()'),                 { "" },       { noremap = true } },
+
+      -- NERD Commenter
+      { '<leader>c$',        plg('NERDCommenterToEOL'),                    { "" },       {} },
+      { '<leader>c<leader>', plg('NERDCommenterToggle'),                   { "" },       {} },
+      { '<leader>cA',        plg('NERDCommenterAppend'),                   { "" },       {} },
+      { '<leader>cy',        plg('NERDCommenterYank'),                     { "" },       {} },
+
+    }) do
+      for _, mode in ipairs(v[3]) do
+        vim.api.nvim_set_keymap(mode, v[1], v[2], v[4])
+      end
+    end
 
     --- LSP
 
@@ -159,9 +199,9 @@ in
         ['<leader>dl'] = 'vim.lsp.diagnostic.set_loclist()',
         ['<leader>f']  = 'vim.lsp.buf.formatting()',
         ['<leader>r']  = 'vim.lsp.buf.rename()',
-        ['<leader>wa'] = 'vim.lsp.buf.add_workspace_folder()',
-        ['<leader>wl'] = 'print(vim.inspect(vim.lsp.buf.list_workspace_folders()))',
-        ['<leader>wr'] = 'vim.lsp.buf.remove_workspace_folder()',
+        ['<leader>sa'] = 'vim.lsp.buf.add_workspace_folder()',
+        ['<leader>sl'] = 'print(vim.inspect(vim.lsp.buf.list_workspace_folders()))',
+        ['<leader>sr'] = 'vim.lsp.buf.remove_workspace_folder()',
         ['[d']         = 'vim.lsp.diagnostic.goto_prev()',
         [']d']         = 'vim.lsp.diagnostic.goto_next()',
         ['gc']         = 'vim.lsp.buf.incoming_calls()',
@@ -302,40 +342,6 @@ in
   let g:loaded_netrwPlugin = 1
 
   let g:markdown_fenced_languages = ['css', 'js=javascript']
-
-  inoremap                     <A-h>             <C-\><C-N><C-w>h
-  inoremap                     <A-j>             <C-\><C-N><C-w>j
-  inoremap                     <A-k>             <C-\><C-N><C-w>k
-  inoremap                     <A-l>             <C-\><C-N><C-w>l
-  map                          <Leader>c$        <Plug>NERDCommenterToEOL
-  map                          <Leader>c<Leader> <Plug>NERDCommenterToggle
-  map                          <Leader>cA        <Plug>NERDCommenterAppend
-  map                          <Leader>cy        <Plug>NERDCommenterYank
-  noremap                      <A-h>             <C-w>h
-  noremap                      <A-j>             <C-w>j
-  noremap                      <A-k>             <C-w>k
-  noremap                      <A-l>             <C-w>l
-  noremap                      <Leader>cd        :cd %:p:h<CR>:pwd<CR>
-  noremap                      <Leader>cl        :copen<CR>
-  noremap                      <Leader>cl        :copen<CR>
-  noremap                      <Leader>cn        :cnext<CR>
-  noremap                      <Leader>cN        :cprevious<CR>
-  noremap                      <Leader>cP        :cnext<CR>
-  noremap                      <Leader>cp        :cprevious<CR>
-  noremap                      <Leader>ll        :lopen<CR>
-  noremap                      <Leader>ln        :lnext<CR>
-  noremap                      <Leader>lN        :lprevious<CR>
-  noremap                      <Leader>lP        :lnext<CR>
-  noremap                      <Leader>lp        :lprevious<CR>
-  noremap                      <Leader>q         :q<CR>
-  noremap                      <Leader>w         :w<CR>
-  noremap                      <Leader>W         :wa<CR>
-  noremap                      <Space>           <Nop>
-  noremap                      Y                 y$
-  tnoremap                     <A-h>             <C-\><C-N><C-w>h
-  tnoremap                     <A-j>             <C-\><C-N><C-w>j
-  tnoremap                     <A-k>             <C-\><C-N><C-w>k
-  tnoremap                     <A-l>             <C-\><C-N><C-w>l
 
   command! -nargs=? -complete=dir Explore Dirvish <args>
   command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
