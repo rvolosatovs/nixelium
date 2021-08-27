@@ -55,8 +55,8 @@ in
       vim.lsp.buf.formatting()
     end
 
-    function noremap_fn_buf(bufnr, bind, command)
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', bind, '<cmd>lua '..command..'<CR>', { noremap = true })
+    function noremap_lua_buf(bufnr, bind, command)
+      vim.api.nvim_buf_set_keymap(bufnr, "", bind, '<cmd>lua '..command..'<CR>', { noremap = true })
     end
 
     --- Options
@@ -173,7 +173,7 @@ in
         ['gS']         = 'telescope.lsp_dynamic_workspace_symbols()',
         ['gT']         = 'vim.lsp.buf.type_definition()',
         ['K']          = 'vim.lsp.buf.hover()',
-      }, function(bind, command) noremap_fn_buf(bufnr, bind, command) end)
+      }, function(k, fn) noremap_lua_buf(bufnr, k, fn) end)
 
       vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
     end
@@ -219,7 +219,7 @@ in
     lspconfig.gopls.setup{
       on_attach = function(client, bufnr)
         on_attach(client, bufnr)
-        noremap_fn_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
+        noremap_lua_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
       end;
       cmd = { '${pkgs.gopls}/bin/gopls', 'serve' };
       settings = {
