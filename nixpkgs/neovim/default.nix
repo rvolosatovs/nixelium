@@ -44,8 +44,6 @@ pkgs: {
     vim-unimpaired
     vim-visual-multi
     vim-visualstar
-    vim-vsnip
-    vim-vsnip-integ
   ];
 
   extraPython3Packages = (

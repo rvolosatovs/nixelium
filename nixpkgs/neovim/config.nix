@@ -278,8 +278,6 @@ in
 
   let g:bufferline_echo = 0
 
-  let g:completion_enable_snippet = 'vim-vsnip'
-
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
   let g:go_code_completion_enabled = 0
@@ -321,16 +319,10 @@ in
 
   let g:markdown_fenced_languages = ['css', 'js=javascript']
 
-  imap                         <expr> <C-j>      vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-  imap                         <expr> <C-l>      vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-  imap                         <expr> <S-Tab>    vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-  imap                         <expr> <Tab>      vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
   inoremap                     <A-h>             <C-\><C-N><C-w>h
   inoremap                     <A-j>             <C-\><C-N><C-w>j
   inoremap                     <A-k>             <C-\><C-N><C-w>k
   inoremap                     <A-l>             <C-\><C-N><C-w>l
-  inoremap                     <expr> <S-Tab>    pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  inoremap                     <expr> <Tab>      pumvisible() ? "\<C-n>" : "\<Tab>"
   map                          <Leader>c$        <Plug>NERDCommenterToEOL
   map                          <Leader>c<Leader> <Plug>NERDCommenterToggle
   map                          <Leader>cA        <Plug>NERDCommenterAppend
@@ -356,9 +348,6 @@ in
   noremap                      <Leader>W         :wa<CR>
   noremap                      <Space>           <Nop>
   noremap                      Y                 y$
-  smap                         <expr> <C-l>      vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-  smap                         <expr> <S-Tab>    vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-  smap                         <expr> <Tab>      vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
   tnoremap                     <A-h>             <C-\><C-N><C-w>h
   tnoremap                     <A-j>             <C-\><C-N><C-w>j
   tnoremap                     <A-k>             <C-\><C-N><C-w>k
