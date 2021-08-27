@@ -299,22 +299,6 @@ in
   let g:rustc_path = '${pkgs.rustup}/bin/rustc'
   let g:rust_clip_command = '${pkgs.wl-clipboard}/bin/wl-copy'
 
-  function! OpenFloatingWindow(width, height)
-    let buf = nvim_create_buf(v:false, v:true)
-    call setbufvar(buf, '&signcolumn', 'no')
-
-    let width = float2nr(&columns * a:width)
-    call nvim_open_win(buf, v:true, {
-    \   'relative': 'editor',
-    \   'row': &lines * 2 / 10,
-    \   'col': float2nr((&columns - width) / 2),
-    \   'width': width,
-    \   'height': float2nr(&lines * a:height)
-    \ })
-  endfunction
-
-  let g:skim_layout = { 'window': 'call OpenFloatingWindow(0.6, 0.6)' }
-
   let g:loaded_netrwPlugin = 1
 
   let g:markdown_fenced_languages = ['css', 'js=javascript']
