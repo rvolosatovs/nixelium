@@ -283,7 +283,6 @@ in
             https-everywhere
             link-cleaner
             multi-account-containers
-            octotree
             peertubeify
             privacy-badger
             reddit-enhancement-suite
