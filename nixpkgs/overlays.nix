@@ -89,6 +89,7 @@ in
         lidarr
         linux_lqx
         linux_zen
+        linuxkit
         linuxPackages_latest
         linuxPackages_lqx
         linuxPackages_zen
