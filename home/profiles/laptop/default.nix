@@ -71,7 +71,6 @@
         home.packages = with pkgs; [
           alsaUtils
           arduino
-          libreoffice-fresh
           macchanger
           playerctl
           sidequest
