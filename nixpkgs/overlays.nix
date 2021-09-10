@@ -124,8 +124,7 @@ in
         platformio
         polybar
         procs
-        qmk_cli
-        qmk_firmware
+        qmk
         qsyncthingtray
         quake3e
         quake3hires
