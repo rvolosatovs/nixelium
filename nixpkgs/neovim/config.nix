@@ -25,11 +25,11 @@ in
 
     require('lsp_extensions')
 
+    telescope = require('telescope.builtin')
+
     local cmp = require('cmp')
     local cmp_lsp = require('cmp_nvim_lsp')
     local illuminate = require('illuminate')
-
-    telescope = require('telescope.builtin')
 
     --- Functions
 
