@@ -66,7 +66,6 @@ in
     vim.opt.autowriteall = true
     vim.opt.backup = true
     vim.opt.cmdheight = 2
-    vim.opt.completeopt = 'menuone,noinsert,noselect'
     vim.opt.concealcursor = 'nc'
     vim.opt.conceallevel = 0
     vim.opt.confirm = true
