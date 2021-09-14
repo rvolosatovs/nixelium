@@ -48,16 +48,6 @@ pkgs: {
     vim-visualstar
   ];
 
-  extraPython3Packages = (
-    ps: with ps; [
-      python-slugify
-      simple-websocket-server
-    ]
-  );
-
   viAlias = true;
   vimAlias = true;
-  withNodeJs = true;
-  withPython3 = true;
-  withRuby = true;
 }
