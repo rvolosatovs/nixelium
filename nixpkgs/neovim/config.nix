@@ -180,15 +180,51 @@ in
 
     --- Completion
 
+    local confirm_insert = function(fallback)
+      cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      })
+      fallback()
+    end
     cmp.setup{
       mapping = {
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-u>'] = cmp.mapping.scroll_docs(4),
+
+        ['('] = confirm_insert,
+        [')'] = confirm_insert,
+        ['-'] = confirm_insert,
+        ['<'] = confirm_insert,
+        ['<Space>'] = confirm_insert,
+        ['>'] = confirm_insert,
+        ['['] = confirm_insert,
+        ['\\'] = confirm_insert,
+        [']'] = confirm_insert,
+        ['{'] = confirm_insert,
+        ['|'] = confirm_insert,
+        ['}'] = confirm_insert,
+
         ['<CR>'] = cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
-        })
+        }),
+      },
+      confirmation = {
+        get_commit_characters = function(commit_characters)
+          table.insert(commit_characters, '<Space>')
+          table.insert(commit_characters, '-')
+          return commit_characters
+        end,
       },
       sources = {
         { name = 'nvim_lsp' },
+        { name = 'buffer' },
+        { name = 'path' },
       }
     }
 
