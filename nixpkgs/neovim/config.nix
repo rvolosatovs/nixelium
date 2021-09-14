@@ -140,6 +140,7 @@ in
       { '<leader>m',         lua('telescope.marks()'),                     { "" },       { noremap = true } },
       { '<leader>o',         lua('telescope.vim_options()'),               { "" },       { noremap = true } },
       { '<leader>p',         lua('telescope.builtin()'),                   { "" },       { noremap = true } },
+      { '<leader>Q',         cmd('q'),                                     { "" },       { noremap = true } },
       { '<leader>S',         lua('telescope.spell_suggest()'),             { "" },       { noremap = true } },
       { '<leader>T',         lua('telescope.filetypes()'),                 { "" },       { noremap = true } },
       { '<leader>w',         cmd('w'),                                     { "" },       { noremap = true } },
