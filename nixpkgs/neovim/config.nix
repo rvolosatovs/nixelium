@@ -30,6 +30,7 @@ in
     local cmp = require('cmp')
     local cmp_lsp = require('cmp_nvim_lsp')
     local illuminate = require('illuminate')
+    local rust_tools = require('rust-tools')
 
     --- Functions
 
@@ -232,7 +233,7 @@ in
       vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
     end
 
-    require('rust-tools').setup({
+    rust_tools.setup{
       server = {
         on_attach = on_attach;
         settings = {
@@ -241,7 +242,7 @@ in
           };
         };
       }
-    })
+    }
 
     local lspconfig = require('lspconfig')
     lspconfig.bashls.setup{
