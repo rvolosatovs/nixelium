@@ -15,8 +15,9 @@ pkgs: {
 
     plenary-nvim
 
+    (nvim-treesitter.withPlugins ( _: pkgs.tree-sitter.allGrammars ))
+
     nvim-dap
-    nvim-treesitter
     popup-nvim
     telescope-nvim
 
