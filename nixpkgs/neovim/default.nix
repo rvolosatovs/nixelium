@@ -5,7 +5,7 @@ pkgs: {
     vim-polyglot
     vim-table-mode
   ];
-  configure.plug.plugins = with pkgs.vimPlugins; [
+  configure.packages.plugins.start = with pkgs.vimPlugins; [
     nvim-lspconfig
     lsp_extensions-nvim
 
