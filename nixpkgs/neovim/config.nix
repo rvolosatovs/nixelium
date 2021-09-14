@@ -3,10 +3,6 @@ let
   julia = pkgs.julia_16-bin;
 in
 ''
-  if $TERM!='linux'
-    let base16colorspace=256
-  endif
-  color base16-tomorrow-night
   set background=dark
 
   filetype plugin indent on
@@ -58,6 +54,9 @@ in
     function noremap_lua_buf(bufnr, bind, command)
       vim.api.nvim_buf_set_keymap(bufnr, "", bind, '<cmd>lua '..command..'<CR>', { noremap = true })
     end
+
+    --- Colorscheme
+    vim.cmd('colorscheme base16-tomorrow-night')
 
     --- Options
 

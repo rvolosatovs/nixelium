@@ -19,11 +19,11 @@ pkgs: {
     telescope-nvim
 
     auto-pairs
-    base16-vim
     editorconfig-vim
     gitv
     julia-vim
     nerdcommenter
+    nvim-base16
     rust-tools-nvim
     rust-vim
     vim-abolish
