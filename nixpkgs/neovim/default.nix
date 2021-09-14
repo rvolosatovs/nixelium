@@ -22,11 +22,11 @@ pkgs: {
     telescope-nvim
 
     auto-pairs
+    base16-vim
     editorconfig-vim
     gitv
     julia-vim
     nerdcommenter
-    nvim-base16
     nvim-web-devicons
     rust-tools-nvim
     rust-vim
