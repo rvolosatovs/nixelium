@@ -26,6 +26,7 @@ pkgs: {
     julia-vim
     nerdcommenter
     nvim-base16
+    nvim-web-devicons
     rust-tools-nvim
     rust-vim
     vim-abolish
@@ -33,7 +34,6 @@ pkgs: {
     vim-airline-themes
     vim-anzu
     vim-bufferline
-    vim-devicons
     vim-dirvish
     vim-eunuch
     vim-go
