@@ -131,7 +131,6 @@ in
       { '<leader>:',         lua('telescope.command_history()'),           { "" },       { noremap = true } },
       { '<leader>;',         lua('telescope.commands()'),                  { "" },       { noremap = true } },
       { '<leader>?',         lua('telescope.live_grep()'),                 { "" },       { noremap = true } },
-      { '<leader>b',         lua('telescope.buffers()'),                   { "" },       { noremap = true } },
       { '<leader>cd',        cmd('cd %:p:h<cr>:pwd'),                      { "" },       { noremap = true } },
       { '<leader>e',         lua('telescope.find_files()'),                { "" },       { noremap = true } },
       { '<leader>H',         lua('telescope.help_tags()'),                 { "" },       { noremap = true } },
@@ -141,7 +140,6 @@ in
       { '<leader>m',         lua('telescope.marks()'),                     { "" },       { noremap = true } },
       { '<leader>o',         lua('telescope.vim_options()'),               { "" },       { noremap = true } },
       { '<leader>p',         lua('telescope.builtin()'),                   { "" },       { noremap = true } },
-      { '<leader>q',         cmd('q'),                                     { "" },       { noremap = true } },
       { '<leader>S',         lua('telescope.spell_suggest()'),             { "" },       { noremap = true } },
       { '<leader>T',         lua('telescope.filetypes()'),                 { "" },       { noremap = true } },
       { '<leader>w',         cmd('w'),                                     { "" },       { noremap = true } },
@@ -150,14 +148,13 @@ in
       { 'Y',                 'y$',                                         { "" },       { noremap = true } },
 
       -- quickfix
-      { '<leader>cc',        lua('telescope.quickfix()'),                  { "" },       { noremap = true } },
-      { '<leader>]c',        cmd('cnext'),                                 { "" },       { noremap = true } },
-      { '<leader>[c',        cmd('cprevious'),                             { "" },       { noremap = true } },
+      { '<leader>q',         lua('telescope.quickfix()'),                  { "" },       { noremap = true } },
 
       -- loclist
-      { '<leader>ll',        lua('telescope.loclist()'),                   { "" },       { noremap = true } },
-      { '<leader>[l',        cmd('lprevious'),                             { "" },       { noremap = true } },
-      { '<leader>]l',        cmd('lnext'),                                 { "" },       { noremap = true } },
+      { '<leader>l',         lua('telescope.loclist()'),                   { "" },       { noremap = true } },
+
+      -- buffers
+      { '<leader>b',         lua('telescope.buffers()'),                   { "" },       { noremap = true } },
 
       -- treesitter
       { '<leader>t',         lua('telescope.treesitter()'),                { "" },       { noremap = true } },
