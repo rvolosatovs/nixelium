@@ -45,6 +45,10 @@
   programs.adb.enable = true;
 
   services.printing.enable = true;
+  services.printing.drivers = with pkgs; [
+    brlaser
+  ];
+
   services.pcscd.enable = true;
   services.resolved.enable = true;
 
