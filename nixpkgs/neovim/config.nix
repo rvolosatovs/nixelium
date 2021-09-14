@@ -25,7 +25,8 @@ in
 
     require('lsp_extensions')
 
-    local completion = require('completion')
+    local cmp = require('cmp')
+    local cmp_lsp = require('cmp_nvim_lsp')
     local illuminate = require('illuminate')
 
     telescope = require('telescope.builtin')
@@ -179,14 +180,28 @@ in
       end
     end
 
+    --- Completion
+
+    cmp.setup{
+      mapping = {
+        ['<CR>'] = cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        })
+      },
+      sources = {
+        { name = 'nvim_lsp' },
+      }
+    }
+
     --- LSP
 
+    local capabilities = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
     local on_attach = function(client, bufnr)
       print('LSP loaded.')
 
       vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-      completion.on_attach(client)
       illuminate.on_attach(client)
 
       table.foreach({
@@ -230,18 +245,22 @@ in
 
     local lspconfig = require('lspconfig')
     lspconfig.bashls.setup{
+      capabilities = capabilities;
       on_attach = on_attach;
       cmd = { '${pkgs.nodePackages.bash-language-server}/bin/bash-language-server', 'start' };
     }
     lspconfig.clangd.setup{
+      capabilities = capabilities;
       on_attach = on_attach;
       cmd = { '${pkgs.clang-tools}/bin/clangd', '--background-index' };
     }
     lspconfig.dockerls.setup{
+      capabilities = capabilities;
       on_attach = on_attach;
       cmd = { '${pkgs.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver', '--stdio' };
     }
     lspconfig.elmls.setup{
+      capabilities = capabilities;
       on_attach = on_attach;
       cmd = { '${pkgs.elmPackages.elm-language-server}/bin/elm-language-server' };
       settings = {
@@ -253,9 +272,11 @@ in
       };
     }
     lspconfig.gdscript.setup{
+      capabilities = capabilities;
       on_attach = on_attach;
     }
     lspconfig.gopls.setup{
+      capabilities = capabilities;
       on_attach = function(client, bufnr)
         on_attach(client, bufnr)
         noremap_lua_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
@@ -273,9 +294,11 @@ in
       };
     }
     lspconfig.hls.setup{
+      capabilities = capabilities;
       on_attach = on_attach;
     }
     lspconfig.julials.setup{
+      capabilities = capabilities;
       on_attach = on_attach;
       settings = {
         julia = {
@@ -283,7 +306,13 @@ in
         };
       };
     }
+    lspconfig.omnisharp.setup{
+      capabilities = capabilities;
+      on_attach = on_attach;
+      cmd = { '${pkgs.omnisharp-roslyn}/bin/omnisharp', '--languageserver' , '--hostPID', tostring(vim.fn.getpid()) };
+    }
     lspconfig.rnix.setup{
+      capabilities = capabilities;
       on_attach = on_attach;
       cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' };
     }

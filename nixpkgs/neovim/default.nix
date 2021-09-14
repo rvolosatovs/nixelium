@@ -9,7 +9,9 @@ pkgs: {
     nvim-lspconfig
     lsp_extensions-nvim
 
-    completion-nvim
+    nvim-cmp
+    cmp-buffer
+    cmp-nvim-lsp
 
     plenary-nvim
 
