@@ -33,7 +33,6 @@ in
 
   set backupdir=~/.local/share/nvim/backup//
   set grepformat^=%f:%l:%c:%m
-  set grepprg=${pkgs.ripgrep}/bin/rg\ --vimgrep
   set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
   set shortmess+=c
   set t_Co=256
@@ -52,6 +51,7 @@ in
     julia = "${julia_16-bin}/bin/julia";
     lua-language-server = "${sumneko-lua-language-server}/bin/lua-language-server";
     omnisharp = "${omnisharp-roslyn}/bin/omnisharp";
+    ripgrep = "${ripgrep}/bin/rg";
     rnix-lsp = "${rnix-lsp}/bin/rnix-lsp";
     rust-analyzer = "${rust-analyzer}/bin/rust-analyzer";
   };

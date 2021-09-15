@@ -52,6 +52,7 @@ vim.opt.fileencoding = 'utf-8'
 vim.opt.fileformat = 'unix'
 vim.opt.foldcolumn = 'auto:9'
 vim.opt.gdefault = true
+vim.opt.grepprg = paths.bin.ripgrep..' --vimgrep'
 vim.opt.guicursor = ""
 vim.opt.hidden = true
 vim.opt.hlsearch = true
