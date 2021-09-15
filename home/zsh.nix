@@ -128,8 +128,6 @@
 
             source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-            source <(${pkgs.navi}/bin/navi widget zsh)
-
             if (( EUID == 0 )); then
              umask 002
             else
