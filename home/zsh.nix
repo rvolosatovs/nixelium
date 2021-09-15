@@ -32,8 +32,6 @@
           ];
         in
           ''
-            { ${pkgs.wego}/bin/wego ''${CITY:-"Delft"} 1 2>/dev/null | head -7 | tail -6 } &|
-
             nixify() {
               if [ ! -e ./.envrc ]; then
                 echo 'use nix' > .envrc
