@@ -175,7 +175,7 @@ cmp.setup{
   mapping = {
     ['<c-d>']     = cmp.mapping.scroll_docs(-4),
     ['<c-e>']     = cmp.mapping.close(),
-    ['<c-n>']     = cmp.mapping(function(fallback)
+    ['<c-n>']     = cmp.mapping(function()
                       if vim.fn.pumvisible() == 1 then
                         cmp.mapping.select_next_item()
                       elseif luasnip.expand_or_jumpable() then
