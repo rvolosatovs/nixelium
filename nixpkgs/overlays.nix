@@ -151,6 +151,7 @@ in
         spotify
         steam
         stt
+        sumneko-lua-language-server
         syncthing
         syncthing-cli
         syncthing-tray
