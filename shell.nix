@@ -124,16 +124,6 @@ stdenv.mkDerivation {
           pushd "../../rvolosatovs/infrastructure/vendor/nixpkgs/nixos-unstable"
           ${git}/bin/git branch --set-upstream-to=upstream/nixos-unstable
           popd
-
-          ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin" "darwin"}
-          pushd "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin"
-          ${git}/bin/git branch --set-upstream-to=upstream/nixpkgs-${nixosVersion}-darwin
-          popd
-
-          ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin-unstable" "darwin-unstable"}
-          pushd "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin-unstable"
-          ${git}/bin/git branch --set-upstream-to=upstream/nixpkgs-unstable
-          popd
         ''}
 
         ${vendorGitHubFork "rycee" "home-manager" "stable" "release-${nixosVersion}"}
@@ -142,7 +132,6 @@ stdenv.mkDerivation {
         ${vendorGitHubForkMaster "Homebrew" "brew"}
         ${vendorGitHubForkMaster "jitsi" "docker-jitsi-meet"}
         ${vendorGitHubForkMaster "keyboardio" "Model01-Firmware"}
-        ${vendorGitHubForkMaster "LnL7" "nix-darwin"}
         ${vendorGitHubForkMaster "nix-community" "nur"}
         ${vendorGitHubForkMaster "NixOS" "nixos-hardware"}
         ${vendorGitHubForkMaster "qmk" "qmk_firmware"}
@@ -174,43 +163,6 @@ stdenv.mkDerivation {
         ${pullAll}/bin/pull-all
         ${nixops}/bin/nixops deploy "''${@}"
       '';
-
-    bootstrap-mac = writeShellScriptBin "bootstrap-mac"
-      ''
-        set -e
-
-        ${cloneGitHubFork "NixOS" "nixpkgs" "master"
-        ''
-          ${git}/bin/git checkout master
-
-          ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin" "darwin"}
-          ${addWorkTreeIfEmpty "../../rvolosatovs/infrastructure/vendor/nixpkgs/darwin-unstable" "darwin-unstable"}
-        ''}
-
-        ${vendorGitHubSourceMaster "base16-shell"}
-        ${vendorGitHubSourceMaster "copier"}
-        ${vendorGitHubSourceMaster "brew"}
-        ${vendorGitHubSourceMaster "dumpster"}
-        ${vendorGitHubSourceMaster "hosts"}
-        ${vendorGitHubSourceMaster "nix-darwin"}
-        ${vendorGitHubSourceMaster "nur"}
-
-        ${vendorGitHubSourceStable "home-manager"}
-        ${vendorGitHubSourceStable "Model01-Firmware"}
-        ${vendorGitHubSourceStable "qmk_firmware"}
-
-        ${vendorKeybasePrivateSourceMaster "pass"}
-        ${vendorKeybasePrivateSourceMaster "secrets"}
-      '';
-
-    upgrade-mac = writeShellScriptBin "upgrade-mac"
-      ''
-        set -ex
-        ${git}/bin/git pull
-        ${git}/bin/git submodule update
-        $(${nix}/bin/nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild switch "''${@}"
-        /opt/homebrew/bin/brew bundle install --global
-      '';
   in
     [
       fetchAll
@@ -224,8 +176,5 @@ stdenv.mkDerivation {
     ] ++ lib.optionals stdenv.isLinux [
       bootstrap-master
       keybase
-    ] ++ lib.optionals stdenv.isDarwin [
-      bootstrap-mac
-      upgrade-mac
     ];
 }
