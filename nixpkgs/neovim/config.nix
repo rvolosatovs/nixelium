@@ -59,7 +59,7 @@ in
     end
 
     function noremap_lua_buf(bufnr, bind, command)
-      vim.api.nvim_buf_set_keymap(bufnr, "", bind, '<cmd>lua '..command..'<CR>', { noremap = true })
+      vim.api.nvim_buf_set_keymap(bufnr, "", bind, '<cmd>lua '..command..'<cr>', { noremap = true })
     end
 
     --- Options
@@ -182,7 +182,7 @@ in
 
     --- Completion
 
-    local confirm_insert = function(fallback)
+    local cmp_confirm_insert = function(fallback)
       cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
@@ -190,31 +190,52 @@ in
       fallback()
     end
     cmp.setup{
+      completion = {
+        completeopt = 'menu,menuone,noinsert',
+      },
       mapping = {
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-u>'] = cmp.mapping.scroll_docs(4),
+        ['<c-d>']     = cmp.mapping.scroll_docs(-4),
+        ['<c-e>']     = cmp.mapping.close(),
+        ['<c-n>']     = cmp.mapping(function(fallback)
+                          if vim.fn.pumvisible() == 1 then
+                            cmp.mapping.select_next_item()
+                          elseif luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
+                          else
+                            cmp.complete()
+                          end
+                        end, { 'i', 's' }),
+        ['<c-p>']     = cmp.mapping(function(fallback)
+                          if vim.fn.pumvisible() == 1 then
+                            cmp.mapping.select_prev_item()
+                          elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                          else
+                            fallback()
+                          end
+                        end, { 'i', 's' }),
+        ['<c-space>'] = cmp.mapping.complete(),
+        ['<c-u>']     = cmp.mapping.scroll_docs(4),
+        ['<down>']    = cmp.mapping.select_next_item(),
+        ['<esc>']     = cmp.mapping.close(),
+        ['<up>']      = cmp.mapping.select_prev_item(),
 
-        ['('] = confirm_insert,
-        [')'] = confirm_insert,
-        ['-'] = confirm_insert,
-        ['<'] = confirm_insert,
-        ['<Space>'] = confirm_insert,
-        ['>'] = confirm_insert,
-        ['['] = confirm_insert,
-        ['\\'] = confirm_insert,
-        [']'] = confirm_insert,
-        ['{'] = confirm_insert,
-        ['|'] = confirm_insert,
-        ['}'] = confirm_insert,
-
-        ['<CR>'] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
-        }),
+        ['<cr>']      = cmp.mapping.confirm({
+                          behavior = cmp.ConfirmBehavior.Replace,
+                          select = true,
+                        }),
+        ['(']         = cmp_confirm_insert,
+        [')']         = cmp_confirm_insert,
+        ['-']         = cmp_confirm_insert,
+        ['<']         = cmp_confirm_insert,
+        ['<space>']   = cmp_confirm_insert,
+        ['>']         = cmp_confirm_insert,
+        ['[']         = cmp_confirm_insert,
+        ['\\']        = cmp_confirm_insert,
+        [']']         = cmp_confirm_insert,
+        ['{']         = cmp_confirm_insert,
+        ['|']         = cmp_confirm_insert,
+        ['}']         = cmp_confirm_insert,
       },
       snippet = {
         expand = function(args)
