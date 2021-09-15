@@ -45,9 +45,13 @@ in ''
     elm-test = builtins.toJSON "${elmPackages.elm-test}/bin/elm-test";
     gopls = builtins.toJSON "${gopls}/bin/gopls";
     julia = builtins.toJSON "${julia_16-bin}/bin/julia";
+    lua-language-server = builtins.toJSON "${sumneko-lua-language-server}/bin/lua-language-server";
     omnisharp = builtins.toJSON "${omnisharp-roslyn}/bin/omnisharp";
     rnix-lsp = builtins.toJSON "${rnix-lsp}/bin/rnix-lsp";
     rust-analyzer = builtins.toJSON "${rust-analyzer}/bin/rust-analyzer";
+  };
+  src = with pkgs; lua_const_table {
+    lua-language-server = builtins.toJSON "${sumneko-lua-language-server}";
   };
 }}
     ${pkgs.lib.fileContents ./config.lua}

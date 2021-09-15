@@ -355,6 +355,10 @@ lspconfig.rnix.setup{
   on_attach = on_attach;
   cmd = { paths.bin['rnix-lsp'] };
 }
+lspconfig.sumneko_lua.setup{
+  capabilities = capabilities;
+  on_attach = on_attach;
+  cmd = { paths.bin['lua-language-server'], '-E', paths.src['lua-language-server'] .. "/main.lua" };
 }
 
 --- Diagnostics
