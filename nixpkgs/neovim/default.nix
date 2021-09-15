@@ -9,15 +9,26 @@ pkgs: {
     nvim-lspconfig
     lsp_extensions-nvim
 
-    nvim-cmp
-    cmp-buffer
-    cmp-nvim-lsp
-
     plenary-nvim
 
     (nvim-treesitter.withPlugins ( _: pkgs.tree-sitter.allGrammars ))
 
+    luasnip
+
+    nvim-cmp
+
+    cmp-buffer
+    cmp-calc
+    cmp-emoji
+    cmp_luasnip
+    cmp-nvim-lsp
+    cmp-nvim-lua
+    cmp-path
+    cmp-spell
+    cmp-treesitter
+
     nvim-dap
+
     popup-nvim
     telescope-nvim
 

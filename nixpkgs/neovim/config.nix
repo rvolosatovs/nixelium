@@ -34,6 +34,7 @@ in
     local cmp = require('cmp')
     local cmp_lsp = require('cmp_nvim_lsp')
     local illuminate = require('illuminate')
+    local luasnip = require('luasnip')
     local rust_tools = require('rust-tools')
 
     --- Functions
@@ -215,17 +216,21 @@ in
           select = true,
         }),
       },
-      confirmation = {
-        get_commit_characters = function(commit_characters)
-          table.insert(commit_characters, '<Space>')
-          table.insert(commit_characters, '-')
-          return commit_characters
+      snippet = {
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
         end,
       },
       sources = {
+        { name = 'luasnip' },
         { name = 'nvim_lsp' },
+        { name = 'nvim_lua' },
+        { name = 'treesitter' },
         { name = 'buffer' },
         { name = 'path' },
+        { name = 'calc' },
+        { name = 'spell' },
+        { name = 'emoji' },
       }
     }
 
