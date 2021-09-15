@@ -182,13 +182,19 @@ in
 
     --- Completion
 
-    local cmp_confirm_insert = function(fallback)
+    local cmp_map_pre = function(f)
+      cmp.mapping(function(fallback)
+        f()
+        fallback()
+      end, { 'i', 's' })
+    end
+    local cmp_confirm_insert = cmp_map_pre(function()
       cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       })
-      fallback()
-    end
+    end)
+
     cmp.setup{
       completion = {
         completeopt = 'menu,menuone,noinsert',
@@ -214,10 +220,9 @@ in
                             fallback()
                           end
                         end, { 'i', 's' }),
-        ['<c-space>'] = cmp.mapping.complete(),
         ['<c-u>']     = cmp.mapping.scroll_docs(4),
         ['<down>']    = cmp.mapping.select_next_item(),
-        ['<esc>']     = cmp.mapping.close(),
+        ['<esc>']     = cmp_map_pre(cmp.mapping.close),
         ['<up>']      = cmp.mapping.select_prev_item(),
 
         ['<cr>']      = cmp.mapping.confirm({
