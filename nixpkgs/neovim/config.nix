@@ -50,9 +50,13 @@ in
     elm-test = "${elmPackages.elm-test}/bin/elm-test";
     gopls = "${gopls}/bin/gopls";
     julia = "${julia_16-bin}/bin/julia";
+    lua-language-server = "${sumneko-lua-language-server}/bin/lua-language-server";
     omnisharp = "${omnisharp-roslyn}/bin/omnisharp";
     rnix-lsp = "${rnix-lsp}/bin/rnix-lsp";
     rust-analyzer = "${rust-analyzer}/bin/rust-analyzer";
+  };
+  src = with pkgs; {
+    lua-language-server = "${sumneko-lua-language-server}";
   };
 }}
     ${pkgs.lib.fileContents ./config.lua}
