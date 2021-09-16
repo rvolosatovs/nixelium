@@ -63,7 +63,6 @@ in
         ./../../../nixos/hosts/neon
         ./../../../vendor/secrets/nixops/hosts/neon
         ./../../deluge.nix
-        #./../../meet.nix TODO: Fix and enable
         ./../../miniflux.nix
         ./../../profiles/server
       ];
@@ -86,7 +85,6 @@ in
     #    ./../../../nixos/hosts/oxygen
     #    ./../../../nixos/wireguard.server.nix
     #    ./../../../vendor/secrets/nixops/hosts/oxygen
-    #    ./../../meet.nix
     #    ./../../miniflux.nix
     #    ./../../profiles/server
     #  ];

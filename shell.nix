@@ -130,7 +130,6 @@ stdenv.mkDerivation {
 
         ${vendorGitHubForkMaster "chriskempson" "base16-shell"}
         ${vendorGitHubForkMaster "Homebrew" "brew"}
-        ${vendorGitHubForkMaster "jitsi" "docker-jitsi-meet"}
         ${vendorGitHubForkMaster "keyboardio" "Model01-Firmware"}
         ${vendorGitHubForkMaster "nix-community" "nur"}
         ${vendorGitHubForkMaster "NixOS" "nixos-hardware"}

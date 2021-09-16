@@ -190,31 +190,6 @@ in
       description = "Deluge user client password";
     };
 
-    jicofo.authPassword = mkOption {
-      type = types.str;
-      description = "Jicofo password";
-    };
-
-    jicofo.componentSecret = mkOption {
-      type = types.str;
-      description = "Jicofo component secret";
-    };
-
-    jigasi.xmppPassword = mkOption {
-      type = types.str;
-      description = "Jigasi XMPP password";
-    };
-
-    jvb.authPassword = mkOption {
-      type = types.str;
-      description = "JVB MUC password";
-    };
-
-    meet.userPassword = mkOption {
-      type = types.str;
-      description = "Meet user password";
-    };
-
     miniflux.adminPassword = mkOption {
       type = types.str;
       description = "Miniflux admin password";

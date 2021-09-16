@@ -23,9 +23,6 @@
 [submodule "vendor/hosts"]
 	path = vendor/hosts
 	url = https://github.com/rvolosatovs/hosts.git
-[submodule "vendor/docker-jitsi-meet"]
-	path = vendor/docker-jitsi-meet
-	url = https://github.com/rvolosatovs/docker-jitsi-meet.git
 [submodule "vendor/dumpster"]
 	path = vendor/dumpster
 	url = https://github.com/rvolosatovs/dumpster.git
