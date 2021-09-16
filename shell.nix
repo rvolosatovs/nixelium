@@ -129,7 +129,6 @@ stdenv.mkDerivation {
         ${vendorGitHubFork "rycee" "home-manager" "stable" "release-${nixosVersion}"}
 
         ${vendorGitHubForkMaster "chriskempson" "base16-shell"}
-        ${vendorGitHubForkMaster "Homebrew" "brew"}
         ${vendorGitHubForkMaster "keyboardio" "Model01-Firmware"}
         ${vendorGitHubForkMaster "nix-community" "nur"}
         ${vendorGitHubForkMaster "NixOS" "nixos-hardware"}
