@@ -1,4 +1,4 @@
-pkgs: ''
+pkgs: with pkgs; ''
   if $TERM!='linux'
     let base16colorspace=256
   endif
@@ -20,8 +20,8 @@ pkgs: ''
   set t_Co=256
 
   lua << EOF
-  bin = with pkgs; {
-    local paths = ${pkgs.lib.toLua {
+    local paths = ${lib.toLua {
+  bin = {
     bash-language-server = "${nodePackages.bash-language-server}/bin/bash-language-server";
     clangd = "${clang-tools}/bin/clangd";
     docker-langserver = "${nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver";
@@ -37,11 +37,11 @@ pkgs: ''
     rnix-lsp = "${rnix-lsp}/bin/rnix-lsp";
     rust-analyzer = "${rust-analyzer}/bin/rust-analyzer";
   };
-  src = with pkgs; {
+  src = {
     lua-language-server = "${sumneko-lua-language-server}";
   };
 }}
-    ${pkgs.lib.fileContents ./config.lua}
+    ${lib.fileContents ./config.lua}
   EOF
 
   let g:airline#extensions#branch#enabled = 1
@@ -80,8 +80,8 @@ pkgs: ''
 
   let g:NERDCreateDefaultMappings = 0
 
-  let g:rustc_path = '${pkgs.rustup}/bin/rustc'
-  let g:rust_clip_command = '${pkgs.wl-clipboard}/bin/wl-copy'
+  let g:rustc_path = '${rustup}/bin/rustc'
+  let g:rust_clip_command = '${wl-clipboard}/bin/wl-copy'
 
   let g:loaded_netrwPlugin = 1
 
