@@ -1,22 +1,4 @@
-pkgs: let
-  lua_const_table = with pkgs.lib; attrs: ''
-    setmetatable({
-      ${concatStringsSep ",\n" (
-    mapAttrsToList (
-      name: value: "['${name}'] = ${ (if builtins.typeOf value == "set" then lua_const_table else builtins.toJSON) value }"
-    ) attrs
-  )}
-    },{
-      __index = function(_, key)
-        error("attempt to get '"..key.."'")
-      end,
-      __newindex = function(_, key, value)
-        error("attempt to set '"..key.."' to '"..value.."'")
-      end,
-    })
-  '';
-in
-''
+pkgs: ''
   if $TERM!='linux'
     let base16colorspace=256
   endif
@@ -38,8 +20,8 @@ in
   set t_Co=256
 
   lua << EOF
-    local paths = ${lua_const_table {
   bin = with pkgs; {
+    local paths = ${pkgs.lib.toLua {
     bash-language-server = "${nodePackages.bash-language-server}/bin/bash-language-server";
     clangd = "${clang-tools}/bin/clangd";
     docker-langserver = "${nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver";
