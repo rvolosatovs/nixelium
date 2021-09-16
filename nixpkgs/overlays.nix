@@ -66,7 +66,7 @@ in
         jackett
         julia
         julia-lts
-        julia-mono  
+        julia-mono
         julia-stable
         julia_07
         julia_1
