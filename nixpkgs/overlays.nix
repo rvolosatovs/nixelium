@@ -221,6 +221,12 @@ in
   )
 
   (
+    _: super: {
+      lib = super.lib // import ./lib super.lib;
+    }
+  )
+
+  (
     self: super: let
       callGoPackage = p: super.callPackage p {
         inherit (self) buildGoPackage stdenv;
