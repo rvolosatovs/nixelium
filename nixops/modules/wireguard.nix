@@ -30,72 +30,76 @@ let
     };
   };
 in
-  {
-    options = {
-      network.wireguard = {
-        inherit (peerOptions) ip publicKey;
+{
+  options = {
+    network.wireguard = {
+      inherit (peerOptions) ip publicKey;
 
-        enable = mkOption {
-          example = true;
-          default = false;
-          type = types.bool;
-          description = "Whether to enable VPN WireGuard connection between hosts in the network.";
-        };
+      enable = mkOption {
+        example = true;
+        default = false;
+        type = types.bool;
+        description = "Whether to enable VPN WireGuard connection between hosts in the network.";
+      };
 
-        interfaceName = mkOption {
-          example = "wg-private";
-          type = types.str;
-          description = "WireGuard interface name";
-        };
+      interfaceName = mkOption {
+        example = "wg-private";
+        type = types.str;
+        description = "WireGuard interface name";
+      };
 
-        subnet = mkOption {
-          example = "10.0.0.0/24";
-          type = types.str;
-          description = "WireGuard subnet.";
-        };
+      subnet = mkOption {
+        example = "10.0.0.0/24";
+        type = types.str;
+        description = "WireGuard subnet.";
+      };
 
-        privateKey = mkOption {
-          type = types.str;
-          description = "Base64 private key.";
-        };
+      privateKey = mkOption {
+        type = types.str;
+        description = "Base64 private key.";
+      };
 
-        dns = mkOption {
-          example = [ "1.1.1.1" ];
-          default = null;
-          type = with types; nullOr (listOf str);
-          description = "DNS servers to use";
-        };
+      dns = mkOption {
+        example = [ "1.1.1.1" ];
+        default = null;
+        type = with types; nullOr (listOf str);
+        description = "DNS servers to use";
+      };
 
-        extraPeers = mkOption {
-          default = {};
-          type = types.attrsOf (types.submodule ({ name, ... }: {
-            options = peerOptions;
-          }));
-        };
+      extraPeers = mkOption {
+        default = { };
+        type = types.attrsOf (types.submodule ({ name, ... }: {
+          options = peerOptions;
+        }));
+      };
 
-        server.name = mkOption {
-          example = "wg-server";
-          type = types.str;
-          description = "WireGuard server name";
-        };
+      server.name = mkOption {
+        example = "wg-server";
+        type = types.str;
+        description = "WireGuard server name";
+      };
 
-        server.port = mkOption {
-          example = 51820;
-          default = 51820;
-          type = types.int;
-          description = "WireGuard server port.";
-        };
+      server.port = mkOption {
+        example = 51820;
+        default = 51820;
+        type = types.int;
+        description = "WireGuard server port.";
       };
     };
+  };
 
-    config = let
-      peers = foldr (peerName: peers: 
-      assert lib.asserts.assertMsg (! peers ? peerName) "duplicate peer '${peerName}'";
-      peers // {
-        "${peerName}" = {
-          inherit (nodes."${peerName}".config.network.wireguard) ip publicKey;
-        };
-      }) cfg.extraPeers (attrNames nodes);
+  config =
+    let
+      peers = foldr
+        (peerName: peers:
+          assert lib.asserts.assertMsg (! peers ? peerName) "duplicate peer '${peerName}'";
+          peers // {
+            "${peerName}" = {
+              inherit (nodes."${peerName}".config.network.wireguard) ip publicKey;
+            };
+          })
+        cfg.extraPeers
+        (attrNames nodes);
     in
     mkIf cfg.enable (mkMerge [
       {
@@ -103,9 +107,11 @@ in
 
         networking.firewall.trustedInterfaces = [ cfg.interfaceName ];
 
-        networking.hosts = mapAttrs' (name: peer:
-        nameValuePair peer.ip [ "${name}.vpn" ]
-        ) peers;
+        networking.hosts = mapAttrs'
+          (name: peer:
+            nameValuePair peer.ip [ "${name}.vpn" ]
+          )
+          peers;
 
         systemd.network.netdevs."${netdevName}" = {
           netdevConfig.Kind = "wireguard";
@@ -136,11 +142,13 @@ in
 
         systemd.network.netdevs."${netdevName}" = {
           wireguardConfig.ListenPort = cfg.server.port;
-          wireguardPeers = mapAttrsToList (peerName: peer: {
-            wireguardPeerConfig.AllowedIPs = [ "${peer.ip}/32" ];
-            wireguardPeerConfig.PersistentKeepalive = 25;
-            wireguardPeerConfig.PublicKey = peer.publicKey;
-          }) (filterAttrs (peerName: _: peerName != name) peers);
+          wireguardPeers = mapAttrsToList
+            (peerName: peer: {
+              wireguardPeerConfig.AllowedIPs = [ "${peer.ip}/32" ];
+              wireguardPeerConfig.PersistentKeepalive = 25;
+              wireguardPeerConfig.PublicKey = peer.publicKey;
+            })
+            (filterAttrs (peerName: _: peerName != name) peers);
         };
 
         systemd.network.networks."${networkName}" = {
@@ -196,4 +204,4 @@ in
         users.users.systemd-network.extraGroups = [ "keys" ];
       })
     ]);
-  }
+}

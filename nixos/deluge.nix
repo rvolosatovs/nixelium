@@ -15,7 +15,7 @@
   services.deluge.config.dht = true;
   services.deluge.config.dont_count_slow_torrents = true;
   services.deluge.config.download_location = "/var/lib/deluge/downloads";
-  services.deluge.config.enabled_plugins= [ "Label" ];
+  services.deluge.config.enabled_plugins = [ "Label" ];
   services.deluge.config.enc_in_policy = 1;
   services.deluge.config.enc_level = 2;
   services.deluge.config.enc_out_policy = 1;

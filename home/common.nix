@@ -11,15 +11,16 @@
     ./zsh.nix
   ];
 
-  config = let
-    baseNixPath = (
-      lib.concatStringsSep ":" [
-        "home-manager=${config.home.homeDirectory}/.nix-defexpr/channels/home-manager"
-        "nixpkgs-unstable=${config.home.homeDirectory}/.nix-defexpr/channels/nixpkgs-unstable"
-        "nixpkgs=${config.home.homeDirectory}/.nix-defexpr/channels/nixpkgs"
-      ]
-    ) + "\${NIX_PATH:+:}\${NIX_PATH}";
-  in
+  config =
+    let
+      baseNixPath = (
+        lib.concatStringsSep ":" [
+          "home-manager=${config.home.homeDirectory}/.nix-defexpr/channels/home-manager"
+          "nixpkgs-unstable=${config.home.homeDirectory}/.nix-defexpr/channels/nixpkgs-unstable"
+          "nixpkgs=${config.home.homeDirectory}/.nix-defexpr/channels/nixpkgs"
+        ]
+      ) + "\${NIX_PATH:+:}\${NIX_PATH}";
+    in
     with lib; mkMerge [
       (
         rec {

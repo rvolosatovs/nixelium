@@ -4,7 +4,7 @@ let
   wirelessInterface = "wlan0";
 in
 {
-  imports = [ 
+  imports = [
     ./..
     ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x260
   ];

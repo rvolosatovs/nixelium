@@ -1,8 +1,8 @@
 { ... }:
 
 {
-  imports = [ 
-    ./.. 
+  imports = [
+    ./..
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [

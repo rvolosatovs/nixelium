@@ -245,92 +245,94 @@ in
       description = "Wireguard server port";
     };
 
-    programs = let
-      progOption = {
-        options = {
-          executable = mkOption {
-            type = types.submodule {
-              options = {
-                name = mkOption {
-                  type = types.str;
-                  description = "Name of the executable";
-                };
+    programs =
+      let
+        progOption = {
+          options = {
+            executable = mkOption {
+              type = types.submodule {
+                options = {
+                  name = mkOption {
+                    type = types.str;
+                    description = "Name of the executable";
+                  };
 
-                path = mkOption {
-                  type = types.str;
-                  description = "Absolute path to the executable";
-                  readOnly = true;
+                  path = mkOption {
+                    type = types.str;
+                    description = "Absolute path to the executable";
+                    readOnly = true;
+                  };
                 };
               };
+              description = "Executable";
             };
-            description = "Executable";
-          };
 
-          package = mkOption {
-            type = types.package;
-            description = "Package";
-          };
-        };
-      };
-
-      mkProgOption = args: mkOption args // {
-        type = if args ? type then args.type else types.submodule progOption;
-        apply = (opt:
-        let
-          _opt = if args ? apply then args.apply opt else opt;
-        in rec {
-          inherit (_opt) package;
-          executable = _opt.executable // {
-            path = "${package}/bin/${executable.name}";
-          };
-        });
-      };
-    in
-    {
-      browser = mkProgOption {
-        example.package = pkgs.chromium;
-        example.executable.name = "chromium";
-        description = "Web browser";
-      };
-
-      editor = mkProgOption {
-        example.package = pkgs.neovim;
-        example.executable.name = "nvim";
-        description = "Text editor";
-      };
-
-      mailer = mkProgOption {
-        example.package = pkgs.thunderbird;
-        example.executable.name = "thunderbird";
-        description = "Email client";
-      };
-
-      pager = mkProgOption {
-        example.package = pkgs.less;
-        example.executable.name = "less";
-        description = "Pager";
-      };
-
-      shell = mkProgOption {
-        type = types.submodule {
-          options = {
-            executable = progOption.options.executable;
             package = mkOption {
-              type = types.shellPackage;
-              description = progOption.options.package.description;
+              type = types.package;
+              description = "Package";
             };
           };
         };
-        example.package = pkgs.zsh;
-        example.executable.name = "zsh";
-        description = "Shell";
-      };
 
-      terminal = mkProgOption {
-        example.package = pkgs.kitty;
-        example.executable.name = "kitty";
-        description = "Terminal emulator";
+        mkProgOption = args: mkOption args // {
+          type = if args ? type then args.type else types.submodule progOption;
+          apply = (opt:
+            let
+              _opt = if args ? apply then args.apply opt else opt;
+            in
+            rec {
+              inherit (_opt) package;
+              executable = _opt.executable // {
+                path = "${package}/bin/${executable.name}";
+              };
+            });
+        };
+      in
+      {
+        browser = mkProgOption {
+          example.package = pkgs.chromium;
+          example.executable.name = "chromium";
+          description = "Web browser";
+        };
+
+        editor = mkProgOption {
+          example.package = pkgs.neovim;
+          example.executable.name = "nvim";
+          description = "Text editor";
+        };
+
+        mailer = mkProgOption {
+          example.package = pkgs.thunderbird;
+          example.executable.name = "thunderbird";
+          description = "Email client";
+        };
+
+        pager = mkProgOption {
+          example.package = pkgs.less;
+          example.executable.name = "less";
+          description = "Pager";
+        };
+
+        shell = mkProgOption {
+          type = types.submodule {
+            options = {
+              executable = progOption.options.executable;
+              package = mkOption {
+                type = types.shellPackage;
+                description = progOption.options.package.description;
+              };
+            };
+          };
+          example.package = pkgs.zsh;
+          example.executable.name = "zsh";
+          description = "Shell";
+        };
+
+        terminal = mkProgOption {
+          example.package = pkgs.kitty;
+          example.executable.name = "kitty";
+          description = "Terminal emulator";
+        };
       };
-    };
   };
 }

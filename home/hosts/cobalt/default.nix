@@ -5,7 +5,7 @@
   ];
 
   home.sessionVariables.PASSWORD_STORE_DIR = toString ./../../../vendor/pass;
-  home.sessionVariables.VDPAU_DRIVER="radeonsi";
+  home.sessionVariables.VDPAU_DRIVER = "radeonsi";
 
   programs.ssh.matchBlocks."neon".hostname = "neon.lan";
   programs.ssh.matchBlocks."neon-luks".hostname = "neon.lan";

@@ -2,7 +2,8 @@
 {
   home.packages = with pkgs; let
     winePkg = wineWowPackages.staging;
-  in [
+  in
+  [
     winePkg
     (winetricks.override { wine = winePkg; })
   ];

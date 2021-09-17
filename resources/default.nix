@@ -1,4 +1,4 @@
-{ config, pkgs, lib,... }:
+{ config, pkgs, lib, ... }:
 {
   imports = [
     ./../modules/resources.nix
@@ -16,34 +16,36 @@
 
     base16.theme = "tomorrow-night";
 
-    programs = let
-      pkgToProg = pkg: exe: {
-        package = pkg;
-        executable.name = exe;
+    programs =
+      let
+        pkgToProg = pkg: exe: {
+          package = pkg;
+          executable.name = exe;
+        };
+      in
+      {
+        editor.package = pkgs.neovim;
+        editor.executable.name = "nvim";
+
+        mailer.package = pkgs.mutt;
+        mailer.executable.name = "mutt";
+
+        pager.package = pkgs.less;
+        pager.executable.name = "less";
+
+        shell.package = pkgs.zsh;
+        shell.executable.name = "zsh";
+
+      } // optionalAttrs config.resources.graphics.enable {
+        terminal.package = pkgs.kitty;
+        terminal.executable.name = "kitty -1";
+
+      } // optionalAttrs (config.resources.graphics.enable && pkgs.stdenv.isLinux) {
+        browser.package = pkgs.firefox-wayland;
+        browser.executable.name = "firefox";
+
+        mailer.package = pkgs.thunderbird;
+        mailer.executable.name = "thunderbird";
       };
-    in {
-      editor.package = pkgs.neovim;
-      editor.executable.name ="nvim";
-
-      mailer.package = pkgs.mutt;
-      mailer.executable.name ="mutt";
-
-      pager.package = pkgs.less;
-      pager.executable.name ="less";
-
-      shell.package = pkgs.zsh;
-      shell.executable.name ="zsh";
-
-    } // optionalAttrs config.resources.graphics.enable {
-      terminal.package = pkgs.kitty;
-      terminal.executable.name ="kitty -1";
-
-    } // optionalAttrs (config.resources.graphics.enable && pkgs.stdenv.isLinux) {
-      browser.package = pkgs.firefox-wayland;
-      browser.executable.name ="firefox";
-
-      mailer.package = pkgs.thunderbird;
-      mailer.executable.name ="thunderbird";
-    };
   };
 }

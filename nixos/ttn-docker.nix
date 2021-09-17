@@ -16,36 +16,36 @@ let
   configHome = "/var/lib/ttn";
   httpPort = 1885;
 in
-  {
-    services.nginx.enable = true;
-    services.nginx.virtualHosts."ttn".addSSL = true;
-    services.nginx.virtualHosts."ttn".enableACME = true;
-    services.nginx.virtualHosts."ttn".locations."/".proxyPass = "http://localhost:${toString httpPort}";
-    services.nginx.virtualHosts."ttn".serverName = "ttn.${config.resources.domainName}";
+{
+  services.nginx.enable = true;
+  services.nginx.virtualHosts."ttn".addSSL = true;
+  services.nginx.virtualHosts."ttn".enableACME = true;
+  services.nginx.virtualHosts."ttn".locations."/".proxyPass = "http://localhost:${toString httpPort}";
+  services.nginx.virtualHosts."ttn".serverName = "ttn.${config.resources.domainName}";
 
-    systemd.services.ttn.after = [ "network.target" ];
-    systemd.services.ttn.description = "The Things Network LoRaWAN stack";
-    systemd.services.ttn.enable = true;
+  systemd.services.ttn.after = [ "network.target" ];
+  systemd.services.ttn.description = "The Things Network LoRaWAN stack";
+  systemd.services.ttn.enable = true;
 
-    systemd.services.ttn.script = ''
-      ${composeCmd} pull
-      ${composeCmd} up
-    '';
+  systemd.services.ttn.script = ''
+    ${composeCmd} pull
+    ${composeCmd} up
+  '';
 
-    systemd.services.ttn.environment.DEV_DATA_DIR = configHome;
+  systemd.services.ttn.environment.DEV_DATA_DIR = configHome;
 
-    systemd.services.ttn.serviceConfig.ExecStop = "${composeCmd} stop";
-    systemd.services.ttn.serviceConfig.User = "ttn";
-    systemd.services.ttn.serviceConfig.Group = "docker";
-    systemd.services.ttn.serviceConfig.WorkingDirectory = configHome;
-    systemd.services.ttn.wantedBy = [ "multi-user.target" ];
+  systemd.services.ttn.serviceConfig.ExecStop = "${composeCmd} stop";
+  systemd.services.ttn.serviceConfig.User = "ttn";
+  systemd.services.ttn.serviceConfig.Group = "docker";
+  systemd.services.ttn.serviceConfig.WorkingDirectory = configHome;
+  systemd.services.ttn.wantedBy = [ "multi-user.target" ];
 
-    users.users.ttn = {
-      createHome = true;
-      description = "The Things Network user";
-      home = configHome;
-      extraGroups = [ "nginx" ];
-    };
+  users.users.ttn = {
+    createHome = true;
+    description = "The Things Network user";
+    home = configHome;
+    extraGroups = [ "nginx" ];
+  };
 
-    virtualisation.docker.enable = true;
-  }
+  virtualisation.docker.enable = true;
+}

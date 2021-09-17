@@ -13,24 +13,25 @@
         programs.zsh.history.save = config.resources.histsize;
         programs.zsh.history.share = true;
         programs.zsh.history.size = config.resources.histsize;
-        programs.zsh.initExtra = let
-          # TODO: Derive hostnames from config
-          hosts = [
-            "krypton"
-            "neon"
-            "oxygen"
-            "zinc"
-          ];
+        programs.zsh.initExtra =
+          let
+            # TODO: Derive hostnames from config
+            hosts = [
+              "krypton"
+              "neon"
+              "oxygen"
+              "zinc"
+            ];
 
-          # TODO: Turn into a module
-          cdpath = [
-            "${config.home.homeDirectory}/src/github.com/${config.resources.username}"
-            "${config.home.homeDirectory}/src/github.com/docker"
-            "${config.home.homeDirectory}/src/github.com/moby"
-            "${config.home.homeDirectory}/src/github.com"
-            "${config.home.homeDirectory}/src/"
-          ];
-        in
+            # TODO: Turn into a module
+            cdpath = [
+              "${config.home.homeDirectory}/src/github.com/${config.resources.username}"
+              "${config.home.homeDirectory}/src/github.com/docker"
+              "${config.home.homeDirectory}/src/github.com/moby"
+              "${config.home.homeDirectory}/src/github.com"
+              "${config.home.homeDirectory}/src/"
+            ];
+          in
           ''
             nixify() {
               if [ ! -e ./.envrc ]; then

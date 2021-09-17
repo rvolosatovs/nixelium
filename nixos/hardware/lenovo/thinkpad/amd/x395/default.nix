@@ -2,7 +2,8 @@
 let
   wiredInterface = "enp3s0f0";
   wirelessInterface = "wlan0";
-in {
+in
+{
   imports =
     [ ./.. ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x395 ];
 

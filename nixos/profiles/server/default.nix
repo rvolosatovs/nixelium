@@ -8,7 +8,7 @@
 
   boot.initrd.network.enable = true;
   boot.initrd.network.postCommands = ''
-      echo "cryptsetup-askpass; exit" > /root/.profile
+    echo "cryptsetup-askpass; exit" > /root/.profile
   '';
   boot.initrd.network.ssh.authorizedKeys = config.users.users.${config.resources.username}.openssh.authorizedKeys.keys;
   boot.initrd.network.ssh.enable = true;

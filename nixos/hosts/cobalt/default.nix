@@ -13,13 +13,13 @@
   ];
 
   config = {
-    boot.initrd.luks.devices.luksroot.device="/dev/nvme0n1p2";
-    boot.initrd.luks.devices.luksroot.preLVM=true;
-    boot.initrd.luks.devices.luksroot.allowDiscards=true;
+    boot.initrd.luks.devices.luksroot.device = "/dev/nvme0n1p2";
+    boot.initrd.luks.devices.luksroot.preLVM = true;
+    boot.initrd.luks.devices.luksroot.allowDiscards = true;
 
     boot.kernelPackages = pkgs.linuxPackages_zen;
 
-    home-manager.users.${config.resources.username} = {...}: import ./../../../home/hosts/cobalt;
+    home-manager.users.${config.resources.username} = { ... }: import ./../../../home/hosts/cobalt;
 
     networking.firewall.allowedTCPPorts = [
       1885

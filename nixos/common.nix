@@ -9,10 +9,10 @@
   console.keyMap = "us";
 
   environment.extraInit = ''
-      export PATH="$HOME/.local/bin:$HOME/.local/bin.go:$PATH"
+    export PATH="$HOME/.local/bin:$HOME/.local/bin.go:$PATH"
   '';
   environment.interactiveShellInit = ''
-      set -o vi
+    set -o vi
   '';
   environment.pathsToLink = [
     "/share/bash"
@@ -20,7 +20,7 @@
   ];
   environment.sessionVariables = with config.resources.programs; {
     EDITOR = editor.executable.path;
-    EMAIL = builtins.replaceStrings ["@"] ["\\@"] config.resources.email;
+    EMAIL = builtins.replaceStrings [ "@" ] [ "\\@" ] config.resources.email;
     GIT_EDITOR = editor.executable.path;
     HISTFILESIZE = toString config.resources.histsize;
     HISTSIZE = toString config.resources.histsize;
@@ -30,16 +30,16 @@
     VISUAL = editor.executable.path;
   };
   environment.shellAliases = {
-    ll="ls -la";
-    ls="ls -h --color=auto";
-    mkdir="mkdir -pv";
-    o="${pkgs.xdg_utils}/bin/xdg-open";
-    ping="ping -c 3";
-    rm="rm -i";
-    sl="ls";
-    sy="systemctl";
-    Vi="sudoedit";
-    Vim="sudoedit";
+    ll = "ls -la";
+    ls = "ls -h --color=auto";
+    mkdir = "mkdir -pv";
+    o = "${pkgs.xdg_utils}/bin/xdg-open";
+    ping = "ping -c 3";
+    rm = "rm -i";
+    sl = "ls";
+    sy = "systemctl";
+    Vi = "sudoedit";
+    Vim = "sudoedit";
   };
   environment.shells = [
     config.resources.programs.shell.package
@@ -54,7 +54,7 @@
     termite.terminfo
   ];
 
-  home-manager.users.${config.resources.username} = {...}: {
+  home-manager.users.${config.resources.username} = { ... }: {
     imports = [
       ./../home
     ];
@@ -87,38 +87,41 @@
       "keep-derivations = true"
     ] ++ optional (config.nix.package == pkgs.nixFlakes) "experimental-features = nix-command flakes"
   );
-  nix.nixPath = let
-    infrastructure = (lib.sourceByRegex ./.. [ 
-      "dotfiles"
-      "dotfiles/.*"
-      "home"
-      "home/.*"
-      "modules"
-      "modules/.*"
-      "nixos"
-      "nixos/.*"
-      "nixpkgs"
-      "nixpkgs/.*"
-      "resources"
-      "resources/.*"
-      "vendor"
-      "vendor/copier"
-      "vendor/copier/.*"
-      "vendor/dumpster"
-      "vendor/dumpster/.*"
-      "vendor/nixpkgs-mozilla"
-      "vendor/nixpkgs-mozilla/.*"
-      "vendor/nur"
-      "vendor/nur/.*"
-    ]);
-  in
-  [
-    "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
-    "nixos-config=${infrastructure}/nixos/hosts/${config.networking.hostName}"
-    "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
-    "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/nixos-unstable.tar.gz"
-    "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz"
-  ];
+  nix.nixPath =
+    let
+      infrastructure = (
+        lib.sourceByRegex ./.. [
+          "dotfiles"
+          "dotfiles/.*"
+          "home"
+          "home/.*"
+          "modules"
+          "modules/.*"
+          "nixos"
+          "nixos/.*"
+          "nixpkgs"
+          "nixpkgs/.*"
+          "resources"
+          "resources/.*"
+          "vendor"
+          "vendor/copier"
+          "vendor/copier/.*"
+          "vendor/dumpster"
+          "vendor/dumpster/.*"
+          "vendor/nixpkgs-mozilla"
+          "vendor/nixpkgs-mozilla/.*"
+          "vendor/nur"
+          "vendor/nur/.*"
+        ]
+      );
+    in
+    [
+      "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
+      "nixos-config=${infrastructure}/nixos/hosts/${config.networking.hostName}"
+      "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
+      "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/nixos-unstable.tar.gz"
+      "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz"
+    ];
   nix.optimise.automatic = true;
   #nix.package = pkgs.nixFlakes; # TODO: migrate to flakes
   # TODO: Set nix.registry to fork
@@ -141,27 +144,27 @@
   programs.zsh.enableCompletion = true;
   programs.zsh.enableGlobalCompInit = false; # avoid double initialization due to home-manager
   programs.zsh.interactiveShellInit = ''
-      [ -v oHISTFILE ] && echo "WARNING: oHISTFILE is getting overriden" &> 2
-      oHISTFILE="$HISTFILE"
+    [ -v oHISTFILE ] && echo "WARNING: oHISTFILE is getting overriden" &> 2
+    oHISTFILE="$HISTFILE"
 
-      [ -v oHISTSIZE ] && echo "WARNING: oHISTSIZE is getting overriden" &> 2
-      oHISTSIZE="$HISTSIZE"
+    [ -v oHISTSIZE ] && echo "WARNING: oHISTSIZE is getting overriden" &> 2
+    oHISTSIZE="$HISTSIZE"
 
-      [ -v oSAVEHIST ] && echo "WARNING: oSAVEHIST is getting overriden" &> 2
-      oSAVEHIST="$SAVEHIST"
+    [ -v oSAVEHIST ] && echo "WARNING: oSAVEHIST is getting overriden" &> 2
+    oSAVEHIST="$SAVEHIST"
 
-      source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
+    source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
 
-      [ -v oHISTFILE ] && {export HISTFILE="$oHISTFILE"; unset oHISTFILE;}
-      [ -v oHISTSIZE ] && {export HISTSIZE="$oHISTSIZE"; unset oHISTSIZE;}
-      [ -v oSAVEHIST ] && {export SAVEHIST="$oSAVEHIST"; unset oSAVEHIST;}
+    [ -v oHISTFILE ] && {export HISTFILE="$oHISTFILE"; unset oHISTFILE;}
+    [ -v oHISTSIZE ] && {export HISTSIZE="$oHISTSIZE"; unset oHISTSIZE;}
+    [ -v oSAVEHIST ] && {export SAVEHIST="$oSAVEHIST"; unset oSAVEHIST;}
 
-      bindkey -v
+    bindkey -v
 
-      source "$(${pkgs.fzf}/bin/fzf-share)/completion.zsh"
-      source "$(${pkgs.fzf}/bin/fzf-share)/key-bindings.zsh"
+    source "$(${pkgs.fzf}/bin/fzf-share)/completion.zsh"
+    source "$(${pkgs.fzf}/bin/fzf-share)/key-bindings.zsh"
   '';
-  programs.zsh.promptInit="";
+  programs.zsh.promptInit = "";
   programs.zsh.syntaxHighlighting.enable = true;
 
   security.sudo.enable = true;
@@ -175,8 +178,8 @@
   services.fwupd.enable = true;
 
   services.journald.extraConfig = ''
-      SystemMaxUse=1G
-      MaxRetentionSec=5day
+    SystemMaxUse=1G
+    MaxRetentionSec=5day
   '';
 
   services.openssh.enable = true;
@@ -212,8 +215,8 @@
   time.timeZone = "Europe/Amsterdam";
 
   users.defaultUserShell = config.resources.programs.shell.executable.path;
-  users.groups.netdev = {};
-  users.groups.plugdev = {};
+  users.groups.netdev = { };
+  users.groups.plugdev = { };
   users.mutableUsers = false;
   users.users.${config.resources.username} = {
     extraGroups = [

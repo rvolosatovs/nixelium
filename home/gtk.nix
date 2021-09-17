@@ -29,17 +29,17 @@
         gtk-xft-rgba="rgb"
       '';
 
-      gtk.gtk3.extraConfig.gtk-cursor-theme-size=0;
-      gtk.gtk3.extraConfig.gtk-toolbar-style="GTK_TOOLBAR_BOTH";
-      gtk.gtk3.extraConfig.gtk-toolbar-icon-size="GTK_ICON_SIZE_LARGE_TOOLBAR";
-      gtk.gtk3.extraConfig.gtk-button-images=1;
-      gtk.gtk3.extraConfig.gtk-menu-images=1;
-      gtk.gtk3.extraConfig.gtk-enable-event-sounds=1;
-      gtk.gtk3.extraConfig.gtk-enable-input-feedback-sounds=1;
-      gtk.gtk3.extraConfig.gtk-xft-antialias=1;
-      gtk.gtk3.extraConfig.gtk-xft-hinting=1;
-      gtk.gtk3.extraConfig.gtk-xft-hintstyle="hintslight";
-      gtk.gtk3.extraConfig.gtk-xft-rgba="rgb";
+      gtk.gtk3.extraConfig.gtk-cursor-theme-size = 0;
+      gtk.gtk3.extraConfig.gtk-toolbar-style = "GTK_TOOLBAR_BOTH";
+      gtk.gtk3.extraConfig.gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
+      gtk.gtk3.extraConfig.gtk-button-images = 1;
+      gtk.gtk3.extraConfig.gtk-menu-images = 1;
+      gtk.gtk3.extraConfig.gtk-enable-event-sounds = 1;
+      gtk.gtk3.extraConfig.gtk-enable-input-feedback-sounds = 1;
+      gtk.gtk3.extraConfig.gtk-xft-antialias = 1;
+      gtk.gtk3.extraConfig.gtk-xft-hinting = 1;
+      gtk.gtk3.extraConfig.gtk-xft-hintstyle = "hintslight";
+      gtk.gtk3.extraConfig.gtk-xft-rgba = "rgb";
       gtk.gtk3.extraCss = ''
         /* remove window title from Client-Side Decorations */
         .solid-csd headerbar .title {

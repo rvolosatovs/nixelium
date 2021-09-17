@@ -1,5 +1,5 @@
 let
-  unstable = import <nixpkgs-unstable> { config = import ./config.nix; overlays = []; };
+  unstable = import <nixpkgs-unstable> { config = import ./config.nix; overlays = [ ]; };
 in
 [
   (
@@ -227,11 +227,12 @@ in
   )
 
   (
-    self: super: let
-      callGoPackage = p: super.callPackage p {
-        inherit (self) buildGoPackage stdenv;
-      };
-    in
+    self: super:
+      let
+        callGoPackage = p: super.callPackage p {
+          inherit (self) buildGoPackage stdenv;
+        };
+      in
       {
         copier = callGoPackage ./../vendor/copier;
         dumpster = callGoPackage ./../vendor/dumpster;

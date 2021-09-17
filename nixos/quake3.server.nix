@@ -2,11 +2,12 @@
 let
   port = 27960;
 in
-  {
-    systemd.services.quake3.after = [ "network.target" ];
-    systemd.services.quake3.description = "quake3 server";
-    systemd.services.quake3.enable = true;
-    systemd.services.quake3.serviceConfig.ExecStart = let
+{
+  systemd.services.quake3.after = [ "network.target" ];
+  systemd.services.quake3.description = "quake3 server";
+  systemd.services.quake3.enable = true;
+  systemd.services.quake3.serviceConfig.ExecStart =
+    let
       cfg = pkgs.writeTextFile {
         name = "server.cfg";
         destination = "/baseq3/server.cfg";
@@ -56,18 +57,19 @@ in
         description = "Quake3 server";
         paks = with pkgs; [ quake3pointrelease quake3hires quake3Paks cfg ];
       };
-    in "${quake}/bin/quake3-server +set dedicated 1 +exec server.cfg";
+    in
+    "${quake}/bin/quake3-server +set dedicated 1 +exec server.cfg";
 
-    systemd.services.quake3.serviceConfig.User = "quake3";
-    systemd.services.quake3.wantedBy = [ "multi-user.target" ];
+  systemd.services.quake3.serviceConfig.User = "quake3";
+  systemd.services.quake3.wantedBy = [ "multi-user.target" ];
 
-    networking.firewall.allowedTCPPorts = [ port ];
-    networking.firewall.allowedUDPPorts = [ port ];
+  networking.firewall.allowedTCPPorts = [ port ];
+  networking.firewall.allowedUDPPorts = [ port ];
 
-    users.users.quake3 = {
-      createHome = true;
-      description = "quake3 user";
-      home = "/var/lib/quake3";
-      isSystemUser = true;
-    };
-  }
+  users.users.quake3 = {
+    createHome = true;
+    description = "quake3 user";
+    home = "/var/lib/quake3";
+    isSystemUser = true;
+  };
+}
