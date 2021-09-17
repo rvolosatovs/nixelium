@@ -80,8 +80,13 @@
   nix.binaryCachePublicKeys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
-  nix.extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-    "experimental-features = nix-command flakes";
+  nix.extraOptions = with lib; concatStringsSep "\n" (
+    [
+      # Following two are required to prevent GC of nix-direnv environments.
+      "keep-outputs = true"
+      "keep-derivations = true"
+    ] ++ optional (config.nix.package == pkgs.nixFlakes) "experimental-features = nix-command flakes"
+  );
   nix.nixPath = let
     infrastructure = (lib.sourceByRegex ./.. [ 
       "dotfiles"
