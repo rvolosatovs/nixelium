@@ -52,6 +52,11 @@
     kitty.terminfo
     libcgroup
     termite.terminfo
+    (
+      pkgs.writeShellScriptBin "nixFlakes" ''
+        exec ${pkgs.nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
+      ''
+    )
   ];
 
   home-manager.users.${config.resources.username} = { ... }: {
