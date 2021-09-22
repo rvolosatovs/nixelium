@@ -48,11 +48,13 @@ in
         go-tools
         go_1_15
         go_1_16
+        go_1_17
         go_2-dev
         gocode
         gocode-gomod
         godef
         godot
+        golangci-lint
         gofumpt
         gopass
         gopls
