@@ -53,7 +53,6 @@ in
   programs.git.extraConfig."filter \"lfs\"".smudge = "${pkgs.git-lfs}/bin/git-lfs smudge -- %f";
   programs.git.extraConfig."http \"https://gopkg.in\"".followRedirects = true;
   programs.git.extraConfig."mergetool \"nvimdiff\"".cmd = "${pkgs.neovim}/bin/nvim -c Gvdiff $MERGED";
-  programs.git.extraConfig."url \"ssh://git@github.com/docker\"".insteadOf = "https://github.com/docker";
   programs.git.extraConfig.branch.autosetupmerge = false;
   programs.git.extraConfig.branch.autosetuprebase = "always";
   programs.git.extraConfig.color.ui = true;
