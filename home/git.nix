@@ -27,6 +27,8 @@ let
     .Trashes
     .vscode
     ehthumbs.db
+    flake.lock
+    flake.nix
     shell.nix
     tags
     Thumbs.db
