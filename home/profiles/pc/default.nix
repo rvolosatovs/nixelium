@@ -39,7 +39,7 @@
           rnix-lsp
           rtl-sdr
           rust-analyzer
-          rustup
+          rust-bin.nightly.latest.default
           spotify
           taskwarrior
           ungoogled-chromium
