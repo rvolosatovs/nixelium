@@ -2,7 +2,7 @@
 {
   imports = [
     ./../..
-    ./../../../vendor/nixos-hardware/common/pc/laptop
+    ./../../../vendor/nixos-hardware/common/pc
     ./../../boards.nix
     ./../../graphical.nix
     ./../../rtl-sdr.nix
@@ -28,13 +28,10 @@
 
   hardware.steam-hardware.enable = true;
 
-  home-manager.users.${config.resources.username} = import ../../../home/profiles/laptop;
+  home-manager.users.${config.resources.username} = import ../../../home/profiles/pc;
 
   networking.dhcpcd.enable = false;
 
-  networking.hosts = {
-    "127.0.0.1" = [ "thethings.localhost" ];
-  };
   networking.useNetworkd = true;
   networking.useDHCP = false;
 

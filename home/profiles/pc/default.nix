@@ -77,11 +77,6 @@
           sshfs
           steam
         ];
-
-        systemd.user.services.godoc.Unit.Description = "Godoc server";
-        systemd.user.services.godoc.Service.Environment = "'GOPATH=${config.home.sessionVariables.GOPATH}'";
-        systemd.user.services.godoc.Service.ExecStart = "${pkgs.gotools}/bin/godoc -http=:42002";
-        systemd.user.services.godoc.Service.Restart = "always";
       }
     )
   ];

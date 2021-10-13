@@ -32,7 +32,7 @@ in
     imports = [
       ./../../../nixos/hosts/cobalt
       ./../../../vendor/secrets/nixops/hosts/cobalt
-      ./../../profiles/laptop
+      ./../../profiles/pc
     ];
 
     config = {

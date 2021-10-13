@@ -8,7 +8,7 @@
     ./../../hardware/lenovo/thinkpad/amd/x395
     ./../../lan.nix
     ./../../minidlna.nix
-    ./../../profiles/laptop
+    ./../../profiles/pc
     ./hardware-configuration.nix
   ];
 
