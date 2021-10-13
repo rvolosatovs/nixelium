@@ -213,6 +213,8 @@ in
     }
   )
 
+  ( import ./../vendor/oxalica/rust-overlay )
+
   (
     self: super: {
       nur = import ./../vendor/nur {
