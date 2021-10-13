@@ -17,7 +17,6 @@
           let
             # TODO: Derive hostnames from config
             hosts = [
-              "krypton"
               "neon"
               "oxygen"
               "zinc"
