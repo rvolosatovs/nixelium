@@ -213,7 +213,7 @@ in
     }
   )
 
-  (import ./../vendor/rust-overlay)
+  (import ./../vendor/fenix/overlay.nix)
 
   (self: super: {
     inherit (import ./../vendor/neovim-nightly-overlay self super) neovim-nightly;

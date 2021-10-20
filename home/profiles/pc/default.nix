@@ -18,6 +18,8 @@
           deluge
           drive
           engify
+          fenix.complete.cargo
+          fenix.complete.rustfmt
           ffmpeg
           git-rebase-all
           godot
@@ -39,7 +41,6 @@
           rnix-lsp
           rtl-sdr
           rust-analyzer
-          rust-bin.nightly.latest.default
           spotify
           taskwarrior
           ungoogled-chromium

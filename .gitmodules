@@ -44,9 +44,9 @@
 [submodule "vendor/pass-otp"]
 	path = vendor/pass-otp
 	url = keybase://private/rvolosatovs/pass-otp
-[submodule "vendor/oxalica/rust-overlay"]
-	path = vendor/rust-overlay
-	url = https://github.com/oxalica/rust-overlay.git
 [submodule "vendor/neovim-nightly-overlay"]
 	path = vendor/neovim-nightly-overlay
 	url = https://github.com/nix-community/neovim-nightly-overlay.git
+[submodule "vendor/fenix"]
+	path = vendor/fenix
+	url = https://github.com/nix-community/fenix.git
