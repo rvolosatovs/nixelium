@@ -177,8 +177,8 @@ cmp.setup{
     ['<c-d>']     = cmp.mapping.scroll_docs(-4),
     ['<c-e>']     = cmp.mapping.close(),
     ['<c-n>']     = cmp.mapping(function()
-                      if vim.fn.pumvisible() == 1 then
-                        cmp.mapping.select_next_item()
+                      if cmp.visible() then
+                        cmp.select_next_item()
                       elseif luasnip.expand_or_jumpable() then
                         luasnip.expand_or_jump()
                       else
@@ -186,7 +186,7 @@ cmp.setup{
                       end
                     end, { 'i', 's' }),
     ['<c-p>']     = cmp.mapping(function(fallback)
-                      if vim.fn.pumvisible() == 1 then
+                      if cmp.visible() then
                         cmp.mapping.select_prev_item()
                       elseif luasnip.jumpable(-1) then
                         luasnip.jump(-1)
@@ -231,7 +231,10 @@ cmp.setup{
     { name = 'calc' },
     { name = 'spell' },
     { name = 'emoji' },
-  }
+  },
+  experimental = {
+    native_menu = true,
+  },
 }
 
 --- LSP
