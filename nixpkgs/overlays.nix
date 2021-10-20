@@ -213,7 +213,7 @@ in
     }
   )
 
-  ( import ./../vendor/oxalica/rust-overlay )
+  (import ./../vendor/rust-overlay)
 
   ( import ./../vendor/neovim-nightly-overlay )
 
