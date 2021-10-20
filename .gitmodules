@@ -47,3 +47,6 @@
 [submodule "vendor/oxalica/rust-overlay"]
 	path = vendor/oxalica/rust-overlay
 	url = https://github.com/oxalica/rust-overlay.git
+[submodule "vendor/neovim-nightly-overlay"]
+	path = vendor/neovim-nightly-overlay
+	url = https://github.com/nix-community/neovim-nightly-overlay.git

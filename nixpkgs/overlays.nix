@@ -215,6 +215,8 @@ in
 
   ( import ./../vendor/oxalica/rust-overlay )
 
+  ( import ./../vendor/neovim-nightly-overlay )
+
   (
     self: super: {
       nur = import ./../vendor/nur {
