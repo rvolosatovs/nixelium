@@ -215,7 +215,9 @@ in
 
   (import ./../vendor/rust-overlay)
 
-  ( import ./../vendor/neovim-nightly-overlay )
+  (self: super: {
+    inherit (import ./../vendor/neovim-nightly-overlay self super) neovim-nightly;
+  })
 
   (
     self: super: {
@@ -359,7 +361,7 @@ in
 
   (
     self: super: {
-      neovim = super.wrapNeovim self.neovim-unwrapped (import ./neovim self);
+      neovim = super.wrapNeovim super.neovim-unwrapped (import ./neovim self);
 
       nerdfonts = super.nerdfonts.override {
         fonts = [
