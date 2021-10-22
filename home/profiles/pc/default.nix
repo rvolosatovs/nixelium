@@ -29,6 +29,7 @@
           imagemagick
           llvm
           llvmPackages.libclang
+          manpages
           minicom
           mkvtoolnix
           nixops
@@ -42,6 +43,7 @@
           rtl-sdr
           rust-analyzer
           spotify
+          stdmanpages
           taskwarrior
           ungoogled-chromium
           wego
