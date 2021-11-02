@@ -122,7 +122,6 @@ in
         noto-fonts-emoji
         nox
         pavucontrol
-        pipewire
         platformio
         polybar
         procs
