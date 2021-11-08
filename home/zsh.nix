@@ -109,6 +109,7 @@
              oSAVEHIST="$SAVEHIST"
             fi
 
+            export NO_ETC_HOSTS=1
             source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
 
             if [ ''${ver[1]} -ge ''${ver[2]} ]; then
