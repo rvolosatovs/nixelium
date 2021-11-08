@@ -199,14 +199,11 @@ cmp.setup{
     ['<esc>']     = cmp_map_pre(cmp.mapping.close),
     ['<up>']      = cmp.mapping.select_prev_item(),
 
-    ['<cr>']      = cmp.mapping.confirm({
-                      behavior = cmp.ConfirmBehavior.Replace,
-                      select = true,
-                    }),
     ['(']         = cmp_confirm_insert,
     [')']         = cmp_confirm_insert,
     ['-']         = cmp_confirm_insert,
     ['<']         = cmp_confirm_insert,
+    ['<cr>']      = cmp_confirm_insert,
     ['<space>']   = cmp_confirm_insert,
     ['>']         = cmp_confirm_insert,
     ['[']         = cmp_confirm_insert,
