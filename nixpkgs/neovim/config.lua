@@ -9,6 +9,7 @@ local cmp_lsp = require('cmp_nvim_lsp')
 local illuminate = require('illuminate')
 local luasnip = require('luasnip')
 local rust_tools = require('rust-tools')
+local treesitter = require('nvim-treesitter.configs')
 
 --- Functions
 
@@ -51,6 +52,7 @@ vim.opt.expandtab = true
 vim.opt.fileencoding = 'utf-8'
 vim.opt.fileformat = 'unix'
 vim.opt.foldcolumn = 'auto:9'
+vim.opt.foldlevel = 5
 vim.opt.gdefault = true
 vim.opt.grepprg = paths.bin.ripgrep..' --vimgrep'
 vim.opt.guicursor = ""
@@ -231,6 +233,27 @@ cmp.setup{
   },
   experimental = {
     native_menu = true,
+  },
+}
+
+--- Treesitter
+
+treesitter.setup {
+  highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = false,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+  indent = {
+      enable = true,
   },
 }
 

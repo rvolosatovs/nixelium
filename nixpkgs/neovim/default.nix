@@ -2,7 +2,6 @@ pkgs: {
   configure.customRC = import ./config.nix pkgs;
   configure.packages.plugins.opt = with pkgs.vimPlugins; [
     tabular
-    vim-polyglot
     vim-table-mode
   ];
   configure.packages.plugins.start = with pkgs.vimPlugins; [

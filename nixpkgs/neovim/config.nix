@@ -8,16 +8,14 @@ pkgs: with pkgs; ''
     filetype plugin indent on
     syntax enable
 
-    " by some reason XML support conflicts with Rust.
-    " perhaps related to https://github.com/NixOS/nixpkgs/issues/118953
-    let g:polyglot_disabled = ['go', 'rust', 'haskell', 'xml']
-    packadd vim-polyglot
-
     set backupdir=~/.local/share/nvim/backup//
     set grepformat^=%f:%l:%c:%m
     set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
     set shortmess+=c
     set t_Co=256
+
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
 
     lua << EOF
       local paths = ${lib.toLua {
