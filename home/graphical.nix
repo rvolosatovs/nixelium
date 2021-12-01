@@ -219,6 +219,7 @@ with config.resources.base16.colors;
           privacy-badger
           reddit-enhancement-suite
           refined-github
+          rust-search-extension
           save-page-we
           stylus
           text-contrast-for-dark-themes
