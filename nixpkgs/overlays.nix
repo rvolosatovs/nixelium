@@ -177,10 +177,6 @@ in
         weechat
         wego
         wf-recorder
-        winePackages
-        winePackagesFor
-        winetricks
-        wineWowPackages
         wl-clipboard
         wlsunset
         wofi
