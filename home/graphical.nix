@@ -245,6 +245,7 @@ with config.resources.base16.colors;
           #extraPolicies.UserMessaging.ExtensionRecommendations = false;
           #extraPolicies.UserMessaging.SkipOnboarding = true;
         };
+        programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
 
         programs.mako.enable = true;
         programs.mako.backgroundColor = "#${base00}";
