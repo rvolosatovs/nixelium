@@ -35,6 +35,7 @@ pkgs: {
     base16-vim
     editorconfig-vim
     gitv
+    indent-blankline-nvim
     julia-vim
     nerdcommenter
     nvim-web-devicons

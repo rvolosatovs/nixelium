@@ -7,6 +7,7 @@ telescope = require('telescope.builtin')
 local cmp = require('cmp')
 local cmp_lsp = require('cmp_nvim_lsp')
 local illuminate = require('illuminate')
+local indent_blankline = require('indent_blankline')
 local luasnip = require('luasnip')
 local rust_tools = require('rust-tools')
 local treesitter = require('nvim-treesitter.configs')
@@ -234,6 +235,17 @@ cmp.setup{
   experimental = {
     native_menu = true,
   },
+}
+
+--- Blankline
+
+indent_blankline.setup {
+    char_list = {'|', '¦', '┆', '┊'},
+    show_current_context = true,
+    show_current_context_start = true,
+    show_end_of_line = true,
+    show_trailing_blankline_indent = true,
+    use_treesitter = true,
 }
 
 --- Treesitter
