@@ -214,6 +214,7 @@ with config.resources.base16.colors;
           https-everywhere
           link-cleaner
           multi-account-containers
+          netflix-1080p
           peertubeify
           privacy-badger
           reddit-enhancement-suite
