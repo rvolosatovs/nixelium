@@ -374,6 +374,25 @@ in
         mpdSupport = true;
         pulseSupport = true;
       };
+
+      firefox = with super; wrapFirefox firefox-unwrapped
+        {
+          forceWayland = true;
+
+          ## Documentation available at:
+          ## https://github.com/mozilla/policy-templates
+
+          extraPolicies.CaptivePortal = true;
+          extraPolicies.DisableFirefoxAccounts = true;
+          extraPolicies.DisableFirefoxStudies = true;
+          extraPolicies.DisablePocket = true;
+          extraPolicies.DisableTelemetry = true;
+          extraPolicies.ExtensionSettings = { };
+          extraPolicies.FirefoxHome.Pocket = false;
+          extraPolicies.FirefoxHome.Snippets = false;
+          extraPolicies.UserMessaging.ExtensionRecommendations = false;
+          extraPolicies.UserMessaging.SkipOnboarding = true;
+        };
     }
   )
 ]

@@ -41,7 +41,7 @@
         terminal.executable.name = "kitty -1";
 
       } // optionalAttrs (config.resources.graphics.enable && pkgs.stdenv.isLinux) {
-        browser.package = pkgs.firefox-wayland;
+        browser.package = pkgs.firefox;
         browser.executable.name = "firefox";
 
         mailer.package = pkgs.thunderbird;

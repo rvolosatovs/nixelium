@@ -4,6 +4,7 @@
   allowUnfreeRedistributable = true;
 
   config.firefox.enableAdobeFlash = false;
+  config.firefox.drmSupport = true;
 
   permittedInsecurePackages = [
     "p7zip-16.02"
