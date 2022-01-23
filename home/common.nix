@@ -180,13 +180,14 @@
           programs.ssh.enable = true;
           programs.ssh.compression = true;
           programs.ssh.serverAliveInterval = 5;
+
+          programs.ssh.matchBlocks."github.com".extraOptions.Ciphers = "chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc";
+          programs.ssh.matchBlocks."github.com".extraOptions.KexAlgorithms = "curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1";
+          programs.ssh.matchBlocks."github.com".extraOptions.MACs = "hmac-sha2-256,hmac-sha2-512,hmac-sha1";
           programs.ssh.matchBlocks."hashbang".hostname = "ny1.hashbang.sh";
           programs.ssh.matchBlocks."hashbang".identitiesOnly = true;
           programs.ssh.matchBlocks."hashbang".identityFile = "~/.ssh/id_ed25519";
           programs.ssh.matchBlocks."hashbang".user = config.resources.username;
-          programs.ssh.matchBlocks."github.com".extraOptions.KexAlgorithms = "curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1";
-          programs.ssh.matchBlocks."github.com".extraOptions.Ciphers = "chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc";
-          programs.ssh.matchBlocks."github.com".extraOptions.MACs = "hmac-sha2-256,hmac-sha2-512,hmac-sha1";
 
           programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" (
             [
