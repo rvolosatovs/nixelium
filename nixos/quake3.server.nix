@@ -66,10 +66,12 @@ in
   networking.firewall.allowedTCPPorts = [ port ];
   networking.firewall.allowedUDPPorts = [ port ];
 
+  users.groups.quake3 = { };
   users.users.quake3 = {
     createHome = true;
     description = "quake3 user";
     home = "/var/lib/quake3";
     isSystemUser = true;
+    group = "quake3";
   };
 }
