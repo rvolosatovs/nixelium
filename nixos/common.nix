@@ -5,6 +5,8 @@
     ./../vendor/secrets/resources
   ];
 
+  boot.initrd.network.ssh.port = config.resources.ssh.luksPort;
+
   console.font = "Lat2-Terminus16";
   console.keyMap = "us";
 
@@ -197,6 +199,7 @@
     }
   ];
   services.openssh.passwordAuthentication = false;
+  services.openssh.ports = [ config.resources.ssh.port ];
   services.openssh.startWhenNeeded = true;
 
   system.stateVersion = "21.11";

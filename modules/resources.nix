@@ -170,6 +170,26 @@ in
       description = "Public SSH keys to allow access to";
     };
 
+    ssh.androidPort = mkOption {
+      type = types.ints.unsigned;
+      description = "SSH port used on Android";
+    };
+
+    ssh.luksPort = mkOption {
+      type = types.ints.unsigned;
+      description = "SSH port used during LUKS unlock boot stage";
+    };
+
+    ssh.luksUser = mkOption {
+      type = types.str;
+      description = "SSH username used during LUKS unlock boot stage";
+    };
+
+    ssh.port = mkOption {
+      type = types.ints.unsigned;
+      description = "SSH port";
+    };
+
     gpg.publicKey.fingerprint = mkOption {
       type = types.strMatching "[[:alnum:]]{40}";
       description = "GPG key fingerprint";

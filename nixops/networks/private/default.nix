@@ -15,6 +15,31 @@ let
   mkBorgLocalRepoPath = config: name: mkBorgRepoPath config name "localhost";
 
   isLANip = lib: ip: lib.strings.hasPrefix "192.168." ip;
+
+  mkSSHPortConfig = port: lib: lib.foldr
+    (host: conf: conf // (if lib.isString host then {
+      programs.ssh.matchBlocks.${host} = { inherit port; };
+    } else {
+      programs.ssh.matchBlocks.${host.name} = (lib.filterAttrs (n: v: n != "name") host) // { inherit port; };
+    }))
+    { };
+
+  mkDefaultSSHPortConfig = config: mkSSHPortConfig config.resources.ssh.port;
+  mkAndroidSSHPortConfig = config: mkSSHPortConfig config.resources.ssh.androidPort;
+  mkLUKSSSHConfig = config: lib: hosts: mkSSHPortConfig config.resources.ssh.luksPort lib (map (host: host // { user = config.resources.ssh.luksUser; }) hosts);
+
+  mkCommonLANSSHConfig = config: lib: lib.mkMerge [
+    (mkDefaultSSHPortConfig config lib [
+      { name = "oxygen"; hostname = "oxygen.external"; }
+      "oxygen.external"
+      "oxygen.vpn"
+    ])
+    (mkAndroidSSHPortConfig config lib [
+      { name = "zinc"; hostname = "zinc.lan"; }
+      "zinc.lan"
+      "zinc.vpn"
+    ])
+  ];
 in
 {
   network.description = "Private network of rvolosatovs";
@@ -44,6 +69,22 @@ in
 
       networking.privateIPv4 = "192.168.188.11";
 
+      home-manager.users.${config.resources.username} = lib.mkMerge [
+        (mkCommonLANSSHConfig config lib)
+        (mkDefaultSSHPortConfig config lib [
+          { name = "neon"; hostname = "neon.lan"; }
+          "neon.lan"
+          "neon.eth.lan"
+          "neon.external"
+          "neon.vpn"
+          "neon.wifi.vpn"
+        ])
+        (mkLUKSSSHConfig config lib [
+          { name = "neon-luks"; hostname = "neon.lan"; }
+          { name = "oxygen-luks"; hostname = "oxygen.external"; }
+        ])
+      ];
+
       services.btrfs.snapshotBackup.enable = true;
       services.btrfs.snapshotBackup.subvolumes."/.snapshots" = {
         repo = mkBorgWireguardRepoPath nodes.neon.config "root";
@@ -70,6 +111,17 @@ in
     config = {
       deployment.hasFastConnection = isLANip lib config.deployment.targetHost;
       deployment.targetHost = config.networking.privateIPv4;
+
+      home-manager.users.${config.resources.username} = lib.mkMerge [
+        (mkCommonLANSSHConfig config lib)
+        (mkDefaultSSHPortConfig config lib [
+          { name = "cobalt"; hostname = "cobalt.lan"; }
+          "cobalt.lan"
+          "cobalt.eth.lan"
+          "cobalt.vpn"
+          "cobalt.wifi.vpn"
+        ])
+      ];
 
       network.wireguard.ip = "10.0.0.10";
       network.wireguard.publicKey = "weyoU0QBHrnjl+2dhibGm5um9+f2sZrg9x8SFd2AVhc=";
