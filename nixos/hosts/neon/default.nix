@@ -46,6 +46,8 @@ in
 
     networking.hostName = "neon";
 
+    networking.interfaces."enp0s31f6".wakeOnLan.enable = true;
+
     services.borgbackup.repos.home.path = "/var/lib/borgbackup/home";
     services.borgbackup.repos.home.authorizedKeys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG7bHvo7Fen2ZkdcCoZKztgkWcPIOfuckbv5Lon/aBi5"
@@ -69,11 +71,6 @@ in
     ];
 
     # TODO: Configure syncthing /var/lib/deluge/completed sync from oxygen
-
-    services.wakeonlan.interfaces = [{
-      interface = "enp0s31f6";
-      method = "magicpacket";
-    }];
 
     users.users.radarr.extraGroups = [
       "deluge"
