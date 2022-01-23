@@ -122,13 +122,13 @@
         ]
       );
     in
-      [
-        "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
-        "nixos-config=${infrastructure}/nixos/hosts/${config.networking.hostName}"
-        "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
-        "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/nixos-unstable.tar.gz"
-        "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz"
-      ];
+    [
+      "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
+      "nixos-config=${infrastructure}/nixos/hosts/${config.networking.hostName}"
+      "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
+      "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/nixos-unstable.tar.gz"
+      "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz"
+    ];
   nix.optimise.automatic = true;
   #nix.package = pkgs.nixFlakes; # TODO: migrate to flakes
   # TODO: Set nix.registry to fork
@@ -223,8 +223,8 @@
   time.timeZone = "Europe/Amsterdam";
 
   users.defaultUserShell = config.resources.programs.shell.executable.path;
-  users.groups.netdev = {};
-  users.groups.plugdev = {};
+  users.groups.netdev = { };
+  users.groups.plugdev = { };
   users.mutableUsers = false;
   users.users.${config.resources.username} = {
     extraGroups = [
