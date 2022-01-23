@@ -32,8 +32,4 @@ in
   services.tlp.settings.STOP_CHARGE_THRESH_BAT1 = 80;
 
   services.xserver.videoDrivers = [ "intel" ];
-
-  systemd.network.networks."50-wired".matchConfig.Name = wiredInterface;
-  # TODO: Find a way to disable this per-host. An option maybe?
-  #systemd.network.networks."50-wireless".matchConfig.Name = wirelessInterface;
 }

@@ -33,7 +33,4 @@ in
   services.tlp.settings.START_CHARGE_THRESH_BAT0 = 75;
   services.tlp.settings.STOP_CHARGE_THRESH_BAT0 = 80;
   services.tlp.settings.USB_AUTOSUSPEND = 0;
-
-  systemd.network.networks."50-wired".matchConfig.Name = wiredInterface;
-  systemd.network.networks."50-wireless".matchConfig.Name = wirelessInterface;
 }

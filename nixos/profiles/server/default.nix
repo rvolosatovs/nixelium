@@ -3,6 +3,7 @@
 {
   imports = [
     ./../..
+    ./../../mullvad.nix
     ./../../nginx.nix
   ];
 

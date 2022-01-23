@@ -125,6 +125,9 @@ in
           command = "${spotify}/bin/spotify";
         }
         {
+          command = "${mullvad-vpn}/bin/mullvad-gui";
+        }
+        {
           command = "${mailer.executable.path}";
         }
         {

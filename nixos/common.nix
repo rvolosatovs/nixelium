@@ -204,12 +204,6 @@
 
   system.stateVersion = "21.11";
 
-  systemd.network.networks."40-virtualisation" = {
-    matchConfig.Name = "virbr* veth* docker* br-*";
-    linkConfig.Unmanaged = "yes";
-    linkConfig.RequiredForOnline = false;
-  };
-
   systemd.services.keycode-swap.description = "Swap backspace and \\";
   systemd.services.keycode-swap.enable = true;
   systemd.services.keycode-swap.script = ''

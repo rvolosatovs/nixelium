@@ -31,7 +31,6 @@
       35421 # Xiaomi Smart Home
     ];
 
-    networking.mullvad.client.privateKey = builtins.readFile ./../../../vendor/secrets/nixos/hosts/cobalt/wg.mullvad.private;
     networking.hostName = "cobalt";
 
     nix.nixPath = lib.mkBefore [

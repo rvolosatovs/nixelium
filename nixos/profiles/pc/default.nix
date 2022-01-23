@@ -5,6 +5,7 @@
     ./../../../vendor/nixos-hardware/common/pc
     ./../../boards.nix
     ./../../graphical.nix
+    ./../../mullvad.nix
     ./../../rtl-sdr.nix
     ./../../syncthing.nix
   ];
@@ -30,13 +31,7 @@
 
   home-manager.users.${config.resources.username} = import ../../../home/profiles/pc;
 
-  networking.dhcpcd.enable = false;
-
-  networking.useNetworkd = true;
   networking.useDHCP = false;
-
-  networking.mullvad.enable = true;
-
   networking.wireless.iwd.enable = true;
 
   programs.adb.enable = true;
@@ -47,7 +42,6 @@
   ];
 
   services.pcscd.enable = true;
-  services.resolved.enable = true;
 
   services.udev.packages = with pkgs; [
     libu2f-host
@@ -57,26 +51,6 @@
 
   sound.enable = true;
   sound.mediaKeys.enable = true;
-
-  systemd.network.enable = true;
-  systemd.network.networks."10-physical".dhcpV4Config.Anonymize = true;
-  systemd.network.networks."10-physical".dhcpV4Config.RouteTable = 2;
-  systemd.network.networks."10-physical".dhcpV4Config.UseHostname = false;
-  systemd.network.networks."10-physical".dhcpV4Config.UseNTP = false;
-  systemd.network.networks."10-physical".linkConfig.RequiredForOnline = false;
-  systemd.network.networks."10-physical".matchConfig.Name = "en* eth* wl*";
-  systemd.network.networks."10-physical".networkConfig.DHCP = "yes";
-  systemd.network.networks."10-physical".networkConfig.IPv6AcceptRA = true;
-  systemd.network.networks."10-physical".routingPolicyRules = [
-    {
-      routingPolicyRuleConfig.FirewallMark = 2;
-      routingPolicyRuleConfig.Table = 2;
-    }
-    {
-      routingPolicyRuleConfig.To = "192.168.0.0/16";
-      routingPolicyRuleConfig.Table = 2;
-    }
-  ];
 
   systemd.services.audio-off.description = "Mute audio before suspend";
   systemd.services.audio-off.enable = true;

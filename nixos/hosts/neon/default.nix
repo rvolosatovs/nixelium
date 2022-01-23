@@ -35,8 +35,6 @@ in
 
     home-manager.users.${config.resources.username} = import ./../../../home/hosts/neon;
 
-    networking.dhcpcd.enable = false;
-
     networking.firewall.allowedTCPPorts = [
       1885
       8384 # syncthing GUI
@@ -47,12 +45,6 @@ in
     ];
 
     networking.hostName = "neon";
-
-    networking.mullvad.enable = true;
-    networking.mullvad.client.privateKey = builtins.readFile ./../../../vendor/secrets/nixos/hosts/neon/wg.mullvad.private;
-
-    networking.useNetworkd = true;
-    networking.useDHCP = false;
 
     services.borgbackup.repos.home.path = "/var/lib/borgbackup/home";
     services.borgbackup.repos.home.authorizedKeys = [
@@ -76,36 +68,12 @@ in
       "V,/var/lib/sonarr/TV"
     ];
 
-    services.resolved.enable = true;
-
     # TODO: Configure syncthing /var/lib/deluge/completed sync from oxygen
 
     services.wakeonlan.interfaces = [{
       interface = "enp0s31f6";
       method = "magicpacket";
     }];
-
-    systemd.network.enable = true;
-    systemd.network.networks."10-physical".dhcpV4Config.Anonymize = true;
-    systemd.network.networks."10-physical".dhcpV4Config.RouteTable = 2;
-    systemd.network.networks."10-physical".dhcpV4Config.UseDNS = false;
-    systemd.network.networks."10-physical".dhcpV4Config.UseHostname = false;
-    systemd.network.networks."10-physical".dhcpV4Config.UseNTP = false;
-    systemd.network.networks."10-physical".linkConfig.RequiredForOnline = false;
-    systemd.network.networks."10-physical".matchConfig.Name = "enp0s31f6";
-    systemd.network.networks."10-physical".networkConfig.DHCP = "yes";
-    systemd.network.networks."10-physical".networkConfig.IPv6AcceptRA = true;
-    systemd.network.networks."10-physical".routingPolicyRules = [
-      {
-        routingPolicyRuleConfig.FirewallMark = 2;
-        routingPolicyRuleConfig.Table = 2;
-      }
-      {
-        routingPolicyRuleConfig.To = "192.168.0.0/16";
-        routingPolicyRuleConfig.Table = 2;
-      }
-    ];
-    systemd.network.networks."50-wireless".enable = false;
 
     users.users.radarr.extraGroups = [
       "deluge"
