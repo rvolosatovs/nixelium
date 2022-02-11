@@ -25,6 +25,7 @@
             # TODO: Turn into a module
             cdpath = [
               "${config.home.homeDirectory}/src/github.com/${config.resources.username}"
+              "${config.home.homeDirectory}/src/github.com/profianinc"
               "${config.home.homeDirectory}/src/github.com/enarx"
               "${config.home.homeDirectory}/src/github.com"
               "${config.home.homeDirectory}/src/"
