@@ -42,14 +42,9 @@ in
         gcc-arm-embedded-7
         gcc-arm-embedded-8
         gcc-arm-embedded-9
-        go
         go-2fa
         go-sct
         go-tools
-        go_1_15
-        go_1_16
-        go_1_17
-        go_2-dev
         gocode
         gocode-gomod
         godef
