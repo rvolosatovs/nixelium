@@ -61,7 +61,7 @@ in
   programs.git.extraConfig.core.autocrlf = false;
   programs.git.extraConfig.core.editor = config.resources.programs.editor.executable.path;
   programs.git.extraConfig.core.excludesfile = toString gitignore;
-  programs.git.extraConfig.core.pager = "${pkgs.gitAndTools.delta}/bin/delta --theme='base16'";
+  programs.git.extraConfig.core.pager = "${pkgs.gitAndTools.delta}/bin/delta --syntax-theme='base16'";
   programs.git.extraConfig.core.safecrlf = false;
   programs.git.extraConfig.diff.colorMoved = "zebra";
   programs.git.extraConfig.diff.renames = "copy";
@@ -71,7 +71,7 @@ in
   programs.git.extraConfig.ghq.root = "~/src";
   programs.git.extraConfig.http.cookieFile = "~/.gitcookies";
   programs.git.extraConfig.hub.protocol = "https";
-  programs.git.extraConfig.interactive.diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --theme='base16' --color-only";
+  programs.git.extraConfig.interactive.diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --syntax-theme='base16' --color-only";
   programs.git.extraConfig.merge.conflictstyle = "diff3";
   programs.git.extraConfig.merge.tool = "nvimdiff";
   programs.git.extraConfig.pull.rebase = "true";
