@@ -21,12 +21,6 @@
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.extraModules = [ pkgs.pulseaudio-modules-bt ];
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
-  hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
-  hardware.pulseaudio.tcp.enable = true;
-
   hardware.steam-hardware.enable = true;
 
   home-manager.users.${config.resources.username} = import ../../../home/profiles/pc;
@@ -35,6 +29,32 @@
   networking.wireless.iwd.enable = true;
 
   programs.adb.enable = true;
+
+  services.pipewire.enable = true;
+  services.pipewire.alsa.enable = true;
+  services.pipewire.alsa.support32Bit = true;
+  services.pipewire.media-session.config.bluez-monitor.rules = [
+    {
+      matches = [{ "device.name" = "~bluez_card.*"; }];
+      actions = {
+        "update-props" = {
+          "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
+          "bluez5.msbc-support" = true;
+          "bluez5.sbc-xq-support" = true;
+        };
+      };
+    }
+    {
+      matches = [
+        { "node.name" = "~bluez_input.*"; }
+        { "node.name" = "~bluez_output.*"; }
+      ];
+      actions = {
+        "node.pause-on-idle" = false;
+      };
+    }
+  ];
+  services.pipewire.pulse.enable = true;
 
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
@@ -49,7 +69,6 @@
     yubioath-desktop
   ];
 
-  sound.enable = true;
   sound.mediaKeys.enable = true;
 
   systemd.services.audio-off.description = "Mute audio before suspend";
