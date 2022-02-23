@@ -33,7 +33,7 @@ pkgs: with pkgs; ''
       omnisharp = "${omnisharp-roslyn}/bin/omnisharp";
       ripgrep = "${ripgrep}/bin/rg";
       rnix-lsp = "${rnix-lsp}/bin/rnix-lsp";
-      rust-analyzer = "${rust-analyzer}/bin/rust-analyzer";
+      rust-analyzer = "${fenix.rust-analyzer}/bin/rust-analyzer";
     };
     src = {
       lua-language-server = "${sumneko-lua-language-server}";
@@ -78,7 +78,7 @@ pkgs: with pkgs; ''
 
     let g:NERDCreateDefaultMappings = 0
 
-    let g:rustc_path = '${fenix.complete.rustc}/bin/rustc'
+    let g:rustc_path = '${fenix.latest.rustc}/bin/rustc'
     let g:rust_clip_command = '${wl-clipboard}/bin/wl-copy'
 
     let g:loaded_netrwPlugin = 1

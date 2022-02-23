@@ -18,8 +18,11 @@
           deluge
           drive
           engify
-          fenix.complete.cargo
-          fenix.complete.rustfmt
+          fenix.latest.cargo
+          fenix.latest.clippy
+          fenix.latest.miri
+          fenix.latest.rustc
+          fenix.latest.rustfmt
           ffmpeg
           git-rebase-all
           godot
