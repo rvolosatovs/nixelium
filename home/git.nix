@@ -39,6 +39,7 @@ in
     git-lfs
   ] ++ (with gitAndTools; [
     delta
+    gh
     git-extras
     hub
   ]);
