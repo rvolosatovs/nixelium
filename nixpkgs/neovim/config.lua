@@ -232,8 +232,8 @@ cmp.setup{
     { name = 'spell' },
     { name = 'emoji' },
   },
-  experimental = {
-    native_menu = true,
+  view = {
+    entries = "native",
   },
 }
 
