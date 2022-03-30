@@ -128,6 +128,9 @@ in
           command = "${mullvad-vpn}/bin/mullvad-gui";
         }
         {
+          command = "${ydotool}/bin/ydotoold&";
+        }
+        {
           command = "${mailer.executable.path}";
         }
         {
