@@ -17,6 +17,8 @@ in
         bottom
         brave
         cachix
+        cargo-edit
+        cargo-tarpaulin
         cockroachdb
         deadcode
         deno
@@ -189,6 +191,7 @@ in
       gitAndTools = super.gitAndTools // {
         inherit (unstable.gitAndTools)
           delta
+          gh
           ghq
           hub
           tig
