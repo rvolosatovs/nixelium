@@ -83,13 +83,15 @@
   nix.autoOptimiseStore = true;
   nix.binaryCaches = [
     "https://cache.nixos.org"
-    "https://rvolosatovs.cachix.org"
+    "https://enarx.cachix.org"
     "https://nix-community.cachix.org"
+    "https://rvolosatovs.cachix.org"
   ];
   nix.binaryCachePublicKeys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    "rvolosatovs.cachix.org-1:eRYUO4OXTSmpDFWu4wX3/X08MsP01baqGKi9GsoAmQ8="
+    "enarx.cachix.org-1:Izq345bPMThAWUW830X3uoGTTBjXW7ltGlfTBErgm4w="
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    "rvolosatovs.cachix.org-1:eRYUO4OXTSmpDFWu4wX3/X08MsP01baqGKi9GsoAmQ8="
   ];
   nix.extraOptions = with lib; concatStringsSep "\n" (
     [
