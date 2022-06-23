@@ -54,11 +54,6 @@
     kitty.terminfo
     libcgroup
     termite.terminfo
-    (
-      pkgs.writeShellScriptBin "nixFlakes" ''
-        exec ${pkgs.nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
-      ''
-    )
   ];
 
   home-manager.users.${config.resources.username} = { ... }: {
@@ -98,7 +93,8 @@
       # Following two are required to prevent GC of nix-direnv environments.
       "keep-outputs = true"
       "keep-derivations = true"
-    ] ++ optional (config.nix.package == pkgs.nixFlakes) "experimental-features = nix-command flakes"
+      "experimental-features = nix-command flakes"
+    ]
   );
   nix.nixPath =
     let
@@ -136,7 +132,6 @@
       "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz"
     ];
   nix.optimise.automatic = true;
-  #nix.package = pkgs.nixFlakes; # TODO: migrate to flakes
   # TODO: Set nix.registry to fork
   nix.requireSignedBinaryCaches = true;
   nix.trustedUsers = [ "root" "${config.resources.username}" "@wheel" ];
