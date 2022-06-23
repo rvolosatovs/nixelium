@@ -13,6 +13,8 @@
       {
         home.packages = with pkgs; [
           asciinema
+          cargo-edit
+          cargo-watch
           clang
           copy-sha-git
           deluge

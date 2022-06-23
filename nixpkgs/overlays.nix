@@ -19,6 +19,7 @@ in
         cachix
         cargo-edit
         cargo-tarpaulin
+        cargo-watch
         cockroachdb
         deadcode
         deno
