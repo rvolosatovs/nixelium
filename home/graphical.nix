@@ -14,7 +14,7 @@ with config.resources.base16.colors;
     (
       rec {
         home.packages = with pkgs; [
-          font-awesome-ttf
+          font-awesome
           mpv
         ] ++ (
           with config.resources.programs; [
@@ -172,8 +172,8 @@ with config.resources.base16.colors;
       mkIf pkgs.stdenv.isLinux {
         home.packages = with pkgs; [
           clipman
-          gnome3.dconf
-          gnome3.glib_networking
+          dconf
+          glib-networking
           grim
           imv
           kanshi

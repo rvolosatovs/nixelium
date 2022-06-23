@@ -12,9 +12,9 @@
       gtk.font.name = "Fira Sans 10";
       gtk.font.package = pkgs.fira;
       gtk.iconTheme.name = "Adwaita-dark";
-      gtk.iconTheme.package = pkgs.gnome3.gnome_themes_standard;
+      gtk.iconTheme.package = pkgs.gnome.gnome-themes-extra;
       gtk.theme.name = "Adwaita-dark";
-      gtk.theme.package = pkgs.gnome3.gnome_themes_standard;
+      gtk.theme.package = pkgs.gnome.gnome-themes-extra;
       gtk.gtk2.extraConfig = ''
         gtk-cursor-theme-size=0
         gtk-toolbar-style=GTK_TOOLBAR_BOTH

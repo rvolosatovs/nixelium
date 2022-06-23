@@ -103,7 +103,7 @@ in
     in
     mkIf cfg.enable (mkMerge [
       {
-        environment.systemPackages = [ pkgs.wireguard ];
+        environment.systemPackages = [ pkgs.wireguard-tools ];
 
         networking.firewall.trustedInterfaces = [ cfg.interfaceName ];
 

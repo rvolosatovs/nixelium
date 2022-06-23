@@ -34,7 +34,7 @@
           imagemagick
           llvm
           llvmPackages.libclang
-          manpages
+          man-pages
           minicom
           mkvtoolnix
           nixops

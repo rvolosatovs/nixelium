@@ -49,8 +49,8 @@
               docker-compose
               docker-credential-helpers
               docker-gc
+              du-dust
               dumpster
-              dust
               entr
               exa
               fd

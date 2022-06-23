@@ -3,7 +3,7 @@ stdenv.mkDerivation {
   name = "env";
   buildInputs =
     let
-      nixosVersion = "21.11";
+      nixosVersion = "22.05";
 
       keybaseRepos = [ "vendor/pass" "vendor/pass-otp" "vendor/secrets" ];
 
