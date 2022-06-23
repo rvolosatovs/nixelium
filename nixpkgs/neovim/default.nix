@@ -28,7 +28,7 @@ pkgs: {
 
     nvim-dap
 
-    popup-nvim
+    dressing-nvim
     telescope-nvim
 
     auto-pairs

@@ -282,9 +282,9 @@ local on_attach = function(client, bufnr)
   table.foreach({
     ['<c-]>']      = 'telescope.lsp_definitions()',
     ['<c-k>']      = 'vim.lsp.buf.signature_help()',
-    ['<leader>a']  = 'telescope.lsp_code_actions()',
-    ['<leader>A']  = 'telescope.lsp_range_code_actions()',
-    ['<leader>dd'] = 'telescope.lsp_document_diagnostics()',
+    ['<leader>a']  = 'vim.lsp.buf.code_action()',
+    ['<leader>A']  = 'vim.lsp.buf.range_code_action()',
+    ['<leader>dd'] = 'telescope.diagnostics()',
     ['<leader>dl'] = 'vim.lsp.diagnostic.set_loclist()',
     ['<leader>f']  = 'vim.lsp.buf.formatting()',
     ['<leader>r']  = 'vim.lsp.buf.rename()',
