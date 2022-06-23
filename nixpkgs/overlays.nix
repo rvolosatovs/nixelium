@@ -168,6 +168,7 @@ in
         vimUtils
         vndr
         wasm-pack
+        wasmtime
         waybar
         webkit
         webkitgtk
