@@ -251,8 +251,10 @@
   };
   users.users.root.openssh.authorizedKeys.keys = config.resources.ssh.publicKeys;
 
-  virtualisation.docker.autoPrune.enable = true;
-  virtualisation.docker.enable = true;
+  virtualisation.oci-containers.backend = [ "podman" ];
+  virtualisation.podman.enable = true;
+  virtualisation.podman.dockerCompat = true;
+  virtualisation.podman.dockerSocket.enable = true;
 
   virtualisation.libvirtd.enable = true;
 }
