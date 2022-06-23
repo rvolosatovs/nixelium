@@ -28,6 +28,7 @@ in
         docker-compose
         docker-credential-helpers
         drive
+        du-dust
         echoip
         elmPackages
         exa
@@ -52,8 +53,8 @@ in
         gocode-gomod
         godef
         godot
-        golangci-lint
         gofumpt
+        golangci-lint
         gopass
         gopls
         gotools
