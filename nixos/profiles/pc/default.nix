@@ -10,6 +10,9 @@
     ./../../syncthing.nix
   ];
 
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
   boot.kernelParams = [
     "systemd.unified_cgroup_hierarchy=1"
   ];
