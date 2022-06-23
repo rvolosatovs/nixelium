@@ -19,8 +19,6 @@ with lib;
     (mkIf config.resources.graphics.enable {
       hardware.opengl.extraPackages = with pkgs; [
         amdvlk
-        rocm-opencl-icd
-        rocm-opencl-runtime
       ];
 
       hardware.opengl.extraPackages32 = with pkgs; [
