@@ -155,6 +155,7 @@ in
         syncthing-cli
         syncthing-tray
         thunderbird
+        tinygo
         tokei
         travis
         tree-sitter
