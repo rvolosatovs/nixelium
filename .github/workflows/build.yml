@@ -1,0 +1,21 @@
+name: Build
+on: [ push, pull_request ]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    strategy:
+      matrix:
+        service: [drawbridge-staging, drawbridge-testing, steward-staging, steward-testing]
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v17
+    - uses: cachix/cachix-action@v10
+      with:
+        name: enarx
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Build OS
+      run: nix build -L '.#nixosConfigurations.${{ matrix.service }}.config.system.build.toplevel'
+    # TODO: Build and run a VM, test
