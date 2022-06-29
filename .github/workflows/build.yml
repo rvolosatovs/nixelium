@@ -7,7 +7,12 @@ jobs:
   build:
     strategy:
       matrix:
-        service: [drawbridge-staging, drawbridge-testing, steward-staging, steward-testing]
+        service: 
+        - benefice-staging
+        - drawbridge-staging
+        - drawbridge-testing
+        - steward-staging
+        - steward-testing
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
