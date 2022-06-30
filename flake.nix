@@ -100,15 +100,15 @@
               '';
             };
         in {
-          benefice.testing = benefice-tip.packages.x86_64-linux.default;
+          benefice.testing = benefice-tip.packages.x86_64-linux.benefice-x86_64-unknown-linux-musl;
           benefice.staging = fromInput "benefice" benefice-release;
 
-          drawbridge.testing = drawbridge-tip.packages.x86_64-linux.default;
+          drawbridge.testing = drawbridge-tip.packages.x86_64-linux.drawbridge-x86_64-unknown-linux-musl;
           drawbridge.staging = fromInput "drawbridge" drawbridge-release;
 
           enarx.staging = fromInput "enarx" enarx-release;
 
-          steward.testing = steward-tip.packages.x86_64-linux.default;
+          steward.testing = steward-tip.packages.x86_64-linux.steward-x86_64-unknown-linux-musl;
           steward.staging = fromInput "steward" steward-release;
         };
 
