@@ -60,7 +60,9 @@
 
     emails.ops = "roman@profian.com"; # TODO: How about ops@profian.com ?
 
-    hosts.staging.benefice = "sgx.equinix.demo.enarx.dev";
+    hosts.demo.equinix.sgx = "sgx.equinix.demo.enarx.dev";
+    hosts.demo.equinix.snp = "snp.equinix.demo.enarx.dev";
+
     hosts.staging.drawbridge = "drawbridge.staging.profian.com";
     hosts.staging.steward = "steward.staging.profian.com";
 
@@ -69,10 +71,12 @@
 
     oidc.issuer = "auth.profian.com";
 
-    oidc.client.staging.benefice = "23Lt09AjF8HpUeCCwlfhuV34e2dKD1MH";
+    oidc.client.demo.equinix.sgx = "23Lt09AjF8HpUeCCwlfhuV34e2dKD1MH";
+    oidc.client.demo.equinix.snp = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
+
     oidc.client.staging.drawbridge = "9SVWiB3sQQdzKqpZmMNvsb9rzd8Ha21F";
 
-    oidc.client.testing.benefice = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
+    oidc.client.testing.benefice = "FTmeUMamlu8HRs11mvtmmZHnmCwRIo8E";
     oidc.client.testing.drawbridge = "zFrR7MKMakS4OpEflR0kNw3ceoP7sr3s";
 
     cert.staging.drawbridge = ./hosts/drawbridge.staging.profian.com/server.crt;
@@ -189,9 +193,7 @@
               ++ modules;
           };
 
-        mkBenefice = env: modules: let
-          fqdn = hosts.${env}.benefice;
-        in
+        mkBenefice = fqdn: oidc-client: env: modules:
           mkHost {
             name = "benefice";
             modules =
@@ -201,7 +203,7 @@
                   enarx = pkgs.enarx.${env};
                   conf = pkgs.writeText "conf.toml" ''
                     command = "${enarx}/bin/enarx"
-                    oidc-client = "${oidc.client.${env}.benefice}"
+                    oidc-client = "${oidc-client}"
                     oidc-issuer = "https://${oidc.issuer}"
                   '';
                 in {
@@ -242,8 +244,7 @@
               ++ modules;
           };
 
-        mkDrawbridge = env: modules: let
-          fqdn = hosts.${env}.drawbridge;
+        mkDrawbridge = fqdn: oidc-client: env: modules: let
           tls.ca = cert.${env}.steward;
           tls.certificate = cert.${env}.drawbridge;
           tls.key = "/var/lib/drawbridge/server.key";
@@ -268,7 +269,7 @@
                     cert = "${tls.certificate}"
                     key = "${tls.key}"
                     store = "/var/lib/drawbridge/store"
-                    oidc-client = "${oidc.client.${env}.drawbridge}"
+                    oidc-client = "${oidc-client}"
                     oidc-label = "${oidc.issuer}"
                     oidc-issuer = "https://${oidc.issuer}"
                   '';
@@ -316,8 +317,7 @@
               ++ modules;
           };
 
-        mkSteward = env: modules: let
-          fqdn = hosts.${env}.steward;
+        mkSteward = fqdn: env: modules: let
           tls.certificate = cert.${env}.steward;
           tls.key = "/var/lib/steward/ca.key";
         in
@@ -375,72 +375,111 @@
               ++ modules;
           };
       in {
-        benefice-staging = mkBenefice "staging" [
-          ({...}: {
-            imports = [
-              ./hosts/sgx.equinix.demo.enarx.dev
-            ];
-            networking.hostName = "benefice-staging";
-            systemd.services.benefice.environment.RUST_LOG = "info";
-          })
-        ];
+        sgx-equinix-demo =
+          mkBenefice
+          hosts.demo.equinix.sgx
+          oidc.client.demo.equinix.sgx
+          "staging"
+          [
+            ({...}: {
+              imports = [
+                ./hosts/sgx.equinix.demo.enarx.dev
+              ];
+              networking.hostName = "sgx-equinix-demo";
+              systemd.services.benefice.environment.RUST_LOG = "info";
+            })
+          ];
 
-        drawbridge-staging = mkDrawbridge "staging" [
-          ({...}: {
-            imports = [
-              ./hosts/drawbridge.staging.profian.com
-            ];
-            networking.hostName = "drawbridge-staging";
-            systemd.services.drawbridge.environment.RUST_LOG = "info";
-          })
-        ];
+        snp-equinix-demo =
+          mkBenefice
+          hosts.demo.equinix.snp
+          oidc.client.demo.equinix.snp
+          "staging"
+          [
+            ({...}: {
+              imports = [
+                ./hosts/snp.equinix.demo.enarx.dev
+              ];
+              networking.hostName = "snp-equinix-demo";
+              systemd.services.benefice.environment.RUST_LOG = "info";
+            })
+          ];
 
-        drawbridge-testing = mkDrawbridge "testing" [
-          ({...}: {
-            imports = [
-              ./hosts/drawbridge.testing.profian.com
-            ];
-            networking.hostName = "drawbridge-testing";
-            systemd.services.drawbridge.environment.RUST_LOG = "debug";
-          })
-        ];
+        drawbridge-staging =
+          mkDrawbridge
+          hosts.staging.drawbridge
+          oidc.client.staging.drawbridge
+          "staging"
+          [
+            ({...}: {
+              imports = [
+                ./hosts/drawbridge.staging.profian.com
+              ];
+              networking.hostName = "drawbridge-staging";
+              systemd.services.drawbridge.environment.RUST_LOG = "info";
+            })
+          ];
 
-        steward-staging = mkSteward "staging" [
-          ({...}: {
-            imports = [
-              ./hosts/steward.staging.profian.com
-            ];
-            networking.hostName = "steward-staging";
-            systemd.services.steward.environment.RUST_LOG = "info";
-          })
-        ];
+        drawbridge-testing =
+          mkDrawbridge
+          hosts.testing.drawbridge
+          oidc.client.testing.drawbridge
+          "testing"
+          [
+            ({...}: {
+              imports = [
+                ./hosts/drawbridge.testing.profian.com
+              ];
+              networking.hostName = "drawbridge-testing";
+              systemd.services.drawbridge.environment.RUST_LOG = "debug";
+            })
+          ];
 
-        steward-testing = mkSteward "testing" [
-          ({...}: {
-            imports = [
-              ./hosts/steward.testing.profian.com
-            ];
-            networking.hostName = "steward-testing";
-            systemd.services.steward.environment.RUST_LOG = "debug";
-          })
-        ];
+        steward-staging =
+          mkSteward
+          hosts.staging.steward
+          "staging"
+          [
+            ({...}: {
+              imports = [
+                ./hosts/steward.staging.profian.com
+              ];
+              networking.hostName = "steward-staging";
+              systemd.services.steward.environment.RUST_LOG = "info";
+            })
+          ];
+
+        steward-testing =
+          mkSteward
+          hosts.testing.steward
+          "testing"
+          [
+            ({...}: {
+              imports = [
+                ./hosts/steward.testing.profian.com
+              ];
+              networking.hostName = "steward-testing";
+              systemd.services.steward.environment.RUST_LOG = "debug";
+            })
+          ];
       };
 
       deploy.nodes = let
-        mkNode = name: env: {
-          hostname = hosts.${env}.${name};
-          profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${name}-${env}";
+        mkNode = hostname: name: {
+          inherit hostname;
+          profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${name};
           profiles.system.sshUser = sshUser;
           profiles.system.user = "root";
         };
       in {
-        benefice-staging = mkNode "benefice" "staging";
+        sgx-equinix-demo = mkNode hosts.demo.equinix.sgx "sgx-equinix-demo";
+        snp-equinix-demo = mkNode hosts.demo.equinix.snp "snp-equinix-demo";
 
-        drawbridge-staging = mkNode "drawbridge" "staging";
-        drawbridge-testing = mkNode "drawbridge" "testing";
+        drawbridge-staging = mkNode hosts.staging.drawbridge "drawbridge-staging";
+        drawbridge-testing = mkNode hosts.testing.drawbridge "drawbridge-testing";
 
-        steward-staging = mkNode "steward" "staging";
-        steward-testing = mkNode "steward" "testing";
+        steward-staging = mkNode hosts.staging.steward "steward-staging";
+        steward-testing = mkNode hosts.testing.steward "steward-testing";
       };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
