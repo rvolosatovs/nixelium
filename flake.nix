@@ -60,9 +60,7 @@
 
     emails.ops = "roman@profian.com"; # TODO: How about ops@profian.com ?
 
-    # TODO: Uncomment once DNS assignment is made
-    #hosts.staging.benefice = "sgx.equinix.demo.enarx.dev";
-    hosts.staging.benefice = "147.28.146.139";
+    hosts.staging.benefice = "sgx.equinix.demo.enarx.dev";
     hosts.staging.drawbridge = "drawbridge.staging.profian.com";
     hosts.staging.steward = "steward.staging.profian.com";
 
@@ -282,9 +280,8 @@
                   ];
 
                   services.nginx.virtualHosts.${fqdn} = {
-                    # TODO: Enable TLS once DNS assignment is done
-                    #enableACME = true;
-                    #forceSSL = true;
+                    enableACME = true;
+                    forceSSL = true;
                     locations."/".proxyPass = "http://localhost:3000";
                   };
 
