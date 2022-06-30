@@ -1,0 +1,24 @@
+name: Deploy
+concurrency: staging
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    environment: staging
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v17
+    - uses: cachix/cachix-action@v10
+      with:
+        name: enarx
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Deploy
+      run: |
+        umask 0077
+        mkdir -p ~/.ssh
+        printf '%s' '${{ secrets.SSH_KEY }}' > ~/.ssh/id_ed25519
+        nix develop -c deploy
