@@ -84,6 +84,7 @@
     cert.testing.steward = ./hosts/steward.testing.profian.com/ca.crt;
 
     keys.ci = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJagVarhqfhuneWIHMknGBORRB7cuUzqcM2qJDdHxdus";
+    keys.nathaniel = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDY5lUiLQkHiSAcvIK0RNzZfGQqyt/jjmnq/vUvLLjaEzwFEHemzaOEOACQT/SC0SP/RyN/taQBkcyGGaJ9lf5Q=";
     keys.roman = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKEC3hGlw5tDKcfbvTd+IdZxGSdux1i/AIK3mzx4bZuX";
   in
     {
@@ -234,6 +235,7 @@
                   users.users.deploy.group = "deploy";
                   users.users.deploy.openssh.authorizedKeys.keys = with keys; [
                     ci
+                    nathaniel
                     roman
                   ];
                   users.users.deploy.shell = pkgs.bashInteractive;
@@ -245,11 +247,13 @@
                     "wheel"
                   ];
                   users.users.ops.openssh.authorizedKeys.keys = with keys; [
+                    nathaniel
                     roman
                   ];
                   users.users.ops.shell = pkgs.bashInteractive;
 
                   users.users.root.openssh.authorizedKeys.keys = with keys; [
+                    nathaniel
                     roman
                   ];
                 })
