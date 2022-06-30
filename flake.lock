@@ -1,21 +1,61 @@
 {
   "nodes": {
-    "cargo2nix": {
+    "benefice-release": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-QiYr4fqaHu3+PHFiIcTykYjbn5Fq28b5XeLfV2suU0Y=",
+        "type": "file",
+        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc1/benefice-x86_64-unknown-linux-musl"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc1/benefice-x86_64-unknown-linux-musl"
+      }
+    },
+    "benefice-tip": {
       "inputs": {
+        "cargo2nix": [
+          "cargo2nix"
+        ],
         "flake-compat": [
-          "drawbridge-tip",
           "flake-compat"
         ],
         "flake-utils": [
-          "drawbridge-tip",
           "flake-utils"
         ],
         "nixpkgs": [
-          "drawbridge-tip",
           "nixpkgs"
         ],
         "rust-overlay": [
-          "drawbridge-tip",
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1656525865,
+        "narHash": "sha256-dxPI2lGlOEcJHAcdVAQrwsE1PPQMk6Ipdr++yOdsndM=",
+        "owner": "profianinc",
+        "repo": "benefice",
+        "rev": "7ccc1937494f231cf2b78b7d94dc5266634eb442",
+        "type": "github"
+      },
+      "original": {
+        "owner": "profianinc",
+        "repo": "benefice",
+        "type": "github"
+      }
+    },
+    "cargo2nix": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
           "rust-overlay"
         ]
       },
@@ -69,7 +109,9 @@
     },
     "drawbridge-tip": {
       "inputs": {
-        "cargo2nix": "cargo2nix",
+        "cargo2nix": [
+          "cargo2nix"
+        ],
         "flake-compat": [
           "flake-compat"
         ],
@@ -79,7 +121,9 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": [
+          "rust-overlay"
+        ]
       },
       "locked": {
         "lastModified": 1656438762,
@@ -93,6 +137,18 @@
         "owner": "profianinc",
         "repo": "drawbridge",
         "type": "github"
+      }
+    },
+    "enarx-release": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-MqOysz0qm+FkDXHgGgbD0bGAGAMDjXFK7VDktqoFqy8=",
+        "type": "file",
+        "url": "https://github.com/enarx/enarx/releases/download/v0.5.1/enarx-x86_64-unknown-linux-musl"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/enarx/enarx/releases/download/v0.5.1/enarx-x86_64-unknown-linux-musl"
       }
     },
     "fenix": {
@@ -182,12 +238,17 @@
     },
     "root": {
       "inputs": {
+        "benefice-release": "benefice-release",
+        "benefice-tip": "benefice-tip",
+        "cargo2nix": "cargo2nix",
         "deploy-rs": "deploy-rs",
         "drawbridge-release": "drawbridge-release",
         "drawbridge-tip": "drawbridge-tip",
+        "enarx-release": "enarx-release",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs_2",
+        "rust-overlay": "rust-overlay",
         "steward-release": "steward-release",
         "steward-tip": "steward-tip"
       }
@@ -212,20 +273,18 @@
     "rust-overlay": {
       "inputs": {
         "flake-utils": [
-          "drawbridge-tip",
           "flake-utils"
         ],
         "nixpkgs": [
-          "drawbridge-tip",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1655866083,
-        "narHash": "sha256-YETEUbdfj8iC19aGVgUeFU6T/pZO4uETEN9Nuhriv14=",
+        "lastModified": 1656470987,
+        "narHash": "sha256-MOhGElV3SR5k2BptTErKib73ckmo/mdvTvzh4X1AAp4=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "dd556d5a2f75522187198a4869f3c3a9d1aa62f7",
+        "rev": "ae5bc6cdb2683885de4c3f3a6433d68203b5da9c",
         "type": "github"
       },
       "original": {
