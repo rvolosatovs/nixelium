@@ -37,10 +37,18 @@
 
   programs.bash.enableCompletion = true;
 
+  programs.fish.enable = true;
+
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;
+
+  programs.zsh.enable = true;
+  programs.zsh.enableBashCompletion = true;
+  programs.zsh.autosuggestions.enable = true;
+  programs.zsh.enableCompletion = true;
+  programs.zsh.interactiveShellInit = "source '${pkgs.grml-zsh-config}/etc/zsh/zshrc'";
 
   security.acme.acceptTerms = true;
 

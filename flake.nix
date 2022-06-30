@@ -80,10 +80,6 @@
 
     cert.testing.drawbridge = ./hosts/drawbridge.testing.profian.com/server.crt;
     cert.testing.steward = ./hosts/steward.testing.profian.com/ca.crt;
-
-    keys.ci = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJagVarhqfhuneWIHMknGBORRB7cuUzqcM2qJDdHxdus";
-    keys.nathaniel = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDY5lUiLQkHiSAcvIK0RNzZfGQqyt/jjmnq/vUvLLjaEzwFEHemzaOEOACQT/SC0SP/RyN/taQBkcyGGaJ9lf5Q=";
-    keys.roman = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKEC3hGlw5tDKcfbvTd+IdZxGSdux1i/AIK3mzx4bZuX";
   in
     {
       nixosConfigurations = let
@@ -184,76 +180,12 @@
 
                   security.acme.defaults.email = emails.ops;
 
-                  security.sudo.extraRules = let
-                    # systemPath is the path where the system being activated is uploaded by `deploy`.
-                    systemPath = "/nix/store/*-activatable-nixos-system-${config.networking.hostName}-*";
-
-                    nopasswd = command: {
-                      inherit command;
-                      options = ["NOPASSWD" "SETENV"];
-                    };
-                  in [
-                    {
-                      groups = ["deploy"];
-                      runAs = "root";
-                      commands = [
-                        (nopasswd "${systemPath}/activate-rs activate *")
-                        (nopasswd "${systemPath}/activate-rs wait *")
-                        (nopasswd "/run/current-system/sw/bin/rm /tmp/deploy-rs*")
-                      ];
-                    }
-                    {
-                      groups = ["ops"];
-                      runAs = "root";
-                      commands = [
-                        (nopasswd "/run/current-system/sw/bin/systemctl reboot")
-
-                        (nopasswd "/run/current-system/sw/bin/systemctl restart ${name}.service")
-                        (nopasswd "/run/current-system/sw/bin/systemctl restart nginx.service")
-
-                        (nopasswd "/run/current-system/sw/bin/systemctl start ${name}.service")
-                        (nopasswd "/run/current-system/sw/bin/systemctl start nginx.service")
-
-                        (nopasswd "/run/current-system/sw/bin/systemctl stop ${name}.service")
-                        (nopasswd "/run/current-system/sw/bin/systemctl stop nginx.service")
-                      ];
-                    }
-                  ];
-
                   users.groups.${name} = {};
-                  users.groups.deploy = {};
-                  users.groups.ops = {};
 
                   users.users.${name} = {
                     group = name;
                     isSystemUser = true;
                   };
-
-                  users.users.deploy.isSystemUser = true;
-                  users.users.deploy.group = "deploy";
-                  users.users.deploy.openssh.authorizedKeys.keys = with keys; [
-                    ci
-                    nathaniel
-                    roman
-                  ];
-                  users.users.deploy.shell = pkgs.bashInteractive;
-
-                  users.users.ops.isNormalUser = true;
-                  users.users.ops.group = "ops";
-                  users.users.ops.extraGroups = [
-                    "deploy"
-                    "wheel"
-                  ];
-                  users.users.ops.openssh.authorizedKeys.keys = with keys; [
-                    nathaniel
-                    roman
-                  ];
-                  users.users.ops.shell = pkgs.bashInteractive;
-
-                  users.users.root.openssh.authorizedKeys.keys = with keys; [
-                    nathaniel
-                    roman
-                  ];
                 })
               ]
               ++ modules;
