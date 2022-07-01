@@ -9,6 +9,7 @@ in
       inherit (unstable)
         act
         alacritty
+        alejandra
         arduino
         asciinema
         bat
@@ -42,10 +43,6 @@ in
         firmwareLinuxNonfree
         fprintd
         fzf
-        gcc-arm-embedded-6
-        gcc-arm-embedded-7
-        gcc-arm-embedded-8
-        gcc-arm-embedded-9
         go-2fa
         go-sct
         go-tools
@@ -117,7 +114,6 @@ in
         nix-du
         nixfmt
         nixpkgs-fmt
-        nmap
         noto-fonts-emoji
         nox
         pavucontrol
@@ -161,20 +157,12 @@ in
         travis
         tree-sitter
         ungoogled-chromium
-        unity3d
-        unityhub
-        vgo2nix
         vim
         vimPlugins
         vimUtils
-        vndr
         wasm-pack
         wasmtime
         waybar
-        webkit
-        webkitgtk
-        webkitgtk24x-gtk2
-        webkitgtk24x-gtk3
         weechat
         wego
         wf-recorder
@@ -183,8 +171,6 @@ in
         wofi
         wrapFirefox
         wrapNeovim
-        xdg-desktop-portal
-        xdg-desktop-portal-wlr
         yarn
         ydotool
         youtube-dl
