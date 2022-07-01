@@ -46,9 +46,6 @@
               coreutils
               cowsay
               curl
-              docker-compose
-              docker-credential-helpers
-              docker-gc
               du-dust
               dumpster
               entr
@@ -69,6 +66,7 @@
               nix-du
               nix-prefetch-scripts
               nox
+              podman-compose
               procs
               pv
               qrencode
@@ -200,20 +198,6 @@
           );
 
           programs.zsh.shellAliases.cat = "bat";
-          programs.zsh.shellAliases.d = "docker";
-          programs.zsh.shellAliases.dc = "docker-compose";
-          programs.zsh.shellAliases.dck = "docker-compose kill";
-          programs.zsh.shellAliases.dcl = "docker-compose logs";
-          programs.zsh.shellAliases.dcp = "docker-compose pull";
-          programs.zsh.shellAliases.dcP = "docker-compose push";
-          programs.zsh.shellAliases.dcs = "docker-compose start";
-          programs.zsh.shellAliases.dcS = "docker-compose stop";
-          programs.zsh.shellAliases.dcu = "docker-compose up";
-          programs.zsh.shellAliases.dk = "docker kill";
-          programs.zsh.shellAliases.dl = "docker logs";
-          programs.zsh.shellAliases.dlt = "docker logs --tail 100";
-          programs.zsh.shellAliases.dp = "docker ps";
-          programs.zsh.shellAliases.dpq = "docker ps -q";
           programs.zsh.shellAliases.l = "ls -lhg";
           programs.zsh.shellAliases.la = "l --git -a";
           programs.zsh.shellAliases.ll = "l --git -G";
