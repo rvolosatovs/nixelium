@@ -103,7 +103,7 @@
           benefice.testing = benefice-tip.packages.x86_64-linux.benefice-debug-x86_64-unknown-linux-musl;
           benefice.staging = fromInput "benefice" benefice-release;
 
-          drawbridge.testing = drawbridge-tip.packages.x86_64-linux.drawbridge-x86_64-unknown-linux-musl;
+          drawbridge.testing = drawbridge-tip.packages.x86_64-linux.drawbridge-debug-x86_64-unknown-linux-musl;
           drawbridge.staging = fromInput "drawbridge" drawbridge-release;
 
           enarx.staging = fromInput "enarx" enarx-release;
