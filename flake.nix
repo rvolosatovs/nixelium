@@ -2,7 +2,7 @@
   description = "Profian Inc Staging Network";
 
   inputs.benefice-release.flake = false;
-  inputs.benefice-release.url = "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc1/benefice-x86_64-unknown-linux-musl";
+  inputs.benefice-release.url = "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc2/benefice-x86_64-unknown-linux-musl";
   inputs.benefice-tip.inputs.cargo2nix.follows = "cargo2nix";
   inputs.benefice-tip.inputs.flake-compat.follows = "flake-compat";
   inputs.benefice-tip.inputs.flake-utils.follows = "flake-utils";
@@ -96,7 +96,7 @@
               '';
             };
         in {
-          benefice.testing = benefice-tip.packages.x86_64-linux.benefice-x86_64-unknown-linux-musl;
+          benefice.testing = benefice-tip.packages.x86_64-linux.benefice-debug-x86_64-unknown-linux-musl;
           benefice.staging = fromInput "benefice" benefice-release;
 
           drawbridge.testing = drawbridge-tip.packages.x86_64-linux.drawbridge-x86_64-unknown-linux-musl;
@@ -132,12 +132,10 @@
           ProtectProc = "invisible";
           ProtectSystem = "strict";
           RemoveIPC = true;
-          Restart = "always";
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           SystemCallArchitectures = "native";
-          Type = "simple";
           UMask = "0077";
         };
 
@@ -202,6 +200,7 @@
                   benefice = pkgs.benefice.${env};
                   enarx = pkgs.enarx.${env};
                   conf = pkgs.writeText "conf.toml" ''
+                    command = "${enarx}/bin/enarx"
                     oidc-client = "${oidc.client.${env}.benefice}"
                     oidc-issuer = "https://${oidc.issuer}"
                   '';
@@ -210,6 +209,8 @@
                     benefice
                     enarx
                   ];
+
+                  networking.firewall.enable = lib.mkForce false;
 
                   services.nginx.virtualHosts.${fqdn} = {
                     enableACME = true;
@@ -226,6 +227,8 @@
                     hardenedServiceConfig
                     // {
                       ExecStart = "${benefice}/bin/benefice @${conf}";
+                      MemoryDenyWriteExecute = false;
+                      Restart = "always";
                       User = "benefice";
                     };
                   systemd.services.benefice.wantedBy = [
@@ -295,6 +298,7 @@
                       ReadWritePaths = [
                         "/var/lib/drawbridge"
                       ];
+                      Restart = "always";
                       User = "drawbridge";
                     };
                   systemd.services.drawbridge.wantedBy = [
@@ -357,6 +361,7 @@
                       ReadWritePaths = [
                         "/var/lib/steward"
                       ];
+                      Restart = "always";
                       User = "steward";
                     };
                   systemd.services.steward.wantedBy = [
