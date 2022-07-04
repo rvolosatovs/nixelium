@@ -246,28 +246,28 @@
 
         mkDrawbridge = fqdn: oidc-client: env: modules: let
           tls.ca = cert.${env}.steward;
-          tls.certificate = cert.${env}.drawbridge;
-          tls.key = "/var/lib/drawbridge/server.key";
         in
           mkHost {
             name = "drawbridge";
             modules =
               [
                 (mkDataServiceModule ''
-                  chmod 0750 /var/lib/drawbridge
-                  chmod 0640 ${tls.key}
-
                   mkdir -p /var/lib/drawbridge/store
                   chmod 0700 /var/lib/drawbridge/store
 
                   chown -R drawbridge:drawbridge /var/lib/drawbridge
                 '')
-                ({pkgs, ...}: let
+                ({
+                  config,
+                  pkgs,
+                  ...
+                }: let
                   drawbridge = pkgs.drawbridge.${env};
+                  certs = config.security.acme.certs.${fqdn}.directory;
                   conf = pkgs.writeText "conf.toml" ''
                     ca = "${tls.ca}"
-                    cert = "${tls.certificate}"
-                    key = "${tls.key}"
+                    cert = "${certs}/cert.pem"
+                    key = "${certs}/key.pem"
                     store = "/var/lib/drawbridge/store"
                     oidc-client = "${oidc-client}"
                     oidc-label = "${oidc.issuer}"
@@ -279,10 +279,9 @@
                   ];
 
                   services.nginx.virtualHosts.${fqdn} = {
+                    enableACME = true;
                     forceSSL = true;
                     locations."/".proxyPass = "https://localhost:8080";
-                    sslCertificate = tls.certificate;
-                    sslCertificateKey = tls.key;
                     sslTrustedCertificate = tls.ca;
                   };
 
@@ -309,8 +308,8 @@
                     "network-online.target"
                   ];
 
-                  users.users.nginx.extraGroups = [
-                    "drawbridge"
+                  users.users.drawbridge.extraGroups = [
+                    "nginx"
                   ];
                 })
               ]
@@ -345,6 +344,7 @@
                   services.nginx.virtualHosts.${fqdn} = {
                     enableACME = true;
                     forceSSL = true;
+                    http2 = false;
                     locations."/".proxyPass = "http://localhost:3000";
                   };
 
@@ -497,12 +497,6 @@
             ./generate.sh
             popd
         done
-
-        for host in hosts/drawbridge.*; do
-            pushd "$host"
-            ./generate.sh
-            popd
-        done
       '';
 
       provision = pkgs.writeShellScriptBin "provision" ''
@@ -512,12 +506,6 @@
             host=''${host#'hosts/'}
             ${pkgs.openssh}/bin/ssh "root@$host" mkdir -p /var/lib/steward
             ${pkgs.openssh}/bin/scp "hosts/$host/ca.key" "root@$host:/var/lib/steward/ca.key"
-        done
-
-        for host in hosts/drawbridge.*; do
-            host=''${host#'hosts/'}
-            ${pkgs.openssh}/bin/ssh "root@$host" mkdir -p /var/lib/drawbridge
-            ${pkgs.openssh}/bin/scp "hosts/$host/server.key" "root@$host:/var/lib/drawbridge/server.key"
         done
       '';
     in {

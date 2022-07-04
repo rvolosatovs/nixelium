@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   documentation.nixos.enable = false;
 
   environment.shells = [
@@ -55,6 +59,16 @@
   security.sudo.enable = true;
 
   services.nginx.enable = true;
+  services.nginx.sslProtocols = "TLSv1.3";
+  services.nginx.sslCiphers = lib.concatStringsSep ":" [
+    "ECDHE-ECDSA-AES256-GCM-SHA384"
+    "ECDHE-ECDSA-AES128-GCM-SHA256"
+    "ECDHE-ECDSA-CHACHA20-POLY1305"
+  ];
+  services.nginx.appendHttpConfig = ''
+    proxy_ssl_protocols TLSv1.3;
+    ssl_prefer_server_ciphers on;
+  '';
 
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
