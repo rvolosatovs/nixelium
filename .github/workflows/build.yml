@@ -8,9 +8,10 @@ jobs:
     strategy:
       matrix:
         service: 
-        - benefice-staging
         - drawbridge-staging
         - drawbridge-testing
+        - sgx-equinix-demo
+        - snp-equinix-demo
         - steward-staging
         - steward-testing
     runs-on: ubuntu-20.04
