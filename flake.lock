@@ -334,25 +334,25 @@
     "steward-production": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-RmuTIb+1Hg7GBuLTayrsbfAYpYCCkqm+3cF3QLrXOjY=",
+        "narHash": "sha256-//9IAOeuelgzK/Izef+U0R1PFgWcU3LSLxytnBGAfnk=",
         "type": "file",
-        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl"
       }
     },
     "steward-staging": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-RmuTIb+1Hg7GBuLTayrsbfAYpYCCkqm+3cF3QLrXOjY=",
+        "narHash": "sha256-//9IAOeuelgzK/Izef+U0R1PFgWcU3LSLxytnBGAfnk=",
         "type": "file",
-        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl"
       }
     },
     "steward-testing": {

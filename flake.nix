@@ -36,9 +36,9 @@
   inputs.rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
   inputs.rust-overlay.url = github:oxalica/rust-overlay;
   inputs.steward-production.flake = false;
-  inputs.steward-production.url = "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl"; # TODO: Use release
+  inputs.steward-production.url = "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl";
   inputs.steward-staging.flake = false;
-  inputs.steward-staging.url = "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl";
+  inputs.steward-staging.url = "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl";
   inputs.steward-testing.inputs.flake-compat.follows = "flake-compat";
   inputs.steward-testing.inputs.flake-utils.follows = "flake-utils";
   inputs.steward-testing.inputs.nixpkgs.follows = "nixpkgs";
