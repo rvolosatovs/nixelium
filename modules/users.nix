@@ -85,9 +85,4 @@ in {
   users.users.rvolosatovs.extraGroups = adminGroups;
   users.users.rvolosatovs.openssh.authorizedKeys.keys = with keys; [rvolosatovs];
   users.users.rvolosatovs.shell = pkgs.zsh;
-
-  users.users.root.openssh.authorizedKeys.keys = with keys; [
-    npmccallum
-    rvolosatovs
-  ];
 }
