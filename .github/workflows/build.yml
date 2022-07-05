@@ -8,12 +8,14 @@ jobs:
     strategy:
       matrix:
         service: 
-        - drawbridge-staging
-        - drawbridge-testing
+        - attest
+        - attest-staging
+        - attest-testing
         - sgx-equinix-demo
         - snp-equinix-demo
-        - steward-staging
-        - steward-testing
+        - store
+        - store-staging
+        - store-testing
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3

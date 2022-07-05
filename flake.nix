@@ -1,14 +1,14 @@
 {
-  description = "Profian Inc Staging Network";
+  description = "Profian Inc Network Infrastructure";
 
-  inputs.benefice-release.flake = false;
-  inputs.benefice-release.url = "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc2/benefice-x86_64-unknown-linux-musl";
-  inputs.benefice-tip.inputs.cargo2nix.follows = "cargo2nix";
-  inputs.benefice-tip.inputs.flake-compat.follows = "flake-compat";
-  inputs.benefice-tip.inputs.flake-utils.follows = "flake-utils";
-  inputs.benefice-tip.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.benefice-tip.inputs.rust-overlay.follows = "rust-overlay";
-  inputs.benefice-tip.url = github:profianinc/benefice;
+  inputs.benefice-staging.flake = false;
+  inputs.benefice-staging.url = "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc2/benefice-x86_64-unknown-linux-musl";
+  inputs.benefice-testing.inputs.cargo2nix.follows = "cargo2nix";
+  inputs.benefice-testing.inputs.flake-compat.follows = "flake-compat";
+  inputs.benefice-testing.inputs.flake-utils.follows = "flake-utils";
+  inputs.benefice-testing.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.benefice-testing.inputs.rust-overlay.follows = "rust-overlay";
+  inputs.benefice-testing.url = github:profianinc/benefice;
   inputs.cargo2nix.inputs.flake-compat.follows = "flake-compat";
   inputs.cargo2nix.inputs.flake-utils.follows = "flake-utils";
   inputs.cargo2nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -16,16 +16,18 @@
   inputs.cargo2nix.url = github:cargo2nix/cargo2nix;
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
   inputs.deploy-rs.url = github:serokell/deploy-rs;
-  inputs.drawbridge-release.flake = false;
-  inputs.drawbridge-release.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl";
-  inputs.drawbridge-tip.inputs.cargo2nix.follows = "cargo2nix";
-  inputs.drawbridge-tip.inputs.flake-compat.follows = "flake-compat";
-  inputs.drawbridge-tip.inputs.flake-utils.follows = "flake-utils";
-  inputs.drawbridge-tip.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.drawbridge-tip.inputs.rust-overlay.follows = "rust-overlay";
-  inputs.drawbridge-tip.url = github:profianinc/drawbridge;
-  inputs.enarx-release.flake = false;
-  inputs.enarx-release.url = "https://github.com/enarx/enarx/releases/download/v0.5.1/enarx-x86_64-unknown-linux-musl";
+  inputs.drawbridge-production.flake = false;
+  inputs.drawbridge-production.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl"; # TODO: Use release
+  inputs.drawbridge-staging.flake = false;
+  inputs.drawbridge-staging.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl";
+  inputs.drawbridge-testing.inputs.cargo2nix.follows = "cargo2nix";
+  inputs.drawbridge-testing.inputs.flake-compat.follows = "flake-compat";
+  inputs.drawbridge-testing.inputs.flake-utils.follows = "flake-utils";
+  inputs.drawbridge-testing.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.drawbridge-testing.inputs.rust-overlay.follows = "rust-overlay";
+  inputs.drawbridge-testing.url = github:profianinc/drawbridge;
+  inputs.enarx.flake = false;
+  inputs.enarx.url = "https://github.com/enarx/enarx/releases/download/v0.5.1/enarx-x86_64-unknown-linux-musl";
   inputs.flake-compat.flake = false;
   inputs.flake-compat.url = github:edolstra/flake-compat;
   inputs.flake-utils.url = github:numtide/flake-utils;
@@ -33,28 +35,32 @@
   inputs.rust-overlay.inputs.flake-utils.follows = "flake-utils";
   inputs.rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
   inputs.rust-overlay.url = github:oxalica/rust-overlay;
-  inputs.steward-release.flake = false;
-  inputs.steward-release.url = "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl";
-  inputs.steward-tip.inputs.flake-compat.follows = "flake-compat";
-  inputs.steward-tip.inputs.flake-utils.follows = "flake-utils";
-  inputs.steward-tip.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.steward-tip.url = github:profianinc/steward;
+  inputs.steward-production.flake = false;
+  inputs.steward-production.url = "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl"; # TODO: Use release
+  inputs.steward-staging.flake = false;
+  inputs.steward-staging.url = "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl";
+  inputs.steward-testing.inputs.flake-compat.follows = "flake-compat";
+  inputs.steward-testing.inputs.flake-utils.follows = "flake-utils";
+  inputs.steward-testing.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.steward-testing.url = github:profianinc/steward;
 
   outputs = {
     self,
-    benefice-release,
-    benefice-tip,
+    benefice-staging,
+    benefice-testing,
     cargo2nix,
     deploy-rs,
-    drawbridge-release,
-    drawbridge-tip,
-    enarx-release,
+    drawbridge-production,
+    drawbridge-staging,
+    drawbridge-testing,
+    enarx,
     flake-compat,
     flake-utils,
     nixpkgs,
     rust-overlay,
-    steward-release,
-    steward-tip,
+    steward-production,
+    steward-staging,
+    steward-testing,
   }: let
     sshUser = "deploy";
 
@@ -63,27 +69,30 @@
     hosts.demo.equinix.sgx = "sgx.equinix.demo.enarx.dev";
     hosts.demo.equinix.snp = "snp.equinix.demo.enarx.dev";
 
-    hosts.staging.drawbridge = "drawbridge.staging.profian.com";
-    hosts.staging.steward = "steward.staging.profian.com";
+    hosts.staging.attest = "attest.staging.profian.com";
+    hosts.staging.store = "store.staging.profian.com";
 
-    hosts.testing.drawbridge = "drawbridge.testing.profian.com";
-    hosts.testing.steward = "steward.testing.profian.com";
+    hosts.testing.attest = "attest.testing.profian.com";
+    hosts.testing.store = "store.testing.profian.com";
+
+    hosts.attest = "attest.profian.com";
+    hosts.store = "store.profian.com";
+
+    cert.staging.attest = ./hosts/attest.staging.profian.com/ca.crt;
+    cert.testing.attest = ./hosts/attest.testing.profian.com/ca.crt;
+    cert.production.attest = ./hosts/attest.profian.com/ca.crt;
 
     oidc.issuer = "auth.profian.com";
 
     oidc.client.demo.equinix.sgx = "23Lt09AjF8HpUeCCwlfhuV34e2dKD1MH";
     oidc.client.demo.equinix.snp = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
 
-    oidc.client.staging.drawbridge = "9SVWiB3sQQdzKqpZmMNvsb9rzd8Ha21F";
-
     oidc.client.testing.benefice = "FTmeUMamlu8HRs11mvtmmZHnmCwRIo8E";
-    oidc.client.testing.drawbridge = "zFrR7MKMakS4OpEflR0kNw3ceoP7sr3s";
+    oidc.client.testing.store = "zFrR7MKMakS4OpEflR0kNw3ceoP7sr3s";
 
-    cert.staging.drawbridge = ./hosts/drawbridge.staging.profian.com/server.crt;
-    cert.staging.steward = ./hosts/steward.staging.profian.com/ca.crt;
+    oidc.client.staging.store = "9SVWiB3sQQdzKqpZmMNvsb9rzd8Ha21F";
 
-    cert.testing.drawbridge = ./hosts/drawbridge.testing.profian.com/server.crt;
-    cert.testing.steward = ./hosts/steward.testing.profian.com/ca.crt;
+    oidc.client.store = "2vq9XnQgcGZ9JCxsGERuGURYIld3mcIh";
   in
     {
       nixosConfigurations = let
@@ -100,16 +109,18 @@
               '';
             };
         in {
-          benefice.testing = benefice-tip.packages.x86_64-linux.benefice-debug-x86_64-unknown-linux-musl;
-          benefice.staging = fromInput "benefice" benefice-release;
+          benefice.testing = benefice-testing.packages.x86_64-linux.benefice-debug-x86_64-unknown-linux-musl;
+          benefice.staging = fromInput "benefice" benefice-staging;
 
-          drawbridge.testing = drawbridge-tip.packages.x86_64-linux.drawbridge-debug-x86_64-unknown-linux-musl;
-          drawbridge.staging = fromInput "drawbridge" drawbridge-release;
+          enarx.staging = fromInput "enarx" enarx;
 
-          enarx.staging = fromInput "enarx" enarx-release;
+          drawbridge.testing = drawbridge-testing.packages.x86_64-linux.drawbridge-debug-x86_64-unknown-linux-musl;
+          drawbridge.staging = fromInput "drawbridge" drawbridge-staging;
+          drawbridge.production = fromInput "drawbridge" drawbridge-production;
 
-          steward.testing = steward-tip.packages.x86_64-linux.steward-x86_64-unknown-linux-musl;
-          steward.staging = fromInput "steward" steward-release;
+          steward.testing = steward-testing.packages.x86_64-linux.steward-x86_64-unknown-linux-musl;
+          steward.staging = fromInput "steward" steward-staging;
+          steward.production = fromInput "steward" steward-production;
         };
 
         pkgs = import nixpkgs {
@@ -245,7 +256,7 @@
           };
 
         mkDrawbridge = fqdn: oidc-client: env: modules: let
-          tls.ca = cert.${env}.steward;
+          tls.ca = cert.${env}.attest;
         in
           mkHost {
             name = "drawbridge";
@@ -317,7 +328,7 @@
           };
 
         mkSteward = fqdn: env: modules: let
-          tls.certificate = cert.${env}.steward;
+          tls.certificate = cert.${env}.attest;
           tls.key = "/var/lib/steward/ca.key";
         in
           mkHost {
@@ -405,61 +416,88 @@
             })
           ];
 
-        drawbridge-staging =
-          mkDrawbridge
-          hosts.staging.drawbridge
-          oidc.client.staging.drawbridge
-          "staging"
-          [
-            ({...}: {
-              imports = [
-                ./hosts/drawbridge.staging.profian.com
-              ];
-              networking.hostName = "drawbridge-staging";
-              systemd.services.drawbridge.environment.RUST_LOG = "info";
-            })
-          ];
-
-        drawbridge-testing =
-          mkDrawbridge
-          hosts.testing.drawbridge
-          oidc.client.testing.drawbridge
-          "testing"
-          [
-            ({...}: {
-              imports = [
-                ./hosts/drawbridge.testing.profian.com
-              ];
-              networking.hostName = "drawbridge-testing";
-              systemd.services.drawbridge.environment.RUST_LOG = "debug";
-            })
-          ];
-
-        steward-staging =
+        attest-staging =
           mkSteward
-          hosts.staging.steward
+          hosts.staging.attest
           "staging"
           [
             ({...}: {
               imports = [
-                ./hosts/steward.staging.profian.com
+                ./hosts/attest.staging.profian.com
               ];
-              networking.hostName = "steward-staging";
+              networking.hostName = "attest-staging";
               systemd.services.steward.environment.RUST_LOG = "info";
             })
           ];
 
-        steward-testing =
+        attest-testing =
           mkSteward
-          hosts.testing.steward
+          hosts.testing.attest
           "testing"
           [
             ({...}: {
               imports = [
-                ./hosts/steward.testing.profian.com
+                ./hosts/attest.testing.profian.com
               ];
-              networking.hostName = "steward-testing";
+              networking.hostName = "attest-testing";
               systemd.services.steward.environment.RUST_LOG = "debug";
+            })
+          ];
+
+        attest =
+          mkSteward
+          hosts.attest
+          "production"
+          [
+            ({...}: {
+              imports = [
+                ./hosts/attest.profian.com
+              ];
+              networking.hostName = "attest";
+            })
+          ];
+
+        store-testing =
+          mkDrawbridge
+          hosts.testing.store
+          oidc.client.testing.store
+          "testing"
+          [
+            ({...}: {
+              imports = [
+                ./hosts/store.testing.profian.com
+              ];
+              networking.hostName = "store-testing";
+              systemd.services.drawbridge.environment.RUST_LOG = "debug";
+            })
+          ];
+
+        store-staging =
+          mkDrawbridge
+          hosts.staging.store
+          oidc.client.staging.store
+          "staging"
+          [
+            ({...}: {
+              imports = [
+                ./hosts/store.staging.profian.com
+              ];
+              networking.hostName = "store-staging";
+              systemd.services.drawbridge.environment.RUST_LOG = "info";
+            })
+          ];
+
+        store =
+          mkDrawbridge
+          hosts.store
+          oidc.client.store
+          "production"
+          [
+            ({...}: {
+              imports = [
+                ./hosts/store.profian.com
+              ];
+              networking.hostName = "store";
             })
           ];
       };
@@ -475,11 +513,13 @@
         sgx-equinix-demo = mkNode hosts.demo.equinix.sgx "sgx-equinix-demo";
         snp-equinix-demo = mkNode hosts.demo.equinix.snp "snp-equinix-demo";
 
-        drawbridge-staging = mkNode hosts.staging.drawbridge "drawbridge-staging";
-        drawbridge-testing = mkNode hosts.testing.drawbridge "drawbridge-testing";
+        attest = mkNode hosts.attest "attest";
+        attest-staging = mkNode hosts.staging.attest "attest-staging";
+        attest-testing = mkNode hosts.testing.attest "attest-testing";
 
-        steward-staging = mkNode hosts.staging.steward "steward-staging";
-        steward-testing = mkNode hosts.testing.steward "steward-testing";
+        store = mkNode hosts.store "store";
+        store-staging = mkNode hosts.staging.store "store-staging";
+        store-testing = mkNode hosts.testing.store "store-testing";
       };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
@@ -492,7 +532,7 @@
       bootstrap = pkgs.writeShellScriptBin "bootstrap" ''
         set -e
 
-        for host in hosts/steward.*; do
+        for host in hosts/attest.*; do
             pushd "$host"
             ./generate.sh
             popd
@@ -502,7 +542,7 @@
       provision = pkgs.writeShellScriptBin "provision" ''
         set -e
 
-        for host in hosts/steward.*; do
+        for host in hosts/attest.*; do
             host=''${host#'hosts/'}
             ${pkgs.openssh}/bin/ssh "root@$host" mkdir -p /var/lib/steward
             ${pkgs.openssh}/bin/scp "hosts/$host/ca.key" "root@$host:/var/lib/steward/ca.key"

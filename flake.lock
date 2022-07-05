@@ -1,6 +1,6 @@
 {
   "nodes": {
-    "benefice-release": {
+    "benefice-staging": {
       "flake": false,
       "locked": {
         "narHash": "sha256-8nMe4b+sCz9v1wCr3ZqIhBu5OX0F2rx9dWytaF6AUeg=",
@@ -12,7 +12,7 @@
         "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc2/benefice-x86_64-unknown-linux-musl"
       }
     },
-    "benefice-tip": {
+    "benefice-testing": {
       "inputs": {
         "cargo2nix": [
           "cargo2nix"
@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1656945255,
-        "narHash": "sha256-y8Hal07CzyMdWztezwVQ8bgfA2YzodOAcfzT3sg03GU=",
+        "lastModified": 1657031057,
+        "narHash": "sha256-GctojyFLLYEzuZb2vCksKxHBtv6UOMwHnGEOS3Izfzk=",
         "owner": "profianinc",
         "repo": "benefice",
-        "rev": "4944119a638f2251f0a9aa3e0c236fd699014cca",
+        "rev": "9051e674b226b1bca68f9873563ef468b64360b6",
         "type": "github"
       },
       "original": {
@@ -95,7 +95,7 @@
         "type": "github"
       }
     },
-    "drawbridge-release": {
+    "drawbridge-production": {
       "flake": false,
       "locked": {
         "narHash": "sha256-lU55oaE7E7AIzSUmu7qyLNOzssCe0THmhp9YTGmZmUs=",
@@ -107,7 +107,19 @@
         "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl"
       }
     },
-    "drawbridge-tip": {
+    "drawbridge-staging": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-lU55oaE7E7AIzSUmu7qyLNOzssCe0THmhp9YTGmZmUs=",
+        "type": "file",
+        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl"
+      }
+    },
+    "drawbridge-testing": {
       "inputs": {
         "cargo2nix": [
           "cargo2nix"
@@ -126,11 +138,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657025683,
-        "narHash": "sha256-/V2GycKrt6dVa/XvdTaofegPHTA6BW2IQssMF8tSL4g=",
+        "lastModified": 1657037549,
+        "narHash": "sha256-98JFAPN1XdBZoU06M3X6lqpJ/Uc5B1WYxu/jw5cdSd0=",
         "owner": "profianinc",
         "repo": "drawbridge",
-        "rev": "47dc1e04ea1f457092e9e97f7e8dadf7bdaa2280",
+        "rev": "cc509fa1c5657e3d9b08b1352fc5c54fb9711313",
         "type": "github"
       },
       "original": {
@@ -139,7 +151,7 @@
         "type": "github"
       }
     },
-    "enarx-release": {
+    "enarx": {
       "flake": false,
       "locked": {
         "narHash": "sha256-MqOysz0qm+FkDXHgGgbD0bGAGAMDjXFK7VDktqoFqy8=",
@@ -154,7 +166,7 @@
     "fenix": {
       "inputs": {
         "nixpkgs": [
-          "steward-tip",
+          "steward-testing",
           "nixpkgs"
         ],
         "rust-analyzer-src": "rust-analyzer-src"
@@ -237,19 +249,21 @@
     },
     "root": {
       "inputs": {
-        "benefice-release": "benefice-release",
-        "benefice-tip": "benefice-tip",
+        "benefice-staging": "benefice-staging",
+        "benefice-testing": "benefice-testing",
         "cargo2nix": "cargo2nix",
         "deploy-rs": "deploy-rs",
-        "drawbridge-release": "drawbridge-release",
-        "drawbridge-tip": "drawbridge-tip",
-        "enarx-release": "enarx-release",
+        "drawbridge-production": "drawbridge-production",
+        "drawbridge-staging": "drawbridge-staging",
+        "drawbridge-testing": "drawbridge-testing",
+        "enarx": "enarx",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs_2",
         "rust-overlay": "rust-overlay",
-        "steward-release": "steward-release",
-        "steward-tip": "steward-tip"
+        "steward-production": "steward-production",
+        "steward-staging": "steward-staging",
+        "steward-testing": "steward-testing"
       }
     },
     "rust-analyzer-src": {
@@ -295,11 +309,11 @@
     "rust-overlay_2": {
       "inputs": {
         "flake-utils": [
-          "steward-tip",
+          "steward-testing",
           "flake-utils"
         ],
         "nixpkgs": [
-          "steward-tip",
+          "steward-testing",
           "nixpkgs"
         ]
       },
@@ -317,7 +331,7 @@
         "type": "github"
       }
     },
-    "steward-release": {
+    "steward-production": {
       "flake": false,
       "locked": {
         "narHash": "sha256-RmuTIb+1Hg7GBuLTayrsbfAYpYCCkqm+3cF3QLrXOjY=",
@@ -329,7 +343,19 @@
         "url": "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl"
       }
     },
-    "steward-tip": {
+    "steward-staging": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-RmuTIb+1Hg7GBuLTayrsbfAYpYCCkqm+3cF3QLrXOjY=",
+        "type": "file",
+        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0-rc1/steward-x86_64-unknown-linux-musl"
+      }
+    },
+    "steward-testing": {
       "inputs": {
         "fenix": "fenix",
         "flake-compat": [
