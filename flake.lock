@@ -98,25 +98,25 @@
     "drawbridge-production": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-lU55oaE7E7AIzSUmu7qyLNOzssCe0THmhp9YTGmZmUs=",
+        "narHash": "sha256-0WgKC8FUZcDOcNp7Uqy/+u6CiDwsiA335CHugUgXIVA=",
         "type": "file",
-        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl"
       }
     },
     "drawbridge-staging": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-lU55oaE7E7AIzSUmu7qyLNOzssCe0THmhp9YTGmZmUs=",
+        "narHash": "sha256-0WgKC8FUZcDOcNp7Uqy/+u6CiDwsiA335CHugUgXIVA=",
         "type": "file",
-        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl"
       }
     },
     "drawbridge-testing": {

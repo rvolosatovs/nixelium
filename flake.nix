@@ -17,9 +17,9 @@
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
   inputs.deploy-rs.url = github:serokell/deploy-rs;
   inputs.drawbridge-production.flake = false;
-  inputs.drawbridge-production.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl"; # TODO: Use release
+  inputs.drawbridge-production.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl";
   inputs.drawbridge-staging.flake = false;
-  inputs.drawbridge-staging.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0-rc3/drawbridge-x86_64-unknown-linux-musl";
+  inputs.drawbridge-staging.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl";
   inputs.drawbridge-testing.inputs.cargo2nix.follows = "cargo2nix";
   inputs.drawbridge-testing.inputs.flake-compat.follows = "flake-compat";
   inputs.drawbridge-testing.inputs.flake-utils.follows = "flake-utils";
