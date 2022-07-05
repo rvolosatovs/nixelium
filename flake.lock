@@ -138,11 +138,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657037549,
-        "narHash": "sha256-98JFAPN1XdBZoU06M3X6lqpJ/Uc5B1WYxu/jw5cdSd0=",
+        "lastModified": 1657053310,
+        "narHash": "sha256-H1FfSYlLQr/SA9yARqqaJv4Z1opgdUens7qK0V/QUPc=",
         "owner": "profianinc",
         "repo": "drawbridge",
-        "rev": "cc509fa1c5657e3d9b08b1352fc5c54fb9711313",
+        "rev": "120f1012d32310bfbdd37bfbf122ff140dd416ee",
         "type": "github"
       },
       "original": {
