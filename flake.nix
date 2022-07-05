@@ -215,8 +215,8 @@
                   networking.firewall.enable = lib.mkForce false;
 
                   services.nginx.virtualHosts.${fqdn} = {
+                    addSSL = true;
                     enableACME = true;
-                    forceSSL = true;
                     locations."/".proxyPass = "http://localhost:3000";
                   };
 
