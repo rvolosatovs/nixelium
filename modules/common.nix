@@ -59,6 +59,10 @@
   security.sudo.enable = true;
 
   services.nginx.enable = true;
+  services.nginx.recommendedGzipSettings = true;
+  services.nginx.recommendedOptimisation = true;
+  services.nginx.recommendedProxySettings = true;
+  services.nginx.recommendedTlsSettings = true;
   services.nginx.sslProtocols = "TLSv1.3";
   services.nginx.sslCiphers = lib.concatStringsSep ":" [
     "ECDHE-ECDSA-AES256-GCM-SHA384"
@@ -67,7 +71,6 @@
   ];
   services.nginx.appendHttpConfig = ''
     proxy_ssl_protocols TLSv1.3;
-    ssl_prefer_server_ciphers on;
   '';
 
   services.openssh.enable = true;
