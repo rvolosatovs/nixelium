@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657031057,
-        "narHash": "sha256-GctojyFLLYEzuZb2vCksKxHBtv6UOMwHnGEOS3Izfzk=",
+        "lastModified": 1657194613,
+        "narHash": "sha256-NdfalTR1MPDusJ+KncFXk8YSHkBaq1fWpkY5BHCp+Rc=",
         "owner": "profianinc",
         "repo": "benefice",
-        "rev": "9051e674b226b1bca68f9873563ef468b64360b6",
+        "rev": "377469b9df91522e772c9303810f5e82507a1e3d",
         "type": "github"
       },
       "original": {
@@ -138,11 +138,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657053310,
-        "narHash": "sha256-H1FfSYlLQr/SA9yARqqaJv4Z1opgdUens7qK0V/QUPc=",
+        "lastModified": 1657194158,
+        "narHash": "sha256-U/IaNJxFHFiabtl+GbX54MbbEhltuSiRyEuiOwpYSVQ=",
         "owner": "profianinc",
         "repo": "drawbridge",
-        "rev": "120f1012d32310bfbdd37bfbf122ff140dd416ee",
+        "rev": "f1e4ca8915e18f9789d33da145f703332826a060",
         "type": "github"
       },
       "original": {
@@ -172,11 +172,11 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1657002438,
-        "narHash": "sha256-BHStt2enlVTYoFBSIFLYLKiqbg85ghVSI/S3th2HX1g=",
+        "lastModified": 1657175312,
+        "narHash": "sha256-ZOTtKbL2VDPYJzfKZfPQTx7UdRkIb32fkwU64UOOS+Q=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "7958c5e906a20f8d3308928cc184592cc413ccbe",
+        "rev": "c5933255cadd599e9d1b4b98d801c12a923ff9d8",
         "type": "github"
       },
       "original": {
@@ -234,11 +234,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1656947410,
-        "narHash": "sha256-htDR/PZvjUJGyrRJsVqDmXR8QeoswBaRLzHt13fd0iY=",
+        "lastModified": 1657201633,
+        "narHash": "sha256-Os+MjYmxVjNPQtEzdQwcN3+ZZM+wOhZ0mUksuOyIplU=",
         "owner": "profianinc",
         "repo": "nixpkgs",
-        "rev": "e8d47977286a44955262adbc76f2c8a66e7419d5",
+        "rev": "427f1f08c341fb4a51165f3d598d51f1bb0e29fd",
         "type": "github"
       },
       "original": {
@@ -269,11 +269,11 @@
     "rust-analyzer-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1656953957,
-        "narHash": "sha256-oYX2K4Tk3eGgEnNBIRmnBv9421hEEXDj3KF3w8cIu1k=",
+        "lastModified": 1657151932,
+        "narHash": "sha256-iql4MrFnUcbA0AY7Eo+jiOwdVo+b1Ts6AFOQMIriiwY=",
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "e1a8c0b1534f26d4f04df79cfa11fd309365639b",
+        "rev": "c296e777675860164f8e45571efd29c4c08ee7cc",
         "type": "github"
       },
       "original": {
@@ -293,11 +293,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1656989406,
-        "narHash": "sha256-w2oW0C6qRUy/VsTKRFEM/7Xxb+nHM+QkVosA3fMRgBM=",
+        "lastModified": 1657162416,
+        "narHash": "sha256-5HckhpteVHcb++qPFw8L9bHd/B1EAzQxDeAPXAKML70=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "2be2b68fc248883b82d3c7bfa6e5c0caff68223d",
+        "rev": "b1b998b47b15bc5e18a1b364c9c4f145bb0a3931",
         "type": "github"
       },
       "original": {
@@ -318,11 +318,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1656989406,
-        "narHash": "sha256-w2oW0C6qRUy/VsTKRFEM/7Xxb+nHM+QkVosA3fMRgBM=",
+        "lastModified": 1657162416,
+        "narHash": "sha256-5HckhpteVHcb++qPFw8L9bHd/B1EAzQxDeAPXAKML70=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "2be2b68fc248883b82d3c7bfa6e5c0caff68223d",
+        "rev": "b1b998b47b15bc5e18a1b364c9c4f145bb0a3931",
         "type": "github"
       },
       "original": {
@@ -370,11 +370,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1657025200,
-        "narHash": "sha256-8vn/rTUk3Rh/MJJauiA7m9DtuPBnLgzxsRXGxb3iE4Q=",
+        "lastModified": 1657194171,
+        "narHash": "sha256-TphAi57qbrMJhtE0SFB/Z/PLekp2jE0uEjp3zvBWi0k=",
         "owner": "profianinc",
         "repo": "steward",
-        "rev": "93fce8b4c17d30a80de053229f7ea3a3528697f6",
+        "rev": "692ac758eb1ae4a19e32821e4fdc208d73f48cdc",
         "type": "github"
       },
       "original": {
