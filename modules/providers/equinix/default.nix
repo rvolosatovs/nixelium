@@ -10,10 +10,7 @@
     "dm_round_robin"
     "ipmi_watchdog"
   ];
-  boot.kernelPackages = pkgs.linuxPackages_5_18_hardened;
-  boot.kernelPatches = [
-    # TODO: add SNP+SGX kernel patches
-  ];
+  boot.kernelPackages = pkgs.linuxPackages_enarx;
   boot.kernelParams = [
     "console=ttyS1,115200n8"
   ];
