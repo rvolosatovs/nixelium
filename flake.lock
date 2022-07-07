@@ -3,13 +3,13 @@
     "benefice-staging": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-QIRaoyP+s7I0AcgHYBJrEsQMeG8sWqw54i8Rn1HdXQg=",
+        "narHash": "sha256-J95jQkGGe2gAO0GAx8aDM84nc7zG4eEq1kKBo5/Yu40=",
         "type": "file",
-        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc3/benefice-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc4/benefice-x86_64-unknown-linux-musl"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc3/benefice-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc4/benefice-x86_64-unknown-linux-musl"
       }
     },
     "benefice-testing": {
