@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657194613,
-        "narHash": "sha256-NdfalTR1MPDusJ+KncFXk8YSHkBaq1fWpkY5BHCp+Rc=",
+        "lastModified": 1657208189,
+        "narHash": "sha256-EVUN7sd0hPVIQ5wso848kdgKhw5oB2NzqYZpqu3LL3Q=",
         "owner": "profianinc",
         "repo": "benefice",
-        "rev": "377469b9df91522e772c9303810f5e82507a1e3d",
+        "rev": "e9dc141c73573b49c1935fc7b428c5264c12dbe4",
         "type": "github"
       },
       "original": {
@@ -154,13 +154,13 @@
     "enarx": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-MqOysz0qm+FkDXHgGgbD0bGAGAMDjXFK7VDktqoFqy8=",
+        "narHash": "sha256-U99rHNwmkw6VK0j2p9/LVg/J2tyCHl5BhmmpNC5vUOU=",
         "type": "file",
-        "url": "https://github.com/enarx/enarx/releases/download/v0.5.1/enarx-x86_64-unknown-linux-musl"
+        "url": "https://github.com/enarx/enarx/releases/download/v0.6.0/enarx-x86_64-unknown-linux-musl"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/enarx/enarx/releases/download/v0.5.1/enarx-x86_64-unknown-linux-musl"
+        "url": "https://github.com/enarx/enarx/releases/download/v0.6.0/enarx-x86_64-unknown-linux-musl"
       }
     },
     "fenix": {
@@ -234,11 +234,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1657201633,
-        "narHash": "sha256-Os+MjYmxVjNPQtEzdQwcN3+ZZM+wOhZ0mUksuOyIplU=",
+        "lastModified": 1657201796,
+        "narHash": "sha256-o+Wx1KxzwSjBKQrcWDQeWGXZ9tAHkJBdM2aoHvWogYA=",
         "owner": "profianinc",
         "repo": "nixpkgs",
-        "rev": "427f1f08c341fb4a51165f3d598d51f1bb0e29fd",
+        "rev": "089334154880c8e56ce5429c3d047b1bc7c4953e",
         "type": "github"
       },
       "original": {
