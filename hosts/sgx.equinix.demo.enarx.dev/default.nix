@@ -13,6 +13,11 @@
   fileSystems."/".device = "/dev/disk/by-id/ata-MTFDDAV240TDU_220133CB3E88-part3";
   fileSystems."/boot/efi".device = "/dev/disk/by-id/ata-MTFDDAV240TDU_220133CB3E88-part1";
 
+  hardware.cpu.intel.sgx.aesmd.enable = true;
+  hardware.cpu.intel.sgx.provision.enable = true;
+  hardware.cpu.intel.sgx.provision.service.apiKey = "/var/lib/pccs/api-key";
+  hardware.cpu.intel.sgx.provision.service.enable = true;
+
   networking.hostId = "395c78d1";
   networking.interfaces.eno12399.useDHCP = true;
   networking.interfaces.eno12409.useDHCP = true;

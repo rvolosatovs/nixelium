@@ -402,6 +402,12 @@
           oidc.client.demo.equinix.sgx
           "staging"
           [
+            (mkDataServiceModule ''
+              chmod 0700 /var/lib/pccs
+              chmod 0600 /var/lib/pccs/api-key
+
+              chown -R root:pccs /var/lib/pccs
+            '')
             ({...}: {
               imports = [
                 ./hosts/sgx.equinix.demo.enarx.dev
