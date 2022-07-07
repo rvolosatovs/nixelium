@@ -204,18 +204,28 @@
               ++ modules;
           };
 
-        mkBenefice = fqdn: oidc-client: env: modules:
+        mkBenefice = fqdn: oidc-client: env: modules: let
+          oidc-secret = "/var/lib/benefice/oidc-secret";
+        in
           mkHost {
             name = "benefice";
             modules =
               [
+                (mkDataServiceModule ''
+                  chmod 0700 /var/lib/benefice
+                  chmod 0600 ${oidc-secret}
+
+                  chown -R benefice:benefice /var/lib/benefice
+                '')
                 ({lib, ...}: let
                   benefice = pkgs.benefice.${env};
                   enarx = pkgs.enarx.${env};
                   conf = pkgs.writeText "conf.toml" ''
                     command = "${enarx}/bin/enarx"
                     oidc-client = "${oidc-client}"
+                    oidc-secret = "${oidc-secret}"
                     oidc-issuer = "https://${oidc.issuer}"
+                    url = "https://${fqdn}"
                   '';
                 in {
                   environment.systemPackages = [
@@ -546,6 +556,12 @@
             host=''${host#'hosts/'}
             ${pkgs.openssh}/bin/ssh "root@$host" mkdir -p /var/lib/steward
             ${pkgs.openssh}/bin/scp "hosts/$host/ca.key" "root@$host:/var/lib/steward/ca.key"
+        done
+
+        for host in hosts/*.demo.enarx.dev; do
+            host=''${host#'hosts/'}
+            ${pkgs.openssh}/bin/ssh "root@$host" mkdir -p /var/lib/benefice
+            ${pkgs.openssh}/bin/scp "hosts/$host/oidc-secret" "root@$host:/var/lib/benefice/oidc-secret"
         done
       '';
     in {
