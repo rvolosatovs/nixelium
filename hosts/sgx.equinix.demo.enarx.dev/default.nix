@@ -13,7 +13,6 @@
   fileSystems."/".device = "/dev/disk/by-id/ata-MTFDDAV240TDU_220133CB3E88-part3";
   fileSystems."/boot/efi".device = "/dev/disk/by-id/ata-MTFDDAV240TDU_220133CB3E88-part1";
 
-  hardware.cpu.intel.sgx.aesmd.enable = true;
   hardware.cpu.intel.sgx.provision.enable = true;
   hardware.cpu.intel.sgx.provision.service.apiKey = "/var/lib/pccs/api-key";
   hardware.cpu.intel.sgx.provision.service.enable = true;
@@ -27,6 +26,9 @@
   networking.interfaces.eno12429.useDHCP = true;
 
   nix.maxJobs = lib.mkDefault 128;
+
+  services.aesmd.enable = true;
+  systemd.services.aesmd.serviceConfig.LimitMEMLOCK = "8G";
 
   swapDevices = [
     {device = "/dev/disk/by-id/ata-MTFDDAV240TDU_220133CB3E88-part2";}

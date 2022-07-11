@@ -8,17 +8,6 @@
 
   backend = config.virtualisation.oci-containers.backend;
 
-  aesmdService = "${backend}-aesmd";
-
-  aesmdImageName = "registry.gitlab.com/enarx/aesmd";
-  aesmd = pkgs.dockerTools.pullImage {
-    imageName = aesmdImageName;
-    imageDigest = "sha256:7d9016e8a274b2873d99b21ef34b8db1c869c0c96edad68e53efd7688561fa1a";
-    sha256 = "11205ka4ws2mv4788fhbilzgq31ag4swsc3r7bkkzz9gqq74i7l2";
-  };
-
-  defaultAesmdGroup = "aesmd";
-
   pccsService = "${backend}-pccs";
 
   pccsImageName = "registry.gitlab.com/haraldh/pccs";
@@ -32,20 +21,6 @@
   defaultPccsGroup = "pccs";
 in
   with lib; {
-    options.hardware.cpu.intel.sgx.aesmd = {
-      enable = mkEnableOption "Intel SGX Attestation Daemon service.";
-      user = mkOption {
-        type = types.str;
-        default = "root";
-        description = "User to run the Intel SGX Attestation Daemon service as.";
-      };
-      group = mkOption {
-        type = types.str;
-        default = defaultAesmdGroup;
-        description = "Group to run the Intel SGX Attestation Daemon service as.";
-      };
-    };
-
     options.hardware.cpu.intel.sgx.provision.service = {
       enable = mkEnableOption "Intel SGX Provisioning Certification service.";
       user = mkOption {
@@ -65,39 +40,6 @@ in
     };
 
     config = mkMerge [
-      (mkIf cfg.aesmd.enable {
-        assertions = [
-          {
-            assertion = hasAttr cfg.aesmd.user config.users.users;
-            message = "Given user does not exist";
-          }
-          {
-            assertion = (cfg.aesmd.group == defaultAesmdGroup) || (hasAttr cfg.aesmd.group config.users.groups);
-            message = "Given group does not exist";
-          }
-        ];
-
-        systemd.services.${aesmdService} = {
-          serviceConfig.Group = cfg.aesmd.group;
-          serviceConfig.LimitMEMLOCK = "8G";
-          serviceConfig.Restart = "always";
-          serviceConfig.Type = "exec";
-          serviceConfig.User = cfg.aesmd.user;
-        };
-
-        users.groups = optionalAttrs (cfg.aesmd.group == defaultAesmdGroup) {
-          "${cfg.aesmd.group}" = {};
-        };
-
-        virtualisation.oci-containers.containers.aesmd.extraOptions = ["--device=/dev/sgx_enclave"];
-        virtualisation.oci-containers.containers.aesmd.image = aesmdImageName;
-        virtualisation.oci-containers.containers.aesmd.imageFile = aesmd;
-        virtualisation.oci-containers.containers.aesmd.volumes = [
-          "/dev/sgx_enclave:/dev/sgx/enclave"
-          "/dev/sgx_provision:/dev/sgx/provision"
-          "/var/run/aesmd:/var/run/aesmd"
-        ];
-      })
       (mkIf cfg.provision.service.enable {
         assertions = [
           {
