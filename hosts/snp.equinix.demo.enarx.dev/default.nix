@@ -23,6 +23,7 @@
   hardware.cpu.amd.sev.group = "benefice";
   hardware.cpu.amd.sev.mode = "0600";
   hardware.cpu.amd.sev.user = "benefice";
+
   hardware.cpu.amd.updateMicrocode = true;
 
   networking.hostId = "4a7d85ee";
