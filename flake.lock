@@ -138,11 +138,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657194158,
-        "narHash": "sha256-U/IaNJxFHFiabtl+GbX54MbbEhltuSiRyEuiOwpYSVQ=",
+        "lastModified": 1657355129,
+        "narHash": "sha256-DSFxVWw2evZ9fEmmH+MwoRJFdR7RkPRcuVk36ql1czw=",
         "owner": "profianinc",
         "repo": "drawbridge",
-        "rev": "f1e4ca8915e18f9789d33da145f703332826a060",
+        "rev": "44a9d96e681cb815366e84df4267d0dfc13a8088",
         "type": "github"
       },
       "original": {
@@ -293,11 +293,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657162416,
-        "narHash": "sha256-5HckhpteVHcb++qPFw8L9bHd/B1EAzQxDeAPXAKML70=",
+        "lastModified": 1657507721,
+        "narHash": "sha256-FtV5D35ikz7zvhBX66Bs3VKd/GDyIVA+WQzqkR1PS0E=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "b1b998b47b15bc5e18a1b364c9c4f145bb0a3931",
+        "rev": "1a133f54a0229af8310879eac2c4a82c0576a0b9",
         "type": "github"
       },
       "original": {
