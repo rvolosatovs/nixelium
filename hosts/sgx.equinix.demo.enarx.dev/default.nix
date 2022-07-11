@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ../../modules/providers/equinix
   ];
@@ -28,7 +32,11 @@
   nix.maxJobs = lib.mkDefault 128;
 
   services.aesmd.enable = true;
-  systemd.services.aesmd.serviceConfig.LimitMEMLOCK = "8G";
+  services.aesmd.qcnl.settings.pccsUrl = "https://127.0.0.1:8081/sgx/certification/v3/";
+  services.aesmd.qcnl.settings.useSecureCert = false;
+
+  services.enarx.backend = "sgx";
+  services.enarx.enable = true;
 
   swapDevices = [
     {device = "/dev/disk/by-id/ata-MTFDDAV240TDU_220133CB3E88-part2";}

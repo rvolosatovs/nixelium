@@ -113,11 +113,11 @@
           benefice.testing = benefice-testing.packages.x86_64-linux.benefice-debug-x86_64-unknown-linux-musl;
           benefice.staging = fromInput "benefice" benefice-staging;
 
-          enarx.staging = fromInput "enarx" enarx;
-
           drawbridge.testing = drawbridge-testing.packages.x86_64-linux.drawbridge-debug-x86_64-unknown-linux-musl;
           drawbridge.staging = fromInput "drawbridge" drawbridge-staging;
           drawbridge.production = fromInput "drawbridge" drawbridge-production;
+
+          enarx = fromInput "enarx" enarx;
 
           steward.testing = steward-testing.packages.x86_64-linux.steward-x86_64-unknown-linux-musl;
           steward.staging = fromInput "steward" steward-staging;
@@ -129,13 +129,12 @@
           overlays = [overlay];
         };
 
+        # TODO: move this to individual service declarations
         hardenedServiceConfig = {
-          DeviceAllow = [""];
           KeyringMode = "private";
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
           NoNewPrivileges = true;
-          PrivateDevices = "yes";
           PrivateMounts = "yes";
           PrivateTmp = "yes";
           ProtectClock = true;
@@ -205,62 +204,25 @@
               ++ modules;
           };
 
-        mkBenefice = fqdn: oidc-client: env: modules: let
-          oidc-secret = "/var/lib/benefice/oidc-secret";
-        in
+        # TODO: remove this function
+        mkBenefice = oidc-client: env: modules:
           mkHost {
             name = "benefice";
             modules =
               [
                 (mkDataServiceModule ''
                   chmod 0700 /var/lib/benefice
-                  chmod 0600 ${oidc-secret}
+                  chmod 0600 /var/lib/benefice/oidc-secret
 
                   chown -R benefice:benefice /var/lib/benefice
                 '')
-                ({lib, ...}: let
-                  benefice = pkgs.benefice.${env};
-                  enarx = pkgs.enarx.${env};
-                  conf = pkgs.writeText "conf.toml" ''
-                    command = "${enarx}/bin/enarx"
-                    oidc-client = "${oidc-client}"
-                    oidc-secret = "${oidc-secret}"
-                    oidc-issuer = "https://${oidc.issuer}"
-                    url = "https://${fqdn}"
-                  '';
-                in {
-                  environment.systemPackages = [
-                    benefice
-                    enarx
-                  ];
-
+                ({lib, ...}: {
                   networking.firewall.enable = lib.mkForce false;
 
-                  services.nginx.virtualHosts.${fqdn} = {
-                    enableACME = true;
-                    forceSSL = true;
-                    locations."/".proxyPass = "http://localhost:3000";
-                  };
-
-                  systemd.services.benefice.after = [
-                    "network-online.target"
-                  ];
-                  systemd.services.benefice.description = "Benefice";
-                  systemd.services.benefice.enable = true;
-                  systemd.services.benefice.serviceConfig =
-                    hardenedServiceConfig
-                    // {
-                      ExecStart = "${benefice}/bin/benefice @${conf}";
-                      MemoryDenyWriteExecute = false;
-                      Restart = "always";
-                      User = "benefice";
-                    };
-                  systemd.services.benefice.wantedBy = [
-                    "multi-user.target"
-                  ];
-                  systemd.services.benefice.wants = [
-                    "network-online.target"
-                  ];
+                  services.benefice.enable = true;
+                  services.benefice.oidc.client = oidc-client;
+                  services.benefice.oidc.secret = "/var/lib/benefice/oidc-secret";
+                  services.benefice.package = pkgs.benefice.${env};
                 })
               ]
               ++ modules;
@@ -399,7 +361,6 @@
       in {
         sgx-equinix-demo =
           mkBenefice
-          hosts.demo.equinix.sgx
           oidc.client.demo.equinix.sgx
           "staging"
           [
@@ -413,14 +374,16 @@
               imports = [
                 ./hosts/sgx.equinix.demo.enarx.dev
               ];
-              networking.hostName = "sgx-equinix-demo";
-              systemd.services.benefice.environment.RUST_LOG = "info";
+
+              networking.domain = "equinix.demo.enarx.dev";
+              networking.hostName = "sgx";
+
+              services.benefice.log.level = "info";
             })
           ];
 
         snp-equinix-demo =
           mkBenefice
-          hosts.demo.equinix.snp
           oidc.client.demo.equinix.snp
           "staging"
           [
@@ -428,8 +391,11 @@
               imports = [
                 ./hosts/snp.equinix.demo.enarx.dev
               ];
-              networking.hostName = "snp-equinix-demo";
-              systemd.services.benefice.environment.RUST_LOG = "info";
+
+              networking.domain = "equinix.demo.enarx.dev";
+              networking.hostName = "snp";
+
+              services.benefice.log.level = "info";
             })
           ];
 

@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ../../modules/providers/equinix
   ];
@@ -20,9 +24,7 @@
   fileSystems."/boot/efi".device = "/dev/disk/by-id/ata-MTFDDAV240TDU_214332305267-part1";
 
   hardware.cpu.amd.sev.enable = true;
-  hardware.cpu.amd.sev.group = "benefice";
-  hardware.cpu.amd.sev.mode = "0600";
-  hardware.cpu.amd.sev.user = "benefice";
+  hardware.cpu.amd.sev.mode = "0660";
 
   hardware.cpu.amd.updateMicrocode = true;
 
@@ -32,15 +34,8 @@
 
   nix.maxJobs = lib.mkDefault 64;
 
-  security.pam.services.benefice.limits = [
-    {
-      # A more secure version of suggestion in https://enarx.dev/docs/install#setting-up-an-sev-snp-machine
-      domain = "benefice";
-      item = "memlock";
-      type = "hard";
-      value = 8388608;
-    }
-  ];
+  services.enarx.backend = "sev";
+  services.enarx.enable = true;
 
   swapDevices = [
     {device = "/dev/disk/by-id/ata-MTFDDAV240TDU_214332305267-part2";}
