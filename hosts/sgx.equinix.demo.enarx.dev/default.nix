@@ -18,6 +18,8 @@
   hardware.cpu.intel.sgx.provision.service.apiKey = "/var/lib/pccs/api-key";
   hardware.cpu.intel.sgx.provision.service.enable = true;
 
+  hardware.cpu.intel.updateMicrocode = true;
+
   networking.hostId = "395c78d1";
   networking.interfaces.eno12399.useDHCP = true;
   networking.interfaces.eno12409.useDHCP = true;
