@@ -41,8 +41,6 @@
 
   programs.bash.enableCompletion = true;
 
-  programs.fish.enable = true;
-
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
   programs.neovim.viAlias = true;
