@@ -17,8 +17,6 @@ jobs:
         name: enarx
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Deploy
+      # TODO: Reenable https://github.com/profianinc/infrastructure/issues/1
       run: |
-        umask 0077
-        mkdir -p ~/.ssh
-        printf '%s' '${{ secrets.SSH_KEY }}' > ~/.ssh/id_ed25519
-        nix develop -c deploy
+        nix develop -c deploy || exit 0
