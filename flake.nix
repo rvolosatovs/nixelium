@@ -81,7 +81,7 @@
 
     oidc.client.staging.store = "9SVWiB3sQQdzKqpZmMNvsb9rzd8Ha21F";
 
-    oidc.client.store = "2vq9XnQgcGZ9JCxsGERuGURYIld3mcIh";
+    oidc.client.production.store = "2vq9XnQgcGZ9JCxsGERuGURYIld3mcIh";
   in
     {
       nixosConfigurations = let
@@ -115,31 +115,6 @@
         pkgs = import nixpkgs {
           inherit system;
           overlays = [overlay];
-        };
-
-        # TODO: move this to individual service declarations
-        hardenedServiceConfig = {
-          KeyringMode = "private";
-          LockPersonality = true;
-          MemoryDenyWriteExecute = true;
-          NoNewPrivileges = true;
-          PrivateMounts = "yes";
-          PrivateTmp = "yes";
-          ProtectClock = true;
-          ProtectControlGroups = "yes";
-          ProtectHome = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectProc = "invisible";
-          ProtectSystem = "strict";
-          RemoveIPC = true;
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          SystemCallArchitectures = "native";
-          UMask = "0077";
         };
 
         mkDataServiceModule = script: {...}: {
@@ -216,78 +191,6 @@
               ++ modules;
           };
 
-        mkDrawbridge = oidc-client: env: modules: let
-          tls.ca = cert.${env}.attest;
-        in
-          mkHost {
-            name = "drawbridge";
-            modules =
-              [
-                (mkDataServiceModule ''
-                  mkdir -p /var/lib/drawbridge/store
-                  chmod 0700 /var/lib/drawbridge/store
-
-                  chown -R drawbridge:drawbridge /var/lib/drawbridge
-                '')
-                ({
-                  config,
-                  pkgs,
-                  ...
-                }: let
-                  drawbridge = pkgs.drawbridge.${env};
-                  certs = config.security.acme.certs.${fqdn}.directory;
-                  conf = pkgs.writeText "conf.toml" ''
-                    ca = "${tls.ca}"
-                    cert = "${certs}/cert.pem"
-                    key = "${certs}/key.pem"
-                    store = "/var/lib/drawbridge/store"
-                    oidc-client = "${oidc-client}"
-                    oidc-label = "${oidc.issuer}"
-                    oidc-issuer = "https://${oidc.issuer}"
-                  '';
-                in {
-                  environment.systemPackages = [
-                    drawbridge
-                  ];
-
-                  services.nginx.virtualHosts.${fqdn} = {
-                    enableACME = true;
-                    forceSSL = true;
-                    locations."/".proxyPass = "https://localhost:8080";
-                    sslTrustedCertificate = tls.ca;
-                  };
-
-                  systemd.services.drawbridge.after = [
-                    "data.service"
-                    "network-online.target"
-                  ];
-                  systemd.services.drawbridge.description = "Drawbridge";
-                  systemd.services.drawbridge.enable = true;
-                  systemd.services.drawbridge.serviceConfig =
-                    hardenedServiceConfig
-                    // {
-                      ExecStart = "${drawbridge}/bin/drawbridge @${conf}";
-                      ReadWritePaths = [
-                        "/var/lib/drawbridge"
-                      ];
-                      Restart = "always";
-                      User = "drawbridge";
-                    };
-                  systemd.services.drawbridge.wantedBy = [
-                    "multi-user.target"
-                  ];
-                  systemd.services.drawbridge.wants = [
-                    "network-online.target"
-                  ];
-
-                  users.users.drawbridge.extraGroups = [
-                    "nginx"
-                  ];
-                })
-              ]
-              ++ modules;
-          };
-
         mkSteward = env: modules: let
           tls.certificate = cert.${env}.attest;
           tls.key = "/var/lib/steward/ca.key";
@@ -330,16 +233,31 @@
                   ];
                   systemd.services.steward.description = "Steward";
                   systemd.services.steward.enable = true;
-                  systemd.services.steward.serviceConfig =
-                    hardenedServiceConfig
-                    // {
-                      ExecStart = "${steward}/bin/steward @${conf}";
-                      ReadWritePaths = [
-                        "/var/lib/steward"
-                      ];
-                      Restart = "always";
-                      User = "steward";
-                    };
+                  systemd.services.steward.serviceConfig.ExecStart = "${steward}/bin/steward @${conf}";
+                  systemd.services.steward.serviceConfig.KeyringMode = "private";
+                  systemd.services.steward.serviceConfig.LockPersonality = true;
+                  systemd.services.steward.serviceConfig.MemoryDenyWriteExecute = true;
+                  systemd.services.steward.serviceConfig.NoNewPrivileges = true;
+                  systemd.services.steward.serviceConfig.PrivateMounts = "yes";
+                  systemd.services.steward.serviceConfig.PrivateTmp = "yes";
+                  systemd.services.steward.serviceConfig.ProtectClock = true;
+                  systemd.services.steward.serviceConfig.ProtectControlGroups = "yes";
+                  systemd.services.steward.serviceConfig.ProtectHome = true;
+                  systemd.services.steward.serviceConfig.ProtectHostname = true;
+                  systemd.services.steward.serviceConfig.ProtectKernelLogs = true;
+                  systemd.services.steward.serviceConfig.ProtectKernelModules = true;
+                  systemd.services.steward.serviceConfig.ProtectKernelTunables = true;
+                  systemd.services.steward.serviceConfig.ProtectProc = "invisible";
+                  systemd.services.steward.serviceConfig.ProtectSystem = "strict";
+                  systemd.services.steward.serviceConfig.ReadWritePaths = "/var/lib/steward";
+                  systemd.services.steward.serviceConfig.RemoveIPC = true;
+                  systemd.services.steward.serviceConfig.Restart = "always";
+                  systemd.services.steward.serviceConfig.RestrictNamespaces = true;
+                  systemd.services.steward.serviceConfig.RestrictRealtime = true;
+                  systemd.services.steward.serviceConfig.RestrictSUIDSGID = true;
+                  systemd.services.steward.serviceConfig.SystemCallArchitectures = "native";
+                  systemd.services.steward.serviceConfig.UMask = "0077";
+                  systemd.services.steward.serviceConfig.User = "steward";
                   systemd.services.steward.wantedBy = [
                     "multi-user.target"
                   ];
@@ -420,43 +338,55 @@
             })
           ];
 
-        store-testing =
-          mkDrawbridge
-          oidc.client.testing.store
-          "testing"
-          [
-            ({...}: {
+        store-testing = mkHost {
+          name = "drawbridge";
+          modules = [
+            ({pkgs, ...}: {
               imports = [
                 ./hosts/store.testing.profian.com
               ];
-              systemd.services.drawbridge.environment.RUST_LOG = "debug";
+
+              services.drawbridge.enable = true;
+              services.drawbridge.log.level = "debug";
+              services.drawbridge.oidc.client = oidc.client.testing.store;
+              services.drawbridge.package = pkgs.drawbridge.testing;
+              services.drawbridge.tls.ca = cert.testing.attest;
             })
           ];
+        };
 
-        store-staging =
-          mkDrawbridge
-          oidc.client.staging.store
-          "staging"
-          [
-            ({...}: {
+        store-staging = mkHost {
+          name = "drawbridge";
+          modules = [
+            ({pkgs, ...}: {
               imports = [
                 ./hosts/store.staging.profian.com
               ];
-              systemd.services.drawbridge.environment.RUST_LOG = "info";
+
+              services.drawbridge.enable = true;
+              services.drawbridge.log.level = "info";
+              services.drawbridge.oidc.client = oidc.client.staging.store;
+              services.drawbridge.package = pkgs.drawbridge.staging;
+              services.drawbridge.tls.ca = cert.staging.attest;
             })
           ];
+        };
 
-        store =
-          mkDrawbridge
-          oidc.client.store
-          "production"
-          [
-            ({...}: {
+        store = mkHost {
+          name = "drawbridge";
+          modules = [
+            ({pkgs, ...}: {
               imports = [
                 ./hosts/store.profian.com
               ];
+
+              services.drawbridge.enable = true;
+              services.drawbridge.oidc.client = oidc.client.production.store;
+              services.drawbridge.package = pkgs.drawbridge.production;
+              services.drawbridge.tls.ca = cert.production.attest;
             })
           ];
+        };
       };
 
       deploy.nodes = let
