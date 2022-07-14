@@ -56,6 +56,11 @@
 
   security.sudo.enable = true;
 
+  services.benefice.oidc.issuer = "https://auth.profian.com";
+
+  services.drawbridge.oidc.issuer = "https://auth.profian.com";
+  services.drawbridge.oidc.label = "auth.profian.com";
+
   services.nginx.enable = true;
   services.nginx.recommendedGzipSettings = true;
   services.nginx.recommendedOptimisation = true;

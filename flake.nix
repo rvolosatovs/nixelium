@@ -71,8 +71,6 @@
     cert.testing.attest = ./hosts/attest.testing.profian.com/ca.crt;
     cert.production.attest = ./hosts/attest.profian.com/ca.crt;
 
-    oidc.issuer = "auth.profian.com";
-
     oidc.client.demo.equinix.sgx = "23Lt09AjF8HpUeCCwlfhuV34e2dKD1MH";
     oidc.client.demo.equinix.snp = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
 
