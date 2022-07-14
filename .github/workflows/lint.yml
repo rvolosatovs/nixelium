@@ -16,4 +16,4 @@ jobs:
     - name: nix flake check
       run: nix flake check
     - name: nix fmt
-      run: nix fmt ./flake.nix ./shell.nix
+      run: nix fmt
