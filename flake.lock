@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657208189,
-        "narHash": "sha256-EVUN7sd0hPVIQ5wso848kdgKhw5oB2NzqYZpqu3LL3Q=",
+        "lastModified": 1657809434,
+        "narHash": "sha256-MTmqJFO2Plt/+GAo0FLrPqf9qNa/kHCcIDC2zYwnm48=",
         "owner": "profianinc",
         "repo": "benefice",
-        "rev": "e9dc141c73573b49c1935fc7b428c5264c12dbe4",
+        "rev": "194d9e259b350e37269b45fc8b9989c59139eeb7",
         "type": "github"
       },
       "original": {
@@ -293,11 +293,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657507721,
-        "narHash": "sha256-FtV5D35ikz7zvhBX66Bs3VKd/GDyIVA+WQzqkR1PS0E=",
+        "lastModified": 1657767064,
+        "narHash": "sha256-Mp7LmSPnRfWqX7OElXr4HKNbTiDCXLaxijp23xQlDJk=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "1a133f54a0229af8310879eac2c4a82c0576a0b9",
+        "rev": "db9443ca1384f94c0aa63f4e74115f7c0632a8e6",
         "type": "github"
       },
       "original": {
