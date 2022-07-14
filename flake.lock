@@ -154,13 +154,13 @@
     "enarx": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-U99rHNwmkw6VK0j2p9/LVg/J2tyCHl5BhmmpNC5vUOU=",
+        "narHash": "sha256-8n/9yDY+HdrRKvxGKn+LhEMg21fWNO2s4YAdgMdhNGs=",
         "type": "file",
-        "url": "https://github.com/enarx/enarx/releases/download/v0.6.0/enarx-x86_64-unknown-linux-musl"
+        "url": "https://github.com/rvolosatovs/enarx/releases/download/v0.6.1-rc1/enarx-x86_64-unknown-linux-musl"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/enarx/enarx/releases/download/v0.6.0/enarx-x86_64-unknown-linux-musl"
+        "url": "https://github.com/rvolosatovs/enarx/releases/download/v0.6.1-rc1/enarx-x86_64-unknown-linux-musl"
       }
     },
     "fenix": {
