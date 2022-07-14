@@ -23,7 +23,9 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
+  networking.domain = "equinix.demo.enarx.dev";
   networking.hostId = "395c78d1";
+  networking.hostName = "sgx";
   networking.interfaces.eno12399.useDHCP = true;
   networking.interfaces.eno12409.useDHCP = true;
   networking.interfaces.eno12419.useDHCP = true;

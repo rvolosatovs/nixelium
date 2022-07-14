@@ -28,7 +28,9 @@
 
   hardware.cpu.amd.updateMicrocode = true;
 
+  networking.domain = "equinix.demo.enarx.dev";
   networking.hostId = "4a7d85ee";
+  networking.hostName = "snp";
   networking.interfaces.enp65s0f0.useDHCP = true;
   networking.interfaces.enp65s0f1.useDHCP = true;
 

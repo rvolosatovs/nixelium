@@ -67,18 +67,6 @@
 
     emails.ops = "roman@profian.com"; # TODO: How about ops@profian.com ?
 
-    hosts.demo.equinix.sgx = "sgx.equinix.demo.enarx.dev";
-    hosts.demo.equinix.snp = "snp.equinix.demo.enarx.dev";
-
-    hosts.staging.attest = "attest.staging.profian.com";
-    hosts.staging.store = "store.staging.profian.com";
-
-    hosts.testing.attest = "attest.testing.profian.com";
-    hosts.testing.store = "store.testing.profian.com";
-
-    hosts.attest = "attest.profian.com";
-    hosts.store = "store.profian.com";
-
     cert.staging.attest = ./hosts/attest.staging.profian.com/ca.crt;
     cert.testing.attest = ./hosts/attest.testing.profian.com/ca.crt;
     cert.production.attest = ./hosts/attest.profian.com/ca.crt;
@@ -228,7 +216,7 @@
               ++ modules;
           };
 
-        mkDrawbridge = fqdn: oidc-client: env: modules: let
+        mkDrawbridge = oidc-client: env: modules: let
           tls.ca = cert.${env}.attest;
         in
           mkHost {
@@ -300,7 +288,7 @@
               ++ modules;
           };
 
-        mkSteward = fqdn: env: modules: let
+        mkSteward = env: modules: let
           tls.certificate = cert.${env}.attest;
           tls.key = "/var/lib/steward/ca.key";
         in
@@ -314,7 +302,11 @@
 
                   chown -R steward:steward /var/lib/steward
                 '')
-                ({pkgs, ...}: let
+                ({
+                  config,
+                  pkgs,
+                  ...
+                }: let
                   steward = pkgs.steward.${env};
                   conf = pkgs.writeText "conf.toml" ''
                     crt = "${tls.certificate}"
@@ -325,7 +317,7 @@
                     steward
                   ];
 
-                  services.nginx.virtualHosts.${fqdn} = {
+                  services.nginx.virtualHosts.${config.networking.fqdn} = {
                     enableACME = true;
                     forceSSL = true;
                     http2 = false;
@@ -375,9 +367,6 @@
                 ./hosts/sgx.equinix.demo.enarx.dev
               ];
 
-              networking.domain = "equinix.demo.enarx.dev";
-              networking.hostName = "sgx";
-
               services.benefice.log.level = "info";
             })
           ];
@@ -392,57 +381,47 @@
                 ./hosts/snp.equinix.demo.enarx.dev
               ];
 
-              networking.domain = "equinix.demo.enarx.dev";
-              networking.hostName = "snp";
-
               services.benefice.log.level = "info";
             })
           ];
 
         attest-staging =
           mkSteward
-          hosts.staging.attest
           "staging"
           [
             ({...}: {
               imports = [
                 ./hosts/attest.staging.profian.com
               ];
-              networking.hostName = "attest-staging";
               systemd.services.steward.environment.RUST_LOG = "info";
             })
           ];
 
         attest-testing =
           mkSteward
-          hosts.testing.attest
           "testing"
           [
             ({...}: {
               imports = [
                 ./hosts/attest.testing.profian.com
               ];
-              networking.hostName = "attest-testing";
               systemd.services.steward.environment.RUST_LOG = "debug";
             })
           ];
 
         attest =
           mkSteward
-          hosts.attest
           "production"
           [
             ({...}: {
               imports = [
                 ./hosts/attest.profian.com
               ];
-              networking.hostName = "attest";
             })
           ];
 
         store-testing =
           mkDrawbridge
-          hosts.testing.store
           oidc.client.testing.store
           "testing"
           [
@@ -450,14 +429,12 @@
               imports = [
                 ./hosts/store.testing.profian.com
               ];
-              networking.hostName = "store-testing";
               systemd.services.drawbridge.environment.RUST_LOG = "debug";
             })
           ];
 
         store-staging =
           mkDrawbridge
-          hosts.staging.store
           oidc.client.staging.store
           "staging"
           [
@@ -465,14 +442,12 @@
               imports = [
                 ./hosts/store.staging.profian.com
               ];
-              networking.hostName = "store-staging";
               systemd.services.drawbridge.environment.RUST_LOG = "info";
             })
           ];
 
         store =
           mkDrawbridge
-          hosts.store
           oidc.client.store
           "production"
           [
@@ -480,29 +455,28 @@
               imports = [
                 ./hosts/store.profian.com
               ];
-              networking.hostName = "store";
             })
           ];
       };
 
       deploy.nodes = let
-        mkNode = hostname: name: {
-          inherit hostname;
+        mkNode = name: {
+          hostname = self.nixosConfigurations.${name}.config.networking.fqdn;
           profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${name};
           profiles.system.sshUser = sshUser;
           profiles.system.user = "root";
         };
       in {
-        sgx-equinix-demo = mkNode hosts.demo.equinix.sgx "sgx-equinix-demo";
-        snp-equinix-demo = mkNode hosts.demo.equinix.snp "snp-equinix-demo";
+        sgx-equinix-demo = mkNode "sgx-equinix-demo";
+        snp-equinix-demo = mkNode "snp-equinix-demo";
 
-        attest = mkNode hosts.attest "attest";
-        attest-staging = mkNode hosts.staging.attest "attest-staging";
-        attest-testing = mkNode hosts.testing.attest "attest-testing";
+        attest = mkNode "attest";
+        attest-staging = mkNode "attest-staging";
+        attest-testing = mkNode "attest-testing";
 
-        store = mkNode hosts.store "store";
-        store-staging = mkNode hosts.staging.store "store-staging";
-        store-testing = mkNode hosts.testing.store "store-testing";
+        store = mkNode "store";
+        store-staging = mkNode "store-staging";
+        store-testing = mkNode "store-testing";
       };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
