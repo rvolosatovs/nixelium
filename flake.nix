@@ -2,7 +2,7 @@
   description = "Profian Inc Network Infrastructure";
 
   inputs.benefice-staging.flake = false;
-  inputs.benefice-staging.url = "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc4/benefice-x86_64-unknown-linux-musl";
+  inputs.benefice-staging.url = "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc6/benefice-x86_64-unknown-linux-musl";
   inputs.benefice-testing.inputs.cargo2nix.follows = "cargo2nix";
   inputs.benefice-testing.inputs.flake-compat.follows = "flake-compat";
   inputs.benefice-testing.inputs.flake-utils.follows = "flake-utils";
