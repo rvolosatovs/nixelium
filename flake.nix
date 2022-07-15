@@ -153,13 +153,6 @@
                   nixpkgs.overlays = [overlay];
 
                   security.acme.defaults.email = emails.ops;
-
-                  users.groups.${name} = {};
-
-                  users.users.${name} = {
-                    group = name;
-                    isSystemUser = true;
-                  };
                 })
               ]
               ++ modules;
