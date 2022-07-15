@@ -67,10 +67,6 @@
 
     emails.ops = "roman@profian.com"; # TODO: How about ops@profian.com ?
 
-    cert.staging.attest = ./hosts/attest.staging.profian.com/ca.crt;
-    cert.testing.attest = ./hosts/attest.testing.profian.com/ca.crt;
-    cert.production.attest = ./hosts/attest.profian.com/ca.crt;
-
     oidc.client.demo.equinix.sgx = "23Lt09AjF8HpUeCCwlfhuV34e2dKD1MH";
     oidc.client.demo.equinix.snp = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
 
@@ -124,10 +120,7 @@
           systemd.services.data.wantedBy = ["multi-user.target"];
         };
 
-        mkHost = {
-          name,
-          modules ? [],
-        }:
+        mkHost = modules:
           nixpkgs.lib.nixosSystem {
             inherit system;
 
@@ -158,210 +151,147 @@
               ++ modules;
           };
 
-        # TODO: remove this function
-        mkBenefice = oidc-client: env: modules:
-          mkHost {
-            name = "benefice";
-            modules =
-              [
-                (mkDataServiceModule ''
-                  chmod 0700 /var/lib/benefice
-                  chmod 0600 /var/lib/benefice/oidc-secret
+        mkBenefice = modules:
+          mkHost [
+            ({lib, ...}: let
+              pre = pkgs.writeShellScript "pre.sh" ''
+                chmod 0500 /var/lib/benefice
+                chmod 0400 /var/lib/benefice/oidc-secret
+                chown -R benefice:benefice /var/lib/benefice
+              '';
 
-                  chown -R benefice:benefice /var/lib/benefice
-                '')
-                ({lib, ...}: {
-                  networking.firewall.enable = lib.mkForce false;
+              stop = pkgs.writeShellScript "post.sh" ''
+                chmod -R 0000 /var/lib/benefice
+                chown -R root:root /var/lib/benefice
+              '';
+            in {
+              networking.firewall.enable = lib.mkForce false;
 
-                  services.benefice.enable = true;
-                  services.benefice.oidc.client = oidc-client;
-                  services.benefice.oidc.secret = "/var/lib/benefice/oidc-secret";
-                  services.benefice.package = pkgs.benefice.${env};
-                })
-              ]
-              ++ modules;
-          };
+              services.benefice.enable = true;
+              services.benefice.oidc.secret = "/var/lib/benefice/oidc-secret";
 
-        mkSteward = env: modules: let
-          tls.certificate = cert.${env}.attest;
-          tls.key = "/var/lib/steward/ca.key";
-        in
-          mkHost {
-            name = "steward";
-            modules =
-              [
-                (mkDataServiceModule ''
-                  chmod 0700 /var/lib/steward
-                  chmod 0600 ${tls.key}
+              systemd.services.benefice.serviceConfig.ExecStartPre = "+${pre}";
+              systemd.services.benefice.serviceConfig.ExecStop = "+${stop}";
+            })
+          ]
+          ++ modules;
 
-                  chown -R steward:steward /var/lib/steward
-                '')
-                ({
-                  config,
-                  pkgs,
-                  ...
-                }: let
-                  steward = pkgs.steward.${env};
-                  conf = pkgs.writeText "conf.toml" ''
-                    crt = "${tls.certificate}"
-                    key = "${tls.key}"
-                  '';
-                in {
-                  environment.systemPackages = [
-                    steward
-                  ];
+        mkSteward = modules:
+          mkHost [
+            ({pkgs, ...}: let
+              pre = pkgs.writeShellScript "pre.sh" ''
+                chmod 0500 /var/lib/steward
+                chmod 0400 /var/lib/steward/ca.*
+                chown -R steward:steward /var/lib/steward
+              '';
 
-                  services.nginx.virtualHosts.${config.networking.fqdn} = {
-                    enableACME = true;
-                    forceSSL = true;
-                    http2 = false;
-                    locations."/".proxyPass = "http://localhost:3000";
-                  };
+              stop = pkgs.writeShellScript "post.sh" ''
+                chmod -R 0000 /var/lib/steward
+                chown -R root:root /var/lib/steward
+              '';
+            in {
+              services.steward.enable = true;
+              services.steward.key = "/var/lib/steward/ca.key";
 
-                  systemd.services.steward.after = [
-                    "data.service"
-                    "network-online.target"
-                  ];
-                  systemd.services.steward.description = "Steward";
-                  systemd.services.steward.enable = true;
-                  systemd.services.steward.serviceConfig.ExecStart = "${steward}/bin/steward @${conf}";
-                  systemd.services.steward.serviceConfig.KeyringMode = "private";
-                  systemd.services.steward.serviceConfig.LockPersonality = true;
-                  systemd.services.steward.serviceConfig.MemoryDenyWriteExecute = true;
-                  systemd.services.steward.serviceConfig.NoNewPrivileges = true;
-                  systemd.services.steward.serviceConfig.PrivateMounts = "yes";
-                  systemd.services.steward.serviceConfig.PrivateTmp = "yes";
-                  systemd.services.steward.serviceConfig.ProtectClock = true;
-                  systemd.services.steward.serviceConfig.ProtectControlGroups = "yes";
-                  systemd.services.steward.serviceConfig.ProtectHome = true;
-                  systemd.services.steward.serviceConfig.ProtectHostname = true;
-                  systemd.services.steward.serviceConfig.ProtectKernelLogs = true;
-                  systemd.services.steward.serviceConfig.ProtectKernelModules = true;
-                  systemd.services.steward.serviceConfig.ProtectKernelTunables = true;
-                  systemd.services.steward.serviceConfig.ProtectProc = "invisible";
-                  systemd.services.steward.serviceConfig.ProtectSystem = "strict";
-                  systemd.services.steward.serviceConfig.ReadWritePaths = "/var/lib/steward";
-                  systemd.services.steward.serviceConfig.RemoveIPC = true;
-                  systemd.services.steward.serviceConfig.Restart = "always";
-                  systemd.services.steward.serviceConfig.RestrictNamespaces = true;
-                  systemd.services.steward.serviceConfig.RestrictRealtime = true;
-                  systemd.services.steward.serviceConfig.RestrictSUIDSGID = true;
-                  systemd.services.steward.serviceConfig.SystemCallArchitectures = "native";
-                  systemd.services.steward.serviceConfig.UMask = "0077";
-                  systemd.services.steward.serviceConfig.User = "steward";
-                  systemd.services.steward.wantedBy = [
-                    "multi-user.target"
-                  ];
-                  systemd.services.steward.wants = [
-                    "network-online.target"
-                  ];
-                })
-              ]
-              ++ modules;
-          };
+              systemd.services.steward.serviceConfig.ExecStartPre = "+${pre}";
+              systemd.services.steward.serviceConfig.ExecStop = "+${stop}";
+              systemd.services.steward.unitConfig.AssertPathExists = ["/var/lib/steward"];
+            })
+          ]
+          ++ modules;
       in {
-        sgx-equinix-demo =
-          mkBenefice
-          oidc.client.demo.equinix.sgx
-          "staging"
-          [
-            (mkDataServiceModule ''
-              chmod 0700 /var/lib/pccs
-              chmod 0600 /var/lib/pccs/api-key
+        sgx-equinix-demo = mkBenefice [
+          (mkDataServiceModule ''
+            chmod 0500 /var/lib/pccs
+            chmod 0600 /var/lib/pccs/api-key
 
-              chown -R root:pccs /var/lib/pccs
-            '')
-            ({...}: {
-              imports = [
-                ./hosts/sgx.equinix.demo.enarx.dev
-              ];
+            chown -R root:pccs /var/lib/pccs
+          '')
+          ({...}: {
+            imports = [
+              ./hosts/sgx.equinix.demo.enarx.dev
+            ];
 
-              services.benefice.log.level = "info";
-            })
-          ];
+            services.benefice.log.level = "info";
+            services.benefice.oidc.client = oidc.client.demo.equinix.sgx;
+            services.benefice.package = pkgs.benefice.staging;
+          })
+        ];
 
-        snp-equinix-demo =
-          mkBenefice
-          oidc.client.demo.equinix.snp
-          "staging"
-          [
-            ({...}: {
-              imports = [
-                ./hosts/snp.equinix.demo.enarx.dev
-              ];
+        snp-equinix-demo = mkBenefice [
+          ({...}: {
+            imports = [
+              ./hosts/snp.equinix.demo.enarx.dev
+            ];
 
-              services.benefice.log.level = "info";
-            })
-          ];
+            services.benefice.log.level = "info";
+            services.benefice.oidc.client = oidc.client.demo.equinix.snp;
+            services.benefice.package = pkgs.benefice.staging;
+          })
+        ];
 
-        attest-staging =
-          mkSteward
-          "staging"
-          [
-            ({...}: {
-              imports = [
-                ./hosts/attest.staging.profian.com
-              ];
-              systemd.services.steward.environment.RUST_LOG = "info";
-            })
-          ];
+        attest-staging = mkSteward [
+          ({...}: {
+            imports = [
+              ./hosts/attest.staging.profian.com
+            ];
 
-        attest-testing =
-          mkSteward
-          "testing"
-          [
-            ({...}: {
-              imports = [
-                ./hosts/attest.testing.profian.com
-              ];
-              systemd.services.steward.environment.RUST_LOG = "debug";
-            })
-          ];
+            services.steward.certificate = "${./hosts/attest.staging.profian.com/ca.crt}";
+            services.steward.log.level = "info";
+            services.steward.package = pkgs.steward.staging;
+          })
+        ];
 
-        attest =
-          mkSteward
-          "production"
-          [
-            ({...}: {
-              imports = [
-                ./hosts/attest.profian.com
-              ];
-            })
-          ];
+        attest-testing = mkSteward [
+          ({...}: {
+            imports = [
+              ./hosts/attest.testing.profian.com
+            ];
 
-        store-testing = mkHost {
-          name = "drawbridge";
-          modules = [
-            ({pkgs, ...}: {
-              imports = [
-                ./hosts/store.testing.profian.com
-              ];
+            services.steward.certificate = "${./hosts/attest.testing.profian.com/ca.crt}";
+            services.steward.log.level = "debug";
+            services.steward.package = pkgs.steward.testing;
+          })
+        ];
 
-              services.drawbridge.enable = true;
-              services.drawbridge.log.level = "debug";
-              services.drawbridge.oidc.client = oidc.client.testing.store;
-              services.drawbridge.package = pkgs.drawbridge.testing;
-              services.drawbridge.tls.ca = cert.testing.attest;
-            })
-          ];
-        };
+        attest = mkSteward [
+          ({...}: {
+            imports = [
+              ./hosts/attest.profian.com
+            ];
 
-        store-staging = mkHost {
-          name = "drawbridge";
-          modules = [
-            ({pkgs, ...}: {
-              imports = [
-                ./hosts/store.staging.profian.com
-              ];
+            services.steward.certificate = "${./hosts/attest.profian.com/ca.crt}";
+            services.steward.package = pkgs.steward.production;
+          })
+        ];
 
-              services.drawbridge.enable = true;
-              services.drawbridge.log.level = "info";
-              services.drawbridge.oidc.client = oidc.client.staging.store;
-              services.drawbridge.package = pkgs.drawbridge.staging;
-              services.drawbridge.tls.ca = cert.staging.attest;
-            })
-          ];
-        };
+        store-testing = mkHost [
+          ({pkgs, ...}: {
+            imports = [
+              ./hosts/store.testing.profian.com
+            ];
+
+            services.drawbridge.enable = true;
+            services.drawbridge.log.level = "debug";
+            services.drawbridge.oidc.client = oidc.client.testing.store;
+            services.drawbridge.package = pkgs.drawbridge.testing;
+            services.drawbridge.tls.ca = "${./hosts/attest.testing.profian.com/ca.crt}";
+          })
+        ];
+
+        store-staging = mkHost [
+          ({pkgs, ...}: {
+            imports = [
+              ./hosts/store.staging.profian.com
+            ];
+
+            services.drawbridge.enable = true;
+            services.drawbridge.log.level = "info";
+            services.drawbridge.oidc.client = oidc.client.staging.store;
+            services.drawbridge.package = pkgs.drawbridge.staging;
+            services.drawbridge.tls.ca = "${./hosts/attest.staging.profian.com/ca.crt}";
+          })
+        ];
 
         store = mkHost {
           name = "drawbridge";
@@ -374,7 +304,7 @@
               services.drawbridge.enable = true;
               services.drawbridge.oidc.client = oidc.client.production.store;
               services.drawbridge.package = pkgs.drawbridge.production;
-              services.drawbridge.tls.ca = cert.production.attest;
+              services.drawbridge.tls.ca = "${./hosts/attest.profian.com/ca.crt}";
             })
           ];
         };
