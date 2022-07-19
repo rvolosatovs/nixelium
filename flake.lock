@@ -125,25 +125,25 @@
     "drawbridge-production": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-0WgKC8FUZcDOcNp7Uqy/+u6CiDwsiA335CHugUgXIVA=",
+        "narHash": "sha256-2oVHbCrSFeIkqvCQr4WKiDU3m2GTcy5aB+1fh8WPH+k=",
         "type": "file",
-        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.2.0/drawbridge-x86_64-unknown-linux-musl"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.2.0/drawbridge-x86_64-unknown-linux-musl"
       }
     },
     "drawbridge-staging": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-0WgKC8FUZcDOcNp7Uqy/+u6CiDwsiA335CHugUgXIVA=",
+        "narHash": "sha256-2oVHbCrSFeIkqvCQr4WKiDU3m2GTcy5aB+1fh8WPH+k=",
         "type": "file",
-        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.2.0/drawbridge-x86_64-unknown-linux-musl"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/drawbridge/releases/download/v0.2.0/drawbridge-x86_64-unknown-linux-musl"
       }
     },
     "drawbridge-testing": {
@@ -155,11 +155,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1657901943,
-        "narHash": "sha256-qzkEDMdPlGtvE5oTeAgEpYhvJqxqijhJpamP8N+QXac=",
+        "lastModified": 1658246095,
+        "narHash": "sha256-S4I5wwsl0uvCb5WWAXBH812Zab+f9q+ct8l+egtPVHk=",
         "owner": "profianinc",
         "repo": "drawbridge",
-        "rev": "58a01b27f9b4c3586d61fd83bd9122a2f4211b5e",
+        "rev": "cf6efc6cc99a875bfe9a43ab0980fc5258763eb7",
         "type": "github"
       },
       "original": {

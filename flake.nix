@@ -7,9 +7,9 @@
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
   inputs.deploy-rs.url = github:serokell/deploy-rs;
   inputs.drawbridge-production.flake = false;
-  inputs.drawbridge-production.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl";
+  inputs.drawbridge-production.url = "https://github.com/profianinc/drawbridge/releases/download/v0.2.0/drawbridge-x86_64-unknown-linux-musl";
   inputs.drawbridge-staging.flake = false;
-  inputs.drawbridge-staging.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl";
+  inputs.drawbridge-staging.url = "https://github.com/profianinc/drawbridge/releases/download/v0.2.0/drawbridge-x86_64-unknown-linux-musl";
   inputs.drawbridge-testing.url = github:profianinc/drawbridge;
   inputs.enarx.flake = false;
   # TODO: Use upstream release
