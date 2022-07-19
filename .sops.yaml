@@ -1,0 +1,33 @@
+keys:
+  - &roman b1187afda5ba91e07f7ef8aee71604ba8e53bf31
+
+creation_rules:
+  - path_regex: hosts/attest.profian.com
+    key_groups:
+    - age:
+      - age1xzj57htudq40z8dzaqclma3zm9u0n2ydat7sjv4q0zyu48n3fp6sen4glk
+
+  - path_regex: hosts/attest.staging.profian.com
+    key_groups:
+    - age:
+      - age1mvfx8697gv2uxhk5kvsccmqpuy23pd0z5z2nmrtxrgmxxrg5dgjqkytcnv
+
+  - path_regex: hosts/attest.testing.profian.com
+    key_groups:
+    - age:
+      - age10p3jcp80q9cmzfqxl73cnjx2t24x93gvxg7jjzu9cz4yqgnfv9nqf7qxle
+
+  - path_regex: hosts/sgx.equinix.demo.enarx.dev
+    key_groups:
+    - age:
+      - age1ngtadawwwsemf0uveuzz3ypq0y7e5mqxfclk752tdwre98w4sckq8yxjj5
+
+  - path_regex: hosts/snp.equinix.demo.enarx.dev
+    key_groups:
+    - age:
+      - age1xq3cf6l9l23jqu54s4xqjnex9g04tmuw89tfvk5vwl573njhlscszym3hk
+
+  - path_regex: ca/
+    key_groups:
+    - pgp:
+      - *roman
