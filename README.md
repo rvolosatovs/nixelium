@@ -18,9 +18,7 @@ The `drawbridge` service is configured with Steward CA certificate, as well as s
 
 ### Access
 
-There are two users defined relevant for deployment:
-- `ops` - is used for administrative tasks, as well as debugging, restarting services, checking the logs etc.
-- `deploy` is used for deployment
+`deploy` user is used for deployment.
 
 ## Deployment
 
@@ -44,14 +42,6 @@ $ bootstrap
 ```
 This will generate keys and certificates for all hosts.
 
-### Provisioning
-
-From within [`nix develop` shell](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-develop.html):
-```sh
-$ provision
-```
-This will provision all hosts by initializing data directories and uploading the keys.
-
 ### Deploying changes
 
 [`serokell/deploy-rs`](https://github.com/serokell/deploy-rs) is used for deployment. (Note, the tool does not need to be installed as it is already present in `nix` development shell)
@@ -65,7 +55,7 @@ $ deploy
 
 Or to deploy a specific instance:
 ```sh
-$ deploy '.#drawbridge-testing'
+$ deploy '.#store-testing'
 ```
 
 ## Project Structure
