@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -31,12 +32,12 @@
   nix.optimise.automatic = true;
   nix.requireSignedBinaryCaches = true;
   nix.settings.auto-optimise-store = true;
-  nix.settings.allowed-users = [
-    "@wheel"
-    "root"
+  nix.settings.allowed-users = with config.users; [
+    "@${groups.wheel.name}"
+    users.root.name
   ];
-  nix.settings.trusted-users = [
-    "root"
+  nix.settings.trusted-users = with config.users; [
+    users.root.name
   ];
 
   programs.bash.enableCompletion = true;

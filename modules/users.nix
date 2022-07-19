@@ -8,10 +8,10 @@
   keys.platten = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICINJWxtAQ9+03WqKkLphYQ9/k43a7YX/OUAufZoXfb+";
   keys.rvolosatovs = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKEC3hGlw5tDKcfbvTd+IdZxGSdux1i/AIK3mzx4bZuX";
 
-  adminGroups = [
-    "deploy"
-    "ops"
-    "wheel"
+  adminGroups = with config.users.groups; [
+    deploy.name
+    ops.name
+    wheel.name
   ];
 in {
   security.sudo.extraRules = let
@@ -24,8 +24,8 @@ in {
     };
   in [
     {
-      groups = ["deploy"];
-      runAs = "root";
+      groups = with config.users.groups; [deploy.name];
+      runAs = config.users.users.root.name;
       commands = [
         (nopasswd "${systemPath}/activate-rs activate *")
         (nopasswd "${systemPath}/activate-rs wait *")
@@ -33,15 +33,15 @@ in {
       ];
     }
     {
-      groups = ["wheel"];
-      runAs = "root";
+      groups = with config.users.groups; [wheel.name];
+      runAs = config.users.users.root.name;
       commands = [
         (nopasswd "ALL")
       ];
     }
     {
-      groups = ["ops"];
-      runAs = "root";
+      groups = with config.users.groups; [ops.name];
+      runAs = config.users.users.root.name;
       commands = [
         (nopasswd "/run/current-system/sw/bin/systemctl reboot")
         (nopasswd "/run/current-system/sw/bin/systemctl restart *")
@@ -55,7 +55,7 @@ in {
   users.groups.ops = {};
 
   users.users.deploy.isSystemUser = true;
-  users.users.deploy.group = "deploy";
+  users.users.deploy.group = config.users.groups.deploy.name;
   users.users.deploy.openssh.authorizedKeys.keys = with keys; [
     haraldh
     npmccallum
@@ -74,9 +74,9 @@ in {
   users.users.npmccallum.shell = pkgs.bashInteractive;
 
   users.users.platten.isNormalUser = true;
-  users.users.platten.extraGroups = [
-    "deploy"
-    "ops"
+  users.users.platten.extraGroups = with config.users.groups; [
+    deploy.name
+    ops.name
   ];
   users.users.platten.openssh.authorizedKeys.keys = with keys; [platten];
   users.users.platten.shell = pkgs.bashInteractive;

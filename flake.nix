@@ -127,21 +127,17 @@
             modules =
               [
                 ./modules
-                ({
-                  config,
-                  pkgs,
-                  ...
-                }: {
+                ({config, ...}: {
                   networking.firewall.allowedTCPPorts = [
                     80
                     443
                   ];
 
-                  nix.settings.allowed-users = [
-                    "@deploy"
+                  nix.settings.allowed-users = with config.users; [
+                    "@${groups.deploy.name}"
                   ];
-                  nix.settings.trusted-users = [
-                    "@deploy"
+                  nix.settings.trusted-users = with config.users; [
+                    "@${groups.deploy.name}"
                   ];
                   nixpkgs.overlays = [overlay];
 
