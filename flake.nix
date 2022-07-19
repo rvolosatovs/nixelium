@@ -150,7 +150,6 @@
     mkDrawbridge = mkService [
       {
         services.drawbridge.enable = true;
-        services.drawbridge.tls.caFile = "${./ca/ca.crt}";
       }
     ];
 
@@ -187,6 +186,8 @@
       '';
 
     bootstrapCA = pkgs: let
+      key = ''"ca/''${1}/ca.key"'';
+      crt = ''"ca/''${1}/ca.crt"'';
       conf = pkgs.writeText "ca.conf" ''
         [req]
         distinguished_name = req_distinguished_name
@@ -210,54 +211,84 @@
       sops = "${pkgs.sops}/bin/sops";
     in
       pkgs.writeShellScriptBin "bootstrap-ca" ''
-        set -e
-
-        umask 0077
-
-        ${openssl} ecparam -genkey -name prime256v1 | ${openssl} pkcs8 -topk8 -nocrypt -out ca/ca.key
-        ${openssl} req -new -x509 -days 365 -config ${conf} -key ca/ca.key -out ca/ca.crt
-        ${sops} -e -i ca/ca.key
-      '';
-
-    bootstrapSteward = pkgs: let
-      key = ''"''${1}/ca.key"'';
-      csr = ''"''${1}/ca.csr"'';
-      crt = ''"''${1}/ca.crt"'';
-
-      conf = ./ca/ca.conf;
-      openssl = "${pkgs.openssl}/bin/openssl";
-      shred = "${pkgs.coreutils}/bin/shred";
-      sops = "${pkgs.sops}/bin/sops";
-    in
-      pkgs.writeShellScriptBin "bootstrap-steward" ''
-        set -e
+        set -xe
 
         umask 0077
 
         ${openssl} ecparam -genkey -name prime256v1 | ${openssl} pkcs8 -topk8 -nocrypt -out ${key}
-        ${openssl} req -new -config ${conf} -key ${key} -out ${csr}
-
-        ${sops} -d ca/ca.key > ca/ca.plaintext.key
-        ${openssl} x509 -req -days 365 -CAcreateserial -CA ca/ca.crt -CAkey ca/ca.plaintext.key -in ${csr} -out ${crt} -extfile ${conf} -extensions v3_ca
-
-        ${shred} -fzu ca/ca.plaintext.key
+        ${openssl} req -new -x509 -days 365 -config ${conf} -key ${key} -out ${crt}
         ${sops} -e -i ${key}
       '';
 
+    bootstrapSteward = pkgs: let
+      ca.key = ''"ca/''${1}/ca.key"'';
+      ca.crt = ''"ca/''${1}/ca.crt"'';
+
+      steward.key = ''"hosts/attest.''${1}/steward.key"'';
+      steward.csr = ''"hosts/attest.''${1}/steward.csr"'';
+      steward.crt = ''"hosts/attest.''${1}/steward.crt"'';
+
+      conf = pkgs.writeText "steward.conf" ''
+        [req]
+        distinguished_name = req_distinguished_name
+        prompt = no
+        x509_extensions = v3_ca
+
+        [req_distinguished_name]
+        C   = US
+        ST  = North Carolina
+        L   = Raleigh
+        CN  = Proof of Concept
+
+        [v3_ca]
+        basicConstraints = critical,CA:TRUE
+        keyUsage = cRLSign, keyCertSign
+        nsComment = "Profian attestation service CA certificate"
+        subjectKeyIdentifier = hash
+      '';
+
+      openssl = "${pkgs.openssl}/bin/openssl";
+      sops = "${pkgs.sops}/bin/sops";
+
+      sign-cert = "${pkgs.writeShellScriptBin "sign-cert" ''
+        set -xe
+
+        ${openssl} x509 -req -days 365 -CAcreateserial -CA ${ca.crt} -CAkey "''${2}" -in ${steward.csr} -out ${steward.crt} -extfile ${conf} -extensions v3_ca
+      ''}/bin/sign-cert";
+    in
+      pkgs.writeShellScriptBin "bootstrap-steward" ''
+        set -xe
+
+        umask 0077
+
+        ${openssl} ecparam -genkey -name prime256v1 | ${openssl} pkcs8 -topk8 -nocrypt -out ${steward.key}
+        ${openssl} req -new -config ${conf} -key ${steward.key} -out ${steward.csr}
+        ${sops} -e -i ${steward.key}
+
+        ${sops} exec-file ${ca.key} "${sign-cert} \"''${1}\" {}"
+      '';
+
     bootstrap = pkgs: let
+      bootstrap-ca = "${pkgs.bootstrap-ca}/bin/bootstrap-ca";
       bootstrap-steward = "${pkgs.bootstrap-steward}/bin/bootstrap-steward";
     in
       pkgs.writeShellScriptBin "bootstrap" ''
+        set -e
+
+        for host in ca/*; do
+            ${bootstrap-ca} "''${host#'ca/'}"
+        done
+
         for host in hosts/attest.*; do
-            ${bootstrap-steward} "''${host}"
+            ${bootstrap-steward} "''${host#'hosts/attest.'}"
         done
       '';
 
     toolingOverlay = self: super: {
-      host-key = hostKey self;
+      bootstrap = bootstrap self;
       bootstrap-ca = bootstrapCA self;
       bootstrap-steward = bootstrapSteward self;
-      bootstrap = bootstrap self;
+      host-key = hostKey self;
     };
   in
     {
@@ -296,11 +327,11 @@
               ./hosts/attest.staging.profian.com
             ];
 
-            services.steward.certFile = "${./hosts/attest.staging.profian.com/ca.crt}";
+            services.steward.certFile = "${./hosts/attest.staging.profian.com/steward.crt}";
             services.steward.log.level = "info";
             services.steward.package = pkgs.steward.staging;
 
-            sops.secrets.key.sopsFile = ./hosts/attest.staging.profian.com/ca.key;
+            sops.secrets.key.sopsFile = ./hosts/attest.staging.profian.com/steward.key;
           })
         ];
 
@@ -310,11 +341,11 @@
               ./hosts/attest.testing.profian.com
             ];
 
-            services.steward.certFile = "${./hosts/attest.testing.profian.com/ca.crt}";
+            services.steward.certFile = "${./hosts/attest.testing.profian.com/steward.crt}";
             services.steward.log.level = "debug";
             services.steward.package = pkgs.steward.testing;
 
-            sops.secrets.key.sopsFile = ./hosts/attest.testing.profian.com/ca.key;
+            sops.secrets.key.sopsFile = ./hosts/attest.testing.profian.com/steward.key;
           })
         ];
 
@@ -324,10 +355,10 @@
               ./hosts/attest.profian.com
             ];
 
-            services.steward.certFile = "${./hosts/attest.profian.com/ca.crt}";
+            services.steward.certFile = "${./hosts/attest.profian.com/steward.crt}";
             services.steward.package = pkgs.steward.production;
 
-            sops.secrets.key.sopsFile = ./hosts/attest.profian.com/ca.key;
+            sops.secrets.key.sopsFile = ./hosts/attest.profian.com/steward.key;
           })
         ];
 
@@ -340,6 +371,7 @@
             services.drawbridge.log.level = "debug";
             services.drawbridge.oidc.client = oidc.client.testing.store;
             services.drawbridge.package = pkgs.drawbridge.testing;
+            services.drawbridge.tls.caFile = "${./ca/testing.profian.com/ca.crt}";
           })
         ];
 
@@ -352,6 +384,7 @@
             services.drawbridge.log.level = "info";
             services.drawbridge.oidc.client = oidc.client.staging.store;
             services.drawbridge.package = pkgs.drawbridge.staging;
+            services.drawbridge.tls.caFile = "${./ca/staging.profian.com/ca.crt}";
           })
         ];
 
@@ -363,6 +396,7 @@
 
             services.drawbridge.oidc.client = oidc.client.production.store;
             services.drawbridge.package = pkgs.drawbridge.production;
+            services.drawbridge.tls.caFile = "${./ca/profian.com/ca.crt}";
           })
         ];
       };
