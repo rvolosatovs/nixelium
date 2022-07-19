@@ -3,28 +3,13 @@
 
   inputs.benefice-staging.flake = false;
   inputs.benefice-staging.url = "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc6/benefice-x86_64-unknown-linux-musl";
-  inputs.benefice-testing.inputs.cargo2nix.follows = "cargo2nix";
-  inputs.benefice-testing.inputs.flake-compat.follows = "flake-compat";
-  inputs.benefice-testing.inputs.flake-utils.follows = "flake-utils";
-  inputs.benefice-testing.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.benefice-testing.inputs.rust-overlay.follows = "rust-overlay";
   inputs.benefice-testing.url = github:profianinc/benefice;
-  inputs.cargo2nix.inputs.flake-compat.follows = "flake-compat";
-  inputs.cargo2nix.inputs.flake-utils.follows = "flake-utils";
-  inputs.cargo2nix.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.cargo2nix.inputs.rust-overlay.follows = "rust-overlay";
-  inputs.cargo2nix.url = github:cargo2nix/cargo2nix;
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
   inputs.deploy-rs.url = github:serokell/deploy-rs;
   inputs.drawbridge-production.flake = false;
   inputs.drawbridge-production.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl";
   inputs.drawbridge-staging.flake = false;
   inputs.drawbridge-staging.url = "https://github.com/profianinc/drawbridge/releases/download/v0.1.0/drawbridge-x86_64-unknown-linux-musl";
-  inputs.drawbridge-testing.inputs.cargo2nix.follows = "cargo2nix";
-  inputs.drawbridge-testing.inputs.flake-compat.follows = "flake-compat";
-  inputs.drawbridge-testing.inputs.flake-utils.follows = "flake-utils";
-  inputs.drawbridge-testing.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.drawbridge-testing.inputs.rust-overlay.follows = "rust-overlay";
   inputs.drawbridge-testing.url = github:profianinc/drawbridge;
   inputs.enarx.flake = false;
   # TODO: Use upstream release
@@ -33,23 +18,16 @@
   inputs.flake-compat.url = github:edolstra/flake-compat;
   inputs.flake-utils.url = github:numtide/flake-utils;
   inputs.nixpkgs.url = github:profianinc/nixpkgs;
-  inputs.rust-overlay.inputs.flake-utils.follows = "flake-utils";
-  inputs.rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.rust-overlay.url = github:oxalica/rust-overlay;
   inputs.steward-production.flake = false;
   inputs.steward-production.url = "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl";
   inputs.steward-staging.flake = false;
   inputs.steward-staging.url = "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl";
-  inputs.steward-testing.inputs.flake-compat.follows = "flake-compat";
-  inputs.steward-testing.inputs.flake-utils.follows = "flake-utils";
-  inputs.steward-testing.inputs.nixpkgs.follows = "nixpkgs";
   inputs.steward-testing.url = github:profianinc/steward;
 
   outputs = {
     self,
     benefice-staging,
     benefice-testing,
-    cargo2nix,
     deploy-rs,
     drawbridge-production,
     drawbridge-staging,
@@ -58,7 +36,6 @@
     flake-compat,
     flake-utils,
     nixpkgs,
-    rust-overlay,
     steward-production,
     steward-staging,
     steward-testing,
