@@ -291,9 +291,9 @@
       host-key = hostKey self;
     };
 
-    mkDeployNode = system: name: {
-      hostname = self.nixosConfigurations.${name}.config.networking.fqdn;
-      profiles.system.path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.${name};
+    mkDeployNode = system: nixos: {
+      hostname = nixos.config.networking.fqdn;
+      profiles.system.path = deploy-rs.lib.${system}.activate.nixos nixos;
       profiles.system.sshUser = sshUser;
       profiles.system.user = "root";
     };
@@ -406,16 +406,16 @@
         })
       ];
 
-      deploy.nodes.sgx-equinix-demo = mkDeployNode "x86_64-linux" "sgx-equinix-demo";
-      deploy.nodes.snp-equinix-demo = mkDeployNode "x86_64-linux" "snp-equinix-demo";
+      deploy.nodes.sgx-equinix-demo = mkDeployNode "x86_64-linux" self.nixosConfigurations.sgx-equinix-demo;
+      deploy.nodes.snp-equinix-demo = mkDeployNode "x86_64-linux" self.nixosConfigurations.snp-equinix-demo;
 
-      deploy.nodes.attest = mkDeployNode "x86_64-linux" "attest";
-      deploy.nodes.attest-staging = mkDeployNode "x86_64-linux" "attest-staging";
-      deploy.nodes.attest-testing = mkDeployNode "x86_64-linux" "attest-testing";
+      deploy.nodes.attest = mkDeployNode "x86_64-linux" self.nixosConfigurations.attest;
+      deploy.nodes.attest-staging = mkDeployNode "x86_64-linux" self.nixosConfigurations.attest-staging;
+      deploy.nodes.attest-testing = mkDeployNode "x86_64-linux" self.nixosConfigurations.attest-testing;
 
-      deploy.nodes.store = mkDeployNode "x86_64-linux" "store";
-      deploy.nodes.store-staging = mkDeployNode "x86_64-linux" "store-staging";
-      deploy.nodes.store-testing = mkDeployNode "x86_64-linux" "store-testing";
+      deploy.nodes.store = mkDeployNode "x86_64-linux" self.nixosConfigurations.store;
+      deploy.nodes.store-staging = mkDeployNode "x86_64-linux" self.nixosConfigurations.store-staging;
+      deploy.nodes.store-testing = mkDeployNode "x86_64-linux" self.nixosConfigurations.store-testing;
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     }
