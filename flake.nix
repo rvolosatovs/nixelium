@@ -298,153 +298,156 @@
       profiles.system.user = "root";
     };
   in
-    {
-      nixosConfigurations.sgx-equinix-demo = mkBenefice "x86_64-linux" [
-        ({pkgs, ...}: {
-          imports = [
-            ./hosts/sgx.equinix.demo.enarx.dev
-          ];
+    with flake-utils.lib.system;
+      {
+        nixosConfigurations.sgx-equinix-demo = mkBenefice x86_64-linux [
+          ({pkgs, ...}: {
+            imports = [
+              ./hosts/sgx.equinix.demo.enarx.dev
+            ];
 
-          services.benefice.log.level = "info";
-          services.benefice.oidc.client = oidc.client.demo.equinix.sgx;
-          services.benefice.package = pkgs.benefice.staging;
+            services.benefice.log.level = "info";
+            services.benefice.oidc.client = oidc.client.demo.equinix.sgx;
+            services.benefice.package = pkgs.benefice.staging;
 
-          sops.secrets.oidc-secret.sopsFile = ./hosts/sgx.equinix.demo.enarx.dev/oidc-secret;
-        })
-      ];
-
-      nixosConfigurations.snp-equinix-demo = mkBenefice "x86_64-linux" [
-        ({pkgs, ...}: {
-          imports = [
-            ./hosts/snp.equinix.demo.enarx.dev
-          ];
-
-          services.benefice.log.level = "info";
-          services.benefice.oidc.client = oidc.client.demo.equinix.snp;
-          services.benefice.package = pkgs.benefice.staging;
-
-          sops.secrets.oidc-secret.sopsFile = ./hosts/snp.equinix.demo.enarx.dev/oidc-secret;
-        })
-      ];
-
-      nixosConfigurations.attest-staging = mkSteward "x86_64-linux" [
-        ({pkgs, ...}: {
-          imports = [
-            ./hosts/attest.staging.profian.com
-          ];
-
-          services.steward.certFile = "${./hosts/attest.staging.profian.com/steward.crt}";
-          services.steward.log.level = "info";
-          services.steward.package = pkgs.steward.staging;
-
-          sops.secrets.key.sopsFile = ./hosts/attest.staging.profian.com/steward.key;
-        })
-      ];
-
-      nixosConfigurations.attest-testing = mkSteward "x86_64-linux" [
-        ({pkgs, ...}: {
-          imports = [
-            ./hosts/attest.testing.profian.com
-          ];
-
-          services.steward.certFile = "${./hosts/attest.testing.profian.com/steward.crt}";
-          services.steward.log.level = "debug";
-          services.steward.package = pkgs.steward.testing;
-
-          sops.secrets.key.sopsFile = ./hosts/attest.testing.profian.com/steward.key;
-        })
-      ];
-
-      nixosConfigurations.attest = mkSteward "x86_64-linux" [
-        ({pkgs, ...}: {
-          imports = [
-            ./hosts/attest.profian.com
-          ];
-
-          services.steward.certFile = "${./hosts/attest.profian.com/steward.crt}";
-          services.steward.package = pkgs.steward.production;
-
-          sops.secrets.key.sopsFile = ./hosts/attest.profian.com/steward.key;
-        })
-      ];
-
-      nixosConfigurations.store-testing = mkDrawbridge "x86_64-linux" [
-        ({pkgs, ...}: {
-          imports = [
-            ./hosts/store.testing.profian.com
-          ];
-
-          services.drawbridge.log.level = "debug";
-          services.drawbridge.oidc.client = oidc.client.testing.store;
-          services.drawbridge.package = pkgs.drawbridge.testing;
-          services.drawbridge.tls.caFile = "${./ca/testing.profian.com/ca.crt}";
-        })
-      ];
-
-      nixosConfigurations.store-staging = mkDrawbridge "x86_64-linux" [
-        ({pkgs, ...}: {
-          imports = [
-            ./hosts/store.staging.profian.com
-          ];
-
-          services.drawbridge.log.level = "info";
-          services.drawbridge.oidc.client = oidc.client.staging.store;
-          services.drawbridge.package = pkgs.drawbridge.staging;
-          services.drawbridge.tls.caFile = "${./ca/staging.profian.com/ca.crt}";
-        })
-      ];
-
-      nixosConfigurations.store = mkDrawbridge "x86_64-linux" [
-        ({pkgs, ...}: {
-          imports = [
-            ./hosts/store.profian.com
-          ];
-
-          services.drawbridge.oidc.client = oidc.client.production.store;
-          services.drawbridge.package = pkgs.drawbridge.production;
-          services.drawbridge.tls.caFile = "${./ca/profian.com/ca.crt}";
-        })
-      ];
-
-      deploy.nodes.sgx-equinix-demo = mkDeployNode "x86_64-linux" self.nixosConfigurations.sgx-equinix-demo;
-      deploy.nodes.snp-equinix-demo = mkDeployNode "x86_64-linux" self.nixosConfigurations.snp-equinix-demo;
-
-      deploy.nodes.attest = mkDeployNode "x86_64-linux" self.nixosConfigurations.attest;
-      deploy.nodes.attest-staging = mkDeployNode "x86_64-linux" self.nixosConfigurations.attest-staging;
-      deploy.nodes.attest-testing = mkDeployNode "x86_64-linux" self.nixosConfigurations.attest-testing;
-
-      deploy.nodes.store = mkDeployNode "x86_64-linux" self.nixosConfigurations.store;
-      deploy.nodes.store-staging = mkDeployNode "x86_64-linux" self.nixosConfigurations.store-staging;
-      deploy.nodes.store-testing = mkDeployNode "x86_64-linux" self.nixosConfigurations.store-testing;
-
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-    }
-    // flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          serviceOverlay
-          toolingOverlay
+            sops.secrets.oidc-secret.sopsFile = ./hosts/sgx.equinix.demo.enarx.dev/oidc-secret;
+          })
         ];
-      };
-    in {
-      formatter = pkgs.alejandra;
 
-      devShells.default = pkgs.mkShell {
-        nativeBuildInputs = [
-          pkgs.age
-          pkgs.nixUnstable
-          pkgs.openssl
-          pkgs.sops
-          pkgs.ssh-to-age
+        nixosConfigurations.snp-equinix-demo = mkBenefice x86_64-linux [
+          ({pkgs, ...}: {
+            imports = [
+              ./hosts/snp.equinix.demo.enarx.dev
+            ];
 
-          pkgs.bootstrap
-          pkgs.bootstrap-ca
-          pkgs.bootstrap-steward
-          pkgs.host-key
+            services.benefice.log.level = "info";
+            services.benefice.oidc.client = oidc.client.demo.equinix.snp;
+            services.benefice.package = pkgs.benefice.staging;
 
-          deploy-rs.packages.${system}.default
+            sops.secrets.oidc-secret.sopsFile = ./hosts/snp.equinix.demo.enarx.dev/oidc-secret;
+          })
         ];
-      };
-    });
+
+        nixosConfigurations.attest-staging = mkSteward x86_64-linux [
+          ({pkgs, ...}: {
+            imports = [
+              ./hosts/attest.staging.profian.com
+            ];
+
+            services.steward.certFile = "${./hosts/attest.staging.profian.com/steward.crt}";
+            services.steward.log.level = "info";
+            services.steward.package = pkgs.steward.staging;
+
+            sops.secrets.key.sopsFile = ./hosts/attest.staging.profian.com/steward.key;
+          })
+        ];
+
+        nixosConfigurations.attest-testing = mkSteward x86_64-linux [
+          ({pkgs, ...}: {
+            imports = [
+              ./hosts/attest.testing.profian.com
+            ];
+
+            services.steward.certFile = "${./hosts/attest.testing.profian.com/steward.crt}";
+            services.steward.log.level = "debug";
+            services.steward.package = pkgs.steward.testing;
+
+            sops.secrets.key.sopsFile = ./hosts/attest.testing.profian.com/steward.key;
+          })
+        ];
+
+        nixosConfigurations.attest = mkSteward x86_64-linux [
+          ({pkgs, ...}: {
+            imports = [
+              ./hosts/attest.profian.com
+            ];
+
+            services.steward.certFile = "${./hosts/attest.profian.com/steward.crt}";
+            services.steward.package = pkgs.steward.production;
+
+            sops.secrets.key.sopsFile = ./hosts/attest.profian.com/steward.key;
+          })
+        ];
+
+        nixosConfigurations.store-testing = mkDrawbridge x86_64-linux [
+          ({pkgs, ...}: {
+            imports = [
+              ./hosts/store.testing.profian.com
+            ];
+
+            services.drawbridge.log.level = "debug";
+            services.drawbridge.oidc.client = oidc.client.testing.store;
+            services.drawbridge.package = pkgs.drawbridge.testing;
+            services.drawbridge.tls.caFile = "${./ca/testing.profian.com/ca.crt}";
+          })
+        ];
+
+        nixosConfigurations.store-staging = mkDrawbridge x86_64-linux [
+          ({pkgs, ...}: {
+            imports = [
+              ./hosts/store.staging.profian.com
+            ];
+
+            services.drawbridge.log.level = "info";
+            services.drawbridge.oidc.client = oidc.client.staging.store;
+            services.drawbridge.package = pkgs.drawbridge.staging;
+            services.drawbridge.tls.caFile = "${./ca/staging.profian.com/ca.crt}";
+          })
+        ];
+
+        nixosConfigurations.store = mkDrawbridge x86_64-linux [
+          ({pkgs, ...}: {
+            imports = [
+              ./hosts/store.profian.com
+            ];
+
+            services.drawbridge.oidc.client = oidc.client.production.store;
+            services.drawbridge.package = pkgs.drawbridge.production;
+            services.drawbridge.tls.caFile = "${./ca/profian.com/ca.crt}";
+          })
+        ];
+
+        deploy.nodes.sgx-equinix-demo = mkDeployNode x86_64-linux self.nixosConfigurations.sgx-equinix-demo;
+        deploy.nodes.snp-equinix-demo = mkDeployNode x86_64-linux self.nixosConfigurations.snp-equinix-demo;
+
+        deploy.nodes.attest = mkDeployNode x86_64-linux self.nixosConfigurations.attest;
+        deploy.nodes.attest-staging = mkDeployNode x86_64-linux self.nixosConfigurations.attest-staging;
+        deploy.nodes.attest-testing = mkDeployNode x86_64-linux self.nixosConfigurations.attest-testing;
+
+        deploy.nodes.store = mkDeployNode x86_64-linux self.nixosConfigurations.store;
+        deploy.nodes.store-staging = mkDeployNode x86_64-linux self.nixosConfigurations.store-staging;
+        deploy.nodes.store-testing = mkDeployNode x86_64-linux self.nixosConfigurations.store-testing;
+
+        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+      }
+      // flake-utils.lib.eachDefaultSystem (
+        system: let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [
+              serviceOverlay
+              toolingOverlay
+            ];
+          };
+        in {
+          formatter = pkgs.alejandra;
+
+          devShells.default = pkgs.mkShell {
+            nativeBuildInputs = [
+              pkgs.age
+              pkgs.nixUnstable
+              pkgs.openssl
+              pkgs.sops
+              pkgs.ssh-to-age
+
+              pkgs.bootstrap
+              pkgs.bootstrap-ca
+              pkgs.bootstrap-steward
+              pkgs.host-key
+
+              deploy-rs.packages.${system}.default
+            ];
+          };
+        }
+      );
 }
