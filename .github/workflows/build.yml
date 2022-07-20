@@ -7,15 +7,21 @@ jobs:
   build:
     strategy:
       matrix:
-        service: 
-        - attest
-        - attest-staging
-        - attest-testing
-        - sgx-equinix-demo
-        - snp-equinix-demo
-        - store
-        - store-staging
-        - store-testing
+        output: 
+        # Drawbridge
+        - nixosConfigurations.store-staging.config.system.build.toplevel
+        - nixosConfigurations.store-testing.config.system.build.toplevel
+        - nixosConfigurations.store.config.system.build.toplevel
+
+        # Steward
+        - nixosConfigurations.attest-staging.config.system.build.toplevel
+        - nixosConfigurations.attest-testing.config.system.build.toplevel
+        - nixosConfigurations.attest.config.system.build.toplevel
+
+        # Benefice
+        - nixosConfigurations.sgx-equinix-demo.config.system.build.toplevel
+        - nixosConfigurations.snp-equinix-demo.config.system.build.toplevel
+
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
@@ -24,6 +30,7 @@ jobs:
       with:
         name: enarx
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Build OS
-      run: nix build -L '.#nixosConfigurations.${{ matrix.service }}.config.system.build.toplevel'
+    - name: Build ${{ matrix.output }}
+      run: nix build -L '.#${{ matrix.output }}'
+
     # TODO: Build and run a VM, test
