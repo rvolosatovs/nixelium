@@ -17,6 +17,8 @@
   inputs.flake-compat.flake = false;
   inputs.flake-compat.url = github:edolstra/flake-compat;
   inputs.flake-utils.url = github:numtide/flake-utils;
+  inputs.nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.nixos-generators.url = github:nix-community/nixos-generators;
   inputs.nixpkgs.url = github:profianinc/nixpkgs;
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
@@ -37,6 +39,7 @@
     enarx,
     flake-compat,
     flake-utils,
+    nixos-generators,
     nixpkgs,
     sops-nix,
     steward-production,
@@ -173,6 +176,43 @@
         systemd.services.steward.serviceConfig.SupplementaryGroups = [config.users.groups.keys.name];
       })
     ];
+
+    mkEnarxImage = pkgs: format: modules:
+      nixos-generators.nixosGenerate {
+        inherit format pkgs;
+        modules =
+          [
+            ./modules/common.nix
+            ({pkgs, ...}: {
+              networking.firewall.allowedTCPPorts = [
+                80
+                443
+              ];
+
+              nixpkgs.overlays = [serviceOverlay];
+              services.enarx.enable = true;
+            })
+          ]
+          ++ modules;
+      };
+
+    mkEnarxSevImage = pkgs: format: modules:
+      mkEnarxImage pkgs format ([
+          {
+            boot.kernelModules = [
+              "kvm-amd"
+            ];
+            boot.kernelPackages = pkgs.linuxPackages_enarx;
+
+            hardware.cpu.amd.sev.enable = true;
+            hardware.cpu.amd.sev.mode = "0777";
+
+            hardware.cpu.amd.updateMicrocode = true;
+
+            services.enarx.backend = "sev";
+          }
+        ]
+        ++ modules);
 
     hostKey = pkgs: let
       grep = "${pkgs.gnugrep}/bin/grep";
@@ -429,8 +469,20 @@
               toolingOverlay
             ];
           };
+
+          enarx-sev-amazon = mkEnarxSevImage pkgs "amazon" [
+            {
+              amazonImage.sizeMB = 12 * 1024; # TODO: Figure out how much we actually need
+
+              ec2.ena = false;
+            }
+          ];
         in {
           formatter = pkgs.alejandra;
+
+          packages = pkgs.lib.optionalAttrs (system == x86_64-linux || system == aarch64-linux) {
+            inherit enarx-sev-amazon;
+          };
 
           devShells.default = pkgs.mkShell {
             nativeBuildInputs = [
