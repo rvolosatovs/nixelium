@@ -124,6 +124,8 @@ with flake-utils.lib.system; let
     }: {
       services.drawbridge.enable = true;
       services.drawbridge.tls.caFile = pkgs.writeText "ca.crt" (builtins.readFile "${self}/ca/${config.networking.domain}/ca.crt");
+
+      services.nginx.clientMaxBodySize = "100m";
     })
   ];
 
