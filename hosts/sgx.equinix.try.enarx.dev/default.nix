@@ -23,7 +23,7 @@ in {
   hardware.cpu.intel.sgx.provision.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
 
-  networking.domain = "equinix.demo.enarx.dev";
+  networking.domain = "equinix.try.enarx.dev";
   networking.hostId = "395c78d1";
   networking.hostName = "sgx";
   networking.interfaces.eno12399.useDHCP = true;

@@ -19,8 +19,8 @@ jobs:
         - nixosConfigurations.attest.config.system.build.toplevel
 
         # Benefice
-        - nixosConfigurations.sgx-equinix-demo.config.system.build.toplevel
-        - nixosConfigurations.snp-equinix-demo.config.system.build.toplevel
+        - nixosConfigurations.sgx-equinix-try.config.system.build.toplevel
+        - nixosConfigurations.snp-equinix-try.config.system.build.toplevel
 
     runs-on: ubuntu-20.04
     steps:

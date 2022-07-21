@@ -8,8 +8,8 @@
 with flake-utils.lib.system; let
   emails.ops = "roman@profian.com"; # TODO: How about ops@profian.com ?
 
-  oidc.client.demo.equinix.sgx = "23Lt09AjF8HpUeCCwlfhuV34e2dKD1MH";
-  oidc.client.demo.equinix.snp = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
+  oidc.client.try.equinix.sgx = "23Lt09AjF8HpUeCCwlfhuV34e2dKD1MH";
+  oidc.client.try.equinix.snp = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
 
   oidc.client.testing.benefice = "FTmeUMamlu8HRs11mvtmmZHnmCwRIo8E";
   oidc.client.testing.store = "zFrR7MKMakS4OpEflR0kNw3ceoP7sr3s";
@@ -84,34 +84,34 @@ with flake-utils.lib.system; let
     })
   ];
 
-  sgx-equinix-demo = mkBenefice x86_64-linux [
+  sgx-equinix-try = mkBenefice x86_64-linux [
     ({
       config,
       pkgs,
       ...
     }: {
       imports = [
-        "${self}/hosts/sgx.equinix.demo.enarx.dev"
+        "${self}/hosts/sgx.equinix.try.enarx.dev"
       ];
 
       services.benefice.log.level = "info";
-      services.benefice.oidc.client = oidc.client.demo.equinix.sgx;
+      services.benefice.oidc.client = oidc.client.try.equinix.sgx;
       services.benefice.package = pkgs.benefice.staging;
     })
   ];
 
-  snp-equinix-demo = mkBenefice x86_64-linux [
+  snp-equinix-try = mkBenefice x86_64-linux [
     ({
       config,
       pkgs,
       ...
     }: {
       imports = [
-        "${self}/hosts/snp.equinix.demo.enarx.dev"
+        "${self}/hosts/snp.equinix.try.enarx.dev"
       ];
 
       services.benefice.log.level = "info";
-      services.benefice.oidc.client = oidc.client.demo.equinix.snp;
+      services.benefice.oidc.client = oidc.client.try.equinix.snp;
       services.benefice.package = pkgs.benefice.staging;
     })
   ];
@@ -229,8 +229,8 @@ in {
     attest
     attest-staging
     attest-testing
-    sgx-equinix-demo
-    snp-equinix-demo
+    sgx-equinix-try
+    snp-equinix-try
     store
     store-staging
     store-testing
