@@ -117,9 +117,13 @@ with flake-utils.lib.system; let
   ];
 
   mkDrawbridge = mkService [
-    ({config, ...}: {
+    ({
+      config,
+      pkgs,
+      ...
+    }: {
       services.drawbridge.enable = true;
-      services.drawbridge.tls.caFile = "${"${self}/ca/${config.networking.fqdn}/ca.crt"}";
+      services.drawbridge.tls.caFile = pkgs.writeText "ca.crt" (builtins.readFile "${self}/ca/${config.networking.domain}/ca.crt");
     })
   ];
 
@@ -165,7 +169,7 @@ with flake-utils.lib.system; let
       pkgs,
       ...
     }: {
-      services.steward.certFile = "${"${self}/hosts/${config.networking.fqdn}/steward.crt"}";
+      services.steward.certFile = pkgs.writeText "steward.crt" (builtins.readFile "${self}/hosts/${config.networking.fqdn}/steward.crt");
       services.steward.enable = true;
       services.steward.keyFile = config.sops.secrets.key.path;
 
