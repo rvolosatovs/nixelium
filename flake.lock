@@ -3,13 +3,13 @@
     "benefice-staging": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-ca4KE7ahOKl+mLris+OtVX7K+dqrU4xD5kAq3W0sB+Q=",
+        "narHash": "sha256-67Q/+9YPcJ50MiglrQ4oQjUSYKsdTyh0ay0mY784eXs=",
         "type": "file",
-        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc6/benefice-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc7/benefice-x86_64-unknown-linux-musl"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc6/benefice-x86_64-unknown-linux-musl"
+        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc7/benefice-x86_64-unknown-linux-musl"
       }
     },
     "benefice-testing": {
@@ -21,11 +21,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1658348641,
-        "narHash": "sha256-JsMl2iS2xovxOhaRskNedIXZg+ezywBNE4RD0DQvtow=",
+        "lastModified": 1658407930,
+        "narHash": "sha256-AyNuHBLD9HdleLRqdDnMz37Ub3kMC1sewD0wDgEeyQ0=",
         "owner": "profianinc",
         "repo": "benefice",
-        "rev": "38d0c19e05cb8f2b0602a4d8ac87fbf36f418edb",
+        "rev": "936ce2e45a8088f92516a20c5b7b661664057b72",
         "type": "github"
       },
       "original": {
