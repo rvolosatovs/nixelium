@@ -74,10 +74,7 @@ in {
   users.users.npmccallum.shell = pkgs.bashInteractive;
 
   users.users.platten.isNormalUser = true;
-  users.users.platten.extraGroups = with config.users.groups; [
-    deploy.name
-    ops.name
-  ];
+  users.users.platten.extraGroups = adminGroups;
   users.users.platten.openssh.authorizedKeys.keys = with keys; [platten];
   users.users.platten.shell = pkgs.bashInteractive;
 
