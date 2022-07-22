@@ -102,7 +102,7 @@
           };
 
           devShell = pkgs.mkShell {
-            nativeBuildInputs = [
+            buildInputs = [
               pkgs.age
               pkgs.aws
               pkgs.nixUnstable
