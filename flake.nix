@@ -104,7 +104,7 @@
           devShell = pkgs.mkShell {
             buildInputs = [
               pkgs.age
-              pkgs.aws
+              pkgs.awscli2
               pkgs.nixUnstable
               pkgs.openssh
               pkgs.openssl
