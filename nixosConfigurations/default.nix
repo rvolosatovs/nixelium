@@ -73,6 +73,9 @@ with flake-utils.lib.system; let
       services.benefice.oidc.secretFile = config.sops.secrets.oidc-secret.path;
 
       services.nginx.clientMaxBodySize = "100m";
+      services.nginx.appendHttpConfig = ''
+        add_header Strict-Transport-Security "max-age=0";
+      '';
 
       sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
       sops.secrets.oidc-secret.format = "binary";
