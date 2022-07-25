@@ -59,6 +59,7 @@ in {
   users.users.deploy.openssh.authorizedKeys.keys = with keys; [
     haraldh
     npmccallum
+    platten
     rvolosatovs
   ];
   users.users.deploy.shell = pkgs.bashInteractive;
