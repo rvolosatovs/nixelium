@@ -38,44 +38,7 @@
     nixpkgs,
     ...
   }:
-    with flake-utils.lib.system; let
-      mkEnarxImage = pkgs: format: modules:
-        nixos-generators.nixosGenerate {
-          inherit format pkgs;
-          modules =
-            [
-              "${self}/modules/common.nix"
-              ({pkgs, ...}: {
-                networking.firewall.allowedTCPPorts = [
-                  80
-                  443
-                ];
-
-                nixpkgs.overlays = [self.overlays.service];
-                services.enarx.enable = true;
-              })
-            ]
-            ++ modules;
-        };
-
-      mkEnarxSevImage = pkgs: format: modules:
-        mkEnarxImage pkgs format ([
-            {
-              boot.kernelModules = [
-                "kvm-amd"
-              ];
-              boot.kernelPackages = pkgs.linuxPackages_enarx;
-
-              hardware.cpu.amd.sev.enable = true;
-              hardware.cpu.amd.sev.mode = "0777";
-
-              hardware.cpu.amd.updateMicrocode = true;
-
-              services.enarx.backend = "sev";
-            }
-          ]
-          ++ modules);
-    in
+    with flake-utils.lib.system;
       {
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
         deploy = import ./deploy inputs;
@@ -89,33 +52,34 @@
             overlays = [self.overlays.default];
           };
 
-          enarx-sev-amazon = mkEnarxSevImage pkgs "amazon" [
-            {
-              amazonImage.sizeMB = 12 * 1024; # TODO: Figure out how much we actually need
+          is64BitLinux = system == x86_64-linux || system == aarch64-linux;
 
-              ec2.ena = false;
-            }
-          ];
-
-          packages = pkgs.lib.optionalAttrs (system == x86_64-linux || system == aarch64-linux) {
-            inherit enarx-sev-amazon;
+          packages = pkgs.lib.optionalAttrs is64BitLinux {
+            inherit
+              (pkgs)
+              enarx-sev-amazon
+              ;
           };
 
           devShell = pkgs.mkShell {
-            buildInputs = [
-              pkgs.age
-              pkgs.awscli2
-              pkgs.nixUnstable
-              pkgs.openssh
-              pkgs.openssl
-              pkgs.sops
-              pkgs.ssh-to-age
+            buildInputs = with pkgs; [
+              age
+              awscli2
+              nixUnstable
+              openssl
+              sops
+              ssh-to-age
+              openssh
 
-              pkgs.bootstrap
-              pkgs.bootstrap-ca
-              pkgs.bootstrap-steward
-              pkgs.host-key
-              pkgs.ssh-for-each
+              aws-create-ami
+              aws-create-vmimport-role
+              aws-put-vmimport-role-policy
+
+              bootstrap
+              bootstrap-ca
+              bootstrap-steward
+              host-key
+              ssh-for-each
 
               deploy-rs.packages.${system}.default
             ];
