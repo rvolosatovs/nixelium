@@ -54,12 +54,45 @@
 
           is64BitLinux = system == x86_64-linux || system == aarch64-linux;
 
-          packages = pkgs.lib.optionalAttrs is64BitLinux {
-            inherit
-              (pkgs)
-              enarx-sev-amazon
-              ;
-          };
+          packages =
+            pkgs.lib.optionalAttrs is64BitLinux {
+              inherit
+                (pkgs)
+                enarx-sev-amazon
+                enarx-sev-docker
+                enarx-sev-hyperv
+                enarx-sev-gce
+                enarx-sev-kubevirt
+                enarx-sev-lxc
+                enarx-sev-lxc-metadata
+                enarx-sev-openstack
+                enarx-sev-proxmox
+                enarx-sev-proxmox-lxc
+                enarx-sev-qcow2
+                ;
+            }
+            // pkgs.lib.optionalAttrs (system == x86_64-linux) {
+              inherit
+                (pkgs)
+                enarx-sev-azure
+                enarx-sev-install-iso
+                enarx-sev-install-iso-hyperv
+                enarx-sgx-amazon
+                enarx-sgx-azure
+                enarx-sgx-docker
+                enarx-sgx-gce
+                enarx-sgx-hyperv
+                enarx-sgx-install-iso
+                enarx-sgx-install-iso-hyperv
+                enarx-sgx-kubevirt
+                enarx-sgx-lxc
+                enarx-sgx-lxc-metadata
+                enarx-sgx-openstack
+                enarx-sgx-proxmox
+                enarx-sgx-proxmox-lxc
+                enarx-sgx-qcow2
+                ;
+            };
 
           devShell = pkgs.mkShell {
             buildInputs = with pkgs; [
