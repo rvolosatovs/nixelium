@@ -11,12 +11,15 @@ inputs @ {
         [
           "${self}/modules/common.nix"
           ({pkgs, ...}: {
+            environment.systemPackages = with pkgs; [enarx];
+
             networking.firewall.allowedTCPPorts = [
               80
               443
             ];
 
             nixpkgs.overlays = [self.overlays.service];
+
             services.enarx.enable = true;
           })
         ]
