@@ -12,7 +12,6 @@
   inputs.drawbridge-staging.url = "https://github.com/profianinc/drawbridge/releases/download/v0.2.0/drawbridge-x86_64-unknown-linux-musl";
   inputs.drawbridge-testing.url = github:profianinc/drawbridge;
   inputs.enarx.flake = false;
-  # TODO: Use upstream release
   inputs.enarx.url = "https://github.com/enarx/enarx/releases/download/v0.6.1/enarx-x86_64-unknown-linux-musl";
   inputs.flake-compat.flake = false;
   inputs.flake-compat.url = github:edolstra/flake-compat;
