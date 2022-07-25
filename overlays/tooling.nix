@@ -1,4 +1,10 @@
-{...}: final: prev: let
+{self, ...}: final: prev: let
+  ssh-for-each = final.writeShellScriptBin "ssh-for-each" ''
+    for host in ${self}/hosts/*; do
+        ${final.openssh}/bin/ssh "''${host#'${self}/hosts/'}" ''${@}
+    done
+  '';
+
   host-key = let
     grep = "${final.gnugrep}/bin/grep";
     ssh-keyscan = "${final.openssh}/bin/ssh-keyscan";
@@ -114,5 +120,6 @@ in {
     bootstrap-ca
     bootstrap-steward
     host-key
+    ssh-for-each
     ;
 }

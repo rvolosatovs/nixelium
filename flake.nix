@@ -106,6 +106,7 @@
               pkgs.age
               pkgs.aws
               pkgs.nixUnstable
+              pkgs.openssh
               pkgs.openssl
               pkgs.sops
               pkgs.ssh-to-age
@@ -114,6 +115,7 @@
               pkgs.bootstrap-ca
               pkgs.bootstrap-steward
               pkgs.host-key
+              pkgs.ssh-for-each
 
               deploy-rs.packages.${system}.default
             ];
