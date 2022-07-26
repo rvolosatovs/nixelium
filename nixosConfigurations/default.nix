@@ -24,7 +24,8 @@ with flake-utils.lib.system; let
 
       modules =
         [
-          "${self}/modules"
+          self.nixosModules.common
+          self.nixosModules.users
           ({config, ...}: {
             networking.firewall.allowedTCPPorts = [
               80

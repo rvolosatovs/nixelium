@@ -7,7 +7,7 @@
   intelApiKeyFile = config.sops.secrets.intel-api-key.path;
 in {
   imports = [
-    ../../modules/providers/equinix
+    ../../nixosModules/providers/equinix
   ];
 
   boot.initrd.availableKernelModules = [

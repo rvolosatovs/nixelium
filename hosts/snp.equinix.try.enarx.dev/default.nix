@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ../../modules/providers/equinix
+    ../../nixosModules/providers/equinix
   ];
 
   boot.initrd.availableKernelModules = [

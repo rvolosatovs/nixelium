@@ -341,29 +341,6 @@
         "type": "github"
       }
     },
-    "nixos-generators": {
-      "inputs": {
-        "nixlib": [
-          "nixlib"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1657748715,
-        "narHash": "sha256-WecDwDY/hEcDQYzFnccCNa+5Umht0lfjx/d1qGDy/rQ=",
-        "owner": "nix-community",
-        "repo": "nixos-generators",
-        "rev": "3323b944d99b026aebfd8de439e001409dde067d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixos-generators",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1657180868,
@@ -468,7 +445,6 @@
         "flake-compat": "flake-compat_3",
         "flake-utils": "flake-utils_3",
         "nixlib": "nixlib",
-        "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_4",
         "sops-nix": "sops-nix",
         "steward-production": "steward-production",

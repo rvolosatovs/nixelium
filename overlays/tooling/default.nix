@@ -27,6 +27,5 @@ nixlib.lib.composeManyExtensions [
       ssh-for-each
       ;
   })
-  (import ./aws.nix inputs)
   (import ./bootstrap.nix inputs)
 ]
