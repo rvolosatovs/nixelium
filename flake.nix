@@ -2,7 +2,7 @@
   description = "Profian Inc Network Infrastructure";
 
   inputs.benefice-staging.flake = false;
-  inputs.benefice-staging.url = "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc12/benefice-x86_64-unknown-linux-musl";
+  inputs.benefice-staging.url = "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc13/benefice-x86_64-unknown-linux-musl";
   inputs.benefice-testing.url = github:profianinc/benefice;
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
   inputs.deploy-rs.url = github:serokell/deploy-rs;
