@@ -16,10 +16,10 @@
   inputs.flake-compat.flake = false;
   inputs.flake-compat.url = github:edolstra/flake-compat;
   inputs.flake-utils.url = github:numtide/flake-utils;
-  inputs.nixlib.url = "github:nix-community/nixpkgs.lib";
+  inputs.nixlib.url = github:nix-community/nixpkgs.lib;
   inputs.nixpkgs.url = github:profianinc/nixpkgs;
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.sops-nix.url = "github:Mic92/sops-nix";
+  inputs.sops-nix.url = github:Mic92/sops-nix;
   inputs.steward-production.flake = false;
   inputs.steward-production.url = "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl";
   inputs.steward-staging.flake = false;
