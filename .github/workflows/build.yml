@@ -22,6 +22,9 @@ jobs:
         - nixosConfigurations.sgx-equinix-try.config.system.build.toplevel
         - nixosConfigurations.snp-equinix-try.config.system.build.toplevel
 
+        # Infrastructure
+        - nixosConfigurations.nuc-1.config.system.build.toplevel
+
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3

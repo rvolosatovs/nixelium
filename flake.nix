@@ -36,6 +36,7 @@
     {
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       deploy = import ./deploy inputs;
+      lib = import ./lib inputs;
       nixosConfigurations = import ./nixosConfigurations inputs;
       nixosModules = import ./nixosModules inputs;
       overlays = import ./overlays inputs;
@@ -52,10 +53,11 @@
             age
             awscli2
             nixUnstable
+            openssh
             openssl
             sops
             ssh-to-age
-            openssh
+            tailscale
 
             bootstrap
             bootstrap-ca

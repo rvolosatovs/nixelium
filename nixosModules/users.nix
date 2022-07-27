@@ -15,6 +15,13 @@
     wheel.name
   ];
 in {
+  nix.settings.allowed-users = with config.users; [
+    "@${groups.deploy.name}"
+  ];
+  nix.settings.trusted-users = with config.users; [
+    "@${groups.deploy.name}"
+  ];
+
   security.sudo.extraRules = let
     # systemPath is the path where the system being activated is uploaded by `deploy`.
     systemPath = "/nix/store/*-activatable-nixos-system-${config.networking.hostName}-*";

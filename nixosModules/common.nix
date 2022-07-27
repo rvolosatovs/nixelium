@@ -3,7 +3,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  emails.ops = "roman@profian.com"; # TODO: How about ops@profian.com ?
+in {
   documentation.nixos.enable = false;
 
   environment.shells = [
@@ -30,6 +32,7 @@
   nix.extraOptions = "experimental-features = nix-command flakes";
   nix.gc.automatic = true;
   nix.optimise.automatic = true;
+  nix.package = pkgs.nixUnstable;
   nix.requireSignedBinaryCaches = true;
   nix.settings.auto-optimise-store = true;
   nix.settings.allowed-users = with config.users; [
@@ -54,6 +57,7 @@
   programs.zsh.interactiveShellInit = "source '${pkgs.grml-zsh-config}/etc/zsh/zshrc'";
 
   security.acme.acceptTerms = true;
+  security.acme.defaults.email = emails.ops;
 
   security.sudo.enable = true;
 
