@@ -1,5 +1,6 @@
 {...}: {
   config,
+  lib,
   pkgs,
   ...
 }: let
@@ -51,6 +52,8 @@ in {
     }
   ];
 
+  services.openssh.permitRootLogin = lib.mkForce "no";
+
   users.groups.deploy = {};
   users.groups.ops = {};
 
@@ -78,6 +81,8 @@ in {
   users.users.platten.extraGroups = adminGroups;
   users.users.platten.openssh.authorizedKeys.keys = with keys; [platten];
   users.users.platten.shell = pkgs.bashInteractive;
+
+  users.users.root.hashedPassword = "!"; # nothing hashes to `!`, so this disables root logins
 
   users.users.rvolosatovs.isNormalUser = true;
   users.users.rvolosatovs.extraGroups = adminGroups;
