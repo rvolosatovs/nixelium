@@ -15,26 +15,26 @@ local treesitter = require('nvim-treesitter.configs')
 --- Functions
 
 function goimports(bufnr, timeoutms)
-  local context = { source = { organizeImports = true } }
-  vim.validate { context = { context, 't', true } }
+    local context = { source = { organizeImports = true } }
+    vim.validate { context = { context, 't', true } }
 
-  local params = vim.lsp.util.make_range_params()
-  params.context = context
+    local params = vim.lsp.util.make_range_params()
+    params.context = context
 
-  local method = 'textDocument/codeAction'
-  local resp = vim.lsp.buf_request_sync(bufnr, method, params, timeoutms)
-  if resp and resp[1] then
-    local result = resp[1].result
-    if result and result[1] then
-      local edit = result[1].edit
-      vim.lsp.util.apply_workspace_edit(edit)
+    local method = 'textDocument/codeAction'
+    local resp = vim.lsp.buf_request_sync(bufnr, method, params, timeoutms)
+    if resp and resp[1] then
+        local result = resp[1].result
+        if result and result[1] then
+            local edit = result[1].edit
+            vim.lsp.util.apply_workspace_edit(edit)
+        end
     end
-  end
-  vim.lsp.buf.formatting()
+    vim.lsp.buf.formatting()
 end
 
 function noremap_lua_buf(bufnr, bind, command)
-  vim.api.nvim_buf_set_keymap(bufnr, "", bind, '<cmd>lua '..command..'<cr>', { noremap = true })
+    vim.api.nvim_buf_set_keymap(bufnr, "", bind, '<cmd>lua ' .. command .. '<cr>', { noremap = true })
 end
 
 --- Options
@@ -55,7 +55,7 @@ vim.opt.fileformat = 'unix'
 vim.opt.foldcolumn = 'auto:3'
 vim.opt.foldlevel = 16
 vim.opt.gdefault = true
-vim.opt.grepprg = paths.bin.ripgrep..' --vimgrep'
+vim.opt.grepprg = paths.bin.ripgrep .. ' --vimgrep'
 vim.opt.guicursor = ""
 vim.opt.hidden = true
 vim.opt.hlsearch = true
@@ -88,9 +88,9 @@ vim.api.nvim_command [[ autocmd TextYankPost * silent! lua require('highlight').
 
 --- Keybindings
 
-local cmd = function(v) return '<cmd>'..v..'<cr>' end
-local lua = function(v) return cmd('lua '..v) end
-local plg = function(v) return '<plug>'..v end
+local cmd = function(v) return '<cmd>' .. v .. '<cr>' end
+local lua = function(v) return cmd('lua ' .. v) end
+local plg = function(v) return '<plug>' .. v end
 
 for _, v in ipairs({
   -- general
@@ -152,95 +152,95 @@ for _, v in ipairs({
   { '<leader>cy',        plg('NERDCommenterYank'),                     { "" },       {} },
 
 }) do
-  for _, mode in ipairs(v[3]) do
-    vim.api.nvim_set_keymap(mode, v[1], v[2], v[4])
-  end
+    for _, mode in ipairs(v[3]) do
+        vim.api.nvim_set_keymap(mode, v[1], v[2], v[4])
+    end
 end
 
 --- Completion
 
 local cmp_map_pre = function(f)
-  cmp.mapping(function(fallback)
-    f()
-    fallback()
-  end, { 'i', 's' })
+    cmp.mapping(function(fallback)
+        f()
+        fallback()
+    end, { 'i', 's' })
 end
 local cmp_confirm_insert = cmp_map_pre(function()
-  cmp.mapping.confirm({
-    behavior = cmp.ConfirmBehavior.Insert,
-    select = true,
-  })
+    cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+    })
 end)
 
-cmp.setup{
-  completion = {
-    completeopt = 'menu,menuone,noinsert',
-  },
-  mapping = {
-    ['<c-d>']     = cmp.mapping.scroll_docs(-4),
-    ['<c-e>']     = cmp.mapping.close(),
-    ['<c-n>']     = cmp.mapping(function()
-                      if cmp.visible() then
-                        cmp.select_next_item()
-                      elseif luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump()
-                      else
-                        cmp.complete()
-                      end
-                    end, { 'i', 's' }),
-    ['<c-p>']     = cmp.mapping(function(fallback)
-                      if cmp.visible() then
-                        cmp.mapping.select_prev_item()
-                      elseif luasnip.jumpable(-1) then
-                        luasnip.jump(-1)
-                      else
-                        fallback()
-                      end
-                    end, { 'i', 's' }),
-    ['<c-u>']     = cmp.mapping.scroll_docs(4),
-    ['<down>']    = cmp.mapping.select_next_item(),
-    ['<esc>']     = cmp_map_pre(cmp.mapping.close),
-    ['<up>']      = cmp.mapping.select_prev_item(),
+cmp.setup {
+    completion = {
+        completeopt = 'menu,menuone,noinsert',
+    },
+    mapping = {
+        ['<c-d>']  = cmp.mapping.scroll_docs(-4),
+        ['<c-e>']  = cmp.mapping.close(),
+        ['<c-n>']  = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                cmp.complete()
+            end
+        end, { 'i', 's' }),
+        ['<c-p>']  = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.mapping.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<c-u>']  = cmp.mapping.scroll_docs(4),
+        ['<down>'] = cmp.mapping.select_next_item(),
+        ['<esc>']  = cmp_map_pre(cmp.mapping.close),
+        ['<up>']   = cmp.mapping.select_prev_item(),
 
-    ['(']         = cmp_confirm_insert,
-    [')']         = cmp_confirm_insert,
-    ['-']         = cmp_confirm_insert,
-    ['<']         = cmp_confirm_insert,
-    ['<cr>']      = cmp_confirm_insert,
-    ['<space>']   = cmp_confirm_insert,
-    ['>']         = cmp_confirm_insert,
-    ['[']         = cmp_confirm_insert,
-    ['\\']        = cmp_confirm_insert,
-    [']']         = cmp_confirm_insert,
-    ['{']         = cmp_confirm_insert,
-    ['|']         = cmp_confirm_insert,
-    ['}']         = cmp_confirm_insert,
-  },
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  sources = {
-    { name = 'luasnip' },
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
-    { name = 'treesitter' },
-    { name = 'buffer' },
-    { name = 'path' },
-    { name = 'calc' },
-    { name = 'spell' },
-    { name = 'emoji' },
-  },
-  view = {
-    entries = "native",
-  },
+        ['(']       = cmp_confirm_insert,
+        [')']       = cmp_confirm_insert,
+        ['-']       = cmp_confirm_insert,
+        ['<']       = cmp_confirm_insert,
+        ['<cr>']    = cmp_confirm_insert,
+        ['<space>'] = cmp_confirm_insert,
+        ['>']       = cmp_confirm_insert,
+        ['[']       = cmp_confirm_insert,
+        ['\\']      = cmp_confirm_insert,
+        [']']       = cmp_confirm_insert,
+        ['{']       = cmp_confirm_insert,
+        ['|']       = cmp_confirm_insert,
+        ['}']       = cmp_confirm_insert,
+    },
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
+    },
+    sources = {
+        { name = 'luasnip' },
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lua' },
+        { name = 'treesitter' },
+        { name = 'buffer' },
+        { name = 'path' },
+        { name = 'calc' },
+        { name = 'spell' },
+        { name = 'emoji' },
+    },
+    view = {
+        entries = "native",
+    },
 }
 
 --- Blankline
 
 indent_blankline.setup {
-    char_list = {'|', '¦', '┆', '┊'},
+    char_list = { '|', '¦', '┆', '┊' },
     show_current_context = true,
     show_current_context_start = true,
     show_end_of_line = true,
@@ -251,159 +251,159 @@ indent_blankline.setup {
 --- Treesitter
 
 treesitter.setup {
-  highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = false,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
     },
-  },
-  indent = {
-      enable = true,
-  },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
+    },
+    indent = {
+        enable = true,
+    },
 }
 
 --- LSP
 
 local capabilities = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local on_attach = function(client, bufnr)
-  print('LSP loaded.')
+    print('LSP loaded.')
 
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  illuminate.on_attach(client)
+    illuminate.on_attach(client)
 
-  table.foreach({
-    ['<c-]>']      = 'telescope.lsp_definitions()',
-    ['<c-k>']      = 'vim.lsp.buf.signature_help()',
-    ['<leader>a']  = 'vim.lsp.buf.code_action()',
-    ['<leader>A']  = 'vim.lsp.buf.range_code_action()',
-    ['<leader>dd'] = 'telescope.diagnostics()',
-    ['<leader>dl'] = 'vim.lsp.diagnostic.set_loclist()',
-    ['<leader>f']  = 'vim.lsp.buf.formatting()',
-    ['<leader>r']  = 'vim.lsp.buf.rename()',
-    ['<leader>sa'] = 'vim.lsp.buf.add_workspace_folder()',
-    ['<leader>sl'] = 'print(vim.inspect(vim.lsp.buf.list_workspace_folders()))',
-    ['<leader>sr'] = 'vim.lsp.buf.remove_workspace_folder()',
-    ['[d']         = 'vim.lsp.diagnostic.goto_prev()',
-    [']d']         = 'vim.lsp.diagnostic.goto_next()',
-    ['gc']         = 'vim.lsp.buf.incoming_calls()',
-    ['gC']         = 'vim.lsp.buf.outgoing_calls()',
-    ['gd']         = 'telescope.lsp_implementations()',
-    ['gD']         = 'vim.lsp.buf.declaration()',
-    ['gr']         = 'telescope.lsp_references()',
-    ['gs']         = 'telescope.lsp_document_symbols()',
-    ['gS']         = 'telescope.lsp_dynamic_workspace_symbols()',
-    ['gT']         = 'vim.lsp.buf.type_definition()',
-    ['K']          = 'vim.lsp.buf.hover()',
-  }, function(k, fn) noremap_lua_buf(bufnr, k, fn) end)
+    table.foreach({
+        ['<c-]>']      = 'telescope.lsp_definitions()',
+        ['<c-k>']      = 'vim.lsp.buf.signature_help()',
+        ['<leader>a']  = 'vim.lsp.buf.code_action()',
+        ['<leader>A']  = 'vim.lsp.buf.range_code_action()',
+        ['<leader>dd'] = 'telescope.diagnostics()',
+        ['<leader>dl'] = 'vim.lsp.diagnostic.set_loclist()',
+        ['<leader>f']  = 'vim.lsp.buf.formatting()',
+        ['<leader>r']  = 'vim.lsp.buf.rename()',
+        ['<leader>sa'] = 'vim.lsp.buf.add_workspace_folder()',
+        ['<leader>sl'] = 'print(vim.inspect(vim.lsp.buf.list_workspace_folders()))',
+        ['<leader>sr'] = 'vim.lsp.buf.remove_workspace_folder()',
+        ['[d']         = 'vim.lsp.diagnostic.goto_prev()',
+        [']d']         = 'vim.lsp.diagnostic.goto_next()',
+        ['gc']         = 'vim.lsp.buf.incoming_calls()',
+        ['gC']         = 'vim.lsp.buf.outgoing_calls()',
+        ['gd']         = 'telescope.lsp_implementations()',
+        ['gD']         = 'vim.lsp.buf.declaration()',
+        ['gr']         = 'telescope.lsp_references()',
+        ['gs']         = 'telescope.lsp_document_symbols()',
+        ['gS']         = 'telescope.lsp_dynamic_workspace_symbols()',
+        ['gT']         = 'vim.lsp.buf.type_definition()',
+        ['K']          = 'vim.lsp.buf.hover()',
+    }, function(k, fn) noremap_lua_buf(bufnr, k, fn) end)
 
-  vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
+    vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
 end
 
-rust_tools.setup{
-  server = {
-    on_attach = on_attach;
-    settings = {
-      ['rust-analyzer'] = {
-        serverPath = paths.bin['rust-analyzer'];
-      };
-    };
-  }
+rust_tools.setup {
+    server = {
+        on_attach = on_attach;
+        settings = {
+            ['rust-analyzer'] = {
+                serverPath = paths.bin['rust-analyzer'];
+            };
+        };
+    }
 }
 
 local lspconfig = require('lspconfig')
-lspconfig.bashls.setup{
-  capabilities = capabilities;
-  on_attach = on_attach;
-  cmd = { paths.bin['bash-language-server'], 'start' };
+lspconfig.bashls.setup {
+    capabilities = capabilities;
+    on_attach = on_attach;
+    cmd = { paths.bin['bash-language-server'], 'start' };
 }
-lspconfig.clangd.setup{
-  capabilities = capabilities;
-  on_attach = on_attach;
-  cmd = { paths.bin['clangd'], '--background-index' };
+lspconfig.clangd.setup {
+    capabilities = capabilities;
+    on_attach = on_attach;
+    cmd = { paths.bin['clangd'], '--background-index' };
 }
-lspconfig.dockerls.setup{
-  capabilities = capabilities;
-  on_attach = on_attach;
-  cmd = { paths.bin['docker-langserver'], '--stdio' };
+lspconfig.dockerls.setup {
+    capabilities = capabilities;
+    on_attach = on_attach;
+    cmd = { paths.bin['docker-langserver'], '--stdio' };
 }
-lspconfig.elmls.setup{
-  capabilities = capabilities;
-  on_attach = on_attach;
-  cmd = { paths.bin['elm-language-server'] };
-  settings = {
-    elmLS = {
-      elmFormatPath = paths.bin['elm-format'];
+lspconfig.elmls.setup {
+    capabilities = capabilities;
+    on_attach = on_attach;
+    cmd = { paths.bin['elm-language-server'] };
+    settings = {
+        elmLS = {
+            elmFormatPath = paths.bin['elm-format'];
+        };
+        elmPath = paths.bin['elm'];
+        elmTestPath = paths.bin['elm-test'];
     };
-    elmPath = paths.bin['elm'];
-    elmTestPath = paths.bin['elm-test'];
-  };
 }
-lspconfig.gdscript.setup{
-  capabilities = capabilities;
-  on_attach = on_attach;
+lspconfig.gdscript.setup {
+    capabilities = capabilities;
+    on_attach = on_attach;
 }
-lspconfig.gopls.setup{
-  capabilities = capabilities;
-  on_attach = function(client, bufnr)
-    on_attach(client, bufnr)
-    noremap_lua_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
-  end;
-  cmd = { paths.bin['gopls'], 'serve' };
-  settings = {
-    gopls = {
-      analyses = {
-       fieldalignment = true;
-       unusedparams = true;
-      };
-      gofumpt = true;
-      staticcheck = true;
+lspconfig.gopls.setup {
+    capabilities = capabilities;
+    on_attach = function(client, bufnr)
+        on_attach(client, bufnr)
+        noremap_lua_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
+    end;
+    cmd = { paths.bin['gopls'], 'serve' };
+    settings = {
+        gopls = {
+            analyses = {
+                fieldalignment = true;
+                unusedparams = true;
+            };
+            gofumpt = true;
+            staticcheck = true;
+        };
     };
-  };
 }
-lspconfig.hls.setup{
-  capabilities = capabilities;
-  on_attach = on_attach;
-  cmd = { paths.bin['haskell-language-server'], '--lsp' };
+lspconfig.hls.setup {
+    capabilities = capabilities;
+    on_attach = on_attach;
+    cmd = { paths.bin['haskell-language-server'], '--lsp' };
 }
-lspconfig.julials.setup{
-  capabilities = capabilities;
-  on_attach = on_attach;
-  settings = {
-    julia = {
-      executablePath = paths.bin['julia'];
+lspconfig.julials.setup {
+    capabilities = capabilities;
+    on_attach = on_attach;
+    settings = {
+        julia = {
+            executablePath = paths.bin['julia'];
+        };
     };
-  };
 }
-lspconfig.omnisharp.setup{
-  capabilities = capabilities;
-  on_attach = on_attach;
-  cmd = { paths.bin['omnisharp'], '--languageserver' , '--hostPID', tostring(vim.fn.getpid()) };
+lspconfig.omnisharp.setup {
+    capabilities = capabilities;
+    on_attach = on_attach;
+    cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) };
 }
-lspconfig.rnix.setup{
-  capabilities = capabilities;
-  on_attach = on_attach;
-  cmd = { paths.bin['rnix-lsp'] };
+lspconfig.rnix.setup {
+    capabilities = capabilities;
+    on_attach = on_attach;
+    cmd = { paths.bin['rnix-lsp'] };
 }
-lspconfig.sumneko_lua.setup{
-  capabilities = capabilities;
-  on_attach = on_attach;
-  cmd = { paths.bin['lua-language-server'], '-E', paths.src['lua-language-server'] .. "/main.lua" };
+lspconfig.sumneko_lua.setup {
+    capabilities = capabilities;
+    on_attach = on_attach;
+    cmd = { paths.bin['lua-language-server'], '-E', paths.src['lua-language-server'] .. "/main.lua" };
 }
 
 --- Diagnostics
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
+    vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = true,
     signs = true,
     update_in_insert = true,
-  }
+}
 )
