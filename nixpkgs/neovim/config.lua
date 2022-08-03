@@ -371,6 +371,7 @@ lspconfig.gopls.setup{
 lspconfig.hls.setup{
   capabilities = capabilities;
   on_attach = on_attach;
+  cmd = { paths.bin['haskell-language-server'], '--lsp' };
 }
 lspconfig.julials.setup{
   capabilities = capabilities;
