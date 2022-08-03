@@ -131,6 +131,7 @@
     ];
   nix.optimise.automatic = true;
   # TODO: Set nix.registry to fork
+  nix.package = pkgs.nixUnstable;
   nix.requireSignedBinaryCaches = true;
   nix.trustedUsers = [ "root" "${config.resources.username}" "@wheel" ];
 
