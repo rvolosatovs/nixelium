@@ -137,8 +137,6 @@ in
         rnix-lsp
         rofi
         rtl-sdr
-        rust-analyzer
-        rustup
         sd
         sidequest
         skim
