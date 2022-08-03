@@ -69,6 +69,7 @@
   services.tailscale.enable = true;
 
   services.udev.packages = with pkgs; [
+    android-udev-rules
     libu2f-host
     yubikey-personalization
     yubioath-desktop
