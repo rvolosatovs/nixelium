@@ -62,6 +62,18 @@ with flake-utils.lib.system; let
       services.benefice.log.level = "info";
       services.benefice.oidc.client = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
       services.benefice.package = pkgs.benefice.staging;
+
+      systemd.services.snp-modprobe.script = with pkgs; ''
+        ${kmod}/bin/modprobe ccp
+        ${kmod}/bin/modprobe kvm_amd
+        ${kmod}/bin/modprobe -r kvm_amd
+        ${kmod}/bin/modprobe -r ccp
+        ${kmod}/bin/modprobe ccp
+        ${kmod}/bin/modprobe kvm_amd
+        ${enarx}/bin/enarx platform snp update
+      '';
+      systemd.services.snp-modprobe.serviceConfig.Type = "oneshot";
+      systemd.services.snp-modprobe.wantedBy = ["multi-user.target"];
     })
   ];
 in {
