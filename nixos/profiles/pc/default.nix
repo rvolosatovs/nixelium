@@ -66,6 +66,8 @@
 
   services.pcscd.enable = true;
 
+  services.tailscale.enable = true;
+
   services.udev.packages = with pkgs; [
     libu2f-host
     yubikey-personalization
