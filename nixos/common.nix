@@ -148,6 +148,7 @@
 
   programs.zsh.enable = true;
   programs.zsh.autosuggestions.enable = true;
+  programs.zsh.enableBashCompletion = true;
   programs.zsh.enableCompletion = true;
   programs.zsh.enableGlobalCompInit = false; # avoid double initialization due to home-manager
   programs.zsh.interactiveShellInit = ''
