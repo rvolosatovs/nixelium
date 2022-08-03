@@ -210,7 +210,6 @@ with config.resources.base16.colors;
         programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           auto-tab-discard
           cookie-autodelete
-          gopass-bridge
           https-everywhere
           link-cleaner
           multi-account-containers
@@ -218,14 +217,12 @@ with config.resources.base16.colors;
           peertubeify
           privacy-badger
           reddit-enhancement-suite
-          refined-github
           rust-search-extension
           save-page-we
           stylus
           text-contrast-for-dark-themes
           transparent-standalone-image
           ublock-origin
-          vim-vixen
         ];
         programs.firefox.package = pkgs.firefox;
         programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
