@@ -37,7 +37,6 @@
   nix.maxJobs = lib.mkDefault 64;
 
   services.enarx.backend = "sev";
-  services.enarx.enable = true;
 
   swapDevices = [
     {device = "/dev/disk/by-id/ata-MTFDDAV240TDU_214332305267-part2";}

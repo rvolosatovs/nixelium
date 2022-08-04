@@ -18,6 +18,8 @@ with flake-utils.lib.system; let
       services.benefice.enable = true;
       services.benefice.oidc.secretFile = config.sops.secrets.oidc-secret.path;
 
+      services.enarx.enable = true;
+
       services.nginx.clientMaxBodySize = "100m";
       services.nginx.appendHttpConfig = ''
         add_header Strict-Transport-Security "max-age=0";
@@ -30,6 +32,18 @@ with flake-utils.lib.system; let
       sops.secrets.oidc-secret.sopsFile = "${self}/hosts/${config.networking.fqdn}/oidc-secret";
 
       systemd.services.benefice = self.lib.systemd.withSecret config pkgs "benefice" "oidc-secret";
+    })
+  ];
+
+  benefice-testing = mkBenefice x86_64-linux [
+    ({pkgs, ...}: {
+      imports = [
+        "${self}/hosts/benefice.testing.profian.com"
+      ];
+
+      services.benefice.log.level = "debug";
+      services.benefice.oidc.client = "FTmeUMamlu8HRs11mvtmmZHnmCwRIo8E";
+      services.benefice.package = pkgs.benefice.testing;
     })
   ];
 
@@ -71,6 +85,7 @@ with flake-utils.lib.system; let
   ];
 in {
   inherit
+    benefice-testing
     sgx-equinix-try
     snp-equinix-try
     ;

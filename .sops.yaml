@@ -17,6 +17,11 @@ creation_rules:
     - age:
       - age10p3jcp80q9cmzfqxl73cnjx2t24x93gvxg7jjzu9cz4yqgnfv9nqf7qxle
 
+  - path_regex: hosts/benefice.testing.profian.com
+    key_groups:
+    - age:
+      - age15mq3msgr00046pd8wnjw7y3xww4p4c3u3vxjvud5gldrrzdsl3msz4rfr8
+
   - path_regex: hosts/sgx.equinix.demo.enarx.dev
     key_groups:
     - age:

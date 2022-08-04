@@ -20,6 +20,7 @@ in {
   nodes.attest = mkGenericNode self.nixosConfigurations.attest;
   nodes.attest-staging = mkGenericNode self.nixosConfigurations.attest-staging;
   nodes.attest-testing = mkGenericNode self.nixosConfigurations.attest-testing;
+  nodes.benefice-testing = mkGenericNode self.nixosConfigurations.benefice-testing;
   nodes.nuc-1 = mkTailscaleNode self.nixosConfigurations.nuc-1;
   nodes.sgx-equinix-try = mkGenericNode self.nixosConfigurations.sgx-equinix-try;
   nodes.snp-equinix-try = mkGenericNode self.nixosConfigurations.snp-equinix-try;

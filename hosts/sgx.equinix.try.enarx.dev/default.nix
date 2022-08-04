@@ -43,7 +43,6 @@ in {
   services.aesmd.qcnl.settings.useSecureCert = false;
 
   services.enarx.backend = "sgx";
-  services.enarx.enable = true;
 
   services.pccs.apiKeyFile = intelApiKeyFile;
   services.pccs.enable = true;
