@@ -27,11 +27,7 @@ with flake-utils.lib.system; let
   ];
 
   attest-testing = mkSteward x86_64-linux [
-    ({
-      config,
-      pkgs,
-      ...
-    }: {
+    ({pkgs, ...}: {
       imports = [
         "${self}/hosts/attest.testing.profian.com"
       ];
@@ -42,11 +38,7 @@ with flake-utils.lib.system; let
   ];
 
   attest-staging = mkSteward x86_64-linux [
-    ({
-      config,
-      pkgs,
-      ...
-    }: {
+    ({pkgs, ...}: {
       imports = [
         "${self}/hosts/attest.staging.profian.com"
       ];
@@ -57,11 +49,7 @@ with flake-utils.lib.system; let
   ];
 
   attest = mkSteward x86_64-linux [
-    ({
-      config,
-      pkgs,
-      ...
-    }: {
+    ({pkgs, ...}: {
       imports = [
         "${self}/hosts/attest.profian.com"
       ];

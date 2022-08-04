@@ -34,11 +34,7 @@ with flake-utils.lib.system; let
   ];
 
   sgx-equinix-try = mkBenefice x86_64-linux [
-    ({
-      config,
-      pkgs,
-      ...
-    }: {
+    ({pkgs, ...}: {
       imports = [
         "${self}/hosts/sgx.equinix.try.enarx.dev"
       ];
@@ -50,11 +46,7 @@ with flake-utils.lib.system; let
   ];
 
   snp-equinix-try = mkBenefice x86_64-linux [
-    ({
-      config,
-      pkgs,
-      ...
-    }: {
+    ({pkgs, ...}: {
       imports = [
         "${self}/hosts/snp.equinix.try.enarx.dev"
       ];
