@@ -21,11 +21,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1659101915,
-        "narHash": "sha256-VOmwbhXiXZQ0FjOFmAk+XQKMWvDKwwHbhfA47aoROIQ=",
+        "lastModified": 1659617515,
+        "narHash": "sha256-l4iygfJPyJWs3/wcy+Q8m21eLw2xV287nyVM2o7hW10=",
         "owner": "profianinc",
         "repo": "benefice",
-        "rev": "aecf0c810c2ed5b22fdcaa1b99091b55b0b1cc23",
+        "rev": "ff5863b206ddc3b6f45eb0a8edd1a05a3c9a7185",
         "type": "github"
       },
       "original": {
