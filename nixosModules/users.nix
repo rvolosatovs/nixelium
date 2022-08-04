@@ -7,6 +7,7 @@
   keys.haraldh = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/ziasupvk3yQ6Tqb/JiQ6gPwdKzDR26S5W5w6byx3FYEztkiGLi8wsFC+mOWrirwVTma3M0TO1DnYjwXvsU7kSoQQarS8bG+CoPIifcF1a5SEeJKPifsYUIB7GSMUY4yomdRe7+AdP8nSqlHdoij6fN/+rfUs+3nTrq4TAkFyg5hqQBQp32DrM1Och5KXMvOCak75TQoxrfpKyhlCuoWVotnvxWMFgfCGUYC6Q2nKPn3y1EtFs9Y/Zi8H5VzLjrhmbJYd7yTA6HPBqDpEnaaL+vXAoqPC1Vzu+gI2jOumhg+4eN3kfbzP5Sz0ljhmYKpHBPE0+sPKMLtWZBW9gUSr";
   keys.npmccallum = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDY5lUiLQkHiSAcvIK0RNzZfGQqyt/jjmnq/vUvLLjaEzwFEHemzaOEOACQT/SC0SP/RyN/taQBkcyGGaJ9lf5Q=";
   keys.platten = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICINJWxtAQ9+03WqKkLphYQ9/k43a7YX/OUAufZoXfb+";
+  keys.puiterwijk = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII1NBn79JAtU+9Gx/UFhG7/dEiPrHjS+ZWbuqEQAG0yG";
   keys.rvolosatovs = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKEC3hGlw5tDKcfbvTd+IdZxGSdux1i/AIK3mzx4bZuX";
 
   adminGroups = with config.users.groups; [
@@ -70,6 +71,7 @@ in {
     haraldh
     npmccallum
     platten
+    puiterwijk
     rvolosatovs
   ];
   users.users.deploy.shell = pkgs.bashInteractive;
@@ -88,6 +90,11 @@ in {
   users.users.platten.extraGroups = adminGroups;
   users.users.platten.openssh.authorizedKeys.keys = with keys; [platten];
   users.users.platten.shell = pkgs.bashInteractive;
+
+  users.users.puiterwijk.isNormalUser = true;
+  users.users.puiterwijk.extraGroups = adminGroups;
+  users.users.puiterwijk.openssh.authorizedKeys.keys = with keys; [puiterwijk];
+  users.users.puiterwijk.shell = pkgs.bashInteractive;
 
   users.users.root.hashedPassword = "!"; # nothing hashes to `!`, so this disables root logins
 
