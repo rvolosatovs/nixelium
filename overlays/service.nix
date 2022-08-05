@@ -9,27 +9,18 @@
   steward-staging,
   steward-testing,
   ...
-}: final: prev: let
-  fromInput = name: src:
-    final.stdenv.mkDerivation {
-      inherit name;
-      dontUnpack = true;
-      installPhase = ''
-        mkdir -p $out/bin
-        install ${src} $out/bin/${name}
-      '';
-    };
-in {
+}: final: prev: {
   benefice.testing = benefice-testing.packages.x86_64-linux.benefice-debug-x86_64-unknown-linux-musl;
-  benefice.staging = fromInput "benefice" benefice-staging;
+  benefice.staging = benefice-staging.packages.x86_64-linux.benefice-x86_64-unknown-linux-musl;
 
   drawbridge.testing = drawbridge-testing.packages.x86_64-linux.drawbridge-debug-x86_64-unknown-linux-musl;
   drawbridge.staging = drawbridge-staging.packages.x86_64-linux.drawbridge-x86_64-unknown-linux-musl;
   drawbridge.production = drawbridge-production.packages.x86_64-linux.drawbridge-x86_64-unknown-linux-musl;
 
-  enarx = fromInput "enarx" enarx;
+  enarx = enarx.packages.x86_64-linux.enarx-x86_64-unknown-linux-musl;
 
+  # TODO: Use debug Steward build
   steward.testing = steward-testing.packages.x86_64-linux.steward-x86_64-unknown-linux-musl;
-  steward.staging = fromInput "steward" steward-staging;
-  steward.production = fromInput "steward" steward-production;
+  steward.staging = steward-staging.packages.x86_64-linux.steward-x86_64-unknown-linux-musl;
+  steward.production = steward-production.packages.x86_64-linux.steward-x86_64-unknown-linux-musl;
 }

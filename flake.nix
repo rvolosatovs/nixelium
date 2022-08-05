@@ -1,16 +1,14 @@
 {
   description = "Profian Inc Network Infrastructure";
 
-  inputs.benefice-staging.flake = false;
-  inputs.benefice-staging.url = "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc13/benefice-x86_64-unknown-linux-musl";
+  inputs.benefice-staging.url = github:profianinc/benefice/v0.1.0-rc13;
   inputs.benefice-testing.url = github:profianinc/benefice;
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
   inputs.deploy-rs.url = github:serokell/deploy-rs;
   inputs.drawbridge-production.url = github:profianinc/drawbridge/v0.2.2;
   inputs.drawbridge-staging.url = github:profianinc/drawbridge/v0.2.2;
   inputs.drawbridge-testing.url = github:profianinc/drawbridge;
-  inputs.enarx.flake = false;
-  inputs.enarx.url = "https://github.com/rvolosatovs/enarx/releases/download/v0.6.3-rc1/enarx-x86_64-unknown-linux-musl";
+  inputs.enarx.url = github:rvolosatovs/enarx/v0.6.3-rc1;
   inputs.flake-compat.flake = false;
   inputs.flake-compat.url = github:edolstra/flake-compat;
   inputs.flake-utils.url = github:numtide/flake-utils;
@@ -18,10 +16,8 @@
   inputs.nixpkgs.url = github:profianinc/nixpkgs;
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.sops-nix.url = github:Mic92/sops-nix;
-  inputs.steward-production.flake = false;
-  inputs.steward-production.url = "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl";
-  inputs.steward-staging.flake = false;
-  inputs.steward-staging.url = "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl";
+  inputs.steward-production.url = github:profianinc/steward/v0.1.0;
+  inputs.steward-staging.url = github:profianinc/steward/v0.1.0;
   inputs.steward-testing.url = github:profianinc/steward;
 
   outputs = inputs @ {

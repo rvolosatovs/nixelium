@@ -1,24 +1,35 @@
 {
   "nodes": {
     "benefice-staging": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-HIDhrUWbltjKV+eMRQLwizPSqhEhcP1HU1ITD3Vt5BQ=",
-        "type": "file",
-        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc13/benefice-x86_64-unknown-linux-musl"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/profianinc/benefice/releases/download/v0.1.0-rc13/benefice-x86_64-unknown-linux-musl"
-      }
-    },
-    "benefice-testing": {
       "inputs": {
         "cargo2nix": "cargo2nix",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
         "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1658853299,
+        "narHash": "sha256-un6h9chSjzZa369fb4zgQzPNiVuRyTaBf/cz4R/AqII=",
+        "owner": "profianinc",
+        "repo": "benefice",
+        "rev": "d8107419769f7cd9f08d366332f888ec58bce839",
+        "type": "github"
+      },
+      "original": {
+        "owner": "profianinc",
+        "ref": "v0.1.0-rc13",
+        "repo": "benefice",
+        "type": "github"
+      }
+    },
+    "benefice-testing": {
+      "inputs": {
+        "cargo2nix": "cargo2nix_2",
+        "flake-compat": "flake-compat_2",
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs_2",
+        "rust-overlay": "rust-overlay_2"
       },
       "locked": {
         "lastModified": 1659638182,
@@ -37,19 +48,19 @@
     "cargo2nix": {
       "inputs": {
         "flake-compat": [
-          "benefice-testing",
+          "benefice-staging",
           "flake-compat"
         ],
         "flake-utils": [
-          "benefice-testing",
+          "benefice-staging",
           "flake-utils"
         ],
         "nixpkgs": [
-          "benefice-testing",
+          "benefice-staging",
           "nixpkgs"
         ],
         "rust-overlay": [
-          "benefice-testing",
+          "benefice-staging",
           "rust-overlay"
         ]
       },
@@ -70,6 +81,39 @@
     "cargo2nix_2": {
       "inputs": {
         "flake-compat": [
+          "benefice-testing",
+          "flake-compat"
+        ],
+        "flake-utils": [
+          "benefice-testing",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "benefice-testing",
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "benefice-testing",
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1655189312,
+        "narHash": "sha256-gpJ57OgIebUpO+7F00VltxSEy6dz2x6HeJ5BcRM8rDA=",
+        "owner": "cargo2nix",
+        "repo": "cargo2nix",
+        "rev": "c149357cc3d17f2849c73eb7a09d07a307cdcfe8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cargo2nix",
+        "repo": "cargo2nix",
+        "type": "github"
+      }
+    },
+    "cargo2nix_3": {
+      "inputs": {
+        "flake-compat": [
           "drawbridge-production",
           "flake-compat"
         ],
@@ -100,7 +144,7 @@
         "type": "github"
       }
     },
-    "cargo2nix_3": {
+    "cargo2nix_4": {
       "inputs": {
         "flake-compat": [
           "drawbridge-staging",
@@ -133,7 +177,7 @@
         "type": "github"
       }
     },
-    "cargo2nix_4": {
+    "cargo2nix_5": {
       "inputs": {
         "flake-compat": [
           "drawbridge-testing",
@@ -171,7 +215,7 @@
         "flake-compat": [
           "flake-compat"
         ],
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "utils": "utils"
       },
       "locked": {
@@ -189,29 +233,6 @@
       }
     },
     "drawbridge-production": {
-      "inputs": {
-        "cargo2nix": "cargo2nix_2",
-        "flake-compat": "flake-compat_2",
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_3",
-        "rust-overlay": "rust-overlay_2"
-      },
-      "locked": {
-        "lastModified": 1659692949,
-        "narHash": "sha256-iF2jv+lQMfvQtrTQwMQu+MF1oiqBerRR92RxF3Ykvhw=",
-        "owner": "profianinc",
-        "repo": "drawbridge",
-        "rev": "5ec3f4a47a63b11ffcbb1d7620688eb0f7a7b320",
-        "type": "github"
-      },
-      "original": {
-        "owner": "profianinc",
-        "ref": "v0.2.2",
-        "repo": "drawbridge",
-        "type": "github"
-      }
-    },
-    "drawbridge-staging": {
       "inputs": {
         "cargo2nix": "cargo2nix_3",
         "flake-compat": "flake-compat_3",
@@ -234,13 +255,36 @@
         "type": "github"
       }
     },
-    "drawbridge-testing": {
+    "drawbridge-staging": {
       "inputs": {
         "cargo2nix": "cargo2nix_4",
         "flake-compat": "flake-compat_4",
         "flake-utils": "flake-utils_4",
         "nixpkgs": "nixpkgs_5",
         "rust-overlay": "rust-overlay_4"
+      },
+      "locked": {
+        "lastModified": 1659692949,
+        "narHash": "sha256-iF2jv+lQMfvQtrTQwMQu+MF1oiqBerRR92RxF3Ykvhw=",
+        "owner": "profianinc",
+        "repo": "drawbridge",
+        "rev": "5ec3f4a47a63b11ffcbb1d7620688eb0f7a7b320",
+        "type": "github"
+      },
+      "original": {
+        "owner": "profianinc",
+        "ref": "v0.2.2",
+        "repo": "drawbridge",
+        "type": "github"
+      }
+    },
+    "drawbridge-testing": {
+      "inputs": {
+        "cargo2nix": "cargo2nix_5",
+        "flake-compat": "flake-compat_5",
+        "flake-utils": "flake-utils_5",
+        "nixpkgs": "nixpkgs_6",
+        "rust-overlay": "rust-overlay_5"
       },
       "locked": {
         "lastModified": 1659694701,
@@ -257,24 +301,100 @@
       }
     },
     "enarx": {
-      "flake": false,
+      "inputs": {
+        "fenix": "fenix",
+        "flake-compat": "flake-compat_6",
+        "flake-utils": "flake-utils_6",
+        "nixpkgs": "nixpkgs_7"
+      },
       "locked": {
-        "narHash": "sha256-G6l77Szld7serZfuqQPryl0DTx8R09rC4qP/3XEJ5JI=",
-        "type": "file",
-        "url": "https://github.com/rvolosatovs/enarx/releases/download/v0.6.3-rc1/enarx-x86_64-unknown-linux-musl"
+        "lastModified": 1659445084,
+        "narHash": "sha256-pnIVL9SOMeiyM4iA9ZZ47vtZq7KBcp3nRCyBlAkZMx0=",
+        "owner": "rvolosatovs",
+        "repo": "enarx",
+        "rev": "b485a65804f86b35057c3f68f141a9ce0cc54aa9",
+        "type": "github"
       },
       "original": {
-        "type": "file",
-        "url": "https://github.com/rvolosatovs/enarx/releases/download/v0.6.3-rc1/enarx-x86_64-unknown-linux-musl"
+        "owner": "rvolosatovs",
+        "ref": "v0.6.3-rc1",
+        "repo": "enarx",
+        "type": "github"
       }
     },
     "fenix": {
       "inputs": {
         "nixpkgs": [
-          "steward-testing",
+          "enarx",
           "nixpkgs"
         ],
         "rust-analyzer-src": "rust-analyzer-src"
+      },
+      "locked": {
+        "lastModified": 1658212081,
+        "narHash": "sha256-zy+sNlqK/yqmMpSzZUIp54OT1yet62r4AZcRR8HiITY=",
+        "owner": "nix-community",
+        "repo": "fenix",
+        "rev": "69069698c3aa14fc211c66c6635c1e34f4d6b441",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "fenix",
+        "type": "github"
+      }
+    },
+    "fenix_2": {
+      "inputs": {
+        "nixpkgs": [
+          "steward-production",
+          "nixpkgs"
+        ],
+        "rust-analyzer-src": "rust-analyzer-src_2"
+      },
+      "locked": {
+        "lastModified": 1657002438,
+        "narHash": "sha256-BHStt2enlVTYoFBSIFLYLKiqbg85ghVSI/S3th2HX1g=",
+        "owner": "nix-community",
+        "repo": "fenix",
+        "rev": "7958c5e906a20f8d3308928cc184592cc413ccbe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "fenix",
+        "type": "github"
+      }
+    },
+    "fenix_3": {
+      "inputs": {
+        "nixpkgs": [
+          "steward-staging",
+          "nixpkgs"
+        ],
+        "rust-analyzer-src": "rust-analyzer-src_3"
+      },
+      "locked": {
+        "lastModified": 1657002438,
+        "narHash": "sha256-BHStt2enlVTYoFBSIFLYLKiqbg85ghVSI/S3th2HX1g=",
+        "owner": "nix-community",
+        "repo": "fenix",
+        "rev": "7958c5e906a20f8d3308928cc184592cc413ccbe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "fenix",
+        "type": "github"
+      }
+    },
+    "fenix_4": {
+      "inputs": {
+        "nixpkgs": [
+          "steward-testing",
+          "nixpkgs"
+        ],
+        "rust-analyzer-src": "rust-analyzer-src_4"
       },
       "locked": {
         "lastModified": 1657175312,
@@ -291,6 +411,22 @@
       }
     },
     "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650374568,
+        "narHash": "sha256-Z+s0J8/r907g149rllvwhb4pKi8Wam5ij0st8PwAh+E=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_10": {
       "flake": false,
       "locked": {
         "lastModified": 1650374568,
@@ -386,7 +522,70 @@
         "type": "github"
       }
     },
+    "flake-compat_7": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650374568,
+        "narHash": "sha256-Z+s0J8/r907g149rllvwhb4pKi8Wam5ij0st8PwAh+E=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_8": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650374568,
+        "narHash": "sha256-Z+s0J8/r907g149rllvwhb4pKi8Wam5ij0st8PwAh+E=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_9": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650374568,
+        "narHash": "sha256-Z+s0J8/r907g149rllvwhb4pKi8Wam5ij0st8PwAh+E=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-utils": {
+      "locked": {
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_10": {
       "locked": {
         "lastModified": 1656928814,
         "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
@@ -476,6 +675,51 @@
         "type": "github"
       }
     },
+    "flake-utils_7": {
+      "locked": {
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_8": {
+      "locked": {
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_9": {
+      "locked": {
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "nixlib": {
       "locked": {
         "lastModified": 1659228903,
@@ -522,7 +766,52 @@
         "type": "github"
       }
     },
+    "nixpkgs_10": {
+      "locked": {
+        "lastModified": 1656947410,
+        "narHash": "sha256-htDR/PZvjUJGyrRJsVqDmXR8QeoswBaRLzHt13fd0iY=",
+        "owner": "profianinc",
+        "repo": "nixpkgs",
+        "rev": "e8d47977286a44955262adbc76f2c8a66e7419d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "profianinc",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_11": {
+      "locked": {
+        "lastModified": 1657180881,
+        "narHash": "sha256-uwUxEXY3b6O3WhzDLT3EaZOk4bGE648Mxi5Q1zljh9Y=",
+        "owner": "profianinc",
+        "repo": "nixpkgs",
+        "rev": "a932f558a856d6f7c57223d554e110e9ba12e7c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "profianinc",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1657180868,
+        "narHash": "sha256-pRGoBUIn35fa2ptlMiJ+0Tb4GhC0SQXMQLuIhIt7SHo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0c82c6d29482b4e08c264288e0a4bc14d5d84e8e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1648219316,
         "narHash": "sha256-Ctij+dOi0ZZIfX5eMhgwugfvB+WZSrvVNAyAuANOsnQ=",
@@ -534,21 +823,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1659001090,
-        "narHash": "sha256-GluhtRyXf3bzbQQbsSOJRY7FAR7cMeGhRUcnnJaT99w=",
-        "owner": "profianinc",
-        "repo": "nixpkgs",
-        "rev": "8255afe757589eac479fb2bd87a1ab5cd3a0b51f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "profianinc",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -570,11 +844,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1659638811,
-        "narHash": "sha256-A+5EJQRArR4WDFONAMZJwloPFcvQlhnlKgTnzOoXSQc=",
+        "lastModified": 1659001090,
+        "narHash": "sha256-GluhtRyXf3bzbQQbsSOJRY7FAR7cMeGhRUcnnJaT99w=",
         "owner": "profianinc",
         "repo": "nixpkgs",
-        "rev": "9fafa7e8de3fa4f3fa63777ff82f0c0fbc31a87d",
+        "rev": "8255afe757589eac479fb2bd87a1ab5cd3a0b51f",
         "type": "github"
       },
       "original": {
@@ -600,11 +874,41 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1657180881,
-        "narHash": "sha256-uwUxEXY3b6O3WhzDLT3EaZOk4bGE648Mxi5Q1zljh9Y=",
+        "lastModified": 1658233628,
+        "narHash": "sha256-RFRVrPSMwIWUQlisB6T3EOMETkZW++D+rNKfCT3bbfU=",
         "owner": "profianinc",
         "repo": "nixpkgs",
-        "rev": "a932f558a856d6f7c57223d554e110e9ba12e7c9",
+        "rev": "173209ef123580254fbd37ac96d1fdb1ca69cd7c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "profianinc",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_8": {
+      "locked": {
+        "lastModified": 1659638811,
+        "narHash": "sha256-A+5EJQRArR4WDFONAMZJwloPFcvQlhnlKgTnzOoXSQc=",
+        "owner": "profianinc",
+        "repo": "nixpkgs",
+        "rev": "9fafa7e8de3fa4f3fa63777ff82f0c0fbc31a87d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "profianinc",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_9": {
+      "locked": {
+        "lastModified": 1656947410,
+        "narHash": "sha256-htDR/PZvjUJGyrRJsVqDmXR8QeoswBaRLzHt13fd0iY=",
+        "owner": "profianinc",
+        "repo": "nixpkgs",
+        "rev": "e8d47977286a44955262adbc76f2c8a66e7419d5",
         "type": "github"
       },
       "original": {
@@ -622,10 +926,10 @@
         "drawbridge-staging": "drawbridge-staging",
         "drawbridge-testing": "drawbridge-testing",
         "enarx": "enarx",
-        "flake-compat": "flake-compat_5",
-        "flake-utils": "flake-utils_5",
+        "flake-compat": "flake-compat_7",
+        "flake-utils": "flake-utils_7",
         "nixlib": "nixlib",
-        "nixpkgs": "nixpkgs_6",
+        "nixpkgs": "nixpkgs_8",
         "sops-nix": "sops-nix",
         "steward-production": "steward-production",
         "steward-staging": "steward-staging",
@@ -633,6 +937,57 @@
       }
     },
     "rust-analyzer-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1658182792,
+        "narHash": "sha256-NOpxaEiFT9n7oSe02puqerKAt2VRsO8XtZ0Ra83JOOY=",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "567a5e9ef7c753e03d528cbc19110db99e8d6878",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "ref": "nightly",
+        "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "rust-analyzer-src_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1656953957,
+        "narHash": "sha256-oYX2K4Tk3eGgEnNBIRmnBv9421hEEXDj3KF3w8cIu1k=",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "e1a8c0b1534f26d4f04df79cfa11fd309365639b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "ref": "nightly",
+        "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "rust-analyzer-src_3": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1656953957,
+        "narHash": "sha256-oYX2K4Tk3eGgEnNBIRmnBv9421hEEXDj3KF3w8cIu1k=",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "e1a8c0b1534f26d4f04df79cfa11fd309365639b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "ref": "nightly",
+        "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "rust-analyzer-src_4": {
       "flake": false,
       "locked": {
         "lastModified": 1657151932,
@@ -650,6 +1005,31 @@
       }
     },
     "rust-overlay": {
+      "inputs": {
+        "flake-utils": [
+          "benefice-staging",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "benefice-staging",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1657162416,
+        "narHash": "sha256-5HckhpteVHcb++qPFw8L9bHd/B1EAzQxDeAPXAKML70=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "b1b998b47b15bc5e18a1b364c9c4f145bb0a3931",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
       "inputs": {
         "flake-utils": [
           "benefice-testing",
@@ -674,39 +1054,14 @@
         "type": "github"
       }
     },
-    "rust-overlay_2": {
-      "inputs": {
-        "flake-utils": [
-          "drawbridge-production",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "drawbridge-production",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1659599305,
-        "narHash": "sha256-htzFq5RffyoKSZxiLfpUq5CyhkQwycsXB5ptale5e78=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "28cedcb8dfea9f1b96b0635cf99fe6bdca163f4e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
     "rust-overlay_3": {
       "inputs": {
         "flake-utils": [
-          "drawbridge-staging",
+          "drawbridge-production",
           "flake-utils"
         ],
         "nixpkgs": [
-          "drawbridge-staging",
+          "drawbridge-production",
           "nixpkgs"
         ]
       },
@@ -725,6 +1080,31 @@
       }
     },
     "rust-overlay_4": {
+      "inputs": {
+        "flake-utils": [
+          "drawbridge-staging",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "drawbridge-staging",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1659599305,
+        "narHash": "sha256-htzFq5RffyoKSZxiLfpUq5CyhkQwycsXB5ptale5e78=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "28cedcb8dfea9f1b96b0635cf99fe6bdca163f4e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_5": {
       "inputs": {
         "flake-utils": [
           "drawbridge-testing",
@@ -749,7 +1129,57 @@
         "type": "github"
       }
     },
-    "rust-overlay_5": {
+    "rust-overlay_6": {
+      "inputs": {
+        "flake-utils": [
+          "steward-production",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "steward-production",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1656989406,
+        "narHash": "sha256-w2oW0C6qRUy/VsTKRFEM/7Xxb+nHM+QkVosA3fMRgBM=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "2be2b68fc248883b82d3c7bfa6e5c0caff68223d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_7": {
+      "inputs": {
+        "flake-utils": [
+          "steward-staging",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "steward-staging",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1656989406,
+        "narHash": "sha256-w2oW0C6qRUy/VsTKRFEM/7Xxb+nHM+QkVosA3fMRgBM=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "2be2b68fc248883b82d3c7bfa6e5c0caff68223d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_8": {
       "inputs": {
         "flake-utils": [
           "steward-testing",
@@ -796,36 +1226,58 @@
       }
     },
     "steward-production": {
-      "flake": false,
+      "inputs": {
+        "fenix": "fenix_2",
+        "flake-compat": "flake-compat_8",
+        "flake-utils": "flake-utils_8",
+        "nixpkgs": "nixpkgs_9",
+        "rust-overlay": "rust-overlay_6"
+      },
       "locked": {
-        "narHash": "sha256-//9IAOeuelgzK/Izef+U0R1PFgWcU3LSLxytnBGAfnk=",
-        "type": "file",
-        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl"
+        "lastModified": 1657025200,
+        "narHash": "sha256-8vn/rTUk3Rh/MJJauiA7m9DtuPBnLgzxsRXGxb3iE4Q=",
+        "owner": "profianinc",
+        "repo": "steward",
+        "rev": "93fce8b4c17d30a80de053229f7ea3a3528697f6",
+        "type": "github"
       },
       "original": {
-        "type": "file",
-        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl"
+        "owner": "profianinc",
+        "ref": "v0.1.0",
+        "repo": "steward",
+        "type": "github"
       }
     },
     "steward-staging": {
-      "flake": false,
+      "inputs": {
+        "fenix": "fenix_3",
+        "flake-compat": "flake-compat_9",
+        "flake-utils": "flake-utils_9",
+        "nixpkgs": "nixpkgs_10",
+        "rust-overlay": "rust-overlay_7"
+      },
       "locked": {
-        "narHash": "sha256-//9IAOeuelgzK/Izef+U0R1PFgWcU3LSLxytnBGAfnk=",
-        "type": "file",
-        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl"
+        "lastModified": 1657025200,
+        "narHash": "sha256-8vn/rTUk3Rh/MJJauiA7m9DtuPBnLgzxsRXGxb3iE4Q=",
+        "owner": "profianinc",
+        "repo": "steward",
+        "rev": "93fce8b4c17d30a80de053229f7ea3a3528697f6",
+        "type": "github"
       },
       "original": {
-        "type": "file",
-        "url": "https://github.com/profianinc/steward/releases/download/v0.1.0/steward-x86_64-unknown-linux-musl"
+        "owner": "profianinc",
+        "ref": "v0.1.0",
+        "repo": "steward",
+        "type": "github"
       }
     },
     "steward-testing": {
       "inputs": {
-        "fenix": "fenix",
-        "flake-compat": "flake-compat_6",
-        "flake-utils": "flake-utils_6",
-        "nixpkgs": "nixpkgs_7",
-        "rust-overlay": "rust-overlay_5"
+        "fenix": "fenix_4",
+        "flake-compat": "flake-compat_10",
+        "flake-utils": "flake-utils_10",
+        "nixpkgs": "nixpkgs_11",
+        "rust-overlay": "rust-overlay_8"
       },
       "locked": {
         "lastModified": 1657194171,
