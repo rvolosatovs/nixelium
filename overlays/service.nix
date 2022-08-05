@@ -24,8 +24,8 @@ in {
   benefice.staging = fromInput "benefice" benefice-staging;
 
   drawbridge.testing = drawbridge-testing.packages.x86_64-linux.drawbridge-debug-x86_64-unknown-linux-musl;
-  drawbridge.staging = fromInput "drawbridge" drawbridge-staging;
-  drawbridge.production = fromInput "drawbridge" drawbridge-production;
+  drawbridge.staging = drawbridge-staging.packages.x86_64-linux.drawbridge-x86_64-unknown-linux-musl;
+  drawbridge.production = drawbridge-production.packages.x86_64-linux.drawbridge-x86_64-unknown-linux-musl;
 
   enarx = fromInput "enarx" enarx;
 

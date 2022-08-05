@@ -6,10 +6,8 @@
   inputs.benefice-testing.url = github:profianinc/benefice;
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
   inputs.deploy-rs.url = github:serokell/deploy-rs;
-  inputs.drawbridge-production.flake = false;
-  inputs.drawbridge-production.url = "https://github.com/profianinc/drawbridge/releases/download/v0.2.0/drawbridge-x86_64-unknown-linux-musl";
-  inputs.drawbridge-staging.flake = false;
-  inputs.drawbridge-staging.url = "https://github.com/profianinc/drawbridge/releases/download/v0.2.0/drawbridge-x86_64-unknown-linux-musl";
+  inputs.drawbridge-production.url = github:profianinc/drawbridge/v0.2.2;
+  inputs.drawbridge-staging.url = github:profianinc/drawbridge/v0.2.2;
   inputs.drawbridge-testing.url = github:profianinc/drawbridge;
   inputs.enarx.flake = false;
   inputs.enarx.url = "https://github.com/rvolosatovs/enarx/releases/download/v0.6.3-rc1/enarx-x86_64-unknown-linux-musl";
