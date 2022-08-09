@@ -32,6 +32,13 @@ with flake-utils.lib.system; let
       sops.secrets.oidc-secret.sopsFile = "${self}/hosts/${config.networking.fqdn}/oidc-secret";
 
       systemd.services.benefice = self.lib.systemd.withSecret config pkgs "benefice" "oidc-secret";
+
+      # Workaround for https://github.com/profianinc/infrastructure/issues/109
+
+      users.groups.benefice = {};
+
+      users.users.benefice.isSystemUser = true;
+      users.users.benefice.group = config.users.groups.benefice.name;
     })
   ];
 

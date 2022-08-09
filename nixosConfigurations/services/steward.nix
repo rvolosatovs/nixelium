@@ -23,6 +23,13 @@ with flake-utils.lib.system; let
       sops.secrets.key.sopsFile = "${self}/hosts/${config.networking.fqdn}/steward.key";
 
       systemd.services.steward = self.lib.systemd.withSecret config pkgs "steward" "key";
+
+      # Workaround for https://github.com/profianinc/infrastructure/issues/109
+
+      users.groups.steward = {};
+
+      users.users.steward.isSystemUser = true;
+      users.users.steward.group = config.users.groups.steward.name;
     })
   ];
 
