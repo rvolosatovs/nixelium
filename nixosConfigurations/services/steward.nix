@@ -37,6 +37,7 @@ with flake-utils.lib.system; let
     ({pkgs, ...}: {
       imports = [
         "${self}/hosts/attest.testing.profian.com"
+        "${self}/nixosModules/ci.nix"
       ];
 
       services.steward.log.level = "debug";
@@ -48,6 +49,7 @@ with flake-utils.lib.system; let
     ({pkgs, ...}: {
       imports = [
         "${self}/hosts/attest.staging.profian.com"
+        "${self}/nixosModules/ci.nix"
       ];
 
       services.steward.log.level = "info";

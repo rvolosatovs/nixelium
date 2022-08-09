@@ -46,6 +46,7 @@ with flake-utils.lib.system; let
     ({pkgs, ...}: {
       imports = [
         "${self}/hosts/benefice.testing.profian.com"
+        "${self}/nixosModules/ci.nix"
       ];
 
       services.benefice.log.level = "debug";

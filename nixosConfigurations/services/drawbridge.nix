@@ -21,6 +21,7 @@ with flake-utils.lib.system; let
     ({pkgs, ...}: {
       imports = [
         "${self}/hosts/store.testing.profian.com"
+        "${self}/nixosModules/ci.nix"
       ];
 
       services.drawbridge.log.level = "debug";
@@ -33,6 +34,7 @@ with flake-utils.lib.system; let
     ({pkgs, ...}: {
       imports = [
         "${self}/hosts/store.staging.profian.com"
+        "${self}/nixosModules/ci.nix"
       ];
 
       services.drawbridge.log.level = "info";
