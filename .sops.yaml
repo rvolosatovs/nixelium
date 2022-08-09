@@ -34,8 +34,13 @@ creation_rules:
       - age1xq3cf6l9l23jqu54s4xqjnex9g04tmuw89tfvk5vwl573njhlscszym3hk
 
   - path_regex: ca/
+    shamir_threshold: 2
     key_groups:
     - age:
       - *puiterwijk
+    - age:
+      - *puiterwijk
+    - pgp:
+      - *roman
     - pgp:
       - *roman
