@@ -1,5 +1,6 @@
 {
   self,
+  enarx,
   flake-utils,
   sops-nix,
   ...
@@ -12,7 +13,9 @@ with flake-utils.lib.system; let
       lib,
       pkgs,
       ...
-    }: {
+    }: let
+      enarx-oci = enarx.packages.x86_64-linux.enarx-x86_64-unknown-linux-musl-oci;
+    in {
       networking.firewall.enable = lib.mkForce false;
 
       services.benefice.enable = true;
@@ -31,14 +34,36 @@ with flake-utils.lib.system; let
       sops.secrets.oidc-secret.restartUnits = ["benefice.service"];
       sops.secrets.oidc-secret.sopsFile = "${self}/hosts/${config.networking.fqdn}/oidc-secret";
 
+      systemd.services.load-enarx-image.script = "${pkgs.docker}/bin/docker load < ${enarx-oci}";
+      systemd.services.load-enarx-image.serviceConfig.Type = "oneshot";
+      systemd.services.load-enarx-image.serviceConfig.DynamicUser = true;
+      systemd.services.load-enarx-image.serviceConfig.SupplementaryGroups = with config.users.groups; [docker.name];
+      systemd.services.load-enarx-image.wantedBy = ["multi-user.target"];
+
       systemd.services.benefice = self.lib.systemd.withSecret config pkgs "benefice" "oidc-secret";
 
       # Workaround for https://github.com/profianinc/infrastructure/issues/109
 
       users.groups.benefice = {};
 
-      users.users.benefice.isSystemUser = true;
+      # NOTE: This is essentially equal to giving `benefice` user `root` access, which is a terrible idea.
+      # Ideally, we should use podman instead (see `virtualisation.podman.*`)
+      # Alternatively, we could explore `virtualisation.docker.rootless.*`
+      # Ideally, we should also split Benefice into a producer and consumer,
+      # which communicate via a message queue like a Redis 6 stream.
+      users.users.benefice.extraGroups = with config.users.groups; [docker.name];
       users.users.benefice.group = config.users.groups.benefice.name;
+      users.users.benefice.isSystemUser = true;
+
+      # TODO: Introduce a `users` NixOS module with `adminGroups` option, to which `docker.name` should be added
+      users.users.haraldh.extraGroups = with config.users.groups; [docker.name];
+      users.users.npmccallum.extraGroups = with config.users.groups; [docker.name];
+      users.users.platten.extraGroups = with config.users.groups; [docker.name];
+      users.users.puiterwijk.extraGroups = with config.users.groups; [docker.name];
+      users.users.rvolosatovs.extraGroups = with config.users.groups; [docker.name];
+
+      virtualisation.docker.enable = true;
+      virtualisation.docker.autoPrune.enable = true;
     })
   ];
 
