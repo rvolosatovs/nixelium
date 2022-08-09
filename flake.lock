@@ -308,16 +308,16 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1659445084,
-        "narHash": "sha256-pnIVL9SOMeiyM4iA9ZZ47vtZq7KBcp3nRCyBlAkZMx0=",
-        "owner": "rvolosatovs",
+        "lastModified": 1659993289,
+        "narHash": "sha256-dZobA9mwVMopItKkLjvddbtXXfgwqb1RQFmt2peB8XY=",
+        "owner": "enarx",
         "repo": "enarx",
-        "rev": "b485a65804f86b35057c3f68f141a9ce0cc54aa9",
+        "rev": "ffc11f4f7b126e7c7fb82b0f070968e97f30d3d8",
         "type": "github"
       },
       "original": {
-        "owner": "rvolosatovs",
-        "ref": "v0.6.3-rc1",
+        "owner": "enarx",
+        "ref": "v0.6.3",
         "repo": "enarx",
         "type": "github"
       }

@@ -8,7 +8,7 @@
   inputs.drawbridge-production.url = github:profianinc/drawbridge/v0.2.2;
   inputs.drawbridge-staging.url = github:profianinc/drawbridge/v0.2.2;
   inputs.drawbridge-testing.url = github:profianinc/drawbridge;
-  inputs.enarx.url = github:rvolosatovs/enarx/v0.6.3-rc1;
+  inputs.enarx.url = github:enarx/enarx/v0.6.3;
   inputs.flake-compat.flake = false;
   inputs.flake-compat.url = github:edolstra/flake-compat;
   inputs.flake-utils.url = github:numtide/flake-utils;
