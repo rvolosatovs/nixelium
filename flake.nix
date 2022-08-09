@@ -42,28 +42,36 @@
           overlays = [self.overlays.default];
         };
 
-        devShell = pkgs.mkShell {
+        devShells.base = pkgs.mkShell {
           buildInputs = with pkgs; [
-            age
-            awscli2
             nixUnstable
             openssh
-            openssl
-            sops
-            ssh-to-age
-            tailscale
-
-            bootstrap
-            bootstrap-ca
-            bootstrap-steward
-            host-key
-            ssh-for-each
 
             deploy-rs.packages.${system}.default
           ];
         };
+
+        devShells.default = devShells.base.overrideAttrs (attrs: {
+          buildInputs = with pkgs;
+            attrs.buildInputs
+            ++ [
+              age
+              awscli2
+              openssl
+              sops
+              ssh-to-age
+              tailscale
+
+              bootstrap
+              bootstrap-ca
+              bootstrap-steward
+              host-key
+              ssh-for-each
+            ];
+        });
       in {
-        devShells.default = devShell;
+        inherit devShells;
+
         formatter = pkgs.alejandra;
       }
     );
