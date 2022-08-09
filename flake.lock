@@ -32,11 +32,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1659638182,
-        "narHash": "sha256-vEFG/7Ar2NqrHdp/c1zMLN+EIdnzyc4y9caaMcIcYp4=",
+        "lastModified": 1659953735,
+        "narHash": "sha256-mq5gLo/KXpkQu4spbNOs+es/tJLbA34MuTDvvxYG0gI=",
         "owner": "profianinc",
         "repo": "benefice",
-        "rev": "c8fbe8d92967153d3e221025fa2bc67823582101",
+        "rev": "6fb0abe7a4067cdfee6d8793b3263f75aa1d8a86",
         "type": "github"
       },
       "original": {
@@ -219,11 +219,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1653594315,
-        "narHash": "sha256-kJ0ENmnQJ4qL2FeYKZba9kvv1KmIuB3NVpBwMeI7AJQ=",
+        "lastModified": 1659725433,
+        "narHash": "sha256-1ZxuK67TL29YLw88vQ18Y2Y6iYg8Jb7I6/HVzmNB6nM=",
         "owner": "serokell",
         "repo": "deploy-rs",
-        "rev": "184349d8149436748986d1bdba087e4149e9c160",
+        "rev": "41f15759dd8b638e7b4f299730d94d5aa46ab7eb",
         "type": "github"
       },
       "original": {
@@ -677,11 +677,11 @@
     },
     "flake-utils_7": {
       "locked": {
-        "lastModified": 1656928814,
-        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
         "type": "github"
       },
       "original": {
@@ -722,11 +722,11 @@
     },
     "nixlib": {
       "locked": {
-        "lastModified": 1659228903,
-        "narHash": "sha256-if+c7F8t/Yufix9LeWmWp4p3+VmGQAUSr7TCCrlQTJQ=",
+        "lastModified": 1659833885,
+        "narHash": "sha256-O3rimvpwToAZJ6lsTuLZ8Ez/gnC0QtQ+6D/pVCNrqLw=",
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "a351c69544a1b38dcfae88b57512de36931a0b7c",
+        "rev": "da17717ac8f62a579ff7b36aa30aceac07c12687",
         "type": "github"
       },
       "original": {
@@ -889,11 +889,11 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1659638811,
-        "narHash": "sha256-A+5EJQRArR4WDFONAMZJwloPFcvQlhnlKgTnzOoXSQc=",
+        "lastModified": 1660036486,
+        "narHash": "sha256-mjLSzeFMxqfIwAOnmPsxV5+UGbXN0VoMMhWnw/JaImk=",
         "owner": "profianinc",
         "repo": "nixpkgs",
-        "rev": "9fafa7e8de3fa4f3fa63777ff82f0c0fbc31a87d",
+        "rev": "a0278cdc2068af09560dbd8b0a967771e8475963",
         "type": "github"
       },
       "original": {
