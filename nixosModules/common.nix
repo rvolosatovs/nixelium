@@ -83,7 +83,10 @@ in {
 
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
+  services.openssh.permitRootLogin = lib.mkForce "no";
   services.openssh.startWhenNeeded = true;
 
   system.stateVersion = "22.05";
+
+  users.users.root.hashedPassword = "!"; # nothing hashes to `!`, so this disables root logins
 }

@@ -60,8 +60,6 @@ in {
     }
   ];
 
-  services.openssh.permitRootLogin = lib.mkForce "no";
-
   users.groups.deploy = {};
   users.groups.ops = {};
 
@@ -95,8 +93,6 @@ in {
   users.users.puiterwijk.extraGroups = adminGroups;
   users.users.puiterwijk.openssh.authorizedKeys.keys = with keys; [puiterwijk];
   users.users.puiterwijk.shell = pkgs.bashInteractive;
-
-  users.users.root.hashedPassword = "!"; # nothing hashes to `!`, so this disables root logins
 
   users.users.rvolosatovs.isNormalUser = true;
   users.users.rvolosatovs.extraGroups = adminGroups;
