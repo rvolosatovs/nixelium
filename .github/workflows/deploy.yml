@@ -16,7 +16,28 @@ jobs:
       with:
         name: enarx
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Deploy
-      # TODO: Reenable https://github.com/profianinc/infrastructure/issues/1
+    - name: Setup SSH
+      env:
+        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
-        nix develop -c deploy || exit 0
+        umask 0077
+        mkdir -p ~/.ssh
+        printf '%s' '${{ secrets.SSH_KEY }}' > ~/.ssh/id_ed25519
+        chmod 400 ~/.ssh/id_ed25519
+        ssh-agent -a $SSH_AUTH_SOCK
+        ssh-add ~/.ssh/id_ed25519
+        ssh-keyscan attest.staging.profian.com >> ~/.ssh/known_hosts
+        ssh-keyscan attest.testing.profian.com >> ~/.ssh/known_hosts
+        ssh-keyscan benefice.testing.profian.com >> ~/.ssh/known_hosts
+        ssh-keyscan store.staging.profian.com >> ~/.ssh/known_hosts
+        ssh-keyscan store.testing.profian.com >> ~/.ssh/known_hosts
+    - name: Deploy
+      env:
+        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      run: |
+        nix develop '.#base' -c deploy -s --targets \
+          '.#attest-staging' \
+          '.#attest-testing' \
+          '.#benefice-testing' \
+          '.#store-staging' \
+          '.#store-testing'
