@@ -287,11 +287,11 @@
         "rust-overlay": "rust-overlay_5"
       },
       "locked": {
-        "lastModified": 1659694701,
-        "narHash": "sha256-BT/GJm88/RLHfZReJRownTUchQtrQ8SLyBP99dx8VLU=",
+        "lastModified": 1660058321,
+        "narHash": "sha256-0uCP7BOvcKTYb55WAt06hey0u+jHv+Apothz526mQgs=",
         "owner": "profianinc",
         "repo": "drawbridge",
-        "rev": "f2965264059c2ca7c8e45831555bccd7dddc36a7",
+        "rev": "2f974acec32e6523bd9479f1f5af1d85cbc212ae",
         "type": "github"
       },
       "original": {
