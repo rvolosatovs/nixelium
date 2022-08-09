@@ -1,5 +1,6 @@
 keys:
   - &roman b1187afda5ba91e07f7ef8aee71604ba8e53bf31
+  - &puiterwijk age1jsyhycrf872ksv88qk8lfp3whtjxrr4r3mk0m6fa49evev3pmywsf3aa2r
 
 creation_rules:
   - path_regex: hosts/attest.profian.com
@@ -34,5 +35,7 @@ creation_rules:
 
   - path_regex: ca/
     key_groups:
+    - age:
+      - *puiterwijk
     - pgp:
       - *roman
