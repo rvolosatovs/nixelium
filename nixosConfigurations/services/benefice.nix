@@ -71,7 +71,6 @@ with flake-utils.lib.system; let
   benefice-testing = mkBenefice x86_64-linux [
     ({pkgs, ...}: {
       imports = [
-        "${self}/hosts/benefice.testing.profian.com"
         "${self}/nixosModules/ci.nix"
       ];
 
@@ -79,19 +78,15 @@ with flake-utils.lib.system; let
       services.benefice.oidc.client = "FTmeUMamlu8HRs11mvtmmZHnmCwRIo8E";
       services.benefice.package = pkgs.benefice.testing;
     })
-  ];
+  ] "benefice.testing.profian.com";
 
   sgx-equinix-try = mkBenefice x86_64-linux [
     ({pkgs, ...}: {
-      imports = [
-        "${self}/hosts/sgx.equinix.try.enarx.dev"
-      ];
-
       services.benefice.log.level = "info";
       services.benefice.oidc.client = "23Lt09AjF8HpUeCCwlfhuV34e2dKD1MH";
       services.benefice.package = pkgs.benefice.staging;
     })
-  ];
+  ] "sgx.equinix.try.enarx.dev";
 
   snp-equinix-try = mkBenefice x86_64-linux [
     ({pkgs, ...}: {
@@ -103,7 +98,7 @@ with flake-utils.lib.system; let
       services.benefice.oidc.client = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
       services.benefice.package = pkgs.benefice.staging;
     })
-  ];
+  ] "snp.equinix.try.enarx.dev";
 in {
   inherit
     benefice-testing

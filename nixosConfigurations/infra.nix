@@ -24,11 +24,8 @@ with flake-utils.lib.system; let
 
   nuc-1 = mkInfra x86_64-linux [
     ({...}: {
-      imports = [
-        "${self}/hosts/nuc-1.infra.profian.com"
-      ];
     })
-  ];
+  ] "nuc-1.infra.profian.com";
 in {
   inherit
     nuc-1

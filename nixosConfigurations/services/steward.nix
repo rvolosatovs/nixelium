@@ -36,36 +36,30 @@ with flake-utils.lib.system; let
   attest-testing = mkSteward x86_64-linux [
     ({pkgs, ...}: {
       imports = [
-        "${self}/hosts/attest.testing.profian.com"
         "${self}/nixosModules/ci.nix"
       ];
 
       services.steward.log.level = "debug";
       services.steward.package = pkgs.steward.testing;
     })
-  ];
+  ] "attest.testing.profian.com";
 
   attest-staging = mkSteward x86_64-linux [
     ({pkgs, ...}: {
       imports = [
-        "${self}/hosts/attest.staging.profian.com"
         "${self}/nixosModules/ci.nix"
       ];
 
       services.steward.log.level = "info";
       services.steward.package = pkgs.steward.staging;
     })
-  ];
+  ] "attest.staging.profian.com";
 
   attest = mkSteward x86_64-linux [
-    ({pkgs, ...}: {
-      imports = [
-        "${self}/hosts/attest.profian.com"
-      ];
-
+    ({config, pkgs, ...}: {
       services.steward.package = pkgs.steward.production;
     })
-  ];
+  ] "attest.profian.com";
 in {
   inherit
     attest
