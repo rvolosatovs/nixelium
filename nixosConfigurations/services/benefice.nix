@@ -22,6 +22,7 @@ with flake-utils.lib.system; let
       services.benefice.oidc.secretFile = config.sops.secrets.oidc-secret.path;
 
       services.enarx.enable = true;
+      services.benefice.enarx.backend = config.services.enarx.backend;
 
       services.nginx.clientMaxBodySize = "100m";
       services.nginx.appendHttpConfig = ''
