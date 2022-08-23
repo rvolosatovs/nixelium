@@ -4,7 +4,4 @@
   ];
 
   ec2.hvm = true;
-
-  networking.domain = "testing.profian.com";
-  networking.hostName = "attest";
 }

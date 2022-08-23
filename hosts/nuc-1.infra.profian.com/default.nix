@@ -31,8 +31,6 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  networking.domain = "infra.profian.com";
-  networking.hostName = "nuc-1";
   networking.useDHCP = true;
 
   powerManagement.cpuFreqGovernor = "powersave";

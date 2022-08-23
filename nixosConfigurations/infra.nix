@@ -25,7 +25,7 @@ with flake-utils.lib.system; let
   nuc-1 = mkInfra x86_64-linux [
     ({...}: {
     })
-  ] "nuc-1.infra.profian.com";
+  ] "infra.profian.com" "nuc-1";
 in {
   inherit
     nuc-1

@@ -27,7 +27,7 @@ with flake-utils.lib.system; let
       services.drawbridge.oidc.client = "zFrR7MKMakS4OpEflR0kNw3ceoP7sr3s";
       services.drawbridge.package = pkgs.drawbridge.testing;
     })
-  ] "store.testing.profian.com";
+  ] "testing.profian.com" "store";
 
   store-staging = mkDrawbridge x86_64-linux [
     ({pkgs, ...}: {
@@ -39,14 +39,14 @@ with flake-utils.lib.system; let
       services.drawbridge.oidc.client = "9SVWiB3sQQdzKqpZmMNvsb9rzd8Ha21F";
       services.drawbridge.package = pkgs.drawbridge.staging;
     })
-  ] "store.staging.profian.com";
+  ] "staging.profian.com" "store";
 
   store = mkDrawbridge x86_64-linux [
     ({pkgs, ...}: {
       services.drawbridge.oidc.client = "2vq9XnQgcGZ9JCxsGERuGURYIld3mcIh";
       services.drawbridge.package = pkgs.drawbridge.production;
     })
-  ] "store.profian.com";
+  ] "profian.com" "store";
 in {
   inherit
     store

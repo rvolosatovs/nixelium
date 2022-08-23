@@ -3,7 +3,7 @@
   nixpkgs,
   ...
 }: rec {
-  mkHost = base: system: extraModules: hostname:
+  mkHost = base: system: extraModules: domain: hostName:
     nixpkgs.lib.nixosSystem {
       inherit system;
 
@@ -16,8 +16,11 @@
         ++ extraModules
         ++ [
           ({...}: {
+            networking.hostName = hostName;
+            networking.domain = domain;
+
             imports = [
-              "${self}/hosts/${hostname}"
+              "${self}/hosts/${hostName}.${domain}"
             ];
           })
         ];

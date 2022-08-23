@@ -42,7 +42,7 @@ with flake-utils.lib.system; let
       services.steward.log.level = "debug";
       services.steward.package = pkgs.steward.testing;
     })
-  ] "attest.testing.profian.com";
+  ] "testing.profian.com" "attest";
 
   attest-staging = mkSteward x86_64-linux [
     ({pkgs, ...}: {
@@ -53,13 +53,13 @@ with flake-utils.lib.system; let
       services.steward.log.level = "info";
       services.steward.package = pkgs.steward.staging;
     })
-  ] "attest.staging.profian.com";
+  ] "staging.profian.com" "attest";
 
   attest = mkSteward x86_64-linux [
-    ({config, pkgs, ...}: {
+    ({pkgs, ...}: {
       services.steward.package = pkgs.steward.production;
     })
-  ] "attest.profian.com";
+  ] "profian.com" "attest";
 in {
   inherit
     attest
