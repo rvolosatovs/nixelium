@@ -1,6 +1,7 @@
 {
   self,
   nixpkgs,
+  sops-nix,
   ...
 }: rec {
   mkHost = base: system: extraModules: domain: hostName:
@@ -15,6 +16,7 @@
         ++ base
         ++ extraModules
         ++ [
+          sops-nix.nixosModules.sops
           ({...}: {
             networking.hostName = hostName;
             networking.domain = domain;

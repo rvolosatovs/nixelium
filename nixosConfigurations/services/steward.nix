@@ -2,13 +2,11 @@
   self,
   flake-utils,
   nixlib,
-  sops-nix,
   ...
 }:
 with flake-utils.lib.system; let
   mkSteward = useNginx:
     self.lib.hosts.mkService ([
-        sops-nix.nixosModules.sops
         ({
           config,
           pkgs,
@@ -70,10 +68,26 @@ with flake-utils.lib.system; let
       services.steward.package = pkgs.steward.production;
     })
   ] "profian.com" "attest";
+
+  mkStewardProduction = n: mkSteward false x86_64-linux [
+    ({pkgs, ...}: {
+      services.steward.package = pkgs.steward.production;
+    })
+  ] "steward.rdu.infra.profian.com" "prod${builtins.toString n}";
+
+  attest-production1 = mkStewardProduction 1;
+  attest-production2 = mkStewardProduction 2;
+  attest-production3 = mkStewardProduction 3;
+  attest-production4 = mkStewardProduction 4;
 in {
   inherit
     attest
     attest-staging
     attest-testing
+
+    attest-production1
+    attest-production2
+    attest-production3
+    attest-production4
     ;
 }

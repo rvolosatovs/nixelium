@@ -2,12 +2,10 @@
   self,
   flake-utils,
   nixpkgs,
-  sops-nix,
   ...
 }:
 with flake-utils.lib.system; let
   mkInfra = self.lib.hosts.mkHost [
-    sops-nix.nixosModules.sops
     ({
       config,
       pkgs,

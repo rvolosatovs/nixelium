@@ -4,9 +4,35 @@ keys:
 
 creation_rules:
   - path_regex: hosts/attest.profian.com
+    shamir_threshold: 2
     key_groups:
+    # The duplication here is because of the inability to disable shamir
+    # https://github.com/mozilla/sops/issues/878
+    # attest.profian.com
     - age:
       - age1xzj57htudq40z8dzaqclma3zm9u0n2ydat7sjv4q0zyu48n3fp6sen4glk
+    - age:
+      - age1xzj57htudq40z8dzaqclma3zm9u0n2ydat7sjv4q0zyu48n3fp6sen4glk
+    # prod1
+    - age:
+      - age1wj8drt0hstdfrsv9jgaywst36ls0xyaxa8t6y7cnw07u45kgka7sx2xzdj
+    - age:
+      - age1wj8drt0hstdfrsv9jgaywst36ls0xyaxa8t6y7cnw07u45kgka7sx2xzdj
+    # prod2
+    - age:
+      - age1vxnheh6033t3x8x6cv3lv4gla2wkadmu7q92udr7j5r93cvz5ekssz5r70
+    - age:
+      - age1vxnheh6033t3x8x6cv3lv4gla2wkadmu7q92udr7j5r93cvz5ekssz5r70
+    # prod3
+    - age:
+      - age185y8we8uvslax422v0cq80rrnmzf9htmwuuzj9l6wlm02a3qkppqkxk837
+    - age:
+      - age185y8we8uvslax422v0cq80rrnmzf9htmwuuzj9l6wlm02a3qkppqkxk837
+    # prod4
+    - age:
+      - age1jsv5zl0fkl85whnlup5rxncez48yxwpd5a5tagat2g4q5ehdecps9ktjpt
+    - age:
+      - age1jsv5zl0fkl85whnlup5rxncez48yxwpd5a5tagat2g4q5ehdecps9ktjpt
 
   - path_regex: hosts/attest.staging.profian.com
     key_groups:

@@ -2,12 +2,10 @@
   self,
   enarx,
   flake-utils,
-  sops-nix,
   ...
 }:
 with flake-utils.lib.system; let
   mkBenefice = self.lib.hosts.mkService [
-    sops-nix.nixosModules.sops
     ({
       config,
       lib,

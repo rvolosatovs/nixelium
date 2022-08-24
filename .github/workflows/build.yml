@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        output: 
+        output:
         # Drawbridge
         - nixosConfigurations.store-staging.config.system.build.toplevel
         - nixosConfigurations.store-testing.config.system.build.toplevel
@@ -17,6 +17,12 @@ jobs:
         - nixosConfigurations.attest-staging.config.system.build.toplevel
         - nixosConfigurations.attest-testing.config.system.build.toplevel
         - nixosConfigurations.attest.config.system.build.toplevel
+
+        # Steward production
+        - nixosConfigurations.attest-production1.config.system.build.toplevel
+        - nixosConfigurations.attest-production2.config.system.build.toplevel
+        - nixosConfigurations.attest-production3.config.system.build.toplevel
+        - nixosConfigurations.attest-production4.config.system.build.toplevel
 
         # Benefice
         - nixosConfigurations.benefice-testing.config.system.build.toplevel

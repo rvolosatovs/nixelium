@@ -8,6 +8,8 @@
 in {
   imports = [
     ../../nixosModules/providers/equinix
+
+    ../../inventory/groups/meta/common.nix
   ];
 
   boot.initrd.availableKernelModules = [
