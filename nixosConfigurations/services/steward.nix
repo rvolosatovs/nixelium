@@ -1,39 +1,49 @@
 {
   self,
   flake-utils,
+  nixlib,
   sops-nix,
   ...
 }:
 with flake-utils.lib.system; let
-  mkSteward = self.lib.hosts.mkService [
-    sops-nix.nixosModules.sops
-    ({
-      config,
-      pkgs,
-      ...
-    }: {
-      services.steward.certFile = pkgs.writeText "steward.crt" (builtins.readFile "${self}/hosts/${config.networking.fqdn}/steward.crt");
-      services.steward.enable = true;
-      services.steward.keyFile = config.sops.secrets.key.path;
+  mkSteward = useNginx:
+    self.lib.hosts.mkService ([
+        sops-nix.nixosModules.sops
+        ({
+          config,
+          pkgs,
+          ...
+        }: {
+          services.steward.certFile = pkgs.writeText "steward.crt" (builtins.readFile "${self}/hosts/${config.networking.fqdn}/steward.crt");
+          services.steward.enable = true;
+          services.steward.keyFile = config.sops.secrets.key.path;
 
-      sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-      sops.secrets.key.format = "binary";
-      sops.secrets.key.mode = "0000";
-      sops.secrets.key.restartUnits = ["steward.service"];
-      sops.secrets.key.sopsFile = "${self}/hosts/${config.networking.fqdn}/steward.key";
+          sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+          sops.secrets.key.format = "binary";
+          sops.secrets.key.mode = "0000";
+          sops.secrets.key.restartUnits = ["steward.service"];
+          sops.secrets.key.sopsFile = "${self}/hosts/${config.networking.fqdn}/steward.key";
 
-      systemd.services.steward = self.lib.systemd.withSecret config pkgs "steward" "key";
+          systemd.services.steward = self.lib.systemd.withSecret config pkgs "steward" "key";
 
-      # Workaround for https://github.com/profianinc/infrastructure/issues/109
+          # Workaround for https://github.com/profianinc/infrastructure/issues/109
 
-      users.groups.steward = {};
+          users.groups.steward = {};
 
-      users.users.steward.isSystemUser = true;
-      users.users.steward.group = config.users.groups.steward.name;
-    })
-  ];
+          users.users.steward.isSystemUser = true;
+          users.users.steward.group = config.users.groups.steward.name;
+        })
+      ]
+      ++ nixlib.lib.optional useNginx ({config, ...}: {
+        services.nginx.virtualHosts.${config.networking.fqdn} = {
+          enableACME = true;
+          forceSSL = true;
+          http2 = false;
+          locations."/".proxyPass = "http://localhost:3000";
+        };
+      }));
 
-  attest-testing = mkSteward x86_64-linux [
+  attest-testing = mkSteward true x86_64-linux [
     ({pkgs, ...}: {
       imports = [
         "${self}/nixosModules/ci.nix"
@@ -44,7 +54,7 @@ with flake-utils.lib.system; let
     })
   ] "testing.profian.com" "attest";
 
-  attest-staging = mkSteward x86_64-linux [
+  attest-staging = mkSteward true x86_64-linux [
     ({pkgs, ...}: {
       imports = [
         "${self}/nixosModules/ci.nix"
@@ -55,7 +65,7 @@ with flake-utils.lib.system; let
     })
   ] "staging.profian.com" "attest";
 
-  attest = mkSteward x86_64-linux [
+  attest = mkSteward true x86_64-linux [
     ({pkgs, ...}: {
       services.steward.package = pkgs.steward.production;
     })
