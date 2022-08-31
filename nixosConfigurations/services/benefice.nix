@@ -39,8 +39,6 @@ with flake-utils.lib.system; let
       sops.secrets.oidc-secret.restartUnits = ["benefice.service"];
       sops.secrets.oidc-secret.sopsFile = "${self}/hosts/${config.networking.fqdn}/oidc-secret";
 
-      systemd.services.benefice = self.lib.systemd.withSecret config pkgs "benefice" "oidc-secret";
-
       systemd.services.load-enarx-image.script = "${pkgs.docker}/bin/docker load < ${enarx-oci}";
       systemd.services.load-enarx-image.serviceConfig.Type = "oneshot";
       systemd.services.load-enarx-image.serviceConfig.DynamicUser = true;
