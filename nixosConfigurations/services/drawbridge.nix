@@ -1,52 +1,83 @@
 {
   self,
   flake-utils,
+  nixpkgs,
   ...
 }:
 with flake-utils.lib.system; let
-  mkDrawbridge = self.lib.hosts.mkService [
-    ({
-      config,
-      pkgs,
-      ...
-    }: {
-      services.drawbridge.enable = true;
-      services.drawbridge.tls.caFile = pkgs.writeText "ca.crt" (builtins.readFile "${self}/ca/${config.networking.domain}/ca.crt");
+  drawbridgeModules.ec2 = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }:
+    with lib; {
+      imports = [
+        self.nixosModules.service
+        "${modulesPath}/virtualisation/amazon-image.nix"
+      ];
 
-      services.nginx.clientMaxBodySize = "100m";
+      config = mkMerge [
+        {
+          networking.hostName = "store";
+
+          services.drawbridge.enable = true;
+          services.drawbridge.oidc.issuer = "https://auth.profian.com";
+          services.drawbridge.oidc.label = "auth.profian.com";
+        }
+        (mkIf (config.profian.environment == "testing") {
+          services.drawbridge.log.level = "debug";
+          services.drawbridge.package = pkgs.drawbridge.testing;
+        })
+        (mkIf (config.profian.environment == "staging") {
+          services.drawbridge.log.level = "info";
+          services.drawbridge.package = pkgs.drawbridge.staging;
+        })
+        (mkIf (config.profian.environment == "production") {
+          services.drawbridge.package = pkgs.drawbridge.production;
+        })
+      ];
+    };
+
+  mkEC2 = modules:
+    nixpkgs.lib.nixosSystem {
+      system = x86_64-linux;
+      modules =
+        [
+          drawbridgeModules.ec2
+        ]
+        ++ modules;
+    };
+
+  store-testing = mkEC2 [
+    ({...}: {
+      networking.domain = "testing.profian.com";
+
+      profian.environment = "testing";
+
+      services.drawbridge.oidc.client = "zFrR7MKMakS4OpEflR0kNw3ceoP7sr3s";
     })
   ];
 
-  store-testing = mkDrawbridge x86_64-linux [
-    ({pkgs, ...}: {
-      imports = [
-        "${self}/nixosModules/ci.nix"
-      ];
+  store-staging = mkEC2 [
+    ({...}: {
+      networking.domain = "staging.profian.com";
 
-      services.drawbridge.log.level = "debug";
-      services.drawbridge.oidc.client = "zFrR7MKMakS4OpEflR0kNw3ceoP7sr3s";
-      services.drawbridge.package = pkgs.drawbridge.testing;
-    })
-  ] "testing.profian.com" "store";
+      profian.environment = "staging";
 
-  store-staging = mkDrawbridge x86_64-linux [
-    ({pkgs, ...}: {
-      imports = [
-        "${self}/nixosModules/ci.nix"
-      ];
-
-      services.drawbridge.log.level = "info";
       services.drawbridge.oidc.client = "9SVWiB3sQQdzKqpZmMNvsb9rzd8Ha21F";
-      services.drawbridge.package = pkgs.drawbridge.staging;
     })
-  ] "staging.profian.com" "store";
+  ];
 
-  store = mkDrawbridge x86_64-linux [
-    ({pkgs, ...}: {
+  store = mkEC2 [
+    ({...}: {
+      networking.domain = "profian.com";
+
+      profian.environment = "production";
+
       services.drawbridge.oidc.client = "2vq9XnQgcGZ9JCxsGERuGURYIld3mcIh";
-      services.drawbridge.package = pkgs.drawbridge.production;
     })
-  ] "profian.com" "store";
+  ];
 in {
   inherit
     store

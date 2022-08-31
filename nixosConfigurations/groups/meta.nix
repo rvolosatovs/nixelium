@@ -1,16 +1,10 @@
 {
-  self,
-  config,
-  lib,
   modulesPath,
   pkgs,
   ...
 }: {
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
-
-    # Other groups
-    ./common.nix
   ];
 
   boot.initrd.availableKernelModules = [

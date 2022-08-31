@@ -1,14 +1,12 @@
 {
-  config,
-  lib,
   modulesPath,
   pkgs,
   ...
 }: {
+  # TODO: Extract SGX-specific config into a shared module in `nixosModules`
+
   imports = [
     "${modulesPath}/installer/scan/not-detected.nix"
-
-    ../../inventory/groups/meta/common.nix
   ];
 
   boot.initrd.availableKernelModules = [

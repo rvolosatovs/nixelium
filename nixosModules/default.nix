@@ -1,5 +1,10 @@
-inputs @ {...}: rec {
+inputs @ {...}: {
+  benefice = import ./benefice.nix inputs;
   common = import ./common.nix inputs;
-  equinix = import ./providers/equinix;
+  drawbridge = import ./drawbridge.nix inputs;
+  providers = import ./providers.nix inputs;
+  service = import ./service.nix inputs;
+  shells = import ./shells.nix inputs;
+  steward = import ./steward.nix inputs;
   users = import ./users.nix inputs;
 }

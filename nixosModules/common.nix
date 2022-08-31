@@ -1,9 +1,13 @@
-{...}: {
-  config,
+{self, ...}: {
   lib,
   pkgs,
   ...
-}: {
+}:
+with lib; {
+  documentation.nixos.enable = mkDefault false;
+
+  networking.firewall.enable = mkDefault true;
+
   nix.binaryCaches = [
     "https://cache.nixos.org"
     "https://enarx.cachix.org"
@@ -18,11 +22,36 @@
   nix.package = pkgs.nixUnstable;
   nix.requireSignedBinaryCaches = true;
   nix.settings.auto-optimise-store = true;
-  nix.settings.allowed-users = with config.users; [
-    "@${groups.wheel.name}"
-    users.root.name
-  ];
-  nix.settings.trusted-users = with config.users; [
-    users.root.name
-  ];
+
+  programs.neovim.defaultEditor = mkDefault true;
+  programs.neovim.viAlias = mkDefault true;
+  programs.neovim.vimAlias = mkDefault true;
+
+  security.acme.acceptTerms = true;
+
+  services.openssh.passwordAuthentication = false;
+  services.openssh.permitRootLogin = mkForce "no";
+  services.openssh.startWhenNeeded = true;
+
+  services.nginx.recommendedGzipSettings = mkDefault true;
+  services.nginx.recommendedOptimisation = mkDefault true;
+  services.nginx.recommendedProxySettings = mkDefault true;
+  services.nginx.recommendedTlsSettings = mkDefault true;
+  services.nginx.sslProtocols = mkForce "TLSv1.3";
+  services.nginx.sslCiphers = mkForce (concatStringsSep ":" [
+    "ECDHE-ECDSA-AES256-GCM-SHA384"
+    "ECDHE-ECDSA-AES128-GCM-SHA256"
+    "ECDHE-ECDSA-CHACHA20-POLY1305"
+  ]);
+  services.nginx.appendHttpConfig = ''
+    proxy_ssl_protocols TLSv1.3;
+  '';
+
+  system.stateVersion = "22.05";
+
+  time.timeZone = "Etc/UTC";
+
+  users.users.root.hashedPassword = mkForce "!"; # nothing hashes to `!`, so this disables root logins
+
+  virtualisation.docker.autoPrune.enable = true;
 }
