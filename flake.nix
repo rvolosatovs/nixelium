@@ -1,14 +1,14 @@
 {
   description = "Profian Inc Network Infrastructure";
 
-  inputs.benefice-staging.url = github:profianinc/benefice/v0.1.0;
+  inputs.benefice-staging.url = github:profianinc/benefice/v0.1.1;
   inputs.benefice-testing.url = github:profianinc/benefice;
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
   inputs.deploy-rs.url = github:serokell/deploy-rs;
   inputs.drawbridge-production.url = github:profianinc/drawbridge/v0.2.2;
   inputs.drawbridge-staging.url = github:profianinc/drawbridge/v0.2.2;
   inputs.drawbridge-testing.url = github:profianinc/drawbridge;
-  inputs.enarx.url = github:enarx/enarx/v0.6.3;
+  inputs.enarx.url = github:enarx/enarx; # temporarily use `main` until version above v0.6.3 is released
   inputs.flake-compat.flake = false;
   inputs.flake-compat.url = github:edolstra/flake-compat;
   inputs.flake-utils.url = github:numtide/flake-utils;
