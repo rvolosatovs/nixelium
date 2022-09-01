@@ -19,10 +19,10 @@ jobs:
         - nixosConfigurations.attest.config.system.build.toplevel
 
         # Steward production
-        - nixosConfigurations.attest-production1.config.system.build.toplevel
-        - nixosConfigurations.attest-production2.config.system.build.toplevel
-        - nixosConfigurations.attest-production3.config.system.build.toplevel
-        - nixosConfigurations.attest-production4.config.system.build.toplevel
+        - nixosConfigurations.attest-production-1.config.system.build.toplevel
+        - nixosConfigurations.attest-production-2.config.system.build.toplevel
+        - nixosConfigurations.attest-production-3.config.system.build.toplevel
+        - nixosConfigurations.attest-production-4.config.system.build.toplevel
 
         # Benefice
         - nixosConfigurations.benefice-testing.config.system.build.toplevel

@@ -17,10 +17,10 @@
     profiles.system.user = "root";
   };
 in {
-  nodes.attest-production1 = mkGenericNode self.nixosConfigurations.attest-production1;
-  nodes.attest-production2 = mkGenericNode self.nixosConfigurations.attest-production2;
-  nodes.attest-production3 = mkGenericNode self.nixosConfigurations.attest-production3;
-  nodes.attest-production4 = mkGenericNode self.nixosConfigurations.attest-production4;
+  nodes.attest-production-1 = mkGenericNode self.nixosConfigurations.attest-production-1;
+  nodes.attest-production-2 = mkGenericNode self.nixosConfigurations.attest-production-2;
+  nodes.attest-production-3 = mkGenericNode self.nixosConfigurations.attest-production-3;
+  nodes.attest-production-4 = mkGenericNode self.nixosConfigurations.attest-production-4;
 
   nodes.attest = mkGenericNode self.nixosConfigurations.attest;
   nodes.attest-staging = mkGenericNode self.nixosConfigurations.attest-staging;

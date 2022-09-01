@@ -8,6 +8,7 @@ with flake-utils.lib.system; let
   drawbridgeModules.ec2 = {
     config,
     lib,
+    modulesPath,
     pkgs,
     ...
   }:

@@ -119,18 +119,18 @@ with flake-utils.lib.system; let
       ];
     };
 
-  attest-production1 = mkProd 1;
-  attest-production2 = mkProd 2;
-  attest-production3 = mkProd 3;
-  attest-production4 = mkProd 4;
+  attest-production-1 = mkProd 1;
+  attest-production-2 = mkProd 2;
+  attest-production-3 = mkProd 3;
+  attest-production-4 = mkProd 4;
 in {
   inherit
     attest
     attest-staging
     attest-testing
-    attest-production1
-    attest-production2
-    attest-production3
-    attest-production4
+    attest-production-1
+    attest-production-2
+    attest-production-3
+    attest-production-4
     ;
 }
