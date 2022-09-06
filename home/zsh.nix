@@ -35,7 +35,7 @@
         in ''
           nixify() {
             if [ ! -e ./.envrc ]; then
-              echo 'use nix' > .envrc
+              echo 'use flake' > .envrc
               ${pkgs.direnv}/bin/direnv allow
             fi
 
