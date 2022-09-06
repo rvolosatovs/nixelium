@@ -1,8 +1,12 @@
-{ config, pkgs, lib, name, nodes, ... }:
-
-with lib;
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  name,
+  nodes,
+  ...
+}:
+with lib; let
   cfg = config.network.wireguard;
 
   netdevName = "30-${cfg.interfaceName}";
@@ -14,7 +18,10 @@ let
   serverNode = nodes."${cfg.server.name}";
 
   # TODO: Extract this into a generic function.
-  mkSecretPath = name: if config.deployment.storeKeysOnMachine then "/etc/${config.environment.etc."keys/${name}".target}" else config.deployment.keys.${name}.path;
+  mkSecretPath = name:
+    if config.deployment.storeKeysOnMachine
+    then "/etc/${config.environment.etc."keys/${name}".target}"
+    else config.deployment.keys.${name}.path;
 
   peerOptions = {
     ip = mkOption {
@@ -29,8 +36,7 @@ let
       description = "Base64 public key.";
     };
   };
-in
-{
+in {
   options = {
     network.wireguard = {
       inherit (peerOptions) ip publicKey;
@@ -60,15 +66,15 @@ in
       };
 
       dns = mkOption {
-        example = [ "1.1.1.1" ];
+        example = ["1.1.1.1"];
         default = null;
         type = with types; nullOr (listOf str);
         description = "DNS servers to use";
       };
 
       extraPeers = mkOption {
-        default = { };
-        type = types.attrsOf (types.submodule ({ name, ... }: {
+        default = {};
+        type = types.attrsOf (types.submodule ({name, ...}: {
           options = peerOptions;
         }));
       };
@@ -88,28 +94,31 @@ in
     };
   };
 
-  config =
-    let
-      peers = foldr
-        (peerName: peers:
-          assert lib.asserts.assertMsg (! peers ? peerName) "duplicate peer '${peerName}'";
-          peers // {
+  config = let
+    peers =
+      foldr
+      (peerName: peers:
+        assert lib.asserts.assertMsg (! peers ? peerName) "duplicate peer '${peerName}'";
+          peers
+          // {
             "${peerName}" = {
               inherit (nodes."${peerName}".config.network.wireguard) ip publicKey;
             };
           })
-        cfg.extraPeers
-        (attrNames nodes);
-    in
+      cfg.extraPeers
+      (attrNames nodes);
+  in
     mkIf cfg.enable (mkMerge [
       {
-        environment.systemPackages = [ pkgs.wireguard-tools ];
+        environment.systemPackages = [pkgs.wireguard-tools];
 
-        networking.firewall.trustedInterfaces = [ cfg.interfaceName ];
+        networking.firewall.trustedInterfaces = [cfg.interfaceName];
 
-        networking.hosts = mapAttrs'
-          (name: peer:
-            nameValuePair peer.ip [ "${name}.vpn" ]
+        networking.hosts =
+          mapAttrs'
+          (
+            name: peer:
+              nameValuePair peer.ip ["${name}.vpn"]
           )
           peers;
 
@@ -120,7 +129,7 @@ in
           wireguardConfig.PrivateKeyFile = mkSecretPath privateKeyName;
         };
         systemd.network.networks."${networkName}" = {
-          address = [ "${cfg.ip}/32" ];
+          address = ["${cfg.ip}/32"];
           name = cfg.interfaceName;
         };
       }
@@ -136,15 +145,16 @@ in
         boot.kernel.sysctl."net.ipv4.conf.all.rp_filter" = 2;
 
         networking.nat.enable = true;
-        networking.nat.internalInterfaces = [ cfg.interfaceName ];
+        networking.nat.internalInterfaces = [cfg.interfaceName];
 
-        networking.firewall.allowedUDPPorts = [ cfg.server.port ];
+        networking.firewall.allowedUDPPorts = [cfg.server.port];
 
         systemd.network.netdevs."${netdevName}" = {
           wireguardConfig.ListenPort = cfg.server.port;
-          wireguardPeers = mapAttrsToList
+          wireguardPeers =
+            mapAttrsToList
             (peerName: peer: {
-              wireguardPeerConfig.AllowedIPs = [ "${peer.ip}/32" ];
+              wireguardPeerConfig.AllowedIPs = ["${peer.ip}/32"];
               wireguardPeerConfig.PersistentKeepalive = 25;
               wireguardPeerConfig.PublicKey = peer.publicKey;
             })
@@ -165,7 +175,7 @@ in
       (mkIf (name != cfg.server.name) {
         systemd.network.netdevs."${netdevName}".wireguardPeers = [
           {
-            wireguardPeerConfig.AllowedIPs = [ "0.0.0.0/0" "::0/0" ];
+            wireguardPeerConfig.AllowedIPs = ["0.0.0.0/0" "::0/0"];
             wireguardPeerConfig.Endpoint = "${serverNode.config.networking.publicIPv4}:${toString cfg.server.port}";
             wireguardPeerConfig.PersistentKeepalive = 25;
             wireguardPeerConfig.PublicKey = serverNode.config.network.wireguard.publicKey;
@@ -198,10 +208,10 @@ in
           user = "systemd-network";
         };
         systemd.services."${serviceName}" = {
-          after = [ "${privateKeyName}-key.service" ];
-          wants = [ "${privateKeyName}-key.service" ];
+          after = ["${privateKeyName}-key.service"];
+          wants = ["${privateKeyName}-key.service"];
         };
-        users.users.systemd-network.extraGroups = [ "keys" ];
+        users.users.systemd-network.extraGroups = ["keys"];
       })
     ]);
 }

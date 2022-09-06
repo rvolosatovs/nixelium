@@ -1,6 +1,5 @@
-{ config, ... }:
-{
-  networking.firewall.allowedTCPPorts = [ config.resources.deluge.port ];
+{config, ...}: {
+  networking.firewall.allowedTCPPorts = [config.resources.deluge.port];
 
   services.deluge.config.add_paused = true;
   services.deluge.config.allow_remote = true;
@@ -15,7 +14,7 @@
   services.deluge.config.dht = true;
   services.deluge.config.dont_count_slow_torrents = true;
   services.deluge.config.download_location = "/var/lib/deluge/downloads";
-  services.deluge.config.enabled_plugins = [ "Label" ];
+  services.deluge.config.enabled_plugins = ["Label"];
   services.deluge.config.enc_in_policy = 1;
   services.deluge.config.enc_level = 2;
   services.deluge.config.enc_out_policy = 1;
@@ -53,5 +52,5 @@
   services.deluge.web.enable = true;
   services.deluge.web.openFirewall = true;
 
-  users.users.${config.resources.username}.extraGroups = [ "deluge" ];
+  users.users.${config.resources.username}.extraGroups = ["deluge"];
 }

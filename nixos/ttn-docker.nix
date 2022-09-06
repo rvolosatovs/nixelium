@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   composeFile = ./../../../../go.thethings.network/lorawan-stack/docker-compose.yml;
   composeFileOverrides = builtins.toFile "docker-compose.overrides.yml" ''
     version: '3.7'
@@ -15,15 +19,14 @@ let
 
   configHome = "/var/lib/ttn";
   httpPort = 1885;
-in
-{
+in {
   services.nginx.enable = true;
   services.nginx.virtualHosts."ttn".addSSL = true;
   services.nginx.virtualHosts."ttn".enableACME = true;
   services.nginx.virtualHosts."ttn".locations."/".proxyPass = "http://localhost:${toString httpPort}";
   services.nginx.virtualHosts."ttn".serverName = "ttn.${config.resources.domainName}";
 
-  systemd.services.ttn.after = [ "network.target" ];
+  systemd.services.ttn.after = ["network.target"];
   systemd.services.ttn.description = "The Things Network LoRaWAN stack";
   systemd.services.ttn.enable = true;
 
@@ -38,13 +41,13 @@ in
   systemd.services.ttn.serviceConfig.User = "ttn";
   systemd.services.ttn.serviceConfig.Group = "docker";
   systemd.services.ttn.serviceConfig.WorkingDirectory = configHome;
-  systemd.services.ttn.wantedBy = [ "multi-user.target" ];
+  systemd.services.ttn.wantedBy = ["multi-user.target"];
 
   users.users.ttn = {
     createHome = true;
     description = "The Things Network user";
     home = configHome;
-    extraGroups = [ "nginx" ];
+    extraGroups = ["nginx"];
   };
 
   virtualisation.docker.enable = true;

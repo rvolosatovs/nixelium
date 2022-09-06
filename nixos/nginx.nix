@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   services.nginx.enable = true;
   services.nginx.package = pkgs.nginxMainline;
   services.nginx.recommendedGzipSettings = true;

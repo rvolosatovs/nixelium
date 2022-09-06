@@ -1,9 +1,7 @@
-{ config, ... }:
-let
+{config, ...}: let
   serviceName = "mopidy";
   secretName = "${serviceName}-secrets";
-in
-{
+in {
   deployment.keys.${secretName} = {
     text = with config.resources; ''
       [soundcloud]
@@ -17,12 +15,12 @@ in
     user = serviceName;
   };
 
-  services.${serviceName}.extraConfigFiles = [ config.deployment.keys.${secretName}.path ];
+  services.${serviceName}.extraConfigFiles = [config.deployment.keys.${secretName}.path];
 
   systemd.services.${serviceName} = {
-    after = [ "${secretName}-key.service" ];
-    wants = [ "${secretName}-key.service" ];
+    after = ["${secretName}-key.service"];
+    wants = ["${secretName}-key.service"];
   };
 
-  users.users.${serviceName}.extraGroups = [ "keys" ];
+  users.users.${serviceName}.extraGroups = ["keys"];
 }

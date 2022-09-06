@@ -16,32 +16,45 @@ let
 
   isLANip = lib: ip: lib.strings.hasPrefix "192.168." ip;
 
-  mkSSHPortConfig = port: lib: lib.foldr
-    (host: conf: conf // (if lib.isString host then {
-      programs.ssh.matchBlocks.${host} = { inherit port; };
-    } else {
-      programs.ssh.matchBlocks.${host.name} = (lib.filterAttrs (n: v: n != "name") host) // { inherit port; };
-    }))
-    { };
+  mkSSHPortConfig = port: lib:
+    lib.foldr
+    (host: conf:
+      conf
+      // (
+        if lib.isString host
+        then {
+          programs.ssh.matchBlocks.${host} = {inherit port;};
+        }
+        else {
+          programs.ssh.matchBlocks.${host.name} = (lib.filterAttrs (n: v: n != "name") host) // {inherit port;};
+        }
+      ))
+    {};
 
   mkDefaultSSHPortConfig = config: mkSSHPortConfig config.resources.ssh.port;
   mkAndroidSSHPortConfig = config: mkSSHPortConfig config.resources.ssh.androidPort;
-  mkLUKSSSHConfig = config: lib: hosts: mkSSHPortConfig config.resources.ssh.luksPort lib (map (host: host // { user = config.resources.ssh.luksUser; }) hosts);
+  mkLUKSSSHConfig = config: lib: hosts: mkSSHPortConfig config.resources.ssh.luksPort lib (map (host: host // {user = config.resources.ssh.luksUser;}) hosts);
 
-  mkCommonLANSSHConfig = config: lib: lib.mkMerge [
-    (mkDefaultSSHPortConfig config lib [
-      { name = "oxygen"; hostname = "oxygen.external"; }
-      "oxygen.external"
-      "oxygen.vpn"
-    ])
-    (mkAndroidSSHPortConfig config lib [
-      { name = "zinc"; hostname = "zinc.lan"; }
-      "zinc.lan"
-      "zinc.vpn"
-    ])
-  ];
-in
-{
+  mkCommonLANSSHConfig = config: lib:
+    lib.mkMerge [
+      (mkDefaultSSHPortConfig config lib [
+        {
+          name = "oxygen";
+          hostname = "oxygen.external";
+        }
+        "oxygen.external"
+        "oxygen.vpn"
+      ])
+      (mkAndroidSSHPortConfig config lib [
+        {
+          name = "zinc";
+          hostname = "zinc.lan";
+        }
+        "zinc.lan"
+        "zinc.vpn"
+      ])
+    ];
+in {
   network.description = "Private network of rvolosatovs";
   network.enableRollback = true;
 
@@ -53,7 +66,12 @@ in
   defaults.network.wireguard.extraPeers.zinc.ip = "10.0.0.30";
   defaults.network.wireguard.extraPeers.zinc.publicKey = "QLMUw+yvwXuuEsN06zB+Mj9n/VqD+k4VKa5o2GZrLAk=";
 
-  cobalt = { config, lib, nodes, ... }: {
+  cobalt = {
+    config,
+    lib,
+    nodes,
+    ...
+  }: {
     imports = [
       ./../../../nixos/hosts/cobalt
       ./../../../vendor/secrets/nixops/hosts/cobalt
@@ -72,7 +90,10 @@ in
       home-manager.users.${config.resources.username} = lib.mkMerge [
         (mkCommonLANSSHConfig config lib)
         (mkDefaultSSHPortConfig config lib [
-          { name = "neon"; hostname = "neon.lan"; }
+          {
+            name = "neon";
+            hostname = "neon.lan";
+          }
           "neon.lan"
           "neon.eth.lan"
           "neon.external"
@@ -80,8 +101,14 @@ in
           "neon.wifi.vpn"
         ])
         (mkLUKSSSHConfig config lib [
-          { name = "neon-luks"; hostname = "neon.lan"; }
-          { name = "oxygen-luks"; hostname = "oxygen.external"; }
+          {
+            name = "neon-luks";
+            hostname = "neon.lan";
+          }
+          {
+            name = "oxygen-luks";
+            hostname = "oxygen.external";
+          }
         ])
       ];
 
@@ -99,7 +126,12 @@ in
     };
   };
 
-  neon = { config, lib, nodes, ... }: {
+  neon = {
+    config,
+    lib,
+    nodes,
+    ...
+  }: {
     imports = [
       ./../../../nixos/hosts/neon
       ./../../../vendor/secrets/nixops/hosts/neon
@@ -115,7 +147,10 @@ in
       home-manager.users.${config.resources.username} = lib.mkMerge [
         (mkCommonLANSSHConfig config lib)
         (mkDefaultSSHPortConfig config lib [
-          { name = "cobalt"; hostname = "cobalt.lan"; }
+          {
+            name = "cobalt";
+            hostname = "cobalt.lan";
+          }
           "cobalt.lan"
           "cobalt.eth.lan"
           "cobalt.vpn"
@@ -140,7 +175,7 @@ in
   #    ./../../miniflux.nix
   #    ./../../profiles/server
   #  ];
-  #  
+  #
   #  config = with lib; mkMerge [
   #    (mkVPNNode lib)
   #    (mkNginxTLSProxy config "deluge" "http://${wg.hosts.neon.ip}:8112")
@@ -150,9 +185,9 @@ in
   #    (mkNginxTLSProxy config "sonarr" "http://${wg.hosts.neon.ip}:8989")
   #    {
   #      deployment.hasFastConnection = isLANip lib config.deployment.targetHost;
-  #  
+  #
   #      deployment.keys.${wg.homeKeyName}.text = wg.hosts.${name}.privateKey;
-  #  
+  #
   #      networking.wireguard.interfaces.${wg.home.interfaceName} = {
   #        peers = foldr (peerName: peers: peers ++ optional (peerName != name) {
   #          allowedIPs = [ "${wg.hosts.${peerName}.ip}/32" ];
@@ -160,7 +195,7 @@ in
   #        }) [] wg.hostNames;
   #        privateKeyFile = config.deployment.keys.${wg.homeKeyName}.path;
   #      };
-  #  
+  #
   #      systemd.services."wireguard-${wg.home.interfaceName}" = {
   #        after = [ "${wg.homeKeyName}-key.service" ];
   #        wants = [ "${wg.homeKeyName}-key.service" ];

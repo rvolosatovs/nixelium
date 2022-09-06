@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./../modules/resources.nix
     ./../vendor/secrets/home
@@ -11,82 +14,85 @@
     ./zsh.nix
   ];
 
-  config =
-    let
-      baseNixPath = (
+  config = let
+    baseNixPath =
+      (
         lib.concatStringsSep ":" [
           "home-manager=${config.home.homeDirectory}/.nix-defexpr/channels/home-manager"
           "nixpkgs-unstable=${config.home.homeDirectory}/.nix-defexpr/channels/nixpkgs-unstable"
           "nixpkgs=${config.home.homeDirectory}/.nix-defexpr/channels/nixpkgs"
         ]
-      ) + "\${NIX_PATH:+:}\${NIX_PATH}";
-    in
-    with lib; mkMerge [
-      (
+      )
+      + "\${NIX_PATH:+:}\${NIX_PATH}";
+  in
+    with lib;
+      mkMerge [
         rec {
           accounts.email.accounts."${config.resources.email}" = {
             address = config.resources.email;
             primary = true;
           };
 
-          home.packages = with config.resources.programs; map hiPrio [
-            editor.package
-            mailer.package
-            pager.package
-            shell.package
-          ] ++ (
-            with pkgs; [
-              bat
-              bat-extras.batgrep
-              bat-extras.batman
-              bat-extras.batwatch
-              bat-extras.prettybat
-              borgbackup
-              bottom
-              coreutils
-              cowsay
-              curl
-              du-dust
-              dumpster
-              entr
-              exa
-              fd
-              file
-              findutils
-              gnumake
-              gnupg
-              gnupg1compat
-              graphviz
-              htop
-              hyperfine
-              jq
-              julia_16-bin
-              kitty.terminfo
-              lsof
-              nix-du
-              nix-prefetch-scripts
-              nox
-              podman-compose
-              procs
-              pv
-              qrencode
-              rclone
-              ripgrep
-              sd
-              shellcheck
-              skim
-              tcpdump
-              tokei
-              tree
-              universal-ctags
-              unzip
-              weechat
-              wget
-              xxd
-              zenith
-              zip
+          home.packages = with config.resources.programs;
+            map hiPrio [
+              editor.package
+              mailer.package
+              pager.package
+              shell.package
             ]
-          );
+            ++ (
+              with pkgs; [
+                bat
+                bat-extras.batgrep
+                bat-extras.batman
+                bat-extras.batwatch
+                bat-extras.prettybat
+                borgbackup
+                bottom
+                coreutils
+                cowsay
+                curl
+                du-dust
+                dumpster
+                entr
+                exa
+                fd
+                file
+                findutils
+                gnumake
+                gnupg
+                gnupg1compat
+                graphviz
+                htop
+                hyperfine
+                jq
+                julia_16-bin
+                kitty.terminfo
+                lsof
+                nix-du
+                nix-prefetch-scripts
+                nox
+                podman-compose
+                procs
+                pv
+                qrencode
+                rclone
+                ripgrep
+                sd
+                shellcheck
+                skim
+                tcpdump
+                tokei
+                tree
+                universal-ctags
+                unzip
+                weechat
+                wget
+                xxd
+                zenith
+                zip
+              ]
+            );
 
           home.sessionVariables.__GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
           home.sessionVariables.BAT_THEME = "base16";
@@ -187,15 +193,13 @@
           programs.ssh.matchBlocks."hashbang".identityFile = "~/.ssh/id_ed25519";
           programs.ssh.matchBlocks."hashbang".user = config.resources.username;
 
-          programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" (
-            [
-              "${config.home.homeDirectory}/.local/bin"
-              "${config.home.homeDirectory}/.local/bin.go"
-              "${config.home.homeDirectory}/.cargo/bin"
-              "${config.xdg.dataHome}/npm/bin"
-              "\${PATH}"
-            ]
-          );
+          programs.zsh.sessionVariables.PATH = lib.concatStringsSep ":" [
+            "${config.home.homeDirectory}/.local/bin"
+            "${config.home.homeDirectory}/.local/bin.go"
+            "${config.home.homeDirectory}/.cargo/bin"
+            "${config.xdg.dataHome}/npm/bin"
+            "\${PATH}"
+          ];
 
           programs.zsh.shellAliases.cat = "bat";
           programs.zsh.shellAliases.l = "ls -lhg";
@@ -249,35 +253,34 @@
           xdg.dataHome = "${config.home.homeDirectory}/.local/share";
           xdg.enable = true;
         }
-      )
 
-      (
-        mkIf pkgs.stdenv.isLinux {
-          home.packages = with pkgs; [
-            acpi
-            dex
-            espeak
-            iproute
-            lm_sensors
-            pciutils
-            psmisc
-            sudo
-            usbutils
-            utillinux
-            xdg_utils
-          ];
+        (
+          mkIf pkgs.stdenv.isLinux {
+            home.packages = with pkgs; [
+              acpi
+              dex
+              espeak
+              iproute
+              lm_sensors
+              pciutils
+              psmisc
+              sudo
+              usbutils
+              utillinux
+              xdg_utils
+            ];
 
-          home.sessionVariables.NIX_PATH = baseNixPath;
+            home.sessionVariables.NIX_PATH = baseNixPath;
 
-          programs.zsh.shellAliases.o = "xdg-open";
-          programs.zsh.shellAliases.ping = "ping -c 3";
-          programs.zsh.shellAliases.sy = "systemctl";
-          programs.zsh.shellAliases.Vi = "sudoedit";
-          programs.zsh.shellAliases.Vim = "sudoedit";
+            programs.zsh.shellAliases.o = "xdg-open";
+            programs.zsh.shellAliases.ping = "ping -c 3";
+            programs.zsh.shellAliases.sy = "systemctl";
+            programs.zsh.shellAliases.Vi = "sudoedit";
+            programs.zsh.shellAliases.Vim = "sudoedit";
 
-          systemd.user.sessionVariables = config.home.sessionVariables;
-          systemd.user.startServices = true;
-        }
-      )
-    ];
+            systemd.user.sessionVariables = config.home.sessionVariables;
+            systemd.user.startServices = true;
+          }
+        )
+      ];
 }

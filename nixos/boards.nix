@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   services.udev.extraRules = ''
     # General
     KERNEL=="ttyACM*", OWNER="${config.resources.username}"

@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   # TODO: Make this generic
 
   networking.firewall.allowedTCPPorts = [

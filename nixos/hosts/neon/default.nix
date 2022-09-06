@@ -1,8 +1,11 @@
-{ config, pkgs, lib, ... }:
-let
-  mountOpts = [ "ssd" "noatime" "autodefrag" "compress=zstd" ];
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  mountOpts = ["ssd" "noatime" "autodefrag" "compress=zstd"];
+in {
   imports = [
     ./../../../resources/hosts/neon
     ./../../../vendor/nixos-hardware/common/pc/laptop/ssd

@@ -1,5 +1,6 @@
 lib: {
-  inherit (import ./lib.nix lib)
+  inherit
+    (import ./lib.nix lib)
     toLua
     ;
 }

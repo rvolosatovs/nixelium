@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   services.nginx.enable = true;
   services.nginx.virtualHosts."ifconfig".addSSL = true;
   services.nginx.virtualHosts."ifconfig".enableACME = true;
@@ -10,12 +13,12 @@
     proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
   '';
 
-  systemd.services.echoip.after = [ "network.target" ];
+  systemd.services.echoip.after = ["network.target"];
   systemd.services.echoip.description = "Echoip service";
   systemd.services.echoip.enable = true;
   systemd.services.echoip.serviceConfig.ExecStart = "${pkgs.echoip}/bin/echoip -l :24002 -H X-Real-IP -t ${pkgs.echoip.index}/index.html -p";
   systemd.services.echoip.serviceConfig.User = "echoip";
-  systemd.services.echoip.wantedBy = [ "multi-user.target" ];
+  systemd.services.echoip.wantedBy = ["multi-user.target"];
 
   users.users.echoip.description = "Echoip user";
 }

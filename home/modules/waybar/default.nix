@@ -1,12 +1,13 @@
-{ config, pkgs, lib, ... }:
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   wiredInterface = "enp3s0f0"; # TODO: make generic
   wirelessInterface = "wlan0"; # TODO: make generic
-in
-{
-  config =
-    with pkgs;
+in {
+  config = with pkgs;
     lib.mkIf config.wayland.windowManager.sway.enable {
       # TODO: Introduce a waybar-specific option
       home.packages = with pkgs; [

@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./../modules/resources.nix
     ./../vendor/secrets/resources
@@ -22,7 +26,7 @@
   ];
   environment.sessionVariables = with config.resources.programs; {
     EDITOR = editor.executable.path;
-    EMAIL = builtins.replaceStrings [ "@" ] [ "\\@" ] config.resources.email;
+    EMAIL = builtins.replaceStrings ["@"] ["\\@"] config.resources.email;
     GIT_EDITOR = editor.executable.path;
     HISTFILESIZE = toString config.resources.histsize;
     HISTSIZE = toString config.resources.histsize;
@@ -56,7 +60,7 @@
     termite.terminfo
   ];
 
-  home-manager.users.${config.resources.username} = { ... }: {
+  home-manager.users.${config.resources.username} = {...}: {
     imports = [
       ./../home
     ];
@@ -73,7 +77,7 @@
 
   networking.firewall.enable = true;
   networking.extraHosts = builtins.readFile ./../vendor/hosts/hosts;
-  networking.nameservers = [ "84.200.69.80" "84.200.70.40" ]; # https://dns.watch/
+  networking.nameservers = ["84.200.69.80" "84.200.70.40"]; # https://dns.watch/
 
   nix.autoOptimiseStore = true;
   nix.binaryCaches = [
@@ -86,54 +90,51 @@
     "enarx.cachix.org-1:Izq345bPMThAWUW830X3uoGTTBjXW7ltGlfTBErgm4w="
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
   ];
-  nix.extraOptions = with lib; concatStringsSep "\n" (
-    [
+  nix.extraOptions = with lib;
+    concatStringsSep "\n" [
       # Following two are required to prevent GC of nix-direnv environments.
       "keep-outputs = true"
       "keep-derivations = true"
       "experimental-features = nix-command flakes"
-    ]
-  );
-  nix.nixPath =
-    let
-      infrastructure = (
-        lib.sourceByRegex ./.. [
-          "dotfiles"
-          "dotfiles/.*"
-          "home"
-          "home/.*"
-          "modules"
-          "modules/.*"
-          "nixos"
-          "nixos/.*"
-          "nixpkgs"
-          "nixpkgs/.*"
-          "resources"
-          "resources/.*"
-          "vendor"
-          "vendor/copier"
-          "vendor/copier/.*"
-          "vendor/dumpster"
-          "vendor/dumpster/.*"
-          "vendor/nixpkgs-mozilla"
-          "vendor/nixpkgs-mozilla/.*"
-          "vendor/nur"
-          "vendor/nur/.*"
-        ]
-      );
-    in
-    [
-      "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
-      "nixos-config=${infrastructure}/nixos/hosts/${config.networking.hostName}"
-      "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
-      "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/nixos-unstable.tar.gz"
-      "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz"
     ];
+  nix.nixPath = let
+    infrastructure = (
+      lib.sourceByRegex ./.. [
+        "dotfiles"
+        "dotfiles/.*"
+        "home"
+        "home/.*"
+        "modules"
+        "modules/.*"
+        "nixos"
+        "nixos/.*"
+        "nixpkgs"
+        "nixpkgs/.*"
+        "resources"
+        "resources/.*"
+        "vendor"
+        "vendor/copier"
+        "vendor/copier/.*"
+        "vendor/dumpster"
+        "vendor/dumpster/.*"
+        "vendor/nixpkgs-mozilla"
+        "vendor/nixpkgs-mozilla/.*"
+        "vendor/nur"
+        "vendor/nur/.*"
+      ]
+    );
+  in [
+    "home-manager=https://github.com/rvolosatovs/home-manager/archive/stable.tar.gz"
+    "nixos-config=${infrastructure}/nixos/hosts/${config.networking.hostName}"
+    "nixpkgs-overlays=${infrastructure}/nixpkgs/overlays.nix"
+    "nixpkgs-unstable=https://github.com/rvolosatovs/nixpkgs/archive/nixos-unstable.tar.gz"
+    "nixpkgs=https://github.com/rvolosatovs/nixpkgs/archive/nixos.tar.gz"
+  ];
   nix.optimise.automatic = true;
   # TODO: Set nix.registry to fork
   nix.package = pkgs.nixUnstable;
   nix.requireSignedBinaryCaches = true;
-  nix.trustedUsers = [ "root" "${config.resources.username}" "@wheel" ];
+  nix.trustedUsers = ["root" "${config.resources.username}" "@wheel"];
 
   nixpkgs.config = import ./../nixpkgs/config.nix;
   nixpkgs.overlays = import ./../nixpkgs/overlays.nix;
@@ -200,7 +201,7 @@
     }
   ];
   services.openssh.passwordAuthentication = false;
-  services.openssh.ports = [ config.resources.ssh.port ];
+  services.openssh.ports = [config.resources.ssh.port];
   services.openssh.startWhenNeeded = true;
 
   system.stateVersion = "22.05";
@@ -213,13 +214,13 @@
   '';
   systemd.services.keycode-swap.serviceConfig.RemainAfterExit = true;
   systemd.services.keycode-swap.serviceConfig.Type = "oneshot";
-  systemd.services.keycode-swap.wantedBy = [ "multi-user.target" ];
+  systemd.services.keycode-swap.wantedBy = ["multi-user.target"];
 
   time.timeZone = "Europe/Amsterdam";
 
   users.defaultUserShell = config.resources.programs.shell.executable.path;
-  users.groups.netdev = { };
-  users.groups.plugdev = { };
+  users.groups.netdev = {};
+  users.groups.plugdev = {};
   users.mutableUsers = false;
   users.users.${config.resources.username} = {
     extraGroups = [
@@ -246,7 +247,7 @@
   };
   users.users.root.openssh.authorizedKeys.keys = config.resources.ssh.publicKeys;
 
-  virtualisation.oci-containers.backend = [ "podman" ];
+  virtualisation.oci-containers.backend = ["podman"];
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;
   virtualisation.podman.dockerSocket.enable = true;

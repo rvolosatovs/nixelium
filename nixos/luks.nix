@@ -1,6 +1,8 @@
-{ lib, vars, ... }:
-
 {
+  lib,
+  vars,
+  ...
+}: {
   boot.initrd.luks.devices = [
     {
       name = vars.luksName;

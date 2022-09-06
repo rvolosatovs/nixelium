@@ -1,8 +1,10 @@
-{ config, pkgs, lib, ... }:
-
-with lib;
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
   cfg = config.services.btrfs.butter;
 
   snapperConfig = ''
@@ -17,8 +19,7 @@ let
     TIMELINE_LIMIT_YEARLY="0"
     TIMELINE_MIN_AGE="1800"
   '';
-in
-{
+in {
   options = {
     services.btrfs.butter = {
       enable = mkEnableOption "butter BTRFS setup";
@@ -39,11 +40,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    fileSystems = mapAttrs
+    fileSystems =
+      mapAttrs
       (_: sub: {
         device = "/dev/disk/by-uuid/${cfg.uuid}";
         fsType = "btrfs";
-        options = [ "subvol=${sub}" ] ++ optionals cfg.isSSD [ "ssd" "noatime" "autodefrag" "compress=zstd" ];
+        options = ["subvol=${sub}"] ++ optionals cfg.isSSD ["ssd" "noatime" "autodefrag" "compress=zstd"];
       })
       {
         "/" = "@";

@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   services.couchpotato.enable = true;
 
   services.nginx.enable = true;

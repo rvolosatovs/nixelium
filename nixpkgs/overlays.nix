@@ -1,10 +1,13 @@
 let
-  unstable = import <nixpkgs-unstable> { config = import ./config.nix; overlays = [ ]; };
-in
-[
+  unstable = import <nixpkgs-unstable> {
+    config = import ./config.nix;
+    overlays = [];
+  };
+in [
   (
     _: super: {
-      inherit (unstable)
+      inherit
+        (unstable)
         act
         alacritty
         alejandra
@@ -156,21 +159,27 @@ in
         zoom-us
         ;
 
-      gitAndTools = super.gitAndTools // {
-        inherit (unstable.gitAndTools)
-          delta
-          gh
-          ghq
-          hub
-          tig
-          ;
-      };
+      gitAndTools =
+        super.gitAndTools
+        // {
+          inherit
+            (unstable.gitAndTools)
+            delta
+            gh
+            ghq
+            hub
+            tig
+            ;
+        };
 
-      python3Packages = super.python3Packages // {
-        inherit (unstable.python3Packages)
-          python-miio
-          ;
-      };
+      python3Packages =
+        super.python3Packages
+        // {
+          inherit
+            (unstable.python3Packages)
+            python-miio
+            ;
+        };
     }
   )
 
@@ -196,16 +205,15 @@ in
   )
 
   (
-    self: super:
-      let
-        callGoPackage = p: super.callPackage p {
+    self: super: let
+      callGoPackage = p:
+        super.callPackage p {
           inherit (self) buildGoPackage stdenv;
         };
-      in
-      {
-        copier = callGoPackage ./../vendor/copier;
-        dumpster = callGoPackage ./../vendor/dumpster;
-      }
+    in {
+      copier = callGoPackage ./../vendor/copier;
+      dumpster = callGoPackage ./../vendor/dumpster;
+    }
   )
 
   (
@@ -237,87 +245,88 @@ in
       quake3 = super.quake3wrapper {
         name = "quake3";
         description = "quake3e with HD textures and sounds";
-        paks = with self; [ quake3pointrelease quake3hires quake3Paks ];
+        paks = with self; [quake3pointrelease quake3hires quake3Paks];
       };
     }
   )
 
   (
-    self: super: with self; {
-      navi = "$HOME/.cargo";
+    self: super:
+      with self; {
+        navi = "$HOME/.cargo";
 
-      git-rebase-all = super.writeShellScriptBin "git-rebase-all" ''
-        set -e
+        git-rebase-all = super.writeShellScriptBin "git-rebase-all" ''
+          set -e
 
-        base=''${1:-master}
-        for b in $(${git}/bin/git for-each-ref --no-contains "''${base}" refs/heads --format '%(refname:lstrip=2)'); do 
-            ${git}/bin/git checkout -q "''${b}"
-            if ! ${git}/bin/git rebase -q "''${base}" &> /dev/null; then 
-                echo "''${b} can not be rebased automatically"
-                ${git}/bin/git rebase --abort
+          base=''${1:-master}
+          for b in $(${git}/bin/git for-each-ref --no-contains "''${base}" refs/heads --format '%(refname:lstrip=2)'); do
+              ${git}/bin/git checkout -q "''${b}"
+              if ! ${git}/bin/git rebase -q "''${base}" &> /dev/null; then
+                  echo "''${b} can not be rebased automatically"
+                  ${git}/bin/git rebase --abort
+              fi
+          done
+
+          ${git}/bin/git checkout -q "''${base}" && ${git}/bin/git branch --merged | grep -v '\*' | ${findutils}/bin/xargs -r ${git}/bin/git branch -d
+        '';
+
+        copy-sha-git = super.writeShellScriptBin "copy-sha-git" ''
+          ${nix-prefetch-git}/bin/nix-prefetch-git ''${@} | ${jq}/bin/jq -c -r '.sha256' | ${xclip}/bin/xclip -sel clip
+        '';
+
+        engify = super.writeShellScriptBin "engify" ''
+          set -euo pipefail
+          IFS=$'\n\t'
+
+          function englishTracks {
+            ${mkvtoolnix}/bin/mkvmerge -J "''${2}" | ${jq}/bin/jq -r "[ .tracks | .[] | select(.type==\"''${1}\") | select(.properties.language==\"eng\") | .id ] | join(\",\")"
+          }
+
+          function engify {
+            local subs="$(englishTracks "subtitles" "''${1}")"
+            local audio="$(englishTracks "audio" "''${1}")"
+
+            if [ -z "''${subs}" ] && [ -z "''${audio}" ]; then
+              return 0
             fi
-        done
+            local args=()
+            if [ -n "''${subs}" ]; then
+              args+=( -s "''${subs}" )
+            fi
+            if [ -n "''${audio}" ]; then
+              args+=( -a "''${audio}" )
+            fi
+            ${mkvtoolnix}/bin/mkvmerge ''${args[*]} -o "''${1}.eng" "''${1}" && ${busybox}/bin/mv -f "''${1}.eng" "''${1}"
+          }
 
-        ${git}/bin/git checkout -q "''${base}" && ${git}/bin/git branch --merged | grep -v '\*' | ${findutils}/bin/xargs -r ${git}/bin/git branch -d
-      '';
+          function usage {
+            echo "Usage: $(${busybox}/bin/basename "$0") <file>"
+            exit 1
+          }
+          [[ $# -eq 0 ]] && usage
 
-      copy-sha-git = super.writeShellScriptBin "copy-sha-git" ''
-        ${nix-prefetch-git}/bin/nix-prefetch-git ''${@} | ${jq}/bin/jq -c -r '.sha256' | ${xclip}/bin/xclip -sel clip
-      '';
+          for f in ''${@}; do
+            engify "''${f}"
+          done
+        '';
 
-      engify = super.writeShellScriptBin "engify" ''
-        set -euo pipefail
-        IFS=$'\n\t'
+        ip-link-toggle = super.writeShellScriptBin "ip-link-toggle" ''
+          set -euo pipefail
+          IFS=$'\n\t'
 
-        function englishTracks {
-          ${mkvtoolnix}/bin/mkvmerge -J "''${2}" | ${jq}/bin/jq -r "[ .tracks | .[] | select(.type==\"''${1}\") | select(.properties.language==\"eng\") | .id ] | join(\",\")"
-        }
+          function usage {
+            echo "Usage: $(${busybox}/bin/basename "$0") <interface>"
+            exit 1
+          }
+          [[ $# -ne 1 ]] && usage
 
-        function engify {
-          local subs="$(englishTracks "subtitles" "''${1}")"
-          local audio="$(englishTracks "audio" "''${1}")"
-
-          if [ -z "''${subs}" ] && [ -z "''${audio}" ]; then
-            return 0
+          if [ "$(${iproute}/bin/ip link show dev "''${1}" | ${busybox}/bin/head -1 | ${busybox}/bin/sed 's/.*state \([[:alnum:]]\+\) .*/\1/g')" == "UP" ]; then
+            ${iproute}/bin/ip link set "''${1}" down
+          else
+            ${iproute}/bin/ip link set "''${1}" up
           fi
-          local args=()
-          if [ -n "''${subs}" ]; then
-            args+=( -s "''${subs}" )
-          fi
-          if [ -n "''${audio}" ]; then
-            args+=( -a "''${audio}" )
-          fi
-          ${mkvtoolnix}/bin/mkvmerge ''${args[*]} -o "''${1}.eng" "''${1}" && ${busybox}/bin/mv -f "''${1}.eng" "''${1}"
-        }
-
-        function usage {
-          echo "Usage: $(${busybox}/bin/basename "$0") <file>"
-          exit 1
-        }
-        [[ $# -eq 0 ]] && usage
-
-        for f in ''${@}; do
-          engify "''${f}"
-        done
-      '';
-
-      ip-link-toggle = super.writeShellScriptBin "ip-link-toggle" ''
-        set -euo pipefail
-        IFS=$'\n\t'
-
-        function usage {
-          echo "Usage: $(${busybox}/bin/basename "$0") <interface>"
-          exit 1
-        }
-        [[ $# -ne 1 ]] && usage
-
-        if [ "$(${iproute}/bin/ip link show dev "''${1}" | ${busybox}/bin/head -1 | ${busybox}/bin/sed 's/.*state \([[:alnum:]]\+\) .*/\1/g')" == "UP" ]; then
-          ${iproute}/bin/ip link set "''${1}" down
-        else
-          ${iproute}/bin/ip link set "''${1}" up
-        fi
-      '';
-    }
+        '';
+      }
   )
 
   (
@@ -341,7 +350,8 @@ in
         pulseSupport = true;
       };
 
-      firefox = with super; wrapFirefox firefox-unwrapped
+      firefox = with super;
+        wrapFirefox firefox-unwrapped
         {
           forceWayland = true;
 
@@ -353,7 +363,7 @@ in
           extraPolicies.DisableFirefoxStudies = true;
           extraPolicies.DisablePocket = true;
           extraPolicies.DisableTelemetry = true;
-          extraPolicies.ExtensionSettings = { };
+          extraPolicies.ExtensionSettings = {};
           extraPolicies.FirefoxHome.Pocket = false;
           extraPolicies.FirefoxHome.Snippets = false;
           extraPolicies.UserMessaging.ExtensionRecommendations = false;

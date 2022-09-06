@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   services.nginx.enable = true;
   services.nginx.virtualHosts.dumpster.enableACME = true;
   services.nginx.virtualHosts.dumpster.forceSSL = true;
@@ -10,12 +13,12 @@
     proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
   '';
 
-  systemd.services.dumpster.after = [ "network.target" ];
+  systemd.services.dumpster.after = ["network.target"];
   systemd.services.dumpster.description = "Dumpster service";
   systemd.services.dumpster.enable = true;
   systemd.services.dumpster.serviceConfig.ExecStart = "${pkgs.dumpster}/bin/dumpster -http :24003";
   systemd.services.dumpster.serviceConfig.User = "dumpster";
-  systemd.services.dumpster.wantedBy = [ "multi-user.target" ];
+  systemd.services.dumpster.wantedBy = ["multi-user.target"];
 
   users.users.dumpster = {
     createHome = true;

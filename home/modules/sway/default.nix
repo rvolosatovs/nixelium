@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   choosePass = "${pkgs.gopass}/bin/gopass list --flat \${@} | ${pkgs.wofi}/bin/wofi --dmenu";
   typeStdin = "${pkgs.ydotool}/bin/ydotool type --file -";
 
@@ -14,12 +17,10 @@ let
   mkXkbOptions = lib.concatStringsSep ",";
   defaultXkbOptions = mkXkbOptions config.home.keyboard.options;
   extendDefaultXkbOptions = xs: mkXkbOptions (config.home.keyboard.options ++ xs);
-in
-{
-  config =
-    with pkgs;
-    with config.resources.programs;
-    with config.resources.base16.colors;
+in {
+  config = with pkgs;
+  with config.resources.programs;
+  with config.resources.base16.colors;
     lib.mkIf cfg.enable {
       home.packages = [
         clipman
@@ -161,7 +162,6 @@ in
           command = "unset LESS_TERMCAP_us";
         }
       ];
-
 
       wayland.windowManager.sway.config.assigns."5" = [
         {

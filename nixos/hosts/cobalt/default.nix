@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./../../../resources/hosts/cobalt
     ./../../../vendor/nixos-hardware/common/pc/laptop/ssd
@@ -19,7 +23,7 @@
 
     boot.kernelPackages = pkgs.linuxPackages_zen;
 
-    home-manager.users.${config.resources.username} = { ... }: import ./../../../home/hosts/cobalt;
+    home-manager.users.${config.resources.username} = {...}: import ./../../../home/hosts/cobalt;
 
     networking.firewall.allowedTCPPorts = [
       1885

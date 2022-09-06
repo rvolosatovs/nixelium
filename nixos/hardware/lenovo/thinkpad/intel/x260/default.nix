@@ -1,9 +1,15 @@
-{ config, pkgs, lib, ... }:
-let
-  wiredInterface = if config.networking.usePredictableInterfaceNames then "enp0s31f6" else "eth0";
-  wirelessInterface = "wlan0";
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  wiredInterface =
+    if config.networking.usePredictableInterfaceNames
+    then "enp0s31f6"
+    else "eth0";
+  wirelessInterface = "wlan0";
+in {
   imports = [
     ./..
     ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x260
@@ -15,7 +21,7 @@ in
   ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_4_14;
-  boot.kernelParams = [ "i915.fastboot=1" ];
+  boot.kernelParams = ["i915.fastboot=1"];
 
   networking.interfaces."${wiredInterface}".useDHCP = lib.mkDefault true;
   # TODO: Find a way to disable this per-host. An option maybe?
@@ -31,5 +37,5 @@ in
   services.tlp.settings.STOP_CHARGE_THRESH_BAT0 = 80;
   services.tlp.settings.STOP_CHARGE_THRESH_BAT1 = 80;
 
-  services.xserver.videoDrivers = [ "intel" ];
+  services.xserver.videoDrivers = ["intel"];
 }

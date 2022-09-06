@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     (pkgs.writeShellScriptBin "sonarr-engify" ''
       if [ "''${sonarr_eventtype}" = "Download" ]; then
@@ -10,5 +13,5 @@
 
   services.sonarr.enable = true;
 
-  users.users.${config.resources.username}.extraGroups = [ "sonarr" ];
+  users.users.${config.resources.username}.extraGroups = ["sonarr"];
 }

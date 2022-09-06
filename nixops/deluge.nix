@@ -1,9 +1,7 @@
-{ config, ... }:
-let
+{config, ...}: let
   serviceName = "deluge";
   secretName = "${serviceName}-secrets";
-in
-{
+in {
   deployment.keys.${secretName} = {
     text = with config.resources; ''
       localclient:${deluge.localclientPassword}:10
@@ -15,9 +13,9 @@ in
   services.${serviceName}.authFile = config.deployment.keys.${secretName}.path;
 
   systemd.services.deluged = {
-    after = [ "${secretName}-key.service" ];
-    wants = [ "${secretName}-key.service" ];
+    after = ["${secretName}-key.service"];
+    wants = ["${secretName}-key.service"];
   };
 
-  users.users.${serviceName}.extraGroups = [ "keys" ];
+  users.users.${serviceName}.extraGroups = ["keys"];
 }

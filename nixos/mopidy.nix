@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   services.mopidy.enable = true;
   services.mopidy.configuration = with config.resources; ''
     [core]

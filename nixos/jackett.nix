@@ -1,6 +1,5 @@
-{ config, ... }:
-{
+{config, ...}: {
   services.jackett.enable = true;
 
-  users.users.${config.resources.username}.extraGroups = [ "jackett" ];
+  users.users.${config.resources.username}.extraGroups = ["jackett"];
 }

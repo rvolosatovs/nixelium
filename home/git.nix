@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   gitignore = pkgs.writeText "gitignore" ''
     *.aux
     *.dvi
@@ -33,16 +35,17 @@ let
     Thumbs.db
     token
   '';
-in
-{
-  home.packages = with pkgs; [
-    git-lfs
-  ] ++ (with gitAndTools; [
-    delta
-    gh
-    git-extras
-    hub
-  ]);
+in {
+  home.packages = with pkgs;
+    [
+      git-lfs
+    ]
+    ++ (with gitAndTools; [
+      delta
+      gh
+      git-extras
+      hub
+    ]);
   home.sessionVariables.GIT_EDITOR = config.resources.programs.editor.executable.path;
 
   programs.git.aliases.tree = "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";

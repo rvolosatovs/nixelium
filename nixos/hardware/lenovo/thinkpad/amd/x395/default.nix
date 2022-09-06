@@ -1,11 +1,12 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   wiredInterface = "enp3s0f0";
   wirelessInterface = "wlan0";
-in
-{
-  imports =
-    [ ./.. ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x395 ];
+in {
+  imports = [./.. ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x395];
 
   boot.kernelParams = [
     "acpi_backlight=vendor"

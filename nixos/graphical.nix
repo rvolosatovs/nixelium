@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   environment.sessionVariables = {
     BROWSER = config.resources.programs.browser.executable.path;
   };
@@ -24,9 +27,9 @@
   fonts.fontconfig.allowBitmaps = true;
   fonts.fontconfig.allowType1 = false;
   fonts.fontconfig.antialias = true;
-  fonts.fontconfig.defaultFonts.monospace = [ "Fira Code" "FiraCode Nerd Font" ];
-  fonts.fontconfig.defaultFonts.sansSerif = [ "Fira Sans" ];
-  fonts.fontconfig.defaultFonts.serif = [ "Roboto Slab" ];
+  fonts.fontconfig.defaultFonts.monospace = ["Fira Code" "FiraCode Nerd Font"];
+  fonts.fontconfig.defaultFonts.sansSerif = ["Fira Sans"];
+  fonts.fontconfig.defaultFonts.serif = ["Roboto Slab"];
   fonts.fontconfig.enable = true;
   fonts.fontconfig.hinting.enable = true;
 
