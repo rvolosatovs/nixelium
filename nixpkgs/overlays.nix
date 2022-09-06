@@ -4,8 +4,6 @@ in
 [
   (
     _: super: {
-      inherit unstable;
-
       inherit (unstable)
         act
         alacritty
@@ -15,7 +13,6 @@ in
         bat
         bat-extras
         borgbackup
-        bottom
         brave
         cachix
         cargo-edit
@@ -25,9 +22,6 @@ in
         deadcode
         deno
         direnv
-        docker
-        docker-compose
-        docker-credential-helpers
         drive
         du-dust
         echoip
@@ -41,7 +35,6 @@ in
         firefox-wayland
         firefoxWrapper
         firmwareLinuxNonfree
-        fprintd
         fzf
         go-2fa
         go-sct
@@ -60,24 +53,12 @@ in
         hyperfine
         imv
         ioquake3
-        iwd
         jackett
-        julia
-        julia-lts
-        julia-mono
-        julia-stable
-        julia_07
-        julia_1
-        julia_10
-        julia_11
-        julia_13
-        julia_15
         kanshi
         kbfs
         keybase
         keybase-gui
         kitty
-        libfprint
         libreoffice
         libreoffice-fresh
         libreoffice-fresh-unwrapped
@@ -87,7 +68,6 @@ in
         lidarr
         linux_lqx
         linux_zen
-        linuxkit
         linuxPackages_latest
         linuxPackages_lqx
         linuxPackages_zen
