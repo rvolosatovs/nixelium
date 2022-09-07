@@ -1,8 +1,32 @@
 keys:
   - &roman b1187afda5ba91e07f7ef8aee71604ba8e53bf31
   - &puiterwijk age1jsyhycrf872ksv88qk8lfp3whtjxrr4r3mk0m6fa49evev3pmywsf3aa2r
+  - &attest-prod1 age1wj8drt0hstdfrsv9jgaywst36ls0xyaxa8t6y7cnw07u45kgka7sx2xzdj
+  - &attest-prod2 age1vxnheh6033t3x8x6cv3lv4gla2wkadmu7q92udr7j5r93cvz5ekssz5r70
+  - &attest-prod3 age185y8we8uvslax422v0cq80rrnmzf9htmwuuzj9l6wlm02a3qkppqkxk837
+  - &attest-prod4 age1jsv5zl0fkl85whnlup5rxncez48yxwpd5a5tagat2g4q5ehdecps9ktjpt
 
 creation_rules:
+  - path_regex: secrets/production/cloudflared/steward
+    shamir_threshold: 2
+    key_groups:
+    - age:
+      - *attest-prod1
+    - age:
+      - *attest-prod1
+    - age:
+      - *attest-prod2
+    - age:
+      - *attest-prod2
+    - age:
+      - *attest-prod3
+    - age:
+      - *attest-prod3
+    - age:
+      - *attest-prod4
+    - age:
+      - *attest-prod4
+
   - path_regex: hosts/attest.profian.com
     shamir_threshold: 2
     key_groups:

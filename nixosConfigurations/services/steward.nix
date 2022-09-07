@@ -62,6 +62,8 @@ with flake-utils.lib.system; let
 
       imports = [
         ../groups/meta.nix
+
+        self.nixosModules.cloudflared
       ];
 
       config = {
@@ -69,6 +71,8 @@ with flake-utils.lib.system; let
         networking.domain = "steward.rdu.infra.profian.com";
 
         profian.environment = "production";
+
+        services.cloudflared.tunnel_name = "steward";
       };
     };
 
