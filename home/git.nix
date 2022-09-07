@@ -24,14 +24,10 @@
     .direnv*
     .DS_Store
     .DS_Store?
-    .envrc*
     .Spotlight-V100
     .Trashes
     .vscode
     ehthumbs.db
-    flake.lock
-    flake.nix
-    shell.nix
     Thumbs.db
     token
   '';
