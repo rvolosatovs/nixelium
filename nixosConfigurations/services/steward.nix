@@ -103,14 +103,6 @@ with flake-utils.lib.system; let
     })
   ];
 
-  attest = mkEC2 [
-    ({...}: {
-      profian.environment = "production";
-
-      networking.domain = "profian.com";
-    })
-  ];
-
   mkProd = n:
     nixpkgs.lib.nixosSystem {
       system = x86_64-linux;
@@ -129,7 +121,6 @@ with flake-utils.lib.system; let
   attest-production-4 = mkProd 4;
 in {
   inherit
-    attest
     attest-staging
     attest-testing
     attest-production-1

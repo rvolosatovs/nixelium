@@ -16,7 +16,6 @@ jobs:
         # Steward
         - nixosConfigurations.attest-staging.config.system.build.toplevel
         - nixosConfigurations.attest-testing.config.system.build.toplevel
-        - nixosConfigurations.attest.config.system.build.toplevel
 
         # Steward production
         - nixosConfigurations.attest-production-1.config.system.build.toplevel

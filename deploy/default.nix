@@ -22,7 +22,6 @@ in {
   nodes.attest-production-3 = mkGenericNode self.nixosConfigurations.attest-production-3;
   nodes.attest-production-4 = mkGenericNode self.nixosConfigurations.attest-production-4;
 
-  nodes.attest = mkGenericNode self.nixosConfigurations.attest;
   nodes.attest-staging = mkGenericNode self.nixosConfigurations.attest-staging;
   nodes.attest-testing = mkGenericNode self.nixosConfigurations.attest-testing;
   nodes.benefice-testing = mkGenericNode self.nixosConfigurations.benefice-testing;
