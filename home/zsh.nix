@@ -36,25 +36,9 @@
           nixify() {
             if [ ! -e ./.envrc ]; then
               echo 'use flake' > .envrc
-              ${pkgs.direnv}/bin/direnv allow
             fi
-
-            nixfile="shell.nix"
-            if [ -e "default.nix" ]; then
-              nixfile="default.nix"
-            fi
-
-            if [ ! -e ''${nixfile} ]; then
-              cat > ''${nixfile} <<'EOF'
-          { pkgs ? import <nixpkgs> {} }:
-
-          pkgs.mkShell {
-            buildInputs = with pkgs; [
-            ];
-          }
-          EOF
-              ''${EDITOR:-'${config.resources.programs.editor.executable.path}'} ''${nixfile}
-            fi
+            nix flake new . -t "github:rvolosatovs/templates#''${1:-default}"
+            ${pkgs.direnv}/bin/direnv allow
           }
 
           semver() {
