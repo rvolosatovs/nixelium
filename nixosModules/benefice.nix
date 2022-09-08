@@ -26,6 +26,7 @@ in {
       services.benefice.oci.backend = "docker";
       services.benefice.oci.image = "${enarx-oci.imageName}:${enarx-oci.imageTag}";
       services.benefice.oidc.secretFile = config.sops.secrets.oidc-secret.path;
+      services.benefice.sessionKey = config.sops.secrets.benefice-session-key.path;
 
       services.enarx.enable = true;
 
@@ -36,10 +37,16 @@ in {
       '';
 
       sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+
       sops.secrets.oidc-secret.format = "binary";
       sops.secrets.oidc-secret.mode = "0000";
       sops.secrets.oidc-secret.restartUnits = ["benefice.service"];
       sops.secrets.oidc-secret.sopsFile = "${self}/hosts/${config.networking.fqdn}/oidc-secret";
+
+      sops.secrets.benefice-session-key.format = "binary";
+      sops.secrets.benefice-session-key.mode = "0000";
+      sops.secrets.benefice-session-key.restartUnits = ["benefice.service"];
+      sops.secrets.benefice-session-key.sopsFile = "${self}/hosts/${config.networking.fqdn}/session-key";
 
       systemd.services.load-enarx-image.script = "${pkgs.docker}/bin/docker load < ${enarx-oci}";
       systemd.services.load-enarx-image.serviceConfig.Type = "oneshot";
