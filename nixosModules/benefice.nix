@@ -65,6 +65,11 @@ in {
       users.users.benefice.extraGroups = with config.users.groups; [docker.name];
       users.users.benefice.group = config.users.groups.benefice.name;
       users.users.benefice.isSystemUser = true;
+
+      services.nginx.virtualHosts.${config.services.benefice.demoFqdn} = {
+        rejectSSL = true;
+        globalRedirect = config.networking.fqdn;
+      };
     })
   ];
 }

@@ -71,6 +71,7 @@ with flake-utils.lib.system; let
       profian.environment = "testing";
 
       services.benefice.oidc.client = "FTmeUMamlu8HRs11mvtmmZHnmCwRIo8E";
+      services.benefice.demoFqdn = "benefice.testing.profian.cloud";
     })
   ];
 
@@ -120,6 +121,7 @@ with flake-utils.lib.system; let
       services.aesmd.qcnl.settings.useSecureCert = false;
 
       services.benefice.oidc.client = "23Lt09AjF8HpUeCCwlfhuV34e2dKD1MH";
+      services.benefice.demoFqdn = "sgx.try.enarx.profian.cloud";
 
       services.enarx.backend = "sgx";
 
@@ -159,6 +161,7 @@ with flake-utils.lib.system; let
       profian.environment = "production";
 
       services.benefice.oidc.client = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
+      services.benefice.demoFqdn = "snp.try.enarx.profian.cloud";
 
       services.enarx.backend = "sev";
     })
