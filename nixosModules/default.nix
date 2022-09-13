@@ -7,5 +7,6 @@ inputs @ {...}: {
   service = import ./service.nix inputs;
   shells = import ./shells.nix inputs;
   steward = import ./steward.nix inputs;
+  monitoring = import ./monitoring.nix inputs;
   users = import ./users.nix inputs;
 }
