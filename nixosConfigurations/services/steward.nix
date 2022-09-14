@@ -30,6 +30,7 @@ with flake-utils.lib.system; let
         })
         (mkIf (config.profian.environment == "production") {
           services.steward.package = pkgs.steward.production;
+          services.steward.log.level = "info";
         })
       ];
     };

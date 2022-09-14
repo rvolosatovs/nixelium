@@ -35,6 +35,7 @@ with flake-utils.lib.system; let
           services.drawbridge.package = pkgs.drawbridge.staging;
         })
         (mkIf (config.profian.environment == "production") {
+          services.drawbridge.log.level = "info";
           services.drawbridge.package = pkgs.drawbridge.production;
         })
       ];
