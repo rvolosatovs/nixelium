@@ -32,7 +32,7 @@ with flake-utils.lib.system; let
         })
         (mkIf (config.profian.environment == "production") {
           services.benefice.log.level = "info";
-          services.benefice.package = pkgs.benefice.staging; # TODO: Introduce a "production" build
+          services.benefice.package = pkgs.benefice.production;
         })
       ];
     };
