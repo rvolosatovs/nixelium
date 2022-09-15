@@ -59,13 +59,6 @@ in {
         default = ["ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDY5lUiLQkHiSAcvIK0RNzZfGQqyt/jjmnq/vUvLLjaEzwFEHemzaOEOACQT/SC0SP/RyN/taQBkcyGGaJ9lf5Q="];
       };
 
-    users.platten.enable = mkEnableOption "platten user";
-    users.platten.authorizedKeys =
-      keyOption
-      // {
-        default = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICINJWxtAQ9+03WqKkLphYQ9/k43a7YX/OUAufZoXfb+"];
-      };
-
     users.puiterwijk.enable = mkEnableOption "puiterwijk user";
     users.puiterwijk.authorizedKeys =
       keyOption
@@ -167,19 +160,6 @@ in {
       users.users.npmccallum.extraGroups = cfg.adminGroups;
       users.users.npmccallum.openssh.authorizedKeys.keys = cfg.users.npmccallum.authorizedKeys;
       users.users.npmccallum.shell = pkgs.bashInteractive;
-    })
-
-    (mkIf cfg.users.platten.enable {
-      environment.shells = with pkgs; [
-        bashInteractive
-      ];
-
-      profian.users.deploy.authorizedKeys = cfg.users.platten.authorizedKeys;
-
-      users.users.platten.isNormalUser = true;
-      users.users.platten.extraGroups = cfg.adminGroups;
-      users.users.platten.openssh.authorizedKeys.keys = cfg.users.platten.authorizedKeys;
-      users.users.platten.shell = pkgs.bashInteractive;
     })
 
     (mkIf cfg.users.puiterwijk.enable {

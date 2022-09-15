@@ -60,7 +60,6 @@ in {
       profian.users.deploy.enable = true;
       profian.users.haraldh.enable = true;
       profian.users.npmccallum.enable = true;
-      profian.users.platten.enable = true;
       profian.users.puiterwijk.enable = true;
       profian.users.rvolosatovs.enable = true;
 
