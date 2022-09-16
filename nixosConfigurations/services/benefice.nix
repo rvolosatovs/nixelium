@@ -113,8 +113,6 @@ with flake-utils.lib.system; let
 
       profian.environment = "production";
 
-      profian.users.jarkko.enable = true;
-
       sops.secrets.intel-api-key.format = "binary";
       sops.secrets.intel-api-key.mode = "0000";
       sops.secrets.intel-api-key.restartUnits = [pccsServiceName];

@@ -52,13 +52,6 @@ in {
         default = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/ziasupvk3yQ6Tqb/JiQ6gPwdKzDR26S5W5w6byx3FYEztkiGLi8wsFC+mOWrirwVTma3M0TO1DnYjwXvsU7kSoQQarS8bG+CoPIifcF1a5SEeJKPifsYUIB7GSMUY4yomdRe7+AdP8nSqlHdoij6fN/+rfUs+3nTrq4TAkFyg5hqQBQp32DrM1Och5KXMvOCak75TQoxrfpKyhlCuoWVotnvxWMFgfCGUYC6Q2nKPn3y1EtFs9Y/Zi8H5VzLjrhmbJYd7yTA6HPBqDpEnaaL+vXAoqPC1Vzu+gI2jOumhg+4eN3kfbzP5Sz0ljhmYKpHBPE0+sPKMLtWZBW9gUSr"];
       };
 
-    users.jarkko.enable = mkEnableOption "jarkko user";
-    users.jarkko.authorizedKeys =
-      keyOption
-      // {
-        default = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC98lBiM9sagRbieKI6+k2TAFVbAreKupO/8Bs1EkgTIusU2VZ6y/0mBefanIArkap3G4f5kQNqnTH7077B1pfHYUTpFlGQTNN++v2+OaZFG+LXfv1mVkouw7Mo3Qdo12W6A3WGI+v0aFBwAN9kEN+Tt6jgn4/ym+iRaOTg/bG5x66csm5p598Ob6Ox0dhKA5chE736I4kb0mo09m768Fz/rR0vaQsa/vhRZfv4pmaAhBighi7s5quyQm93S85qpKs2WW8UmY6gRAwG94sER7fndxVmJOlFaCjzV/H2uVSOGQYBSZ8164JYC3AJjtGg269PcD5QqlpDr40yo9xVXkbd"];
-      };
-
     users.npmccallum.enable = mkEnableOption "npmccallum user";
     users.npmccallum.authorizedKeys =
       keyOption
@@ -154,17 +147,6 @@ in {
       users.users.haraldh.extraGroups = cfg.adminGroups;
       users.users.haraldh.openssh.authorizedKeys.keys = cfg.users.haraldh.authorizedKeys;
       users.users.haraldh.shell = pkgs.bashInteractive;
-    })
-
-    (mkIf cfg.users.jarkko.enable {
-      environment.shells = with pkgs; [
-        bashInteractive
-      ];
-
-      users.users.jarkko.isNormalUser = true;
-      users.users.jarkko.extraGroups = cfg.adminGroups;
-      users.users.jarkko.openssh.authorizedKeys.keys = cfg.users.jarkko.authorizedKeys;
-      users.users.jarkko.shell = pkgs.bashInteractive;
     })
 
     (mkIf cfg.users.npmccallum.enable {
