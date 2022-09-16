@@ -76,7 +76,6 @@ with pkgs; ''
 
   let g:NERDCreateDefaultMappings = 0
 
-  let g:rustc_path = '${fenix.latest.rustc}/bin/rustc'
   let g:rust_clip_command = '${wl-clipboard}/bin/wl-copy'
 
   let g:loaded_netrwPlugin = 1
