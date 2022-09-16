@@ -126,6 +126,11 @@ with flake-utils.lib.system; let
 
       services.enarx.backend = "sgx";
 
+      systemd.services.benefice.requires = [
+        "${pccsServiceName}.service"
+        "aesmd.service"
+      ];
+
       services.pccs.apiKeyFile = intelApiKeyFile;
       services.pccs.enable = true;
 
