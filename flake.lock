@@ -55,11 +55,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1663253061,
-        "narHash": "sha256-u4HOaNIhSz6glEEZ5NNOhwOp+GYeA64ays0Jf5A1WTE=",
+        "lastModified": 1663277888,
+        "narHash": "sha256-U83MBIrny0OAYBqNFZIML5OktkVRF1kNcs7WRgaIjn8=",
         "owner": "profianinc",
         "repo": "benefice",
-        "rev": "ec6eeef04f6a861ec41e6ae87ff63d81bb2cd381",
+        "rev": "8f13ea4bb9fd1161eff692a9296701b9fbae9b28",
         "type": "github"
       },
       "original": {
@@ -1005,11 +1005,11 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1663191587,
-        "narHash": "sha256-+FmfEJaJk0W+nHL/u5zxzvtxtG9pcN5ZAN72WfS5HiQ=",
+        "lastModified": 1663311431,
+        "narHash": "sha256-OiKm5BcKdAKa3ACqRQTkGuMddyO5ZXUBjDYtQ9f6kYo=",
         "owner": "profianinc",
         "repo": "nixpkgs",
-        "rev": "47c1b7ccc91a05ee0e67858372f47222bf268566",
+        "rev": "ff995d3eb9ef6fba5f1157f1558f65625d04cf77",
         "type": "github"
       },
       "original": {
