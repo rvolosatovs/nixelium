@@ -43,7 +43,7 @@ in {
       services.datadog-agent.enableLiveProcessCollection = true;
       services.datadog-agent.logLevel = "ERROR";
       services.datadog-agent.tags = [
-        "environment:${config.profian.environment}"
+        "env:${config.profian.environment}"
       ];
       services.datadog-agent.extraConfig = {
         logs_enabled = true;
