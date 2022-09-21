@@ -9,16 +9,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1663149776,
-        "narHash": "sha256-VAU5szDRFWRasytO6WCaCUZ9RnW2TA8a6ib5okgudJ0=",
+        "lastModified": 1663598693,
+        "narHash": "sha256-UTBN/JWB7eiq1wGez1qgwDn2Cpwk8wIWe72sLOI0RjQ=",
         "owner": "profianinc",
         "repo": "benefice",
-        "rev": "1cd12fdf7fefb92dfdaf4aa19a461430f1ab1061",
+        "rev": "6117098da798488f95d11d4098589544f245a5c4",
         "type": "github"
       },
       "original": {
         "owner": "profianinc",
-        "ref": "v0.1.2-rc4",
+        "ref": "v0.1.2-rc6",
         "repo": "benefice",
         "type": "github"
       }
@@ -32,16 +32,16 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1663149776,
-        "narHash": "sha256-VAU5szDRFWRasytO6WCaCUZ9RnW2TA8a6ib5okgudJ0=",
+        "lastModified": 1663598693,
+        "narHash": "sha256-UTBN/JWB7eiq1wGez1qgwDn2Cpwk8wIWe72sLOI0RjQ=",
         "owner": "profianinc",
         "repo": "benefice",
-        "rev": "1cd12fdf7fefb92dfdaf4aa19a461430f1ab1061",
+        "rev": "6117098da798488f95d11d4098589544f245a5c4",
         "type": "github"
       },
       "original": {
         "owner": "profianinc",
-        "ref": "v0.1.2-rc4",
+        "ref": "v0.1.2-rc6",
         "repo": "benefice",
         "type": "github"
       }

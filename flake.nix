@@ -1,8 +1,8 @@
 {
   description = "Profian Inc Network Infrastructure";
 
-  inputs.benefice-production.url = github:profianinc/benefice/v0.1.2-rc4;
-  inputs.benefice-staging.url = github:profianinc/benefice/v0.1.2-rc4;
+  inputs.benefice-production.url = github:profianinc/benefice/v0.1.2-rc6;
+  inputs.benefice-staging.url = github:profianinc/benefice/v0.1.2-rc6;
   inputs.benefice-testing.url = github:profianinc/benefice;
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
   inputs.deploy-rs.url = github:serokell/deploy-rs;
