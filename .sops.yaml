@@ -73,12 +73,12 @@ creation_rules:
     - age:
       - age15mq3msgr00046pd8wnjw7y3xww4p4c3u3vxjvud5gldrrzdsl3msz4rfr8
 
-  - path_regex: hosts/sgx.equinix.demo.enarx.dev
+  - path_regex: hosts/sgx.equinix.try.enarx.dev
     key_groups:
     - age:
       - age1ngtadawwwsemf0uveuzz3ypq0y7e5mqxfclk752tdwre98w4sckq8yxjj5
 
-  - path_regex: hosts/snp.equinix.demo.enarx.dev
+  - path_regex: hosts/snp.equinix.try.enarx.dev
     key_groups:
     - age:
       - age1xq3cf6l9l23jqu54s4xqjnex9g04tmuw89tfvk5vwl573njhlscszym3hk
