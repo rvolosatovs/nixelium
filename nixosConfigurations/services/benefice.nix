@@ -88,88 +88,40 @@ with flake-utils.lib.system; let
     };
 
   sgx-equinix-try = mkEquinix [
+    self.nixosModules.sgx
     ({
       config,
       lib,
       ...
-    }: let
-      pccsServiceName = "${config.virtualisation.oci-containers.backend}-pccs";
-      intelApiKeyFile = config.sops.secrets.intel-api-key.path;
-    in {
+    }: {
       imports = [
         "${self}/hosts/sgx.equinix.try.enarx.dev"
       ];
 
-      boot.kernelModules = [
-        "kvm-intel"
-      ];
-
-      # TODO: Move SGX-specific logic into a `sgx` module
-      hardware.cpu.intel.sgx.provision.enable = true;
-      hardware.cpu.intel.updateMicrocode = true;
-
-      networking.hostName = "sgx";
       networking.domain = "equinix.try.enarx.dev";
+      networking.hostName = "sgx";
 
       profian.environment = "production";
 
-      sops.secrets.intel-api-key.format = "binary";
-      sops.secrets.intel-api-key.mode = "0000";
-      sops.secrets.intel-api-key.restartUnits = [pccsServiceName];
-
-      services.aesmd.enable = true;
-      services.aesmd.qcnl.settings.pccsUrl = "https://127.0.0.1:8081/sgx/certification/v3/";
-      services.aesmd.qcnl.settings.useSecureCert = false;
-
       services.benefice.oidc.client = "23Lt09AjF8HpUeCCwlfhuV34e2dKD1MH";
       services.benefice.demoFqdn = "sgx.try.enarx.profian.cloud";
-
-      services.enarx.backend = "sgx";
-
-      systemd.services.benefice.requires = [
-        "${pccsServiceName}.service"
-        "aesmd.service"
-      ];
-
-      services.pccs.apiKeyFile = intelApiKeyFile;
-      services.pccs.enable = true;
-
-      systemd.services."${pccsServiceName}" = {
-        preStart = lib.mkBefore ''
-          chmod 0400 "${intelApiKeyFile}"
-        '';
-        postStop = lib.mkBefore ''
-          chmod 0000 "${intelApiKeyFile}"
-        '';
-        serviceConfig.SupplementaryGroups = [config.users.groups.keys.name];
-      };
     })
   ];
 
   snp-equinix-try = mkEquinix [
+    self.nixosModules.sev
     ({...}: {
       imports = [
         "${self}/hosts/snp.equinix.try.enarx.dev"
       ];
 
-      boot.kernelModules = [
-        "kvm-amd"
-      ];
-
-      hardware.cpu.amd.sev.enable = true;
-      hardware.cpu.amd.sev.mode = "0660";
-
-      hardware.cpu.amd.updateMicrocode = true;
-
-      networking.hostName = "snp";
       networking.domain = "equinix.try.enarx.dev";
+      networking.hostName = "snp";
 
       profian.environment = "production";
 
       services.benefice.oidc.client = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
       services.benefice.demoFqdn = "snp.try.enarx.profian.cloud";
-
-      services.enarx.backend = "sev";
     })
   ];
 in {
