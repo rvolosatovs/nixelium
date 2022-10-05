@@ -1,4 +1,4 @@
-inputs @ {...}: {
+{...}: {
   config,
   lib,
   pkgs,
@@ -8,11 +8,24 @@ with lib; let
   cfg = config.profian.provider;
 in {
   options.profian.provider = mkOption {
-    type = with types; nullOr (enum ["equinix"]);
+    type = with types; nullOr (enum ["aws" "equinix"]);
     description = "Hosting provider.";
     default = null;
   };
+  options.ec2.instance = mkOption {
+    type = types.enum ["t2.micro" "m6a.metal"];
+    description = "EC2 instance type.";
+  };
   config = mkMerge [
+    (mkIf (cfg == "aws") {
+      # NOTE: /dev/kvm is not present on t2.micro instances
+      services.enarx.backend =
+        if config.ec2.instance == "t2.micro"
+        then "nil"
+        else if config.ec2.instance == "m6a.metal"
+        then "sev"
+        else throw "unsupported EC2 instance type";
+    })
     (mkIf (cfg == "equinix") {
       boot.extraModprobeConfig = "options bonding max_bonds=0";
       boot.initrd.availableKernelModules = [

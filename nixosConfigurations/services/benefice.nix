@@ -42,12 +42,7 @@ with flake-utils.lib.system; let
       "${modulesPath}/virtualisation/amazon-image.nix"
     ];
 
-    networking.hostName = "benefice";
-
-    # NOTE: /dev/kvm is not present on systems
-    services.enarx.backend = "nil";
-
-    services.steward.nginx.enable = true;
+    profian.provider = "aws";
   };
 
   beneficeModules.equinix = {...}: {
@@ -67,7 +62,10 @@ with flake-utils.lib.system; let
 
   benefice-testing = mkEC2 [
     ({...}: {
+      ec2.instance = "t2.micro";
+
       networking.domain = "testing.profian.com";
+      networking.hostName = "benefice";
 
       profian.environment = "testing";
 
