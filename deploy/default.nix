@@ -27,6 +27,7 @@ in {
   nodes.benefice-testing = mkGenericNode self.nixosConfigurations.benefice-testing;
   nodes.nuc-1 = mkTailscaleNode self.nixosConfigurations.nuc-1;
   nodes.sgx-equinix-try = mkGenericNode self.nixosConfigurations.sgx-equinix-try;
+  nodes.snp-aws-try = mkGenericNode self.nixosConfigurations.snp-aws-try;
   nodes.snp-equinix-try = mkGenericNode self.nixosConfigurations.snp-equinix-try;
   nodes.store = mkGenericNode self.nixosConfigurations.store;
   nodes.store-staging = mkGenericNode self.nixosConfigurations.store-staging;

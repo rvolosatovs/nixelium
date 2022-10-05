@@ -74,6 +74,21 @@ with flake-utils.lib.system; let
     })
   ];
 
+  snp-aws-try = mkEC2 [
+    self.nixosModules.sev
+    ({...}: {
+      ec2.instance = "m6a.metal";
+
+      networking.domain = "aws.try.enarx.dev";
+      networking.hostName = "snp";
+
+      profian.environment = "production";
+
+      services.benefice.oidc.client = "iH87VPdiai8No1eHqeGPZym4smU2WWDt";
+      services.benefice.demoFqdn = "snp.try.aws.enarx.profian.cloud";
+    })
+  ];
+
   mkEquinix = modules:
     nixpkgs.lib.nixosSystem {
       system = x86_64-linux;
@@ -119,13 +134,14 @@ with flake-utils.lib.system; let
       profian.environment = "production";
 
       services.benefice.oidc.client = "Ayrct2YbMF6OHFN8bzpv3XemWI3ca5Hk";
-      services.benefice.demoFqdn = "snp.try.enarx.profian.cloud";
+      services.benefice.demoFqdn = "snp.try.enarx.profian.cloud"; # TODO: This should include Equinix in the FQDN
     })
   ];
 in {
   inherit
     benefice-testing
     sgx-equinix-try
+    snp-aws-try
     snp-equinix-try
     ;
 }

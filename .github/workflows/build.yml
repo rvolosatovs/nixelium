@@ -26,6 +26,7 @@ jobs:
         # Benefice
         - nixosConfigurations.benefice-testing.config.system.build.toplevel
         - nixosConfigurations.sgx-equinix-try.config.system.build.toplevel
+        - nixosConfigurations.snp-aws-try.config.system.build.toplevel
         - nixosConfigurations.snp-equinix-try.config.system.build.toplevel
 
         # Infrastructure
