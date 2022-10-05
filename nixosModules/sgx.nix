@@ -1,6 +1,7 @@
 {...}: {
   config,
   lib,
+  pkgs,
   ...
 }: let
   pccsServiceName = "${config.virtualisation.oci-containers.backend}-pccs";
@@ -9,6 +10,7 @@ in {
   boot.kernelModules = [
     "kvm-intel"
   ];
+  boot.kernelPackages = pkgs.linuxPackages_enarx;
 
   hardware.cpu.intel.sgx.provision.enable = true;
   hardware.cpu.intel.updateMicrocode = true;

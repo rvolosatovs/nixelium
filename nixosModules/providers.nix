@@ -1,7 +1,6 @@
 {...}: {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
@@ -17,14 +16,9 @@ in {
     description = "EC2 instance type.";
   };
   config = mkMerge [
-    (mkIf (cfg == "aws") {
+    (mkIf (cfg == "aws" && config.ec2.instance == "t2.micro") {
       # NOTE: /dev/kvm is not present on t2.micro instances
-      services.enarx.backend =
-        if config.ec2.instance == "t2.micro"
-        then "nil"
-        else if config.ec2.instance == "m6a.metal"
-        then "sev"
-        else throw "unsupported EC2 instance type";
+      services.enarx.backend = "nil";
     })
     (mkIf (cfg == "equinix") {
       boot.extraModprobeConfig = "options bonding max_bonds=0";
@@ -38,7 +32,6 @@ in {
         "dm_round_robin"
         "ipmi_watchdog"
       ];
-      boot.kernelPackages = pkgs.linuxPackages_enarx;
       boot.kernelParams = [
         "console=ttyS1,115200n8"
       ];
