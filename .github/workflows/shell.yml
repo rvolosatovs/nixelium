@@ -8,15 +8,15 @@ jobs:
     strategy:
       matrix:
         os:
-        - ubuntu-20.04
+        - ubuntu-latest
         - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v17
-    - uses: cachix/cachix-action@v10
+    - uses: cachix/install-nix-action@v18
+    - uses: cachix/cachix-action@v11
       with:
         name: enarx
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Start development shell
-      run: nix develop
+      run: nix develop -L

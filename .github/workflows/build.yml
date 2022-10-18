@@ -32,15 +32,17 @@ jobs:
         # Infrastructure
         - nixosConfigurations.nuc-1.config.system.build.toplevel
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v17
-    - uses: cachix/cachix-action@v10
+    - uses: nixbuild/nix-quick-install-action@v18
+      with:
+        nix_conf: experimental-features = nix-command flakes
+    - uses: cachix/cachix-action@v11
       with:
         name: enarx
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Build ${{ matrix.output }}
-      run: nix build -L '.#${{ matrix.output }}'
+      run: nix build -L --show-trace '.#${{ matrix.output }}'
 
     # TODO: Build and run a VM, test
