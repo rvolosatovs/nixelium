@@ -47,7 +47,6 @@ in [
         godef
         godot
         gofumpt
-        golangci-lint
         gopass
         gopls
         gotools
@@ -62,32 +61,17 @@ in [
         keybase
         keybase-gui
         kitty
-        libreoffice
-        libreoffice-fresh
-        libreoffice-fresh-unwrapped
-        libreoffice-still
-        libreoffice-still-unwrapped
-        libreoffice-unwrapped
         lidarr
         linux_lqx
         linux_zen
         linuxPackages_latest
         linuxPackages_lqx
         linuxPackages_zen
-        lorri
         lutris
         mbed-cli
         minicom
         miniflux
         mkvtoolnix
-        mopidy
-        mopidy-iris
-        mopidy-local-images
-        mopidy-local-sqlite
-        mopidy-soundcloud
-        mopidy-spotify
-        mopidy-spotify-tunigo
-        mopidy-youtube
         motion
         mpv
         mullvad-vpn
@@ -98,11 +82,8 @@ in [
         nixfmt
         nixpkgs-fmt
         noto-fonts-emoji
-        nox
         pavucontrol
-        platformio
         polybar
-        procs
         qmk
         qsyncthingtray
         quake3e
@@ -135,7 +116,6 @@ in [
         thunderbird
         tinygo
         tokei
-        travis
         tree-sitter
         ungoogled-chromium
         vim
@@ -145,7 +125,6 @@ in [
         wasmtime
         waybar
         weechat
-        wego
         wf-recorder
         wl-clipboard
         wlsunset
@@ -155,8 +134,6 @@ in [
         yarn
         ydotool
         youtube-dl
-        zathura
-        zoom-us
         ;
 
       gitAndTools =
