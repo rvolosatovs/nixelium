@@ -22,6 +22,7 @@
     ._*
     .ccls-cache/
     .direnv*
+    .envrc*
     .DS_Store
     .DS_Store?
     .Spotlight-V100
