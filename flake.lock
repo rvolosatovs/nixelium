@@ -1256,6 +1256,38 @@
         "type": "github"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1666321522,
+        "narHash": "sha256-OgaxemejFiaKaOoPo+2rnLwVQkf6yKMFuORj0/+NTlk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "22b999f0e6644cf206b1164a1ad9449f55ec5c1e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "release-22.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1666198336,
+        "narHash": "sha256-VTrWD8Bb48h2pi57P1++LuvZIgum3gSLiRzZ/8q3rg0=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "db25c4da285c5989b39e4ce13dea651a88b7a9d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_10": {
       "locked": {
         "lastModified": 1666175715,
@@ -1472,6 +1504,8 @@
         "flake-utils": "flake-utils_9",
         "nixlib": "nixlib_5",
         "nixpkgs": "nixpkgs_10",
+        "nixpkgs-stable": "nixpkgs-stable",
+        "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix",
         "steward-production": "steward-production",
         "steward-staging": "steward-staging",

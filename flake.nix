@@ -14,6 +14,8 @@
   inputs.flake-compat.url = github:edolstra/flake-compat;
   inputs.flake-utils.url = github:numtide/flake-utils;
   inputs.nixlib.url = github:nix-community/nixpkgs.lib;
+  inputs.nixpkgs-stable.url = github:nixos/nixpkgs/release-22.05;
+  inputs.nixpkgs-unstable.url = github:nixos/nixpkgs/nixos-unstable;
   inputs.nixpkgs.url = github:profianinc/nixpkgs;
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.sops-nix.url = github:Mic92/sops-nix;
@@ -26,6 +28,8 @@
     deploy-rs,
     flake-utils,
     nixpkgs,
+    nixpkgs-stable,
+    nixpkgs-unstable,
     ...
   }:
     {
@@ -38,9 +42,27 @@
     }
     // flake-utils.lib.eachDefaultSystem (
       system: let
+        pkgsStable = import nixpkgs-stable {
+          inherit system;
+        };
+
+        pkgsUnstable = import nixpkgs-unstable {
+          inherit system;
+        };
+
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [self.overlays.default];
+          overlays = [
+            (_: _: pkgsStable) # Overlay latest packages from "stable" upstream release channel
+            (_: _: {
+              # Overlay some latest packages from "unstable" upstream release channel
+              inherit
+                (pkgsUnstable)
+                linux-firmware
+                ;
+            })
+            self.overlays.default
+          ];
         };
 
         devShells.base = pkgs.mkShell {
