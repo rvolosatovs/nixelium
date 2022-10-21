@@ -81,7 +81,7 @@ creation_rules:
   - path_regex: hosts/snp.aws.try.enarx.dev
     key_groups:
     - age:
-      - age1fjqmkwr0pqlwvuhsv0gcyjr4v4q4q4euh0ulgf54ap9ejxqz7qjqdajmsj
+      - age1dfy5tv50luyvf62yqh63r69j6g2l30wqscndyyay02y4kp4glyts8as5hj
 
   - path_regex: hosts/snp.equinix.try.enarx.dev
     key_groups:
