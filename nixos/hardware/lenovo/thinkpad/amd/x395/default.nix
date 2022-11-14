@@ -9,13 +9,9 @@ in {
   imports = [./.. ./../../../../../../vendor/nixos-hardware/lenovo/thinkpad/x395];
 
   boot.kernelParams = [
-    "acpi_backlight=vendor"
     "acpi_osi=Linux"
-    "amdgpu.gpu_recovery=1"
     "idle=nomwait"
-    "init_on_free=1"
-    "radeon.cik_support=1"
-    "radeon.si_support=0"
+    "iommu=soft"
   ];
 
   networking.interfaces."${wiredInterface}".useDHCP = true;
