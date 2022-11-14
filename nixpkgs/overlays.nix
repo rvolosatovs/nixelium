@@ -100,7 +100,6 @@ in [
         ripgrep
         rnix-lsp
         rofi
-        rtl-sdr
         sd
         sidequest
         skim
