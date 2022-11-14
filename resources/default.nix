@@ -42,7 +42,7 @@
         }
         // optionalAttrs config.resources.graphics.enable {
           terminal.package = pkgs.kitty;
-          terminal.executable.name = "kitty -1";
+          terminal.executable.name = "kitty";
         }
         // optionalAttrs (config.resources.graphics.enable && pkgs.stdenv.isLinux) {
           browser.package = pkgs.firefox;
