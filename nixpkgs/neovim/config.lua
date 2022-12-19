@@ -271,7 +271,7 @@ treesitter.setup {
 
 --- LSP
 
-local capabilities = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local on_attach = function(client, bufnr)
     print('LSP loaded.')
 
