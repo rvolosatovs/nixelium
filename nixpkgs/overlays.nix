@@ -122,7 +122,6 @@ in [
         vimUtils
         wasm-pack
         wasmtime
-        waybar
         weechat
         wf-recorder
         wl-clipboard
