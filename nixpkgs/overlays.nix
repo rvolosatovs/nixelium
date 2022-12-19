@@ -328,8 +328,6 @@ in [
       firefox = with super;
         wrapFirefox firefox-unwrapped
         {
-          forceWayland = true;
-
           ## Documentation available at:
           ## https://github.com/mozilla/policy-templates
 
