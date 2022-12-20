@@ -49,7 +49,6 @@
     "ognfafcpbkogffpmmdglhbjboeojlefj" # keybase
   ];
   programs.light.enable = true;
-  programs.qt5ct.enable = true;
   programs.ssh.askPassword = "${pkgs.lxqt.lxqt-openssh-askpass}/bin/lxqt-openssh-askpass";
 
   programs.sway.enable = true;
@@ -61,6 +60,8 @@
     wofi
     xwayland
   ];
+
+  qt5.platformTheme = "qt5ct";
 
   security.rtkit.enable = true;
 

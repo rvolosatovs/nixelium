@@ -204,7 +204,7 @@
   services.openssh.ports = [config.resources.ssh.port];
   services.openssh.startWhenNeeded = true;
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "22.11";
 
   systemd.services.keycode-swap.description = "Swap backspace and \\";
   systemd.services.keycode-swap.enable = true;
