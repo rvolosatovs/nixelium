@@ -3,14 +3,14 @@
 
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
   inputs.deploy-rs.url = github:serokell/deploy-rs;
-  inputs.drawbridge.url = github:rvolosatovs/drawbridge;
+  inputs.drawbridge.url = github:profianinc/drawbridge;
   inputs.flake-compat.flake = false;
   inputs.flake-compat.url = github:edolstra/flake-compat;
   inputs.flake-utils.url = github:numtide/flake-utils;
   inputs.nixlib.url = github:nix-community/nixpkgs.lib;
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.sops-nix.url = github:Mic92/sops-nix;
-  inputs.steward.url = github:rvolosatovs/steward;
+  inputs.steward.url = github:profianinc/steward;
 
   outputs = inputs @ {
     self,

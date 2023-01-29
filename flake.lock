@@ -132,15 +132,15 @@
         "nixify": "nixify"
       },
       "locked": {
-        "lastModified": 1675012014,
-        "narHash": "sha256-+yaIYT02+SbA11fWkr3mexEcH6z55WHhDiZ8HHejezM=",
-        "owner": "rvolosatovs",
+        "lastModified": 1675017072,
+        "narHash": "sha256-GI6nqRJuKcp672mUd2ho+gUAyInYPQGxYQaMSWI5r2k=",
+        "owner": "profianinc",
         "repo": "drawbridge",
-        "rev": "367d746acb35d742f89fb91dcb68c72a88eaaebe",
+        "rev": "4321ee8abef33ff6de8882bd25c8997bdc300041",
         "type": "github"
       },
       "original": {
-        "owner": "rvolosatovs",
+        "owner": "profianinc",
         "repo": "drawbridge",
         "type": "github"
       }
@@ -628,15 +628,15 @@
         "nixify": "nixify_3"
       },
       "locked": {
-        "lastModified": 1675004987,
-        "narHash": "sha256-Gqi35rmhRr4pj0B3L0be0AZQq8JoysUO5NW3IrZFE4A=",
-        "owner": "rvolosatovs",
+        "lastModified": 1675017045,
+        "narHash": "sha256-ClFww/SruginZ/VuSt9DDLaT7sJUF25/xBc7qzp9tyY=",
+        "owner": "profianinc",
         "repo": "steward",
-        "rev": "4a63eccc74c6f83f4a1802bc37040244512174c7",
+        "rev": "24d3b9e244c7bd066bbd5cb837bc34ab740516f6",
         "type": "github"
       },
       "original": {
-        "owner": "rvolosatovs",
+        "owner": "profianinc",
         "repo": "steward",
         "type": "github"
       }
