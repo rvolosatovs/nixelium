@@ -1,3 +1,3 @@
-{...} @ inputs:
-import ./infra.nix inputs
-// import ./services inputs
+inputs: {
+  rvolosatovs-dev = import ./rvolosatovs.dev inputs;
+}

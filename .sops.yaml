@@ -1,101 +1,13 @@
 keys:
-  - &roman b1187afda5ba91e07f7ef8aee71604ba8e53bf31
-  - &puiterwijk age1jsyhycrf872ksv88qk8lfp3whtjxrr4r3mk0m6fa49evev3pmywsf3aa2r
-  - &attest-prod1 age1wj8drt0hstdfrsv9jgaywst36ls0xyaxa8t6y7cnw07u45kgka7sx2xzdj
-  - &attest-prod2 age1vxnheh6033t3x8x6cv3lv4gla2wkadmu7q92udr7j5r93cvz5ekssz5r70
-  - &attest-prod3 age185y8we8uvslax422v0cq80rrnmzf9htmwuuzj9l6wlm02a3qkppqkxk837
-  - &attest-prod4 age1jsv5zl0fkl85whnlup5rxncez48yxwpd5a5tagat2g4q5ehdecps9ktjpt
+  - &rvolosatovs b1187afda5ba91e07f7ef8aee71604ba8e53bf31
 
 creation_rules:
-  - path_regex: secrets/production/cloudflared/steward
-    shamir_threshold: 2
+  - path_regex: hosts/attest.rvolosatovs.dev
     key_groups:
     - age:
-      - *attest-prod1
-    - age:
-      - *attest-prod1
-    - age:
-      - *attest-prod2
-    - age:
-      - *attest-prod2
-    - age:
-      - *attest-prod3
-    - age:
-      - *attest-prod3
-    - age:
-      - *attest-prod4
-    - age:
-      - *attest-prod4
-
-  - path_regex: hosts/attest.profian.com
-    shamir_threshold: 2
-    key_groups:
-    # The duplication here is because of the inability to disable shamir
-    # https://github.com/mozilla/sops/issues/878
-    # attest.profian.com
-    - age:
-      - age1xzj57htudq40z8dzaqclma3zm9u0n2ydat7sjv4q0zyu48n3fp6sen4glk
-    - age:
-      - age1xzj57htudq40z8dzaqclma3zm9u0n2ydat7sjv4q0zyu48n3fp6sen4glk
-    # prod1
-    - age:
-      - age1wj8drt0hstdfrsv9jgaywst36ls0xyaxa8t6y7cnw07u45kgka7sx2xzdj
-    - age:
-      - age1wj8drt0hstdfrsv9jgaywst36ls0xyaxa8t6y7cnw07u45kgka7sx2xzdj
-    # prod2
-    - age:
-      - age1vxnheh6033t3x8x6cv3lv4gla2wkadmu7q92udr7j5r93cvz5ekssz5r70
-    - age:
-      - age1vxnheh6033t3x8x6cv3lv4gla2wkadmu7q92udr7j5r93cvz5ekssz5r70
-    # prod3
-    - age:
-      - age185y8we8uvslax422v0cq80rrnmzf9htmwuuzj9l6wlm02a3qkppqkxk837
-    - age:
-      - age185y8we8uvslax422v0cq80rrnmzf9htmwuuzj9l6wlm02a3qkppqkxk837
-    # prod4
-    - age:
-      - age1jsv5zl0fkl85whnlup5rxncez48yxwpd5a5tagat2g4q5ehdecps9ktjpt
-    - age:
-      - age1jsv5zl0fkl85whnlup5rxncez48yxwpd5a5tagat2g4q5ehdecps9ktjpt
-
-  - path_regex: hosts/attest.staging.profian.com
-    key_groups:
-    - age:
-      - age1mvfx8697gv2uxhk5kvsccmqpuy23pd0z5z2nmrtxrgmxxrg5dgjqkytcnv
-
-  - path_regex: hosts/attest.testing.profian.com
-    key_groups:
-    - age:
-      - age10p3jcp80q9cmzfqxl73cnjx2t24x93gvxg7jjzu9cz4yqgnfv9nqf7qxle
-
-  - path_regex: hosts/benefice.testing.profian.com
-    key_groups:
-    - age:
-      - age15mq3msgr00046pd8wnjw7y3xww4p4c3u3vxjvud5gldrrzdsl3msz4rfr8
-
-  - path_regex: hosts/sgx.equinix.try.enarx.dev
-    key_groups:
-    - age:
-      - age1ngtadawwwsemf0uveuzz3ypq0y7e5mqxfclk752tdwre98w4sckq8yxjj5
-
-  - path_regex: hosts/snp.aws.try.enarx.dev
-    key_groups:
-    - age:
-      - age1dfy5tv50luyvf62yqh63r69j6g2l30wqscndyyay02y4kp4glyts8as5hj
-
-  - path_regex: hosts/snp.equinix.try.enarx.dev
-    key_groups:
-    - age:
-      - age1xq3cf6l9l23jqu54s4xqjnex9g04tmuw89tfvk5vwl573njhlscszym3hk
+      - age1pdchmwgda696qlc2denvkac9sr6hvw8ujk0eq9usm7xfc960pcnsrkz482
 
   - path_regex: ca/
-    shamir_threshold: 2
     key_groups:
-    - age:
-      - *puiterwijk
-    - age:
-      - *puiterwijk
     - pgp:
-      - *roman
-    - pgp:
-      - *roman
+      - *rvolosatovs

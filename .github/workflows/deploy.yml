@@ -1,5 +1,5 @@
 name: Deploy
-concurrency: staging
+concurrency: prod
 on:
   push:
     branches:
@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: staging
+    environment: prod
     steps:
     - uses: actions/checkout@v3
     - uses: nixbuild/nix-quick-install-action@v18
@@ -17,6 +17,9 @@ jobs:
     - uses: cachix/cachix-action@v11
       with:
         name: enarx
+    - uses: cachix/cachix-action@v11
+      with:
+        name: rvolosatovs
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Setup SSH
       env:
@@ -28,18 +31,10 @@ jobs:
         chmod 400 ~/.ssh/id_ed25519
         ssh-agent -a $SSH_AUTH_SOCK
         ssh-add ~/.ssh/id_ed25519
-        ssh-keyscan attest.staging.profian.com >> ~/.ssh/known_hosts
-        ssh-keyscan attest.testing.profian.com >> ~/.ssh/known_hosts
-        ssh-keyscan benefice.testing.profian.com >> ~/.ssh/known_hosts
-        ssh-keyscan store.staging.profian.com >> ~/.ssh/known_hosts
-        ssh-keyscan store.testing.profian.com >> ~/.ssh/known_hosts
+        ssh-keyscan rvolosatovs.dev >> ~/.ssh/known_hosts
     - name: Deploy
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
       run: |
         nix develop '.#base' -c deploy -s --targets \
-          '.#attest-staging' \
-          '.#attest-testing' \
-          '.#benefice-testing' \
-          '.#store-staging' \
-          '.#store-testing'
+          '.#rvolosatovs-dev'

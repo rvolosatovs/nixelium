@@ -1,20 +1,24 @@
-# Profian Inc. Staging Environment
+> NOTE: Parts of this were developed by me as part of work on https://github.com/profianinc/infrastructure/ at https://github.com/profianinc
+
+# Network infrastructure à la Roman
 
 ## Architecture
 
-There are two environments defined in this project:
-- `testing`, where latest `main` of each project is deployed automatically by the CI
-- `staging`, where latest release of each project is deployed manually (potentially automated in the future)
+- `ca` contains CA certs and keys
+- `hosts` contains host-specific data (e.g. TLS certificates and keys)
+- `nixosConfigurations` contains all NixOS system definitions.
+- `deploy` contains deployment definitions used by [`serokell/deploy-rs`].
+- `overlays` contains nixpkgs overlays (e.g. tooling scripts)
 
-Each service is deployed as a [hardened systemd service](https://nixos.wiki/wiki/Systemd_Hardening).
+Each custom service is deployed as a [hardened systemd service](https://nixos.wiki/wiki/Systemd_Hardening).
 
 ### Steward
 
-The `steward` service is configured with a CA certificate and key and running on unprivileged port. The service itself only handles HTTP traffic, which is transparently upgraded to TLS by [Nginx](https://nginx.org/en/) reverse proxy by using [Let's Encrypt certificates](https://letsencrypt.org/), which routes requests to ports `443` and `80` (redirected) to the underlying service.
+The `steward` service is configured with a CA certificate and key and running on unprivileged port. The service itself only handles HTTP traffic, which is transparently upgraded to TLS by [Nginx] reverse proxy by using [Let's Encrypt certificates](https://letsencrypt.org/), which routes requests to ports `443` and `80` (redirected) to the underlying service.
 
 ### Drawbridge
 
-The `drawbridge` service is configured with Steward CA certificate, as well as server certificate and key and is running on unprivileged port. The service itself handles HTTPS traffic, but is behind [Nginx](https://nginx.org/en/) reverse proxy, which routes requests to ports `443` and `80` (redirected) to the underlying service.
+The `drawbridge` service is configured with Steward CA certificate, as well as server certificate and key and is running on unprivileged port. The service itself handles HTTPS traffic, but is behind [Nginx] reverse proxy, which routes requests to ports `443` and `80` (redirected) to the underlying service.
 
 ### Access
 
@@ -44,7 +48,7 @@ This will generate keys and certificates for all hosts.
 
 ### Deploying changes
 
-[`serokell/deploy-rs`](https://github.com/serokell/deploy-rs) is used for deployment. (Note, the tool does not need to be installed as it is already present in `nix` development shell)
+[`serokell/deploy-rs`] is used for deployment. (Note, the tool does not need to be installed as it is already present in `nix` development shell)
 
 To deploy all instances, run `deploy` from the root of this repository.
 
@@ -55,10 +59,8 @@ $ deploy
 
 Or to deploy a specific instance:
 ```sh
-$ deploy '.#store-testing'
+$ deploy '.#rvolosatovs-dev'
 ```
 
-## Project Structure
-
-- `hosts` directory contains host-specific assets and tooling, e.g. TLS certificates and a script to generate them
-- `flake.nix` contains the definitions of all nodes in the network
+[`serokell/deploy-rs`]: https://github.com/serokell/deploy-rs
+[Nginx]: https://nginx.org/en/
