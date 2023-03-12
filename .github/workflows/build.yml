@@ -3,6 +3,8 @@ on: [ push, pull_request ]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+env:
+  SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 jobs:
   build:
     strategy:
@@ -10,12 +12,20 @@ jobs:
         output:
         - nixosConfigurations.rvolosatovs-dev.config.system.build.toplevel
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
+    - run: sudo mkdir -p /nix
+    - run: sudo chown $(whoami) /nix
+    - uses: actions/cache@v3
+      with:
+        path: /nix
+        key: nix
     - uses: nixbuild/nix-quick-install-action@v21
       with:
-        nix_conf: experimental-features = nix-command flakes
+        nix_conf: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ github.token }}
     - uses: cachix/cachix-action@v12
       with:
         name: rvolosatovs
