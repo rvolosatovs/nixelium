@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         output:
-        - nixosConfigurations.rvolosatovs-dev
+        - nixosConfigurations.rvolosatovs-dev.config.system.build.toplevel
 
     runs-on: ubuntu-latest
     steps:
