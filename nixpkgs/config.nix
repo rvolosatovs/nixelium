@@ -1,0 +1,4 @@
+{
+  allowUnfree = true;
+  allowUnfreeRedistributable = true;
+}

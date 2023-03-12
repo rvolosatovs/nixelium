@@ -3,5 +3,6 @@
 
   cobalt = self.nixosConfigurations.cobalt.config.system.build.toplevel;
   osmium = self.nixosConfigurations.osmium.config.system.build.toplevel;
-  rvolosatovs-dev = self.nixosConfigurations.rvolosatovs-dev.config.system.build.toplevel;
+
+  install-iso = self.packages.${pkgs.hostPlatform.system}.install-iso;
 }

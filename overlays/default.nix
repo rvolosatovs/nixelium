@@ -1,35 +1,84 @@
 inputs @ {
   self,
+  fenix,
   nixlib,
+  nixpkgs-unstable,
+  firefox-addons,
   ...
-}: let
-  tooling = nixlib.lib.composeManyExtensions [
-    (final: prev: let
-      host-key = let
-        grep = "${final.gnugrep}/bin/grep";
-        ssh-keyscan = "${final.openssh}/bin/ssh-keyscan";
-        ssh-to-age = "${final.ssh-to-age}/bin/ssh-to-age";
-      in
-        final.writeShellScriptBin "host-key" ''
-          set -e
+}:
+with nixlib.lib; let
+  images = import ./images.nix inputs;
+  infrastructure = import ./infrastructure.nix inputs;
+  install = import ./install.nix inputs;
+  quake3 = import ./quake3.nix inputs;
 
-          ${ssh-keyscan} "''${1}" 2> /dev/null | ${grep} 'ssh-ed25519' | ${ssh-to-age}
-        '';
+  firefox-addons' = final: prev: {
+    firefox-addons = firefox-addons.packages.${final.stdenv.hostPlatform.system};
+  };
 
-      ssh-for-each = final.writeShellScriptBin "ssh-for-each" ''
-        for host in ${self}/hosts/*; do
-            ${final.openssh}/bin/ssh "''${host#'${self}/hosts/'}" ''${@}
-        done
-      '';
-    in {
-      inherit
-        host-key
-        ssh-for-each
-        ;
-    })
-    (import ./bootstrap.nix inputs)
-  ];
+  firefox = final: prev: {
+    firefox =
+      final.wrapFirefox final.firefox-unwrapped
+      {
+        ## Documentation available at:
+        ## https://github.com/mozilla/policy-templates
+
+        extraPolicies.CaptivePortal = true;
+        extraPolicies.DisableFirefoxAccounts = true;
+        extraPolicies.DisableFirefoxStudies = true;
+        extraPolicies.DisablePocket = true;
+        extraPolicies.DisableTelemetry = true;
+        extraPolicies.ExtensionSettings = {};
+        extraPolicies.FirefoxHome.Pocket = false;
+        extraPolicies.FirefoxHome.Snippets = false;
+        extraPolicies.UserMessaging.ExtensionRecommendations = false;
+        extraPolicies.UserMessaging.SkipOnboarding = true;
+      };
+  };
+
+  gopass = final: prev: {
+    gopass = prev.gopass.override {
+      passAlias = true;
+    };
+  };
+
+  neovim = final: prev: {
+    neovim = final.wrapNeovim final.neovim-unwrapped (import ./neovim inputs final);
+  };
+
+  fira-code-nerdfont = final: prev: {
+    inherit
+      (nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system})
+      fira-code-nerdfont
+      ;
+  };
 in {
-  inherit tooling;
-  default = tooling;
+  inherit
+    fira-code-nerdfont
+    firefox
+    gopass
+    images
+    infrastructure
+    install
+    neovim
+    quake3
+    ;
+
+  firefox-addons = firefox-addons';
+
+  fenix = fenix.overlays.default;
+
+  default = composeManyExtensions [
+    fenix.overlays.default
+
+    fira-code-nerdfont
+    firefox
+    firefox-addons'
+    gopass
+    images
+    infrastructure
+    install
+    neovim
+    quake3
+  ];
 }
