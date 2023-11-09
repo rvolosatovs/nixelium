@@ -32,60 +32,8 @@ jobs:
         name: wasmcloud
 
     - name: nix flake check
-      run: nix flake check -L --impure
+      run: nix flake check -L
       env:
         NIXPKGS_ALLOW_UNFREE: 1
 
     # TODO: Build and run a VM, test
-
-  deploy:
-    runs-on: ubuntu-22.04
-    needs: check
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    steps:
-    - uses: actions/checkout@v3
-    - run: sudo mkdir -p /nix
-    - run: sudo chown $(whoami) /nix
-    - uses: actions/cache@v3
-      with:
-        path: /nix
-        key: nix
-    - uses: nixbuild/nix-quick-install-action@v21
-      with:
-        nix_conf: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ github.token }}
-    - uses: cachix/cachix-action@v12
-      with:
-        name: rvolosatovs
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
-    - uses: cachix/cachix-action@v12
-      with:
-        name: nix-community
-
-    - uses: cachix/cachix-action@v12
-      with:
-        name: enarx
-    - uses: cachix/cachix-action@v12
-      with:
-        name: wasmcloud
-
-    - name: Setup SSH
-      env:
-        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-      run: |
-        umask 0077
-        mkdir -p ~/.ssh
-        printf '%s' '${{ secrets.SSH_KEY }}' > ~/.ssh/id_ed25519
-        chmod 400 ~/.ssh/id_ed25519
-        ssh-agent -a $SSH_AUTH_SOCK
-        ssh-add ~/.ssh/id_ed25519
-        ssh-keyscan rvolosatovs.dev >> ~/.ssh/known_hosts
-
-    - name: Deploy
-      env:
-        SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-      run: |
-        nix develop '.#base' -c deploy -s --targets \
-          '.#rvolosatovs-dev'
