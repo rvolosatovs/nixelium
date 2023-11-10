@@ -103,7 +103,6 @@
       // {
         darwinConfigurations = import ./darwinConfigurations inputs;
         darwinModules = import ./darwinModules inputs;
-        homeConfigurations = import ./homeConfigurations inputs;
         homeModules = import ./homeModules inputs;
         lib = import ./lib inputs;
         nixosConfigurations = import ./nixosConfigurations inputs;
