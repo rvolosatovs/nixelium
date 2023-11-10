@@ -355,6 +355,9 @@ in {
       hardware.trackpoint.sensitivity = 250;
       hardware.trackpoint.speed = 120;
 
+      location.latitude = 46.3;
+      location.longitude = 7.5;
+
       networking.wireless.iwd.enable = true;
 
       programs.adb.enable = true;

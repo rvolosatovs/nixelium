@@ -911,8 +911,8 @@ in {
         }
       ];
 
-      services.wlsunset.latitude = "46.3";
-      services.wlsunset.longitude = "7.5";
+      services.wlsunset.latitude = toString osConfig.location.latitude;
+      services.wlsunset.longitude = toString osConfig.location.longitude;
       services.wlsunset.systemdTarget = "sway-session.target";
 
       wayland.windowManager.sway.config.bars = [];
