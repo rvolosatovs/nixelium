@@ -9,7 +9,11 @@ with flake-utils.lib.system;
   nixpkgs.lib.nixosSystem {
     system = x86_64-linux;
     modules = [
-      ({pkgs, ...}: {
+      ({
+        config,
+        pkgs,
+        ...
+      }: {
         imports = [
           self.nixosModules.default
 
@@ -32,6 +36,7 @@ with flake-utils.lib.system;
         boot.initrd.luks.devices.luksroot.device = "/dev/nvme0n1p2";
         boot.kernelModules = [
           "kvm-intel"
+          "msr"
         ];
 
         hardware.cpu.intel.updateMicrocode = true;
@@ -41,6 +46,11 @@ with flake-utils.lib.system;
         networking.interfaces.enp34s0.useDHCP = true;
         networking.interfaces.enp37s0.useDHCP = true;
         networking.interfaces.wlan0.useDHCP = true;
+
+        systemd.services.system76-charge-thresholds.after = ["multi-user.target"];
+        systemd.services.system76-charge-thresholds.description = "Set system76 laptop battery charge thresholds";
+        systemd.services.system76-charge-thresholds.script = "${config.boot.kernelPackages.system76-power}/bin/system76-power charge-thresholds --profile balanced";
+        systemd.services.system76-charge-thresholds.wantedBy = ["multi-user.target"];
 
         nixelium.profile.laptop.enable = true;
       })
