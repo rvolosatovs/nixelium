@@ -251,6 +251,7 @@ in {
         pkgs.lsof
         pkgs.nix-prefetch-scripts
         pkgs.openssl
+        pkgs.pciutils
         pkgs.podman-compose
         pkgs.pv
         pkgs.qrencode
@@ -261,6 +262,7 @@ in {
         pkgs.tcpdump
         pkgs.tree
         pkgs.unzip
+        pkgs.usbutils
         pkgs.wget
         pkgs.xxd
         pkgs.zip
@@ -1165,30 +1167,32 @@ in {
 
         gtk.enable = true;
 
-        home.packages = [
-          rust
+        home.packages =
+          [
+            rust
 
-          pkgs.acpi
-          pkgs.cargo-watch
-          pkgs.dex
-          pkgs.espeak
-          pkgs.gopass
-          pkgs.grim
-          pkgs.imv
-          pkgs.julia
-          pkgs.libnotify
-          pkgs.pavucontrol
-          pkgs.playerctl
-          pkgs.psmisc
-          pkgs.slurp
-          pkgs.tinygo
-          pkgs.usbutils
-          pkgs.v4l-utils
-          pkgs.wf-recorder
-          pkgs.xdg_utils
-          pkgs.ydotool
-          pkgs.zig
-        ];
+            pkgs.cargo-watch
+            pkgs.espeak
+            pkgs.gopass
+            pkgs.grim
+            pkgs.imv
+            pkgs.psmisc
+            pkgs.slurp
+            pkgs.tinygo
+            pkgs.zig
+          ]
+          ++ optionals pkgs.stdenv.hostPlatform.isLinux [
+            pkgs.acpi
+            pkgs.dex
+            pkgs.julia
+            pkgs.libnotify
+            pkgs.pavucontrol
+            pkgs.playerctl
+            pkgs.v4l-utils
+            pkgs.wf-recorder
+            pkgs.xdg_utils
+            pkgs.ydotool
+          ];
 
         programs.chromium.enable = true;
         programs.firefox.enable = true;
