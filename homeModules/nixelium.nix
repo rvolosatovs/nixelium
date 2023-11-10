@@ -1160,68 +1160,66 @@ in {
       xresources.properties."ssh-askpass*background" = "#${cfg.base16.colors.base00}";
     }
     (mkIf osConfig.nixelium.profile.laptop.enable
-      (
-        assert osConfig.security.polkit.enable; {
-          fonts.fontconfig.enable = true;
+      {
+        fonts.fontconfig.enable = true;
 
-          gtk.enable = true;
+        gtk.enable = true;
 
-          home.packages = [
-            rust
+        home.packages = [
+          rust
 
-            pkgs.acpi
-            pkgs.cargo-watch
-            pkgs.dex
-            pkgs.espeak
-            pkgs.gopass
-            pkgs.grim
-            pkgs.imv
-            pkgs.julia
-            pkgs.libnotify
-            pkgs.pavucontrol
-            pkgs.playerctl
-            pkgs.psmisc
-            pkgs.slurp
-            pkgs.tinygo
-            pkgs.usbutils
-            pkgs.v4l-utils
-            pkgs.wf-recorder
-            pkgs.xdg_utils
-            pkgs.ydotool
-            pkgs.zig
-          ];
+          pkgs.acpi
+          pkgs.cargo-watch
+          pkgs.dex
+          pkgs.espeak
+          pkgs.gopass
+          pkgs.grim
+          pkgs.imv
+          pkgs.julia
+          pkgs.libnotify
+          pkgs.pavucontrol
+          pkgs.playerctl
+          pkgs.psmisc
+          pkgs.slurp
+          pkgs.tinygo
+          pkgs.usbutils
+          pkgs.v4l-utils
+          pkgs.wf-recorder
+          pkgs.xdg_utils
+          pkgs.ydotool
+          pkgs.zig
+        ];
 
-          programs.chromium.enable = true;
-          programs.firefox.enable = true;
-          programs.go.enable = true;
-          programs.kitty.enable = true;
-          programs.mpv.enable = true;
-          programs.swaylock.enable = true;
-          programs.thunderbird.enable = true;
-          programs.waybar.enable = true;
-          programs.password-store.enable = true;
-          programs.wofi.enable = true;
-          programs.zathura.enable = true;
+        programs.chromium.enable = true;
+        programs.firefox.enable = true;
+        programs.go.enable = true;
+        programs.kitty.enable = true;
+        programs.mpv.enable = true;
+        programs.swaylock.enable = true;
+        programs.thunderbird.enable = true;
+        programs.waybar.enable = true;
+        programs.password-store.enable = true;
+        programs.wofi.enable = true;
+        programs.zathura.enable = true;
 
-          programs.zsh.loginExtra = ''
-            if [ "$(${pkgs.busybox}/bin/tty)" = "/dev/tty1" ]; then
-              exec "${config.wayland.windowManager.sway.package}/bin/sway"
-            fi
-          '';
+        programs.zsh.loginExtra = ''
+          if [ "$(${pkgs.busybox}/bin/tty)" = "/dev/tty1" ]; then
+            exec "${config.wayland.windowManager.sway.package}/bin/sway"
+          fi
+        '';
 
-          qt.enable = true;
+        qt.enable = true;
 
-          services.avizo.enable = true;
-          services.clipman.enable = true;
-          services.kbfs.enable = true; # TODO: Remove
-          services.keybase.enable = true; # TODO: Remove
-          services.mako.enable = true;
-          services.playerctld.enable = true;
-          services.swayidle.enable = true;
-          services.wlsunset.enable = true;
+        services.avizo.enable = true;
+        services.clipman.enable = true;
+        services.kbfs.enable = true; # TODO: Remove
+        services.keybase.enable = true; # TODO: Remove
+        services.mako.enable = true;
+        services.playerctld.enable = true;
+        services.swayidle.enable = true;
+        services.wlsunset.enable = true;
 
-          wayland.windowManager.sway.enable = true;
-        }
-      ))
+        wayland.windowManager.sway.enable = assert osConfig.security.polkit.enable; true;
+      })
   ];
 }

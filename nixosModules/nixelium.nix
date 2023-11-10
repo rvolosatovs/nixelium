@@ -5,7 +5,7 @@
   nixlib,
   sops-nix,
   ...
-} @ inputs: {
+}: {
   config,
   pkgs,
   ...
