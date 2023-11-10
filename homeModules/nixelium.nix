@@ -273,6 +273,7 @@ in {
       home.sessionVariables.ELINKS_CONFDIR = "${config.xdg.configHome}/elinks";
       home.sessionVariables.GIMP2_DIRECTORY = "${config.xdg.configHome}/gimp";
       home.sessionVariables.LSCOLORS = "ExGxFxdaCxDaDahbadacec";
+      home.sessionVariables.MANPAGER = "${pkgs.neovim}/bin/nvim +Man!";
       home.sessionVariables.NAVI_FINDER = "skim";
       home.sessionVariables.PYTHON_EGG_CACHE = "${config.xdg.cacheHome}/python-eggs";
       home.sessionVariables.WINEPREFIX = "${config.xdg.dataHome}/wine";
