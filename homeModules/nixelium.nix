@@ -973,7 +973,13 @@ in {
         }
       ];
       wayland.windowManager.sway.config.startup = let
-        services = ["avizo" "clipman" "wlsunset" "waybar"];
+        services = [
+          "avizo"
+          "clipman"
+          "kanshi"
+          "waybar"
+          "wlsunset"
+        ];
       in
         # TODO: This should not be necessary once Sway is not racy anymore
         (concatMap
@@ -1009,6 +1015,7 @@ in {
       ];
       wayland.windowManager.sway.config.input."1149:8264:Primax_Kensington_Eagle_Trackball".pointer_accel = "0.5";
 
+      wayland.windowManager.sway.config.output."*".bg = "${config.xdg.userDirs.pictures}/wp fill";
       wayland.windowManager.sway.config.bindkeysToCode = true;
       wayland.windowManager.sway.config.down = "j";
       wayland.windowManager.sway.config.focus.followMouse = false;
@@ -1030,7 +1037,6 @@ in {
         "${swayConfig.modifier}+Ctrl+f" = exec ''${pkgs.gopass}/bin/gopass otp -c "$(${choosePass} 2fa)"'';
         "${swayConfig.modifier}+Ctrl+p" = exec ''${pkgs.gopass}/bin/gopass show -c "$(${choosePass})"'';
         "${swayConfig.modifier}+Ctrl+u" = exec ''${pkgs.gopass}/bin/gopass show -c "$(${choosePass})" username'';
-        "${swayConfig.modifier}+e" = "layout toggle split";
         "${swayConfig.modifier}+Escape" = exec lockCmd;
         "${swayConfig.modifier}+g" = "floating toggle";
         "${swayConfig.modifier}+n" = exec "${config.services.mako.package}/bin/makoctl dismiss";
@@ -1217,6 +1223,7 @@ in {
 
         services.avizo.enable = true;
         services.clipman.enable = true;
+        services.kanshi.enable = true;
         services.kbfs.enable = true; # TODO: Remove
         services.keybase.enable = true; # TODO: Remove
         services.mako.enable = true;
