@@ -1,4 +1,4 @@
-inputs @ {
+{
   self,
   flake-utils,
   nixos-generators,

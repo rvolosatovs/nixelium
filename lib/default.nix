@@ -4,7 +4,6 @@
 in
   with nixlib.lib;
   with builtins; rec {
-
     luaConstTable = t: "setmetatable(${t},{__index=${luaConstTableIndex}, __newindex=${luaConstTableNewIndex}})";
 
     emptyLuaConstTable = luaConstTable "{}";

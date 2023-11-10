@@ -1,15 +1,17 @@
-{ self
-, base16-shell
-, nixify
-, nixlib
-, nixpkgs
-, nixpkgs-unstable
-, ...
-}: { config
-   , osConfig
-   , pkgs
-   , ...
-   }:
+{
+  self,
+  base16-shell,
+  nixify,
+  nixlib,
+  nixpkgs,
+  nixpkgs-unstable,
+  ...
+}: {
+  config,
+  osConfig,
+  pkgs,
+  ...
+}:
 with nixlib.lib; let
   headphones = "70:26:05:CF:7F:C2";
 
@@ -60,8 +62,7 @@ with nixlib.lib; let
   exec = cmd: "exec '${cmd}'";
   lockCmd = "${pkgs.swaylock}/bin/swaylock -t -f -F -i ${config.home.homeDirectory}/pictures/lock";
   typeStdin = "${pkgs.ydotool}/bin/ydotool type --file -";
-in
-{
+in {
   options.nixelium.user.email = mkOption {
     type = types.strMatching ".+@.+\..+";
     example = "foobar@example.com";
@@ -736,11 +737,11 @@ in
       # TODO: Configure
       programs.waybar.settings.default."sway/mode".format = "<span style=\"italic\">{}</span>";
       programs.waybar.settings.default.backlight.format = "{percent}% {icon}";
-      programs.waybar.settings.default.backlight.format-icons = [ "" "" ];
+      programs.waybar.settings.default.backlight.format-icons = ["" ""];
       programs.waybar.settings.default.battery.format = "{capacity}% {icon}";
       programs.waybar.settings.default.battery.format-alt = "{time} {icon}";
       programs.waybar.settings.default.battery.format-charging = "{capacity}% ";
-      programs.waybar.settings.default.battery.format-icons = [ "" "" "" "" "" ];
+      programs.waybar.settings.default.battery.format-icons = ["" "" "" "" ""];
       programs.waybar.settings.default.battery.format-plugged = "{capacity}% ";
       programs.waybar.settings.default.battery.states.critical = 15;
       programs.waybar.settings.default.battery.states.good = 75;
@@ -752,9 +753,9 @@ in
       programs.waybar.settings.default.idle_inhibitor.format-icons.activated = "";
       programs.waybar.settings.default.idle_inhibitor.format-icons.deactivated = "";
       programs.waybar.settings.default.memory.format = "{}% ";
-      programs.waybar.settings.default.modules-center = [ "sway/window" ];
-      programs.waybar.settings.default.modules-left = [ "sway/workspaces" "sway/mode" ];
-      programs.waybar.settings.default.modules-right = [ "idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "backlight" "battery" "clock" "tray" ];
+      programs.waybar.settings.default.modules-center = ["sway/window"];
+      programs.waybar.settings.default.modules-left = ["sway/workspaces" "sway/mode"];
+      programs.waybar.settings.default.modules-right = ["idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "backlight" "battery" "clock" "tray"];
       programs.waybar.settings.default.network.format-alt = "{ifname}: {ipaddr}/{cidr}";
       programs.waybar.settings.default.network.format-disconnected = "Disconnected ⚠";
       programs.waybar.settings.default.network.format-ethernet = "{ifname}: {ipaddr}/{cidr} ";
@@ -764,7 +765,7 @@ in
       programs.waybar.settings.default.pulseaudio.format-bluetooth = "{volume}% {icon} {format_source}";
       programs.waybar.settings.default.pulseaudio.format-bluetooth-muted = " {icon} {format_source}";
       programs.waybar.settings.default.pulseaudio.format-icons.car = "";
-      programs.waybar.settings.default.pulseaudio.format-icons.default = [ "" "" "" ];
+      programs.waybar.settings.default.pulseaudio.format-icons.default = ["" "" ""];
       programs.waybar.settings.default.pulseaudio.format-icons.hands-free = "";
       programs.waybar.settings.default.pulseaudio.format-icons.headphone = "";
       programs.waybar.settings.default.pulseaudio.format-icons.headset = "";
@@ -912,7 +913,7 @@ in
       services.wlsunset.longitude = "7.5";
       services.wlsunset.systemdTarget = "sway-session.target";
 
-      wayland.windowManager.sway.config.bars = [ ];
+      wayland.windowManager.sway.config.bars = [];
       # Based on https://github.com/khamer/base16-i3/blob/78292138812a3f88c3fc4794f615f5b36b0b6d7c/templates/default.mustache#L41-L48
       wayland.windowManager.sway.config.colors.background = "#${cfg.base16.colors.base07}";
       wayland.windowManager.sway.config.colors.focused.background = "#${cfg.base16.colors.base0D}";
@@ -968,10 +969,9 @@ in
           app_id = "^thunderbird$";
         }
       ];
-      wayland.windowManager.sway.config.startup =
-        let
-          services = [ "avizo" "clipman" "wlsunset" "waybar" ];
-        in
+      wayland.windowManager.sway.config.startup = let
+        services = ["avizo" "clipman" "wlsunset" "waybar"];
+      in
         # TODO: This should not be necessary once Sway is not racy anymore
         (concatMap
           (name: [
