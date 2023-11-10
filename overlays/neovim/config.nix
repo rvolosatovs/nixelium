@@ -11,9 +11,15 @@
   omnisharp-roslyn,
   ripgrep,
   rust-analyzer,
+  stdenv,
   sumneko-lua-language-server,
   ...
-}: ''
+}: let
+  julia' =
+    if julia.meta.unsupported
+    then "julia"
+    else "${julia}/bin/julia";
+in ''
   if $TERM!='linux'
     let base16colorspace=256
   endif
@@ -44,7 +50,7 @@
     bin.elm-test = "${elmPackages.elm-test}/bin/elm-test";
     bin.gopls = "${gopls}/bin/gopls";
     bin.haskell-language-server = "${haskell-language-server}/bin/haskell-language-server-wrapper";
-    bin.julia = "${julia}/bin/julia";
+    bin.julia = julia';
     bin.lua-language-server = "${sumneko-lua-language-server}/bin/lua-language-server";
     bin.nil = "${nil}/bin/nil";
     bin.omnisharp = "${omnisharp-roslyn}/bin/omnisharp";
