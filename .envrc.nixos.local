@@ -1,4 +1,0 @@
-source .envrc.common.local
-source .envrc.nixos.common
-export NIX_PATH="nixpkgs=$PWD/vendor/nixpkgs/nixos:nixpkgs-unstable=$PWD/vendor/nixpkgs/nixos-unstable:$NIX_PATH"
-#vim:ft=sh

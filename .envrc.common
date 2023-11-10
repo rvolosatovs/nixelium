@@ -1,2 +1,0 @@
-export NIX_PATH="nixpkgs-overlays=$PWD/nixpkgs/overlays.nix"
-#vim:ft=sh

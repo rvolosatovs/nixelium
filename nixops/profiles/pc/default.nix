@@ -1,7 +1,0 @@
-{
-  imports = [
-    ./../..
-  ];
-
-  deployment.storeKeysOnMachine = true;
-}
