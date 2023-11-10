@@ -1,34 +1,65 @@
-# Infrastructure
-My NixOps network infrastructure.
+> NOTE: Parts of this were developed by me as part of work on https://github.com/profianinc/infrastructure/ at https://github.com/profianinc
 
-Deployment is done using `nixops`.
-Currently, there only exists one network, declared at `nixops/networks/private`.
+# Network infrastructure à la Roman
 
-- `home` _should_ be usable by `home-manager`.
-- `modules` contains generic Nix modules.
-- `nixops` contains declarations usable by `nixops`.
-- `nixos` _should_ be usable by `nixos-rebuild`.
-- `nixpkgs` contains `nixpkgs` config and overlays.
-- `resources` contains public definitions of various resources(see `modules/resources.nix`).
-- `vendor` contains dependencies:
-    - `pass` contains pass-store passwords.
-    - `secrets` contains secret Nix definitions. The structure is identical to this repository.
+## Architecture
 
-## Usage
+- `ca` contains CA certs and keys
+- `hosts` contains host-specific data (e.g. TLS certificates and keys)
+- `nixosConfigurations` contains all NixOS system definitions.
+- `overlays` contains nixpkgs overlays (e.g. tooling scripts)
 
-The private NixOps network is defined at `nixops/networks/private`.
+Each custom service is deployed as a [hardened systemd service](https://nixos.wiki/wiki/Systemd_Hardening).
 
-`shell.nix` contains various utility functions:
+### Steward
 
-- `bootstrap-master` - bootstrap master host
-- `fetch-all` - fetch self and all vendored repositories
-- `pull-all` - pull self and all vendored repositories
-- `pull-and-deploy` - pull self and all vendored repositories, run `nixops deploy` with provided arguments on success
-- `push-all` - force-push and prune self and all vendored repositories
+The `steward` service is configured with a CA certificate and key and running on unprivileged port. The service itself only handles HTTP traffic, which is transparently upgraded to TLS by [Nginx] reverse proxy by using [Let's Encrypt certificates](https://letsencrypt.org/), which routes requests to ports `443` and `80` (redirected) to the underlying service.
 
-Typical usage:
+### Drawbridge
+
+The `drawbridge` service is configured with Steward CA certificate, as well as server certificate and key and is running on unprivileged port. The service itself handles HTTPS traffic, but is behind [Nginx] reverse proxy, which routes requests to ports `443` and `80` (redirected) to the underlying service.
+
+### Access
+
+`deploy` user is used for deployment.
+
+## Deployment
+
+### Dependencies
+
+The only dependency for deployment is [`nix`](https://nixos.org/download.html), which is platform-agnostic and well-supported on Linux and MacOS.
+
+If you do not wish to install it, you can also run it via Docker/Podman.
+For example:
+```sh
+$ docker run -w $(pwd) -v $(pwd):$(pwd) -v $(mktemp -d):/nixpkgs nixos/nix nix --extra-experimental-features 'nix-command flakes' develop -c deploy
 ```
-$ pull-and-deploy --build-only
-$ # ensure that all is well
-$ nixops deploy
+Note, if you were to do this, you probably want to avoid using a temporary directory for the `nixpkgs` cache, since then `nix` would have to download all dependencies of the project on each invocation.
+Instead, it is highly recommended to store the Nix store in a persistent location (e.g. by defining a volume) to avoid having to reconstruct the cache on each invocation.
+
+### Bootstrapping
+
+From within [`nix develop` shell](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-develop.html):
+```sh
+$ bootstrap
 ```
+This will generate keys and certificates for all hosts.
+
+### Deploying changes
+
+[`serokell/deploy-rs`] is used for deployment. (Note, the tool does not need to be installed as it is already present in `nix` development shell)
+
+To deploy all instances, run `deploy` from the root of this repository.
+
+From within [`nix develop` shell](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-develop.html):
+```sh
+$ deploy
+```
+
+Or to deploy a specific instance:
+```sh
+$ deploy '.#rvolosatovs-dev'
+```
+
+[`serokell/deploy-rs`]: https://github.com/serokell/deploy-rs
+[Nginx]: https://nginx.org/en/

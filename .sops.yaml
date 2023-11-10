@@ -1,0 +1,13 @@
+keys:
+  - &rvolosatovs b1187afda5ba91e07f7ef8aee71604ba8e53bf31
+
+creation_rules:
+  - path_regex: hosts/attest.rvolosatovs.dev
+    key_groups:
+    - age:
+      - age1pdchmwgda696qlc2denvkac9sr6hvw8ujk0eq9usm7xfc960pcnsrkz482
+
+  - path_regex: ca/
+    key_groups:
+    - pgp:
+      - *rvolosatovs
