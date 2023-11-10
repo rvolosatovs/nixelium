@@ -192,6 +192,10 @@ in {
       system.stateVersion = "23.05";
 
       systemd.network.wait-online.anyInterface = true;
+      systemd.network.wait-online.ignoredInterfaces = [
+        "lo"
+        "tailscale0"
+      ];
 
       time.timeZone = "Europe/Zurich";
 
