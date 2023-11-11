@@ -38,6 +38,44 @@ with flake-utils.lib.system;
         networking.interfaces.wlan0.useDHCP = true;
 
         nixelium.profile.laptop.enable = true;
+
+        nix.buildMachines = [
+          {
+            hostName = "osmium.ghost-ordinal.ts.net";
+            maxJobs = 8;
+            speedFactor = 2;
+            sshKey = "/root/.ssh/id_osmium_nix";
+            sshUser = "nix";
+            supportedFeatures = [
+              "benchmark"
+              "big-parallel"
+              "kvm"
+              "nixos-test"
+            ];
+            systems = [
+              "aarch64-linux"
+              "x86_64-linux"
+            ];
+          }
+          {
+            hostName = "iridium.ghost-ordinal.ts.net";
+            maxJobs = 12;
+            speedFactor = 2;
+            sshKey = "/root/.ssh/id_iridium_nix";
+            sshUser = "nix";
+            systems = [
+              "aarch64-darwin"
+              "x86_64-darwin"
+            ];
+          }
+        ];
+        nix.distributedBuilds = true;
+
+        virtualisation.docker.enable = true;
+        virtualisation.docker.enableOnBoot = false;
+
+        virtualisation.podman.dockerCompat = false;
+        virtualisation.podman.dockerSocket.enable = false;
       })
     ];
   }

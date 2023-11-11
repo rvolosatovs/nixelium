@@ -87,6 +87,12 @@ in {
       networking.domain = mkDefault "ghost-ordinal.ts.net";
       networking.firewall.checkReversePath = "loose";
       networking.firewall.enable = true;
+      networking.nameservers = [
+        "2620:fe::fe"
+        "2620:fe::9"
+        "9.9.9.9"
+        "149.112.112.112"
+      ];
       networking.stevenblack.enable = true;
       networking.useDHCP = true;
       networking.useNetworkd = true;
@@ -232,6 +238,8 @@ in {
       users.users.owner.shell = pkgs.zsh;
 
       virtualisation.oci-containers.backend = "podman";
+      virtualisation.podman.dockerCompat = mkDefault true;
+      virtualisation.podman.dockerSocket.enable = mkDefault true;
       virtualisation.podman.enable = true;
     }
 
@@ -308,11 +316,6 @@ in {
         "aarch64-linux"
         "armv6l-linux"
         "armv7l-linux"
-        "mips64-linux"
-        "mips64el-linux"
-        "powerpc64-linux"
-        "powerpc64le-linux"
-        "riscv64-linux"
         "wasm32-wasi"
         "x86_64-windows"
       ];
