@@ -44,6 +44,7 @@ with flake-utils.lib.system;
         networking.hostName = "osmium";
 
         networking.interfaces.enp34s0.useDHCP = true;
+        networking.interfaces.enp34s0.wakeOnLan.enable = true;
         networking.interfaces.enp37s0.useDHCP = true;
         networking.interfaces.wlan0.useDHCP = true;
 
