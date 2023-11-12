@@ -537,7 +537,37 @@ in {
         transparent-standalone-image
         ublock-origin
       ];
+      programs.firefox.profiles.main.search.default = "DuckDuckGo";
+      programs.firefox.profiles.main.search.engines.Bing.metaData.hidden = true;
+      programs.firefox.profiles.main.search.engines.Google.metaData.alias = "@g";
+      programs.firefox.profiles.main.search.engines."Nix Packages" = {
+        urls = [
+          {
+            template = "https://search.nixos.org/packages";
+            params = [
+              {
+                name = "type";
+                value = "packages";
+              }
+              {
+                name = "query";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
+        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        definedAliases = ["@np"];
+      };
+      programs.firefox.profiles.main.search.engines."NixOS Wiki" = {
+        urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
+        iconUpdateURL = "https://nixos.wiki/favicon.png";
+        updateInterval = 24 * 60 * 60 * 1000;
+        definedAliases = ["@nw"];
+      };
+      programs.firefox.profiles.main.search.order = ["DuckDuckGo" "Google"];
       programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
+      programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
 
       programs.git.aliases.tree = "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";
       programs.git.delta.enable = true;
@@ -736,6 +766,7 @@ in {
       programs.ssh.matchBlocks."github.com".extraOptions.MACs = "hmac-sha2-256,hmac-sha2-512,hmac-sha1";
 
       programs.thunderbird.profiles.main.isDefault = true;
+      programs.thunderbird.profiles.main.withExternalGnupg = true;
 
       # TODO: Configure
       programs.waybar.settings.default."sway/mode".format = "<span style=\"italic\">{}</span>";
