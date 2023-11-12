@@ -209,25 +209,27 @@ in {
 
       users.users.root.hashedPassword = "!";
 
-      users.users.owner.extraGroups = with config.users.groups; [
-        adm.name
-        audio.name
-        cdrom.name
-        dialout.name
-        disk.name
-        floppy.name
-        input.name
-        kmem.name
-        kvm.name
-        lp.name
-        render.name
-        sgx.name
-        tape.name
-        tty.name
-        utmp.name
-        uucp.name
-        video.name
-        wheel.name
+      users.users.owner.extraGroups = [
+        config.security.tpm2.tssGroup
+
+        config.users.groups.adm.name
+        config.users.groups.audio.name
+        config.users.groups.cdrom.name
+        config.users.groups.dialout.name
+        config.users.groups.disk.name
+        config.users.groups.floppy.name
+        config.users.groups.input.name
+        config.users.groups.kmem.name
+        config.users.groups.kvm.name
+        config.users.groups.lp.name
+        config.users.groups.render.name
+        config.users.groups.sgx.name
+        config.users.groups.tape.name
+        config.users.groups.tty.name
+        config.users.groups.utmp.name
+        config.users.groups.uucp.name
+        config.users.groups.video.name
+        config.users.groups.wheel.name
       ];
       users.users.owner.isNormalUser = true;
       users.users.owner.initialHashedPassword = "";
@@ -388,6 +390,11 @@ in {
       security.pam.services.swaylock = {};
 
       security.polkit.enable = true;
+
+      security.tpm2.enable = true;
+      security.tpm2.pkcs11.enable = true;
+      security.tpm2.tctiEnvironment.enable = true;
+
       security.rtkit.enable = true;
       security.unprivilegedUsernsClone = true;
 

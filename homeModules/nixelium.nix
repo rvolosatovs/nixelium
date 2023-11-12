@@ -632,6 +632,7 @@ in {
       programs.go.goBin = ".local/bin.go";
 
       programs.gpg.enable = true;
+      programs.gpg.scdaemonSettings.disable-ccid = true;
       programs.gpg.settings.cert-digest-algo = "SHA512";
       programs.gpg.settings.cipher-algo = "AES256";
       programs.gpg.settings.compress-algo = "ZLIB";
@@ -1217,6 +1218,9 @@ in {
             pkgs.psmisc
             pkgs.slurp
             pkgs.tinygo
+            pkgs.wl-clipboard
+            pkgs.yubikey-manager
+            pkgs.yubikey-personalization
             pkgs.zig
           ]
           ++ optionals pkgs.stdenv.hostPlatform.isLinux [
