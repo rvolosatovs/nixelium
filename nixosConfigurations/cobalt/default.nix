@@ -2,11 +2,11 @@
   self,
   flake-utils,
   nixos-hardware,
-  nixpkgs,
+  nixpkgs-nixos,
   ...
 }:
 with flake-utils.lib.system;
-  nixpkgs.lib.nixosSystem {
+  nixpkgs-nixos.lib.nixosSystem {
     system = x86_64-linux;
     modules = [
       ({pkgs, ...}: {

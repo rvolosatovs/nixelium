@@ -94,14 +94,14 @@ local plg = function(v) return '<plug>' .. v end
 
 for _, v in ipairs({
     -- general
-    { '<M-h>',             '<c-\\><c-N><c-w>h',                { "i", "t" }, { noremap = true } },
-    { '<M-h>',             '<c-w>h',                           { "" },       { noremap = true } },
-    { '<M-j>',             '<c-\\><c-N><c-w>j',                { "i", "t" }, { noremap = true } },
-    { '<M-j>',             '<c-w>j',                           { "" },       { noremap = true } },
-    { '<M-k>',             '<c-\\><c-N><c-w>k',                { "i", "t" }, { noremap = true } },
-    { '<M-k>',             '<c-w>k',                           { "" },       { noremap = true } },
-    { '<M-l>',             '<c-\\><c-N><c-w>l',                { "i", "t" }, { noremap = true } },
-    { '<M-l>',             '<c-w>l',                           { "" },       { noremap = true } },
+    { '<A-h>',             '<c-\\><c-N><c-w>h',                { "i", "t" }, { noremap = true } },
+    { '<A-h>',             '<c-w>h',                           { "" },       { noremap = true } },
+    { '<A-j>',             '<c-\\><c-N><c-w>j',                { "i", "t" }, { noremap = true } },
+    { '<A-j>',             '<c-w>j',                           { "" },       { noremap = true } },
+    { '<A-k>',             '<c-\\><c-N><c-w>k',                { "i", "t" }, { noremap = true } },
+    { '<A-k>',             '<c-w>k',                           { "" },       { noremap = true } },
+    { '<A-l>',             '<c-\\><c-N><c-w>l',                { "i", "t" }, { noremap = true } },
+    { '<A-l>',             '<c-w>l',                           { "" },       { noremap = true } },
     { '<leader>"',         lua('telescope.registers()'),       { "" },       { noremap = true } },
     { '<leader>*',         lua('telescope.grep_string()'),     { "" },       { noremap = true } },
     { '<leader>-',         lua('telescope.file_browser()'),    { "" },       { noremap = true } },

@@ -3,7 +3,6 @@
   base16-shell,
   nixify,
   nixlib,
-  nixpkgs,
   nixpkgs-unstable,
   ...
 }: {
@@ -262,7 +261,6 @@ in {
         pkgs.tcpdump
         pkgs.tree
         pkgs.unzip
-        pkgs.usbutils
         pkgs.wget
         pkgs.xxd
         pkgs.zip
@@ -334,7 +332,7 @@ in {
       home.shellAliases.rm = "rm -i";
       home.shellAliases.sl = "ls";
 
-      home.stateVersion = osConfig.system.stateVersion;
+      home.stateVersion = "23.05";
 
       nix.registry.nixelium.flake = self;
       nix.registry.nixelium.from.id = "nixelium";
@@ -351,10 +349,6 @@ in {
       nix.registry.nixpkgs-unstable.flake = nixpkgs-unstable;
       nix.registry.nixpkgs-unstable.from.id = "nixpkgs-unstable";
       nix.registry.nixpkgs-unstable.from.type = "indirect";
-
-      nix.registry.nixpkgs.flake = nixpkgs;
-      nix.registry.nixpkgs.from.id = "nixpkgs";
-      nix.registry.nixpkgs.from.type = "indirect";
 
       programs.bash.enable = true;
       programs.bash.enableCompletion = true;
@@ -692,19 +686,23 @@ in {
       programs.kitty.settings.active_tab_foreground = "#${cfg.base16.colors.base05}";
       programs.kitty.settings.background = "#${cfg.base16.colors.base00}";
       programs.kitty.settings.cursor = "#${cfg.base16.colors.base05}";
-      programs.kitty.settings.foreground = "#${cfg.base16.colors.base05}";
-      programs.kitty.settings.inactive_border_color = "#${cfg.base16.colors.base01}";
-      programs.kitty.settings.inactive_tab_background = "#${cfg.base16.colors.base01}";
-      programs.kitty.settings.inactive_tab_foreground = "#${cfg.base16.colors.base04}";
-      programs.kitty.settings.selection_background = "#${cfg.base16.colors.base05}";
-      programs.kitty.settings.selection_foreground = "#${cfg.base16.colors.base00}";
-      programs.kitty.settings.url_color = "#${cfg.base16.colors.base04}";
       programs.kitty.settings.cursor_blink_interval = 0;
       programs.kitty.settings.cursor_shape = "underline";
       programs.kitty.settings.disable_ligatures = "cursor";
       programs.kitty.settings.font_size = 15;
+      programs.kitty.settings.foreground = "#${cfg.base16.colors.base05}";
       programs.kitty.settings.hide_window_decorations = true;
+      programs.kitty.settings.inactive_border_color = "#${cfg.base16.colors.base01}";
+      programs.kitty.settings.inactive_tab_background = "#${cfg.base16.colors.base01}";
+      programs.kitty.settings.inactive_tab_foreground = "#${cfg.base16.colors.base04}";
+      programs.kitty.settings.macos_option_as_alt = true;
+      programs.kitty.settings.selection_background = "#${cfg.base16.colors.base05}";
+      programs.kitty.settings.selection_foreground = "#${cfg.base16.colors.base00}";
       programs.kitty.settings.tab_bar_edge = "top";
+      programs.kitty.settings.url_color = "#${cfg.base16.colors.base04}";
+
+      programs.kitty.font.name = "FiraCode Nerd Font";
+      programs.kitty.font.package = pkgs.fira-code-nerdfont;
       programs.kitty.shellIntegration.mode = "no-cursor";
       programs.kitty.theme = "Tomorrow Night";
 
@@ -855,11 +853,11 @@ in {
       programs.zsh.defaultKeymap = "viins";
       programs.zsh.dotDir = ".config/zsh";
       programs.zsh.enable = true;
-      programs.zsh.enableAutosuggestions = !osConfig.programs.zsh.autosuggestions.enable;
+      programs.zsh.enableAutosuggestions = !(osConfig.programs.zsh.autosuggestions.enable or false);
       programs.zsh.enableCompletion = false;
-      programs.zsh.enableSyntaxHighlighting = !osConfig.programs.zsh.syntaxHighlighting.enable;
-      programs.zsh.history.save = osConfig.programs.zsh.histSize;
-      programs.zsh.history.size = osConfig.programs.zsh.histSize;
+      programs.zsh.enableSyntaxHighlighting = !(osConfig.programs.zsh.syntaxHighlighting.enable or false);
+      programs.zsh.history.save = osConfig.programs.zsh.histSize or 50000;
+      programs.zsh.history.size = osConfig.programs.zsh.histSize or 50000;
       programs.zsh.historySubstringSearch.enable = true;
       programs.zsh.initExtraFirst = ''
         source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
@@ -906,7 +904,6 @@ in {
 
       services.gpg-agent.defaultCacheTtl = 180000;
       services.gpg-agent.defaultCacheTtlSsh = 180000;
-      services.gpg-agent.enable = true;
       services.gpg-agent.enableScDaemon = true;
       services.gpg-agent.enableSshSupport = true;
       services.gpg-agent.grabKeyboardAndMouse = false;
@@ -1059,7 +1056,6 @@ in {
       wayland.windowManager.sway.config.terminal = "${config.programs.kitty.package}/bin/kitty";
       wayland.windowManager.sway.config.up = "k";
       wayland.windowManager.sway.config.workspaceAutoBackAndForth = true;
-      wayland.windowManager.sway.swaynag.enable = true;
       wayland.windowManager.sway.systemdIntegration = true;
       wayland.windowManager.sway.wrapperFeatures.gtk = true;
 
@@ -1146,7 +1142,6 @@ in {
 
       xdg.cacheHome = "${config.home.homeDirectory}/.local/cache";
       xdg.enable = true;
-      xdg.userDirs.enable = true;
       xdg.userDirs.desktop = "${config.home.homeDirectory}/desktop";
       xdg.userDirs.documents = "${config.home.homeDirectory}/documents";
       xdg.userDirs.download = "${config.home.homeDirectory}/downloads";
@@ -1200,53 +1195,67 @@ in {
       xresources.properties."*.foreground" = "#${cfg.base16.colors.base05}";
       xresources.properties."ssh-askpass*background" = "#${cfg.base16.colors.base00}";
     }
+    (mkIf pkgs.stdenv.hostPlatform.isLinux {
+      home.packages = [
+        pkgs.usbutils
+      ];
+
+      services.gpg-agent.enable = true;
+
+      xdg.userDirs.enable = true;
+    })
     (mkIf osConfig.nixelium.profile.laptop.enable
+      {
+        home.packages =
+          filter (pkg: !pkg.meta.unsupported)
+          [
+            rust
+
+            pkgs.cargo-watch
+            pkgs.gopass
+            pkgs.imv
+            pkgs.julia
+            pkgs.yubikey-manager
+            pkgs.yubikey-personalization
+            pkgs.zig
+          ];
+
+        programs.go.enable = true;
+        programs.kitty.enable = true;
+        programs.mpv.enable = true;
+        programs.password-store.enable = true;
+        programs.zathura.enable = true;
+      })
+    (mkIf (osConfig.nixelium.profile.laptop.enable && pkgs.stdenv.hostPlatform.isLinux)
       {
         fonts.fontconfig.enable = true;
 
         gtk.enable = true;
 
-        home.packages =
-          [
-            rust
-
-            pkgs.cargo-watch
-            pkgs.espeak
-            pkgs.gopass
-            pkgs.grim
-            pkgs.imv
-            pkgs.psmisc
-            pkgs.slurp
-            pkgs.tinygo
-            pkgs.wl-clipboard
-            pkgs.yubikey-manager
-            pkgs.yubikey-personalization
-            pkgs.zig
-          ]
-          ++ optionals pkgs.stdenv.hostPlatform.isLinux [
-            pkgs.acpi
-            pkgs.dex
-            pkgs.julia
-            pkgs.libnotify
-            pkgs.pavucontrol
-            pkgs.playerctl
-            pkgs.v4l-utils
-            pkgs.wf-recorder
-            pkgs.xdg_utils
-            pkgs.ydotool
-          ];
+        home.packages = [
+          pkgs.acpi
+          pkgs.dex
+          pkgs.espeak
+          pkgs.grim
+          pkgs.libnotify
+          pkgs.pavucontrol
+          pkgs.playerctl
+          pkgs.psmisc
+          pkgs.slurp
+          pkgs.v4l-utils
+          pkgs.wf-recorder
+          pkgs.wl-clipboard
+          pkgs.tinygo # requires GDB, which is currently not supported on Darwin
+          pkgs.xdg_utils
+          pkgs.ydotool
+        ];
 
         programs.chromium.enable = true;
         programs.firefox.enable = true;
-        programs.go.enable = true;
-        programs.kitty.enable = true;
-        programs.mpv.enable = true;
         programs.swaylock.enable = true;
         programs.thunderbird.enable = true;
         programs.waybar.enable = true;
-        programs.password-store.enable = true;
         programs.wofi.enable = true;
-        programs.zathura.enable = true;
 
         programs.zsh.loginExtra = ''
           if [ "$(${pkgs.busybox}/bin/tty)" = "/dev/tty1" ]; then
@@ -1266,7 +1275,8 @@ in {
         services.swayidle.enable = true;
         services.wlsunset.enable = true;
 
-        wayland.windowManager.sway.enable = assert osConfig.security.polkit.enable; true;
+        wayland.windowManager.sway.enable = true;
+        wayland.windowManager.sway.swaynag.enable = true;
       })
   ];
 }

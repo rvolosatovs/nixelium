@@ -6,7 +6,7 @@
 }:
 with flake-utils.lib.system;
   nix-darwin.lib.darwinSystem {
-    system = "aarch64-darwin";
+    system = aarch64-darwin;
     modules = [
       ({pkgs, ...}: {
         imports = [
