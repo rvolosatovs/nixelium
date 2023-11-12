@@ -514,6 +514,7 @@ in {
       programs.exa.enable = true;
       programs.exa.enableAliases = true;
       programs.exa.git = true;
+      programs.exa.package = pkgs.eza;
 
       programs.firefox.package = pkgs.firefox;
       programs.firefox.profiles.main.extensions = with pkgs.firefox-addons; [

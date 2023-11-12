@@ -1,5 +1,4 @@
 inputs @ {
-  self,
   fenix,
   nixlib,
   nixpkgs-unstable,
@@ -46,15 +45,15 @@ with nixlib.lib; let
     neovim = final.wrapNeovim final.neovim-unwrapped (import ./neovim inputs final);
   };
 
-  fira-code-nerdfont = final: prev: {
+  unstable = final: prev: {
     inherit
       (nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system})
+      eza
       fira-code-nerdfont
       ;
   };
 in {
   inherit
-    fira-code-nerdfont
     firefox
     gopass
     images
@@ -62,6 +61,7 @@ in {
     install
     neovim
     quake3
+    unstable
     ;
 
   firefox-addons = firefox-addons';
@@ -71,7 +71,6 @@ in {
   default = composeManyExtensions [
     fenix.overlays.default
 
-    fira-code-nerdfont
     firefox
     firefox-addons'
     gopass
@@ -80,5 +79,6 @@ in {
     install
     neovim
     quake3
+    unstable
   ];
 }
