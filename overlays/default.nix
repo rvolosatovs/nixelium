@@ -48,8 +48,18 @@ with nixlib.lib; let
   unstable = final: prev: {
     inherit
       (nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system})
+      chromium
       eza
       fira-code-nerdfont
+      firefox
+      firefox-unwrapped
+      kitty
+      neovim
+      neovim-unwrapped
+      skhd
+      tinygo
+      yabai
+      zig
       ;
   };
 in {
@@ -69,6 +79,8 @@ in {
   fenix = fenix.overlays.default;
 
   default = composeManyExtensions [
+    unstable
+
     fenix.overlays.default
 
     firefox
@@ -79,6 +91,5 @@ in {
     install
     neovim
     quake3
-    unstable
   ];
 }

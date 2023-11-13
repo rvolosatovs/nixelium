@@ -19,6 +19,26 @@
     if julia.meta.unsupported
     then "julia"
     else "${julia}/bin/julia";
+
+  paths = self.lib.toLua {
+    bin.alejandra = "${alejandra}/bin/alejandra";
+    bin.bash-language-server = "${nodePackages.bash-language-server}/bin/bash-language-server";
+    bin.clangd = "${clang-tools}/bin/clangd";
+    bin.docker-langserver = "${nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver";
+    bin.elm = "${elmPackages.elm}/bin/elm";
+    bin.elm-format = "${elmPackages.elm-format}/bin/elm-format";
+    bin.elm-language-server = "${elmPackages.elm-language-server}/bin/elm-language-server";
+    bin.elm-test = "${elmPackages.elm-test}/bin/elm-test";
+    bin.gopls = "${gopls}/bin/gopls";
+    bin.haskell-language-server = "${haskell-language-server}/bin/haskell-language-server-wrapper";
+    bin.julia = julia';
+    bin.lua-language-server = "${sumneko-lua-language-server}/bin/lua-language-server";
+    bin.nil = "${nil}/bin/nil";
+    bin.omnisharp = "${omnisharp-roslyn}/bin/omnisharp";
+    bin.ripgrep = "${ripgrep}/bin/rg";
+    bin.rust-analyzer = "${rust-analyzer}/bin/rust-analyzer";
+    src.lua-language-server = "${sumneko-lua-language-server}";
+  };
 in ''
   if $TERM!='linux'
     let base16colorspace=256
@@ -39,25 +59,7 @@ in ''
   set foldexpr=nvim_treesitter#foldexpr()
 
   lua << EOF
-    local paths = ${self.lib.toLua {
-    bin.alejandra = "${alejandra}/bin/alejandra";
-    bin.bash-language-server = "${nodePackages.bash-language-server}/bin/bash-language-server";
-    bin.clangd = "${clang-tools}/bin/clangd";
-    bin.docker-langserver = "${nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver";
-    bin.elm = "${elmPackages.elm}/bin/elm";
-    bin.elm-format = "${elmPackages.elm-format}/bin/elm-format";
-    bin.elm-language-server = "${elmPackages.elm-language-server}/bin/elm-language-server";
-    bin.elm-test = "${elmPackages.elm-test}/bin/elm-test";
-    bin.gopls = "${gopls}/bin/gopls";
-    bin.haskell-language-server = "${haskell-language-server}/bin/haskell-language-server-wrapper";
-    bin.julia = julia';
-    bin.lua-language-server = "${sumneko-lua-language-server}/bin/lua-language-server";
-    bin.nil = "${nil}/bin/nil";
-    bin.omnisharp = "${omnisharp-roslyn}/bin/omnisharp";
-    bin.ripgrep = "${ripgrep}/bin/rg";
-    bin.rust-analyzer = "${rust-analyzer}/bin/rust-analyzer";
-    src.lua-language-server = "${sumneko-lua-language-server}";
-  }}
+    local paths = ${paths}
     ${lib.fileContents ./config.lua}
   EOF
 

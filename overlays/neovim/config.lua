@@ -94,14 +94,14 @@ local plg = function(v) return '<plug>' .. v end
 
 for _, v in ipairs({
     -- general
-    { '<A-h>',             '<c-\\><c-N><c-w>h',                { "i", "t" }, { noremap = true } },
-    { '<A-h>',             '<c-w>h',                           { "" },       { noremap = true } },
-    { '<A-j>',             '<c-\\><c-N><c-w>j',                { "i", "t" }, { noremap = true } },
-    { '<A-j>',             '<c-w>j',                           { "" },       { noremap = true } },
-    { '<A-k>',             '<c-\\><c-N><c-w>k',                { "i", "t" }, { noremap = true } },
-    { '<A-k>',             '<c-w>k',                           { "" },       { noremap = true } },
-    { '<A-l>',             '<c-\\><c-N><c-w>l',                { "i", "t" }, { noremap = true } },
-    { '<A-l>',             '<c-w>l',                           { "" },       { noremap = true } },
+    { '<A-h>',             '<C-\\><C-N><C-w>h',                { "i", "t" }, { noremap = true } },
+    { '<A-h>',             '<C-w>h',                           { "" },       { noremap = true } },
+    { '<A-j>',             '<C-\\><C-N><C-w>j',                { "i", "t" }, { noremap = true } },
+    { '<A-j>',             '<C-w>j',                           { "" },       { noremap = true } },
+    { '<A-k>',             '<C-\\><C-N><C-w>k',                { "i", "t" }, { noremap = true } },
+    { '<A-k>',             '<C-w>k',                           { "" },       { noremap = true } },
+    { '<A-l>',             '<C-\\><C-N><C-w>l',                { "i", "t" }, { noremap = true } },
+    { '<A-l>',             '<C-w>l',                           { "" },       { noremap = true } },
     { '<leader>"',         lua('telescope.registers()'),       { "" },       { noremap = true } },
     { '<leader>*',         lua('telescope.grep_string()'),     { "" },       { noremap = true } },
     { '<leader>-',         lua('telescope.file_browser()'),    { "" },       { noremap = true } },
@@ -177,9 +177,9 @@ cmp.setup {
         completeopt = 'menu,menuone,noinsert',
     },
     mapping = {
-        ['<c-d>']   = cmp.mapping.scroll_docs(-4),
-        ['<c-e>']   = cmp.mapping.close(),
-        ['<c-n>']   = cmp.mapping(function()
+        ['<C-d>']   = cmp.mapping.scroll_docs(4),
+        ['<C-e>']   = cmp.mapping.close(),
+        ['<C-n>']   = cmp.mapping(function()
             if cmp.visible() then
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
@@ -188,7 +188,7 @@ cmp.setup {
                 cmp.complete()
             end
         end, { 'i', 's' }),
-        ['<c-p>']   = cmp.mapping(function(fallback)
+        ['<C-p>']   = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.mapping.select_prev_item()
             elseif luasnip.jumpable(-1) then
@@ -197,7 +197,7 @@ cmp.setup {
                 fallback()
             end
         end, { 'i', 's' }),
-        ['<c-u>']   = cmp.mapping.scroll_docs(4),
+        ['<C-u>']   = cmp.mapping.scroll_docs(-4),
         ['<down>']  = cmp.mapping.select_next_item(),
         ['<esc>']   = cmp_map_pre(cmp.mapping.close),
         ['<up>']    = cmp.mapping.select_prev_item(),
@@ -280,8 +280,8 @@ local on_attach = function(client, bufnr)
     illuminate.on_attach(client)
 
     for k, fn in pairs({
-        ['<c-]>']      = 'telescope.lsp_definitions()',
-        ['<c-k>']      = 'vim.lsp.buf.signature_help()',
+        ['<C-]>']      = 'telescope.lsp_definitions()',
+        ['<C-k>']      = 'vim.lsp.buf.signature_help()',
         ['<leader>a']  = 'vim.lsp.buf.code_action()',
         ['<leader>A']  = 'vim.lsp.buf.range_code_action()',
         ['<leader>dd'] = 'telescope.diagnostics()',

@@ -3,6 +3,8 @@
   base16-shell,
   nixify,
   nixlib,
+  nixpkgs-darwin,
+  nixpkgs-nixos,
   nixpkgs-unstable,
   ...
 }: {
@@ -332,8 +334,6 @@ in {
       home.shellAliases.rm = "rm -i";
       home.shellAliases.sl = "ls";
 
-      home.stateVersion = "23.05";
-
       nix.registry.nixelium.flake = self;
       nix.registry.nixelium.from.id = "nixelium";
       nix.registry.nixelium.from.type = "indirect";
@@ -345,6 +345,14 @@ in {
       nix.registry.nixlib.flake = nixlib;
       nix.registry.nixlib.from.id = "nixlib";
       nix.registry.nixlib.from.type = "indirect";
+
+      nix.registry.nixpkgs-darwin.flake = nixpkgs-darwin;
+      nix.registry.nixpkgs-darwin.from.id = "nixpkgs-darwin";
+      nix.registry.nixpkgs-darwin.from.type = "indirect";
+
+      nix.registry.nixpkgs-nixos.flake = nixpkgs-nixos;
+      nix.registry.nixpkgs-nixos.from.id = "nixpkgs-nixos";
+      nix.registry.nixpkgs-nixos.from.type = "indirect";
 
       nix.registry.nixpkgs-unstable.flake = nixpkgs-unstable;
       nix.registry.nixpkgs-unstable.from.id = "nixpkgs-unstable";
@@ -515,54 +523,6 @@ in {
       programs.exa.enableAliases = true;
       programs.exa.git = true;
       programs.exa.package = pkgs.eza;
-
-      programs.firefox.package = pkgs.firefox;
-      programs.firefox.profiles.main.extensions = with pkgs.firefox-addons; [
-        auto-tab-discard
-        cookie-autodelete
-        link-cleaner
-        multi-account-containers
-        peertubeify
-        privacy-badger
-        reddit-enhancement-suite
-        rust-search-extension
-        save-page-we
-        stylus
-        text-contrast-for-dark-themes
-        transparent-standalone-image
-        ublock-origin
-      ];
-      programs.firefox.profiles.main.search.default = "DuckDuckGo";
-      programs.firefox.profiles.main.search.engines.Bing.metaData.hidden = true;
-      programs.firefox.profiles.main.search.engines.Google.metaData.alias = "@g";
-      programs.firefox.profiles.main.search.engines."Nix Packages" = {
-        urls = [
-          {
-            template = "https://search.nixos.org/packages";
-            params = [
-              {
-                name = "type";
-                value = "packages";
-              }
-              {
-                name = "query";
-                value = "{searchTerms}";
-              }
-            ];
-          }
-        ];
-        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        definedAliases = ["@np"];
-      };
-      programs.firefox.profiles.main.search.engines."NixOS Wiki" = {
-        urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
-        iconUpdateURL = "https://nixos.wiki/favicon.png";
-        updateInterval = 24 * 60 * 60 * 1000;
-        definedAliases = ["@nw"];
-      };
-      programs.firefox.profiles.main.search.order = ["DuckDuckGo" "Google"];
-      programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
-      programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
 
       programs.git.aliases.tree = "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";
       programs.git.delta.enable = true;
@@ -884,8 +844,6 @@ in {
         bindkey -M menuselect 'j' vi-down-line-or-history
         bindkey -M menuselect 'k' vi-up-line-or-history
         bindkey -M menuselect 'l' vi-forward-char
-        bindkey -M vicmd 'j' history-substring-search-down
-        bindkey -M vicmd 'k' history-substring-search-up
       '';
       programs.zsh.plugins = [
         {
@@ -1201,9 +1159,77 @@ in {
         pkgs.usbutils
       ];
 
+      home.stateVersion = osConfig.system.stateVersion;
+
+      programs.firefox.package = pkgs.firefox;
+      programs.firefox.profiles.main.extensions = with pkgs.firefox-addons; [
+        auto-tab-discard
+        cookie-autodelete
+        link-cleaner
+        multi-account-containers
+        peertubeify
+        privacy-badger
+        reddit-enhancement-suite
+        rust-search-extension
+        save-page-we
+        stylus
+        text-contrast-for-dark-themes
+        transparent-standalone-image
+        ublock-origin
+      ];
+      programs.firefox.profiles.main.search.default = "DuckDuckGo";
+      programs.firefox.profiles.main.search.engines.Bing.metaData.hidden = true;
+      programs.firefox.profiles.main.search.engines.Google.metaData.alias = "@g";
+      programs.firefox.profiles.main.search.engines."Nix Packages" = {
+        urls = [
+          {
+            template = "https://search.nixos.org/packages";
+            params = [
+              {
+                name = "type";
+                value = "packages";
+              }
+              {
+                name = "query";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
+        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        definedAliases = ["@np"];
+      };
+      programs.firefox.profiles.main.search.engines."NixOS Wiki" = {
+        urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
+        iconUpdateURL = "https://nixos.wiki/favicon.png";
+        updateInterval = 24 * 60 * 60 * 1000;
+        definedAliases = ["@nw"];
+      };
+      programs.firefox.profiles.main.search.order = ["DuckDuckGo" "Google"];
+      programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
+      programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
+
       services.gpg-agent.enable = true;
 
       xdg.userDirs.enable = true;
+    })
+    (mkIf pkgs.stdenv.hostPlatform.isDarwin {
+      home.stateVersion = osConfig.system.nixpkgsRelease;
+      home.packages = [
+        osConfig.services.skhd.package
+        osConfig.services.yabai.package
+      ];
+
+      programs.firefox.package = pkgs.firefox-bin;
+
+      targets.darwin.currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
+      targets.darwin.defaults."com.apple.desktopservices".DSDontWriteUSBStores = true;
+      targets.darwin.defaults.NSGlobalDomain.AppleLocale = "en_US";
+      targets.darwin.defaults.NSGlobalDomain.AppleMeasurementUnits = "Centimeters";
+      targets.darwin.defaults.NSGlobalDomain.AppleMetricUnits = true;
+      targets.darwin.defaults.NSGlobalDomain.AppleTemperatureUnit = "Celsius";
+      targets.darwin.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = true;
+      targets.darwin.search = "DuckDuckGo";
     })
     (mkIf osConfig.nixelium.profile.laptop.enable
       {
@@ -1221,6 +1247,7 @@ in {
             pkgs.zig
           ];
 
+        programs.firefox.enable = true;
         programs.go.enable = true;
         programs.kitty.enable = true;
         programs.mpv.enable = true;
@@ -1252,7 +1279,6 @@ in {
         ];
 
         programs.chromium.enable = true;
-        programs.firefox.enable = true;
         programs.swaylock.enable = true;
         programs.thunderbird.enable = true;
         programs.waybar.enable = true;

@@ -1,4 +1,9 @@
 inputs @ {...}: let
+  nixelium = import ./nixelium.nix inputs;
 in {
-  default = import ./nixelium.nix inputs;
+  inherit
+    nixelium
+    ;
+
+  default = nixelium;
 }

@@ -19,12 +19,16 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.home-manager.url = "github:nix-community/home-manager/release-23.05";
+  inputs.homebrew-bundle.flake = false;
+  inputs.homebrew-bundle.url = "github:homebrew/homebrew-bundle";
   inputs.homebrew-cask.flake = false;
   inputs.homebrew-cask.url = "github:homebrew/homebrew-cask";
   inputs.homebrew-core.flake = false;
   inputs.homebrew-core.url = "github:homebrew/homebrew-core";
   inputs.ioquake3-mac-install.flake = false;
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
+  inputs.koekeishiya-formulae.flake = false;
+  inputs.koekeishiya-formulae.url = "github:koekeishiya/homebrew-formulae";
   inputs.lanzaboote.url = "github:nix-community/lanzaboote";
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nix-darwin.url = "github:LnL7/nix-darwin";
@@ -41,6 +45,8 @@
   inputs.nixos-generators.url = "github:nix-community/nixos-generators";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
   inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
+  inputs.nixpkgs-firefox-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
+  inputs.nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
