@@ -213,6 +213,7 @@ in {
     services.yabai.config.layout = "bsp";
     services.yabai.config.mouse_modifier = "alt";
     services.yabai.config.split_type = "vertical";
+    services.yabai.config.window_gap = 5;
     services.yabai.config.window_topmost = "on";
     services.yabai.enable = true;
     services.yabai.enableScriptingAddition = true;

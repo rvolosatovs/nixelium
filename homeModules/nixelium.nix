@@ -650,7 +650,6 @@ in {
       programs.kitty.settings.cursor_blink_interval = 0;
       programs.kitty.settings.cursor_shape = "underline";
       programs.kitty.settings.disable_ligatures = "cursor";
-      programs.kitty.settings.font_size = 15;
       programs.kitty.settings.foreground = "#${cfg.base16.colors.base05}";
       programs.kitty.settings.hide_window_decorations = true;
       programs.kitty.settings.inactive_border_color = "#${cfg.base16.colors.base01}";
@@ -1209,6 +1208,8 @@ in {
       programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
       programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
 
+      programs.kitty.settings.font_size = 15;
+
       services.gpg-agent.enable = true;
 
       xdg.userDirs.enable = true;
@@ -1221,6 +1222,8 @@ in {
       ];
 
       programs.firefox.package = pkgs.firefox-bin;
+
+      programs.kitty.settings.font_size = 19;
 
       targets.darwin.currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
       targets.darwin.defaults."com.apple.desktopservices".DSDontWriteUSBStores = true;
