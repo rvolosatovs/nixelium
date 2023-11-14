@@ -23,24 +23,11 @@ in
         else throw "non-empty lists are not supported"
       else toJSON v;
 
-    mkNixosInstallIsoSystem = {
-      modules ? [],
-      nixpkgs ? nixpkgs-nixos,
-      system,
+    mkNixosCloudInitImage = {
+      pkgs,
+      lib,
+      config,
     }:
-      nixpkgs-nixos.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ({pkgs, ...}: {
-            imports =
-              [
-                "${nixpkgs-nixos}/nixos/modules/installer/cd-dvd/channel.nix"
-                "${nixpkgs-nixos}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-
-                self.nixosModules.default
-              ]
-              ++ modules;
-          })
-        ];
+      (import "${nixpkgs}/nixos/lib/make-disk-image.nix").make-disk-image {
       };
   }

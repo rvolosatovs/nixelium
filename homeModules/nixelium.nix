@@ -14,8 +14,6 @@
   ...
 }:
 with nixlib.lib; let
-  headphones = "70:26:05:CF:7F:C2";
-
   schemes.tomorrow-night.base00 = "1d1f21";
   schemes.tomorrow-night.base01 = "282a2e";
   schemes.tomorrow-night.base02 = "373b41";
@@ -64,6 +62,13 @@ with nixlib.lib; let
   lockCmd = "${pkgs.swaylock}/bin/swaylock -t -f -F -i ${config.home.homeDirectory}/pictures/lock";
   typeStdin = "${pkgs.ydotool}/bin/ydotool type --file -";
 in {
+  options.nixelium.headphones = mkOption {
+    type = types.str;
+    example = "70:26:05:CF:7F:C2";
+    default = "70:26:05:CF:7F:C2";
+    description = "Bluetooth headphone address";
+  };
+
   options.nixelium.user.email = mkOption {
     type = types.strMatching ".+@.+\..+";
     example = "foobar@example.com";
@@ -220,7 +225,6 @@ in {
       gtk.gtk3.extraConfig.gtk-xft-hintstyle = "hintslight";
       gtk.gtk3.extraConfig.gtk-xft-rgba = "rgb";
       gtk.gtk3.extraCss = ''
-        /* remove window title from Client-Side Decorations */
         .solid-csd headerbar .title {
             font-size: 0;
         }
@@ -239,8 +243,6 @@ in {
       ];
 
       home.packages = [
-        neovim
-
         pkgs.curl
         pkgs.entr
         pkgs.fd
@@ -273,7 +275,6 @@ in {
       home.sessionVariables.ELINKS_CONFDIR = "${config.xdg.configHome}/elinks";
       home.sessionVariables.GIMP2_DIRECTORY = "${config.xdg.configHome}/gimp";
       home.sessionVariables.LSCOLORS = "ExGxFxdaCxDaDahbadacec";
-      home.sessionVariables.MANPAGER = "${pkgs.neovim}/bin/nvim +Man!";
       home.sessionVariables.NAVI_FINDER = "skim";
       home.sessionVariables.PYTHON_EGG_CACHE = "${config.xdg.cacheHome}/python-eggs";
       home.sessionVariables.WINEPREFIX = "${config.xdg.dataHome}/wine";
@@ -707,7 +708,7 @@ in {
       programs.skim.defaultCommand = "${pkgs.fd}/bin/fd -H --color=always --type f";
       programs.skim.defaultOptions = [
         "--ansi"
-        "--bind='ctrl-e:execute(\${EDITOR:-${pkgs.neovim}/bin/nvim} {})'"
+        "--bind='ctrl-e:execute(\${EDITOR:-vim} {})'"
       ];
       programs.skim.enableBashIntegration = true;
       programs.skim.enableZshIntegration = true;
@@ -1019,7 +1020,7 @@ in {
 
       wayland.windowManager.sway.config.keybindings = mkOptionDefault {
         "${swayConfig.modifier}+0" = "workspace number 10";
-        "${swayConfig.modifier}+b" = exec "${pkgs.bluez}/bin/bluetoothctl connect ${headphones}";
+        "${swayConfig.modifier}+b" = exec "${pkgs.bluez}/bin/bluetoothctl connect ${cfg.headphones}";
         "${swayConfig.modifier}+Ctrl+f" = exec ''${pkgs.gopass}/bin/gopass otp -c "$(${choosePass} 2fa)"'';
         "${swayConfig.modifier}+Ctrl+p" = exec ''${pkgs.gopass}/bin/gopass show -c "$(${choosePass})"'';
         "${swayConfig.modifier}+Ctrl+u" = exec ''${pkgs.gopass}/bin/gopass show -c "$(${choosePass})" username'';
@@ -1243,6 +1244,7 @@ in {
         home.packages =
           filter (pkg: !pkg.meta.unsupported)
           [
+            neovim
             rust
 
             pkgs.cargo-watch
@@ -1254,6 +1256,7 @@ in {
             pkgs.yubikey-personalization
             pkgs.zig
           ];
+        home.sessionVariables.MANPAGER = "${pkgs.neovim}/bin/nvim +Man!";
 
         programs.firefox.enable = true;
         programs.go.enable = true;

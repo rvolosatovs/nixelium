@@ -9,11 +9,11 @@ with flake-utils.lib.system;
     system = aarch64-linux;
     modules = [
       self.nixosModules.default
-      self.nixosModules.install-iso
-      ({pkgs, ...}: {
-        environment.systemPackages = [
-          pkgs.partition-phosphorus
-        ];
+
+      self.nixosModules.cloud-init
+      self.nixosModules.phosphorus
+      ({...}: {
+        virtualisation.rosetta.enable = true;
       })
     ];
   }

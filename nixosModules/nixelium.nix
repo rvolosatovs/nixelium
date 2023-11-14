@@ -13,9 +13,7 @@
 }:
 with nixlib.lib; let
   cfg = config.nixelium;
-
-  email = "rvolosatovs@riseup.net";
-  username = "rvolosatovs";
+  homeCfg = config.home-manager.users.owner.nixelium;
 
   nopasswd = command: {
     inherit command;
@@ -50,20 +48,9 @@ in {
 
   config = mkMerge [
     {
-      boot.bootspec.enable = true;
-      boot.initrd.availableKernelModules = [
-        "cryptd"
-      ];
       boot.initrd.systemd.enable = true;
-      boot.kernelParams = [
-        "systemd.unified_cgroup_hierarchy=1"
-      ];
-      boot.lanzaboote.enable = mkDefault true;
       boot.lanzaboote.pkiBundle = "/etc/secureboot";
-      boot.loader.efi.canTouchEfiVariables = true;
-      boot.loader.grub.enable = false;
-      boot.loader.systemd-boot.enable = !config.boot.lanzaboote.enable;
-      boot.tmp.cleanOnBoot = true;
+      boot.loader.grub.enable = mkDefault false;
 
       environment.homeBinInPath = true;
       environment.localBinInPath = true;
@@ -84,6 +71,8 @@ in {
       hardware.bluetooth.settings.General.ControllerMode = "dual";
       hardware.bluetooth.powerOnBoot = true;
 
+      hardware.enableRedistributableFirmware = true;
+
       hardware.trackpoint.sensitivity = 250;
       hardware.trackpoint.speed = 120;
 
@@ -92,8 +81,6 @@ in {
 
       home-manager.users.owner = self.homeModules.default;
       home-manager.users.root = self.homeModules.default;
-
-      hardware.enableRedistributableFirmware = true;
 
       networking.domain = mkDefault "ghost-ordinal.ts.net";
       networking.firewall.checkReversePath = "loose";
@@ -105,7 +92,7 @@ in {
         "149.112.112.112"
       ];
       networking.stevenblack.enable = true;
-      networking.useDHCP = true;
+      networking.useDHCP = mkDefault true;
       networking.useNetworkd = true;
 
       nix.gc.automatic = true;
@@ -163,7 +150,7 @@ in {
       programs.zsh.syntaxHighlighting.enable = true;
 
       security.acme.acceptTerms = true;
-      security.acme.defaults.email = email;
+      security.acme.defaults.email = homeCfg.user.email;
 
       security.sudo.enable = true;
       security.sudo.extraRules = [
@@ -229,8 +216,6 @@ in {
 
       users.defaultUserShell = pkgs.zsh;
 
-      users.users.root.hashedPassword = "!";
-
       users.users.owner.extraGroups = [
         config.security.tpm2.tssGroup
 
@@ -255,7 +240,7 @@ in {
       ];
       users.users.owner.isNormalUser = true;
       users.users.owner.initialHashedPassword = "";
-      users.users.owner.name = username;
+      users.users.owner.name = homeCfg.user.username;
       users.users.owner.openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKEC3hGlw5tDKcfbvTd+IdZxGSdux1i/AIK3mzx4bZuX"
       ];
@@ -343,20 +328,17 @@ in {
         "armv7l-linux"
         "wasm32-wasi"
       ];
-
-      boot.initrd.luks.devices.luksroot.allowDiscards = true;
-
-      boot.kernelPackages = pkgs.linuxPackages_zen;
-
-      fileSystems."/" = butterSubvol "@";
-      fileSystems."/.snapshots" = butterSubvol "@-snapshots";
-      fileSystems."/home" = butterSubvol "@home";
-      fileSystems."/home/.snapshots" = butterSubvol "@home-snapshots";
-
-      fileSystems."/boot" = {
-        device = "/dev/disk/by-label/boot";
-        fsType = "vfat";
-      };
+      boot.bootspec.enable = true;
+      boot.initrd.availableKernelModules = [
+        "cryptd"
+      ];
+      boot.kernelPackages = mkDefault pkgs.linuxPackages_zen;
+      boot.kernelParams = [
+        "systemd.unified_cgroup_hierarchy=1"
+      ];
+      boot.loader.efi.canTouchEfiVariables = true;
+      boot.loader.systemd-boot.enable = mkDefault (!config.boot.lanzaboote.enable);
+      boot.tmp.cleanOnBoot = true;
 
       fonts.enableDefaultFonts = true;
       fonts.fontconfig.enable = true;
@@ -410,11 +392,6 @@ in {
 
       services.avahi.enable = true;
 
-      services.btrfs.autoScrub.enable = true;
-      services.btrfs.autoScrub.fileSystems = [
-        "/"
-      ];
-
       services.dbus.enable = true;
 
       services.fstrim.enable = true;
@@ -432,22 +409,6 @@ in {
       services.pipewire.pulse.enable = true;
 
       services.printing.enable = true;
-
-      services.snapper.configs.home.ALLOW_USERS = [config.users.users.owner.name];
-      services.snapper.configs.home.FREE_LIMIT = "0.3";
-      services.snapper.configs.home.SPACE_LIMIT = "0.2";
-      services.snapper.configs.home.SUBVOLUME = "/home";
-      services.snapper.configs.home.TIMELINE_CLEANUP = true;
-      services.snapper.configs.home.TIMELINE_CREATE = true;
-
-      services.snapper.configs.root.ALLOW_USERS = [config.users.users.owner.name];
-      services.snapper.configs.root.FREE_LIMIT = "0.4";
-      services.snapper.configs.root.SPACE_LIMIT = "0.1";
-      services.snapper.configs.root.SUBVOLUME = "/";
-      services.snapper.configs.root.TIMELINE_CLEANUP = true;
-      services.snapper.configs.root.TIMELINE_CREATE = true;
-
-      services.snapper.snapshotRootOnBoot = true;
 
       services.udev.packages = with pkgs; [
         android-udev-rules
@@ -519,6 +480,8 @@ in {
       systemd.services.swap-backspace.serviceConfig.Type = "oneshot";
       systemd.services.swap-backspace.wantedBy = ["multi-user.target"];
 
+      users.users.root.hashedPassword = "!";
+
       users.users.owner.extraGroups = with config.users.groups; [
         adbusers.name
       ];
@@ -537,9 +500,43 @@ in {
     })
 
     (mkIf (cfg.profile.laptop.enable && !cfg.system.isVirtual) {
+      boot.initrd.luks.devices.luksroot.allowDiscards = true;
+      boot.lanzaboote.enable = mkDefault true;
+
+      fileSystems."/" = butterSubvol "@";
+      fileSystems."/.snapshots" = butterSubvol "@-snapshots";
+      fileSystems."/home" = butterSubvol "@home";
+      fileSystems."/home/.snapshots" = butterSubvol "@home-snapshots";
+
+      fileSystems."/boot" = {
+        device = "/dev/disk/by-label/boot";
+        fsType = "vfat";
+      };
+
       hardware.bluetooth.enable = true;
 
       networking.wireless.iwd.enable = true;
+
+      services.btrfs.autoScrub.enable = true;
+      services.btrfs.autoScrub.fileSystems = [
+        "/"
+      ];
+
+      services.snapper.configs.home.ALLOW_USERS = [config.users.users.owner.name];
+      services.snapper.configs.home.FREE_LIMIT = "0.3";
+      services.snapper.configs.home.SPACE_LIMIT = "0.2";
+      services.snapper.configs.home.SUBVOLUME = "/home";
+      services.snapper.configs.home.TIMELINE_CLEANUP = true;
+      services.snapper.configs.home.TIMELINE_CREATE = true;
+
+      services.snapper.configs.root.ALLOW_USERS = [config.users.users.owner.name];
+      services.snapper.configs.root.FREE_LIMIT = "0.4";
+      services.snapper.configs.root.SPACE_LIMIT = "0.1";
+      services.snapper.configs.root.SUBVOLUME = "/";
+      services.snapper.configs.root.TIMELINE_CLEANUP = true;
+      services.snapper.configs.root.TIMELINE_CREATE = true;
+
+      services.snapper.snapshotRootOnBoot = true;
 
       services.tlp.enable = true;
 

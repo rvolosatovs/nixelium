@@ -1,0 +1,26 @@
+arch: "aarch64"
+
+vmType: vz
+
+images:
+  - location: "./result/nixos.qcow2"
+    arch: "aarch64"
+
+cpus: 8
+
+mounts:
+- location: "~"
+  writable: true
+  9p:
+    # Try choosing "mmap" or "none" if you see a stability issue with the default "fscache".
+    cache: "mmap"
+- location: "/tmp/lima"
+  writable: true
+  9p:
+    cache: "mmap"
+
+mountType: "virtiofs"
+
+containerd:
+  system: false
+  user: false

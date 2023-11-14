@@ -107,8 +107,10 @@
               host-key
               install-iso-aarch64-linux
               install-iso-x86_64-linux
+              iridium-phosphorus-cloud-image
               neovim
               partition-osmium
+              partition-phosphorus
               ssh-for-each
               ;
           };

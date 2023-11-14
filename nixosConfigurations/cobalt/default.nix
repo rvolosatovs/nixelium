@@ -9,14 +9,11 @@ with flake-utils.lib.system;
   nixpkgs-nixos.lib.nixosSystem {
     system = x86_64-linux;
     modules = [
+      self.nixosModules.default
+
+      nixos-hardware.nixosModules.common-cpu-amd
+      nixos-hardware.nixosModules.common-pc-laptop-ssd
       ({pkgs, ...}: {
-        imports = [
-          self.nixosModules.default
-
-          nixos-hardware.nixosModules.common-cpu-amd
-          nixos-hardware.nixosModules.common-pc-laptop-ssd
-        ];
-
         boot.initrd.availableKernelModules = [
           "ehci_pci"
           "nvme"

@@ -20,6 +20,9 @@ with flake-utils.lib.system;
           "Wi-Fi"
         ];
 
+        nix.linux-builder.config.virtualisation.darwin-builder.diskSize = 100 * 1024;
+        nix.linux-builder.config.virtualisation.darwin-builder.memorySize = 8 * 1024;
+
         nixelium.profile.laptop.enable = true;
       })
     ];
