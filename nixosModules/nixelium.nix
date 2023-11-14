@@ -278,7 +278,8 @@ in {
       users.users.nix.openssh.authorizedKeys.keys =
         config.users.users.owner.openssh.authorizedKeys.keys
         ++ [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYL7ukR5D6oNAmYo/CeyLAMGAYV6SxfZJAOcx/KIZTG" # cobalt root, TODO: from repo
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYL7ukR5D6oNAmYo/CeyLAMGAYV6SxfZJAOcx/KIZTG" # cobalt root
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArsbOOVUDNepUwdFmY0h/XFMrLJ5C55NNP+xC8WKVoi" # iridium root
         ];
       users.users.nix.shell = pkgs.bashInteractive;
     })

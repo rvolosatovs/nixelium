@@ -45,8 +45,12 @@ with flake-utils.lib.system;
 
         networking.interfaces.enp34s0.useDHCP = true;
         networking.interfaces.enp34s0.wakeOnLan.enable = true;
+
         networking.interfaces.enp37s0.useDHCP = true;
+        networking.interfaces.enp37s0.wakeOnLan.enable = true;
+
         networking.interfaces.wlan0.useDHCP = true;
+        networking.interfaces.wlan0.wakeOnLan.enable = true;
 
         systemd.services.system76-charge-thresholds.after = ["multi-user.target"];
         systemd.services.system76-charge-thresholds.description = "Set system76 laptop battery charge thresholds";
