@@ -35,7 +35,7 @@
             lvcreate -l 100%FREE partitions -n butter
             mkfs.btrfs -L butter /dev/partitions/butter
 
-            mkdir /butter
+            mkdir -pv /butter
             mount /dev/partitions/butter /butter
 
             btrfs su create '/butter/@'
