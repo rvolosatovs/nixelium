@@ -1203,6 +1203,7 @@ in {
         updateInterval = 24 * 60 * 60 * 1000;
         definedAliases = ["@nw"];
       };
+      programs.firefox.profiles.main.search.force = true;
       programs.firefox.profiles.main.search.order = ["DuckDuckGo" "Google"];
       programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
       programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
