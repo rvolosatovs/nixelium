@@ -46,7 +46,7 @@ in {
   options.nixelium.build.enable = mkEnableOption "`nix` remote build setup";
   options.nixelium.deploy.enable = mkEnableOption "`deploy-rs` setup";
   options.nixelium.profile.laptop.enable = mkEnableOption "laptop profile";
-  options.nixelium.secureboot.enable = mkEnableOption "secureboot profile";
+  options.nixelium.system.isVirtual = mkEnableOption "system virtualization";
 
   config = mkMerge [
     {
@@ -73,9 +73,19 @@ in {
         "/share/zsh"
       ];
 
+      fonts.fontconfig.allowBitmaps = true;
+      fonts.fontconfig.allowType1 = false;
+      fonts.fontconfig.antialias = true;
       fonts.fontconfig.defaultFonts.monospace = ["Fira Code" "FiraCode Nerd Font"];
       fonts.fontconfig.defaultFonts.sansSerif = ["Fira Sans"];
       fonts.fontconfig.defaultFonts.serif = ["Roboto Slab"];
+      fonts.fontconfig.hinting.enable = true;
+
+      hardware.bluetooth.settings.General.ControllerMode = "dual";
+      hardware.bluetooth.powerOnBoot = true;
+
+      hardware.trackpoint.sensitivity = 250;
+      hardware.trackpoint.speed = 120;
 
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
@@ -195,6 +205,10 @@ in {
       services.openssh.settings.X11Forwarding = true;
       services.openssh.startWhenNeeded = true;
 
+      services.printing.drivers = with pkgs; [
+        brlaser
+      ];
+
       services.tailscale.enable = true;
 
       sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
@@ -207,7 +221,7 @@ in {
         "tailscale0"
       ];
 
-      time.timeZone = "Europe/Zurich";
+      time.timeZone = mkDefault "Europe/Zurich";
 
       users.defaultUserShell = pkgs.zsh;
 
@@ -323,7 +337,6 @@ in {
         "armv6l-linux"
         "armv7l-linux"
         "wasm32-wasi"
-        "x86_64-windows"
       ];
 
       boot.initrd.luks.devices.luksroot.allowDiscards = true;
@@ -341,11 +354,7 @@ in {
       };
 
       fonts.enableDefaultFonts = true;
-      fonts.fontconfig.allowBitmaps = true;
-      fonts.fontconfig.allowType1 = false;
-      fonts.fontconfig.antialias = true;
       fonts.fontconfig.enable = true;
-      fonts.fontconfig.hinting.enable = true;
       fonts.fonts = [
         pkgs.fira
         pkgs.fira-code
@@ -357,21 +366,12 @@ in {
       ];
       fonts.fontDir.enable = true;
 
-      hardware.bluetooth.enable = true;
-      hardware.bluetooth.settings.General.ControllerMode = "dual";
-      hardware.bluetooth.powerOnBoot = true;
-
       hardware.opengl.enable = true;
 
       hardware.steam-hardware.enable = true;
 
-      hardware.trackpoint.sensitivity = 250;
-      hardware.trackpoint.speed = 120;
-
-      location.latitude = 46.3;
-      location.longitude = 7.5;
-
-      networking.wireless.iwd.enable = true;
+      location.latitude = mkDefault 46.3;
+      location.longitude = mkDefault 7.5;
 
       programs.adb.enable = true;
 
@@ -400,6 +400,7 @@ in {
       security.tpm2.tctiEnvironment.enable = true;
 
       security.rtkit.enable = true;
+
       security.unprivilegedUsernsClone = true;
 
       services.avahi.enable = true;
@@ -420,10 +421,12 @@ in {
 
       services.pcscd.enable = true;
 
+      services.pipewire.enable = true;
+      services.pipewire.alsa.enable = true;
+      services.pipewire.alsa.support32Bit = true;
+      services.pipewire.pulse.enable = true;
+
       services.printing.enable = true;
-      services.printing.drivers = with pkgs; [
-        brlaser
-      ];
 
       services.snapper.configs.home.ALLOW_USERS = [config.users.users.owner.name];
       services.snapper.configs.home.FREE_LIMIT = "0.3";
@@ -439,14 +442,7 @@ in {
       services.snapper.configs.root.TIMELINE_CLEANUP = true;
       services.snapper.configs.root.TIMELINE_CREATE = true;
 
-      services.pipewire.enable = true;
-      services.pipewire.alsa.enable = true;
-      services.pipewire.alsa.support32Bit = true;
-      services.pipewire.pulse.enable = true;
-
       services.snapper.snapshotRootOnBoot = true;
-
-      services.tlp.enable = true;
 
       services.udev.packages = with pkgs; [
         android-udev-rules
@@ -508,14 +504,6 @@ in {
 
       systemd.defaultUnit = "graphical.target";
 
-      systemd.services.audio-off.description = "Mute audio before suspend";
-      systemd.services.audio-off.enable = true;
-      systemd.services.audio-off.serviceConfig.ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
-      systemd.services.audio-off.serviceConfig.RemainAfterExit = true;
-      systemd.services.audio-off.serviceConfig.Type = "oneshot";
-      systemd.services.audio-off.serviceConfig.User = config.users.users.owner.name;
-      systemd.services.audio-off.wantedBy = ["sleep.target"];
-
       systemd.services.swap-backspace.description = "Swap backspace and \\";
       systemd.services.swap-backspace.enable = true;
       systemd.services.swap-backspace.script = ''
@@ -535,6 +523,28 @@ in {
         xdg-desktop-portal-gtk
       ];
       xdg.portal.wlr.enable = true;
+    })
+
+    (mkIf (cfg.profile.laptop.enable && pkgs.stdenv.hostPlatform.isx86_64) {
+      boot.binfmt.emulatedSystems = [
+        "x86_64-windows"
+      ];
+    })
+
+    (mkIf (cfg.profile.laptop.enable && !cfg.system.isVirtual) {
+      hardware.bluetooth.enable = true;
+
+      networking.wireless.iwd.enable = true;
+
+      services.tlp.enable = true;
+
+      systemd.services.audio-off.description = "Mute audio before suspend";
+      systemd.services.audio-off.enable = true;
+      systemd.services.audio-off.serviceConfig.ExecStart = "${pkgs.pamixer}/bin/pamixer --mute";
+      systemd.services.audio-off.serviceConfig.RemainAfterExit = true;
+      systemd.services.audio-off.serviceConfig.Type = "oneshot";
+      systemd.services.audio-off.serviceConfig.User = config.users.users.owner.name;
+      systemd.services.audio-off.wantedBy = ["sleep.target"];
     })
   ];
 }
