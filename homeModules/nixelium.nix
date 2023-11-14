@@ -1218,6 +1218,8 @@ in {
       home.packages = [
         osConfig.services.skhd.package
         osConfig.services.yabai.package
+
+        pkgs.utm
       ];
 
       programs.firefox.package = pkgs.firefox-bin;
