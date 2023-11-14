@@ -10,6 +10,7 @@ with nixlib.lib; let
   infrastructure = import ./infrastructure.nix inputs;
   install = import ./install.nix inputs;
   quake3 = import ./quake3.nix inputs;
+  scripts = import ./scripts.nix inputs;
 
   firefox-addons' = final: prev: {
     firefox-addons = firefox-addons.packages.${final.stdenv.hostPlatform.system};
@@ -81,6 +82,7 @@ in {
     install
     neovim
     quake3
+    scripts
     unstable
     ;
 
@@ -96,10 +98,13 @@ in {
     firefox
     firefox-addons'
     gopass
-    images
-    infrastructure
-    install
     neovim
     quake3
+
+    infrastructure
+    install
+    scripts
+
+    images
   ];
 }

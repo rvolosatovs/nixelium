@@ -246,6 +246,7 @@ in {
         pkgs.fd
         pkgs.file
         pkgs.findutils
+        pkgs.git-rebase-all
         pkgs.gnumake
         pkgs.jq
         pkgs.kitty.terminfo
