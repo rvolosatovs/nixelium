@@ -45,19 +45,29 @@ with nixlib.lib; let
     neovim = final.wrapNeovim final.neovim-unwrapped (import ./neovim inputs final);
   };
 
-  unstable = final: prev: {
+  unstable = final: prev: let
+    pkgsUnstable = nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system};
+  in {
     inherit
-      (nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system})
+      pkgsUnstable
+      ;
+
+    inherit
+      (pkgsUnstable)
       chromium
       eza
       fira-code-nerdfont
       firefox
+      firefox-bin
       firefox-unwrapped
       kitty
+      mullvad
+      mullvad-vpn
       neovim
       neovim-unwrapped
       skhd
       tinygo
+      utm
       yabai
       zig
       ;
