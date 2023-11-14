@@ -17,7 +17,6 @@
   inputs.firefox-addons.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.home-manager.url = "github:nix-community/home-manager/release-23.05";
   inputs.homebrew-bundle.flake = false;
   inputs.homebrew-bundle.url = "github:homebrew/homebrew-bundle";
@@ -40,9 +39,6 @@
   inputs.nixify.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.nixify.url = "github:rvolosatovs/nixify";
   inputs.nixlib.url = "github:nix-community/nixpkgs.lib";
-  inputs.nixos-generators.inputs.nixlib.follows = "nixlib";
-  inputs.nixos-generators.inputs.nixpkgs.follows = "nixpkgs-unstable";
-  inputs.nixos-generators.url = "github:nix-community/nixos-generators";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
   inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
   inputs.nixpkgs-firefox-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
@@ -106,7 +102,8 @@
             inherit
               (pkgs)
               host-key
-              install-iso
+              install-iso-aarch64-linux
+              install-iso-x86_64-linux
               neovim
               partition-osmium
               ssh-for-each

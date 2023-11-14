@@ -1,4 +1,9 @@
-{nixlib, ...}: let
+{
+  self,
+  nixlib,
+  nixpkgs-nixos,
+  ...
+}: let
   luaConstTableIndex = ''function(_,k) error("attempt to get '"..k.."'") end'';
   luaConstTableNewIndex = ''function(_,k,v) error("attempt to set '"..k.."' to '"..v.."'") end'';
 in
@@ -17,4 +22,25 @@ in
         then luaConstTable "{}"
         else throw "non-empty lists are not supported"
       else toJSON v;
+
+    mkNixosInstallIsoSystem = {
+      modules ? [],
+      nixpkgs ? nixpkgs-nixos,
+      system,
+    }:
+      nixpkgs-nixos.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ({pkgs, ...}: {
+            imports =
+              [
+                "${nixpkgs-nixos}/nixos/modules/installer/cd-dvd/channel.nix"
+                "${nixpkgs-nixos}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+
+                self.nixosModules.default
+              ]
+              ++ modules;
+          })
+        ];
+      };
   }
