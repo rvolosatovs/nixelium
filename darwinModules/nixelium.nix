@@ -16,30 +16,13 @@
   ...
 }:
 with nixlib.lib; let
-  cfg = config.nixelium;
-
   username = "rvolosatovs";
-
-  linuxSystem = replaceStrings ["darwin"] ["linux"] pkgs.stdenv.hostPlatform.system;
 in {
   imports = [
     home-manager.darwinModules.home-manager
     nix-homebrew.darwinModules.nix-homebrew
   ];
 
-  options.nixelium.linux-builder.system = mkOption {
-    description = "Linux QEMU system";
-    default = import "${nixpkgs-darwin}/nixos" {
-      configuration = {
-        imports = [
-          "${nixpkgs-darwin}/nixos/modules/profiles/macos-builder.nix"
-        ];
-        virtualisation.host.pkgs = pkgs;
-        nixpkgs.hostPlatform = linuxSystem;
-      };
-      system = null;
-    };
-  };
   options.nixelium.profile.laptop.enable = mkEnableOption "laptop profile";
 
   config = {
@@ -76,22 +59,6 @@ in {
     home-manager.useUserPackages = true;
     home-manager.users.${username} = self.homeModules.default;
 
-    launchd.daemons.linux-builder.command = "${cfg.linux-builder.system.config.system.build.macos-builder-installer}/bin/create-builder";
-    launchd.daemons.linux-builder.serviceConfig.KeepAlive = true;
-    launchd.daemons.linux-builder.serviceConfig.RunAtLoad = true;
-    launchd.daemons.linux-builder.serviceConfig.StandardOutPath = "/var/log/linux-builder.log";
-    launchd.daemons.linux-builder.serviceConfig.StandardErrorPath = "/var/log/linux-builder.log";
-
-    nix.distributedBuilds = true;
-    nix.buildMachines = [
-      {
-        hostName = "ssh://builder@localhost";
-        system = linuxSystem;
-        maxJobs = 4;
-        supportedFeatures = ["kvm" "benchmark" "big-parallel"];
-      }
-    ];
-
     networking.dns = [
       "2620:fe::fe"
       "2620:fe::9"
@@ -100,12 +67,16 @@ in {
     ];
 
     nix.configureBuildUsers = true;
+    nix.distributedBuilds = true;
     nix.extraOptions = concatStringsSep "\n" [
       "keep-outputs = true"
       "keep-derivations = true"
       "experimental-features = nix-command flakes"
     ];
     nix.gc.automatic = true;
+    nix.linux-builder.enable = mkDefault true;
+    nix.linux-builder.maxJobs = mkDefault 8;
+    nix.linux-builder.package = mkDefault pkgs.pkgsUnstable.darwin.linux-builder; # TODO: Remove in 23.11
     nix.registry.nixpkgs.flake = nixpkgs-darwin;
     nix.registry.nixpkgs.from.id = "nixpkgs";
     nix.registry.nixpkgs.from.type = "indirect";
