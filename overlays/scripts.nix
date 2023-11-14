@@ -1,7 +1,7 @@
 {self, ...}: let
   scripts = pkgs: _: {
     git-rebase-all = pkgs.writeShellScriptBin "git-rebase-all" ''
-      set -xe
+      set -e
 
       base=''${1:-main}
       for b in $(${pkgs.git}/bin/git for-each-ref --no-contains "''${base}" refs/heads --format '%(refname:lstrip=2)'); do
