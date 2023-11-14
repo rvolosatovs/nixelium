@@ -259,7 +259,6 @@ in {
         pkgs.rclone
         pkgs.ripgrep
         pkgs.shellcheck
-        pkgs.spotify
         pkgs.tcpdump
         pkgs.tree
         pkgs.unzip
@@ -1245,6 +1244,7 @@ in {
             pkgs.gopass
             pkgs.imv
             pkgs.julia
+            pkgs.spotify
             pkgs.yubikey-manager
             pkgs.yubikey-personalization
             pkgs.zig
