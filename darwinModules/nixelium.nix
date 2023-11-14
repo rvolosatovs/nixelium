@@ -246,7 +246,6 @@ in {
           hostName = "osmium.ghost-ordinal.ts.net";
           maxJobs = 8;
           protocol = "ssh-ng";
-          speedFactor = 2;
           sshKey = "${config.users.users.root.home}/.ssh/id_osmium_nix";
           sshUser = "nix";
           supportedFeatures = [
