@@ -62,6 +62,8 @@ with nixlib.lib; let
       firefox-bin
       firefox-unwrapped
       kitty
+      lima
+      lima-bin
       mullvad
       mullvad-vpn
       neovim

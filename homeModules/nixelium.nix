@@ -1221,6 +1221,7 @@ in {
         osConfig.services.skhd.package
         osConfig.services.yabai.package
 
+        pkgs.lima
         pkgs.utm
       ];
 
