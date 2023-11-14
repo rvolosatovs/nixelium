@@ -17,6 +17,9 @@
   inputs.firefox-addons.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.home-manager-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
+  inputs.home-manager-unstable.url = "github:nix-community/home-manager/master";
+  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs-nixos";
   inputs.home-manager.url = "github:nix-community/home-manager/release-23.05";
   inputs.homebrew-bundle.flake = false;
   inputs.homebrew-bundle.url = "github:homebrew/homebrew-bundle";
@@ -29,6 +32,8 @@
   inputs.koekeishiya-formulae.flake = false;
   inputs.koekeishiya-formulae.url = "github:koekeishiya/homebrew-formulae";
   inputs.lanzaboote.url = "github:nix-community/lanzaboote";
+  inputs.lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
+  inputs.lanzaboote.inputs.flake-utils.follows = "flake-utils";
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nix-darwin.url = "github:LnL7/nix-darwin";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
@@ -45,12 +50,12 @@
   inputs.nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.sops-nix.inputs.nixpkgs-stable.follows = "nixpkgs-nixos";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
 
   outputs = inputs @ {
     self,
-    nixpkgs,
     nixify,
     ...
   }:
@@ -106,6 +111,7 @@
               install-iso-x86_64-linux
               neovim
               partition-osmium
+              partition-phosphorus
               ssh-for-each
               ;
           };
