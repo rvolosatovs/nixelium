@@ -111,7 +111,6 @@
               install-iso-x86_64-linux
               neovim
               partition-osmium
-              partition-phosphorus
               ssh-for-each
               ;
           };
