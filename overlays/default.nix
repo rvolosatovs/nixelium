@@ -70,7 +70,11 @@ with nixlib.lib; let
       neovim-unwrapped
       skhd
       tinygo
+      tree-sitter
+      tree-sitter-grammars
       utm
+      vimPlugins
+      vimUtils
       yabai
       zig
       ;
