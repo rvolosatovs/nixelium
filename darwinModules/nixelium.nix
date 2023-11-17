@@ -63,6 +63,7 @@ in {
         "slack"
         "zoom"
       ];
+      homebrew.caskArgs.require_sha = true;
       homebrew.enable = true;
 
       home-manager.useGlobalPkgs = true;
