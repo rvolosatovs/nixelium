@@ -59,6 +59,7 @@ in {
       homebrew.casks = [
         "chromium"
         "mac-mouse-fix"
+        "maccy"
         "notunes"
         "slack"
         "zoom"
