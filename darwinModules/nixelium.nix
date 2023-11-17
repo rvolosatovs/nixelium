@@ -1,9 +1,11 @@
 {
   self,
+  felixkratz-formulae,
   home-manager,
   homebrew-bundle,
   homebrew-cask,
   homebrew-core,
+  homebrew-services,
   koekeishiya-formulae,
   nix-homebrew,
   nixlib,
@@ -47,6 +49,13 @@ in {
       ];
       fonts.fontDir.enable = true;
 
+      homebrew.brews = [
+        {
+          name = "felixkratz/formulae/borders";
+          start_service = true;
+          restart_service = "changed";
+        }
+      ];
       homebrew.casks = [
         "chromium"
         "mac-mouse-fix"
@@ -117,9 +126,11 @@ in {
       nix-homebrew.enable = true;
       nix-homebrew.enableRosetta = true;
       nix-homebrew.mutableTaps = false;
+      nix-homebrew.taps."felixkratz/homebrew-formulae" = felixkratz-formulae;
       nix-homebrew.taps."homebrew/homebrew-bundle" = homebrew-bundle;
       nix-homebrew.taps."homebrew/homebrew-cask" = homebrew-cask;
       nix-homebrew.taps."homebrew/homebrew-core" = homebrew-core;
+      nix-homebrew.taps."homebrew/homebrew-services" = homebrew-services;
       nix-homebrew.taps."koekeishiya/homebrew-formulae" = koekeishiya-formulae;
       nix-homebrew.user = username;
 

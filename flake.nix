@@ -12,6 +12,8 @@
 
   inputs.base16-shell.flake = false;
   inputs.base16-shell.url = "github:chriskempson/base16-shell";
+  inputs.felixkratz-formulae.flake = false;
+  inputs.felixkratz-formulae.url = "github:FelixKratz/homebrew-formulae";
   inputs.fenix.url = "github:nix-community/fenix";
   inputs.firefox-addons.inputs.flake-utils.follows = "flake-utils";
   inputs.firefox-addons.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -27,13 +29,15 @@
   inputs.homebrew-cask.url = "github:homebrew/homebrew-cask";
   inputs.homebrew-core.flake = false;
   inputs.homebrew-core.url = "github:homebrew/homebrew-core";
+  inputs.homebrew-services.flake = false;
+  inputs.homebrew-services.url = "github:homebrew/homebrew-services";
   inputs.ioquake3-mac-install.flake = false;
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
   inputs.koekeishiya-formulae.flake = false;
   inputs.koekeishiya-formulae.url = "github:koekeishiya/homebrew-formulae";
-  inputs.lanzaboote.url = "github:nix-community/lanzaboote";
-  inputs.lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.lanzaboote.inputs.flake-utils.follows = "flake-utils";
+  inputs.lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
+  inputs.lanzaboote.url = "github:nix-community/lanzaboote";
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nix-darwin.url = "github:LnL7/nix-darwin";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
