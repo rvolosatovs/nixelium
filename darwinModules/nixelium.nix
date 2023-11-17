@@ -180,6 +180,7 @@ in {
 
         cmd + ctrl - g          : ${config.services.yabai.package}/bin/yabai -m window --toggle float
         cmd + ctrl - e          : ${config.services.yabai.package}/bin/yabai -m window --toggle split
+        cmd + ctrl - w          : ${config.services.yabai.package}/bin/yabai -m window --toggle zoom-parent
 
         cmd + ctrl - h          : ${config.services.yabai.package}/bin/yabai -m window --focus west
         cmd + ctrl - j          : ${config.services.yabai.package}/bin/yabai -m window --focus south
