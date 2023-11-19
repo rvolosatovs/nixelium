@@ -50,7 +50,10 @@ in {
         }
       ];
       homebrew.casks = [
-        "chromium"
+        {
+          name = "chromium";
+          args.require_sha = false;
+        }
         "mac-mouse-fix"
         "maccy"
         "notunes"
