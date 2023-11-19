@@ -141,12 +141,7 @@ in {
 
       services.skhd.enable = true;
       services.skhd.skhdConfig = ''
-        # TODO: Reenable once it actually works ???
-        #ctrl - 1                : ${config.services.yabai.package}/bin/yabai -m space --focus 1
-        #ctrl - 2                : ${config.services.yabai.package}/bin/yabai -m space --focus 2
-        #ctrl - 3                : ${config.services.yabai.package}/bin/yabai -m space --focus 3
-        #ctrl - 4                : ${config.services.yabai.package}/bin/yabai -m space --focus 4
-        #ctrl - 5                : ${config.services.yabai.package}/bin/yabai -m space --focus 5
+        # NOTE: First five are handled by MacOS
         ctrl - 6                : ${config.services.yabai.package}/bin/yabai -m space --focus 6
         ctrl - 7                : ${config.services.yabai.package}/bin/yabai -m space --focus 7
         ctrl - 8                : ${config.services.yabai.package}/bin/yabai -m space --focus 8
@@ -166,7 +161,7 @@ in {
 
         cmd + ctrl - g          : ${config.services.yabai.package}/bin/yabai -m window --toggle float
         cmd + ctrl - e          : ${config.services.yabai.package}/bin/yabai -m window --toggle split
-        cmd + ctrl - w          : ${config.services.yabai.package}/bin/yabai -m window --toggle zoom-parent
+        cmd + ctrl - w          : ${config.services.yabai.package}/bin/yabai -m window --toggle zoom-fullscreen
 
         cmd + ctrl - h          : ${config.services.yabai.package}/bin/yabai -m window --focus west
         cmd + ctrl - j          : ${config.services.yabai.package}/bin/yabai -m window --focus south
@@ -197,6 +192,8 @@ in {
 
         ${config.services.yabai.package}/bin/yabai -m rule --add title="^Preferences$" manage=off
         ${config.services.yabai.package}/bin/yabai -m rule --add title="^Settings$" manage=off
+
+        borders style=square
       '';
 
       system.defaults.dock.autohide = true;
