@@ -307,10 +307,14 @@ end
 rust_tools.setup {
     server = {
         capabilities = capabilities,
-        on_attach = on_attach,
+        on_attach = function(client, bufnr)
+            on_attach(client, bufnr)
+            rust_tools.inlay_hints.set()
+        end,
         cmd = { paths.bin['rust-analyzer'] },
     }
 }
+rust_tools.inlay_hints.enable()
 
 local lspconfig = require('lspconfig')
 lspconfig.bashls.setup {
