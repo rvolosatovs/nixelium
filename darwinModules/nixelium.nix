@@ -54,6 +54,7 @@ in {
           name = "chromium";
           args.require_sha = false;
         }
+        "keybase"
         "mac-mouse-fix"
         "maccy"
         "notunes"
