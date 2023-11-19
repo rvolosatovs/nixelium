@@ -1,13 +1,6 @@
 {
   self,
-  felixkratz-formulae,
   home-manager,
-  homebrew-bundle,
-  homebrew-cask,
-  homebrew-core,
-  homebrew-services,
-  koekeishiya-formulae,
-  nix-homebrew,
   nixlib,
   nixpkgs-darwin,
   nixpkgs-firefox-darwin,
@@ -22,7 +15,6 @@ with nixlib.lib; let
 in {
   imports = [
     home-manager.darwinModules.home-manager
-    nix-homebrew.darwinModules.nix-homebrew
   ];
 
   options.nixelium.profile.laptop.enable = mkEnableOption "laptop profile";
@@ -34,6 +26,7 @@ in {
         "/share/bash-completion"
         "/share/zsh"
       ];
+      environment.shellInit = "eval $(brew shellenv)";
       environment.systemPath = [
         "/opt/homebrew/bin"
       ];
@@ -124,17 +117,6 @@ in {
 
         nixpkgs-firefox-darwin.overlay
       ];
-
-      nix-homebrew.enable = true;
-      nix-homebrew.enableRosetta = true;
-      nix-homebrew.mutableTaps = false;
-      nix-homebrew.taps."felixkratz/homebrew-formulae" = felixkratz-formulae;
-      nix-homebrew.taps."homebrew/homebrew-bundle" = homebrew-bundle;
-      nix-homebrew.taps."homebrew/homebrew-cask" = homebrew-cask;
-      nix-homebrew.taps."homebrew/homebrew-core" = homebrew-core;
-      nix-homebrew.taps."homebrew/homebrew-services" = homebrew-services;
-      nix-homebrew.taps."koekeishiya/homebrew-formulae" = koekeishiya-formulae;
-      nix-homebrew.user = username;
 
       programs.bash.enable = true;
       programs.bash.enableCompletion = true;
