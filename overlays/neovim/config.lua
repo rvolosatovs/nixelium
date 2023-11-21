@@ -9,7 +9,6 @@ local cmp_lsp = require('cmp_nvim_lsp')
 local illuminate = require('illuminate')
 local indent_blankline = require('ibl')
 local luasnip = require('luasnip')
-local rust_tools = require('rust-tools')
 local treesitter = require('nvim-treesitter.configs')
 
 --- Functions
@@ -304,18 +303,6 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
 end
 
-rust_tools.setup {
-    server = {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-            on_attach(client, bufnr)
-            rust_tools.inlay_hints.set()
-        end,
-        cmd = { paths.bin['rust-analyzer'] },
-    }
-}
-rust_tools.inlay_hints.enable()
-
 local lspconfig = require('lspconfig')
 lspconfig.bashls.setup {
     capabilities = capabilities,
@@ -380,21 +367,6 @@ lspconfig.julials.setup {
         },
     },
 }
-lspconfig.omnisharp.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-    cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
-}
-lspconfig.nil_ls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-    cmd = { paths.bin['nil'] },
-    settings = {
-        ['nil'] = {
-            formatting = { command = { paths.bin['alejandra'] } }
-        }
-    }
-}
 lspconfig.lua_ls.setup {
     capabilities = capabilities,
     cmd = { paths.bin['lua-language-server'] },
@@ -420,6 +392,31 @@ lspconfig.lua_ls.setup {
         end
         return true
     end
+}
+lspconfig.nil_ls.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = { paths.bin['nil'] },
+    settings = {
+        ['nil'] = {
+            formatting = { command = { paths.bin['alejandra'] } }
+        }
+    }
+}
+lspconfig.omnisharp.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
+}
+lspconfig.rust_analyzer.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = { paths.bin['rust-analyzer'] },
+    settings = {
+        ['rust-analyzer'] = {
+            imports = { preferNoStd = true }
+        }
+    }
 }
 
 --- Diagnostics

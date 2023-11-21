@@ -39,7 +39,6 @@ inputs: pkgs @ {vimPlugins, ...}: {
     julia-vim
     nerdcommenter
     nvim-web-devicons
-    rust-tools-nvim
     rust-vim
     vim-abolish
     vim-airline
