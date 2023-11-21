@@ -49,30 +49,24 @@ with nixlib.lib; let
   unstable = final: prev: let
     pkgsUnstable = nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system};
 
-    # based on https://github.com/NixOS/nix/issues/3920#issuecomment-1168041777
-    nixpkgs-unstable-patched-src = final.applyPatches {
-      name = "nixpkgs-patched-${nixpkgs-unstable.shortRev}";
-      src = nixpkgs-unstable;
-      patches = [
-        (
-          final.fetchpatch {
-            url = "https://github.com/NixOS/nixpkgs/pull/268071.patch";
-            sha256 = "sha256-78NEp4Hr1hI2K6wNp1W9lUgv9bVgH9DWyySrw8rzY1Q=";
-          }
-        )
-        (
-          final.fetchpatch {
-            url = "https://github.com/NixOS/nixpkgs/pull/268485.patch";
-            sha256 = "sha256-+DVqJXixL5D850lQfUtKJE0+diL6nGulUhn3UV1DqG8=";
-          }
-        )
-      ];
-    };
-    nixpkgs-unstable-patched = fix (self:
-      (import "${nixpkgs-unstable-patched-src}/flake.nix").outputs {
-        inherit self;
-      });
-    pkgsUnstablePatched = nixpkgs-unstable-patched.legacyPackages.${final.stdenv.hostPlatform.system};
+    ## based on https://github.com/NixOS/nix/issues/3920#issuecomment-1168041777
+    #nixpkgs-unstable-patched-src = final.applyPatches {
+    #  name = "nixpkgs-patched-${nixpkgs-unstable.shortRev}";
+    #  src = nixpkgs-unstable;
+    #  patches = [
+    #    (
+    #      final.fetchpatch {
+    #        url = "https://github.com/NixOS/nixpkgs/pull/268485.patch";
+    #        sha256 = "sha256-+DVqJXixL5D850lQfUtKJE0+diL6nGulUhn3UV1DqG8=";
+    #      }
+    #    )
+    #  ];
+    #};
+    #nixpkgs-unstable-patched = fix (self:
+    #  (import "${nixpkgs-unstable-patched-src}/flake.nix").outputs {
+    #    inherit self;
+    #  });
+    #pkgsUnstablePatched = nixpkgs-unstable-patched.legacyPackages.${final.stdenv.hostPlatform.system};
   in {
     inherit
       pkgsUnstable
@@ -95,20 +89,15 @@ with nixlib.lib; let
       neovim
       neovim-unwrapped
       rust-analyzer
+      skhd
       tinygo
       tree-sitter
       tree-sitter-grammars
       utm
+      vimPlugins
       vimUtils
       yabai
       zig
-      ;
-
-    # TODO: Use upstream directly
-    inherit
-      (pkgsUnstablePatched)
-      skhd
-      vimPlugins
       ;
   };
 in {
