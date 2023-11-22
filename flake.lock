@@ -115,11 +115,11 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1700547770,
-        "narHash": "sha256-dN/j67tAzK8tZUxLoPBkQhLlAOzOpaQ0Y8dI7B4Al1E=",
+        "lastModified": 1700634196,
+        "narHash": "sha256-isiaNN8rRC1Lg94VBX/jEp81ySPJdbsaCq46qYv2eBQ=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "eea8e81ef5d410b2c9bef8bc90d18188a379958b",
+        "rev": "d37c158257d4950513e25aac8debe81d88a49b97",
         "type": "github"
       },
       "original": {
@@ -185,11 +185,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1700553443,
-        "narHash": "sha256-ssMfZ+WjOP9McDo8oyo4WPQ2AHigxKHC5W2mH/EzBIs=",
+        "lastModified": 1700625759,
+        "narHash": "sha256-aKKnrOpAUnLILxuC1WdazwpvamJg5vPSDxE/HnTsGQU=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "21c48821a1e90fce0cb700f1cf0547402daf0abd",
+        "rev": "e1f726b4a477e5fde7e95dc939a738c0af949a7a",
         "type": "gitlab"
       },
       "original": {
@@ -422,6 +422,32 @@
       "original": {
         "type": "tarball",
         "url": "https://github.com/roblabla/MacOSX-SDKs/releases/download/macosx14.0/MacOSX14.0.sdk.tar.xz"
+      }
+    },
+    "neovim": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "dir": "contrib",
+        "lastModified": 1700622420,
+        "narHash": "sha256-mYYiw1TMUHmeogeOkf4TiaGf3/alGgyv5QDHjGWxKUU=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "8c6b0a5f21d5f0cf3781ef2b6fdbb306d5604a02",
+        "type": "github"
+      },
+      "original": {
+        "dir": "contrib",
+        "owner": "neovim",
+        "ref": "nightly",
+        "repo": "neovim",
+        "type": "github"
       }
     },
     "nix-darwin": {
@@ -657,11 +683,11 @@
     },
     "nixpkgs-darwin": {
       "locked": {
-        "lastModified": 1700501263,
-        "narHash": "sha256-M0U063Ba2DKL4lMYI7XW13Rsk5tfUXnIYiAVa39AV/0=",
+        "lastModified": 1700565382,
+        "narHash": "sha256-fn7daU1uz0BDWyRmOqm1N8rvnGCYB0kHjzKB5MeG2P8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f741f8a839912e272d7e87ccf4b9dbc6012cdaf9",
+        "rev": "767986a42765f97edb87e9134133cb3057fcecb3",
         "type": "github"
       },
       "original": {
@@ -678,11 +704,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1699663243,
-        "narHash": "sha256-Plj2ypGV/5714enFtb4O5c3vXKvHUzoksgRx3zFmIJ4=",
+        "lastModified": 1700613890,
+        "narHash": "sha256-iC5jsPO6oFVYvbfXlIwRz19s75crtLdhnG3HO7GXc34=",
         "owner": "bandithedoge",
         "repo": "nixpkgs-firefox-darwin",
-        "rev": "63df8ec2d300da9912ae5b56b74e7aa574b6de0c",
+        "rev": "49f5e98664ee15a70c0ef9d1c298b9a110e486d6",
         "type": "github"
       },
       "original": {
@@ -812,6 +838,7 @@
         "home-manager-unstable": "home-manager-unstable",
         "ioquake3-mac-install": "ioquake3-mac-install",
         "lanzaboote": "lanzaboote",
+        "neovim": "neovim",
         "nix-darwin": "nix-darwin",
         "nix-flake-tests": "nix-flake-tests",
         "nixify": "nixify",
@@ -827,11 +854,11 @@
     "rust-analyzer-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1700502585,
-        "narHash": "sha256-e+67TsyI2akFHITDD+gz1Paf7vY3mH5mRnZq5Md8VfA=",
+        "lastModified": 1700578757,
+        "narHash": "sha256-MvoN+gR/UbbVpKBCHw+nnvOf0m9bPDUNFtxJdHaMv/4=",
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "1a5cee17311fa0bb55757b382be918520b6ac2b4",
+        "rev": "45136511a5b4f6b216aba371f541fb2251868c2b",
         "type": "github"
       },
       "original": {

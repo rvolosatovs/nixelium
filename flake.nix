@@ -32,6 +32,9 @@
   inputs.lanzaboote.inputs.flake-utils.follows = "flake-utils";
   inputs.lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.lanzaboote.url = "github:nix-community/lanzaboote";
+  inputs.neovim.inputs.flake-utils.follows = "flake-utils";
+  inputs.neovim.inputs.nixpkgs.follows = "nixpkgs-unstable";
+  inputs.neovim.url = "github:neovim/neovim/nightly?dir=contrib";
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nix-darwin.url = "github:LnL7/nix-darwin";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";

@@ -1,12 +1,9 @@
 --- Imports
 
-require('lsp_extensions')
-
 telescope = require('telescope.builtin')
 
 local cmp = require('cmp')
 local cmp_lsp = require('cmp_nvim_lsp')
-local illuminate = require('illuminate')
 local indent_blankline = require('ibl')
 local luasnip = require('luasnip')
 local treesitter = require('nvim-treesitter.configs')
@@ -32,8 +29,8 @@ function goimports(bufnr, timeoutms)
     vim.lsp.buf.format { async = true }
 end
 
-function noremap_lua_buf(bufnr, bind, command)
-    vim.api.nvim_buf_set_keymap(bufnr, "", bind, '<cmd>lua ' .. command .. '<cr>', { noremap = true })
+function map_lua_buf(bufnr, bind, command)
+    vim.keymap.set('n', bind, '<cmd>lua ' .. command .. '<cr>', { buffer = bufnr })
 end
 
 --- Options
@@ -265,63 +262,65 @@ treesitter.setup {
 
 --- LSP
 
-local capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local on_attach = function(client, bufnr)
-    print('LSP loaded.')
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        print('LSP loaded.')
 
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(ev.buf, true)
+        else
+            print("no inlay hints available")
+        end
+        vim.g.diagnostics_visible = true
 
-    illuminate.on_attach(client)
+        for k, fn in pairs({
+            ['<C-]>']      = 'telescope.lsp_definitions()',
+            ['<C-k>']      = 'vim.lsp.buf.signature_help()',
+            ['<leader>a']  = 'vim.lsp.buf.code_action()',
+            ['<leader>A']  = 'vim.lsp.buf.range_code_action()',
+            ['<leader>dd'] = 'telescope.diagnostics()',
+            ['<leader>dl'] = 'vim.lsp.diagnostic.set_loclist()',
+            ['<leader>f']  = 'vim.lsp.buf.format{ async = true }',
+            ['<leader>r']  = 'vim.lsp.buf.rename()',
+            ['<leader>sa'] = 'vim.lsp.buf.add_workspace_folder()',
+            ['<leader>sl'] = 'print(vim.inspect(vim.lsp.buf.list_workspace_folders()))',
+            ['<leader>sr'] = 'vim.lsp.buf.remove_workspace_folder()',
+            ['[d']         = 'vim.lsp.diagnostic.goto_prev()',
+            [']d']         = 'vim.lsp.diagnostic.goto_next()',
+            ['gc']         = 'vim.lsp.buf.incoming_calls()',
+            ['gC']         = 'vim.lsp.buf.outgoing_calls()',
+            ['gd']         = 'telescope.lsp_implementations()',
+            ['gD']         = 'vim.lsp.buf.declaration()',
+            ['gr']         = 'telescope.lsp_references()',
+            ['gs']         = 'telescope.lsp_document_symbols()',
+            ['gS']         = 'telescope.lsp_dynamic_workspace_symbols()',
+            ['gT']         = 'vim.lsp.buf.type_definition()',
+        }) do
+            map_lua_buf(ev.buf, k, fn)
+        end
 
-    for k, fn in pairs({
-        ['<C-]>']      = 'telescope.lsp_definitions()',
-        ['<C-k>']      = 'vim.lsp.buf.signature_help()',
-        ['<leader>a']  = 'vim.lsp.buf.code_action()',
-        ['<leader>A']  = 'vim.lsp.buf.range_code_action()',
-        ['<leader>dd'] = 'telescope.diagnostics()',
-        ['<leader>dl'] = 'vim.lsp.diagnostic.set_loclist()',
-        ['<leader>f']  = 'vim.lsp.buf.format{ async = true }',
-        ['<leader>r']  = 'vim.lsp.buf.rename()',
-        ['<leader>sa'] = 'vim.lsp.buf.add_workspace_folder()',
-        ['<leader>sl'] = 'print(vim.inspect(vim.lsp.buf.list_workspace_folders()))',
-        ['<leader>sr'] = 'vim.lsp.buf.remove_workspace_folder()',
-        ['[d']         = 'vim.lsp.diagnostic.goto_prev()',
-        [']d']         = 'vim.lsp.diagnostic.goto_next()',
-        ['gc']         = 'vim.lsp.buf.incoming_calls()',
-        ['gC']         = 'vim.lsp.buf.outgoing_calls()',
-        ['gd']         = 'telescope.lsp_implementations()',
-        ['gD']         = 'vim.lsp.buf.declaration()',
-        ['gr']         = 'telescope.lsp_references()',
-        ['gs']         = 'telescope.lsp_document_symbols()',
-        ['gS']         = 'telescope.lsp_dynamic_workspace_symbols()',
-        ['gT']         = 'vim.lsp.buf.type_definition()',
-        ['K']          = 'vim.lsp.buf.hover()',
-    }) do
-        noremap_lua_buf(bufnr, k, fn)
-    end
-
-    vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
-end
+        vim.api.nvim_command [[ hi def link LspReferenceText CursorLine ]]
+    end,
+})
 
 local lspconfig = require('lspconfig')
+local capabilities = cmp_lsp.default_capabilities()
 lspconfig.bashls.setup {
     capabilities = capabilities,
-    on_attach = on_attach,
     cmd = { paths.bin['bash-language-server'], 'start' },
 }
 lspconfig.clangd.setup {
     capabilities = capabilities,
-    on_attach = on_attach,
     cmd = { paths.bin['clangd'], '--background-index' },
 }
 lspconfig.dockerls.setup {
     capabilities = capabilities,
-    on_attach = on_attach,
     cmd = { paths.bin['docker-langserver'], '--stdio' },
 }
 lspconfig.elmls.setup {
     capabilities = capabilities,
-    on_attach = on_attach,
     cmd = { paths.bin['elm-language-server'] },
     settings = {
         elmLS = {
@@ -333,13 +332,11 @@ lspconfig.elmls.setup {
 }
 lspconfig.gdscript.setup {
     capabilities = capabilities,
-    on_attach = on_attach,
 }
 lspconfig.gopls.setup {
     capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-        noremap_lua_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
+    on_attach = function(_, bufnr)
+        map_lua_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
     end,
     cmd = { paths.bin['gopls'], 'serve' },
     settings = {
@@ -355,12 +352,10 @@ lspconfig.gopls.setup {
 }
 lspconfig.hls.setup {
     capabilities = capabilities,
-    on_attach = on_attach,
     cmd = { paths.bin['haskell-language-server'], '--lsp' },
 }
 lspconfig.julials.setup {
     capabilities = capabilities,
-    on_attach = on_attach,
     settings = {
         julia = {
             executablePath = paths.bin['julia'],
@@ -370,7 +365,6 @@ lspconfig.julials.setup {
 lspconfig.lua_ls.setup {
     capabilities = capabilities,
     cmd = { paths.bin['lua-language-server'] },
-    on_attach = on_attach,
     on_init = function(client)
         local path = client.workspace_folders[1].name
         if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
@@ -395,7 +389,6 @@ lspconfig.lua_ls.setup {
 }
 lspconfig.nil_ls.setup {
     capabilities = capabilities,
-    on_attach = on_attach,
     cmd = { paths.bin['nil'] },
     settings = {
         ['nil'] = {
@@ -405,12 +398,10 @@ lspconfig.nil_ls.setup {
 }
 lspconfig.omnisharp.setup {
     capabilities = capabilities,
-    on_attach = on_attach,
     cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
 }
 lspconfig.rust_analyzer.setup {
     capabilities = capabilities,
-    on_attach = on_attach,
     cmd = { paths.bin['rust-analyzer'] },
     settings = {
         ['rust-analyzer'] = {

@@ -1,5 +1,6 @@
 inputs @ {
   fenix,
+  neovim,
   nixlib,
   nixpkgs-unstable,
   firefox-addons,
@@ -42,13 +43,12 @@ with nixlib.lib; let
     };
   };
 
-  neovim = final: prev: {
-    neovim = final.wrapNeovim final.neovim-unwrapped (import ./neovim inputs final);
+  neovim' = final: prev: {
+    neovim = final.wrapNeovim neovim.packages.${final.stdenv.hostPlatform.system}.neovim (import ./neovim inputs final);
   };
 
   unstable = final: prev: let
     pkgsUnstable = nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system};
-
     ## based on https://github.com/NixOS/nix/issues/3920#issuecomment-1168041777
     #nixpkgs-unstable-patched-src = final.applyPatches {
     #  name = "nixpkgs-patched-${nixpkgs-unstable.shortRev}";
@@ -96,6 +96,8 @@ with nixlib.lib; let
       utm
       vimPlugins
       vimUtils
+      wrapFirefox
+      wrapNeovim
       yabai
       zig
       ;
@@ -107,11 +109,13 @@ in {
     images
     infrastructure
     install
-    neovim
     quake3
     scripts
     unstable
     ;
+
+  neovim = neovim';
+  neovim-nightly = neovim.overlay;
 
   firefox-addons = firefox-addons';
 
@@ -125,7 +129,7 @@ in {
     firefox
     firefox-addons'
     gopass
-    neovim
+    neovim'
     quake3
 
     infrastructure

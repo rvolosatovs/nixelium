@@ -6,7 +6,6 @@ inputs: pkgs @ {vimPlugins, ...}: {
   ];
   configure.packages.plugins.start = with vimPlugins; [
     nvim-lspconfig
-    lsp_extensions-nvim
 
     plenary-nvim
 
@@ -34,7 +33,6 @@ inputs: pkgs @ {vimPlugins, ...}: {
     auto-pairs
     base16-vim
     editorconfig-vim
-    gitv
     indent-blankline-nvim
     julia-vim
     nerdcommenter
