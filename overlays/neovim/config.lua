@@ -82,6 +82,33 @@ vim.g.mapleader = ' '
 
 vim.api.nvim_command [[ autocmd TextYankPost * silent! lua require('highlight').on_yank('IncSearch', 500, vim.v.event) ]]
 
+-- Link LSP semantic highlight groups to TreeSitter token groups
+for lsp, link in pairs({
+    ['@lsp.type.class'] = '@type',
+    ['@lsp.type.decorator'] = '@function',
+    ['@lsp.type.enum'] = '@type',
+    ['@lsp.type.enumMember'] = '@constant',
+    ['@lsp.type.function'] = '@function',
+    ['@lsp.type.interface'] = '@type',
+    ['@lsp.type.macro'] = '@macro',
+    ['@lsp.type.method'] = '@method',
+    ['@lsp.type.namespace'] = '@namespace',
+    ['@lsp.type.parameter'] = '@parameter',
+    ['@lsp.type.property'] = '@property',
+    ['@lsp.type.struct'] = '@structure',
+    ['@lsp.type.type'] = '@type',
+    ['@lsp.type.variable'] = '@variable',
+}) do
+    vim.api.nvim_set_hl(0, lsp, { link = link, default = true })
+end
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+    callback = function()
+        vim.api.nvim_set_hl(0, '@lsp.mod.deprecated', { strikethrough = true })
+        vim.api.nvim_set_hl(0, '@lsp.mod.readonly', { italic = true })
+    end
+})
+
 --- Keybindings
 
 local cmd = function(v) return '<cmd>' .. v .. '<cr>' end
