@@ -26,7 +26,7 @@
   inputs.home-manager-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.home-manager-unstable.url = "github:nix-community/home-manager/master";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs-nixos";
-  inputs.home-manager.url = "github:nix-community/home-manager/release-23.05";
+  inputs.home-manager.url = "github:nix-community/home-manager/release-23.11";
   inputs.ioquake3-mac-install.flake = false;
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
   inputs.lanzaboote.inputs.flake-utils.follows = "flake-utils";
@@ -43,10 +43,10 @@
   inputs.nixify.url = "github:rvolosatovs/nixify";
   inputs.nixlib.url = "github:nix-community/nixpkgs.lib";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
-  inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
+  inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
   inputs.nixpkgs-firefox-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
-  inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-23.05";
+  inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-23.11";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.sops-nix.inputs.nixpkgs-stable.follows = "nixpkgs-nixos";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";

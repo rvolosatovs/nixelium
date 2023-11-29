@@ -217,7 +217,7 @@ in {
 
       sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
-      system.stateVersion = "23.05";
+      system.stateVersion = "23.11";
 
       systemd.network.wait-online.anyInterface = true;
       systemd.network.wait-online.ignoredInterfaces = [
@@ -358,9 +358,10 @@ in {
         fsType = "vfat";
       };
 
-      fonts.enableDefaultFonts = true;
+      fonts.enableDefaultPackages = true;
       fonts.fontconfig.enable = true;
-      fonts.fonts = [
+      fonts.fontDir.enable = true;
+      fonts.packages = [
         pkgs.fira
         pkgs.fira-code
         pkgs.fira-code-nerdfont
@@ -369,7 +370,6 @@ in {
         pkgs.font-awesome
         pkgs.roboto-slab
       ];
-      fonts.fontDir.enable = true;
 
       hardware.opengl.enable = true;
 
