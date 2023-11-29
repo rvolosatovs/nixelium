@@ -90,6 +90,7 @@ with nixlib.lib; let
       neovim-unwrapped
       rust-analyzer
       skhd
+      thunderbird
       tinygo
       tree-sitter
       tree-sitter-grammars
