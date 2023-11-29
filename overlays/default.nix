@@ -47,6 +47,13 @@ with nixlib.lib; let
     neovim = final.wrapNeovim neovim.packages.${final.stdenv.hostPlatform.system}.neovim (import ./neovim inputs final);
   };
 
+  rust-analyzer = final: prev: {
+    inherit
+      (fenix.packages.${prev.stdenv.hostPlatform.system})
+      rust-analyzer
+      ;
+  };
+
   unstable = final: prev: let
     pkgsUnstable = nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system};
     ## based on https://github.com/NixOS/nix/issues/3920#issuecomment-1168041777
@@ -111,6 +118,7 @@ in {
     infrastructure
     install
     quake3
+    rust-analyzer
     scripts
     unstable
     ;
@@ -126,6 +134,7 @@ in {
     unstable
 
     fenix.overlays.default
+    rust-analyzer
 
     firefox
     firefox-addons'
