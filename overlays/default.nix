@@ -81,32 +81,132 @@ with nixlib.lib; let
 
     inherit
       (pkgsUnstable)
+      act
+      alacritty
+      alejandra
+      arduino
+      asciinema
       bash-language-server
+      bat
+      bat-extras
+      borgbackup
+      brave
+      cachix
+      cargo-edit
+      cargo-tarpaulin
+      cargo-watch
       chromium
+      cockroachdb
+      deadcode
+      deno
+      direnv
+      drive
+      du-dust
+      echoip
+      elmPackages
       eza
+      fd
+      fira
+      fira-code
       fira-code-nerdfont
       firefox
       firefox-bin
       firefox-unwrapped
+      firmwareLinuxNonfree
+      fzf
+      go-2fa
+      go-sct
+      go-tools
+      godef
+      godot
+      gofumpt
+      gopass
+      gopls
+      gotools
+      grim
+      grml-zsh-config
+      hyperfine
+      imv
+      ioquake3
+      jackett
+      kanshi
+      kbfs
+      keybase
+      keybase-gui
       kitty
+      lidarr
       lima
       lima-bin
+      linux_lqx
+      linux_zen
+      linuxPackages_latest
+      linuxPackages_lqx
+      linuxPackages_zen
+      lutris
+      minicom
+      miniflux
+      mkvtoolnix
+      motion
+      mpv
       mullvad
       mullvad-vpn
       neovim
       neovim-unwrapped
+      nerdfonts
+      nix-du
+      nixfmt
+      nixpkgs-fmt
+      pavucontrol
+      qmk
+      quake3e
+      quake3hires
+      quake3pointrelease
+      quake3wrapper
+      radarr
+      rclone
+      redis
+      redshift
+      redshift-wlr
+      restic
+      ripgrep
+      rnix-lsp
+      rofi
       rust-analyzer
+      sd
+      sidequest
       skhd
+      skim
+      slurp
+      sonarr
+      steam
+      stt
+      sumneko-lua-language-server
+      syncthing
+      syncthing-cli
+      syncthing-tray
       thunderbird
       tinygo
+      tokei
       tree-sitter
       tree-sitter-grammars
+      ungoogled-chromium
       utm
+      vim
       vimPlugins
       vimUtils
+      wasm-pack
+      wasmtime
+      weechat
+      wf-recorder
+      wl-clipboard
+      wlsunset
+      wofi
       wrapFirefox
       wrapNeovim
       yabai
+      yarn
+      ydotool
+      youtube-dl
       zig
       ;
   };
