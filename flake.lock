@@ -561,9 +561,13 @@
         "nixlib": [
           "nixlib"
         ],
-        "nixpkgs-darwin": "nixpkgs-darwin",
+        "nixpkgs-darwin": [
+          "nixpkgs-darwin"
+        ],
         "nixpkgs-jshon": "nixpkgs-jshon",
-        "nixpkgs-nixos": "nixpkgs-nixos",
+        "nixpkgs-nixos": [
+          "nixpkgs-nixos"
+        ],
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
@@ -682,22 +686,6 @@
     },
     "nixpkgs-darwin": {
       "locked": {
-        "lastModified": 1703075545,
-        "narHash": "sha256-7iPyRYSB5aK15izd1Rccpn9tB8Gmwuh3xDtbdOxsKzU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "f1f519256f007a3910a50b88bff7bcfe6d1202da",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-23.11-darwin",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-darwin_2": {
-      "locked": {
         "lastModified": 1703361334,
         "narHash": "sha256-mFg2LtgFLEh5qY0RVrHcLLM0X87eWFUzaaU4ckh1nto=",
         "owner": "NixOS",
@@ -749,22 +737,6 @@
       }
     },
     "nixpkgs-nixos": {
-      "locked": {
-        "lastModified": 1703068421,
-        "narHash": "sha256-WSw5Faqlw75McIflnl5v7qVD/B3S2sLh+968bpOGrWA=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "d65bceaee0fb1e64363f7871bc43dc1c6ecad99f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-23.11",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-nixos_2": {
       "locked": {
         "lastModified": 1703200384,
         "narHash": "sha256-q5j06XOsy0qHOarsYPfZYJPWbTbc8sryRxianlEPJN0=",
@@ -891,9 +863,9 @@
         "nixify": "nixify",
         "nixlib": "nixlib_3",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs-darwin": "nixpkgs-darwin_2",
+        "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
-        "nixpkgs-nixos": "nixpkgs-nixos_2",
+        "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix"
       }

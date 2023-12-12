@@ -39,7 +39,8 @@
   inputs.nix-darwin.url = "github:LnL7/nix-darwin";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
   inputs.nixify.inputs.nixlib.follows = "nixlib";
-  inputs.nixify.inputs.nixpkgs.follows = "nixpkgs-nixos";
+  inputs.nixify.inputs.nixpkgs-darwin.follows = "nixpkgs-darwin";
+  inputs.nixify.inputs.nixpkgs-nixos.follows = "nixpkgs-nixos";
   inputs.nixify.url = "github:rvolosatovs/nixify";
   inputs.nixlib.url = "github:nix-community/nixpkgs.lib";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
