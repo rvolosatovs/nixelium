@@ -59,7 +59,6 @@ in {
         "maccy"
         "notunes"
         "slack"
-        "zoom"
       ];
       homebrew.caskArgs.require_sha = true;
       homebrew.enable = true;
