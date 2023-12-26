@@ -240,26 +240,26 @@ in {
       };
     }
 
-    (mkIf self.nixosConfigurations.osmium.config.nixelium.build.enable {
-      nix.buildMachines = [
-        {
-          hostName = "osmium.ghost-ordinal.ts.net";
-          maxJobs = 8;
-          protocol = "ssh-ng";
-          sshKey = "${config.users.users.root.home}/.ssh/id_osmium_nix";
-          sshUser = "nix";
-          supportedFeatures = [
-            "benchmark"
-            "big-parallel"
-            "kvm"
-            "nixos-test"
-          ];
-          systems = [
-            "aarch64-linux"
-            "x86_64-linux"
-          ];
-        }
-      ];
-    })
+    #(mkIf self.nixosConfigurations.osmium.config.nixelium.build.enable {
+    #  nix.buildMachines = [
+    #    {
+    #      hostName = "osmium.ghost-ordinal.ts.net";
+    #      maxJobs = 8;
+    #      protocol = "ssh-ng";
+    #      sshKey = "${config.users.users.root.home}/.ssh/id_osmium_nix";
+    #      sshUser = "nix";
+    #      supportedFeatures = [
+    #        "benchmark"
+    #        "big-parallel"
+    #        "kvm"
+    #        "nixos-test"
+    #      ];
+    #      systems = [
+    #        "aarch64-linux"
+    #        "x86_64-linux"
+    #      ];
+    #    }
+    #  ];
+    #})
   ];
 }
