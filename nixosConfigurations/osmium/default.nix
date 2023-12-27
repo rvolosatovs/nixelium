@@ -18,6 +18,7 @@ with flake-utils.lib.system;
           self.nixosModules.default
 
           nixos-hardware.nixosModules.common-cpu-intel
+          nixos-hardware.nixosModules.common-gpu-intel
           nixos-hardware.nixosModules.common-pc-laptop-ssd
           nixos-hardware.nixosModules.system76
         ];
@@ -40,6 +41,11 @@ with flake-utils.lib.system;
         ];
 
         hardware.cpu.intel.updateMicrocode = true;
+        hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [
+          intel-media-driver
+          intel-vaapi-driver
+          libvdpau-va-gl
+        ];
 
         networking.hostName = "osmium";
 
