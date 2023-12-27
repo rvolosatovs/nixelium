@@ -54,7 +54,7 @@ with flake-utils.lib.system;
 
         systemd.services.system76-charge-thresholds.after = ["multi-user.target"];
         systemd.services.system76-charge-thresholds.description = "Set system76 laptop battery charge thresholds";
-        systemd.services.system76-charge-thresholds.script = "${config.boot.kernelPackages.system76-power}/bin/system76-power charge-thresholds --profile balanced";
+        systemd.services.system76-charge-thresholds.script = "${config.boot.kernelPackages.system76-power}/bin/system76-power charge-thresholds --profile max_lifespan";
         systemd.services.system76-charge-thresholds.wantedBy = ["multi-user.target"];
 
         nixelium.build.enable = true;
