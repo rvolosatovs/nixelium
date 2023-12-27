@@ -384,6 +384,9 @@ in {
 
       programs.light.enable = true;
 
+      programs.steam.enable = true;
+      programs.steam.remotePlay.openFirewall = true;
+
       qt.enable = true;
       qt.platformTheme = "qt5ct";
       #qt.style = "adwaita-dark";
