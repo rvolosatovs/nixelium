@@ -346,7 +346,7 @@ in {
 
       boot.initrd.luks.devices.luksroot.allowDiscards = true;
 
-      boot.kernelPackages = pkgs.linuxPackages_zen;
+      boot.kernelPackages = pkgs.pkgsUnstable.linuxPackages_zen;
 
       fileSystems."/" = butterSubvol "@";
       fileSystems."/.snapshots" = butterSubvol "@-snapshots";
@@ -385,6 +385,7 @@ in {
       programs.light.enable = true;
 
       programs.steam.enable = true;
+      programs.steam.package = pkgs.pkgsUnstable.steam;
       programs.steam.remotePlay.openFirewall = true;
 
       qt.enable = true;
@@ -425,7 +426,7 @@ in {
       services.fwupd.enable = true;
 
       services.mullvad-vpn.enable = true;
-      services.mullvad-vpn.package = pkgs.mullvad-vpn;
+      services.mullvad-vpn.package = pkgs.pkgsUnstable.mullvad-vpn;
 
       services.pcscd.enable = true;
 

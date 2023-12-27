@@ -59,7 +59,7 @@ with nixlib.lib; let
   cfg = config.nixelium;
   swayConfig = config.wayland.windowManager.sway.config;
 
-  choosePass = "${pkgs.gopass}/bin/gopass list --flat \${@} | ${pkgs.wofi}/bin/wofi --dmenu";
+  choosePass = "${config.programs.password-store.package}/bin/gopass list --flat \${@} | ${pkgs.wofi}/bin/wofi --dmenu";
   exec = cmd: "exec '${cmd}'";
   lockCmd = "${pkgs.swaylock}/bin/swaylock -t -f -F -i ${config.home.homeDirectory}/pictures/lock";
   typeStdin = "${pkgs.ydotool}/bin/ydotool type --file -";
@@ -254,7 +254,6 @@ in {
         pkgs.nix-prefetch-scripts
         pkgs.openssl
         pkgs.pciutils
-        pkgs.podman-compose
         pkgs.pv
         pkgs.qrencode
         pkgs.rclone
@@ -266,6 +265,8 @@ in {
         pkgs.wget
         pkgs.xxd
         pkgs.zip
+
+        pkgs.pkgsUnstable.podman-compose
       ];
 
       home.sessionVariables.CLICOLOR = "1";
@@ -1019,9 +1020,9 @@ in {
       wayland.windowManager.sway.config.keybindings = mkOptionDefault {
         "${swayConfig.modifier}+0" = "workspace number 10";
         "${swayConfig.modifier}+b" = exec "${pkgs.bluez}/bin/bluetoothctl connect ${headphones}";
-        "${swayConfig.modifier}+Ctrl+f" = exec ''${pkgs.gopass}/bin/gopass otp -c "$(${choosePass} 2fa)"'';
-        "${swayConfig.modifier}+Ctrl+p" = exec ''${pkgs.gopass}/bin/gopass show -c "$(${choosePass})"'';
-        "${swayConfig.modifier}+Ctrl+u" = exec ''${pkgs.gopass}/bin/gopass show -c "$(${choosePass})" username'';
+        "${swayConfig.modifier}+Ctrl+f" = exec ''${config.programs.password-store.package}/bin/gopass otp -c "$(${choosePass} 2fa)"'';
+        "${swayConfig.modifier}+Ctrl+p" = exec ''${config.programs.password-store.package}/bin/gopass show -c "$(${choosePass})"'';
+        "${swayConfig.modifier}+Ctrl+u" = exec ''${config.programs.password-store.package}/bin/gopass show -c "$(${choosePass})" username'';
         "${swayConfig.modifier}+Escape" = exec lockCmd;
         "${swayConfig.modifier}+g" = "floating toggle";
         "${swayConfig.modifier}+n" = exec "${config.services.mako.package}/bin/makoctl dismiss";
@@ -1033,11 +1034,11 @@ in {
         "${swayConfig.modifier}+Shift+c" = "reload";
         "${swayConfig.modifier}+Shift+d" = exec "${config.systemd.user.systemctlPath} --user restart wlsunset.service";
         "${swayConfig.modifier}+Shift+Escape" = "exit";
-        "${swayConfig.modifier}+Shift+f" = exec ''${pkgs.gopass}/bin/gopass otp -o "$(${choosePass} 2fa)" | ${pkgs.busybox}/bin/cut -d " " -f 1 | ${typeStdin}'';
+        "${swayConfig.modifier}+Shift+f" = exec ''${config.programs.password-store.package}/bin/gopass otp -o "$(${choosePass} 2fa)" | ${pkgs.busybox}/bin/cut -d " " -f 1 | ${typeStdin}'';
         "${swayConfig.modifier}+Shift+o" = exec "${config.programs.firefox.package}/bin/firefox";
-        "${swayConfig.modifier}+Shift+p" = exec ''${pkgs.gopass}/bin/gopass show -o -f "$(${choosePass})" | ${pkgs.busybox}/bin/head -n 1 | ${typeStdin}'';
+        "${swayConfig.modifier}+Shift+p" = exec ''${config.programs.password-store.package}/bin/gopass show -o -f "$(${choosePass})" | ${pkgs.busybox}/bin/head -n 1 | ${typeStdin}'';
         "${swayConfig.modifier}+Shift+s" = exec "${config.systemd.user.systemctlPath} suspend";
-        "${swayConfig.modifier}+Shift+u" = exec ''${pkgs.gopass}/bin/gopass show -o -f "$(${choosePass})" username | ${typeStdin}'';
+        "${swayConfig.modifier}+Shift+u" = exec ''${config.programs.password-store.package}/bin/gopass show -o -f "$(${choosePass})" username | ${typeStdin}'';
         "${swayConfig.modifier}+space" = exec swayConfig.menu;
         "${swayConfig.modifier}+t" = "layout stacking";
         "${swayConfig.modifier}+v" = "splith";
@@ -1159,7 +1160,7 @@ in {
 
       home.stateVersion = osConfig.system.stateVersion;
 
-      programs.firefox.package = pkgs.firefox;
+      programs.firefox.package = pkgs.firefox; # configured in overlay
       programs.firefox.profiles.main.extensions = with pkgs.firefox-addons; [
         auto-tab-discard
         cookie-autodelete
@@ -1244,18 +1245,21 @@ in {
           [
             rust
 
-            pkgs.cargo-watch
-            pkgs.gopass
             pkgs.imv
-            pkgs.julia
-            pkgs.spotify
             pkgs.yubikey-manager
             pkgs.yubikey-personalization
-            pkgs.zig
+
+            pkgs.pkgsUnstable.cargo-watch
+            pkgs.pkgsUnstable.julia
+            pkgs.pkgsUnstable.spotify
+            pkgs.pkgsUnstable.zig
           ];
 
         programs.firefox.enable = true;
+
         programs.go.enable = true;
+        programs.go.package = pkgs.pkgsUnstable.go;
+
         programs.kitty.enable = true;
         programs.mpv.enable = true;
         programs.password-store.enable = true;
@@ -1280,9 +1284,10 @@ in {
           pkgs.v4l-utils
           pkgs.wf-recorder
           pkgs.wl-clipboard
-          pkgs.tinygo # requires GDB, which is currently not supported on Darwin
           pkgs.xdg_utils
           pkgs.ydotool
+
+          pkgs.pkgsUnstable.tinygo # requires GDB, which is currently not supported on Darwin
         ];
 
         programs.chromium.enable = true;
