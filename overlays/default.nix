@@ -55,7 +55,17 @@ with nixlib.lib; let
   };
 
   unstable = final: prev: let
-    pkgsUnstable = nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system};
+    pkgsUnstable = import nixpkgs-unstable {
+      inherit
+        (final.stdenv.hostPlatform)
+        system
+        ;
+
+      inherit
+        (final)
+        config
+        ;
+    };
     ## based on https://github.com/NixOS/nix/issues/3920#issuecomment-1168041777
     #nixpkgs-unstable-patched-src = final.applyPatches {
     #  name = "nixpkgs-patched-${nixpkgs-unstable.shortRev}";
