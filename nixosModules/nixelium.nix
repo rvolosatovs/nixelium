@@ -3,6 +3,7 @@
   home-manager,
   lanzaboote,
   nixlib,
+  nixpkgs-legacy,
   nixpkgs-nixos,
   sops-nix,
   ...
@@ -371,6 +372,8 @@ in {
         pkgs.roboto-slab
       ];
 
+      hardware.bluetooth.package = nixpkgs-legacy.legacyPackages.${pkgs.stdenv.hostPlatform.system}.bluez; # downgrade to fix controllers https://github.com/bluez/bluez/issues/605
+
       hardware.opengl.driSupport = true;
       hardware.opengl.driSupport32Bit = true;
       hardware.opengl.enable = true;
@@ -384,10 +387,13 @@ in {
 
       programs.dconf.enable = true;
 
+      programs.gamescope.capSysNice = true;
+      programs.gamescope.enable = true;
+
       programs.light.enable = true;
 
       programs.steam.enable = true;
-      programs.steam.package = pkgs.pkgsUnstable.steam;
+      programs.steam.gamescopeSession.enable = true;
       programs.steam.remotePlay.openFirewall = true;
 
       qt.enable = true;
