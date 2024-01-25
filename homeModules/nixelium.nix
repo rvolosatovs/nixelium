@@ -255,6 +255,7 @@ in {
         pkgs.openssl
         pkgs.pciutils
         pkgs.pv
+        pkgs.qemu
         pkgs.qrencode
         pkgs.rclone
         pkgs.ripgrep
@@ -1221,6 +1222,8 @@ in {
         osConfig.services.skhd.package
         osConfig.services.yabai.package
 
+        pkgs.docker
+        pkgs.podman
         pkgs.lima
         pkgs.utm
       ];
