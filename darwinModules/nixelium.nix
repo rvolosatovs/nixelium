@@ -24,6 +24,7 @@ in {
       environment.pathsToLink = [
         "/share/bash"
         "/share/bash-completion"
+        "/share/qemu"
         "/share/zsh"
       ];
       environment.shellInit = "eval $(brew shellenv)";
