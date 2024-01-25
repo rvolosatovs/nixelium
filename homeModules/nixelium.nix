@@ -1249,11 +1249,11 @@ in {
             rust
 
             pkgs.imv
+            pkgs.julia
             pkgs.yubikey-manager
             pkgs.yubikey-personalization
 
             pkgs.pkgsUnstable.cargo-watch
-            pkgs.pkgsUnstable.julia
             pkgs.pkgsUnstable.spotify
             pkgs.pkgsUnstable.zig
           ];
