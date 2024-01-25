@@ -1,14 +1,15 @@
 {self, ...}: {
   lib,
+  julia,
   pkgsUnstable,
   ripgrep,
   stdenv,
   ...
 }: let
   julia' =
-    if pkgsUnstable.julia.meta.unsupported
+    if julia.meta.unsupported
     then "julia"
-    else "${pkgsUnstable.julia}/bin/julia";
+    else "${julia}/bin/julia";
 
   paths = self.lib.toLua {
     bin.alejandra = "${pkgsUnstable.alejandra}/bin/alejandra";
