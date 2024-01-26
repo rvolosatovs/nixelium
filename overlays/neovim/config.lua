@@ -438,6 +438,10 @@ lspconfig.rust_analyzer.setup {
         }
     }
 }
+lspconfig.taplo.setup {
+    capabilities = capabilities,
+    cmd = { paths.bin['taplo'], 'lsp', 'stdio' },
+}
 
 --- Diagnostics
 

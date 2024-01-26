@@ -28,6 +28,7 @@
     bin.omnisharp = "${pkgsUnstable.omnisharp-roslyn}/bin/omnisharp";
     bin.ripgrep = "${ripgrep}/bin/rg";
     bin.rust-analyzer = "${pkgsUnstable.rust-analyzer}/bin/rust-analyzer";
+    bin.taplo = "${pkgsUnstable.taplo}/bin/taplo";
     src.lua-language-server = "${pkgsUnstable.sumneko-lua-language-server}";
   };
 in ''
