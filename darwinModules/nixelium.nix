@@ -181,6 +181,7 @@ in {
         cmd - return            : ${config.home-manager.users.${username}.programs.kitty.package}/Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
         cmd + shift - o         : ${config.home-manager.users.${username}.programs.firefox.package}/Applications/firefox.app/Contents/MacOS/firefox
       '';
+      services.skhd.package = pkgs.pkgsUnstable.skhd;
 
       services.yabai.config.auto_balance = "on";
       services.yabai.config.focus_follows_mouse = "autofocus";
@@ -200,6 +201,7 @@ in {
 
         borders style=square
       '';
+      services.yabai.package = pkgs.pkgsUnstable.yabai;
 
       system.defaults.dock.autohide = true;
       system.defaults.finder.AppleShowAllExtensions = true;
