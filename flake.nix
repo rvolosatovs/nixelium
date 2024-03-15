@@ -49,6 +49,7 @@
   inputs.nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-23.11";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs-yabai.url = "github:NixOS/nixpkgs/8d803996c702c3cc244c98d7fe5cb638441f9d93";
   inputs.sops-nix.inputs.nixpkgs-stable.follows = "nixpkgs-nixos";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
