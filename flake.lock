@@ -784,6 +784,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-yabai": {
+      "locked": {
+        "lastModified": 1710377323,
+        "narHash": "sha256-5KvwDzMggnRI0juMiSJRcWTIIG64LW0ClkPl/OamHjk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8d803996c702c3cc244c98d7fe5cb638441f9d93",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8d803996c702c3cc244c98d7fe5cb638441f9d93",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1706925685,
@@ -867,6 +883,7 @@
         "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
         "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-yabai": "nixpkgs-yabai",
         "sops-nix": "sops-nix"
       }
     },
