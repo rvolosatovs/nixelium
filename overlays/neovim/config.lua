@@ -348,17 +348,6 @@ lspconfig.dockerls.setup {
     capabilities = capabilities,
     cmd = { paths.bin['docker-langserver'], '--stdio' },
 }
-lspconfig.elmls.setup {
-    capabilities = capabilities,
-    cmd = { paths.bin['elm-language-server'] },
-    settings = {
-        elmLS = {
-            elmFormatPath = paths.bin['elm-format'],
-        },
-        elmPath = paths.bin['elm'],
-        elmTestPath = paths.bin['elm-test'],
-    },
-}
 lspconfig.gdscript.setup {
     capabilities = capabilities,
 }

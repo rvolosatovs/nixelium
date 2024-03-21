@@ -16,10 +16,6 @@
     bin.bash-language-server = "${pkgsUnstable.nodePackages.bash-language-server}/bin/bash-language-server";
     bin.clangd = "${pkgsUnstable.clang-tools}/bin/clangd";
     bin.docker-langserver = "${pkgsUnstable.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver";
-    bin.elm = "${pkgsUnstable.elmPackages.elm}/bin/elm";
-    bin.elm-format = "${pkgsUnstable.elmPackages.elm-format}/bin/elm-format";
-    bin.elm-language-server = "${pkgsUnstable.elmPackages.elm-language-server}/bin/elm-language-server";
-    bin.elm-test = "${pkgsUnstable.elmPackages.elm-test}/bin/elm-test";
     bin.gopls = "${pkgsUnstable.gopls}/bin/gopls";
     bin.haskell-language-server = "${pkgsUnstable.haskell-language-server}/bin/haskell-language-server-wrapper";
     bin.julia = julia';
