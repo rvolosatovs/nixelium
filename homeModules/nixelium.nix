@@ -1255,7 +1255,6 @@ in {
 
             pkgs.pkgsUnstable.cargo-watch
             pkgs.pkgsUnstable.spotify
-            pkgs.pkgsUnstable.zig
           ];
 
         programs.firefox.enable = true;
@@ -1289,8 +1288,6 @@ in {
           pkgs.wl-clipboard
           pkgs.xdg_utils
           pkgs.ydotool
-
-          pkgs.pkgsUnstable.tinygo # requires GDB, which is currently not supported on Darwin
         ];
 
         programs.chromium.enable = true;
