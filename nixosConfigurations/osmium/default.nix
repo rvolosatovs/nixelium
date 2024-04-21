@@ -58,6 +58,15 @@ with flake-utils.lib.system;
         networking.interfaces.wlan0.useDHCP = true;
         networking.interfaces.wlan0.wakeOnLan.enable = true;
 
+        services.jellyfin.enable = true;
+        services.jellyfin.openFirewall = true;
+
+        services.radarr.enable = true;
+        services.radarr.openFirewall = true;
+
+        services.sonarr.enable = true;
+        services.sonarr.openFirewall = true;
+
         systemd.services.system76-charge-thresholds.after = ["multi-user.target"];
         systemd.services.system76-charge-thresholds.description = "Set system76 laptop battery charge thresholds";
         systemd.services.system76-charge-thresholds.script = "${config.boot.kernelPackages.system76-power}/bin/system76-power charge-thresholds --profile max_lifespan";
