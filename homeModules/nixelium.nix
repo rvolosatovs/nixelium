@@ -802,6 +802,7 @@ in {
       programs.zsh.autocd = true;
       programs.zsh.cdpath = [
         "${config.home.homeDirectory}/src/github.com/${cfg.user.username}"
+        "${config.home.homeDirectory}/src/github.com/wrpc"
         "${config.home.homeDirectory}/src/github.com/cosmonic"
         "${config.home.homeDirectory}/src/github.com/wasmCloud"
         "${config.home.homeDirectory}/src/github.com/WebAssembly"
