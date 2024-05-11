@@ -49,6 +49,10 @@ with flake-utils.lib.system;
 
         networking.hostName = "osmium";
 
+        networking.firewall.allowedTCPPorts = [
+          9091
+        ];
+
         networking.interfaces.enp34s0.useDHCP = true;
         networking.interfaces.enp34s0.wakeOnLan.enable = true;
 
@@ -57,6 +61,9 @@ with flake-utils.lib.system;
 
         networking.interfaces.wlan0.useDHCP = true;
         networking.interfaces.wlan0.wakeOnLan.enable = true;
+
+        nixelium.build.enable = true;
+        nixelium.profile.laptop.enable = true;
 
         services.jellyfin.enable = true;
         services.jellyfin.openFirewall = true;
@@ -67,13 +74,22 @@ with flake-utils.lib.system;
         services.sonarr.enable = true;
         services.sonarr.openFirewall = true;
 
+        services.transmission.enable = true;
+        services.transmission.openFirewall = true;
+        services.transmission.openRPCPort = true;
+        services.transmission.performanceNetParameters = true;
+
         systemd.services.system76-charge-thresholds.after = ["multi-user.target"];
         systemd.services.system76-charge-thresholds.description = "Set system76 laptop battery charge thresholds";
         systemd.services.system76-charge-thresholds.script = "${config.boot.kernelPackages.system76-power}/bin/system76-power charge-thresholds --profile max_lifespan";
         systemd.services.system76-charge-thresholds.wantedBy = ["multi-user.target"];
 
-        nixelium.build.enable = true;
-        nixelium.profile.laptop.enable = true;
+        users.users.owner.extraGroups = [
+          config.users.groups.jellyfin.name
+          config.users.groups.radarr.name
+          config.users.groups.sonarr.name
+          config.users.groups.transmission.name
+        ];
       })
     ];
   }
