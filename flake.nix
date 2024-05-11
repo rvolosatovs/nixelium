@@ -75,6 +75,7 @@
           extendDerivations {
             buildInputs = [
               pkgs.age
+              pkgs.nixos-rebuild
               pkgs.openssh
               pkgs.openssl
               pkgs.sops
