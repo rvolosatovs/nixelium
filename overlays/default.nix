@@ -91,6 +91,7 @@ in {
     unstable
 
     fenix.overlays.default
+    rust-analyzer
 
     firefox
     firefox-addons'
