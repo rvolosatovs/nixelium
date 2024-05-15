@@ -114,15 +114,16 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1715581585,
-        "narHash": "sha256-/JjvIn1NXW3yOaDcD8Me987/QcXjo+rhg+uThasPAnI=",
-        "owner": "nix-community",
+        "lastModified": 1715772335,
+        "narHash": "sha256-jPVVM3fz5tgXczQ5TvrZPkOBSgvaxtFvhoZKRLkL/wI=",
+        "owner": "rvolosatovs",
         "repo": "fenix",
-        "rev": "2c4905096782e8e908205e7fa54ef987fba62793",
+        "rev": "2c251b5f9f654a780e799ba5e6aafb80c59f8535",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "rvolosatovs",
+        "ref": "fix/rust-analyzer-poke",
         "repo": "fenix",
         "type": "github"
       }

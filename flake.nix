@@ -18,7 +18,7 @@
 
   inputs.base16-shell.flake = false;
   inputs.base16-shell.url = "github:chriskempson/base16-shell";
-  inputs.fenix.url = "github:nix-community/fenix";
+  inputs.fenix.url = "github:rvolosatovs/fenix/fix/rust-analyzer-poke";
   inputs.firefox-addons.inputs.flake-utils.follows = "flake-utils";
   inputs.firefox-addons.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
