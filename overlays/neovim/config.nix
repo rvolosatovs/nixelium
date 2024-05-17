@@ -1,9 +1,10 @@
 {self, ...}: {
-  lib,
+  fenix,
   julia,
+  lib,
+  lua-language-server,
   pkgsUnstable,
   ripgrep,
-  rust-analyzer-nightly,
   stdenv,
   ...
 }: let
@@ -20,13 +21,13 @@
     bin.gopls = "${pkgsUnstable.gopls}/bin/gopls";
     bin.haskell-language-server = "${pkgsUnstable.haskell-language-server}/bin/haskell-language-server-wrapper";
     bin.julia = julia';
-    bin.lua-language-server = "${pkgsUnstable.sumneko-lua-language-server}/bin/lua-language-server";
+    bin.lua-language-server = "${lua-language-server}/bin/lua-language-server";
     bin.nil = "${pkgsUnstable.nil}/bin/nil";
     bin.omnisharp = "${pkgsUnstable.omnisharp-roslyn}/bin/omnisharp";
     bin.ripgrep = "${ripgrep}/bin/rg";
-    bin.rust-analyzer = "${rust-analyzer-nightly}/bin/rust-analyzer";
+    bin.rust-analyzer = "${fenix.stable.rust-analyzer}/bin/rust-analyzer";
     bin.taplo = "${pkgsUnstable.taplo}/bin/taplo";
-    src.lua-language-server = "${pkgsUnstable.sumneko-lua-language-server}";
+    src.lua-language-server = "${lua-language-server}";
   };
 in ''
   if $TERM!='linux'
