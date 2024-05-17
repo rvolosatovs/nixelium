@@ -37,6 +37,7 @@ with nixlib.lib; let
     combine [
       stable.cargo
       stable.clippy
+      stable.rust-analyzer
       stable.rust-docs
       stable.rust-std
       stable.rustc
