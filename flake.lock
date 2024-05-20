@@ -803,17 +803,17 @@
     },
     "nixpkgs-yabai": {
       "locked": {
-        "lastModified": 1710377323,
-        "narHash": "sha256-5KvwDzMggnRI0juMiSJRcWTIIG64LW0ClkPl/OamHjk=",
+        "lastModified": 1716187080,
+        "narHash": "sha256-f0dbXgO6fCRndE65MIP2CMwxHPAXPtPPJwCpr/WwqD4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8d803996c702c3cc244c98d7fe5cb638441f9d93",
+        "rev": "303fbde3fcca6a785d882d44600232d3768cfd0a",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8d803996c702c3cc244c98d7fe5cb638441f9d93",
+        "rev": "303fbde3fcca6a785d882d44600232d3768cfd0a",
         "type": "github"
       }
     },
