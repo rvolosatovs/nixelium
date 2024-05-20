@@ -44,7 +44,7 @@ with nixlib.lib; let
   };
 
   neovim' = final: prev: {
-    neovim = final.pkgsUnstable.wrapNeovim neovim.packages.${final.stdenv.hostPlatform.system}.neovim (import ./neovim inputs final);
+    neovim = final.pkgsUnstable.wrapNeovim final.pkgsUnstable.neovim-unwrapped (import ./neovim inputs final);
   };
 
   rust-analyzer = final: prev: {
