@@ -33,8 +33,6 @@ in ''
   if $TERM!='linux'
     let base16colorspace=256
   endif
-  color base16-tomorrow-night
-  set background=dark
 
   filetype plugin indent on
   syntax enable
