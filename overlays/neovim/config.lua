@@ -311,7 +311,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
         ---- Link LSP semantic highlight groups to TreeSitter token groups
         for lsp, link in pairs({
             ['@lsp.type.class'] = '@type',
-            ['@lsp.type.decorator'] = '@function',
+            ['@lsp.type.decorator'] = '@function.macro',
             ['@lsp.type.enum'] = '@type',
             ['@lsp.type.enumMember'] = '@constant',
             ['@lsp.type.enumMember.rust'] = '@constant',
