@@ -87,8 +87,6 @@ in ''
 
   let g:NERDCreateDefaultMappings = 0
 
-  let g:rust_clip_command = 'wl-copy'
-
   let g:loaded_netrwPlugin = 1
 
   let g:markdown_fenced_languages = ['css', 'js=javascript']
