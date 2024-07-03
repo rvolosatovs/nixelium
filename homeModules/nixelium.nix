@@ -523,7 +523,8 @@ in {
       programs.direnv.nix-direnv.enable = true;
 
       programs.eza.enable = true;
-      programs.eza.enableAliases = true;
+      programs.eza.enableBashIntegration = true;
+      programs.eza.enableZshIntegration = true;
       programs.eza.git = true;
 
       programs.git.aliases.tree = "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";
@@ -816,7 +817,7 @@ in {
       programs.zsh.defaultKeymap = "viins";
       programs.zsh.dotDir = ".config/zsh";
       programs.zsh.enable = true;
-      programs.zsh.enableAutosuggestions = !(osConfig.programs.zsh.autosuggestions.enable or false);
+      programs.zsh.autosuggestion.enable = !(osConfig.programs.zsh.autosuggestions.enable or false);
       programs.zsh.enableCompletion = false;
       programs.zsh.syntaxHighlighting.enable = !(osConfig.programs.zsh.syntaxHighlighting.enable or false);
       programs.zsh.history.save = osConfig.programs.zsh.histSize or 50000;

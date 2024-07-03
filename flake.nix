@@ -18,7 +18,7 @@
 
   inputs.base16-shell.flake = false;
   inputs.base16-shell.url = "github:chriskempson/base16-shell";
-  inputs.fenix.url = "github:rvolosatovs/fenix/fix/rust-analyzer";
+  inputs.fenix.url = "github:rvolosatovs/fenix/fix/rust-analyzer-poke";
   inputs.firefox-addons.inputs.flake-utils.follows = "flake-utils";
   inputs.firefox-addons.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -26,7 +26,7 @@
   inputs.home-manager-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.home-manager-unstable.url = "github:nix-community/home-manager/master";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs-nixos";
-  inputs.home-manager.url = "github:nix-community/home-manager/release-23.11";
+  inputs.home-manager.url = "github:nix-community/home-manager/release-24.05";
   inputs.ioquake3-mac-install.flake = false;
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
   inputs.lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -43,13 +43,12 @@
   inputs.nixify.url = "github:rvolosatovs/nixify";
   inputs.nixlib.url = "github:nix-community/nixpkgs.lib";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
-  inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
+  inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
   inputs.nixpkgs-firefox-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
   inputs.nixpkgs-legacy.url = "github:NixOS/nixpkgs/nixos-23.05";
-  inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-23.11";
+  inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-24.05";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.nixpkgs-yabai.url = "github:NixOS/nixpkgs/303fbde3fcca6a785d882d44600232d3768cfd0a";
   inputs.sops-nix.inputs.nixpkgs-stable.follows = "nixpkgs-nixos";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";

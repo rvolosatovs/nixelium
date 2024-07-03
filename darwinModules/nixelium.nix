@@ -4,7 +4,6 @@
   nixlib,
   nixpkgs-darwin,
   nixpkgs-firefox-darwin,
-  nixpkgs-yabai,
   ...
 }: {
   config,
@@ -201,7 +200,7 @@ in {
 
         borders style=square
       '';
-      services.yabai.package = nixpkgs-yabai.legacyPackages.${pkgs.stdenv.hostPlatform.system}.yabai;
+      services.yabai.package = pkgs.pkgsUnstable.yabai;
 
       system.defaults.dock.autohide = true;
       system.defaults.finder.AppleShowAllExtensions = true;
