@@ -379,7 +379,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
             ['@markup.strong'] = { bold = true, default = true },
             ['@markup.underline'] = { underline = true, default = true },
             ['@method'] = { link = 'Function', default = true },
-            ['@module'] = { link = 'Include', default = true },
+            ['@module'] = { link = 'Identifier', default = true },
             ['@namespace'] = { link = 'Identifier', default = true },
             ['@number'] = { link = 'Number', default = true },
             ['@number.float'] = { link = 'Float', default = true },
