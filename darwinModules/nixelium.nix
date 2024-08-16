@@ -33,7 +33,7 @@ in {
         "/opt/homebrew/bin"
       ];
 
-      fonts.fonts = [
+      fonts.packages = [
         pkgs.fira
         pkgs.fira-code
         pkgs.fira-code-nerdfont
@@ -42,7 +42,6 @@ in {
         pkgs.font-awesome
         pkgs.roboto-slab
       ];
-      fonts.fontDir.enable = true;
 
       homebrew.brews = [
         {
