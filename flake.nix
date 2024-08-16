@@ -29,7 +29,6 @@
   inputs.home-manager.url = "github:nix-community/home-manager/release-23.11";
   inputs.ioquake3-mac-install.flake = false;
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
-  inputs.lanzaboote.inputs.flake-utils.follows = "flake-utils";
   inputs.lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.lanzaboote.url = "github:nix-community/lanzaboote";
   inputs.neovim.inputs.flake-utils.follows = "flake-utils";
