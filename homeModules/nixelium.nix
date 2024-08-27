@@ -251,6 +251,8 @@ in {
         pkgs.gnumake
         pkgs.jq
         pkgs.kitty.terminfo
+        pkgs.lldb_18
+        pkgs.llvm_18
         pkgs.lsof
         pkgs.nix-prefetch-scripts
         pkgs.openssl
