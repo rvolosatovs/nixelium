@@ -88,9 +88,6 @@ in {
       nix.linux-builder.enable = mkDefault true;
       nix.linux-builder.maxJobs = mkDefault 8;
       nix.linux-builder.package = mkDefault pkgs.pkgsUnstable.darwin.linux-builder; # TODO: Remove in 23.11
-      nix.registry.nixpkgs.flake = nixpkgs-darwin;
-      nix.registry.nixpkgs.from.id = "nixpkgs";
-      nix.registry.nixpkgs.from.type = "indirect";
       nix.settings.allowed-users = with config.users; [
         "@admin"
         users.${username}.name
