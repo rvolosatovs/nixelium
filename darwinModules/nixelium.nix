@@ -183,7 +183,6 @@ in {
       services.skhd.package = pkgs.pkgsUnstable.skhd;
 
       services.yabai.config.auto_balance = "on";
-      services.yabai.config.focus_follows_mouse = "autofocus";
       services.yabai.config.layout = "bsp";
       services.yabai.config.mouse_modifier = "alt";
       services.yabai.config.split_type = "vertical";
@@ -192,11 +191,11 @@ in {
       services.yabai.enable = true;
       services.yabai.enableScriptingAddition = true;
       services.yabai.extraConfig = ''
-        ${config.services.yabai.package}/bin/yabai -m rule --add app="^System Information$" manage=off
-        ${config.services.yabai.package}/bin/yabai -m rule --add app="^System Settings$" manage=off
-
-        ${config.services.yabai.package}/bin/yabai -m rule --add title="^Preferences$" manage=off
-        ${config.services.yabai.package}/bin/yabai -m rule --add title="^Settings$" manage=off
+        ${config.services.yabai.package}/bin/yabai -m rule --add app="^(Calculator|Software Update|Dictionary|VLC|System Preferences|System Settings|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor)$" manage=off
+        ${config.services.yabai.package}/bin/yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+        ${config.services.yabai.package}/bin/yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+        ${config.services.yabai.package}/bin/yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+        ${config.services.yabai.package}/bin/yabai -m rule --add label="Select file to save to" app="^Inkscape$" title="Select file to save to" manage=off
 
         borders style=square
       '';
