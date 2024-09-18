@@ -111,9 +111,6 @@ in {
 
       nix.gc.automatic = true;
       nix.optimise.automatic = true;
-      nix.registry.nixpkgs.flake = nixpkgs-nixos;
-      nix.registry.nixpkgs.from.id = "nixpkgs";
-      nix.registry.nixpkgs.from.type = "indirect";
       nix.settings.allowed-users = with config.users; [
         "@${groups.wheel.name}"
         users.owner.name
