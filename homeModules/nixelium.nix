@@ -243,6 +243,7 @@ in {
       home.packages = [
         neovim
 
+        pkgs.android-tools
         pkgs.curl
         pkgs.entr
         pkgs.fd
