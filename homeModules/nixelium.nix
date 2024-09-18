@@ -1269,7 +1269,7 @@ in {
         programs.firefox.enable = true;
 
         programs.go.enable = true;
-        programs.go.package = pkgs.pkgsUnstable.go;
+        programs.go.package = pkgs.pkgsUnstable.go_1_23;
 
         programs.kitty.enable = true;
         programs.mpv.enable = true;
