@@ -265,6 +265,7 @@ in {
         pkgs.qrencode
         pkgs.rclone
         pkgs.ripgrep
+        pkgs.scrcpy
         pkgs.shellcheck
         pkgs.tcpdump
         pkgs.tree
