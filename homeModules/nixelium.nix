@@ -49,6 +49,7 @@ with nixlib.lib; let
       targets.wasm32-unknown-unknown.stable.rust-std
       targets.wasm32-wasi.stable.rust-std
       targets.wasm32-wasip1.stable.rust-std
+      targets.wasm32-wasip2.stable.rust-std
       targets.x86_64-apple-darwin.stable.rust-std
       targets.x86_64-pc-windows-gnu.stable.rust-std
       targets.x86_64-unknown-linux-gnu.stable.rust-std
