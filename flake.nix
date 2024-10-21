@@ -65,6 +65,15 @@
           self.overlays.default
         ];
 
+        excludePaths = [
+          ".envrc"
+          ".github"
+          ".gitignore"
+          "flake.nix"
+          "LICENSE"
+          "README.md"
+        ];
+
         withDevShells = {
           devShells,
           pkgs,
