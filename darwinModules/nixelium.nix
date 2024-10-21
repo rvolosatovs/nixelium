@@ -122,8 +122,8 @@ in {
         nixpkgs-firefox-darwin.overlay
       ];
 
+      programs.bash.completion.enable = true;
       programs.bash.enable = true;
-      programs.bash.enableCompletion = true;
 
       programs.gnupg.agent.enable = true;
       programs.gnupg.agent.enableSSHSupport = true;
