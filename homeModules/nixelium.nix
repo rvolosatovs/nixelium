@@ -247,7 +247,6 @@ in {
       home.packages = [
         neovim
 
-        pkgs.android-tools
         pkgs.curl
         pkgs.entr
         pkgs.fd
@@ -262,20 +261,15 @@ in {
         pkgs.openssl
         pkgs.pciutils
         pkgs.pv
-        pkgs.qemu
         pkgs.qrencode
         pkgs.rclone
         pkgs.ripgrep
         pkgs.scrcpy
-        pkgs.shellcheck
-        pkgs.tcpdump
         pkgs.tree
         pkgs.unzip
         pkgs.wget
         pkgs.xxd
         pkgs.zip
-
-        pkgs.pkgsUnstable.podman-compose
       ];
 
       home.sessionVariables.CLICOLOR = "1";
@@ -1258,13 +1252,25 @@ in {
           [
             rust
 
+            pkgs.android-tools
+            pkgs.google-cloud-sdk
             pkgs.imv
             pkgs.julia
+            pkgs.qemu
+            pkgs.shellcheck
+            pkgs.tcpdump
             pkgs.yubikey-manager
             pkgs.yubikey-personalization
 
+            pkgs.pkgsUnstable.binaryen
             pkgs.pkgsUnstable.cargo-watch
+            pkgs.pkgsUnstable.hey
+            pkgs.pkgsUnstable.nats-server
+            pkgs.pkgsUnstable.natscli
+            pkgs.pkgsUnstable.podman-compose
+            pkgs.pkgsUnstable.redis
             pkgs.pkgsUnstable.spotify
+            pkgs.pkgsUnstable.wasm-tools
           ];
 
         programs.firefox.enable = true;
