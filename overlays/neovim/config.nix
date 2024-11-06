@@ -27,6 +27,10 @@
     bin.ripgrep = "${ripgrep}/bin/rg";
     bin.rust-analyzer = "${fenix.stable.rust-analyzer}/bin/rust-analyzer";
     bin.taplo = "${pkgsUnstable.taplo}/bin/taplo";
+    bin.typescript-language-server = "${pkgsUnstable.nodePackages.typescript-language-server}/bin/typescript-language-server";
+    bin.vscode-css-language-server = "${pkgsUnstable.vscode-langservers-extracted}/bin/vscode-css-language-server";
+    bin.vscode-eslint-language-server = "${pkgsUnstable.vscode-langservers-extracted}/bin/vscode-eslint-language-server";
+    bin.vscode-html-language-server = "${pkgsUnstable.vscode-langservers-extracted}/bin/vscode-html-language-server";
     src.lua-language-server = "${lua-language-server}";
   };
 in ''
