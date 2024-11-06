@@ -1263,7 +1263,9 @@ in {
             pkgs.yubikey-personalization
 
             pkgs.pkgsUnstable.binaryen
+            pkgs.pkgsUnstable.cargo-flamegraph
             pkgs.pkgsUnstable.cargo-watch
+            pkgs.pkgsUnstable.critcmp
             pkgs.pkgsUnstable.hey
             pkgs.pkgsUnstable.nats-server
             pkgs.pkgsUnstable.natscli
