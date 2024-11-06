@@ -439,9 +439,17 @@ lspconfig.clangd.setup {
     capabilities = capabilities,
     cmd = { paths.bin['clangd'], '--background-index' },
 }
+lspconfig.cssls.setup {
+    capabilities = capabilities,
+    cmd = { paths.bin['vscode-css-language-server'], '--stdio' },
+}
 lspconfig.dockerls.setup {
     capabilities = capabilities,
     cmd = { paths.bin['docker-langserver'], '--stdio' },
+}
+lspconfig.eslint.setup {
+    capabilities = capabilities,
+    cmd = { paths.bin['vscode-eslint-language-server'], '--stdio' },
 }
 lspconfig.gdscript.setup {
     capabilities = capabilities,
@@ -466,6 +474,10 @@ lspconfig.gopls.setup {
 lspconfig.hls.setup {
     capabilities = capabilities,
     cmd = { paths.bin['haskell-language-server'], '--lsp' },
+}
+lspconfig.html.setup {
+    capabilities = capabilities,
+    cmd = { paths.bin['vscode-html-language-server'], '--stdio' },
 }
 lspconfig.julials.setup {
     capabilities = capabilities,
@@ -525,6 +537,10 @@ lspconfig.rust_analyzer.setup {
 lspconfig.taplo.setup {
     capabilities = capabilities,
     cmd = { paths.bin['taplo'], 'lsp', 'stdio' },
+}
+lspconfig.tsserver.setup {
+    capabilities = capabilities,
+    cmd = { paths.bin['typescript-language-server'], '--stdio' },
 }
 
 --- Diagnostics
