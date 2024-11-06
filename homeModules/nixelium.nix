@@ -1274,6 +1274,7 @@ in {
             pkgs.pkgsUnstable.redis
             pkgs.pkgsUnstable.spotify
             pkgs.pkgsUnstable.wasm-tools
+            pkgs.pkgsUnstable.wasmtime
           ];
 
         programs.firefox.enable = true;
