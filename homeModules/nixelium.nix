@@ -1264,6 +1264,7 @@ in {
 
             pkgs.pkgsUnstable.binaryen
             pkgs.pkgsUnstable.cargo-flamegraph
+            pkgs.pkgsUnstable.cargo-generate
             pkgs.pkgsUnstable.cargo-watch
             pkgs.pkgsUnstable.critcmp
             pkgs.pkgsUnstable.hey
