@@ -59,7 +59,6 @@
   inputs.nixpkgs-legacy.url = "github:NixOS/nixpkgs/nixos-23.05";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-24.05";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.sops-nix.inputs.nixpkgs-stable.follows = "nixpkgs-nixos";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
 
