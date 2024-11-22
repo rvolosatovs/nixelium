@@ -1277,6 +1277,11 @@ in {
             pkgs.pkgsUnstable.wasmtime
           ];
 
+        home.sessionPath = [
+          "$HOME/${config.programs.go.goBin}"
+          "$HOME/.cargo/bin"
+        ];
+
         programs.firefox.enable = true;
 
         programs.go.enable = true;
