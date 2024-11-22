@@ -116,7 +116,6 @@ in {
         users.owner.name
         users.root.name
       ];
-      nix.settings.auto-optimise-store = true;
       nix.settings.require-sigs = true;
       nix.settings.substituters = [
         "https://rvolosatovs.cachix.org"
