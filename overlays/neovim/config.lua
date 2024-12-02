@@ -521,10 +521,6 @@ lspconfig.nil_ls.setup {
         }
     }
 }
-lspconfig.omnisharp.setup {
-    capabilities = capabilities,
-    cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
-}
 lspconfig.rust_analyzer.setup {
     capabilities = capabilities,
     cmd = { paths.bin['rust-analyzer'] },
@@ -538,7 +534,7 @@ lspconfig.taplo.setup {
     capabilities = capabilities,
     cmd = { paths.bin['taplo'], 'lsp', 'stdio' },
 }
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
     capabilities = capabilities,
     cmd = { paths.bin['typescript-language-server'], '--stdio' },
 }

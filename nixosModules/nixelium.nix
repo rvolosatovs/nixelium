@@ -214,7 +214,7 @@ in {
 
       sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
-      system.stateVersion = "23.11";
+      system.stateVersion = "24.11";
 
       systemd.network.wait-online.anyInterface = true;
       systemd.network.wait-online.ignoredInterfaces = [
@@ -370,7 +370,6 @@ in {
 
       hardware.bluetooth.package = nixpkgs-legacy.legacyPackages.${pkgs.stdenv.hostPlatform.system}.bluez; # downgrade to fix controllers https://github.com/bluez/bluez/issues/605
 
-      hardware.opengl.driSupport = true;
       hardware.opengl.driSupport32Bit = true;
       hardware.opengl.enable = true;
 
@@ -510,8 +509,6 @@ in {
       services.xserver.libinput.enable = true;
       services.xserver.libinput.touchpad.middleEmulation = false;
       services.xserver.libinput.touchpad.scrollButton = 1;
-
-      sound.mediaKeys.enable = true;
 
       swapDevices = [{device = "/dev/disk/by-label/swap";}];
 
