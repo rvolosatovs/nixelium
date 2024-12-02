@@ -521,10 +521,6 @@ lspconfig.nil_ls.setup {
         }
     }
 }
-lspconfig.omnisharp.setup {
-    capabilities = capabilities,
-    cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
-}
 lspconfig.rust_analyzer.setup {
     capabilities = capabilities,
     cmd = { paths.bin['rust-analyzer'] },

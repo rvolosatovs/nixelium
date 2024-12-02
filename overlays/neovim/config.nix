@@ -23,7 +23,6 @@
     bin.julia = julia';
     bin.lua-language-server = "${lua-language-server}/bin/lua-language-server";
     bin.nil = "${pkgsUnstable.nil}/bin/nil";
-    bin.omnisharp = "${pkgsUnstable.omnisharp-roslyn}/bin/omnisharp";
     bin.ripgrep = "${ripgrep}/bin/rg";
     bin.rust-analyzer = "${fenix.stable.rust-analyzer}/bin/rust-analyzer";
     bin.taplo = "${pkgsUnstable.taplo}/bin/taplo";
