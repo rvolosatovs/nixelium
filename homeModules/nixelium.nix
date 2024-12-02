@@ -196,9 +196,9 @@ in {
       gtk.font.name = "Fira Sans 10";
       gtk.font.package = pkgs.fira;
       gtk.iconTheme.name = "Adwaita-dark";
-      gtk.iconTheme.package = pkgs.gnome.gnome-themes-extra;
+      gtk.iconTheme.package = pkgs.gnome-themes-extra;
       gtk.theme.name = "Adwaita-dark";
-      gtk.theme.package = pkgs.gnome.gnome-themes-extra;
+      gtk.theme.package = pkgs.gnome-themes-extra;
 
       gtk.gtk2.extraConfig = ''
         gtk-cursor-theme-size=0
@@ -668,7 +668,7 @@ in {
       programs.kitty.font.name = "FiraCode Nerd Font";
       programs.kitty.font.package = pkgs.fira-code-nerdfont;
       programs.kitty.shellIntegration.mode = "no-cursor";
-      programs.kitty.theme = "Tomorrow Night";
+      programs.kitty.themeFile = "Tomorrow_Night";
 
       programs.mpv.config.alang = "eng,en,rus,ru";
 
@@ -1311,7 +1311,7 @@ in {
           pkgs.v4l-utils
           pkgs.wf-recorder
           pkgs.wl-clipboard
-          pkgs.xdg_utils
+          pkgs.xdg-utils
           pkgs.ydotool
         ];
 
