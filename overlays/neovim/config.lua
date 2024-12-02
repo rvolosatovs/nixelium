@@ -538,7 +538,7 @@ lspconfig.taplo.setup {
     capabilities = capabilities,
     cmd = { paths.bin['taplo'], 'lsp', 'stdio' },
 }
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
     capabilities = capabilities,
     cmd = { paths.bin['typescript-language-server'], '--stdio' },
 }
