@@ -370,8 +370,8 @@ in {
 
       hardware.bluetooth.package = nixpkgs-legacy.legacyPackages.${pkgs.stdenv.hostPlatform.system}.bluez; # downgrade to fix controllers https://github.com/bluez/bluez/issues/605
 
-      hardware.opengl.driSupport32Bit = true;
-      hardware.opengl.enable = true;
+      hardware.graphics.enable32Bit = true;
+      hardware.graphics.enable = true;
 
       hardware.steam-hardware.enable = true;
 
@@ -506,9 +506,9 @@ in {
         SUBSYSTEM=="tty", ATTRS{interface}=="Black Magic UART Port"
       '';
 
-      services.xserver.libinput.enable = true;
-      services.xserver.libinput.touchpad.middleEmulation = false;
-      services.xserver.libinput.touchpad.scrollButton = 1;
+      services.libinput.enable = true;
+      services.libinput.touchpad.middleEmulation = false;
+      services.libinput.touchpad.scrollButton = 1;
 
       swapDevices = [{device = "/dev/disk/by-label/swap";}];
 
@@ -528,6 +528,7 @@ in {
         adbusers.name
       ];
 
+      xdg.portal.config.common.default = "*";
       xdg.portal.enable = true;
       xdg.portal.extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
