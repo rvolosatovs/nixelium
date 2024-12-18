@@ -665,8 +665,8 @@ in {
       programs.kitty.settings.tab_bar_edge = "top";
       programs.kitty.settings.url_color = "#${cfg.base16.colors.base04}";
 
-      programs.kitty.font.name = "FiraCode Nerd Font";
-      programs.kitty.font.package = pkgs.fira-code-nerdfont;
+      programs.kitty.font.name = "Fira Code";
+      programs.kitty.font.package = pkgs.fira-code;
       programs.kitty.shellIntegration.mode = "no-cursor";
       programs.kitty.themeFile = "Tomorrow_Night";
 
@@ -1234,7 +1234,7 @@ in {
 
       programs.firefox.package = pkgs.firefox-bin;
 
-      programs.kitty.settings.font_size = 19;
+      programs.kitty.settings.font_size = 20;
 
       targets.darwin.currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
       targets.darwin.defaults."com.apple.desktopservices".DSDontWriteUSBStores = true;
