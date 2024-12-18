@@ -530,7 +530,49 @@ lspconfig.rust_analyzer.setup {
     cmd = { paths.bin['rust-analyzer'] },
     settings = {
         ['rust-analyzer'] = {
-            imports = { preferNoStd = true }
+            assist = {
+                emitMustUse = true,
+            },
+            cargo = {
+                targetDir = true,
+            },
+            imports = {
+                granularity = {
+                    enforce = true,
+                },
+                preferNoStd = true,
+            },
+            inlayHints = {
+                closureCaptureHints = {
+                    enable = true,
+                },
+                closureReturnTypeHints = {
+                    enable = true,
+                },
+                discriminantHints = {
+                    enable = true,
+                },
+                expressionAdjustmentHints = {
+                    enable = true,
+                },
+                genericParameterHints = {
+                    lifetime = {
+                        enable = true,
+                    },
+                    type = {
+                        enable = true,
+                    },
+                },
+                implicitDrops = {
+                    enable = true,
+                },
+                lifetimeElisionHints = {
+                    enable = true,
+                },
+                rangeExclusiveHints = {
+                    enable = true,
+                },
+            }
         }
     }
 }
