@@ -41,7 +41,7 @@ with flake-utils.lib.system;
         ];
 
         hardware.cpu.intel.updateMicrocode = true;
-        hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [
+        hardware.graphics.extraPackages32 = with pkgs.pkgsi686Linux; [
           intel-media-driver
           intel-vaapi-driver
           libvdpau-va-gl
