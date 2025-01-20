@@ -51,21 +51,6 @@ in {
 
   config = mkMerge [
     {
-      boot.bootspec.enable = true;
-      boot.initrd.availableKernelModules = [
-        "cryptd"
-      ];
-      boot.initrd.systemd.enable = true;
-      boot.kernelParams = [
-        "systemd.unified_cgroup_hierarchy=1"
-      ];
-      boot.lanzaboote.enable = mkDefault true;
-      boot.lanzaboote.pkiBundle = "/etc/secureboot";
-      boot.loader.efi.canTouchEfiVariables = true;
-      boot.loader.grub.enable = false;
-      boot.loader.systemd-boot.enable = !config.boot.lanzaboote.enable;
-      boot.tmp.cleanOnBoot = true;
-
       environment.homeBinInPath = true;
       environment.localBinInPath = true;
       environment.pathsToLink = [
@@ -341,9 +326,26 @@ in {
         "wasm32-wasi"
       ];
 
+      boot.bootspec.enable = true;
+
+      boot.initrd.availableKernelModules = [
+        "cryptd"
+      ];
       boot.initrd.luks.devices.luksroot.allowDiscards = true;
+      boot.initrd.systemd.enable = true;
+      boot.kernelParams = [
+        "systemd.unified_cgroup_hierarchy=1"
+      ];
 
       boot.kernelPackages = pkgs.pkgsUnstable.linuxPackages_zen;
+
+      boot.lanzaboote.enable = mkDefault true;
+      boot.lanzaboote.pkiBundle = "/etc/secureboot";
+      boot.loader.efi.canTouchEfiVariables = true;
+      boot.loader.grub.enable = false;
+      boot.loader.systemd-boot.enable = !config.boot.lanzaboote.enable;
+
+      boot.tmp.cleanOnBoot = true;
 
       fileSystems."/" = butterSubvol "@";
       fileSystems."/.snapshots" = butterSubvol "@-snapshots";

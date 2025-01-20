@@ -4,4 +4,6 @@ inputs: {
 
   cobalt = import ./cobalt inputs;
   osmium = import ./osmium inputs;
+
+  rpi02 = import ./rpi02 inputs;
 }

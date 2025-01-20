@@ -59,6 +59,7 @@
   inputs.nixpkgs-legacy.url = "github:NixOS/nixpkgs/nixos-23.05";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-24.11";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
 
@@ -129,6 +130,7 @@
               install-iso-x86_64-linux
               neovim
               partition-osmium
+              sd-rpi02
               ssh-for-each
               ;
           };
