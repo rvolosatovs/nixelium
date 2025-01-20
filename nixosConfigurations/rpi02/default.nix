@@ -17,7 +17,7 @@ with flake-utils.lib.system;
         ];
 
         #boot.kernelParams = ["console=serial0,115200" "console=tty1"];
-        #boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxKernel.packages.linux_rpi3;
+        boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxKernel.packages.linux_rpi3;
 
         hardware.raspberry-pi.config.all.base-dt-params.audio.enable = true;
         hardware.raspberry-pi.config.all.base-dt-params.audio.value = "on";
