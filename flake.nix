@@ -61,10 +61,12 @@
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
+  inputs.wit-deps.url = "github:bytecodealliance/wit-deps/v0.5.0";
 
   outputs = inputs @ {
     self,
     nixify,
+    wit-deps,
     ...
   }:
     with nixify.lib; let
@@ -72,6 +74,7 @@
         withOverlays = {overlays, ...}: overlays // import ./overlays inputs;
         overlays = [
           self.overlays.default
+          wit-deps.overlays.default
         ];
 
         excludePaths = [
