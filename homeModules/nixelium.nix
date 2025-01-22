@@ -39,6 +39,7 @@ with nixlib.lib; let
       stable.clippy
       stable.rust-analyzer
       stable.rust-docs
+      stable.rust-src
       stable.rust-std
       stable.rustc
       stable.rustfmt
