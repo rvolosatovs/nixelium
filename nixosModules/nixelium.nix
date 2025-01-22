@@ -6,6 +6,7 @@
   nixpkgs-legacy,
   nixpkgs-nixos,
   sops-nix,
+  wit-deps,
   ...
 }: {
   config,
@@ -147,6 +148,8 @@ in {
       nixpkgs.config = import "${self}/nixpkgs/config.nix";
       nixpkgs.overlays = [
         self.overlays.default
+
+        wit-deps.overlays.default
       ];
 
       programs.zsh.autosuggestions.enable = true;

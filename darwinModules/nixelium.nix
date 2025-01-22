@@ -4,6 +4,7 @@
   nixlib,
   nixpkgs-darwin,
   nixpkgs-firefox-darwin,
+  wit-deps,
   ...
 }: {
   config,
@@ -119,6 +120,7 @@ in {
         self.overlays.default
 
         nixpkgs-firefox-darwin.overlay
+        wit-deps.overlays.default
       ];
 
       programs.bash.completion.enable = true;
