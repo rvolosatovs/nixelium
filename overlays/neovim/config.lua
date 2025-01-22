@@ -533,9 +533,6 @@ lspconfig.rust_analyzer.setup {
             assist = {
                 emitMustUse = true,
             },
-            cargo = {
-                targetDir = true,
-            },
             imports = {
                 granularity = {
                     enforce = true,
@@ -550,23 +547,6 @@ lspconfig.rust_analyzer.setup {
                     enable = true,
                 },
                 discriminantHints = {
-                    enable = true,
-                },
-                expressionAdjustmentHints = {
-                    enable = true,
-                },
-                genericParameterHints = {
-                    lifetime = {
-                        enable = true,
-                    },
-                    type = {
-                        enable = true,
-                    },
-                },
-                implicitDrops = {
-                    enable = true,
-                },
-                lifetimeElisionHints = {
                     enable = true,
                 },
                 rangeExclusiveHints = {
