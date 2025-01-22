@@ -45,7 +45,7 @@
   inputs.neovim.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.neovim.url = "github:neovim/neovim/dd00b6b442a6d3a8a4758b0ee10ac93d07e7db72?dir=contrib"; # last-known good commit
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
-  inputs.nix-darwin.url = "github:LnL7/nix-darwin";
+  inputs.nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
   inputs.nixify.inputs.nixlib.follows = "nixlib";
   inputs.nixify.inputs.nixpkgs-darwin.follows = "nixpkgs-darwin";
