@@ -1259,6 +1259,7 @@ in {
             pkgs.qemu
             pkgs.shellcheck
             pkgs.tcpdump
+            pkgs.wit-deps
             pkgs.yubikey-manager
             pkgs.yubikey-personalization
 
