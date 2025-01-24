@@ -47,6 +47,8 @@
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
+  inputs.nix-rosetta-builder.inputs.nixpkgs.follows = "nixpkgs-darwin";
+  inputs.nix-rosetta-builder.url = "github:cpick/nix-rosetta-builder";
   inputs.nixify.inputs.nixlib.follows = "nixlib";
   inputs.nixify.inputs.nixpkgs-darwin.follows = "nixpkgs-darwin";
   inputs.nixify.inputs.nixpkgs-nixos.follows = "nixpkgs-nixos";
@@ -61,10 +63,12 @@
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
+  inputs.wit-deps.url = "github:bytecodealliance/wit-deps/v0.5.0";
 
   outputs = inputs @ {
     self,
     nixify,
+    wit-deps,
     ...
   }:
     with nixify.lib; let
@@ -72,6 +76,7 @@
         withOverlays = {overlays, ...}: overlays // import ./overlays inputs;
         overlays = [
           self.overlays.default
+          wit-deps.overlays.default
         ];
 
         excludePaths = [
