@@ -1234,7 +1234,7 @@ in {
 
       programs.firefox.package = pkgs.firefox-bin;
 
-      programs.kitty.settings.font_size = 20;
+      programs.kitty.settings.font_size = 22;
 
       targets.darwin.currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
       targets.darwin.defaults."com.apple.desktopservices".DSDontWriteUSBStores = true;
