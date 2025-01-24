@@ -12,6 +12,16 @@
   ...
 }:
 with nixlib.lib; let
+  substituters = [
+    "https://rvolosatovs.cachix.org"
+    "https://nixify.cachix.org"
+    "https://cache.nixos.org"
+    "https://wasmcloud.cachix.org"
+    "https://bytecodealliance.cachix.org"
+    "https://crane.cachix.org"
+    "https://nix-community.cachix.org"
+  ];
+
   username = "rvolosatovs";
 in {
   imports = [
@@ -94,22 +104,17 @@ in {
         users.${username}.name
       ];
       nix.settings.require-sigs = true;
-      nix.settings.substituters = [
-        "https://rvolosatovs.cachix.org"
-        "https://nixify.cachix.org"
-        "https://cache.nixos.org"
-        "https://wasmcloud.cachix.org"
-        "https://crane.cachix.org"
-        "https://nix-community.cachix.org"
-      ];
+      nix.settings.substituters = substituters;
       nix.settings.trusted-public-keys = [
         "rvolosatovs.cachix.org-1:eRYUO4OXTSmpDFWu4wX3/X08MsP01baqGKi9GsoAmQ8="
         "nixify.cachix.org-1:95SiUQuf8Ij0hwDweALJsLtnMyv/otZamWNRp1Q1pXw="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "wasmcloud.cachix.org-1:9gRBzsKh+x2HbVVspreFg/6iFRiD4aOcUQfXVDl3hiM="
+        "bytecodealliance.cachix.org-1:0SBgh//n2n0heh0sDFhTm+ZKBRy2sInakzFGfzN531Y="
         "crane.cachix.org-1:8Scfpmn9w+hGdXH/Q9tTLiYAE/2dnJYRJP7kl80GuRk="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
+      nix.settings.trusted-substituters = substituters;
       nix.settings.trusted-users = with config.users; [
         "@admin"
         users.${username}.name
