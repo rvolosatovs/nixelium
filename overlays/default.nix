@@ -3,6 +3,7 @@ inputs @ {
   neovim,
   nixlib,
   nixpkgs,
+  nixpkgs-neovim,
   nixpkgs-unstable,
   firefox-addons,
   ...
@@ -45,13 +46,34 @@ with nixlib.lib; let
   };
 
   neovim' = final: prev: {
-    neovim = final.pkgsUnstable.wrapNeovim final.pkgsUnstable.neovim-unwrapped (import ./neovim inputs final);
+    neovim = final.wrapNeovim final.neovim-unwrapped (import ./neovim inputs final);
   };
 
   rust-analyzer = final: prev: {
     inherit
       (fenix.packages.${prev.stdenv.hostPlatform.system})
       rust-analyzer
+      ;
+  };
+
+  neovim-release = final: prev: let
+    pkgsNeovim = import nixpkgs-neovim {
+      inherit
+        (final.stdenv.hostPlatform)
+        system
+        ;
+
+      inherit
+        (final)
+        config
+        ;
+    };
+  in {
+    inherit
+      (pkgsNeovim)
+      neovim
+      neovim-unwrapped
+      wrapNeovim
       ;
   };
 
@@ -89,6 +111,8 @@ in {
     images
     infrastructure
     install
+    master
+    neovim-release
     quake3
     rust-analyzer
     scripts
@@ -103,6 +127,7 @@ in {
   fenix = fenix.overlays.default;
 
   default = composeManyExtensions [
+    neovim-release
     unstable
     master
 

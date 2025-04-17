@@ -985,6 +985,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-neovim": {
+      "locked": {
+        "lastModified": 1743019394,
+        "narHash": "sha256-p/4ZMkRgudT6eqnqrjE95/XpjIjVCmEeWrr+HrPUBa0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f8776630508052f95ac72f149cb70d805152b512",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f8776630508052f95ac72f149cb70d805152b512",
+        "type": "github"
+      }
+    },
     "nixpkgs-nixos": {
       "locked": {
         "lastModified": 1744440957,
@@ -1111,6 +1127,7 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
         "nixpkgs-legacy": "nixpkgs-legacy",
+        "nixpkgs-neovim": "nixpkgs-neovim",
         "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix",

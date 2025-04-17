@@ -59,6 +59,7 @@
   inputs.nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
   inputs.nixpkgs-legacy.url = "github:NixOS/nixpkgs/nixos-23.05";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-24.11";
+  inputs.nixpkgs-neovim.url = "github:NixOS/nixpkgs/f8776630508052f95ac72f149cb70d805152b512"; # neovim 0.10.4
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
