@@ -429,32 +429,49 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.cmd('colorscheme base16-tomorrow-night')
 
-local lspconfig = require('lspconfig')
+vim.lsp.enable({
+    'bashls',
+    'clangd',
+    'cssls',
+    'dockerls',
+    --'eslint', # https://github.com/neovim/nvim-lspconfig/issues/3705
+    'gdscript',
+    'hls',
+    'html',
+    'julials',
+    'lua_ls',
+    'nil_ls',
+    'omnisharp',
+    'rust_analyzer',
+    'taplo',
+    'ts_ls',
+})
+
 local capabilities = cmp_lsp.default_capabilities()
-lspconfig.bashls.setup {
+vim.lsp.config.bashls = {
     capabilities = capabilities,
     cmd = { paths.bin['bash-language-server'], 'start' },
 }
-lspconfig.clangd.setup {
+vim.lsp.config.clangd = {
     capabilities = capabilities,
     cmd = { paths.bin['clangd'], '--background-index' },
 }
-lspconfig.cssls.setup {
+vim.lsp.config.cssls = {
     capabilities = capabilities,
     cmd = { paths.bin['vscode-css-language-server'], '--stdio' },
 }
-lspconfig.dockerls.setup {
+vim.lsp.config.dockerls = {
     capabilities = capabilities,
     cmd = { paths.bin['docker-langserver'], '--stdio' },
 }
-lspconfig.eslint.setup {
+vim.lsp.config.eslint = {
     capabilities = capabilities,
     cmd = { paths.bin['vscode-eslint-language-server'], '--stdio' },
 }
-lspconfig.gdscript.setup {
+vim.lsp.config.gdscript = {
     capabilities = capabilities,
 }
-lspconfig.gopls.setup {
+vim.lsp.config.gopls = {
     capabilities = capabilities,
     on_attach = function(_, bufnr)
         map_lua_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
@@ -471,15 +488,15 @@ lspconfig.gopls.setup {
         },
     },
 }
-lspconfig.hls.setup {
+vim.lsp.config.hls = {
     capabilities = capabilities,
     cmd = { paths.bin['haskell-language-server'], '--lsp' },
 }
-lspconfig.html.setup {
+vim.lsp.config.html = {
     capabilities = capabilities,
     cmd = { paths.bin['vscode-html-language-server'], '--stdio' },
 }
-lspconfig.julials.setup {
+vim.lsp.config.julials = {
     capabilities = capabilities,
     settings = {
         julia = {
@@ -487,7 +504,7 @@ lspconfig.julials.setup {
         },
     },
 }
-lspconfig.lua_ls.setup {
+vim.lsp.config.lua_ls = {
     capabilities = capabilities,
     cmd = { paths.bin['lua-language-server'] },
     on_init = function(client)
@@ -512,7 +529,7 @@ lspconfig.lua_ls.setup {
         return true
     end
 }
-lspconfig.nil_ls.setup {
+vim.lsp.config.nil_ls = {
     capabilities = capabilities,
     cmd = { paths.bin['nil'] },
     settings = {
@@ -521,11 +538,11 @@ lspconfig.nil_ls.setup {
         }
     }
 }
-lspconfig.omnisharp.setup {
+vim.lsp.config.omnisharp = {
     capabilities = capabilities,
     cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
 }
-lspconfig.rust_analyzer.setup {
+vim.lsp.config.rust_analyzer = {
     capabilities = capabilities,
     cmd = { paths.bin['rust-analyzer'] },
     settings = {
@@ -556,11 +573,11 @@ lspconfig.rust_analyzer.setup {
         }
     }
 }
-lspconfig.taplo.setup {
+vim.lsp.config.taplo = {
     capabilities = capabilities,
     cmd = { paths.bin['taplo'], 'lsp', 'stdio' },
 }
-lspconfig.ts_ls.setup {
+vim.lsp.config.ts_ls = {
     capabilities = capabilities,
     cmd = { paths.bin['typescript-language-server'], '--stdio' },
 }
