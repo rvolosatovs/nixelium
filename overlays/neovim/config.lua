@@ -2,10 +2,7 @@
 
 telescope = require('telescope.builtin')
 
-local cmp = require('cmp')
-local cmp_lsp = require('cmp_nvim_lsp')
 local indent_blankline = require('ibl')
-local luasnip = require('luasnip')
 local treesitter = require('nvim-treesitter.configs')
 
 --- Functions
@@ -154,86 +151,6 @@ for _, v in ipairs({
     end
 end
 
---- Completion
-
-local cmp_map_pre = function(f)
-    cmp.mapping(function(fallback)
-        f()
-        fallback()
-    end, { 'i', 's' })
-end
-local cmp_confirm_insert = cmp_map_pre(function()
-    cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-    })
-end)
-
-cmp.setup {
-    completion = {
-        completeopt = 'menu,menuone,noinsert',
-    },
-    mapping = {
-        ['<C-d>']   = cmp.mapping.scroll_docs(4),
-        ['<C-e>']   = cmp.mapping.close(),
-        ['<C-n>']   = cmp.mapping(function()
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                cmp.complete()
-            end
-        end, { 'i', 's' }),
-        ['<C-p>']   = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.mapping.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
-        ['<C-u>']   = cmp.mapping.scroll_docs(-4),
-        ['<down>']  = cmp.mapping.select_next_item(),
-        ['<esc>']   = cmp_map_pre(cmp.mapping.close),
-        ['<up>']    = cmp.mapping.select_prev_item(),
-
-        ['(']       = cmp_confirm_insert,
-        [')']       = cmp_confirm_insert,
-        ['-']       = cmp_confirm_insert,
-        ['<']       = cmp_confirm_insert,
-        ['<cr>']    = cmp_confirm_insert,
-        ['<space>'] = cmp_confirm_insert,
-        ['>']       = cmp_confirm_insert,
-        ['[']       = cmp_confirm_insert,
-        ['\\']      = cmp_confirm_insert,
-        [']']       = cmp_confirm_insert,
-        ['{']       = cmp_confirm_insert,
-        ['|']       = cmp_confirm_insert,
-        ['}']       = cmp_confirm_insert,
-    },
-    snippet = {
-        expand = function(args)
-            luasnip.lsp_expand(args.body)
-        end,
-    },
-    sources = {
-        { name = 'luasnip' },
-        { name = 'nvim_lsp' },
-        { name = 'nvim_lua' },
-        { name = 'treesitter' },
-        { name = 'buffer' },
-        { name = 'path' },
-        { name = 'calc' },
-        { name = 'spell' },
-        { name = 'emoji' },
-    },
-    view = {
-        entries = "native",
-    },
-}
-
 --- Blankline
 
 indent_blankline.setup {
@@ -269,6 +186,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
         print('LSP loaded.')
 
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client:supports_method('textDocument/completion') then
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+        end
         if client.server_capabilities.inlayHintProvider then
             vim.lsp.inlay_hint.enable(true)
         else
@@ -429,33 +349,39 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.cmd('colorscheme base16-tomorrow-night')
 
-local lspconfig = require('lspconfig')
-local capabilities = cmp_lsp.default_capabilities()
-lspconfig.bashls.setup {
-    capabilities = capabilities,
+vim.lsp.enable({
+    'bashls',
+    'clangd',
+    'cssls',
+    'dockerls',
+    --'eslint',
+    'gdscript',
+    --'hls',
+    'html',
+    'julials',
+    'lua_ls',
+    'nil_ls',
+    'omnisharp',
+    'rust_analyzer',
+    'taplo',
+    --'ts_ls',
+})
+vim.lsp.config.bashls = {
     cmd = { paths.bin['bash-language-server'], 'start' },
 }
-lspconfig.clangd.setup {
-    capabilities = capabilities,
+vim.lsp.config.clangd = {
     cmd = { paths.bin['clangd'], '--background-index' },
 }
-lspconfig.cssls.setup {
-    capabilities = capabilities,
+vim.lsp.config.cssls = {
     cmd = { paths.bin['vscode-css-language-server'], '--stdio' },
 }
-lspconfig.dockerls.setup {
-    capabilities = capabilities,
+vim.lsp.config.dockerls = {
     cmd = { paths.bin['docker-langserver'], '--stdio' },
 }
-lspconfig.eslint.setup {
-    capabilities = capabilities,
+vim.lsp.config.eslint = {
     cmd = { paths.bin['vscode-eslint-language-server'], '--stdio' },
 }
-lspconfig.gdscript.setup {
-    capabilities = capabilities,
-}
-lspconfig.gopls.setup {
-    capabilities = capabilities,
+vim.lsp.config.gopls = {
     on_attach = function(_, bufnr)
         map_lua_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
     end,
@@ -471,49 +397,46 @@ lspconfig.gopls.setup {
         },
     },
 }
-lspconfig.hls.setup {
-    capabilities = capabilities,
+vim.lsp.config.hls = {
     cmd = { paths.bin['haskell-language-server'], '--lsp' },
 }
-lspconfig.html.setup {
-    capabilities = capabilities,
+vim.lsp.config.html = {
     cmd = { paths.bin['vscode-html-language-server'], '--stdio' },
 }
-lspconfig.julials.setup {
-    capabilities = capabilities,
+vim.lsp.config.julials = {
     settings = {
         julia = {
             executablePath = paths.bin['julia'],
         },
     },
 }
-lspconfig.lua_ls.setup {
-    capabilities = capabilities,
+vim.lsp.config.lua_ls = {
     cmd = { paths.bin['lua-language-server'] },
+    settings = {
+        Lua = {}
+    },
     on_init = function(client)
-        local path = client.workspace_folders[1].name
-        if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-            client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-                Lua = {
-                    runtime = {
-                        version = 'LuaJIT'
-                    },
-                    workspace = {
-                        checkThirdParty = false,
-                        library = {
-                            vim.env.VIMRUNTIME
-                        }
-                    }
-                }
-            })
-
-            client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+        if client.workspace_folders then
+            local path = client.workspace_folders[1].name
+            if (path ~= vim.fn.stdpath('config') or path ~= vim.fn.expand("$HOME/src/github.com/rvolosatovs/nixelium/overlays/neovim")) and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then
+                return
+            end
         end
-        return true
+
+        client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+                version = 'LuaJIT'
+            },
+            workspace = {
+                checkThirdParty = false,
+                library = {
+                    vim.env.VIMRUNTIME
+                }
+            }
+        })
     end
 }
-lspconfig.nil_ls.setup {
-    capabilities = capabilities,
+vim.lsp.config.nil_ls = {
     cmd = { paths.bin['nil'] },
     settings = {
         ['nil'] = {
@@ -521,12 +444,10 @@ lspconfig.nil_ls.setup {
         }
     }
 }
-lspconfig.omnisharp.setup {
-    capabilities = capabilities,
+vim.lsp.config.omnisharp = {
     cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
 }
-lspconfig.rust_analyzer.setup {
-    capabilities = capabilities,
+vim.lsp.config.rust_analyzer = {
     cmd = { paths.bin['rust-analyzer'] },
     settings = {
         ['rust-analyzer'] = {
@@ -556,17 +477,18 @@ lspconfig.rust_analyzer.setup {
         }
     }
 }
-lspconfig.taplo.setup {
-    capabilities = capabilities,
+vim.lsp.config.taplo = {
     cmd = { paths.bin['taplo'], 'lsp', 'stdio' },
 }
-lspconfig.ts_ls.setup {
-    capabilities = capabilities,
+vim.lsp.config.ts_ls = {
     cmd = { paths.bin['typescript-language-server'], '--stdio' },
 }
 
 --- Diagnostics
 
+vim.diagnostic.config({
+    virtual_lines = true,
+})
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
         virtual_text = true,
