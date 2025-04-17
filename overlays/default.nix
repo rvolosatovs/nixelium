@@ -1,10 +1,10 @@
 inputs @ {
   fenix,
+  firefox-addons,
   neovim,
   nixlib,
-  nixpkgs-24_11,
+  nixpkgs-neovim,
   nixpkgs-unstable,
-  firefox-addons,
   ...
 }:
 with nixlib.lib; let
@@ -57,7 +57,7 @@ with nixlib.lib; let
   };
 
   neovim' = final: prev: {
-    neovim = final.pkgs24_11.wrapNeovim final.pkgs24_11.neovim-unwrapped (import ./neovim inputs final);
+    neovim = final.pkgsNeovim.wrapNeovim final.pkgsNeovim.neovim-unwrapped (import ./neovim inputs final);
   };
 
   rust-analyzer = final: prev: {
@@ -71,8 +71,8 @@ with nixlib.lib; let
     pkgsUnstable = importNixpkgs nixpkgs-unstable final prev;
   };
 
-  pkgs24_11 = final: prev: {
-    pkgs24_11 = importNixpkgs nixpkgs-24_11 final prev;
+  pkgsNeovim = final: prev: {
+    pkgsNeovim = importNixpkgs nixpkgs-neovim final prev;
   };
 in {
   inherit
@@ -81,7 +81,7 @@ in {
     images
     infrastructure
     install
-    pkgs24_11
+    pkgsNeovim
     pkgsUnstable
     quake3
     rust-analyzer
@@ -96,7 +96,7 @@ in {
   fenix = fenix.overlays.default;
 
   default = composeManyExtensions [
-    pkgs24_11
+    pkgsNeovim
     pkgsUnstable
 
     fenix.overlays.default
