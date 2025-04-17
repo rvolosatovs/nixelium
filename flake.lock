@@ -933,22 +933,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-24_11": {
-      "locked": {
-        "lastModified": 1748240160,
-        "narHash": "sha256-BmGGHMQzXXIkd8YsYNW1qrtntIo1y7lboC0sujwfNmk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "a944d0b4c481a12817622d13f2c44943607a2545",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "release-24.11",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-darwin": {
       "locked": {
         "lastModified": 1748192983,
@@ -998,6 +982,22 @@
       "original": {
         "owner": "bandithedoge",
         "repo": "nixpkgs-firefox-darwin",
+        "type": "github"
+      }
+    },
+    "nixpkgs-neovim": {
+      "locked": {
+        "lastModified": 1743019394,
+        "narHash": "sha256-p/4ZMkRgudT6eqnqrjE95/XpjIjVCmEeWrr+HrPUBa0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f8776630508052f95ac72f149cb70d805152b512",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f8776630508052f95ac72f149cb70d805152b512",
         "type": "github"
       }
     },
@@ -1109,9 +1109,9 @@
         "nixlib": "nixlib_4",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs-23_05": "nixpkgs-23_05",
-        "nixpkgs-24_11": "nixpkgs-24_11",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
+        "nixpkgs-neovim": "nixpkgs-neovim",
         "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix",
