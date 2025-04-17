@@ -5,21 +5,39 @@ inputs: pkgs @ {pkgsMaster, ...}: {
     vim-table-mode
   ];
   configure.packages.plugins.start = with pkgsMaster.vimPlugins; [
+    nvim-lspconfig
+
     plenary-nvim
+
+    nvim-treesitter.withAllGrammars
+
+    luasnip
+
+    nvim-cmp
+
+    cmp-buffer
+    cmp-calc
+    cmp-emoji
+    cmp_luasnip
+    cmp-nvim-lsp
+    cmp-nvim-lua
+    cmp-path
+    cmp-spell
+    cmp-treesitter
+
+    nvim-dap
+
+    dressing-nvim
+    telescope-nvim
 
     auto-pairs
     base16-vim
-    dressing-nvim
     editorconfig-vim
     indent-blankline-nvim
     julia-vim
     nerdcommenter
-    nvim-dap
-    nvim-lspconfig
-    nvim-treesitter.withAllGrammars
     nvim-web-devicons
     rust-vim
-    telescope-nvim
     vim-abolish
     vim-airline
     vim-airline-themes
