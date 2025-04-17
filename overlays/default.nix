@@ -2,6 +2,7 @@ inputs @ {
   fenix,
   neovim,
   nixlib,
+  nixpkgs,
   nixpkgs-unstable,
   firefox-addons,
   ...
@@ -67,6 +68,20 @@ with nixlib.lib; let
         ;
     };
   };
+
+  master = final: prev: {
+    pkgsMaster = import nixpkgs {
+      inherit
+        (final.stdenv.hostPlatform)
+        system
+        ;
+
+      inherit
+        (final)
+        config
+        ;
+    };
+  };
 in {
   inherit
     firefox
@@ -89,6 +104,7 @@ in {
 
   default = composeManyExtensions [
     unstable
+    master
 
     fenix.overlays.default
     rust-analyzer

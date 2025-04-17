@@ -60,6 +60,7 @@
   inputs.nixpkgs-legacy.url = "github:NixOS/nixpkgs/nixos-23.05";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-24.11";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.wit-deps.url = "github:bytecodealliance/wit-deps/v0.5.0";

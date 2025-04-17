@@ -1,10 +1,10 @@
-inputs: pkgs @ {vimPlugins, ...}: {
+inputs: pkgs @ {pkgsMaster, ...}: {
   configure.customRC = import ./config.nix inputs pkgs;
-  configure.packages.plugins.opt = with vimPlugins; [
+  configure.packages.plugins.opt = with pkgsMaster.vimPlugins; [
     tabular
     vim-table-mode
   ];
-  configure.packages.plugins.start = with vimPlugins; [
+  configure.packages.plugins.start = with pkgsMaster.vimPlugins; [
     nvim-lspconfig
 
     plenary-nvim

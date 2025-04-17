@@ -1049,6 +1049,21 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1744879377,
+        "narHash": "sha256-IQez8VMEHRjTVIJPsM+WBqKqqNrADC1hEMSyuzY9tyc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4684d61e3cfec203f726542102f86d6d533e48e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -1092,6 +1107,7 @@
         "nixify": "nixify",
         "nixlib": "nixlib_4",
         "nixos-hardware": "nixos-hardware",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
         "nixpkgs-legacy": "nixpkgs-legacy",
