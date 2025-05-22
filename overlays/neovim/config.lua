@@ -463,7 +463,6 @@ lspconfig.gopls.setup {
     settings = {
         gopls = {
             analyses = {
-                fieldalignment = true,
                 unusedparams = true,
             },
             gofumpt = true,
