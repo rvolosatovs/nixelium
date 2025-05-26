@@ -364,10 +364,10 @@ in {
       fonts.packages = [
         pkgs.fira
         pkgs.fira-code
-        pkgs.fira-code-nerdfont
         pkgs.fira-code-symbols
         pkgs.fira-mono
         pkgs.font-awesome
+        pkgs.nerd-fonts.fira-code
         pkgs.roboto-slab
       ];
 
