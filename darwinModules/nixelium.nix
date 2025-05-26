@@ -46,10 +46,10 @@ in {
       fonts.packages = [
         pkgs.fira
         pkgs.fira-code
-        pkgs.fira-code-nerdfont
         pkgs.fira-code-symbols
         pkgs.fira-mono
         pkgs.font-awesome
+        pkgs.nerd-fonts.fira-code
         pkgs.roboto-slab
       ];
 
@@ -87,7 +87,6 @@ in {
         "149.112.112.112"
       ];
 
-      nix.configureBuildUsers = true;
       nix.distributedBuilds = true;
       nix.extraOptions = concatStringsSep "\n" [
         "builders-use-substitutes = true"
@@ -140,9 +139,7 @@ in {
         setopt INTERACTIVE_COMMENTS NO_NOMATCH
       '';
 
-      security.pam.enableSudoTouchIdAuth = true;
-
-      services.nix-daemon.enable = true;
+      security.pam.services.sudo_local.touchIdAuth = true;
 
       services.tailscale.enable = true;
 
@@ -209,6 +206,7 @@ in {
       system.defaults.finder.AppleShowAllFiles = true;
       system.keyboard.enableKeyMapping = true;
       system.keyboard.remapCapsLockToEscape = true;
+      system.primaryUser = username;
       system.stateVersion = 4;
 
       users.knownGroups = with config.users; [

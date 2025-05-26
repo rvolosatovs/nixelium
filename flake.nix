@@ -35,7 +35,7 @@
   inputs.home-manager-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.home-manager-unstable.url = "github:nix-community/home-manager/master";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs-nixos";
-  inputs.home-manager.url = "github:nix-community/home-manager/release-24.11";
+  inputs.home-manager.url = "github:nix-community/home-manager/release-25.05";
   inputs.ioquake3-mac-install.flake = false;
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
   inputs.lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -44,7 +44,7 @@
   inputs.neovim.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.neovim.url = "github:neovim/neovim/dd00b6b442a6d3a8a4758b0ee10ac93d07e7db72?dir=contrib"; # last-known good commit
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
-  inputs.nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
+  inputs.nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
   inputs.nix-rosetta-builder.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nix-rosetta-builder.url = "github:cpick/nix-rosetta-builder";
@@ -54,11 +54,11 @@
   inputs.nixify.url = "github:rvolosatovs/nixify";
   inputs.nixlib.url = "github:nix-community/nixpkgs.lib";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
-  inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
+  inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
   inputs.nixpkgs-firefox-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
   inputs.nixpkgs-legacy.url = "github:NixOS/nixpkgs/nixos-23.05";
-  inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-24.11";
+  inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.05";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";

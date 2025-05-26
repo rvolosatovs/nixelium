@@ -337,6 +337,8 @@ in {
       home.shellAliases.mkdir = "mkdir -pv";
       home.shellAliases.rm = "rm -i";
       home.shellAliases.sl = "ls";
+      home.shellAliases.vi = "nvim";
+      home.shellAliases.vim = "nvim";
 
       nix.registry.nixelium.flake = self;
       nix.registry.nixelium.from.id = "nixelium";
@@ -827,31 +829,32 @@ in {
       programs.zsh.history.save = osConfig.programs.zsh.histSize or 50000;
       programs.zsh.history.size = osConfig.programs.zsh.histSize or 50000;
       programs.zsh.historySubstringSearch.enable = true;
-      programs.zsh.initExtraFirst = ''
-        source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
-      '';
-      programs.zsh.initExtra = ''
-        nixify() {
-          if [ ! -e ./.envrc ]; then
-            echo 'use flake' > .envrc
-          fi
-          nix flake new . -t "github:rvolosatovs/templates#''${1:-default}"
-          direnv allow
-        }
+      programs.zsh.initContent = mkMerge [
+        (mkBefore "source '${pkgs.grml-zsh-config}/etc/zsh/zshrc'")
+        ''
+          nixify() {
+            if [ ! -e ./.envrc ]; then
+              echo 'use flake' > .envrc
+            fi
+            nix flake new . -t "github:rvolosatovs/templates#''${1:-default}"
+            direnv allow
+          }
 
-        base16_tomorrow-night
+          base16_tomorrow-night
 
-        zstyle ':completion:*' completer _complete _correct _approximate
-        zstyle ':completion:*' completer _expand_alias _complete _approximate
-        zstyle ':completion:*' expand prefix suffix
-        zstyle ':prompt:grml:right:setup' items
+          zstyle ':completion:*' completer _complete _correct _approximate
+          zstyle ':completion:*' completer _expand_alias _complete _approximate
+          zstyle ':completion:*' expand prefix suffix
+          zstyle ':prompt:grml:right:setup' items
 
-        bindkey -M isearch . self-insert
-        bindkey -M menuselect 'h' vi-backward-char
-        bindkey -M menuselect 'j' vi-down-line-or-history
-        bindkey -M menuselect 'k' vi-up-line-or-history
-        bindkey -M menuselect 'l' vi-forward-char
-      '';
+          bindkey -M isearch . self-insert
+          bindkey -M menuselect 'h' vi-backward-char
+          bindkey -M menuselect 'j' vi-down-line-or-history
+          bindkey -M menuselect 'k' vi-up-line-or-history
+          bindkey -M menuselect 'l' vi-forward-char
+        ''
+      ];
+
       programs.zsh.plugins = [
         {
           name = "base16-shell";
@@ -881,17 +884,12 @@ in {
       services.mako.defaultTimeout = 5000;
       services.mako.textColor = "#${cfg.base16.colors.base05}";
       services.mako.font = "monospace 10";
-      services.mako.extraConfig = ''
-        [urgency=low]
-        background-color=#${cfg.base16.colors.base00}
-        text-color=#${cfg.base16.colors.base0A}
-        border-color=#${cfg.base16.colors.base0D}
-
-        [urgency=high]
-        background-color=#${cfg.base16.colors.base00}
-        text-color=#${cfg.base16.colors.base08}
-        border-color=#${cfg.base16.colors.base0D}
-      '';
+      services.mako.settings."urgency=low".background-color = "#${cfg.base16.colors.base00}";
+      services.mako.settings."urgency=low".text-color = "#${cfg.base16.colors.base0A}";
+      services.mako.settings."urgency=low".border-color = "#${cfg.base16.colors.base0D}";
+      services.mako.settings."urgency=high".background-color = "#${cfg.base16.colors.base00}";
+      services.mako.settings."urgency=high".text-color = "#${cfg.base16.colors.base08}";
+      services.mako.settings."urgency=high".border-color = "#${cfg.base16.colors.base0D}";
 
       services.swayidle.events = [
         {
@@ -1234,8 +1232,6 @@ in {
         pkgs.lima
         pkgs.utm
       ];
-
-      programs.firefox.package = pkgs.firefox-bin;
 
       programs.kitty.settings.font_size = 22;
 
