@@ -54,6 +54,7 @@
   inputs.nixify.url = "github:rvolosatovs/nixify";
   inputs.nixlib.url = "github:nix-community/nixpkgs.lib";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
+  inputs.nixpkgs-24_11.url = "github:NixOS/nixpkgs/nixos-24.11";
   inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
   inputs.nixpkgs-firefox-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";

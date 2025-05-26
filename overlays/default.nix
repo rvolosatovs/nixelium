@@ -2,11 +2,24 @@ inputs @ {
   fenix,
   neovim,
   nixlib,
+  nixpkgs-24_11,
   nixpkgs-unstable,
   firefox-addons,
   ...
 }:
 with nixlib.lib; let
+  importNixpkgs = nixpkgs: final: prev: import nixpkgs {
+      inherit
+        (final.stdenv.hostPlatform)
+        system
+        ;
+
+      inherit
+        (final)
+        config
+        ;
+    };
+
   images = import ./images.nix inputs;
   infrastructure = import ./infrastructure.nix inputs;
   install = import ./install.nix inputs;
@@ -44,7 +57,7 @@ with nixlib.lib; let
   };
 
   neovim' = final: prev: {
-    neovim = final.pkgsUnstable.wrapNeovim final.pkgsUnstable.neovim-unwrapped (import ./neovim inputs final);
+    neovim = final.pkgs24_11.wrapNeovim final.pkgs24_11.neovim-unwrapped (import ./neovim inputs final);
   };
 
   rust-analyzer = final: prev: {
@@ -54,18 +67,12 @@ with nixlib.lib; let
       ;
   };
 
-  unstable = final: prev: {
-    pkgsUnstable = import nixpkgs-unstable {
-      inherit
-        (final.stdenv.hostPlatform)
-        system
-        ;
+  pkgsUnstable = final: prev: {
+    pkgsUnstable = importNixpkgs nixpkgs-unstable final prev;
+  };
 
-      inherit
-        (final)
-        config
-        ;
-    };
+  pkgs24_11 = final: prev: {
+    pkgs24_11 = importNixpkgs nixpkgs-24_11 final prev;
   };
 in {
   inherit
@@ -74,10 +81,11 @@ in {
     images
     infrastructure
     install
+    pkgs24_11
+    pkgsUnstable
     quake3
     rust-analyzer
     scripts
-    unstable
     ;
 
   neovim = neovim';
@@ -88,7 +96,8 @@ in {
   fenix = fenix.overlays.default;
 
   default = composeManyExtensions [
-    unstable
+    pkgs24_11
+    pkgsUnstable
 
     fenix.overlays.default
     rust-analyzer
