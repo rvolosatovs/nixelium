@@ -1179,8 +1179,8 @@ in {
         osConfig.services.yabai.package
 
         pkgs.docker
-        pkgs.podman
         pkgs.lima
+        pkgs.podman
         pkgs.utm
       ];
 
