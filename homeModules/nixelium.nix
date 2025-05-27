@@ -1186,6 +1186,8 @@ in {
 
       programs.kitty.settings.font_size = 22;
 
+      programs.zsh.sessionVariables.NOPATHHELPER = "1";
+
       targets.darwin.currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
       targets.darwin.defaults."com.apple.desktopservices".DSDontWriteUSBStores = true;
       targets.darwin.defaults.NSGlobalDomain.AppleLocale = "en_US";
