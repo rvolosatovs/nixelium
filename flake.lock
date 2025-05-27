@@ -965,26 +965,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-firefox-darwin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-darwin"
-        ]
-      },
-      "locked": {
-        "lastModified": 1748307897,
-        "narHash": "sha256-NrxxfFldWYtPlhEaHVF89+T6//ZDjuMOU/WWz533yAU=",
-        "owner": "bandithedoge",
-        "repo": "nixpkgs-firefox-darwin",
-        "rev": "13c7c721c5d9c5fef8d2ec2b19b966d129665738",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bandithedoge",
-        "repo": "nixpkgs-firefox-darwin",
-        "type": "github"
-      }
-    },
     "nixpkgs-neovim": {
       "locked": {
         "lastModified": 1743019394,
@@ -1110,7 +1090,6 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs-23_05": "nixpkgs-23_05",
         "nixpkgs-darwin": "nixpkgs-darwin",
-        "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
         "nixpkgs-neovim": "nixpkgs-neovim",
         "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
