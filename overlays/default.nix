@@ -8,7 +8,8 @@ inputs @ {
   ...
 }:
 with nixlib.lib; let
-  importNixpkgs = nixpkgs: final: prev: import nixpkgs {
+  importNixpkgs = nixpkgs: final: prev:
+    import nixpkgs {
       inherit
         (final.stdenv.hostPlatform)
         system
