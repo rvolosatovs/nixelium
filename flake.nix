@@ -56,8 +56,6 @@
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
   inputs.nixpkgs-23_05.url = "github:NixOS/nixpkgs/release-23.05";
   inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
-  inputs.nixpkgs-firefox-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
-  inputs.nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
   inputs.nixpkgs-neovim.url = "github:NixOS/nixpkgs/f8776630508052f95ac72f149cb70d805152b512"; # neovim 0.10.4
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.05";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -129,6 +127,7 @@
           // {
             inherit
               (pkgs)
+              firefox
               host-key
               install-iso-aarch64-linux
               install-iso-x86_64-linux

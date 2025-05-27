@@ -1166,55 +1166,6 @@ in {
 
       home.stateVersion = osConfig.system.stateVersion;
 
-      programs.firefox.package = pkgs.firefox; # configured in overlay
-      programs.firefox.profiles.main.extensions = with pkgs.firefox-addons; [
-        auto-tab-discard
-        cookie-autodelete
-        link-cleaner
-        multi-account-containers
-        peertubeify
-        privacy-badger
-        reddit-enhancement-suite
-        rust-search-extension
-        save-page-we
-        stylus
-        text-contrast-for-dark-themes
-        transparent-standalone-image
-        ublock-origin
-      ];
-      programs.firefox.profiles.main.search.default = "DuckDuckGo";
-      programs.firefox.profiles.main.search.engines.Bing.metaData.hidden = true;
-      programs.firefox.profiles.main.search.engines.Google.metaData.alias = "@g";
-      programs.firefox.profiles.main.search.engines."Nix Packages" = {
-        urls = [
-          {
-            template = "https://search.nixos.org/packages";
-            params = [
-              {
-                name = "type";
-                value = "packages";
-              }
-              {
-                name = "query";
-                value = "{searchTerms}";
-              }
-            ];
-          }
-        ];
-        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        definedAliases = ["@np"];
-      };
-      programs.firefox.profiles.main.search.engines."NixOS Wiki" = {
-        urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
-        iconUpdateURL = "https://nixos.wiki/favicon.png";
-        updateInterval = 24 * 60 * 60 * 1000;
-        definedAliases = ["@nw"];
-      };
-      programs.firefox.profiles.main.search.force = true;
-      programs.firefox.profiles.main.search.order = ["DuckDuckGo" "Google"];
-      programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
-      programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
-
       programs.kitty.settings.font_size = 15;
 
       services.gpg-agent.enable = true;
@@ -1283,6 +1234,47 @@ in {
         ];
 
         programs.firefox.enable = true;
+        programs.firefox.package = pkgs.firefox; # configured in overlay
+        programs.firefox.profiles.main.extensions.packages = with pkgs.firefox-addons; [
+          auto-tab-discard
+          cookie-autodelete
+          multi-account-containers
+          privacy-badger
+          rust-search-extension
+          ublock-origin
+        ];
+        programs.firefox.profiles.main.search.default = "ddg";
+        programs.firefox.profiles.main.search.engines.bing.metaData.hidden = true;
+        programs.firefox.profiles.main.search.engines.google.metaData.alias = "@g";
+        programs.firefox.profiles.main.search.engines."Nix Packages" = {
+          urls = [
+            {
+              template = "https://search.nixos.org/packages";
+              params = [
+                {
+                  name = "type";
+                  value = "packages";
+                }
+                {
+                  name = "query";
+                  value = "{searchTerms}";
+                }
+              ];
+            }
+          ];
+          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          definedAliases = ["@np"];
+        };
+        programs.firefox.profiles.main.search.engines."NixOS Wiki" = {
+          urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
+          icon = "https://nixos.wiki/favicon.png";
+          updateInterval = 24 * 60 * 60 * 1000;
+          definedAliases = ["@nw"];
+        };
+        programs.firefox.profiles.main.search.force = true;
+        programs.firefox.profiles.main.search.order = ["ddg" "google"];
+        programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
+        programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
 
         programs.go.enable = true;
         programs.go.package = pkgs.pkgsUnstable.go;

@@ -3,7 +3,6 @@
   home-manager,
   nixlib,
   nixpkgs-darwin,
-  nixpkgs-firefox-darwin,
   wit-deps,
   ...
 }: {
@@ -65,6 +64,7 @@ in {
           name = "chromium";
           args.require_sha = false;
         }
+        "firefox" # TODO: switch to nixpkgs
         "keybase"
         "mac-mouse-fix"
         "maccy"
@@ -123,7 +123,6 @@ in {
       nixpkgs.overlays = [
         self.overlays.default
 
-        nixpkgs-firefox-darwin.overlay
         wit-deps.overlays.default
       ];
 
@@ -178,7 +177,7 @@ in {
         cmd + ctrl + shift - l  : ${config.services.yabai.package}/bin/yabai -m window --warp east
 
         cmd - return            : ${config.home-manager.users.${username}.programs.kitty.package}/Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
-        cmd + shift - o         : ${config.home-manager.users.${username}.programs.firefox.package}/Applications/firefox.app/Contents/MacOS/firefox
+        cmd + shift - o         : open ${config.home-manager.users.${username}.programs.firefox.package}/Applications/Firefox.app
       '';
       services.skhd.package = pkgs.pkgsUnstable.skhd;
 
