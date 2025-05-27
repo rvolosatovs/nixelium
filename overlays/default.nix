@@ -51,6 +51,26 @@ with nixlib.lib; let
       };
   };
 
+  grml-zsh-config = final: prev: {
+    grml-zsh-config = prev.grml-zsh-config.overrideAttrs ({nativeBuildInputs ? [], ...}: {
+      # https://github.com/grml/grml-etc-core/pull/202
+      version = "0.19.19-patched";
+      src = final.fetchFromGitHub {
+        owner = "grml";
+        repo = "grml-etc-core";
+        rev = "765cf43a3f865f62bbd1ea6ef3a36889cd9222c5";
+        sha256 = "sha256-okPDIqbXI56Z7WTaLszdBft2pSoYSdMfrgn35SoSMWY=";
+      };
+
+      # https://github.com/NixOS/nixpkgs/pull/411436
+      nativeBuildInputs =
+        nativeBuildInputs
+        ++ [
+          final.asciidoctor
+        ];
+    });
+  };
+
   gopass = final: prev: {
     gopass = prev.pkgsUnstable.gopass.override {
       passAlias = true;
@@ -79,6 +99,7 @@ in {
   inherit
     firefox
     gopass
+    grml-zsh-config
     images
     infrastructure
     install
@@ -106,6 +127,7 @@ in {
     firefox
     firefox-addons'
     gopass
+    grml-zsh-config
     neovim'
     quake3
 
