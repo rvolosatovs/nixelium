@@ -11,6 +11,8 @@ with flake-utils.lib.system;
         environment.systemPackages = [
           pkgs.partition-osmium
         ];
+
+        services.openssh.settings.PermitRootLogin = "yes";
       })
     ];
   }
