@@ -1203,9 +1203,12 @@ in {
             rust
 
             pkgs.android-tools
+            pkgs.avrdude
             pkgs.google-cloud-sdk
+            pkgs.gqrx
             pkgs.imv
             pkgs.julia
+            pkgs.kubectl
             pkgs.qemu
             pkgs.shellcheck
             pkgs.tcpdump
