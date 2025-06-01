@@ -337,8 +337,6 @@ in {
       home.shellAliases.mkdir = "mkdir -pv";
       home.shellAliases.rm = "rm -i";
       home.shellAliases.sl = "ls";
-      home.shellAliases.vi = "nvim";
-      home.shellAliases.vim = "nvim";
 
       nix.registry.nixelium.flake = self;
       nix.registry.nixelium.from.id = "nixelium";
