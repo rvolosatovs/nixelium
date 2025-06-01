@@ -80,6 +80,8 @@ in {
       home-manager.users.${username} = self.homeModules.default;
       home-manager.users.root = self.homeModules.default;
 
+      ids.gids.nixbld = 30000;
+
       networking.dns = [
         "2620:fe::fe"
         "2620:fe::9"
@@ -206,7 +208,7 @@ in {
       system.keyboard.enableKeyMapping = true;
       system.keyboard.remapCapsLockToEscape = true;
       system.primaryUser = username;
-      system.stateVersion = 4;
+      system.stateVersion = 6;
 
       users.knownGroups = with config.users; [
         groups.nix.name
