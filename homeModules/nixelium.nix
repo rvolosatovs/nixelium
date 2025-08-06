@@ -9,7 +9,7 @@
   ...
 }: {
   config,
-  osConfig,
+  osConfig ? null,
   pkgs,
   ...
 }:
@@ -1162,13 +1162,14 @@ in {
         pkgs.usbutils
       ];
 
-      home.stateVersion = osConfig.system.stateVersion;
-
       programs.kitty.settings.font_size = 15;
 
       services.gpg-agent.enable = true;
 
       xdg.userDirs.enable = true;
+    })
+    (mkIf (pkgs.stdenv.hostPlatform.isLinux && osConfig != null) {
+      home.stateVersion = osConfig.system.stateVersion;
     })
     (mkIf pkgs.stdenv.hostPlatform.isDarwin {
       home.stateVersion = osConfig.system.nixpkgsRelease;
@@ -1209,6 +1210,7 @@ in {
             pkgs.imv
             pkgs.julia
             pkgs.kubectl
+            pkgs.minikube
             pkgs.qemu
             pkgs.shellcheck
             pkgs.tcpdump
@@ -1235,6 +1237,15 @@ in {
           "$HOME/${config.programs.go.goBin}"
           "$HOME/.cargo/bin"
         ];
+
+        home.shellAliases.k = "kubectl";
+        home.shellAliases.ka = "kubectl apply";
+        home.shellAliases.kaf = "kubectl apply -f";
+        home.shellAliases.kd = "kubectl get deployments";
+        home.shellAliases.mk = "minikube kubectl --";
+        home.shellAliases.mka = "minikube kubectl -- apply";
+        home.shellAliases.mkaf = "minikube kubectl -- apply -f";
+        home.shellAliases.mkd = "minikube kubectl -- get deployments";
 
         programs.firefox.enable = true;
         programs.firefox.package = pkgs.firefox; # configured in overlay
