@@ -1172,11 +1172,7 @@ in {
       home.stateVersion = osConfig.system.stateVersion;
     })
     (mkIf pkgs.stdenv.hostPlatform.isDarwin {
-      home.stateVersion = osConfig.system.nixpkgsRelease;
       home.packages = [
-        osConfig.services.skhd.package
-        osConfig.services.yabai.package
-
         pkgs.docker
         pkgs.lima
         pkgs.podman
@@ -1195,6 +1191,13 @@ in {
       targets.darwin.defaults.NSGlobalDomain.AppleTemperatureUnit = "Celsius";
       targets.darwin.defaults.NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = true;
       targets.darwin.search = "DuckDuckGo";
+    })
+    (mkIf (pkgs.stdenv.hostPlatform.isDarwin && osConfig != null) {
+      home.stateVersion = osConfig.system.nixpkgsRelease;
+      home.packages = [
+        osConfig.services.skhd.package
+        osConfig.services.yabai.package
+      ];
     })
     (mkIf osConfig.nixelium.profile.laptop.enable
       {
