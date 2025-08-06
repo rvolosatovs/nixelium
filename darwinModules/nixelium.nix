@@ -66,6 +66,7 @@ in {
           args.require_sha = false;
         }
         "firefox" # TODO: switch to nixpkgs
+        "julia"
         "keybase"
         "mac-mouse-fix"
         "maccy"
