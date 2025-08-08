@@ -410,7 +410,11 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 )
 
 --- Pairs
-mini_pairs.setup {}
+mini_pairs.setup {
+    mappings = {
+        ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%a\\&<].', register = { cr = false } },
+    }
+}
 
 --- Surround
 mini_surround.setup {}
