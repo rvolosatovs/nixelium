@@ -222,7 +222,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         else
             print("no inlay hints available")
         end
-        vim.g.diagnostics_visible = true
+        vim.diagnostic.config({ virtual_text = true })
 
         for k, fn in pairs({
             ['<C-]>']      = 'vim.lsp.buf.definition()',
