@@ -34,10 +34,6 @@
     src.lua-language-server = "${lua-language-server}";
   };
 in ''
-  if $TERM!='linux'
-    let base16colorspace=256
-  endif
-
   filetype plugin indent on
   syntax enable
 
@@ -45,7 +41,6 @@ in ''
   set grepformat^=%f:%l:%c:%m
   set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
   set shortmess+=c
-  set t_Co=256
 
   set foldmethod=expr
   set foldexpr=nvim_treesitter#foldexpr()
@@ -56,22 +51,16 @@ in ''
   EOF
 
   let g:airline#extensions#branch#enabled = 1
-  let g:airline#extensions#bufferline#enabled = 1
   let g:airline#extensions#syntastic#enabled = 1
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#fnamemod = ':t'
-  let g:airline#extensions#tabline#show_buffers = 0
+  let g:airline#extensions#tabline#show_buffers = 1
   let g:airline#extensions#tabline#show_splits = 1
   let g:airline#extensions#tabline#tab_min_count = 1
   let g:airline#extensions#tabline#tab_nr_type = 2
   let g:airline#extensions#tagbar#enabled = 1
   let g:airline_powerline_fonts = 1
   let g:airline_theme='base16'
-
-  let g:AutoPairsFlyMode = 0
-  let g:AutoPairsShortcutToggle = '<A-p>'
-
-  let g:bufferline_echo = 0
 
   let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 

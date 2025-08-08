@@ -493,32 +493,6 @@
         "url": "https://github.com/roblabla/MacOSX-SDKs/releases/download/macosx14.0/MacOSX14.0.sdk.tar.xz"
       }
     },
-    "neovim": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ]
-      },
-      "locked": {
-        "dir": "contrib",
-        "lastModified": 1703901477,
-        "narHash": "sha256-b3iDPyFJDAhjepPm8swqd1AKd6TtuCjVGr/IweS7Mx0=",
-        "owner": "neovim",
-        "repo": "neovim",
-        "rev": "dd00b6b442a6d3a8a4758b0ee10ac93d07e7db72",
-        "type": "github"
-      },
-      "original": {
-        "dir": "contrib",
-        "owner": "neovim",
-        "repo": "neovim",
-        "rev": "dd00b6b442a6d3a8a4758b0ee10ac93d07e7db72",
-        "type": "github"
-      }
-    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -965,22 +939,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-neovim": {
-      "locked": {
-        "lastModified": 1743019394,
-        "narHash": "sha256-p/4ZMkRgudT6eqnqrjE95/XpjIjVCmEeWrr+HrPUBa0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f8776630508052f95ac72f149cb70d805152b512",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f8776630508052f95ac72f149cb70d805152b512",
-        "type": "github"
-      }
-    },
     "nixpkgs-nixos": {
       "locked": {
         "lastModified": 1754292888,
@@ -1081,7 +1039,6 @@
         "home-manager-unstable": "home-manager-unstable",
         "ioquake3-mac-install": "ioquake3-mac-install",
         "lanzaboote": "lanzaboote",
-        "neovim": "neovim",
         "nix-darwin": "nix-darwin",
         "nix-flake-tests": "nix-flake-tests",
         "nix-rosetta-builder": "nix-rosetta-builder",
@@ -1090,7 +1047,6 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs-23_05": "nixpkgs-23_05",
         "nixpkgs-darwin": "nixpkgs-darwin",
-        "nixpkgs-neovim": "nixpkgs-neovim",
         "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix",

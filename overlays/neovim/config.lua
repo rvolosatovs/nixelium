@@ -2,11 +2,36 @@
 
 telescope = require('telescope.builtin')
 
-local cmp = require('cmp')
-local cmp_lsp = require('cmp_nvim_lsp')
+local blink = require('blink.cmp')
 local indent_blankline = require('ibl')
-local luasnip = require('luasnip')
+local mini_base16 = require('mini.base16')
+local mini_bracketed = require('mini.bracketed')
+local mini_pairs = require('mini.pairs')
+local mini_surround = require('mini.surround')
 local treesitter = require('nvim-treesitter.configs')
+
+--- Colorscheme
+mini_base16.setup {
+    palette = {
+        -- TODO: Unify with Nix config
+        base00 = '#1d1f21',
+        base01 = '#282a2e',
+        base02 = '#373b41',
+        base03 = '#969896',
+        base04 = '#b4b7b4',
+        base05 = '#c5c8c6',
+        base06 = '#e0e0e0',
+        base07 = '#ffffff',
+        base08 = '#cc6666',
+        base09 = '#de935f',
+        base0A = '#f0c674',
+        base0B = '#b5bd68',
+        base0C = '#8abeb7',
+        base0D = '#81a2be',
+        base0E = '#b294bb',
+        base0F = '#a3685a',
+    },
+}
 
 --- Functions
 
@@ -37,7 +62,6 @@ end
 
 vim.opt.autoindent = true
 vim.opt.autowriteall = true
-vim.opt.background = 'dark'
 vim.opt.backup = true
 vim.opt.cmdheight = 2
 vim.opt.concealcursor = 'nc'
@@ -72,7 +96,6 @@ vim.opt.termguicolors = true
 vim.opt.title = true
 vim.opt.undofile = true
 vim.opt.updatetime = 250
-vim.opt.viewoptions = 'cursor,slash,unix'
 vim.opt.visualbell = true
 vim.opt.wrapscan = true
 
@@ -154,86 +177,6 @@ for _, v in ipairs({
     end
 end
 
---- Completion
-
-local cmp_map_pre = function(f)
-    cmp.mapping(function(fallback)
-        f()
-        fallback()
-    end, { 'i', 's' })
-end
-local cmp_confirm_insert = cmp_map_pre(function()
-    cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-    })
-end)
-
-cmp.setup {
-    completion = {
-        completeopt = 'menu,menuone,noinsert',
-    },
-    mapping = {
-        ['<C-d>']   = cmp.mapping.scroll_docs(4),
-        ['<C-e>']   = cmp.mapping.close(),
-        ['<C-n>']   = cmp.mapping(function()
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                cmp.complete()
-            end
-        end, { 'i', 's' }),
-        ['<C-p>']   = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.mapping.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
-        ['<C-u>']   = cmp.mapping.scroll_docs(-4),
-        ['<down>']  = cmp.mapping.select_next_item(),
-        ['<esc>']   = cmp_map_pre(cmp.mapping.close),
-        ['<up>']    = cmp.mapping.select_prev_item(),
-
-        ['(']       = cmp_confirm_insert,
-        [')']       = cmp_confirm_insert,
-        ['-']       = cmp_confirm_insert,
-        ['<']       = cmp_confirm_insert,
-        ['<cr>']    = cmp_confirm_insert,
-        ['<space>'] = cmp_confirm_insert,
-        ['>']       = cmp_confirm_insert,
-        ['[']       = cmp_confirm_insert,
-        ['\\']      = cmp_confirm_insert,
-        [']']       = cmp_confirm_insert,
-        ['{']       = cmp_confirm_insert,
-        ['|']       = cmp_confirm_insert,
-        ['}']       = cmp_confirm_insert,
-    },
-    snippet = {
-        expand = function(args)
-            luasnip.lsp_expand(args.body)
-        end,
-    },
-    sources = {
-        { name = 'luasnip' },
-        { name = 'nvim_lsp' },
-        { name = 'nvim_lua' },
-        { name = 'treesitter' },
-        { name = 'buffer' },
-        { name = 'path' },
-        { name = 'calc' },
-        { name = 'spell' },
-        { name = 'emoji' },
-    },
-    view = {
-        entries = "native",
-    },
-}
-
 --- Blankline
 
 indent_blankline.setup {
@@ -263,6 +206,11 @@ treesitter.setup {
 
 --- LSP
 
+---@module 'blink.cmp'
+---@type blink.cmp.Config
+blink.setup {
+    completion = { documentation = { auto_show = true } },
+}
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
@@ -277,10 +225,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.g.diagnostics_visible = true
 
         for k, fn in pairs({
-            ['<C-]>']      = 'telescope.lsp_definitions()',
+            ['<C-]>']      = 'vim.lsp.buf.definition()',
             ['<C-k>']      = 'vim.lsp.buf.signature_help()',
-            ['<leader>a']  = 'vim.lsp.buf.code_action()',
-            ['<leader>A']  = 'vim.lsp.buf.range_code_action()',
             ['<leader>dd'] = 'telescope.diagnostics()',
             ['<leader>dl'] = 'vim.lsp.diagnostic.set_loclist()',
             ['<leader>f']  = 'vim.lsp.buf.format{ async = true }',
@@ -290,13 +236,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             ['<leader>sr'] = 'vim.lsp.buf.remove_workspace_folder()',
             ['[d']         = 'vim.lsp.diagnostic.goto_prev()',
             [']d']         = 'vim.lsp.diagnostic.goto_next()',
-            ['gc']         = 'vim.lsp.buf.incoming_calls()',
-            ['gC']         = 'vim.lsp.buf.outgoing_calls()',
-            ['gd']         = 'telescope.lsp_implementations()',
             ['gD']         = 'vim.lsp.buf.declaration()',
-            ['gr']         = 'telescope.lsp_references()',
-            ['gs']         = 'telescope.lsp_document_symbols()',
-            ['gS']         = 'telescope.lsp_dynamic_workspace_symbols()',
             ['gT']         = 'vim.lsp.buf.type_definition()',
         }) do
             map_lua_buf(ev.buf, k, fn)
@@ -306,156 +246,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-    callback = function()
-        ---- Link LSP semantic highlight groups to TreeSitter token groups
-        for lsp, link in pairs({
-            ['@lsp.type.class'] = '@type',
-            ['@lsp.type.decorator'] = '@function.macro',
-            ['@lsp.type.enum'] = '@type',
-            ['@lsp.type.enumMember'] = '@constant',
-            ['@lsp.type.enumMember.rust'] = '@constant',
-            ['@lsp.type.function'] = '@function',
-            ['@lsp.type.interface'] = '@type',
-            ['@lsp.type.macro'] = '@function.macro',
-            ['@lsp.type.method'] = '@method',
-            ['@lsp.type.namespace'] = '@namespace',
-            ['@lsp.type.parameter'] = '@parameter',
-            ['@lsp.type.property'] = '@property',
-            ['@lsp.type.struct'] = '@type',
-            ['@lsp.type.type'] = '@type',
-            ['@lsp.type.variable'] = '@variable',
-        }) do
-            vim.api.nvim_set_hl(0, lsp, { link = link, default = true })
-        end
-
-        for k, v in pairs({
-            ['@attribute'] = { link = 'PreProc', default = true },
-            ['@boolean'] = { link = 'Boolean', default = true },
-            ['@character'] = { link = 'Character', default = true },
-            ['@character.special'] = { link = 'SpecialChar', default = true },
-            ['@comment'] = { link = 'Comment', default = true },
-            ['@comment.error'] = { link = 'Error', default = true },
-            ['@comment.note'] = { link = 'SpecialComment', default = true },
-            ['@comment.todo'] = { link = 'Todo', default = true },
-            ['@comment.warning'] = { link = 'WarningMsg', default = true },
-            ['@conditional'] = { link = 'Conditional', default = true },
-            ['@constant'] = { link = 'Constant', default = true },
-            ['@constant.builtin'] = { link = 'Constant', default = true },
-            ['@constant.macro'] = { link = 'Define', default = true },
-            ['@constructor'] = { link = 'Special', default = true },
-            ['@debug'] = { link = 'Debug', default = true },
-            ['@define'] = { link = 'Define', default = true },
-            ['@exception'] = { link = 'Exception', default = true },
-            ['@field'] = { link = 'Identifier', default = true },
-            ['@float'] = { link = 'Float', default = true },
-            ['@function'] = { link = 'Function', default = true },
-            ['@function.builtin'] = { link = 'Special', default = true },
-            ['@function.macro'] = { link = 'Macro', default = true },
-            ['@function.method'] = { link = 'Function', default = true },
-            ['@include'] = { link = 'Include', default = true },
-            ['@keyword'] = { link = 'Keyword', default = true },
-            ['@keyword.conditional'] = { link = 'Conditional', default = true },
-            ['@keyword.debug'] = { link = 'Debug', default = true },
-            ['@keyword.directive'] = { link = 'PreProc', default = true },
-            ['@keyword.exception'] = { link = 'Exception', default = true },
-            ['@keyword.function'] = { link = 'Keyword', default = true },
-            ['@keyword.import'] = { link = 'Include', default = true },
-            ['@keyword.operator'] = { link = 'Operator', default = true },
-            ['@keyword.repeat'] = { link = 'Repeat', default = true },
-            ['@keyword.return'] = { link = 'Keyword', default = true },
-            ['@label'] = { link = 'Label', default = true },
-            ['@macro'] = { link = 'Macro', default = true },
-            ['@markup.emphasis'] = { italic = true, default = true },
-            ['@markup.environment'] = { link = 'Macro', default = true },
-            ['@markup.heading'] = { link = 'Title', default = true },
-            ['@markup.link'] = { link = 'Underlined', default = true },
-            ['@markup.link.label'] = { link = 'SpecialChar', default = true },
-            ['@markup.link.url'] = { link = 'Keyword', default = true },
-            ['@markup.list'] = { link = 'Keyword', default = true },
-            ['@markup.math'] = { link = 'Special', default = true },
-            ['@markup.raw'] = { link = 'SpecialComment', default = true },
-            ['@markup.strike'] = { strikethrough = true, default = true },
-            ['@markup.strong'] = { bold = true, default = true },
-            ['@markup.underline'] = { underline = true, default = true },
-            ['@method'] = { link = 'Function', default = true },
-            ['@module'] = { link = 'Identifier', default = true },
-            ['@namespace'] = { link = 'Identifier', default = true },
-            ['@number'] = { link = 'Number', default = true },
-            ['@number.float'] = { link = 'Float', default = true },
-            ['@operator'] = { link = 'Operator', default = true },
-            ['@parameter'] = { link = 'Identifier', default = true },
-            ['@preproc'] = { link = 'PreProc', default = true },
-            ['@property'] = { link = 'Identifier', default = true },
-            ['@punctuation'] = { link = 'Delimiter', default = true },
-            ['@punctuation.bracket'] = { link = 'Delimiter', default = true },
-            ['@punctuation.delimiter'] = { link = 'Delimiter', default = true },
-            ['@punctuation.special'] = { link = 'Delimiter', default = true },
-            ['@repeat'] = { link = 'Repeat', default = true },
-            ['@storageclass'] = { link = 'StorageClass', default = true },
-            ['@string'] = { link = 'String', default = true },
-            ['@string.escape'] = { link = 'SpecialChar', default = true },
-            ['@string.regexp'] = { link = 'String', default = true },
-            ['@string.special'] = { link = 'SpecialChar', default = true },
-            ['@string.special.symbol'] = { link = 'Identifier', default = true },
-            ['@structure'] = { link = 'Structure', default = true },
-            ['@tag'] = { link = 'Tag', default = true },
-            ['@tag.attribute'] = { link = 'Identifier', default = true },
-            ['@tag.delimiter'] = { link = 'Delimiter', default = true },
-            ['@text.literal'] = { link = 'Comment', default = true },
-            ['@text.reference'] = { link = 'Identifier', default = true },
-            ['@text.title'] = { link = 'Title', default = true },
-            ['@text.todo'] = { link = 'Todo', default = true },
-            ['@text.underline'] = { link = 'Underlined', default = true },
-            ['@text.uri'] = { link = 'Underlined', default = true },
-            ['@type'] = { link = 'Type', default = true },
-            ['@type.builtin'] = { link = 'Type', default = true },
-            ['@type.definition'] = { link = 'Typedef', default = true },
-            ['@type.qualifier'] = { link = 'Type', default = true },
-            ['@variable'] = { link = 'Variable', default = true },
-            ['@variable.builtin'] = { link = 'Special', default = true },
-            ['@variable.member'] = { link = 'Identifier', default = true },
-            ['@variable.parameter'] = { link = 'Identifier', default = true },
-        }) do
-            vim.api.nvim_set_hl(0, k, v)
-        end
-
-        vim.api.nvim_set_hl(0, '@lsp.mod.defaultLibrary', { italic = true, default = true })
-        vim.api.nvim_set_hl(0, '@lsp.mod.deprecated', { strikethrough = true, default = true })
-        vim.api.nvim_set_hl(0, '@lsp.mod.mutable.rust', { italic = true, default = true })
-        vim.api.nvim_set_hl(0, '@lsp.typemod.method.trait.rust', { italic = true, default = true })
-    end,
-})
-
-vim.cmd('colorscheme base16-tomorrow-night')
-
-local lspconfig = require('lspconfig')
-local capabilities = cmp_lsp.default_capabilities()
-lspconfig.bashls.setup {
-    capabilities = capabilities,
+vim.lsp.config.bashls = {
     cmd = { paths.bin['bash-language-server'], 'start' },
 }
-lspconfig.clangd.setup {
-    capabilities = capabilities,
+vim.lsp.config.clangd = {
     cmd = { paths.bin['clangd'], '--background-index' },
 }
-lspconfig.cssls.setup {
-    capabilities = capabilities,
+vim.lsp.config.cssls = {
     cmd = { paths.bin['vscode-css-language-server'], '--stdio' },
 }
-lspconfig.dockerls.setup {
-    capabilities = capabilities,
+vim.lsp.config.dockerls = {
     cmd = { paths.bin['docker-langserver'], '--stdio' },
 }
-lspconfig.eslint.setup {
-    capabilities = capabilities,
+vim.lsp.config.eslint = {
     cmd = { paths.bin['vscode-eslint-language-server'], '--stdio' },
 }
-lspconfig.gdscript.setup {
-    capabilities = capabilities,
-}
-lspconfig.gopls.setup {
-    capabilities = capabilities,
+vim.lsp.config.gopls = {
     on_attach = function(_, bufnr)
         map_lua_buf(bufnr, '<leader>i', 'goimports(bufnr, 10000)')
     end,
@@ -470,49 +276,65 @@ lspconfig.gopls.setup {
         },
     },
 }
-lspconfig.hls.setup {
-    capabilities = capabilities,
+vim.lsp.config.hls = {
     cmd = { paths.bin['haskell-language-server'], '--lsp' },
 }
-lspconfig.html.setup {
-    capabilities = capabilities,
+vim.lsp.config.html = {
     cmd = { paths.bin['vscode-html-language-server'], '--stdio' },
 }
-lspconfig.julials.setup {
-    capabilities = capabilities,
+vim.lsp.config.julials = {
     settings = {
         julia = {
             executablePath = paths.bin['julia'],
         },
     },
 }
-lspconfig.lua_ls.setup {
-    capabilities = capabilities,
+vim.lsp.config.lua_ls = {
     cmd = { paths.bin['lua-language-server'] },
+    settings = {
+        Lua = {}
+    },
     on_init = function(client)
-        local path = client.workspace_folders[1].name
-        if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-            client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-                Lua = {
-                    runtime = {
-                        version = 'LuaJIT'
-                    },
-                    workspace = {
-                        checkThirdParty = false,
-                        library = {
-                            vim.env.VIMRUNTIME
-                        }
-                    }
-                }
-            })
-
-            client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+        if client.workspace_folders then
+            local path = client.workspace_folders[1].name
+            if
+                path ~= vim.fn.stdpath('config')
+                and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+            then
+                return
+            end
         end
-        return true
+
+        client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most
+                -- likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Tell the language server how to find Lua modules same way as Neovim
+                -- (see `:h lua-module-load`)
+                path = {
+                    'lua/?.lua',
+                    'lua/?/init.lua',
+                },
+            },
+            -- Make the server aware of Neovim runtime files
+            workspace = {
+                checkThirdParty = false,
+                library = {
+                    vim.env.VIMRUNTIME
+                }
+                -- Or pull in all of 'runtimepath'.
+                -- NOTE: this is a lot slower and will cause issues when working on
+                -- your own configuration.
+                -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+                -- library = {
+                --   vim.api.nvim_get_runtime_file('', true),
+                -- }
+            }
+        })
     end
 }
-lspconfig.nil_ls.setup {
-    capabilities = capabilities,
+vim.lsp.config.nil_ls = {
     cmd = { paths.bin['nil'] },
     settings = {
         ['nil'] = {
@@ -520,12 +342,10 @@ lspconfig.nil_ls.setup {
         }
     }
 }
-lspconfig.omnisharp.setup {
-    capabilities = capabilities,
+vim.lsp.config.omnisharp = {
     cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
 }
-lspconfig.rust_analyzer.setup {
-    capabilities = capabilities,
+vim.lsp.config.rust_analyzer = {
     cmd = { paths.bin['rust-analyzer'] },
     settings = {
         ['rust-analyzer'] = {
@@ -555,14 +375,29 @@ lspconfig.rust_analyzer.setup {
         }
     }
 }
-lspconfig.taplo.setup {
-    capabilities = capabilities,
+vim.lsp.config.taplo = {
     cmd = { paths.bin['taplo'], 'lsp', 'stdio' },
 }
-lspconfig.ts_ls.setup {
-    capabilities = capabilities,
+vim.lsp.config.ts_ls = {
     cmd = { paths.bin['typescript-language-server'], '--stdio' },
 }
+vim.lsp.enable({
+    'bashls',
+    'clangd',
+    'cssls',
+    'dockerls',
+    'eslint',
+    'gdscript',
+    'hls',
+    'html',
+    'julials',
+    'lua_ls',
+    'nil_ls',
+    'omnisharp',
+    'rust_analyzer',
+    'taplo',
+    'ts_ls',
+})
 
 --- Diagnostics
 
@@ -573,3 +408,12 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
         update_in_insert = true,
     }
 )
+
+--- Pairs
+mini_pairs.setup {}
+
+--- Surround
+mini_surround.setup {}
+
+--- Bracketed
+mini_bracketed.setup {}
