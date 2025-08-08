@@ -40,9 +40,6 @@
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
   inputs.lanzaboote.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.lanzaboote.url = "github:nix-community/lanzaboote";
-  inputs.neovim.inputs.flake-utils.follows = "flake-utils";
-  inputs.neovim.inputs.nixpkgs.follows = "nixpkgs-unstable";
-  inputs.neovim.url = "github:neovim/neovim/dd00b6b442a6d3a8a4758b0ee10ac93d07e7db72?dir=contrib"; # last-known good commit
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
@@ -56,7 +53,6 @@
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
   inputs.nixpkgs-23_05.url = "github:NixOS/nixpkgs/release-23.05";
   inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
-  inputs.nixpkgs-neovim.url = "github:NixOS/nixpkgs/f8776630508052f95ac72f149cb70d805152b512"; # neovim 0.10.4
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.05";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";

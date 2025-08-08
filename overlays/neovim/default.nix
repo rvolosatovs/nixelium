@@ -11,38 +11,25 @@ inputs: pkgs @ {vimPlugins, ...}: {
 
     nvim-treesitter.withAllGrammars
 
-    luasnip
-
-    nvim-cmp
-
-    cmp-buffer
-    cmp-calc
-    cmp-emoji
-    cmp_luasnip
-    cmp-nvim-lsp
-    cmp-nvim-lua
-    cmp-path
-    cmp-spell
-    cmp-treesitter
-
     nvim-dap
 
     dressing-nvim
     telescope-nvim
 
-    auto-pairs
-    base16-vim
+    blink-cmp
     editorconfig-vim
     indent-blankline-nvim
     julia-vim
-    nerdcommenter
+    mini-base16
+    mini-bracketed
+    mini-pairs
+    mini-surround
     nvim-web-devicons
     rust-vim
     vim-abolish
     vim-airline
     vim-airline-themes
     vim-anzu
-    vim-bufferline
     vim-dirvish
     vim-eunuch
     vim-go
@@ -51,8 +38,6 @@ inputs: pkgs @ {vimPlugins, ...}: {
     vim-repeat
     vim-rhubarb
     vim-signify
-    vim-surround
-    vim-unimpaired
     vim-visual-multi
     vim-visualstar
   ];
