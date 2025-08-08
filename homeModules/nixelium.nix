@@ -877,17 +877,17 @@ in {
 
       services.kbfs.mountPoint = ".local/keybase";
 
-      services.mako.backgroundColor = "#${cfg.base16.colors.base00}";
-      services.mako.borderColor = "#${cfg.base16.colors.base0D}";
-      services.mako.defaultTimeout = 5000;
-      services.mako.textColor = "#${cfg.base16.colors.base05}";
-      services.mako.font = "monospace 10";
-      services.mako.settings."urgency=low".background-color = "#${cfg.base16.colors.base00}";
-      services.mako.settings."urgency=low".text-color = "#${cfg.base16.colors.base0A}";
-      services.mako.settings."urgency=low".border-color = "#${cfg.base16.colors.base0D}";
       services.mako.settings."urgency=high".background-color = "#${cfg.base16.colors.base00}";
-      services.mako.settings."urgency=high".text-color = "#${cfg.base16.colors.base08}";
       services.mako.settings."urgency=high".border-color = "#${cfg.base16.colors.base0D}";
+      services.mako.settings."urgency=high".text-color = "#${cfg.base16.colors.base08}";
+      services.mako.settings."urgency=low".background-color = "#${cfg.base16.colors.base00}";
+      services.mako.settings."urgency=low".border-color = "#${cfg.base16.colors.base0D}";
+      services.mako.settings."urgency=low".text-color = "#${cfg.base16.colors.base0A}";
+      services.mako.settings.background-color = "#${cfg.base16.colors.base00}";
+      services.mako.settings.border-color = "#${cfg.base16.colors.base0D}";
+      services.mako.settings.default-timeout = 5000;
+      services.mako.settings.font = "monospace 10";
+      services.mako.settings.text-color = "#${cfg.base16.colors.base05}";
 
       services.swayidle.events = [
         {
