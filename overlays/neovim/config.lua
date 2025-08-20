@@ -114,63 +114,56 @@ local plg = function(v) return '<plug>' .. v end
 
 for _, v in ipairs({
     -- general
-    { '<A-h>',             '<C-\\><C-N><C-w>h',                { "i", "t" }, { noremap = true } },
-    { '<A-h>',             '<C-w>h',                           { "" },       { noremap = true } },
-    { '<A-j>',             '<C-\\><C-N><C-w>j',                { "i", "t" }, { noremap = true } },
-    { '<A-j>',             '<C-w>j',                           { "" },       { noremap = true } },
-    { '<A-k>',             '<C-\\><C-N><C-w>k',                { "i", "t" }, { noremap = true } },
-    { '<A-k>',             '<C-w>k',                           { "" },       { noremap = true } },
-    { '<A-l>',             '<C-\\><C-N><C-w>l',                { "i", "t" }, { noremap = true } },
-    { '<A-l>',             '<C-w>l',                           { "" },       { noremap = true } },
-    { '<leader>"',         lua('telescope.registers()'),       { "" },       { noremap = true } },
-    { '<leader>*',         lua('telescope.grep_string()'),     { "" },       { noremap = true } },
-    { '<leader>-',         lua('telescope.file_browser()'),    { "" },       { noremap = true } },
-    { '<leader>/',         lua('telescope.search_history()'),  { "" },       { noremap = true } },
-    { '<leader>:',         lua('telescope.command_history()'), { "" },       { noremap = true } },
-    { '<leader>;',         lua('telescope.commands()'),        { "" },       { noremap = true } },
-    { '<leader>?',         lua('telescope.live_grep()'),       { "" },       { noremap = true } },
-    { '<leader>cd',        cmd('cd %:p:h<cr>:pwd'),            { "" },       { noremap = true } },
-    { '<leader>e',         lua('telescope.find_files()'),      { "" },       { noremap = true } },
-    { '<leader>H',         lua('telescope.help_tags()'),       { "" },       { noremap = true } },
-    { '<leader>h',         lua('telescope.oldfiles()'),        { "" },       { noremap = true } },
-    { '<leader>j',         lua('telescope.jumplist()'),        { "" },       { noremap = true } },
-    { '<leader>M',         lua('telescope.man_pages()'),       { "" },       { noremap = true } },
-    { '<leader>m',         lua('telescope.marks()'),           { "" },       { noremap = true } },
-    { '<leader>o',         lua('telescope.vim_options()'),     { "" },       { noremap = true } },
-    { '<leader>p',         lua('telescope.builtin()'),         { "" },       { noremap = true } },
-    { '<leader>Q',         cmd('q'),                           { "" },       { noremap = true } },
-    { '<leader>S',         lua('telescope.spell_suggest()'),   { "" },       { noremap = true } },
-    { '<leader>T',         lua('telescope.filetypes()'),       { "" },       { noremap = true } },
-    { '<leader>w',         cmd('w'),                           { "" },       { noremap = true } },
-    { '<leader>W',         cmd('wa'),                          { "" },       { noremap = true } },
-    { '<space>',           '<nop>',                            { "" },       { noremap = true } },
-    { 'Y',                 'y$',                               { "" },       { noremap = true } },
+    { '<A-h>',      '<C-\\><C-N><C-w>h',                { "i", "t" }, { noremap = true } },
+    { '<A-h>',      '<C-w>h',                           { "" },       { noremap = true } },
+    { '<A-j>',      '<C-\\><C-N><C-w>j',                { "i", "t" }, { noremap = true } },
+    { '<A-j>',      '<C-w>j',                           { "" },       { noremap = true } },
+    { '<A-k>',      '<C-\\><C-N><C-w>k',                { "i", "t" }, { noremap = true } },
+    { '<A-k>',      '<C-w>k',                           { "" },       { noremap = true } },
+    { '<A-l>',      '<C-\\><C-N><C-w>l',                { "i", "t" }, { noremap = true } },
+    { '<A-l>',      '<C-w>l',                           { "" },       { noremap = true } },
+    { '<leader>"',  lua('telescope.registers()'),       { "" },       { noremap = true } },
+    { '<leader>*',  lua('telescope.grep_string()'),     { "" },       { noremap = true } },
+    { '<leader>-',  lua('telescope.file_browser()'),    { "" },       { noremap = true } },
+    { '<leader>/',  lua('telescope.search_history()'),  { "" },       { noremap = true } },
+    { '<leader>:',  lua('telescope.command_history()'), { "" },       { noremap = true } },
+    { '<leader>;',  lua('telescope.commands()'),        { "" },       { noremap = true } },
+    { '<leader>?',  lua('telescope.live_grep()'),       { "" },       { noremap = true } },
+    { '<leader>cd', cmd('cd %:p:h<cr>:pwd'),            { "" },       { noremap = true } },
+    { '<leader>e',  lua('telescope.find_files()'),      { "" },       { noremap = true } },
+    { '<leader>H',  lua('telescope.help_tags()'),       { "" },       { noremap = true } },
+    { '<leader>h',  lua('telescope.oldfiles()'),        { "" },       { noremap = true } },
+    { '<leader>j',  lua('telescope.jumplist()'),        { "" },       { noremap = true } },
+    { '<leader>M',  lua('telescope.man_pages()'),       { "" },       { noremap = true } },
+    { '<leader>m',  lua('telescope.marks()'),           { "" },       { noremap = true } },
+    { '<leader>o',  lua('telescope.vim_options()'),     { "" },       { noremap = true } },
+    { '<leader>p',  lua('telescope.builtin()'),         { "" },       { noremap = true } },
+    { '<leader>Q',  cmd('q'),                           { "" },       { noremap = true } },
+    { '<leader>S',  lua('telescope.spell_suggest()'),   { "" },       { noremap = true } },
+    { '<leader>T',  lua('telescope.filetypes()'),       { "" },       { noremap = true } },
+    { '<leader>w',  cmd('w'),                           { "" },       { noremap = true } },
+    { '<leader>W',  cmd('wa'),                          { "" },       { noremap = true } },
+    { '<space>',    '<nop>',                            { "" },       { noremap = true } },
+    { 'Y',          'y$',                               { "" },       { noremap = true } },
 
     -- quickfix
-    { '<leader>q',         lua('telescope.quickfix()'),        { "" },       { noremap = true } },
+    { '<leader>q',  lua('telescope.quickfix()'),        { "" },       { noremap = true } },
 
     -- loclist
-    { '<leader>l',         lua('telescope.loclist()'),         { "" },       { noremap = true } },
+    { '<leader>l',  lua('telescope.loclist()'),         { "" },       { noremap = true } },
 
     -- buffers
-    { '<leader>b',         lua('telescope.buffers()'),         { "" },       { noremap = true } },
+    { '<leader>b',  lua('telescope.buffers()'),         { "" },       { noremap = true } },
 
     -- treesitter
-    { '<leader>t',         lua('telescope.treesitter()'),      { "" },       { noremap = true } },
+    { '<leader>t',  lua('telescope.treesitter()'),      { "" },       { noremap = true } },
 
     -- git
-    { '<leader>ge',        lua('telescope.git_files()'),       { "" },       { noremap = true } },
-    { '<leader>gs',        lua('telescope.git_status()'),      { "" },       { noremap = true } },
-    { '<leader>gt',        lua('telescope.git_bcommits()'),    { "" },       { noremap = true } },
-    { '<leader>gT',        lua('telescope.git_commits()'),     { "" },       { noremap = true } },
-    { '<leader>gy',        lua('telescope.git_stash()'),       { "" },       { noremap = true } },
-
-    -- NERD Commenter
-    { '<leader>c$',        plg('NERDCommenterToEOL'),          { "" },       {} },
-    { '<leader>c<leader>', plg('NERDCommenterToggle'),         { "" },       {} },
-    { '<leader>cA',        plg('NERDCommenterAppend'),         { "" },       {} },
-    { '<leader>cy',        plg('NERDCommenterYank'),           { "" },       {} },
-
+    { '<leader>ge', lua('telescope.git_files()'),       { "" },       { noremap = true } },
+    { '<leader>gs', lua('telescope.git_status()'),      { "" },       { noremap = true } },
+    { '<leader>gt', lua('telescope.git_bcommits()'),    { "" },       { noremap = true } },
+    { '<leader>gT', lua('telescope.git_commits()'),     { "" },       { noremap = true } },
+    { '<leader>gy', lua('telescope.git_stash()'),       { "" },       { noremap = true } },
 }) do
     for _, mode in ipairs(v[3]) do
         vim.api.nvim_set_keymap(mode, v[1], v[2], v[4])
@@ -211,16 +204,22 @@ treesitter.setup {
 blink.setup {
     completion = { documentation = { auto_show = true } },
 }
+vim.cmd [[set completeopt+=menuone,noselect,popup]]
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
         print('LSP loaded.')
 
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true)
+        if client and client:supports_method('textDocument/inlayHint') then
+            vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
         else
             print("no inlay hints available")
+        end
+        if client and client:supports_method('textDocument/codeLens') then
+            vim.lsp.codelens.refresh({ bufnr = ev.buf })
+        else
+            print("no code lens available")
         end
         vim.diagnostic.config({ virtual_text = true })
 
@@ -228,14 +227,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
             ['<C-]>']      = 'vim.lsp.buf.definition()',
             ['<C-k>']      = 'vim.lsp.buf.signature_help()',
             ['<leader>dd'] = 'telescope.diagnostics()',
-            ['<leader>dl'] = 'vim.lsp.diagnostic.set_loclist()',
+            ['<leader>dl'] = 'vim.diagnostic.setloclist()',
             ['<leader>f']  = 'vim.lsp.buf.format{ async = true }',
-            ['<leader>r']  = 'vim.lsp.buf.rename()',
             ['<leader>sa'] = 'vim.lsp.buf.add_workspace_folder()',
             ['<leader>sl'] = 'print(vim.inspect(vim.lsp.buf.list_workspace_folders()))',
             ['<leader>sr'] = 'vim.lsp.buf.remove_workspace_folder()',
-            ['[d']         = 'vim.lsp.diagnostic.goto_prev()',
-            [']d']         = 'vim.lsp.diagnostic.goto_next()',
             ['gD']         = 'vim.lsp.buf.declaration()',
             ['gT']         = 'vim.lsp.buf.type_definition()',
         }) do
