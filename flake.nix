@@ -44,7 +44,7 @@
   inputs.nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
   inputs.nix-rosetta-builder.inputs.nixpkgs.follows = "nixpkgs-darwin";
-  inputs.nix-rosetta-builder.url = "github:cpick/nix-rosetta-builder";
+  inputs.nix-rosetta-builder.url = "github:cpick/nix-rosetta-builder/5cf6aa1f3f2fbb70443d33b5ef7779b7c7063392"; # TODO: remove pin for 25.11
   inputs.nixify.inputs.nixlib.follows = "nixlib";
   inputs.nixify.inputs.nixpkgs-darwin.follows = "nixpkgs-darwin";
   inputs.nixify.inputs.nixpkgs-nixos.follows = "nixpkgs-nixos";
