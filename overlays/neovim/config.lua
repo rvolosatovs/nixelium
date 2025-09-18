@@ -367,6 +367,9 @@ vim.lsp.config.rust_analyzer = {
                 rangeExclusiveHints = {
                     enable = true,
                 },
+            },
+            cargo = {
+                features = "all",
             }
         }
     }
