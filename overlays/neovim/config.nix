@@ -17,7 +17,7 @@
     bin.alejandra = "${pkgsUnstable.alejandra}/bin/alejandra";
     bin.bash-language-server = "${pkgsUnstable.nodePackages.bash-language-server}/bin/bash-language-server";
     bin.clangd = "${pkgsUnstable.clang-tools}/bin/clangd";
-    bin.docker-langserver = "${pkgsUnstable.nodePackages.dockerfile-language-server-nodejs}/bin/docker-langserver";
+    bin.docker-langserver = "${pkgsUnstable.dockerfile-language-server}/bin/docker-langserver";
     bin.gopls = "${pkgsUnstable.gopls}/bin/gopls";
     bin.haskell-language-server = "${pkgsUnstable.haskell-language-server}/bin/haskell-language-server-wrapper";
     bin.julia = julia';
