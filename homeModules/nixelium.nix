@@ -1174,7 +1174,7 @@ in {
     (mkIf pkgs.stdenv.hostPlatform.isDarwin {
       home.packages = [
         pkgs.docker
-        pkgs.lima
+        pkgs.pkgsUnstable.lima
         pkgs.podman
         pkgs.utm
       ];
