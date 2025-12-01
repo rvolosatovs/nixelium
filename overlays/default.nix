@@ -89,6 +89,11 @@ with nixlib.lib; let
   pkgsUnstable = final: prev: {
     pkgsUnstable = importNixpkgs nixpkgs-unstable final prev;
   };
+
+  unstable = final: prev: {
+    lima = prev.pkgsUnstable.lima;
+    nerdctl = prev.pkgsUnstable.nerdctl;
+  };
 in {
   inherit
     firefox
@@ -101,6 +106,7 @@ in {
     quake3
     rust-analyzer
     scripts
+    unstable
     ;
 
   neovim = neovim';
@@ -127,5 +133,7 @@ in {
     scripts
 
     images
+
+    unstable
   ];
 }
