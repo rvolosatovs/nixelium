@@ -31,7 +31,7 @@ with nixlib.lib; let
 
   firefox = final: prev: {
     firefox =
-      final.pkgsUnstable.wrapFirefox final.pkgsUnstable.firefox-unwrapped
+      final.wrapFirefox final.firefox-unwrapped
       {
         ## Documentation available at:
         ## https://github.com/mozilla/policy-templates
