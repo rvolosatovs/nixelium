@@ -387,6 +387,9 @@ in {
         "klbibkeccnjlkjkiokjodocebajanakg" # great suspender
       ];
 
+      programs.delta.enable = true;
+      programs.delta.options.syntax-theme = "base16";
+
       programs.dircolors.enable = true;
       programs.dircolors.settings.".7z" = "01;31";
       programs.dircolors.settings.".aac" = "00;36";
@@ -528,30 +531,7 @@ in {
       programs.eza.enableZshIntegration = true;
       programs.eza.git = true;
 
-      programs.git.aliases.tree = "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";
-      programs.git.delta.enable = true;
-      programs.git.delta.options.syntax-theme = "base16";
       programs.git.enable = true;
-      programs.git.extraConfig.branch.autosetupmerge = false;
-      programs.git.extraConfig.branch.autosetuprebase = "always";
-      programs.git.extraConfig.color.ui = true;
-      programs.git.extraConfig.core.autocrlf = false;
-      programs.git.extraConfig.core.safecrlf = false;
-      programs.git.extraConfig.diff.colorMoved = "zebra";
-      programs.git.extraConfig.diff.renames = "copy";
-      programs.git.extraConfig.fetch.prune = true;
-      programs.git.extraConfig.format.pretty = "%C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n";
-      programs.git.extraConfig.hub.protocol = "https";
-      programs.git.extraConfig.init.defaultBranch = "main";
-      programs.git.extraConfig.merge.conflictstyle = "diff3";
-      programs.git.extraConfig.pull.rebase = "true";
-      programs.git.extraConfig.push.default = "nothing";
-      programs.git.extraConfig.rebase.autosquash = true;
-      programs.git.extraConfig.rerere.enabled = true;
-      programs.git.extraConfig.status.branch = true;
-      programs.git.extraConfig.status.short = true;
-      programs.git.extraConfig.status.showUntrackedFiles = "all";
-      programs.git.extraConfig.status.submoduleSummary = true;
       programs.git.ignores = [
         "*.aux"
         "*.dvi"
@@ -582,13 +562,33 @@ in {
         "Thumbs.db"
         "token"
       ];
+      programs.git.settings.aliases.tree = "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";
+      programs.git.settings.branch.autosetupmerge = false;
+      programs.git.settings.branch.autosetuprebase = "always";
+      programs.git.settings.color.ui = true;
+      programs.git.settings.core.autocrlf = false;
+      programs.git.settings.core.safecrlf = false;
+      programs.git.settings.diff.colorMoved = "zebra";
+      programs.git.settings.diff.renames = "copy";
+      programs.git.settings.fetch.prune = true;
+      programs.git.settings.format.pretty = "%C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n";
+      programs.git.settings.hub.protocol = "https";
+      programs.git.settings.init.defaultBranch = "main";
+      programs.git.settings.merge.conflictstyle = "diff3";
+      programs.git.settings.pull.rebase = "true";
+      programs.git.settings.push.default = "nothing";
+      programs.git.settings.rebase.autosquash = true;
+      programs.git.settings.rerere.enabled = true;
+      programs.git.settings.status.branch = true;
+      programs.git.settings.status.short = true;
+      programs.git.settings.status.showUntrackedFiles = "all";
+      programs.git.settings.status.submoduleSummary = true;
+      programs.git.settings.user.email = cfg.user.email;
+      programs.git.settings.user.name = cfg.user.fullName;
       programs.git.signing.key = null; # let gpg decide at runtime
       programs.git.signing.signByDefault = true;
-      programs.git.userEmail = cfg.user.email;
-      programs.git.userName = cfg.user.fullName;
 
-      programs.go.goPath = "";
-      programs.go.goBin = ".local/bin.go";
+      programs.go.env.GOBIN = "${config.home.homeDirectory}/.local/bin.go";
 
       programs.gpg.enable = true;
       programs.gpg.scdaemonSettings.disable-ccid = true;
@@ -721,8 +721,9 @@ in {
       ];
 
       programs.ssh.enable = true;
-      programs.ssh.compression = true;
-      programs.ssh.serverAliveInterval = 5;
+      programs.ssh.enableDefaultConfig = false;
+      programs.ssh.matchBlocks."*".compression = true;
+      programs.ssh.matchBlocks."*".serverAliveInterval = 5;
       programs.ssh.matchBlocks."*.labs.overthewire.org".extraOptions.SendEnv = "OTWUSERDIR";
       programs.ssh.matchBlocks."github.com".extraOptions.Ciphers = "chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc";
       programs.ssh.matchBlocks."github.com".extraOptions.KexAlgorithms = "curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1";
@@ -816,7 +817,7 @@ in {
         "${config.home.homeDirectory}/src"
       ];
       programs.zsh.defaultKeymap = "viins";
-      programs.zsh.dotDir = ".config/zsh";
+      programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
       programs.zsh.enable = true;
       programs.zsh.autosuggestion.enable = !(osConfig.programs.zsh.autosuggestions.enable or false);
       programs.zsh.enableCompletion = false;
