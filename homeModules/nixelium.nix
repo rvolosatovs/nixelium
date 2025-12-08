@@ -1210,7 +1210,6 @@ in {
             pkgs.android-tools
             pkgs.avrdude
             pkgs.google-cloud-sdk
-            pkgs.gqrx
             pkgs.imv
             pkgs.julia
             pkgs.kubectl
