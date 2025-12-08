@@ -141,6 +141,7 @@ in {
       programs.zsh.interactiveShellInit = ''
         setopt INTERACTIVE_COMMENTS NO_NOMATCH
       '';
+      programs.zsh.histSize = 50000;
 
       security.pam.services.sudo_local.touchIdAuth = true;
 
