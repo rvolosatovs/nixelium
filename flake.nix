@@ -38,7 +38,7 @@
   inputs.home-manager.url = "github:nix-community/home-manager/release-25.11";
   inputs.ioquake3-mac-install.flake = false;
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
-  inputs.lanzaboote.url = "github:nix-community/lanzaboote/v0.4.3";
+  inputs.lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0";
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
@@ -56,7 +56,7 @@
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
-  inputs.wit-deps.url = "github:bytecodealliance/wit-deps/v0.5.0";
+  inputs.wit-deps.url = "github:bytecodealliance/wit-deps/v0.6.0";
 
   outputs = inputs @ {
     self,
@@ -124,8 +124,9 @@
               (pkgs)
               firefox
               host-key
-              install-iso-aarch64-linux
-              install-iso-x86_64-linux
+              # TODO: port install ISOs
+              #install-iso-aarch64-linux
+              #install-iso-x86_64-linux
               neovim
               partition-osmium
               ssh-for-each
