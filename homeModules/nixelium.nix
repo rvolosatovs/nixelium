@@ -388,6 +388,7 @@ in {
       ];
 
       programs.delta.enable = true;
+      programs.delta.enableGitIntegration = true;
       programs.delta.options.syntax-theme = "base16";
 
       programs.dircolors.enable = true;
@@ -564,7 +565,7 @@ in {
         "Thumbs.db"
         "token"
       ];
-      programs.git.settings.aliases.tree = "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";
+      programs.git.settings.alias.tree = "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";
       programs.git.settings.branch.autosetupmerge = false;
       programs.git.settings.branch.autosetuprebase = "always";
       programs.git.settings.color.ui = true;
