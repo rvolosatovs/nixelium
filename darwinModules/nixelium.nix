@@ -1,5 +1,6 @@
 {
   self,
+  determinate,
   home-manager,
   nixlib,
   nixpkgs-darwin,
@@ -24,6 +25,7 @@ with nixlib.lib; let
   username = "rvolosatovs";
 in {
   imports = [
+    determinate.darwinModules.default
     home-manager.darwinModules.home-manager
   ];
 
@@ -31,6 +33,8 @@ in {
 
   config = mkMerge [
     {
+      determinateNix.enable = true;
+
       environment.pathsToLink = [
         "/share/bash"
         "/share/bash-completion"
@@ -98,10 +102,10 @@ in {
         "keep-derivations = true"
         "keep-outputs = true"
       ];
-      nix.gc.automatic = true;
+      nix.gc.automatic = !config.determinateNix.enable;
       nix.linux-builder.enable = mkDefault true;
       nix.linux-builder.maxJobs = mkDefault 8;
-      nix.optimise.automatic = true;
+      nix.optimise.automatic = !config.determinateNix.enable;
       nix.settings.allowed-users = with config.users; [
         "@admin"
         users.${username}.name
