@@ -1169,6 +1169,7 @@ in {
       programs.kitty.settings.font_size = 15;
 
       services.gpg-agent.enable = true;
+      services.gpg-agent.pinentry.package = pkgs.pinentry-all;
 
       xdg.userDirs.enable = true;
     })
