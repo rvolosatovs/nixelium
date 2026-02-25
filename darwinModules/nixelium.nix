@@ -183,7 +183,7 @@ in {
 
         cmd - return            : ${config.home-manager.users.${username}.programs.kitty.package}/Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
         # TODO: switch to nixpkgs
-        cmd + shift - o         : open /Applications/Firefox.app
+        cmd + shift - o         : /Applications/Firefox.app/Contents/MacOS/firefox --new-window
       '';
       services.skhd.package = pkgs.pkgsUnstable.skhd;
 

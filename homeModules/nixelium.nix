@@ -1183,7 +1183,7 @@ in {
         pkgs.utm
       ];
 
-      programs.kitty.settings.font_size = 22;
+      programs.kitty.settings.font_size = 24;
 
       programs.zsh.sessionVariables.NOPATHHELPER = "1";
 
