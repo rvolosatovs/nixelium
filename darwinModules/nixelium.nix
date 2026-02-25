@@ -2,8 +2,11 @@
   self,
   determinate,
   home-manager,
+  nixify,
   nixlib,
   nixpkgs-darwin,
+  nixpkgs-nixos,
+  nixpkgs-unstable,
   wit-deps,
   ...
 }: {
@@ -86,21 +89,6 @@ in {
       home-manager.users.${username} = self.homeModules.default;
       home-manager.users.root = self.homeModules.default;
 
-      ids.gids.nixbld = 30000;
-
-      networking.dns = [
-        "2620:fe::fe"
-        "2620:fe::9"
-        "9.9.9.9"
-        "149.112.112.112"
-      ];
-
-      nix.extraOptions = concatStringsSep "\n" [
-        "experimental-features = nix-command flakes"
-      ];
-      nix.gc.automatic = !config.determinateNix.enable;
-      nix.optimise.automatic = !config.determinateNix.enable;
-
       determinateNix.distributedBuilds = true;
       determinateNix.customSettings.allowed-users = with config.users; [
         "@admin"
@@ -125,6 +113,45 @@ in {
         "@admin"
         users.${username}.name
       ];
+
+      determinateNix.registry.nixelium.flake = self;
+      determinateNix.registry.nixelium.from.id = "nixelium";
+      determinateNix.registry.nixelium.from.type = "indirect";
+
+      determinateNix.registry.nixify.flake = nixify;
+      determinateNix.registry.nixify.from.id = "nixify";
+      determinateNix.registry.nixify.from.type = "indirect";
+
+      determinateNix.registry.nixlib.flake = nixlib;
+      determinateNix.registry.nixlib.from.id = "nixlib";
+      determinateNix.registry.nixlib.from.type = "indirect";
+
+      determinateNix.registry.nixpkgs-darwin.flake = nixpkgs-darwin;
+      determinateNix.registry.nixpkgs-darwin.from.id = "nixpkgs-darwin";
+      determinateNix.registry.nixpkgs-darwin.from.type = "indirect";
+
+      determinateNix.registry.nixpkgs-nixos.flake = nixpkgs-nixos;
+      determinateNix.registry.nixpkgs-nixos.from.id = "nixpkgs-nixos";
+      determinateNix.registry.nixpkgs-nixos.from.type = "indirect";
+
+      determinateNix.registry.nixpkgs-unstable.flake = nixpkgs-unstable;
+      determinateNix.registry.nixpkgs-unstable.from.id = "nixpkgs-unstable";
+      determinateNix.registry.nixpkgs-unstable.from.type = "indirect";
+
+      ids.gids.nixbld = 30000;
+
+      networking.dns = [
+        "2620:fe::fe"
+        "2620:fe::9"
+        "9.9.9.9"
+        "149.112.112.112"
+      ];
+
+      nix.extraOptions = concatStringsSep "\n" [
+        "experimental-features = nix-command flakes"
+      ];
+      nix.gc.automatic = !config.determinateNix.enable;
+      nix.optimise.automatic = !config.determinateNix.enable;
 
       nixpkgs.config = import "${self}/nixpkgs/config.nix";
       nixpkgs.overlays = [
