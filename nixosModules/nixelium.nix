@@ -4,7 +4,6 @@
   home-manager,
   lanzaboote,
   nixlib,
-  nixpkgs-23_05,
   nixpkgs-nixos,
   sops-nix,
   wit-deps,
@@ -372,8 +371,6 @@ in {
         pkgs.nerd-fonts.fira-code
         pkgs.roboto-slab
       ];
-
-      hardware.bluetooth.package = nixpkgs-23_05.legacyPackages.${pkgs.stdenv.hostPlatform.system}.bluez; # downgrade to fix controllers https://github.com/bluez/bluez/issues/605
 
       hardware.graphics.enable32Bit = true;
       hardware.graphics.enable = true;
