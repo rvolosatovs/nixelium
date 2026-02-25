@@ -77,6 +77,7 @@ with flake-utils.lib.system;
         services.transmission.enable = true;
         services.transmission.openFirewall = true;
         services.transmission.openRPCPort = true;
+        services.transmission.package = pkgs.transmission_4;
         services.transmission.performanceNetParameters = true;
 
         systemd.services.system76-charge-thresholds.after = ["multi-user.target"];
