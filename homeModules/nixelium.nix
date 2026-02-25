@@ -1245,6 +1245,9 @@ in {
           "$HOME/.cargo/bin"
         ];
 
+        home.shell.enableBashIntegration = true;
+        home.shell.enableZshIntegration = true;
+
         home.shellAliases.k = "kubectl";
         home.shellAliases.ka = "kubectl apply";
         home.shellAliases.kaf = "kubectl apply -f";
