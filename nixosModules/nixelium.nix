@@ -460,7 +460,6 @@ in {
       services.snapper.snapshotRootOnBoot = true;
 
       services.udev.packages = with pkgs; [
-        android-udev-rules
         libu2f-host
         openocd
         yubikey-manager
@@ -526,10 +525,6 @@ in {
       systemd.services.swap-backspace.serviceConfig.RemainAfterExit = true;
       systemd.services.swap-backspace.serviceConfig.Type = "oneshot";
       systemd.services.swap-backspace.wantedBy = ["multi-user.target"];
-
-      users.users.owner.extraGroups = with config.users.groups; [
-        adbusers.name
-      ];
 
       xdg.portal.config.common.default = "*";
       xdg.portal.enable = true;
