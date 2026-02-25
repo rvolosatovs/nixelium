@@ -8,6 +8,7 @@
     "https://nix-community.cachix.org"
     "https://bytecodealliance.cachix.org"
     "https://wasmcloud.cachix.org"
+    "https://install.determinate.systems"
   ];
   nixConfig.extra-trusted-substituters = [
     "https://rvolosatovs.cachix.org"
@@ -16,6 +17,7 @@
     "https://nix-community.cachix.org"
     "https://bytecodealliance.cachix.org"
     "https://wasmcloud.cachix.org"
+    "https://install.determinate.systems"
   ];
   nixConfig.extra-trusted-public-keys = [
     "rvolosatovs.cachix.org-1:eRYUO4OXTSmpDFWu4wX3/X08MsP01baqGKi9GsoAmQ8="
@@ -24,6 +26,7 @@
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     "bytecodealliance.cachix.org-1:0SBgh//n2n0heh0sDFhTm+ZKBRy2sInakzFGfzN531Y="
     "wasmcloud.cachix.org-1:9gRBzsKh+x2HbVVspreFg/6iFRiD4aOcUQfXVDl3hiM="
+    "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
   ];
 
   inputs.base16-shell.flake = false;
@@ -43,15 +46,12 @@
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
-  inputs.nix-rosetta-builder.inputs.nixpkgs.follows = "nixpkgs-darwin";
-  inputs.nix-rosetta-builder.url = "github:cpick/nix-rosetta-builder";
   inputs.nixify.inputs.nixlib.follows = "nixlib";
   inputs.nixify.inputs.nixpkgs-darwin.follows = "nixpkgs-darwin";
   inputs.nixify.inputs.nixpkgs-nixos.follows = "nixpkgs-nixos";
   inputs.nixify.url = "github:rvolosatovs/nixify";
   inputs.nixlib.url = "github:nix-community/nixpkgs.lib";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
-  inputs.nixpkgs-23_05.url = "github:NixOS/nixpkgs/release-23.05";
   inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.11";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

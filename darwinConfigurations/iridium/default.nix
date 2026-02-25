@@ -2,7 +2,6 @@
   self,
   flake-utils,
   nix-darwin,
-  nix-rosetta-builder,
   ...
 }:
 with flake-utils.lib.system;
@@ -12,8 +11,6 @@ with flake-utils.lib.system;
       ({pkgs, ...}: {
         imports = [
           self.darwinModules.default
-
-          nix-rosetta-builder.darwinModules.default
         ];
 
         networking.hostName = "iridium";
@@ -22,8 +19,6 @@ with flake-utils.lib.system;
           "Thunderbolt Bridge"
           "Wi-Fi"
         ];
-
-        nix.linux-builder.enable = false;
 
         nixelium.profile.laptop.enable = true;
       })

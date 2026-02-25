@@ -95,24 +95,23 @@ in {
         "149.112.112.112"
       ];
 
-      nix.distributedBuilds = true;
       nix.extraOptions = concatStringsSep "\n" [
-        "builders-use-substitutes = true"
         "experimental-features = nix-command flakes"
-        "keep-derivations = true"
-        "keep-outputs = true"
       ];
       nix.gc.automatic = !config.determinateNix.enable;
-      nix.linux-builder.enable = mkDefault true;
-      nix.linux-builder.maxJobs = mkDefault 8;
       nix.optimise.automatic = !config.determinateNix.enable;
-      nix.settings.allowed-users = with config.users; [
+
+      determinateNix.distributedBuilds = true;
+      determinateNix.customSettings.allowed-users = with config.users; [
         "@admin"
         users.${username}.name
       ];
-      nix.settings.require-sigs = true;
-      nix.settings.substituters = substituters;
-      nix.settings.trusted-public-keys = [
+      determinateNix.customSettings.builders-use-substitutes = true;
+      determinateNix.customSettings.keep-derivations = true;
+      determinateNix.customSettings.keep-outputs = true;
+      determinateNix.customSettings.require-sigs = true;
+      determinateNix.customSettings.substituters = substituters;
+      determinateNix.customSettings.trusted-public-keys = [
         "rvolosatovs.cachix.org-1:eRYUO4OXTSmpDFWu4wX3/X08MsP01baqGKi9GsoAmQ8="
         "nixify.cachix.org-1:95SiUQuf8Ij0hwDweALJsLtnMyv/otZamWNRp1Q1pXw="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -121,8 +120,8 @@ in {
         "crane.cachix.org-1:8Scfpmn9w+hGdXH/Q9tTLiYAE/2dnJYRJP7kl80GuRk="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
-      nix.settings.trusted-substituters = substituters;
-      nix.settings.trusted-users = with config.users; [
+      determinateNix.customSettings.trusted-substituters = substituters;
+      determinateNix.customSettings.trusted-users = with config.users; [
         "@admin"
         users.${username}.name
       ];

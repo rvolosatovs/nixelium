@@ -769,26 +769,6 @@
         "type": "github"
       }
     },
-    "nix-rosetta-builder": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-darwin"
-        ]
-      },
-      "locked": {
-        "lastModified": 1770491098,
-        "narHash": "sha256-ZfhynJqgV3A9hEivcgOEZa+TZnJPc26lIUjzKsSchgI=",
-        "owner": "cpick",
-        "repo": "nix-rosetta-builder",
-        "rev": "50e6070082e0b4fbaf67dd8f346892a1a9ed685c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cpick",
-        "repo": "nix-rosetta-builder",
-        "type": "github"
-      }
-    },
     "nixify": {
       "inputs": {
         "advisory-db": "advisory-db",
@@ -983,22 +963,6 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "a62e6edd6d5e1fa0329b8653c801147986f8d446",
-        "type": "github"
-      }
-    },
-    "nixpkgs-23_05": {
-      "locked": {
-        "lastModified": 1705957679,
-        "narHash": "sha256-Q8LJaVZGJ9wo33wBafvZSzapYsjOaNjP/pOnSiKVGHY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9a333eaa80901efe01df07eade2c16d183761fa3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "release-23.05",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -1212,11 +1176,9 @@
         "lanzaboote": "lanzaboote",
         "nix-darwin": "nix-darwin",
         "nix-flake-tests": "nix-flake-tests",
-        "nix-rosetta-builder": "nix-rosetta-builder",
         "nixify": "nixify",
         "nixlib": "nixlib_3",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs-23_05": "nixpkgs-23_05",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
