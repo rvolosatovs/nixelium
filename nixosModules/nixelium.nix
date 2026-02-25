@@ -1,5 +1,6 @@
 {
   self,
+  determinate,
   home-manager,
   lanzaboote,
   nixlib,
@@ -40,6 +41,7 @@ with nixlib.lib; let
   deploySystemPath = "/nix/store/*-activatable-nixos-system-${config.networking.hostName}-*";
 in {
   imports = [
+    determinate.nixosModules.default
     home-manager.nixosModules.home-manager
     lanzaboote.nixosModules.lanzaboote
     sops-nix.nixosModules.sops
