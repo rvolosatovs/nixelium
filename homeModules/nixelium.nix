@@ -338,30 +338,6 @@ in {
       home.shellAliases.rm = "rm -i";
       home.shellAliases.sl = "ls";
 
-      nix.registry.nixelium.flake = self;
-      nix.registry.nixelium.from.id = "nixelium";
-      nix.registry.nixelium.from.type = "indirect";
-
-      nix.registry.nixify.flake = nixify;
-      nix.registry.nixify.from.id = "nixify";
-      nix.registry.nixify.from.type = "indirect";
-
-      nix.registry.nixlib.flake = nixlib;
-      nix.registry.nixlib.from.id = "nixlib";
-      nix.registry.nixlib.from.type = "indirect";
-
-      nix.registry.nixpkgs-darwin.flake = nixpkgs-darwin;
-      nix.registry.nixpkgs-darwin.from.id = "nixpkgs-darwin";
-      nix.registry.nixpkgs-darwin.from.type = "indirect";
-
-      nix.registry.nixpkgs-nixos.flake = nixpkgs-nixos;
-      nix.registry.nixpkgs-nixos.from.id = "nixpkgs-nixos";
-      nix.registry.nixpkgs-nixos.from.type = "indirect";
-
-      nix.registry.nixpkgs-unstable.flake = nixpkgs-unstable;
-      nix.registry.nixpkgs-unstable.from.id = "nixpkgs-unstable";
-      nix.registry.nixpkgs-unstable.from.type = "indirect";
-
       programs.bash.enable = true;
       programs.bash.enableCompletion = true;
       programs.bash.historyControl = [
