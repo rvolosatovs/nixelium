@@ -237,6 +237,8 @@ in {
       '';
       services.yabai.package = pkgs.pkgsUnstable.yabai;
 
+      system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = false;
+
       system.defaults.dock.autohide = true;
       system.defaults.finder.AppleShowAllExtensions = true;
       system.defaults.finder.AppleShowAllFiles = true;
