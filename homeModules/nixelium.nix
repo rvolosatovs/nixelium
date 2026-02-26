@@ -855,8 +855,6 @@ in {
       services.gpg-agent.enableSshSupport = true;
       services.gpg-agent.grabKeyboardAndMouse = false;
 
-      services.kbfs.mountPoint = ".local/keybase";
-
       services.mako.settings."urgency=high".background-color = "#${cfg.base16.colors.base00}";
       services.mako.settings."urgency=high".border-color = "#${cfg.base16.colors.base0D}";
       services.mako.settings."urgency=high".text-color = "#${cfg.base16.colors.base08}";
@@ -1324,8 +1322,6 @@ in {
         services.avizo.enable = true;
         services.clipman.enable = true;
         services.kanshi.enable = true;
-        services.kbfs.enable = true; # TODO: Remove
-        services.keybase.enable = true; # TODO: Remove
         services.mako.enable = true;
         services.playerctld.enable = true;
         services.swayidle.enable = true;
