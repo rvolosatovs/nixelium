@@ -125,9 +125,9 @@ in {
       determinateNix.registry.nixlib.from.id = "nixlib";
       determinateNix.registry.nixlib.from.type = "indirect";
 
-      determinateNix.registry.nixpkgs-darwin.flake = nixpkgs-darwin;
-      determinateNix.registry.nixpkgs-darwin.from.id = "nixpkgs-darwin";
-      determinateNix.registry.nixpkgs-darwin.from.type = "indirect";
+      determinateNix.registry.nixpkgs.flake = nixpkgs-darwin;
+      determinateNix.registry.nixpkgs.from.id = "nixpkgs";
+      determinateNix.registry.nixpkgs.from.type = "indirect";
 
       determinateNix.registry.nixpkgs-nixos.flake = nixpkgs-nixos;
       determinateNix.registry.nixpkgs-nixos.from.id = "nixpkgs-nixos";
