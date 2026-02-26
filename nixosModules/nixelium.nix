@@ -161,13 +161,13 @@ in {
       nix.registry.nixlib.from.id = "nixlib";
       nix.registry.nixlib.from.type = "indirect";
 
+      nix.registry.nixpkgs.flake = nixpkgs-nixos;
+      nix.registry.nixpkgs.from.id = "nixpkgs";
+      nix.registry.nixpkgs.from.type = "indirect";
+
       nix.registry.nixpkgs-darwin.flake = nixpkgs-darwin;
       nix.registry.nixpkgs-darwin.from.id = "nixpkgs-darwin";
       nix.registry.nixpkgs-darwin.from.type = "indirect";
-
-      nix.registry.nixpkgs-nixos.flake = nixpkgs-nixos;
-      nix.registry.nixpkgs-nixos.from.id = "nixpkgs-nixos";
-      nix.registry.nixpkgs-nixos.from.type = "indirect";
 
       nix.registry.nixpkgs-unstable.flake = nixpkgs-unstable;
       nix.registry.nixpkgs-unstable.from.id = "nixpkgs-unstable";
