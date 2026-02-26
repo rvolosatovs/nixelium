@@ -150,6 +150,8 @@ in {
         "experimental-features = nix-command flakes"
       ];
       nix.gc.automatic = !config.determinateNix.enable;
+      nix.linux-builder.enable = mkDefault true;
+      nix.linux-builder.maxJobs = mkDefault 8;
       nix.optimise.automatic = !config.determinateNix.enable;
 
       nixpkgs.config = import "${self}/nixpkgs/config.nix";
