@@ -387,6 +387,7 @@ vim.lsp.enable({
     'dockerls',
     'eslint',
     'gdscript',
+    'gopls',
     'hls',
     'html',
     'julials',
