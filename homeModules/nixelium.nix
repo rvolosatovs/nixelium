@@ -1215,8 +1215,8 @@ in {
           ];
 
         home.sessionPath = [
-          "$HOME/${config.programs.go.goBin}"
           "$HOME/.cargo/bin"
+          "$HOME/.local/bin.go"
         ];
 
         home.shell.enableBashIntegration = true;
