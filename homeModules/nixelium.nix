@@ -1207,9 +1207,14 @@ in {
             pkgs.pkgsUnstable.hey
             pkgs.pkgsUnstable.nats-server
             pkgs.pkgsUnstable.natscli
+            pkgs.pkgsUnstable.nodejs
             pkgs.pkgsUnstable.podman-compose
+            pkgs.pkgsUnstable.pprof
+            pkgs.pkgsUnstable.protobuf
             pkgs.pkgsUnstable.redis
+            pkgs.pkgsUnstable.samply
             pkgs.pkgsUnstable.spotify
+            pkgs.pkgsUnstable.uv
             pkgs.pkgsUnstable.wasm-tools
             pkgs.pkgsUnstable.wasmtime
           ];
