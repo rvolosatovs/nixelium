@@ -68,7 +68,6 @@ in {
         "juliaup"
       ];
       homebrew.casks = [
-        "arduino-ide"
         {
           name = "chromium";
           args.require_sha = false;
