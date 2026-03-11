@@ -209,9 +209,9 @@ in {
         cmd + ctrl + shift - k  : ${config.services.yabai.package}/bin/yabai -m window --warp north
         cmd + ctrl + shift - l  : ${config.services.yabai.package}/bin/yabai -m window --warp east
 
-        cmd - return            : ${config.home-manager.users.${username}.programs.kitty.package}/Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+        cmd - return            : open -n ${config.home-manager.users.${username}.programs.kitty.package}/Applications/kitty.app --args --single-instance -d ~
         # TODO: switch to nixpkgs
-        cmd + shift - o         : /Applications/Firefox.app/Contents/MacOS/firefox --new-window
+        cmd + shift - o         : open -n /Applications/Firefox.app
       '';
       services.skhd.package = pkgs.pkgsUnstable.skhd;
 
