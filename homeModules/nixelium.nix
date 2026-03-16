@@ -1188,6 +1188,7 @@ in {
 
             pkgs.android-tools
             pkgs.avrdude
+            pkgs.gh
             pkgs.google-cloud-sdk
             pkgs.imv
             pkgs.julia
