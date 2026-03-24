@@ -1131,7 +1131,7 @@ in {
         pkgs.usbutils
       ];
 
-      programs.kitty.settings.font_size = 15;
+      programs.kitty.settings.font_size = 18;
 
       services.gpg-agent.enable = true;
       services.gpg-agent.pinentry.package = pkgs.pinentry-all;
