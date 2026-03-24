@@ -255,6 +255,7 @@ in {
         pkgs.ripgrep
         pkgs.scrcpy
         pkgs.tree
+        pkgs.unrar
         pkgs.unzip
         pkgs.wget
         pkgs.xxd
