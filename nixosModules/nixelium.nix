@@ -180,6 +180,8 @@ in {
         wit-deps.overlays.default
       ];
 
+      programs.nix-ld.enable = true;
+
       programs.zsh.autosuggestions.enable = true;
       programs.zsh.autosuggestions.strategy = ["history" "completion"];
       programs.zsh.enable = true;
