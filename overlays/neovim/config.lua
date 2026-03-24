@@ -10,6 +10,15 @@ local mini_pairs = require('mini.pairs')
 local mini_surround = require('mini.surround')
 local treesitter = require('nvim-treesitter.configs')
 
+--- Filetypes
+
+vim.filetype.add({
+    extension = {
+        cedar = 'cedar',
+        cedarschema = 'cedarschema',
+    },
+})
+
 --- Colorscheme
 mini_base16.setup {
     palette = {
