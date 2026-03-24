@@ -1183,6 +1183,7 @@
         "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix",
+        "tree-sitter-cedar": "tree-sitter-cedar",
         "wit-deps": "wit-deps"
       }
     },
@@ -1409,6 +1410,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tree-sitter-cedar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1768350887,
+        "narHash": "sha256-q7YqsJQqIiIOSqlO/KdTEKs6cO21bw1V0Z3zpcNOGRo=",
+        "owner": "DuskSystems",
+        "repo": "tree-sitter-cedar",
+        "rev": "ac1fe619df3d4af9f797903d4b8852f12082a0d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DuskSystems",
+        "repo": "tree-sitter-cedar",
         "type": "github"
       }
     },
