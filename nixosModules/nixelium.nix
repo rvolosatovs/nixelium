@@ -418,8 +418,10 @@ in {
 
       programs.light.enable = true;
 
+      programs.steam.dedicatedServer.openFirewall = true;
       programs.steam.enable = true;
       programs.steam.gamescopeSession.enable = true;
+      programs.steam.localNetworkGameTransfers.openFirewall = true;
       programs.steam.remotePlay.openFirewall = true;
 
       qt.enable = true;
