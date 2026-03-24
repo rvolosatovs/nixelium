@@ -875,6 +875,7 @@ in {
       services.wlsunset.longitude = toString osConfig.location.longitude;
       services.wlsunset.systemdTarget = "sway-session.target";
 
+      wayland.windowManager.sway.checkConfig = false;
       wayland.windowManager.sway.config.bars = [];
       # Based on https://github.com/khamer/base16-i3/blob/78292138812a3f88c3fc4794f615f5b36b0b6d7c/templates/default.mustache#L41-L48
       wayland.windowManager.sway.config.colors.background = "#${cfg.base16.colors.base07}";
