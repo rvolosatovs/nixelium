@@ -12,11 +12,7 @@
   wit-deps,
   ...
 }:
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 with nixlib.lib;
 let
   cfg = config.nixelium;
@@ -63,13 +59,9 @@ in
   config = mkMerge [
     {
       boot.bootspec.enable = true;
-      boot.initrd.availableKernelModules = [
-        "cryptd"
-      ];
+      boot.initrd.availableKernelModules = [ "cryptd" ];
       boot.initrd.systemd.enable = true;
-      boot.kernelParams = [
-        "systemd.unified_cgroup_hierarchy=1"
-      ];
+      boot.kernelParams = [ "systemd.unified_cgroup_hierarchy=1" ];
       boot.lanzaboote.enable = mkDefault true;
       boot.lanzaboote.pkiBundle = "/etc/secureboot";
       boot.loader.efi.canTouchEfiVariables = true;
@@ -215,9 +207,7 @@ in
         {
           groups = with config.users.groups; [ wheel.name ];
           runAs = config.users.users.root.name;
-          commands = [
-            (nopasswd "ALL")
-          ];
+          commands = [ (nopasswd "ALL") ];
         }
       ];
       security.sudo.wheelNeedsPassword = false;
@@ -254,9 +244,7 @@ in
       services.openssh.settings.X11Forwarding = true;
       services.openssh.startWhenNeeded = true;
 
-      services.printing.drivers = with pkgs; [
-        brlaser
-      ];
+      services.printing.drivers = with pkgs; [ brlaser ];
 
       services.tailscale.enable = true;
 
@@ -313,12 +301,8 @@ in
     }
 
     (mkIf cfg.build.enable {
-      nix.settings.allowed-users = with config.users; [
-        "${users.nix.name}"
-      ];
-      nix.settings.trusted-users = with config.users; [
-        "${users.nix.name}"
-      ];
+      nix.settings.allowed-users = with config.users; [ "${users.nix.name}" ];
+      nix.settings.trusted-users = with config.users; [ "${users.nix.name}" ];
 
       users.groups.nix = { };
 
@@ -334,16 +318,10 @@ in
     })
 
     (mkIf cfg.deploy.enable {
-      environment.shells = with pkgs; [
-        bashInteractive
-      ];
+      environment.shells = with pkgs; [ bashInteractive ];
 
-      nix.settings.allowed-users = with config.users; [
-        "@${groups.deploy.name}"
-      ];
-      nix.settings.trusted-users = with config.users; [
-        "@${groups.deploy.name}"
-      ];
+      nix.settings.allowed-users = with config.users; [ "@${groups.deploy.name}" ];
+      nix.settings.trusted-users = with config.users; [ "@${groups.deploy.name}" ];
 
       security.sudo.extraRules = [
         {
@@ -466,9 +444,7 @@ in
       services.avahi.enable = true;
 
       services.btrfs.autoScrub.enable = true;
-      services.btrfs.autoScrub.fileSystems = [
-        "/"
-      ];
+      services.btrfs.autoScrub.fileSystems = [ "/" ];
 
       services.dbus.enable = true;
 
@@ -564,16 +540,12 @@ in
 
       xdg.portal.config.common.default = "*";
       xdg.portal.enable = true;
-      xdg.portal.extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-      ];
+      xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
       xdg.portal.wlr.enable = true;
     })
 
     (mkIf (cfg.profile.laptop.enable && pkgs.stdenv.hostPlatform.isx86_64) {
-      boot.binfmt.emulatedSystems = [
-        "x86_64-windows"
-      ];
+      boot.binfmt.emulatedSystems = [ "x86_64-windows" ];
     })
 
     (mkIf (cfg.profile.laptop.enable && !cfg.system.isVirtual) {

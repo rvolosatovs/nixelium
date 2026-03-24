@@ -11,9 +11,7 @@ nix-darwin.lib.darwinSystem {
     (
       { pkgs, ... }:
       {
-        imports = [
-          self.darwinModules.default
-        ];
+        imports = [ self.darwinModules.default ];
 
         networking.hostName = "iridium";
 

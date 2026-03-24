@@ -1,3 +1,1 @@
-inputs: {
-  iridium = import ./iridium inputs;
-}
+inputs: { iridium = import ./iridium inputs; }

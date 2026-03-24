@@ -10,13 +10,9 @@ let
   importNixpkgs =
     nixpkgs: final: prev:
     import nixpkgs {
-      inherit (final.stdenv.hostPlatform)
-        system
-        ;
+      inherit (final.stdenv.hostPlatform) system;
 
-      inherit (final)
-        config
-        ;
+      inherit (final) config;
     };
 
   images = import ./images.nix inputs;
@@ -47,25 +43,17 @@ let
     };
   };
 
-  gopass = final: prev: {
-    gopass = prev.pkgsUnstable.gopass.override {
-      passAlias = true;
-    };
-  };
+  gopass = final: prev: { gopass = prev.pkgsUnstable.gopass.override { passAlias = true; }; };
 
   neovim' = final: prev: {
     neovim = final.wrapNeovim final.neovim-unwrapped (import ./neovim inputs final);
   };
 
   rust-analyzer = final: prev: {
-    inherit (fenix.packages.${prev.stdenv.hostPlatform.system})
-      rust-analyzer
-      ;
+    inherit (fenix.packages.${prev.stdenv.hostPlatform.system}) rust-analyzer;
   };
 
-  pkgsUnstable = final: prev: {
-    pkgsUnstable = importNixpkgs nixpkgs-unstable final prev;
-  };
+  pkgsUnstable = final: prev: { pkgsUnstable = importNixpkgs nixpkgs-unstable final prev; };
 
   unstable = final: prev: {
     lima = prev.pkgsUnstable.lima;

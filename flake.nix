@@ -87,11 +87,7 @@
         ];
 
         withDevShells =
-          {
-            devShells,
-            pkgs,
-            ...
-          }:
+          { devShells, pkgs, ... }:
           extendDerivations {
             buildInputs = [
               pkgs.age
@@ -110,20 +106,10 @@
             ];
           } devShells;
 
-        withChecks =
-          {
-            checks,
-            pkgs,
-            ...
-          }:
-          checks // import ./checks inputs pkgs;
+        withChecks = { checks, pkgs, ... }: checks // import ./checks inputs pkgs;
 
         withPackages =
-          {
-            pkgs,
-            packages,
-            ...
-          }:
+          { pkgs, packages, ... }:
           packages
           // {
             inherit (pkgs)
