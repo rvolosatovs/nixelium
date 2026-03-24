@@ -1318,6 +1318,30 @@ in {
         services.avizo.enable = true;
         services.clipman.enable = true;
         services.kanshi.enable = true;
+        services.kanshi.settings = [
+          {
+            profile.name = "docked";
+            profile.outputs = [
+              {
+                criteria = "eDP-1";
+                position = "0,0";
+              }
+              {
+                criteria = "DP-1";
+                position = "1920,0";
+              }
+            ];
+          }
+          {
+            profile.name = "undocked";
+            profile.outputs = [
+              {
+                criteria = "eDP-1";
+                status = "enable";
+              }
+            ];
+          }
+        ];
         services.mako.enable = true;
         services.playerctld.enable = true;
         services.swayidle.enable = true;
