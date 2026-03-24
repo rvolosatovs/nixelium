@@ -835,8 +835,7 @@ in {
       programs.zsh.shellAliases.dh = "dirs -v";
       programs.zsh.shellAliases.nd = "pushd";
 
-      qt.platformTheme = "gtk"; # TODO: Switch to qtct once supported
-      qt.style.name = "adwaita-dark";
+      qt.platformTheme.name = "qtct";
 
       services.clipman.systemdTarget = "sway-session.target";
 
