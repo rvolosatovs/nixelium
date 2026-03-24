@@ -10,11 +10,7 @@ nixpkgs-nixos.lib.nixosSystem {
   system = x86_64-linux;
   modules = [
     (
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         imports = [
           self.nixosModules.default
@@ -33,9 +29,7 @@ nixpkgs-nixos.lib.nixosSystem {
           "usbhid"
           "xhci_pci"
         ];
-        boot.initrd.kernelModules = [
-          "dm-snapshot"
-        ];
+        boot.initrd.kernelModules = [ "dm-snapshot" ];
         boot.initrd.luks.devices.luksroot.device = "/dev/nvme0n1p2";
         boot.kernelModules = [
           "kvm-intel"
@@ -51,9 +45,7 @@ nixpkgs-nixos.lib.nixosSystem {
 
         networking.hostName = "osmium";
 
-        networking.firewall.allowedTCPPorts = [
-          9091
-        ];
+        networking.firewall.allowedTCPPorts = [ 9091 ];
 
         networking.interfaces.enp34s0.useDHCP = true;
         networking.interfaces.enp34s0.wakeOnLan.enable = true;

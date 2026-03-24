@@ -3,8 +3,6 @@ let
   nixelium = import ./nixelium.nix inputs;
 in
 {
-  inherit
-    nixelium
-    ;
+  inherit nixelium;
   default = nixelium;
 }

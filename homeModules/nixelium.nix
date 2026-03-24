@@ -692,9 +692,7 @@ in
       programs.skim.enableBashIntegration = true;
       programs.skim.enableZshIntegration = true;
       programs.skim.fileWidgetCommand = "${pkgs.fd}/bin/fd -H --color=always --type f --exclude '.git'";
-      programs.skim.fileWidgetOptions = [
-        "--preview '${pkgs.bat}/bin/bat --color=always {}'"
-      ];
+      programs.skim.fileWidgetOptions = [ "--preview '${pkgs.bat}/bin/bat --color=always {}'" ];
 
       programs.ssh.enable = true;
       programs.ssh.enableDefaultConfig = false;
@@ -944,12 +942,8 @@ in
       wayland.windowManager.sway.config.colors.urgent.text = "#${cfg.base16.colors.base00}";
 
       wayland.windowManager.sway.config.floating.criteria = [
-        {
-          app_id = "^mpv$";
-        }
-        {
-          app_id = "^pavucontrol$";
-        }
+        { app_id = "^mpv$"; }
+        { app_id = "^pavucontrol$"; }
         {
           app_id = "^firefox$";
           title = "^Picture-in-Picture$";
@@ -960,16 +954,8 @@ in
         }
       ];
 
-      wayland.windowManager.sway.config.assigns."4" = [
-        {
-          class = "^Spotify$";
-        }
-      ];
-      wayland.windowManager.sway.config.assigns."5" = [
-        {
-          app_id = "^thunderbird$";
-        }
-      ];
+      wayland.windowManager.sway.config.assigns."4" = [ { class = "^Spotify$"; } ];
+      wayland.windowManager.sway.config.assigns."5" = [ { app_id = "^thunderbird$"; } ];
       wayland.windowManager.sway.config.startup =
         let
           services = [
@@ -992,15 +978,9 @@ in
           }
         ]) services)
         ++ [
-          {
-            command = "${pkgs.ydotool}/bin/ydotoold";
-          }
-          {
-            command = "${config.programs.firefox.package}/bin/firefox";
-          }
-          {
-            command = "${config.programs.thunderbird.package}/bin/thunderbird";
-          }
+          { command = "${pkgs.ydotool}/bin/ydotoold"; }
+          { command = "${config.programs.firefox.package}/bin/firefox"; }
+          { command = "${config.programs.thunderbird.package}/bin/thunderbird"; }
         ];
 
       wayland.windowManager.sway.config.input."*" = {
@@ -1009,9 +989,7 @@ in
       };
       wayland.windowManager.sway.config.input."1:1:AT_Translated_Set_2_keyboard".xkb_options =
         extendDefaultXkbOptions
-          [
-            "caps:swapescape"
-          ];
+          [ "caps:swapescape" ];
       wayland.windowManager.sway.config.input."1149:8264:Primax_Kensington_Eagle_Trackball".pointer_accel =
         "0.5";
 
@@ -1175,9 +1153,7 @@ in
       xresources.properties."ssh-askpass*background" = "#${cfg.base16.colors.base00}";
     }
     (mkIf pkgs.stdenv.hostPlatform.isLinux {
-      home.packages = [
-        pkgs.usbutils
-      ];
+      home.packages = [ pkgs.usbutils ];
 
       programs.kitty.settings.font_size = 18;
 

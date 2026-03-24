@@ -10,11 +10,7 @@
   wit-deps,
   ...
 }:
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 with nixlib.lib;
 let
   substituters = [
@@ -48,9 +44,7 @@ in
         "/share/zsh"
       ];
       environment.shellInit = "eval $(brew shellenv)";
-      environment.systemPath = [
-        "/opt/homebrew/bin"
-      ];
+      environment.systemPath = [ "/opt/homebrew/bin" ];
 
       fonts.packages = [
         pkgs.fira
@@ -148,9 +142,7 @@ in
         "149.112.112.112"
       ];
 
-      nix.extraOptions = concatStringsSep "\n" [
-        "experimental-features = nix-command flakes"
-      ];
+      nix.extraOptions = concatStringsSep "\n" [ "experimental-features = nix-command flakes" ];
       nix.gc.automatic = !config.determinateNix.enable;
       nix.optimise.automatic = !config.determinateNix.enable;
 
@@ -249,12 +241,8 @@ in
       system.primaryUser = username;
       system.stateVersion = 6;
 
-      users.knownGroups = with config.users; [
-        groups.nix.name
-      ];
-      users.knownUsers = with config.users; [
-        users.nix.name
-      ];
+      users.knownGroups = with config.users; [ groups.nix.name ];
+      users.knownUsers = with config.users; [ users.nix.name ];
 
       users.groups.nix.gid = 542;
       users.groups.nix.members = [ "nix" ];

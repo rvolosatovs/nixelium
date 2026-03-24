@@ -26,13 +26,9 @@ nixpkgs-nixos.lib.nixosSystem {
           "usb_storage"
           "xhci_pci"
         ];
-        boot.initrd.kernelModules = [
-          "dm-snapshot"
-        ];
+        boot.initrd.kernelModules = [ "dm-snapshot" ];
         boot.initrd.luks.devices.luksroot.device = "/dev/nvme0n1p2";
-        boot.kernelModules = [
-          "kvm-amd"
-        ];
+        boot.kernelModules = [ "kvm-amd" ];
 
         networking.hostName = "cobalt";
 
