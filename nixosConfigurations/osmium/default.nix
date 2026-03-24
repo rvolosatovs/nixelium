@@ -6,14 +6,16 @@
   ...
 }:
 with flake-utils.lib.system;
-  nixpkgs-nixos.lib.nixosSystem {
-    system = x86_64-linux;
-    modules = [
-      ({
+nixpkgs-nixos.lib.nixosSystem {
+  system = x86_64-linux;
+  modules = [
+    (
+      {
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [
           self.nixosModules.default
 
@@ -80,10 +82,10 @@ with flake-utils.lib.system;
         services.transmission.package = pkgs.transmission_4;
         services.transmission.performanceNetParameters = true;
 
-        systemd.services.system76-charge-thresholds.after = ["multi-user.target"];
+        systemd.services.system76-charge-thresholds.after = [ "multi-user.target" ];
         systemd.services.system76-charge-thresholds.description = "Set system76 laptop battery charge thresholds";
         systemd.services.system76-charge-thresholds.script = "${pkgs.system76-power}/bin/system76-power charge-thresholds --profile max_lifespan";
-        systemd.services.system76-charge-thresholds.wantedBy = ["multi-user.target"];
+        systemd.services.system76-charge-thresholds.wantedBy = [ "multi-user.target" ];
 
         users.users.owner.extraGroups = [
           config.users.groups.jellyfin.name
@@ -91,6 +93,7 @@ with flake-utils.lib.system;
           config.users.groups.sonarr.name
           config.users.groups.transmission.name
         ];
-      })
-    ];
-  }
+      }
+    )
+  ];
+}

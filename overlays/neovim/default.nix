@@ -1,4 +1,6 @@
-inputs @ {tree-sitter-cedar, ...}: pkgs @ {tree-sitter, vimPlugins, ...}: let
+inputs@{ tree-sitter-cedar, ... }:
+pkgs@{ tree-sitter, vimPlugins, ... }:
+let
   treesitter-cedar = tree-sitter.buildGrammar {
     language = "cedar";
     version = tree-sitter-cedar.shortRev or "0";
@@ -12,11 +14,16 @@ inputs @ {tree-sitter-cedar, ...}: pkgs @ {tree-sitter, vimPlugins, ...}: let
     location = "cedarschema";
   };
 
-  nvim-treesitter = vimPlugins.nvim-treesitter.withPlugins (_: vimPlugins.nvim-treesitter.allGrammars ++ [
-    treesitter-cedar
-    treesitter-cedarschema
-  ]);
-in {
+  nvim-treesitter = vimPlugins.nvim-treesitter.withPlugins (
+    _:
+    vimPlugins.nvim-treesitter.allGrammars
+    ++ [
+      treesitter-cedar
+      treesitter-cedarschema
+    ]
+  );
+in
+{
   configure.customRC = import ./config.nix inputs pkgs;
   configure.packages.plugins.opt = with vimPlugins; [
     tabular

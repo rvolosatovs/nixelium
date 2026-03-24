@@ -1,4 +1,5 @@
-{self, ...}: {
+{ self, ... }:
+{
   fenix,
   julia,
   lib,
@@ -6,11 +7,9 @@
   pkgsUnstable,
   ripgrep,
   ...
-}: let
-  julia' =
-    if julia.meta.unsupported
-    then "julia"
-    else "${julia}/bin/julia";
+}:
+let
+  julia' = if julia.meta.unsupported then "julia" else "${julia}/bin/julia";
 
   paths = self.lib.toLua {
     bin.alejandra = "${pkgsUnstable.alejandra}/bin/alejandra";
@@ -33,7 +32,8 @@
     bin.vscode-html-language-server = "${pkgsUnstable.vscode-langservers-extracted}/bin/vscode-html-language-server";
     src.lua-language-server = "${lua-language-server}";
   };
-in ''
+in
+''
   filetype plugin indent on
   syntax enable
 

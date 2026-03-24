@@ -61,15 +61,17 @@
   inputs.tree-sitter-cedar.url = "github:DuskSystems/tree-sitter-cedar";
   inputs.wit-deps.url = "github:bytecodealliance/wit-deps/v0.6.0";
 
-  outputs = inputs @ {
-    self,
-    nixify,
-    wit-deps,
-    ...
-  }:
-    with nixify.lib; let
+  outputs =
+    inputs@{
+      self,
+      nixify,
+      wit-deps,
+      ...
+    }:
+    with nixify.lib;
+    let
       flake = mkFlake {
-        withOverlays = {overlays, ...}: overlays // import ./overlays inputs;
+        withOverlays = { overlays, ... }: overlays // import ./overlays inputs;
         overlays = [
           self.overlays.default
           wit-deps.overlays.default
@@ -84,11 +86,12 @@
           "README.md"
         ];
 
-        withDevShells = {
-          devShells,
-          pkgs,
-          ...
-        }:
+        withDevShells =
+          {
+            devShells,
+            pkgs,
+            ...
+          }:
           extendDerivations {
             buildInputs = [
               pkgs.age
@@ -105,26 +108,25 @@
               pkgs.host-key
               pkgs.ssh-for-each
             ];
-          }
-          devShells;
+          } devShells;
 
-        withChecks = {
-          checks,
-          pkgs,
-          ...
-        }:
-          checks
-          // import ./checks inputs pkgs;
+        withChecks =
+          {
+            checks,
+            pkgs,
+            ...
+          }:
+          checks // import ./checks inputs pkgs;
 
-        withPackages = {
-          pkgs,
-          packages,
-          ...
-        }:
+        withPackages =
+          {
+            pkgs,
+            packages,
+            ...
+          }:
           packages
           // {
-            inherit
-              (pkgs)
+            inherit (pkgs)
               firefox
               host-key
               # TODO: port install ISOs
@@ -137,13 +139,13 @@
           };
       };
     in
-      flake
-      // {
-        darwinConfigurations = import ./darwinConfigurations inputs;
-        darwinModules = import ./darwinModules inputs;
-        homeModules = import ./homeModules inputs;
-        lib = import ./lib inputs;
-        nixosConfigurations = import ./nixosConfigurations inputs;
-        nixosModules = import ./nixosModules inputs;
-      };
+    flake
+    // {
+      darwinConfigurations = import ./darwinConfigurations inputs;
+      darwinModules = import ./darwinModules inputs;
+      homeModules = import ./homeModules inputs;
+      lib = import ./lib inputs;
+      nixosConfigurations = import ./nixosConfigurations inputs;
+      nixosModules = import ./nixosModules inputs;
+    };
 }

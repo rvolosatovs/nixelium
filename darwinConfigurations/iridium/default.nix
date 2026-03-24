@@ -5,10 +5,12 @@
   ...
 }:
 with flake-utils.lib.system;
-  nix-darwin.lib.darwinSystem {
-    system = aarch64-darwin;
-    modules = [
-      ({pkgs, ...}: {
+nix-darwin.lib.darwinSystem {
+  system = aarch64-darwin;
+  modules = [
+    (
+      { pkgs, ... }:
+      {
         imports = [
           self.darwinModules.default
         ];
@@ -21,6 +23,7 @@ with flake-utils.lib.system;
         ];
 
         nixelium.profile.laptop.enable = true;
-      })
-    ];
-  }
+      }
+    )
+  ];
+}
