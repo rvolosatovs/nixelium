@@ -5,7 +5,6 @@
   lua-language-server,
   pkgsUnstable,
   ripgrep,
-  stdenv,
   ...
 }: let
   julia' =
@@ -22,7 +21,7 @@
     bin.haskell-language-server = "${pkgsUnstable.haskell-language-server}/bin/haskell-language-server-wrapper";
     bin.julia = julia';
     bin.lua-language-server = "${lua-language-server}/bin/lua-language-server";
-    bin.nil = "${pkgsUnstable.nil}/bin/nil";
+    bin.nixd = "${pkgsUnstable.nixd}/bin/nixd";
     bin.omnisharp = "${pkgsUnstable.omnisharp-roslyn}/bin/omnisharp";
     bin.ripgrep = "${ripgrep}/bin/rg";
     bin.rust-analyzer = "${fenix.stable.rust-analyzer}/bin/rust-analyzer";
