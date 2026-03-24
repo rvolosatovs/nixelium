@@ -1,27 +1,29 @@
-{self, ...}: let
+{ self, ... }:
+let
   tooling = pkgs: _: rec {
-    bootstrap-ca = let
-      key = ''"ca/''${1}/ca.key"'';
-      crt = ''"ca/''${1}/ca.crt"'';
-      conf = pkgs.writeText "ca.conf" ''
-        [req]
-        distinguished_name = req_distinguished_name
-        prompt = no
-        x509_extensions = v3_ca
+    bootstrap-ca =
+      let
+        key = ''"ca/''${1}/ca.key"'';
+        crt = ''"ca/''${1}/ca.crt"'';
+        conf = pkgs.writeText "ca.conf" ''
+          [req]
+          distinguished_name = req_distinguished_name
+          prompt = no
+          x509_extensions = v3_ca
 
-        [req_distinguished_name]
-        C  = CH
-        ST = Valais
-        L  = Crans-Montana
-        CN = rvolosatovs.dev
+          [req_distinguished_name]
+          C  = CH
+          ST = Valais
+          L  = Crans-Montana
+          CN = rvolosatovs.dev
 
-        [v3_ca]
-        basicConstraints = critical,CA:TRUE
-        keyUsage = cRLSign, keyCertSign
-        nsComment = "rvolosatovs.dev CA certificate"
-        subjectKeyIdentifier = hash
-      '';
-    in
+          [v3_ca]
+          basicConstraints = critical,CA:TRUE
+          keyUsage = cRLSign, keyCertSign
+          nsComment = "rvolosatovs.dev CA certificate"
+          subjectKeyIdentifier = hash
+        '';
+      in
       pkgs.writeShellScriptBin "bootstrap-ca" ''
         set -xe
 
@@ -53,4 +55,4 @@
     '';
   };
 in
-  final: prev: tooling final prev
+final: prev: tooling final prev

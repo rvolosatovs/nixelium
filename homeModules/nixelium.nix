@@ -7,13 +7,15 @@
   nixpkgs-nixos,
   nixpkgs-unstable,
   ...
-}: {
+}:
+{
   config,
   osConfig ? null,
   pkgs,
   ...
 }:
-with nixlib.lib; let
+with nixlib.lib;
+let
   headphones = "70:26:05:CF:7F:C2";
 
   schemes.tomorrow-night.base00 = "1d1f21";
@@ -33,7 +35,8 @@ with nixlib.lib; let
   schemes.tomorrow-night.base0E = "b294bb";
   schemes.tomorrow-night.base0F = "a3685a";
 
-  rust = with pkgs.fenix;
+  rust =
+    with pkgs.fenix;
     combine [
       stable.cargo
       stable.clippy
@@ -69,7 +72,8 @@ with nixlib.lib; let
   exec = cmd: "exec '${cmd}'";
   lockCmd = "${pkgs.swaylock}/bin/swaylock -t -f -F -i ${config.home.homeDirectory}/pictures/lock";
   typeStdin = "${pkgs.ydotool}/bin/ydotool type --file -";
-in {
+in
+{
   options.nixelium.user.email = mkOption {
     type = types.strMatching ".+@.+\..+";
     example = "foobar@example.com";
@@ -531,7 +535,8 @@ in {
         "Thumbs.db"
         "token"
       ];
-      programs.git.settings.alias.tree = "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";
+      programs.git.settings.alias.tree =
+        "log --graph --pretty=format:'%C(auto)%h - %s [%an] (%C(blue)%ar)%C(auto)%d'";
       programs.git.settings.branch.autosetupmerge = false;
       programs.git.settings.branch.autosetuprebase = "always";
       programs.git.settings.color.ui = true;
@@ -540,7 +545,8 @@ in {
       programs.git.settings.diff.colorMoved = "zebra";
       programs.git.settings.diff.renames = "copy";
       programs.git.settings.fetch.prune = true;
-      programs.git.settings.format.pretty = "%C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n";
+      programs.git.settings.format.pretty =
+        "%C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n";
       programs.git.settings.hub.protocol = "https";
       programs.git.settings.init.defaultBranch = "main";
       programs.git.settings.merge.conflictstyle = "diff3";
@@ -695,8 +701,10 @@ in {
       programs.ssh.matchBlocks."*".compression = true;
       programs.ssh.matchBlocks."*".serverAliveInterval = 5;
       programs.ssh.matchBlocks."*.labs.overthewire.org".extraOptions.SendEnv = "OTWUSERDIR";
-      programs.ssh.matchBlocks."github.com".extraOptions.Ciphers = "chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc";
-      programs.ssh.matchBlocks."github.com".extraOptions.KexAlgorithms = "curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1";
+      programs.ssh.matchBlocks."github.com".extraOptions.Ciphers =
+        "chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc";
+      programs.ssh.matchBlocks."github.com".extraOptions.KexAlgorithms =
+        "curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1";
       programs.ssh.matchBlocks."github.com".extraOptions.MACs = "hmac-sha2-256,hmac-sha2-512,hmac-sha1";
 
       programs.thunderbird.profiles.main.isDefault = true;
@@ -705,25 +713,48 @@ in {
       # TODO: Configure
       programs.waybar.settings.default."sway/mode".format = "<span style=\"italic\">{}</span>";
       programs.waybar.settings.default.backlight.format = "{percent}% {icon}";
-      programs.waybar.settings.default.backlight.format-icons = ["" ""];
+      programs.waybar.settings.default.backlight.format-icons = [
+        ""
+        ""
+      ];
       programs.waybar.settings.default.battery.format = "{capacity}% {icon}";
       programs.waybar.settings.default.battery.format-alt = "{time} {icon}";
       programs.waybar.settings.default.battery.format-charging = "{capacity}% ";
-      programs.waybar.settings.default.battery.format-icons = ["" "" "" "" ""];
+      programs.waybar.settings.default.battery.format-icons = [
+        ""
+        ""
+        ""
+        ""
+        ""
+      ];
       programs.waybar.settings.default.battery.format-plugged = "{capacity}% ";
       programs.waybar.settings.default.battery.states.critical = 15;
       programs.waybar.settings.default.battery.states.good = 75;
       programs.waybar.settings.default.battery.states.warning = 30;
       programs.waybar.settings.default.clock.format-alt = "{:%Y-%m-%d}";
-      programs.waybar.settings.default.clock.tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+      programs.waybar.settings.default.clock.tooltip-format =
+        "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
       programs.waybar.settings.default.cpu.format = "{usage}% ";
       programs.waybar.settings.default.idle_inhibitor.format = "{icon}";
       programs.waybar.settings.default.idle_inhibitor.format-icons.activated = "";
       programs.waybar.settings.default.idle_inhibitor.format-icons.deactivated = "";
       programs.waybar.settings.default.memory.format = "{}% ";
-      programs.waybar.settings.default.modules-center = ["sway/window"];
-      programs.waybar.settings.default.modules-left = ["sway/workspaces" "sway/mode"];
-      programs.waybar.settings.default.modules-right = ["idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "backlight" "battery" "clock" "tray"];
+      programs.waybar.settings.default.modules-center = [ "sway/window" ];
+      programs.waybar.settings.default.modules-left = [
+        "sway/workspaces"
+        "sway/mode"
+      ];
+      programs.waybar.settings.default.modules-right = [
+        "idle_inhibitor"
+        "pulseaudio"
+        "network"
+        "cpu"
+        "memory"
+        "backlight"
+        "battery"
+        "clock"
+        "tray"
+      ];
       programs.waybar.settings.default.network.format-alt = "{ifname}: {ipaddr}/{cidr}";
       programs.waybar.settings.default.network.format-disconnected = "Disconnected ⚠";
       programs.waybar.settings.default.network.format-ethernet = "{ifname}: {ipaddr}/{cidr} ";
@@ -733,7 +764,11 @@ in {
       programs.waybar.settings.default.pulseaudio.format-bluetooth = "{volume}% {icon} {format_source}";
       programs.waybar.settings.default.pulseaudio.format-bluetooth-muted = " {icon} {format_source}";
       programs.waybar.settings.default.pulseaudio.format-icons.car = "";
-      programs.waybar.settings.default.pulseaudio.format-icons.default = ["" "" ""];
+      programs.waybar.settings.default.pulseaudio.format-icons.default = [
+        ""
+        ""
+        ""
+      ];
       programs.waybar.settings.default.pulseaudio.format-icons.hands-free = "";
       programs.waybar.settings.default.pulseaudio.format-icons.headphone = "";
       programs.waybar.settings.default.pulseaudio.format-icons.headset = "";
@@ -791,7 +826,8 @@ in {
       programs.zsh.enable = true;
       programs.zsh.autosuggestion.enable = !(osConfig.programs.zsh.autosuggestions.enable or false);
       programs.zsh.enableCompletion = false;
-      programs.zsh.syntaxHighlighting.enable = !(osConfig.programs.zsh.syntaxHighlighting.enable or false);
+      programs.zsh.syntaxHighlighting.enable =
+        !(osConfig.programs.zsh.syntaxHighlighting.enable or false);
       programs.zsh.history.expireDuplicatesFirst = true;
       programs.zsh.history.ignoreAllDups = true;
       programs.zsh.history.ignoreDups = true;
@@ -876,7 +912,7 @@ in {
       services.wlsunset.systemdTarget = "sway-session.target";
 
       wayland.windowManager.sway.checkConfig = false;
-      wayland.windowManager.sway.config.bars = [];
+      wayland.windowManager.sway.config.bars = [ ];
       # Based on https://github.com/khamer/base16-i3/blob/78292138812a3f88c3fc4794f615f5b36b0b6d7c/templates/default.mustache#L41-L48
       wayland.windowManager.sway.config.colors.background = "#${cfg.base16.colors.base07}";
       wayland.windowManager.sway.config.colors.focused.background = "#${cfg.base16.colors.base0D}";
@@ -884,9 +920,11 @@ in {
       wayland.windowManager.sway.config.colors.focused.childBorder = "#${cfg.base16.colors.base0C}";
       wayland.windowManager.sway.config.colors.focused.indicator = "#${cfg.base16.colors.base0D}";
       wayland.windowManager.sway.config.colors.focused.text = "#${cfg.base16.colors.base00}";
-      wayland.windowManager.sway.config.colors.focusedInactive.background = "#${cfg.base16.colors.base01}";
+      wayland.windowManager.sway.config.colors.focusedInactive.background =
+        "#${cfg.base16.colors.base01}";
       wayland.windowManager.sway.config.colors.focusedInactive.border = "#${cfg.base16.colors.base01}";
-      wayland.windowManager.sway.config.colors.focusedInactive.childBorder = "#${cfg.base16.colors.base01}";
+      wayland.windowManager.sway.config.colors.focusedInactive.childBorder =
+        "#${cfg.base16.colors.base01}";
       wayland.windowManager.sway.config.colors.focusedInactive.indicator = "#${cfg.base16.colors.base03}";
       wayland.windowManager.sway.config.colors.focusedInactive.text = "#${cfg.base16.colors.base05}";
       wayland.windowManager.sway.config.colors.placeholder.background = "#${cfg.base16.colors.base00}";
@@ -932,28 +970,27 @@ in {
           app_id = "^thunderbird$";
         }
       ];
-      wayland.windowManager.sway.config.startup = let
-        services = [
-          "avizo"
-          "clipman"
-          "kanshi"
-          "waybar"
-          "wlsunset"
-        ];
-      in
+      wayland.windowManager.sway.config.startup =
+        let
+          services = [
+            "avizo"
+            "clipman"
+            "kanshi"
+            "waybar"
+            "wlsunset"
+          ];
+        in
         # TODO: This should not be necessary once Sway is not racy anymore
-        (concatMap
-          (name: [
-            {
-              command = "${config.systemd.user.systemctlPath} --user reset-failed ${name}";
-              always = true;
-            }
-            {
-              command = "${config.systemd.user.systemctlPath} --user restart ${name}";
-              always = true;
-            }
-          ])
-          services)
+        (concatMap (name: [
+          {
+            command = "${config.systemd.user.systemctlPath} --user reset-failed ${name}";
+            always = true;
+          }
+          {
+            command = "${config.systemd.user.systemctlPath} --user restart ${name}";
+            always = true;
+          }
+        ]) services)
         ++ [
           {
             command = "${pkgs.ydotool}/bin/ydotoold";
@@ -970,10 +1007,13 @@ in {
         xkb_layout = config.home.keyboard.layout;
         xkb_options = defaultXkbOptions;
       };
-      wayland.windowManager.sway.config.input."1:1:AT_Translated_Set_2_keyboard".xkb_options = extendDefaultXkbOptions [
-        "caps:swapescape"
-      ];
-      wayland.windowManager.sway.config.input."1149:8264:Primax_Kensington_Eagle_Trackball".pointer_accel = "0.5";
+      wayland.windowManager.sway.config.input."1:1:AT_Translated_Set_2_keyboard".xkb_options =
+        extendDefaultXkbOptions
+          [
+            "caps:swapescape"
+          ];
+      wayland.windowManager.sway.config.input."1149:8264:Primax_Kensington_Eagle_Trackball".pointer_accel =
+        "0.5";
 
       wayland.windowManager.sway.config.output."*".bg = "${config.xdg.userDirs.pictures}/wp fill";
       wayland.windowManager.sway.config.bindkeysToCode = true;
@@ -993,9 +1033,12 @@ in {
       wayland.windowManager.sway.config.keybindings = mkOptionDefault {
         "${swayConfig.modifier}+0" = "workspace number 10";
         "${swayConfig.modifier}+b" = exec "${pkgs.bluez}/bin/bluetoothctl connect ${headphones}";
-        "${swayConfig.modifier}+Ctrl+f" = exec ''${config.programs.password-store.package}/bin/gopass otp -c "$(${choosePass} 2fa)"'';
-        "${swayConfig.modifier}+Ctrl+p" = exec ''${config.programs.password-store.package}/bin/gopass show -c "$(${choosePass})"'';
-        "${swayConfig.modifier}+Ctrl+u" = exec ''${config.programs.password-store.package}/bin/gopass show -c "$(${choosePass})" username'';
+        "${swayConfig.modifier}+Ctrl+f" =
+          exec ''${config.programs.password-store.package}/bin/gopass otp -c "$(${choosePass} 2fa)"'';
+        "${swayConfig.modifier}+Ctrl+p" =
+          exec ''${config.programs.password-store.package}/bin/gopass show -c "$(${choosePass})"'';
+        "${swayConfig.modifier}+Ctrl+u" =
+          exec ''${config.programs.password-store.package}/bin/gopass show -c "$(${choosePass})" username'';
         "${swayConfig.modifier}+Escape" = exec lockCmd;
         "${swayConfig.modifier}+g" = "floating toggle";
         "${swayConfig.modifier}+n" = exec "${config.services.mako.package}/bin/makoctl dismiss";
@@ -1005,19 +1048,24 @@ in {
         "${swayConfig.modifier}+Shift+0" = "move container to workspace number 10";
         "${swayConfig.modifier}+Shift+b" = exec "${pkgs.bluez}/bin/bluetoothctl disconnect";
         "${swayConfig.modifier}+Shift+c" = "reload";
-        "${swayConfig.modifier}+Shift+d" = exec "${config.systemd.user.systemctlPath} --user restart wlsunset.service";
+        "${swayConfig.modifier}+Shift+d" =
+          exec "${config.systemd.user.systemctlPath} --user restart wlsunset.service";
         "${swayConfig.modifier}+Shift+Escape" = "exit";
-        "${swayConfig.modifier}+Shift+f" = exec ''${config.programs.password-store.package}/bin/gopass otp -o "$(${choosePass} 2fa)" | ${pkgs.busybox}/bin/cut -d " " -f 1 | ${typeStdin}'';
+        "${swayConfig.modifier}+Shift+f" =
+          exec ''${config.programs.password-store.package}/bin/gopass otp -o "$(${choosePass} 2fa)" | ${pkgs.busybox}/bin/cut -d " " -f 1 | ${typeStdin}'';
         "${swayConfig.modifier}+Shift+o" = exec "${config.programs.firefox.package}/bin/firefox";
-        "${swayConfig.modifier}+Shift+p" = exec ''${config.programs.password-store.package}/bin/gopass show -o -f "$(${choosePass})" | ${pkgs.busybox}/bin/head -n 1 | ${typeStdin}'';
+        "${swayConfig.modifier}+Shift+p" =
+          exec ''${config.programs.password-store.package}/bin/gopass show -o -f "$(${choosePass})" | ${pkgs.busybox}/bin/head -n 1 | ${typeStdin}'';
         "${swayConfig.modifier}+Shift+s" = exec "${config.systemd.user.systemctlPath} suspend";
-        "${swayConfig.modifier}+Shift+u" = exec ''${config.programs.password-store.package}/bin/gopass show -o -f "$(${choosePass})" username | ${typeStdin}'';
+        "${swayConfig.modifier}+Shift+u" =
+          exec ''${config.programs.password-store.package}/bin/gopass show -o -f "$(${choosePass})" username | ${typeStdin}'';
         "${swayConfig.modifier}+space" = exec swayConfig.menu;
         "${swayConfig.modifier}+t" = "layout stacking";
         "${swayConfig.modifier}+v" = "splith";
         "${swayConfig.modifier}+w" = "layout tabbed";
         "${swayConfig.modifier}+z" = "focus child";
-        "Print+Ctrl" = exec ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+        "Print+Ctrl" =
+          exec ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
         Print = exec ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" "${config.xdg.userDirs.pictures}/scrot/$(${pkgs.busybox}/bin/date +%F-%T)-screenshot.png"'';
         XF86AudioLowerVolume = exec "${config.services.avizo.package}/bin/volumectl -u down";
         XF86AudioMicMute = exec "${config.services.avizo.package}/bin/volumectl -m toggle-mute";
@@ -1169,186 +1217,185 @@ in {
         osConfig.services.yabai.package
       ];
     })
-    (mkIf osConfig.nixelium.profile.laptop.enable
-      {
-        home.packages =
-          filter (pkg: !pkg.meta.unsupported)
-          [
-            rust
+    (mkIf osConfig.nixelium.profile.laptop.enable {
+      home.packages = filter (pkg: !pkg.meta.unsupported) [
+        rust
 
-            pkgs.android-tools
-            pkgs.avrdude
-            pkgs.google-cloud-sdk
-            pkgs.imv
-            pkgs.julia
-            pkgs.kubectl
-            pkgs.minikube
-            pkgs.qemu
-            pkgs.shellcheck
-            pkgs.tcpdump
-            pkgs.wit-deps
-            pkgs.yubikey-manager
-            pkgs.yubikey-personalization
+        pkgs.android-tools
+        pkgs.avrdude
+        pkgs.google-cloud-sdk
+        pkgs.imv
+        pkgs.julia
+        pkgs.kubectl
+        pkgs.minikube
+        pkgs.qemu
+        pkgs.shellcheck
+        pkgs.tcpdump
+        pkgs.wit-deps
+        pkgs.yubikey-manager
+        pkgs.yubikey-personalization
 
-            pkgs.pkgsUnstable.binaryen
-            pkgs.pkgsUnstable.cargo-flamegraph
-            pkgs.pkgsUnstable.cargo-generate
-            pkgs.pkgsUnstable.cargo-watch
-            pkgs.pkgsUnstable.critcmp
-            pkgs.pkgsUnstable.hey
-            pkgs.pkgsUnstable.nats-server
-            pkgs.pkgsUnstable.natscli
-            pkgs.pkgsUnstable.nodejs
-            pkgs.pkgsUnstable.podman-compose
-            pkgs.pkgsUnstable.pprof
-            pkgs.pkgsUnstable.protobuf
-            pkgs.pkgsUnstable.redis
-            pkgs.pkgsUnstable.samply
-            pkgs.pkgsUnstable.spotify
-            pkgs.pkgsUnstable.uv
-            pkgs.pkgsUnstable.wasm-tools
-            pkgs.pkgsUnstable.wasmtime
-          ];
+        pkgs.pkgsUnstable.binaryen
+        pkgs.pkgsUnstable.cargo-flamegraph
+        pkgs.pkgsUnstable.cargo-generate
+        pkgs.pkgsUnstable.cargo-watch
+        pkgs.pkgsUnstable.critcmp
+        pkgs.pkgsUnstable.hey
+        pkgs.pkgsUnstable.nats-server
+        pkgs.pkgsUnstable.natscli
+        pkgs.pkgsUnstable.nodejs
+        pkgs.pkgsUnstable.podman-compose
+        pkgs.pkgsUnstable.pprof
+        pkgs.pkgsUnstable.protobuf
+        pkgs.pkgsUnstable.redis
+        pkgs.pkgsUnstable.samply
+        pkgs.pkgsUnstable.spotify
+        pkgs.pkgsUnstable.uv
+        pkgs.pkgsUnstable.wasm-tools
+        pkgs.pkgsUnstable.wasmtime
+      ];
 
-        home.sessionPath = [
-          "$HOME/.cargo/bin"
-          "$HOME/.local/bin.go"
+      home.sessionPath = [
+        "$HOME/.cargo/bin"
+        "$HOME/.local/bin.go"
+      ];
+
+      home.shell.enableBashIntegration = true;
+      home.shell.enableZshIntegration = true;
+
+      home.shellAliases.k = "kubectl";
+      home.shellAliases.ka = "kubectl apply";
+      home.shellAliases.kaf = "kubectl apply -f";
+      home.shellAliases.kd = "kubectl get deployments";
+      home.shellAliases.mk = "minikube kubectl --";
+      home.shellAliases.mka = "minikube kubectl -- apply";
+      home.shellAliases.mkaf = "minikube kubectl -- apply -f";
+      home.shellAliases.mkd = "minikube kubectl -- get deployments";
+
+      programs.firefox.enable = true;
+      programs.firefox.package = pkgs.firefox; # configured in overlay
+      programs.firefox.profiles.main.extensions.packages = with pkgs.firefox-addons; [
+        auto-tab-discard
+        cookie-autodelete
+        multi-account-containers
+        privacy-badger
+        rust-search-extension
+        ublock-origin
+      ];
+      programs.firefox.profiles.main.search.default = "ddg";
+      programs.firefox.profiles.main.search.engines.bing.metaData.hidden = true;
+      programs.firefox.profiles.main.search.engines.google.metaData.alias = "@g";
+      programs.firefox.profiles.main.search.engines."Nix Packages" = {
+        urls = [
+          {
+            template = "https://search.nixos.org/packages";
+            params = [
+              {
+                name = "type";
+                value = "packages";
+              }
+              {
+                name = "query";
+                value = "{searchTerms}";
+              }
+            ];
+          }
         ];
+        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        definedAliases = [ "@np" ];
+      };
+      programs.firefox.profiles.main.search.engines."NixOS Wiki" = {
+        urls = [ { template = "https://nixos.wiki/index.php?search={searchTerms}"; } ];
+        icon = "https://nixos.wiki/favicon.png";
+        updateInterval = 24 * 60 * 60 * 1000;
+        definedAliases = [ "@nw" ];
+      };
+      programs.firefox.profiles.main.search.force = true;
+      programs.firefox.profiles.main.search.order = [
+        "ddg"
+        "google"
+      ];
+      programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
+      programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
 
-        home.shell.enableBashIntegration = true;
-        home.shell.enableZshIntegration = true;
+      programs.go.enable = true;
+      programs.go.package = pkgs.pkgsUnstable.go;
 
-        home.shellAliases.k = "kubectl";
-        home.shellAliases.ka = "kubectl apply";
-        home.shellAliases.kaf = "kubectl apply -f";
-        home.shellAliases.kd = "kubectl get deployments";
-        home.shellAliases.mk = "minikube kubectl --";
-        home.shellAliases.mka = "minikube kubectl -- apply";
-        home.shellAliases.mkaf = "minikube kubectl -- apply -f";
-        home.shellAliases.mkd = "minikube kubectl -- get deployments";
+      programs.kitty.enable = true;
+      programs.mpv.enable = true;
+      programs.password-store.enable = true;
+      programs.zathura.enable = true;
+    })
+    (mkIf (osConfig.nixelium.profile.laptop.enable && pkgs.stdenv.hostPlatform.isLinux) {
+      fonts.fontconfig.enable = true;
 
-        programs.firefox.enable = true;
-        programs.firefox.package = pkgs.firefox; # configured in overlay
-        programs.firefox.profiles.main.extensions.packages = with pkgs.firefox-addons; [
-          auto-tab-discard
-          cookie-autodelete
-          multi-account-containers
-          privacy-badger
-          rust-search-extension
-          ublock-origin
-        ];
-        programs.firefox.profiles.main.search.default = "ddg";
-        programs.firefox.profiles.main.search.engines.bing.metaData.hidden = true;
-        programs.firefox.profiles.main.search.engines.google.metaData.alias = "@g";
-        programs.firefox.profiles.main.search.engines."Nix Packages" = {
-          urls = [
+      gtk.enable = true;
+
+      home.packages = [
+        pkgs.acpi
+        pkgs.dex
+        pkgs.espeak
+        pkgs.grim
+        pkgs.libnotify
+        pkgs.pavucontrol
+        pkgs.playerctl
+        pkgs.psmisc
+        pkgs.slurp
+        pkgs.v4l-utils
+        pkgs.wf-recorder
+        pkgs.wl-clipboard
+        pkgs.xdg-utils
+        pkgs.ydotool
+      ];
+
+      programs.chromium.enable = true;
+      programs.swaylock.enable = true;
+      programs.thunderbird.enable = true;
+      programs.waybar.enable = true;
+      programs.wofi.enable = true;
+
+      programs.zsh.loginExtra = ''
+        if [ "$(${pkgs.busybox}/bin/tty)" = "/dev/tty1" ]; then
+          exec "${config.wayland.windowManager.sway.package}/bin/sway"
+        fi
+      '';
+
+      qt.enable = true;
+
+      services.avizo.enable = true;
+      services.clipman.enable = true;
+      services.kanshi.enable = true;
+      services.kanshi.settings = [
+        {
+          profile.name = "docked";
+          profile.outputs = [
             {
-              template = "https://search.nixos.org/packages";
-              params = [
-                {
-                  name = "type";
-                  value = "packages";
-                }
-                {
-                  name = "query";
-                  value = "{searchTerms}";
-                }
-              ];
+              criteria = "eDP-1";
+              position = "0,0";
+            }
+            {
+              criteria = "DP-1";
+              position = "1920,0";
             }
           ];
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = ["@np"];
-        };
-        programs.firefox.profiles.main.search.engines."NixOS Wiki" = {
-          urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
-          icon = "https://nixos.wiki/favicon.png";
-          updateInterval = 24 * 60 * 60 * 1000;
-          definedAliases = ["@nw"];
-        };
-        programs.firefox.profiles.main.search.force = true;
-        programs.firefox.profiles.main.search.order = ["ddg" "google"];
-        programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
-        programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
+        }
+        {
+          profile.name = "undocked";
+          profile.outputs = [
+            {
+              criteria = "eDP-1";
+              status = "enable";
+            }
+          ];
+        }
+      ];
+      services.mako.enable = true;
+      services.playerctld.enable = true;
+      services.swayidle.enable = true;
+      services.wlsunset.enable = true;
 
-        programs.go.enable = true;
-        programs.go.package = pkgs.pkgsUnstable.go;
-
-        programs.kitty.enable = true;
-        programs.mpv.enable = true;
-        programs.password-store.enable = true;
-        programs.zathura.enable = true;
-      })
-    (mkIf (osConfig.nixelium.profile.laptop.enable && pkgs.stdenv.hostPlatform.isLinux)
-      {
-        fonts.fontconfig.enable = true;
-
-        gtk.enable = true;
-
-        home.packages = [
-          pkgs.acpi
-          pkgs.dex
-          pkgs.espeak
-          pkgs.grim
-          pkgs.libnotify
-          pkgs.pavucontrol
-          pkgs.playerctl
-          pkgs.psmisc
-          pkgs.slurp
-          pkgs.v4l-utils
-          pkgs.wf-recorder
-          pkgs.wl-clipboard
-          pkgs.xdg-utils
-          pkgs.ydotool
-        ];
-
-        programs.chromium.enable = true;
-        programs.swaylock.enable = true;
-        programs.thunderbird.enable = true;
-        programs.waybar.enable = true;
-        programs.wofi.enable = true;
-
-        programs.zsh.loginExtra = ''
-          if [ "$(${pkgs.busybox}/bin/tty)" = "/dev/tty1" ]; then
-            exec "${config.wayland.windowManager.sway.package}/bin/sway"
-          fi
-        '';
-
-        qt.enable = true;
-
-        services.avizo.enable = true;
-        services.clipman.enable = true;
-        services.kanshi.enable = true;
-        services.kanshi.settings = [
-          {
-            profile.name = "docked";
-            profile.outputs = [
-              {
-                criteria = "eDP-1";
-                position = "0,0";
-              }
-              {
-                criteria = "DP-1";
-                position = "1920,0";
-              }
-            ];
-          }
-          {
-            profile.name = "undocked";
-            profile.outputs = [
-              {
-                criteria = "eDP-1";
-                status = "enable";
-              }
-            ];
-          }
-        ];
-        services.mako.enable = true;
-        services.playerctld.enable = true;
-        services.swayidle.enable = true;
-        services.wlsunset.enable = true;
-
-        wayland.windowManager.sway.enable = true;
-        wayland.windowManager.sway.swaynag.enable = true;
-      })
+      wayland.windowManager.sway.enable = true;
+      wayland.windowManager.sway.swaynag.enable = true;
+    })
   ];
 }

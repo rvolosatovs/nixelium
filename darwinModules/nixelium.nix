@@ -9,12 +9,14 @@
   nixpkgs-unstable,
   wit-deps,
   ...
-}: {
+}:
+{
   config,
   pkgs,
   ...
 }:
-with nixlib.lib; let
+with nixlib.lib;
+let
   substituters = [
     "https://rvolosatovs.cachix.org"
     "https://nixify.cachix.org"
@@ -26,7 +28,8 @@ with nixlib.lib; let
   ];
 
   username = "rvolosatovs";
-in {
+in
+{
   imports = [
     determinate.darwinModules.default
     home-manager.darwinModules.home-manager
@@ -209,7 +212,9 @@ in {
         cmd + ctrl + shift - k  : ${config.services.yabai.package}/bin/yabai -m window --warp north
         cmd + ctrl + shift - l  : ${config.services.yabai.package}/bin/yabai -m window --warp east
 
-        cmd - return            : open -n ${config.home-manager.users.${username}.programs.kitty.package}/Applications/kitty.app --args --single-instance -d ~
+        cmd - return            : open -n ${
+          config.home-manager.users.${username}.programs.kitty.package
+        }/Applications/kitty.app --args --single-instance -d ~
         # TODO: switch to nixpkgs
         cmd + shift - o         : open -n /Applications/Firefox.app
       '';
@@ -252,17 +257,19 @@ in {
       ];
 
       users.groups.nix.gid = 542;
-      users.groups.nix.members = ["nix"];
+      users.groups.nix.members = [ "nix" ];
 
       users.users.nix.createHome = true;
       users.users.nix.gid = config.users.groups.nix.gid;
       users.users.nix.home = "/Users/nix";
-      users.users.nix.openssh.authorizedKeys.keys = config.users.users.${username}.openssh.authorizedKeys.keys;
+      users.users.nix.openssh.authorizedKeys.keys =
+        config.users.users.${username}.openssh.authorizedKeys.keys;
       users.users.nix.shell = pkgs.bashInteractive;
       users.users.nix.uid = config.users.groups.nix.gid;
 
       users.users.root.home = "/var/root";
-      users.users.root.openssh.authorizedKeys.keys = config.users.users.${username}.openssh.authorizedKeys.keys;
+      users.users.root.openssh.authorizedKeys.keys =
+        config.users.users.${username}.openssh.authorizedKeys.keys;
       users.users.root.shell = pkgs.zsh;
       users.users.root.uid = 0;
 

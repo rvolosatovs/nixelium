@@ -1,20 +1,20 @@
-inputs @ {
+inputs@{
   fenix,
   firefox-addons,
   nixlib,
   nixpkgs-unstable,
   ...
 }:
-with nixlib.lib; let
-  importNixpkgs = nixpkgs: final: prev:
+with nixlib.lib;
+let
+  importNixpkgs =
+    nixpkgs: final: prev:
     import nixpkgs {
-      inherit
-        (final.stdenv.hostPlatform)
+      inherit (final.stdenv.hostPlatform)
         system
         ;
 
-      inherit
-        (final)
+      inherit (final)
         config
         ;
     };
@@ -30,23 +30,21 @@ with nixlib.lib; let
   };
 
   firefox = final: prev: {
-    firefox =
-      final.wrapFirefox final.firefox-unwrapped
-      {
-        ## Documentation available at:
-        ## https://github.com/mozilla/policy-templates
+    firefox = final.wrapFirefox final.firefox-unwrapped {
+      ## Documentation available at:
+      ## https://github.com/mozilla/policy-templates
 
-        extraPolicies.CaptivePortal = true;
-        extraPolicies.DisableFirefoxAccounts = true;
-        extraPolicies.DisableFirefoxStudies = true;
-        extraPolicies.DisablePocket = true;
-        extraPolicies.DisableTelemetry = true;
-        extraPolicies.ExtensionSettings = {};
-        extraPolicies.FirefoxHome.Pocket = false;
-        extraPolicies.FirefoxHome.Snippets = false;
-        extraPolicies.UserMessaging.ExtensionRecommendations = false;
-        extraPolicies.UserMessaging.SkipOnboarding = true;
-      };
+      extraPolicies.CaptivePortal = true;
+      extraPolicies.DisableFirefoxAccounts = true;
+      extraPolicies.DisableFirefoxStudies = true;
+      extraPolicies.DisablePocket = true;
+      extraPolicies.DisableTelemetry = true;
+      extraPolicies.ExtensionSettings = { };
+      extraPolicies.FirefoxHome.Pocket = false;
+      extraPolicies.FirefoxHome.Snippets = false;
+      extraPolicies.UserMessaging.ExtensionRecommendations = false;
+      extraPolicies.UserMessaging.SkipOnboarding = true;
+    };
   };
 
   gopass = final: prev: {
@@ -60,8 +58,7 @@ with nixlib.lib; let
   };
 
   rust-analyzer = final: prev: {
-    inherit
-      (fenix.packages.${prev.stdenv.hostPlatform.system})
+    inherit (fenix.packages.${prev.stdenv.hostPlatform.system})
       rust-analyzer
       ;
   };
@@ -74,7 +71,8 @@ with nixlib.lib; let
     lima = prev.pkgsUnstable.lima;
     nerdctl = prev.pkgsUnstable.nerdctl;
   };
-in {
+in
+{
   inherit
     firefox
     gopass

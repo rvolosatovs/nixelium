@@ -6,10 +6,12 @@
   ...
 }:
 with flake-utils.lib.system;
-  nixpkgs-nixos.lib.nixosSystem {
-    system = x86_64-linux;
-    modules = [
-      ({pkgs, ...}: {
+nixpkgs-nixos.lib.nixosSystem {
+  system = x86_64-linux;
+  modules = [
+    (
+      { pkgs, ... }:
+      {
         imports = [
           self.nixosModules.default
 
@@ -76,6 +78,7 @@ with flake-utils.lib.system;
 
         virtualisation.podman.dockerCompat = false;
         virtualisation.podman.dockerSocket.enable = false;
-      })
-    ];
-  }
+      }
+    )
+  ];
+}

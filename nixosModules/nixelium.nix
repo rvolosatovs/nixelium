@@ -11,12 +11,14 @@
   sops-nix,
   wit-deps,
   ...
-}: {
+}:
+{
   config,
   pkgs,
   ...
 }:
-with nixlib.lib; let
+with nixlib.lib;
+let
   cfg = config.nixelium;
 
   email = "rvolosatovs@riseup.net";
@@ -24,7 +26,10 @@ with nixlib.lib; let
 
   nopasswd = command: {
     inherit command;
-    options = ["NOPASSWD" "SETENV"];
+    options = [
+      "NOPASSWD"
+      "SETENV"
+    ];
   };
 
   butterSubvol = subvol: {
@@ -41,7 +46,8 @@ with nixlib.lib; let
 
   # deploySystemPath is the path where the system being activated is uploaded by `deploy`.
   deploySystemPath = "/nix/store/*-activatable-nixos-system-${config.networking.hostName}-*";
-in {
+in
+{
   imports = [
     determinate.nixosModules.default
     home-manager.nixosModules.home-manager
@@ -82,9 +88,12 @@ in {
       fonts.fontconfig.allowBitmaps = true;
       fonts.fontconfig.allowType1 = false;
       fonts.fontconfig.antialias = true;
-      fonts.fontconfig.defaultFonts.monospace = ["Fira Code" "FiraCode Nerd Font"];
-      fonts.fontconfig.defaultFonts.sansSerif = ["Fira Sans"];
-      fonts.fontconfig.defaultFonts.serif = ["Roboto Slab"];
+      fonts.fontconfig.defaultFonts.monospace = [
+        "Fira Code"
+        "FiraCode Nerd Font"
+      ];
+      fonts.fontconfig.defaultFonts.sansSerif = [ "Fira Sans" ];
+      fonts.fontconfig.defaultFonts.serif = [ "Roboto Slab" ];
       fonts.fontconfig.hinting.enable = true;
 
       hardware.bluetooth.settings.General.ControllerMode = "dual";
@@ -183,13 +192,19 @@ in {
       programs.nix-ld.enable = true;
 
       programs.zsh.autosuggestions.enable = true;
-      programs.zsh.autosuggestions.strategy = ["history" "completion"];
+      programs.zsh.autosuggestions.strategy = [
+        "history"
+        "completion"
+      ];
       programs.zsh.enable = true;
       programs.zsh.enableBashCompletion = true;
       programs.zsh.enableGlobalCompInit = false;
       programs.zsh.histFile = "$HOME/.config/zsh/.zsh_history";
       programs.zsh.histSize = 50000;
-      programs.zsh.setOptions = ["INTERACTIVE_COMMENTS" "NO_NOMATCH"];
+      programs.zsh.setOptions = [
+        "INTERACTIVE_COMMENTS"
+        "NO_NOMATCH"
+      ];
       programs.zsh.syntaxHighlighting.enable = true;
 
       security.acme.acceptTerms = true;
@@ -198,7 +213,7 @@ in {
       security.sudo.enable = true;
       security.sudo.extraRules = [
         {
-          groups = with config.users.groups; [wheel.name];
+          groups = with config.users.groups; [ wheel.name ];
           runAs = config.users.users.root.name;
           commands = [
             (nopasswd "ALL")
@@ -245,7 +260,7 @@ in {
 
       services.tailscale.enable = true;
 
-      sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+      sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
       system.stateVersion = "24.11";
 
@@ -305,7 +320,7 @@ in {
         "${users.nix.name}"
       ];
 
-      users.groups.nix = {};
+      users.groups.nix = { };
 
       users.users.nix.group = config.users.groups.nix.name;
       users.users.nix.isSystemUser = true;
@@ -332,7 +347,7 @@ in {
 
       security.sudo.extraRules = [
         {
-          groups = with config.users.groups; [deploy.name];
+          groups = with config.users.groups; [ deploy.name ];
           runAs = config.users.users.root.name;
           commands = [
             (nopasswd "${deploySystemPath}/activate-rs activate *")
@@ -341,7 +356,7 @@ in {
           ];
         }
         {
-          groups = with config.users.groups; [ops.name];
+          groups = with config.users.groups; [ ops.name ];
           runAs = config.users.users.root.name;
           commands = [
             (nopasswd "/run/current-system/sw/bin/systemctl reboot")
@@ -352,12 +367,13 @@ in {
         }
       ];
 
-      users.groups.deploy = {};
-      users.groups.ops = {};
+      users.groups.deploy = { };
+      users.groups.ops = { };
 
       users.users.deploy.group = config.users.groups.deploy.name;
       users.users.deploy.isSystemUser = true;
-      users.users.deploy.openssh.authorizedKeys.keys = config.users.users.owner.openssh.authorizedKeys.keys;
+      users.users.deploy.openssh.authorizedKeys.keys =
+        config.users.users.owner.openssh.authorizedKeys.keys;
       users.users.deploy.shell = pkgs.bashInteractive;
 
       users.users.owner.extraGroups = with config.users.groups; [
@@ -435,7 +451,7 @@ in {
           value = 1;
         }
       ];
-      security.pam.services.swaylock = {};
+      security.pam.services.swaylock = { };
 
       security.polkit.enable = true;
 
@@ -469,14 +485,14 @@ in {
 
       services.printing.enable = true;
 
-      services.snapper.configs.home.ALLOW_USERS = [config.users.users.owner.name];
+      services.snapper.configs.home.ALLOW_USERS = [ config.users.users.owner.name ];
       services.snapper.configs.home.FREE_LIMIT = "0.3";
       services.snapper.configs.home.SPACE_LIMIT = "0.2";
       services.snapper.configs.home.SUBVOLUME = "/home";
       services.snapper.configs.home.TIMELINE_CLEANUP = true;
       services.snapper.configs.home.TIMELINE_CREATE = true;
 
-      services.snapper.configs.root.ALLOW_USERS = [config.users.users.owner.name];
+      services.snapper.configs.root.ALLOW_USERS = [ config.users.users.owner.name ];
       services.snapper.configs.root.FREE_LIMIT = "0.4";
       services.snapper.configs.root.SPACE_LIMIT = "0.1";
       services.snapper.configs.root.SUBVOLUME = "/";
@@ -532,7 +548,7 @@ in {
       services.libinput.touchpad.middleEmulation = false;
       services.libinput.touchpad.scrollButton = 1;
 
-      swapDevices = [{device = "/dev/disk/by-label/swap";}];
+      swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
       systemd.defaultUnit = "graphical.target";
 
@@ -544,7 +560,7 @@ in {
       '';
       systemd.services.swap-backspace.serviceConfig.RemainAfterExit = true;
       systemd.services.swap-backspace.serviceConfig.Type = "oneshot";
-      systemd.services.swap-backspace.wantedBy = ["multi-user.target"];
+      systemd.services.swap-backspace.wantedBy = [ "multi-user.target" ];
 
       xdg.portal.config.common.default = "*";
       xdg.portal.enable = true;
@@ -573,7 +589,7 @@ in {
       systemd.services.audio-off.serviceConfig.RemainAfterExit = true;
       systemd.services.audio-off.serviceConfig.Type = "oneshot";
       systemd.services.audio-off.serviceConfig.User = config.users.users.owner.name;
-      systemd.services.audio-off.wantedBy = ["sleep.target"];
+      systemd.services.audio-off.wantedBy = [ "sleep.target" ];
     })
   ];
 }

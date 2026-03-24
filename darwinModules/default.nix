@@ -1,6 +1,8 @@
-inputs @ {...}: let
+inputs@{ ... }:
+let
   nixelium = import ./nixelium.nix inputs;
-in {
+in
+{
   inherit
     nixelium
     ;

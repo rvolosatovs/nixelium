@@ -1,4 +1,5 @@
-{self, ...}: let
+{ self, ... }:
+let
   scripts = pkgs: _: {
     git-rebase-all = pkgs.writeShellScriptBin "git-rebase-all" ''
       set -e
@@ -16,4 +17,4 @@
     '';
   };
 in
-  final: prev: scripts final prev
+final: prev: scripts final prev

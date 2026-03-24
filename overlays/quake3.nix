@@ -1,4 +1,5 @@
-{ioquake3-mac-install, ...}: let
+{ ioquake3-mac-install, ... }:
+let
   quake3 = pkgs: _: rec {
     quake3Paks = pkgs.stdenv.mkDerivation {
       name = "quake3-paks";
@@ -30,4 +31,4 @@
     };
   };
 in
-  final: prev: quake3 final prev
+final: prev: quake3 final prev
