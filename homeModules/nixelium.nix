@@ -193,8 +193,10 @@ in {
   };
   config = mkMerge [
     {
-      gtk.font.name = "Fira Sans 10";
+      gtk.colorScheme = "dark";
+      gtk.font.name = "Fira Sans";
       gtk.font.package = pkgs.fira;
+      gtk.font.size = 12;
       gtk.iconTheme.name = "Adwaita-dark";
       gtk.iconTheme.package = pkgs.gnome-themes-extra;
       gtk.theme.name = "Adwaita-dark";
@@ -225,19 +227,6 @@ in {
       gtk.gtk3.extraConfig.gtk-xft-hinting = 1;
       gtk.gtk3.extraConfig.gtk-xft-hintstyle = "hintslight";
       gtk.gtk3.extraConfig.gtk-xft-rgba = "rgb";
-      gtk.gtk3.extraCss = ''
-        /* remove window title from Client-Side Decorations */
-        .solid-csd headerbar .title {
-            font-size: 0;
-        }
-
-        /* hide extra window decorations/double border */
-        window decoration {
-            margin: 0;
-            border: none;
-            padding: 0;
-        }
-      '';
       home.keyboard.layout = "lv,ru";
       home.keyboard.options = [
         "eurosign:5"
