@@ -458,9 +458,6 @@ in {
 
       services.fwupd.enable = true;
 
-      services.mullvad-vpn.enable = true;
-      services.mullvad-vpn.package = pkgs.pkgsUnstable.mullvad-vpn;
-
       services.pcscd.enable = true;
 
       services.pipewire.enable = true;
