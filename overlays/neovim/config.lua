@@ -341,6 +341,11 @@ vim.lsp.config.lua_ls = {
 }
 vim.lsp.config.nixd = {
     cmd = { paths.bin['nixd'] },
+    settings = {
+        ['nixd'] = {
+            formatting = { command = { paths.bin['nixfmt'] } }
+        }
+    }
 }
 vim.lsp.config.omnisharp = {
     cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
