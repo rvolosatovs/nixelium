@@ -422,7 +422,6 @@ in {
 
       qt.enable = true;
       qt.platformTheme = "qt5ct";
-      #qt.style = "adwaita-dark";
 
       security.pam.loginLimits = [
         {
