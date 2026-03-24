@@ -330,13 +330,8 @@ vim.lsp.config.lua_ls = {
         })
     end
 }
-vim.lsp.config.nil_ls = {
-    cmd = { paths.bin['nil'] },
-    settings = {
-        ['nil'] = {
-            formatting = { command = { paths.bin['alejandra'] } }
-        }
-    }
+vim.lsp.config.nixd = {
+    cmd = { paths.bin['nixd'] },
 }
 vim.lsp.config.omnisharp = {
     cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
@@ -392,7 +387,7 @@ vim.lsp.enable({
     'html',
     'julials',
     'lua_ls',
-    'nil_ls',
+    'nixd',
     'omnisharp',
     'rust_analyzer',
     'taplo',
