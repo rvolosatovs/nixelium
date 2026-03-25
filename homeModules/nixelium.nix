@@ -1295,8 +1295,27 @@ in
         "ddg"
         "google"
       ];
+      programs.firefox.profiles.main.settings."toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
       programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
+      programs.firefox.profiles.main.userChrome = ''
+        /* Fix blurry tab bar / content on large displays (Bug 1933130) */
+        #toolbar-menubar:-moz-window-inactive,
+        #TabsToolbar:-moz-window-inactive {
+          opacity: 1 !important;
+        }
+      '';
+      programs.firefox.profiles.main.userContent = ''
+        /* Workaround for blurry content on displays wider than 4096px.
+           Slack's CSS transforms create intermediate WebRender surfaces
+           that hit an internal texture size limit, causing upscaled/blurry rendering.
+           https://bugzilla.mozilla.org/show_bug.cgi?id=1933129 */
+        @-moz-document domain("app.slack.com") {
+          * {
+            transform: none !important;
+          }
+        }
+      '';
 
       programs.go.enable = true;
       programs.go.package = pkgs.pkgsUnstable.go;
