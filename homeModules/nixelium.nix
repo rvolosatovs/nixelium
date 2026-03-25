@@ -1154,7 +1154,10 @@ in
       xresources.properties."ssh-askpass*background" = "#${cfg.base16.colors.base00}";
     }
     (mkIf pkgs.stdenv.hostPlatform.isLinux {
-      home.packages = [ pkgs.usbutils ];
+      home.packages = [
+        pkgs.clang
+        pkgs.usbutils
+      ];
 
       programs.kitty.settings.font_size = 18;
 
