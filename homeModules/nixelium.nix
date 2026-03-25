@@ -643,6 +643,7 @@ in
 
       programs.kitty.font.name = "Fira Code";
       programs.kitty.font.package = pkgs.fira-code;
+      programs.kitty.settings.bold_font = "Fira Code Bold";
       programs.kitty.shellIntegration.mode = "no-cursor";
       programs.kitty.themeFile = "Tomorrow_Night";
 
