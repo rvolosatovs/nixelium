@@ -87,6 +87,7 @@ in
       fonts.fontconfig.defaultFonts.sansSerif = [ "Fira Sans" ];
       fonts.fontconfig.defaultFonts.serif = [ "Roboto Slab" ];
       fonts.fontconfig.hinting.enable = true;
+      fonts.fontconfig.subpixel.rgba = "rgb";
 
       hardware.bluetooth.settings.General.ControllerMode = "dual";
       hardware.bluetooth.powerOnBoot = true;
