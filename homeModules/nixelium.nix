@@ -1214,9 +1214,11 @@ in
         pkgs.pkgsUnstable.cargo-flamegraph
         pkgs.pkgsUnstable.cargo-generate
         pkgs.pkgsUnstable.cargo-watch
+        pkgs.pkgsUnstable.claude-code
         pkgs.pkgsUnstable.codex
         pkgs.pkgsUnstable.critcmp
         pkgs.pkgsUnstable.gh
+        pkgs.pkgsUnstable.github-copilot-cli
         pkgs.pkgsUnstable.hey
         pkgs.pkgsUnstable.nats-server
         pkgs.pkgsUnstable.natscli
