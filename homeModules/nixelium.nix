@@ -872,11 +872,13 @@ in
 
       services.clipman.systemdTarget = "sway-session.target";
 
-      services.gpg-agent.defaultCacheTtl = 180000;
-      services.gpg-agent.defaultCacheTtlSsh = 180000;
+      services.gpg-agent.defaultCacheTtl = 43200;
+      services.gpg-agent.defaultCacheTtlSsh = 43200;
       services.gpg-agent.enableScDaemon = true;
       services.gpg-agent.enableSshSupport = true;
       services.gpg-agent.grabKeyboardAndMouse = false;
+      services.gpg-agent.maxCacheTtl = 43200;
+      services.gpg-agent.maxCacheTtlSsh = 43200;
 
       services.mako.settings."urgency=high".background-color = "#${cfg.base16.colors.base00}";
       services.mako.settings."urgency=high".border-color = "#${cfg.base16.colors.base0D}";
