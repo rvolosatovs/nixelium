@@ -1,11 +1,6 @@
 {
-  self,
   base16-shell,
-  nixify,
   nixlib,
-  nixpkgs-darwin,
-  nixpkgs-nixos,
-  nixpkgs-unstable,
   ...
 }:
 {
@@ -1219,7 +1214,9 @@ in
         pkgs.pkgsUnstable.cargo-flamegraph
         pkgs.pkgsUnstable.cargo-generate
         pkgs.pkgsUnstable.cargo-watch
+        pkgs.pkgsUnstable.codex
         pkgs.pkgsUnstable.critcmp
+        pkgs.pkgsUnstable.gh
         pkgs.pkgsUnstable.hey
         pkgs.pkgsUnstable.nats-server
         pkgs.pkgsUnstable.natscli
@@ -1295,7 +1292,8 @@ in
         "ddg"
         "google"
       ];
-      programs.firefox.profiles.main.settings."toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+      programs.firefox.profiles.main.settings."toolkit.legacyUserProfileCustomizations.stylesheets" =
+        true;
       programs.firefox.profiles.main.settings."general.useragent.locale" = "en-US";
       programs.firefox.profiles.main.settings."browser.startup.homepage" = "https://duckduckgo.com";
       programs.firefox.profiles.main.userChrome = ''
