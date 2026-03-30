@@ -1211,6 +1211,7 @@ in
         pkgs.yubikey-personalization
 
         pkgs.pkgsUnstable.binaryen
+        pkgs.pkgsUnstable.bpftools
         pkgs.pkgsUnstable.cargo-flamegraph
         pkgs.pkgsUnstable.cargo-generate
         pkgs.pkgsUnstable.cargo-watch
