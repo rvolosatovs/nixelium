@@ -1169,12 +1169,13 @@ in
     })
     (mkIf pkgs.stdenv.hostPlatform.isDarwin {
       home.packages = [
-        pkgs.docker
-        pkgs.podman
-        pkgs.utm
+        pkgs.maccy
 
         pkgs.pkgsUnstable.container
+        pkgs.pkgsUnstable.docker
         pkgs.pkgsUnstable.lima
+        pkgs.pkgsUnstable.podman
+        pkgs.pkgsUnstable.utm
       ];
 
       programs.kitty.settings.font_size = 24;
@@ -1199,14 +1200,12 @@ in
       ];
     })
     (mkIf osConfig.nixelium.profile.laptop.enable {
-      home.packages = filter (pkg: !pkg.meta.unsupported) [
+      home.packages = [
         rust
 
         pkgs.android-tools
         pkgs.avrdude
         pkgs.google-cloud-sdk
-        pkgs.imv
-        pkgs.julia
         pkgs.kubectl
         pkgs.minikube
         pkgs.qemu
@@ -1217,7 +1216,6 @@ in
         pkgs.yubikey-personalization
 
         pkgs.pkgsUnstable.binaryen
-        pkgs.pkgsUnstable.bpftools
         pkgs.pkgsUnstable.cargo-flamegraph
         pkgs.pkgsUnstable.cargo-generate
         pkgs.pkgsUnstable.cargo-watch
@@ -1235,7 +1233,10 @@ in
         pkgs.pkgsUnstable.protobuf
         pkgs.pkgsUnstable.redis
         pkgs.pkgsUnstable.samply
+        pkgs.pkgsUnstable.signal-desktop
+        pkgs.pkgsUnstable.slack
         pkgs.pkgsUnstable.spotify
+        pkgs.pkgsUnstable.telegram-desktop
         pkgs.pkgsUnstable.uv
         pkgs.pkgsUnstable.wasm-tools
         pkgs.pkgsUnstable.wasmtime
@@ -1342,6 +1343,8 @@ in
         pkgs.dex
         pkgs.espeak
         pkgs.grim
+        pkgs.imv
+        pkgs.julia
         pkgs.libnotify
         pkgs.pavucontrol
         pkgs.playerctl
@@ -1352,6 +1355,8 @@ in
         pkgs.wl-clipboard
         pkgs.xdg-utils
         pkgs.ydotool
+
+        pkgs.pkgsUnstable.bpftools
       ];
 
       programs.chromium.enable = true;
