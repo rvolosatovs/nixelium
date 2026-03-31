@@ -72,7 +72,6 @@ in
         "firefox" # TODO: switch to nixpkgs
         "mac-mouse-fix"
         "maccy"
-        "notunes"
         "slack"
       ];
       homebrew.caskArgs.require_sha = true;
@@ -172,8 +171,7 @@ in
 
       services.skhd.enable = true;
       services.skhd.skhdConfig = ''
-        # NOTE: First five are handled by MacOS
-        ctrl - 6                : ${config.services.yabai.package}/bin/yabai -m space --focus 6
+        # NOTE: First six are handled by MacOS, set the config manually
         ctrl - 7                : ${config.services.yabai.package}/bin/yabai -m space --focus 7
         ctrl - 8                : ${config.services.yabai.package}/bin/yabai -m space --focus 8
         ctrl - 9                : ${config.services.yabai.package}/bin/yabai -m space --focus 9
@@ -231,11 +229,16 @@ in
       '';
       services.yabai.package = pkgs.pkgsUnstable.yabai;
 
-      system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = false;
-
+      system.defaults.CustomUserPreferences."com.apple.Music".AutoPlayOnConnect = false;
       system.defaults.dock.autohide = true;
+      system.defaults.dock.autohide-delay = 0.0;
+      system.defaults.dock.show-recents = false;
       system.defaults.finder.AppleShowAllExtensions = true;
       system.defaults.finder.AppleShowAllFiles = true;
+      system.defaults.dock.wvous-br-corner = 12; # Notification Center
+      system.defaults.dock.wvous-tr-corner = 2; # Mission Control
+      system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = false;
+      system.defaults.WindowManager.EnableStandardClickToShowDesktop = false;
       system.keyboard.enableKeyMapping = true;
       system.keyboard.remapCapsLockToEscape = true;
       system.primaryUser = username;
