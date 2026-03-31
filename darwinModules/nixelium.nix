@@ -231,6 +231,10 @@ in
       '';
       services.yabai.package = pkgs.pkgsUnstable.yabai;
 
+      system.activationScripts.postActivation.text = ''
+        sudo ${config.services.yabai.package}/bin/yabai --load-sa
+      '';
+
       system.defaults.CustomUserPreferences."com.apple.Music".AutoPlayOnConnect = false;
       system.defaults.dock.autohide = true;
       system.defaults.dock.autohide-delay = 0.0;
