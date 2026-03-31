@@ -167,6 +167,8 @@ in
 
       security.pam.services.sudo_local.touchIdAuth = true;
 
+      services.openssh.enable = true;
+
       services.tailscale.enable = true;
 
       services.skhd.enable = true;
