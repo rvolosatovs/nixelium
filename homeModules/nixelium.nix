@@ -553,7 +553,6 @@ in
       programs.git.settings.status.short = true;
       programs.git.settings.status.showUntrackedFiles = "all";
       programs.git.settings.status.submoduleSummary = true;
-      programs.git.settings.url."ssh://git@github.com/".insteadOf = "https://github.com/";
       programs.git.settings.user.email = cfg.user.email;
       programs.git.settings.user.name = cfg.user.fullName;
       programs.git.signing.key = null; # let gpg decide at runtime
