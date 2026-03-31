@@ -72,6 +72,7 @@ in
         "firefox" # TODO: switch to nixpkgs
         "mac-mouse-fix"
         "maccy"
+        "notunes"
         "slack"
       ];
       homebrew.caskArgs.require_sha = true;
