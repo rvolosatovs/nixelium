@@ -71,9 +71,7 @@ in
         }
         "firefox" # TODO: switch to nixpkgs
         "mac-mouse-fix"
-        "maccy"
         "notunes"
-        "slack"
       ];
       homebrew.caskArgs.require_sha = true;
       homebrew.enable = true;
@@ -233,7 +231,7 @@ in
       services.yabai.package = pkgs.pkgsUnstable.yabai;
 
       system.activationScripts.postActivation.text = ''
-        sudo ${config.services.yabai.package}/bin/yabai --load-sa
+        ${config.services.yabai.package}/bin/yabai --load-sa || true
       '';
 
       system.defaults.CustomUserPreferences."com.apple.Music".AutoPlayOnConnect = false;
