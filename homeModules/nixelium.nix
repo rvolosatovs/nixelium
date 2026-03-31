@@ -819,6 +819,10 @@ in
       programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
       programs.zsh.enable = true;
       programs.zsh.autosuggestion.enable = !(osConfig.programs.zsh.autosuggestions.enable or false);
+      programs.zsh.autosuggestion.strategy = [
+        "history"
+        "completion"
+      ];
       programs.zsh.enableCompletion = false;
       programs.zsh.syntaxHighlighting.enable =
         !(osConfig.programs.zsh.syntaxHighlighting.enable or false);
@@ -1178,6 +1182,7 @@ in
 
       targets.darwin.currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
       targets.darwin.defaults."com.apple.desktopservices".DSDontWriteUSBStores = true;
+      targets.darwin.defaults.NSGlobalDomain.AppleICUForce24HourTime = true;
       targets.darwin.defaults.NSGlobalDomain.AppleLocale = "en_US";
       targets.darwin.defaults.NSGlobalDomain.AppleMeasurementUnits = "Centimeters";
       targets.darwin.defaults.NSGlobalDomain.AppleMetricUnits = true;
