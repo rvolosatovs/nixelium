@@ -1170,9 +1170,11 @@ in
     (mkIf pkgs.stdenv.hostPlatform.isDarwin {
       home.packages = [
         pkgs.docker
-        pkgs.pkgsUnstable.lima
         pkgs.podman
         pkgs.utm
+
+        pkgs.pkgsUnstable.container
+        pkgs.pkgsUnstable.lima
       ];
 
       programs.kitty.settings.font_size = 24;
