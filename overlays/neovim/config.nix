@@ -12,8 +12,7 @@ let
   julia' = if julia.meta.unsupported then "julia" else "${julia}/bin/julia";
 
   paths = self.lib.toLua {
-    bin.alejandra = "${pkgsUnstable.alejandra}/bin/alejandra";
-    bin.bash-language-server = "${pkgsUnstable.nodePackages.bash-language-server}/bin/bash-language-server";
+    bin.bash-language-server = "${pkgsUnstable.bash-language-server}/bin/bash-language-server";
     bin.clangd = "${pkgsUnstable.clang-tools}/bin/clangd";
     bin.docker-langserver = "${pkgsUnstable.dockerfile-language-server}/bin/docker-langserver";
     bin.gopls = "${pkgsUnstable.gopls}/bin/gopls";
@@ -26,7 +25,7 @@ let
     bin.ripgrep = "${ripgrep}/bin/rg";
     bin.rust-analyzer = "${fenix.stable.rust-analyzer}/bin/rust-analyzer";
     bin.taplo = "${pkgsUnstable.taplo}/bin/taplo";
-    bin.typescript-language-server = "${pkgsUnstable.nodePackages.typescript-language-server}/bin/typescript-language-server";
+    bin.typescript-language-server = "${pkgsUnstable.typescript-language-server}/bin/typescript-language-server";
     bin.vscode-css-language-server = "${pkgsUnstable.vscode-langservers-extracted}/bin/vscode-css-language-server";
     bin.vscode-eslint-language-server = "${pkgsUnstable.vscode-langservers-extracted}/bin/vscode-eslint-language-server";
     bin.vscode-html-language-server = "${pkgsUnstable.vscode-langservers-extracted}/bin/vscode-html-language-server";
