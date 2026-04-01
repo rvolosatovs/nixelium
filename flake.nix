@@ -60,6 +60,8 @@
   inputs.tree-sitter-cedar.flake = false;
   inputs.tree-sitter-cedar.url = "github:DuskSystems/tree-sitter-cedar";
   inputs.wit-deps.url = "github:bytecodealliance/wit-deps/v0.6.0";
+  inputs.yabai-status.inputs.nixpkgs.follows = "nixpkgs-darwin";
+  inputs.yabai-status.url = "github:rvolosatovs/yabai-status/v0.1.0";
 
   outputs =
     inputs@{

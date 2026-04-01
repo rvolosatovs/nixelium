@@ -1184,7 +1184,8 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix",
         "tree-sitter-cedar": "tree-sitter-cedar",
-        "wit-deps": "wit-deps"
+        "wit-deps": "wit-deps",
+        "yabai-status": "yabai-status"
       }
     },
     "rust-analyzer-src": {
@@ -1448,6 +1449,27 @@
         "owner": "bytecodealliance",
         "ref": "v0.6.0",
         "repo": "wit-deps",
+        "type": "github"
+      }
+    },
+    "yabai-status": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-darwin"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775038174,
+        "narHash": "sha256-tDHdsl6gHG6Ba7iFlgXF8AeA4zbhawl0uFlY7yfV17o=",
+        "owner": "rvolosatovs",
+        "repo": "yabai-status",
+        "rev": "404503b5e8e6065f1255ebda3d7544989a15ed71",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rvolosatovs",
+        "ref": "v0.1.0",
+        "repo": "yabai-status",
         "type": "github"
       }
     }

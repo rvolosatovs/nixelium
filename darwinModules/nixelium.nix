@@ -8,6 +8,7 @@
   nixpkgs-nixos,
   nixpkgs-unstable,
   wit-deps,
+  yabai-status,
   ...
 }:
 { config, pkgs, ... }:
@@ -29,6 +30,7 @@ in
   imports = [
     determinate.darwinModules.default
     home-manager.darwinModules.home-manager
+    yabai-status.darwinModules.default
   ];
 
   options.nixelium.profile.laptop.enable = mkEnableOption "laptop profile";
@@ -226,6 +228,8 @@ in
         borders style=square
       '';
       services.yabai.package = pkgs.pkgsUnstable.yabai;
+
+      services.yabai-status.enable = true;
 
       system.activationScripts.postActivation.text = ''
         ${config.services.yabai.package}/bin/yabai --load-sa || true
