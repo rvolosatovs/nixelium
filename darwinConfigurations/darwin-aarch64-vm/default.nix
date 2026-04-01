@@ -13,14 +13,7 @@ nix-darwin.lib.darwinSystem {
       {
         imports = [ self.darwinModules.default ];
 
-        networking.hostName = "iridium";
-
-        networking.knownNetworkServices = [
-          "Thunderbolt Bridge"
-          "Wi-Fi"
-        ];
-
-        nixelium.profile.laptop.enable = true;
+        networking.hostName = "darwin-aarch64-vm";
       }
     )
   ];
