@@ -57,11 +57,6 @@ in
       ];
 
       homebrew.brews = [
-        {
-          name = "felixkratz/formulae/borders";
-          start_service = true;
-          restart_service = "changed";
-        }
         "juliaup"
       ];
       homebrew.casks = [
@@ -166,9 +161,9 @@ in
 
       security.pam.services.sudo_local.touchIdAuth = true;
 
-      services.openssh.enable = true;
+      services.jankyborders.enable = true;
 
-      services.tailscale.enable = true;
+      services.openssh.enable = true;
 
       services.skhd.enable = true;
       services.skhd.skhdConfig = ''
@@ -210,6 +205,8 @@ in
         cmd + shift - o         : open -n /Applications/Firefox.app
       '';
       services.skhd.package = pkgs.pkgsUnstable.skhd;
+
+      services.tailscale.enable = true;
 
       services.yabai.config.auto_balance = "on";
       services.yabai.config.layout = "bsp";
