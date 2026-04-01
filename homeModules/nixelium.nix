@@ -849,6 +849,10 @@ in
           zstyle ':completion:*' expand prefix suffix
           zstyle ':prompt:grml:right:setup' items
 
+          if [[ -n "$SSH_CONNECTION" || -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then
+            zstyle ':prompt:grml:left:items:change-root' pre '%F{yellow}[SSH]%f '
+          fi
+
           bindkey -M isearch . self-insert
           bindkey -M menuselect 'h' vi-backward-char
           bindkey -M menuselect 'j' vi-down-line-or-history
