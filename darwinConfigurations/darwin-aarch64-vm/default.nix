@@ -14,6 +14,10 @@ nix-darwin.lib.darwinSystem {
         imports = [ self.darwinModules.default ];
 
         networking.hostName = "darwin-aarch64-vm";
+
+        security.sudo.extraConfig = ''
+          %admin ALL=(ALL) NOPASSWD: ALL
+        '';
       }
     )
   ];
