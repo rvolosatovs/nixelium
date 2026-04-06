@@ -59,8 +59,17 @@ nixpkgs-nixos.lib.nixosSystem {
         nixelium.build.enable = true;
         nixelium.profile.laptop.enable = true;
 
+        services.bazarr.enable = true;
+        services.bazarr.openFirewall = true;
+
         services.jellyfin.enable = true;
         services.jellyfin.openFirewall = true;
+
+        services.jellyseerr.enable = true;
+        services.jellyseerr.openFirewall = true;
+
+        services.prowlarr.enable = true;
+        services.prowlarr.openFirewall = true;
 
         services.radarr.enable = true;
         services.radarr.openFirewall = true;
@@ -80,6 +89,7 @@ nixpkgs-nixos.lib.nixosSystem {
         systemd.services.system76-charge-thresholds.wantedBy = [ "multi-user.target" ];
 
         users.users.owner.extraGroups = [
+          config.users.groups.bazarr.name
           config.users.groups.jellyfin.name
           config.users.groups.radarr.name
           config.users.groups.sonarr.name
