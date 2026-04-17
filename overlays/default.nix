@@ -1,4 +1,5 @@
 inputs@{
+  claude-code-nix,
   fenix,
   firefox-addons,
   nixlib,
@@ -83,6 +84,7 @@ in
   default = composeManyExtensions [
     pkgsUnstable
 
+    claude-code-nix.overlays.default
     fenix.overlays.default
     rust-analyzer
 
