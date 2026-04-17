@@ -256,6 +256,7 @@ in
         pkgs.tree
         pkgs.unrar
         pkgs.unzip
+        pkgs.watchexec
         pkgs.wget
         pkgs.xxd
         pkgs.zip
