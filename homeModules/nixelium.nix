@@ -1176,6 +1176,7 @@ in
     })
     (mkIf pkgs.stdenv.hostPlatform.isDarwin {
       home.packages = [
+        pkgs.choose-gui
         pkgs.maccy
 
         pkgs.pkgsUnstable.container

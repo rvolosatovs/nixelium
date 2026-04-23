@@ -25,6 +25,15 @@ let
   ];
 
   username = "rvolosatovs";
+
+  gopass = "${config.home-manager.users.${username}.programs.password-store.package}/bin/gopass";
+  choose = "${pkgs.choose-gui}/bin/choose";
+
+  typeStdin = pkgs.writeShellScript "nixelium-type-stdin" ''
+    NIXELIUM_PASS_TEXT=$(cat)
+    export NIXELIUM_PASS_TEXT
+    /usr/bin/osascript -e 'tell application "System Events" to keystroke (system attribute "NIXELIUM_PASS_TEXT")'
+  '';
 in
 {
   imports = [
@@ -205,6 +214,13 @@ in
         }/Applications/kitty.app --args --single-instance -d ~
         # TODO: switch to nixpkgs
         cmd + shift - o         : open -n /Applications/Firefox.app
+
+        cmd + ctrl - p          : ${gopass} show -c "$(${gopass} list --flat | ${choose})"
+        cmd + ctrl - u          : ${gopass} show -c "$(${gopass} list --flat | ${choose})" username
+        cmd + ctrl - o          : ${gopass} otp  -c "$(${gopass} list --flat 2fa | ${choose})"
+        cmd + shift - p         : ${gopass} show -o -f "$(${gopass} list --flat | ${choose})" | /usr/bin/head -n 1 | ${typeStdin}
+        cmd + shift - u         : ${gopass} show -o -f "$(${gopass} list --flat | ${choose})" username | ${typeStdin}
+        cmd + shift - f         : ${gopass} otp  -o    "$(${gopass} list --flat 2fa | ${choose})" | /usr/bin/cut -d ' ' -f 1 | ${typeStdin}
       '';
       services.skhd.package = pkgs.pkgsUnstable.skhd;
 
