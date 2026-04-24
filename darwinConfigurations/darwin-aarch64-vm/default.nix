@@ -9,7 +9,7 @@ nix-darwin.lib.darwinSystem {
   system = aarch64-darwin;
   modules = [
     (
-      { ... }:
+      { pkgs, ... }:
       {
         imports = [ self.darwinModules.default ];
 
@@ -18,6 +18,8 @@ nix-darwin.lib.darwinSystem {
         security.sudo.extraConfig = ''
           %admin ALL=(ALL) NOPASSWD: ALL
         '';
+
+        home-manager.users.rvolosatovs.home.packages = [ pkgs.claude-code ];
       }
     )
   ];
