@@ -19,7 +19,10 @@ nix-darwin.lib.darwinSystem {
           %admin ALL=(ALL) NOPASSWD: ALL
         '';
 
-        home-manager.users.rvolosatovs.home.packages = [ pkgs.claude-code ];
+        home-manager.users.rvolosatovs.home.packages = [
+          pkgs.claude-code
+          pkgs.rustup
+        ];
       }
     )
   ];
