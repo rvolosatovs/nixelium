@@ -1213,6 +1213,7 @@ in
         pkgs.android-tools
         pkgs.avrdude
         pkgs.claude-code
+        pkgs.codex
         pkgs.google-cloud-sdk
         pkgs.kubectl
         pkgs.minikube
@@ -1227,7 +1228,6 @@ in
         pkgs.pkgsUnstable.cargo-flamegraph
         pkgs.pkgsUnstable.cargo-generate
         pkgs.pkgsUnstable.cargo-watch
-        pkgs.pkgsUnstable.codex
         pkgs.pkgsUnstable.critcmp
         pkgs.pkgsUnstable.gh
         pkgs.pkgsUnstable.github-copilot-cli

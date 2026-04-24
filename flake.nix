@@ -33,6 +33,9 @@
   inputs.base16-shell.url = "github:chriskempson/base16-shell";
   inputs.claude-code-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.claude-code-nix.url = "github:sadjow/claude-code-nix";
+  inputs.codex-cli-nix.inputs.flake-utils.follows = "flake-utils";
+  inputs.codex-cli-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
+  inputs.codex-cli-nix.url = "github:sadjow/codex-cli-nix";
   inputs.determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
   inputs.fenix.url = "github:nix-community/fenix";
   inputs.firefox-addons.inputs.nixpkgs.follows = "nixpkgs-unstable";

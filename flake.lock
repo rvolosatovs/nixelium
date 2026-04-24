@@ -69,6 +69,29 @@
         "type": "github"
       }
     },
+    "codex-cli-nix": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1776972632,
+        "narHash": "sha256-aNyjCbNb7s5H7zQ+4ejkIBZ+rtth5pwG6MRMJu0yj98=",
+        "owner": "sadjow",
+        "repo": "codex-cli-nix",
+        "rev": "f24bd798cfaf1fa514b5e22f77f8100a77438ea1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sadjow",
+        "repo": "codex-cli-nix",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1765145449,
@@ -1206,6 +1229,7 @@
       "inputs": {
         "base16-shell": "base16-shell",
         "claude-code-nix": "claude-code-nix",
+        "codex-cli-nix": "codex-cli-nix",
         "determinate": "determinate",
         "fenix": "fenix",
         "firefox-addons": "firefox-addons",
