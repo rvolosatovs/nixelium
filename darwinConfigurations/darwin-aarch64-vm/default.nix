@@ -21,7 +21,10 @@ nix-darwin.lib.darwinSystem {
 
         home-manager.users.rvolosatovs.home.packages = [
           pkgs.claude-code
+          pkgs.codex
           pkgs.rustup
+
+          pkgs.pkgsUnstable.github-copilot-cli
         ];
       }
     )
