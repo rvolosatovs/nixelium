@@ -1194,6 +1194,7 @@ in
 
       targets.darwin.currentHostDefaults."com.apple.controlcenter".BatteryShowPercentage = true;
       targets.darwin.defaults."com.apple.desktopservices".DSDontWriteUSBStores = true;
+      targets.darwin.defaults."com.tinyspeck.slackmacgap".SlackNoAutoUpdates = true;
       targets.darwin.defaults.NSGlobalDomain.AppleICUForce24HourTime = true;
       targets.darwin.defaults.NSGlobalDomain.AppleLocale = "en_US";
       targets.darwin.defaults.NSGlobalDomain.AppleMeasurementUnits = "Centimeters";
