@@ -526,6 +526,7 @@ in
         ".Spotlight-V100"
         ".Trashes"
         ".vscode"
+        "AGENTS.md"
         "CLAUDE.md"
         "ehthumbs.db"
         "result"
