@@ -1233,6 +1233,7 @@ in
         pkgs.pkgsUnstable.cargo-generate
         pkgs.pkgsUnstable.cargo-watch
         pkgs.pkgsUnstable.critcmp
+        pkgs.pkgsUnstable.gemini-cli
         pkgs.pkgsUnstable.gh
         pkgs.pkgsUnstable.github-copilot-cli
         pkgs.pkgsUnstable.hey
@@ -1243,6 +1244,7 @@ in
         pkgs.pkgsUnstable.pprof
         pkgs.pkgsUnstable.protobuf
         pkgs.pkgsUnstable.redis
+        pkgs.pkgsUnstable.rtk
         pkgs.pkgsUnstable.samply
         pkgs.pkgsUnstable.signal-desktop
         pkgs.pkgsUnstable.slack
