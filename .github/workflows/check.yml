@@ -27,5 +27,11 @@ jobs:
       with:
         tool-cache: false
     - run: nix flake check -L
+    - if: github.event_name == 'push' && runner.os == 'macOS'
+      run: nix build -L .#darwinConfigurations.iridium.system
+    - if: github.event_name == 'push' && runner.os == 'Linux'
+      run: |
+        nix build -L .#nixosConfigurations.cobalt.config.system.build.toplevel
+        nix build -L .#nixosConfigurations.osmium.config.system.build.toplevel
 
     # TODO: Build and run a VM, test
