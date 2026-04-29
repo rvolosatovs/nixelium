@@ -1209,11 +1209,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777478333,
-        "narHash": "sha256-nVrcUArzvB5og1hDsAJP5s2SHU4Da1GWxtJ+hhyzWzw=",
+        "lastModified": 1777482364,
+        "narHash": "sha256-yM8Tv1QOYMSg2PjFDKBws3iD9zFvmYAqntMfsryXoLk=",
         "owner": "rvolosatovs",
         "repo": "nixvm",
-        "rev": "b39afa1d2f72b9a2c421207b60fca669b0cb8b5a",
+        "rev": "d245af42d9d6b3d3a8806a07f1e1fe07c9eb5148",
         "type": "github"
       },
       "original": {

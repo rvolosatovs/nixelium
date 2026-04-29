@@ -22,6 +22,8 @@ nixpkgs-nixos.lib.nixosSystem {
 
         nixelium.system.isVirtual = true;
 
+        nixvm.guest.rootSize = "128G";
+
         home-manager.users.owner.home.packages = [
           pkgs.claude-code
           pkgs.codex
