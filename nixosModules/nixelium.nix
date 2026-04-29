@@ -62,11 +62,11 @@ in
       boot.initrd.availableKernelModules = [ "cryptd" ];
       boot.initrd.systemd.enable = true;
       boot.kernelParams = [ "systemd.unified_cgroup_hierarchy=1" ];
-      boot.lanzaboote.enable = mkDefault true;
+      boot.lanzaboote.enable = mkDefault (!cfg.system.isVirtual);
       boot.lanzaboote.pkiBundle = "/etc/secureboot";
       boot.loader.efi.canTouchEfiVariables = true;
       boot.loader.grub.enable = false;
-      boot.loader.systemd-boot.enable = !config.boot.lanzaboote.enable;
+      boot.loader.systemd-boot.enable = !config.boot.lanzaboote.enable && !cfg.system.isVirtual;
       boot.tmp.cleanOnBoot = true;
 
       environment.homeBinInPath = true;
@@ -105,7 +105,7 @@ in
 
       networking.domain = mkDefault "ghost-ordinal.ts.net";
       networking.firewall.checkReversePath = "loose";
-      networking.firewall.enable = true;
+      networking.firewall.enable = !cfg.system.isVirtual;
       networking.nameservers = [
         "2620:fe::fe"
         "2620:fe::9"

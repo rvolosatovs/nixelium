@@ -1202,6 +1202,26 @@
         "type": "github"
       }
     },
+    "nixvm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777478333,
+        "narHash": "sha256-nVrcUArzvB5og1hDsAJP5s2SHU4Da1GWxtJ+hhyzWzw=",
+        "owner": "rvolosatovs",
+        "repo": "nixvm",
+        "rev": "b39afa1d2f72b9a2c421207b60fca669b0cb8b5a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rvolosatovs",
+        "repo": "nixvm",
+        "type": "github"
+      }
+    },
     "pre-commit": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -1246,6 +1266,7 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixvm": "nixvm",
         "sops-nix": "sops-nix",
         "tree-sitter-cedar": "tree-sitter-cedar",
         "wit-deps": "wit-deps",

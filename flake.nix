@@ -60,6 +60,8 @@
   inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.11";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixvm.inputs.nixpkgs.follows = "nixpkgs-unstable";
+  inputs.nixvm.url = "github:rvolosatovs/nixvm";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.tree-sitter-cedar.flake = false;
