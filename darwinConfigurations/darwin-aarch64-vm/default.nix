@@ -24,6 +24,7 @@ nix-darwin.lib.darwinSystem {
           pkgs.pkgsUnstable.github-copilot-cli
           pkgs.pkgsUnstable.nodejs
           pkgs.pkgsUnstable.python3
+          pkgs.pkgsUnstable.rtk
           pkgs.pkgsUnstable.uv
         ];
 

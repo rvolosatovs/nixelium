@@ -26,6 +26,7 @@ nixpkgs-nixos.lib.nixosSystem {
           pkgs.pkgsUnstable.github-copilot-cli
           pkgs.pkgsUnstable.nodejs
           pkgs.pkgsUnstable.python3
+          pkgs.pkgsUnstable.rtk
           pkgs.pkgsUnstable.uv
         ];
 
