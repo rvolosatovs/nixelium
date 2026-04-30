@@ -1099,11 +1099,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1777539946,
-        "narHash": "sha256-J33TP0AKiOd6HORhPyu6YNKu/qxvfc2MGhxWmO9hK5k=",
+        "lastModified": 1777543424,
+        "narHash": "sha256-Bb9aYXcZqAnS2nl1H/VtRXu3W2/o097/sXG78gd+xHQ=",
         "owner": "rvolosatovs",
         "repo": "nixify",
-        "rev": "aa6f945af28586abba4cb6029644ea99e4e5bc5d",
+        "rev": "1bbb50231dbd43d7c965dfb34398a4c97710ef1a",
         "type": "github"
       },
       "original": {
