@@ -12,3 +12,7 @@ updates:
   directory: "/.github/actions/install-nix"
   schedule:
     interval: "daily"
+- package-ecosystem: "nix"
+  directory: "/"
+  schedule:
+    interval: "daily"
