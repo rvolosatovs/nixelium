@@ -60,7 +60,7 @@
   inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.11";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.nixvm.inputs.nixpkgs.follows = "nixpkgs-unstable";
+  inputs.nixvm.inputs.nixify.follows = "nixify";
   inputs.nixvm.url = "github:rvolosatovs/nixvm";
   inputs.slack-darwin-aarch64.flake = false;
   inputs.slack-darwin-aarch64.url = "file+https://slack.com/ssb/download-osx-silicon";
