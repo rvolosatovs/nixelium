@@ -263,7 +263,7 @@ in
 
       users.defaultUserShell = pkgs.zsh;
 
-      users.users.root.hashedPassword = "!";
+      users.users.root.hashedPassword = mkIf (!cfg.system.isVirtual) "!";
 
       users.users.owner.extraGroups = [
         config.security.tpm2.tssGroup
