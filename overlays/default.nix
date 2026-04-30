@@ -5,6 +5,7 @@ inputs@{
   firefox-addons,
   nixlib,
   nixpkgs-unstable,
+  slack-darwin-aarch64,
   spotify-darwin-aarch64,
   ...
 }:
@@ -57,6 +58,15 @@ let
     inherit (fenix.packages.${prev.stdenv.hostPlatform.system}) rust-analyzer;
   };
 
+  slack =
+    final: prev:
+    optionalAttrs (prev.stdenv.hostPlatform.isDarwin && prev.stdenv.hostPlatform.isAarch64) {
+      slack = prev.slack.overrideAttrs (_: {
+        version = "unstable";
+        src = prev.runCommand "Slack-macOS.dmg" { } "ln -s ${slack-darwin-aarch64} $out";
+      });
+    };
+
   spotify =
     final: prev:
     optionalAttrs (prev.stdenv.hostPlatform.isDarwin && prev.stdenv.hostPlatform.isAarch64) {
@@ -67,7 +77,10 @@ let
     };
 
   pkgsUnstable = final: prev: {
-    pkgsUnstable = importNixpkgs nixpkgs-unstable [ spotify ] final prev;
+    pkgsUnstable = importNixpkgs nixpkgs-unstable [
+      slack
+      spotify
+    ] final prev;
   };
 
   unstable = final: prev: {

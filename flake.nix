@@ -62,6 +62,8 @@
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.nixvm.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.nixvm.url = "github:rvolosatovs/nixvm";
+  inputs.slack-darwin-aarch64.flake = false;
+  inputs.slack-darwin-aarch64.url = "file+https://slack.com/ssb/download-osx-silicon";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.spotify-darwin-aarch64.flake = false;
