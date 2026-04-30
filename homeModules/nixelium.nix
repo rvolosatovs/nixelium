@@ -853,8 +853,15 @@ in
           zstyle ':completion:*' expand prefix suffix
           zstyle ':prompt:grml:right:setup' items
 
+          prompt_indicator=""
+          ${optionalString (osConfig.nixelium.system.isVirtual or false) ''
+            prompt_indicator+="%F{magenta}[VM]%f "
+          ''}
           if [[ -n "$SSH_CONNECTION" || -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then
-            zstyle ':prompt:grml:left:items:change-root' pre '%F{yellow}[SSH]%f '
+            prompt_indicator+="%F{yellow}[SSH]%f "
+          fi
+          if [[ -n "$prompt_indicator" ]]; then
+            zstyle ':prompt:grml:left:items:change-root' pre "$prompt_indicator"
           fi
 
           bindkey -M isearch . self-insert
