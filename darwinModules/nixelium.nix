@@ -50,6 +50,7 @@ in
   config = mkMerge [
     {
       determinateNix.enable = true;
+      determinateNix.nixosVmBasedLinuxBuilder.enable = true;
 
       environment.enableAllTerminfo = true;
       environment.pathsToLink = [
