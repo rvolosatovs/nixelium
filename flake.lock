@@ -1658,6 +1658,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvm": "nixvm",
         "sops-nix": "sops-nix",
+        "spotify-darwin-aarch64": "spotify-darwin-aarch64",
         "tree-sitter-cedar": "tree-sitter-cedar",
         "wit-deps": "wit-deps",
         "yabai-status": "yabai-status"
@@ -1929,6 +1930,18 @@
         "owner": "Mic92",
         "repo": "sops-nix",
         "type": "github"
+      }
+    },
+    "spotify-darwin-aarch64": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-jlshrpYLy8dVy8PHUpxavd8y5KxeqS3zHO2CforRtp0=",
+        "type": "file",
+        "url": "https://download.scdn.co/SpotifyARM64.dmg"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://download.scdn.co/SpotifyARM64.dmg"
       }
     },
     "systems": {
