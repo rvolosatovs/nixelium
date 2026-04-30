@@ -35,6 +35,7 @@ nixpkgs-nixos.lib.nixosSystem {
         networking.interfaces.enp3s0f0.useDHCP = true;
         networking.interfaces.wlan0.useDHCP = true;
 
+        nixelium.profile.dev.enable = true;
         nixelium.profile.laptop.enable = true;
 
         nix.buildMachines = [

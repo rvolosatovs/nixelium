@@ -8,32 +8,17 @@ with flake-utils.lib.system;
 nix-darwin.lib.darwinSystem {
   system = aarch64-darwin;
   modules = [
-    (
-      { pkgs, ... }:
-      {
-        imports = [ self.darwinModules.default ];
+    ({
+      imports = [ self.darwinModules.default ];
 
-        home-manager.users.rvolosatovs.home.packages = [
-          pkgs.claude-code
-          pkgs.codex
-          pkgs.rustup
+      networking.hostName = "darwin-aarch64-vm";
 
-          pkgs.pkgsUnstable.bun
-          pkgs.pkgsUnstable.gemini-cli
-          pkgs.pkgsUnstable.gh
-          pkgs.pkgsUnstable.github-copilot-cli
-          pkgs.pkgsUnstable.nodejs
-          pkgs.pkgsUnstable.python3
-          pkgs.pkgsUnstable.rtk
-          pkgs.pkgsUnstable.uv
-        ];
+      nixelium.profile.dev.enable = true;
+      nixelium.profile.vm.enable = true;
 
-        networking.hostName = "darwin-aarch64-vm";
-
-        security.sudo.extraConfig = ''
-          %admin ALL=(ALL) NOPASSWD: ALL
-        '';
-      }
-    )
+      security.sudo.extraConfig = ''
+        %admin ALL=(ALL) NOPASSWD: ALL
+      '';
+    })
   ];
 }

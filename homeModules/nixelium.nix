@@ -5,6 +5,7 @@
 }:
 {
   config,
+  lib,
   osConfig ? null,
   pkgs,
   ...
@@ -1219,14 +1220,63 @@ in
         osConfig.services.yabai.package
       ];
     })
+    (mkIf osConfig.nixelium.profile.dev.enable {
+      home.packages = [
+        pkgs.claude-code
+        pkgs.codex
+
+        pkgs.pkgsUnstable.binaryen
+        pkgs.pkgsUnstable.bun
+        pkgs.pkgsUnstable.cargo-flamegraph
+        pkgs.pkgsUnstable.cargo-generate
+        pkgs.pkgsUnstable.cargo-watch
+        pkgs.pkgsUnstable.critcmp
+        pkgs.pkgsUnstable.deno
+        pkgs.pkgsUnstable.gemini-cli
+        pkgs.pkgsUnstable.gh
+        pkgs.pkgsUnstable.github-copilot-cli
+        pkgs.pkgsUnstable.hey
+        pkgs.pkgsUnstable.nodejs
+        pkgs.pkgsUnstable.pprof
+        pkgs.pkgsUnstable.protobuf
+        pkgs.pkgsUnstable.rtk
+        pkgs.pkgsUnstable.samply
+        pkgs.pkgsUnstable.uv
+        pkgs.pkgsUnstable.wasm-tools
+      ];
+    })
+    (mkIf (osConfig.nixelium.profile.dev.enable && pkgs.stdenv.hostPlatform.isLinux) {
+      home.packages = [
+        pkgs.pkgsUnstable.python3
+      ];
+    })
+    (mkIf
+      (
+        osConfig.nixelium.profile.dev.enable
+        && osConfig.nixelium.profile.vm.enable
+        && !osConfig.nixelium.profile.laptop.enable
+      )
+      {
+        home.packages = [
+          pkgs.rustup
+        ];
+
+        home.activation.claudeMcpCodex = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          ${pkgs.claude-code}/bin/claude mcp remove --scope user codex >/dev/null 2>&1 || true
+          ${pkgs.claude-code}/bin/claude mcp add --scope user --transport stdio codex -- codex mcp-server
+        '';
+
+        home.activation.rustup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          ${pkgs.rustup}/bin/rustup default stable
+        '';
+      }
+    )
     (mkIf osConfig.nixelium.profile.laptop.enable {
       home.packages = [
         rust
 
         pkgs.android-tools
         pkgs.avrdude
-        pkgs.claude-code
-        pkgs.codex
         pkgs.google-cloud-sdk
         pkgs.kubectl
         pkgs.minikube
@@ -1237,30 +1287,14 @@ in
         pkgs.yubikey-manager
         pkgs.yubikey-personalization
 
-        pkgs.pkgsUnstable.binaryen
-        pkgs.pkgsUnstable.cargo-flamegraph
-        pkgs.pkgsUnstable.cargo-generate
-        pkgs.pkgsUnstable.cargo-watch
-        pkgs.pkgsUnstable.critcmp
-        pkgs.pkgsUnstable.gemini-cli
-        pkgs.pkgsUnstable.gh
-        pkgs.pkgsUnstable.github-copilot-cli
-        pkgs.pkgsUnstable.hey
         pkgs.pkgsUnstable.nats-server
         pkgs.pkgsUnstable.natscli
-        pkgs.pkgsUnstable.nodejs
         pkgs.pkgsUnstable.podman-compose
-        pkgs.pkgsUnstable.pprof
-        pkgs.pkgsUnstable.protobuf
         pkgs.pkgsUnstable.redis
-        pkgs.pkgsUnstable.rtk
-        pkgs.pkgsUnstable.samply
         pkgs.pkgsUnstable.signal-desktop
         pkgs.pkgsUnstable.slack
         pkgs.pkgsUnstable.spotify
         pkgs.pkgsUnstable.telegram-desktop
-        pkgs.pkgsUnstable.uv
-        pkgs.pkgsUnstable.wasm-tools
         pkgs.pkgsUnstable.wasmtime
       ];
 
