@@ -11,18 +11,9 @@ nixpkgs-nixos.lib.nixosSystem {
   modules = [
     nixvm.nixosModules.guest
     (
-      { pkgs, ... }:
+      { config, pkgs, ... }:
       {
         imports = [ self.nixosModules.default ];
-
-        system.image.id = "aarch64-linux-vm";
-        system.image.version = "1";
-
-        networking.hostName = "aarch64-linux-vm";
-
-        nixelium.system.isVirtual = true;
-
-        nixvm.guest.rootSize = "128G";
 
         home-manager.users.owner.home.packages = [
           pkgs.claude-code
@@ -31,6 +22,17 @@ nixpkgs-nixos.lib.nixosSystem {
 
           pkgs.pkgsUnstable.github-copilot-cli
         ];
+
+        networking.hostName = "aarch64-linux-vm";
+
+        nixelium.system.isVirtual = true;
+
+        nixvm.guest.rootSize = "128G";
+
+        services.getty.autologinUser = config.users.users.owner.name;
+
+        system.image.id = "aarch64-linux-vm";
+        system.image.version = "1";
       }
     )
   ];
