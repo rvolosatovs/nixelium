@@ -17,13 +17,13 @@ jobs:
         - host: ubuntu-latest
     runs-on: ${{ matrix.platform.host }}
     steps:
-    - uses: actions/checkout@v6.0.2
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
     - uses: ./.github/actions/install-nix
-      with: 
+      with:
         cachixAuthToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Free Disk Space
       if: ${{ runner.os == 'Linux' }}
-      uses: jlumbroso/free-disk-space@v1.3.1
+      uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
       with:
         tool-cache: false
     - run: nix flake check -L
