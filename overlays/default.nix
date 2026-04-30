@@ -5,16 +5,18 @@ inputs@{
   firefox-addons,
   nixlib,
   nixpkgs-unstable,
+  spotify-darwin-aarch64,
   ...
 }:
 with nixlib.lib;
 let
   importNixpkgs =
-    nixpkgs: final: prev:
+    nixpkgs: overlays: final: prev:
     import nixpkgs {
       inherit (final.stdenv.hostPlatform) system;
 
       inherit (final) config;
+      inherit overlays;
     };
 
   images = import ./images.nix inputs;
@@ -55,7 +57,18 @@ let
     inherit (fenix.packages.${prev.stdenv.hostPlatform.system}) rust-analyzer;
   };
 
-  pkgsUnstable = final: prev: { pkgsUnstable = importNixpkgs nixpkgs-unstable final prev; };
+  spotify =
+    final: prev:
+    optionalAttrs (prev.stdenv.hostPlatform.isDarwin && prev.stdenv.hostPlatform.isAarch64) {
+      spotify = prev.spotify.overrideAttrs (_: {
+        version = "unstable";
+        src = prev.runCommand "SpotifyARM64.dmg" { } "ln -s ${spotify-darwin-aarch64} $out";
+      });
+    };
+
+  pkgsUnstable = final: prev: {
+    pkgsUnstable = importNixpkgs nixpkgs-unstable [ spotify ] final prev;
+  };
 
   unstable = final: prev: {
     lima = prev.pkgsUnstable.lima;

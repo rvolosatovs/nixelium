@@ -702,7 +702,8 @@ in
       programs.ssh.matchBlocks."github.com".extraOptions.KexAlgorithms =
         "curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1";
       programs.ssh.matchBlocks."github.com".extraOptions.MACs = "hmac-sha2-256,hmac-sha2-512,hmac-sha1";
-      programs.ssh.matchBlocks."windows-aarch64-vm.ghost-ordinal.ts.net".extraOptions.SetEnv = "TERM=xterm-256color";
+      programs.ssh.matchBlocks."windows-aarch64-vm.ghost-ordinal.ts.net".extraOptions.SetEnv =
+        "TERM=xterm-256color";
 
       programs.thunderbird.profiles.main.isDefault = true;
       programs.thunderbird.profiles.main.withExternalGnupg = true;

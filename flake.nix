@@ -64,6 +64,8 @@
   inputs.nixvm.url = "github:rvolosatovs/nixvm";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
+  inputs.spotify-darwin-aarch64.flake = false;
+  inputs.spotify-darwin-aarch64.url = "file+https://download.scdn.co/SpotifyARM64.dmg";
   inputs.tree-sitter-cedar.flake = false;
   inputs.tree-sitter-cedar.url = "github:DuskSystems/tree-sitter-cedar";
   inputs.wit-deps.url = "github:bytecodealliance/wit-deps/v0.6.0";
