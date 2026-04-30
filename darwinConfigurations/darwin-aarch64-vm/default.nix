@@ -18,7 +18,13 @@ nix-darwin.lib.darwinSystem {
           pkgs.codex
           pkgs.rustup
 
+          pkgs.pkgsUnstable.bun
+          pkgs.pkgsUnstable.gemini-cli
+          pkgs.pkgsUnstable.gh
           pkgs.pkgsUnstable.github-copilot-cli
+          pkgs.pkgsUnstable.nodejs
+          pkgs.pkgsUnstable.python3
+          pkgs.pkgsUnstable.uv
         ];
 
         networking.hostName = "darwin-aarch64-vm";
