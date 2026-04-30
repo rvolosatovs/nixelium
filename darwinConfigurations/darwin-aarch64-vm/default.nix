@@ -13,12 +13,6 @@ nix-darwin.lib.darwinSystem {
       {
         imports = [ self.darwinModules.default ];
 
-        networking.hostName = "darwin-aarch64-vm";
-
-        security.sudo.extraConfig = ''
-          %admin ALL=(ALL) NOPASSWD: ALL
-        '';
-
         home-manager.users.rvolosatovs.home.packages = [
           pkgs.claude-code
           pkgs.codex
@@ -26,6 +20,12 @@ nix-darwin.lib.darwinSystem {
 
           pkgs.pkgsUnstable.github-copilot-cli
         ];
+
+        networking.hostName = "darwin-aarch64-vm";
+
+        security.sudo.extraConfig = ''
+          %admin ALL=(ALL) NOPASSWD: ALL
+        '';
       }
     )
   ];
