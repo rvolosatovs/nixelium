@@ -23,7 +23,7 @@ nixpkgs-nixos.lib.nixosSystem {
           pkgs.pkgsUnstable.github-copilot-cli
         ];
 
-        networking.hostName = "aarch64-linux-vm";
+        networking.hostName = "linux-aarch64-vm";
 
         nixelium.system.isVirtual = true;
 
@@ -31,7 +31,7 @@ nixpkgs-nixos.lib.nixosSystem {
 
         services.getty.autologinUser = config.users.users.owner.name;
 
-        system.image.id = "aarch64-linux-vm";
+        system.image.id = "linux-aarch64-vm";
         system.image.version = "1";
       }
     )
