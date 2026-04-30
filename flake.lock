@@ -1657,6 +1657,7 @@
         "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvm": "nixvm",
+        "slack-darwin-aarch64": "slack-darwin-aarch64",
         "sops-nix": "sops-nix",
         "spotify-darwin-aarch64": "spotify-darwin-aarch64",
         "tree-sitter-cedar": "tree-sitter-cedar",
@@ -1910,6 +1911,18 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "slack-darwin-aarch64": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-AUjJgxu3tqUvKIigWjjm3ov0YVL07Wb+Wq7s/EjRgZI=",
+        "type": "file",
+        "url": "https://slack.com/ssb/download-osx-silicon"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://slack.com/ssb/download-osx-silicon"
       }
     },
     "sops-nix": {
