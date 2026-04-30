@@ -11,28 +11,14 @@ nixpkgs-nixos.lib.nixosSystem {
   modules = [
     nixvm.nixosModules.guest
     (
-      { config, pkgs, ... }:
+      { config, ... }:
       {
         imports = [ self.nixosModules.default ];
 
-        home-manager.users.owner.home.packages = [
-          pkgs.claude-code
-          pkgs.codex
-          pkgs.rustup
-
-          pkgs.pkgsUnstable.bun
-          pkgs.pkgsUnstable.gemini-cli
-          pkgs.pkgsUnstable.gh
-          pkgs.pkgsUnstable.github-copilot-cli
-          pkgs.pkgsUnstable.nodejs
-          pkgs.pkgsUnstable.python3
-          pkgs.pkgsUnstable.rtk
-          pkgs.pkgsUnstable.uv
-        ];
-
         networking.hostName = "linux-aarch64-vm";
 
-        nixelium.system.isVirtual = true;
+        nixelium.profile.dev.enable = true;
+        nixelium.profile.vm.enable = true;
 
         nixvm.guest.rootSize = "128G";
 

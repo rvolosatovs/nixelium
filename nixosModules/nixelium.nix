@@ -53,7 +53,9 @@ in
 
   options.nixelium.build.enable = mkEnableOption "`nix` remote build setup";
   options.nixelium.deploy.enable = mkEnableOption "`deploy-rs` setup";
+  options.nixelium.profile.dev.enable = mkEnableOption "dev profile";
   options.nixelium.profile.laptop.enable = mkEnableOption "laptop profile";
+  options.nixelium.profile.vm.enable = mkEnableOption "VM profile";
   options.nixelium.system.isVirtual = mkEnableOption "system virtualization";
 
   config = mkMerge [
@@ -563,6 +565,10 @@ in
       systemd.services.audio-off.serviceConfig.Type = "oneshot";
       systemd.services.audio-off.serviceConfig.User = config.users.users.owner.name;
       systemd.services.audio-off.wantedBy = [ "sleep.target" ];
+    })
+
+    (mkIf cfg.profile.vm.enable {
+      nixelium.system.isVirtual = true;
     })
   ];
 }

@@ -42,7 +42,9 @@ in
     yabai-status.darwinModules.default
   ];
 
+  options.nixelium.profile.dev.enable = mkEnableOption "dev profile";
   options.nixelium.profile.laptop.enable = mkEnableOption "laptop profile";
+  options.nixelium.profile.vm.enable = mkEnableOption "VM profile";
 
   config = mkMerge [
     {

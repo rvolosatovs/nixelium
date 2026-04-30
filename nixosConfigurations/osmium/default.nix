@@ -57,6 +57,7 @@ nixpkgs-nixos.lib.nixosSystem {
         networking.interfaces.wlan0.wakeOnLan.enable = true;
 
         nixelium.build.enable = true;
+        nixelium.profile.dev.enable = true;
         nixelium.profile.laptop.enable = true;
 
         services.bazarr.enable = true;

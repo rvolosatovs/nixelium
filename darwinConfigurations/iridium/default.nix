@@ -20,6 +20,7 @@ nix-darwin.lib.darwinSystem {
           "Wi-Fi"
         ];
 
+        nixelium.profile.dev.enable = true;
         nixelium.profile.laptop.enable = true;
       }
     )
