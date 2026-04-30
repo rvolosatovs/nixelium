@@ -71,6 +71,7 @@ in
       boot.loader.systemd-boot.enable = !config.boot.lanzaboote.enable && !cfg.system.isVirtual;
       boot.tmp.cleanOnBoot = true;
 
+      environment.enableAllTerminfo = true;
       environment.homeBinInPath = true;
       environment.localBinInPath = true;
       environment.pathsToLink = [

@@ -244,7 +244,6 @@ in
         pkgs.git-rebase-all
         pkgs.gnumake
         pkgs.jq
-        pkgs.kitty.terminfo
         pkgs.lsof
         pkgs.nix-prefetch-scripts
         pkgs.openssl
