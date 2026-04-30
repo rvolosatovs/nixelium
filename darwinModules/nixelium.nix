@@ -50,6 +50,7 @@ in
     {
       determinateNix.enable = true;
 
+      environment.enableAllTerminfo = true;
       environment.pathsToLink = [
         "/share/bash"
         "/share/bash-completion"
