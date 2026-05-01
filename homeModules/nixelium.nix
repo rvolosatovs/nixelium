@@ -1239,7 +1239,6 @@ in
         pkgs.pkgsUnstable.protobuf
         pkgs.pkgsUnstable.rtk
         pkgs.pkgsUnstable.samply
-        pkgs.pkgsUnstable.uv
         pkgs.pkgsUnstable.wasm-tools
       ];
     })
