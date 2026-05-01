@@ -119,8 +119,7 @@ in
       networking.useDHCP = true;
       networking.useNetworkd = true;
 
-      nix.gc.automatic = true;
-      nix.optimise.automatic = true;
+      nix.optimise.automatic = !config.determinate.enable && !cfg.system.isVirtual;
       nix.settings.allowed-users = with config.users; [
         "@${groups.wheel.name}"
         users.owner.name
@@ -148,11 +147,13 @@ in
         users.owner.name
         users.root.name
       ];
-      nix.extraOptions = concatStringsSep "\n" [
-        "keep-outputs = true"
-        "keep-derivations = true"
-        "experimental-features = nix-command flakes"
-      ];
+      nix.extraOptions = concatStringsSep "\n" (
+        [
+          "keep-outputs = true"
+          "keep-derivations = true"
+        ]
+        ++ optional (!config.determinate.enable) "experimental-features = nix-command flakes"
+      );
 
       nix.registry.nixelium.flake = self;
       nix.registry.nixelium.from.id = "nixelium";

@@ -45,6 +45,7 @@ in
   options.nixelium.profile.dev.enable = mkEnableOption "dev profile";
   options.nixelium.profile.laptop.enable = mkEnableOption "laptop profile";
   options.nixelium.profile.vm.enable = mkEnableOption "VM profile";
+  options.nixelium.system.isVirtual = mkEnableOption "system virtualization";
 
   config = mkMerge [
     {
@@ -150,9 +151,11 @@ in
         "149.112.112.112"
       ];
 
-      nix.extraOptions = concatStringsSep "\n" [ "experimental-features = nix-command flakes" ];
-      nix.gc.automatic = !config.determinateNix.enable;
-      nix.optimise.automatic = !config.determinateNix.enable;
+      nix.extraOptions = concatStringsSep "\n" (
+        optional (!config.determinateNix.enable) "experimental-features = nix-command flakes"
+      );
+      nix.gc.automatic = !config.determinateNix.enable && !config.nixelium.system.isVirtual;
+      nix.optimise.automatic = !config.determinateNix.enable && !config.nixelium.system.isVirtual;
 
       nixpkgs.config = import "${self}/nixpkgs/config.nix";
       nixpkgs.overlays = [
@@ -300,6 +303,10 @@ in
         uid = mkDefault 501;
       };
     }
+
+    (mkIf config.nixelium.profile.vm.enable {
+      nixelium.system.isVirtual = true;
+    })
 
     #(mkIf self.nixosConfigurations.osmium.config.nixelium.build.enable {
     #  nix.buildMachines = [
