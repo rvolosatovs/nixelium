@@ -101,6 +101,7 @@ in
       determinateNix.customSettings.keep-outputs = true;
       determinateNix.customSettings.require-sigs = true;
       determinateNix.customSettings.substituters = substituters;
+      determinateNix.customSettings.use-case-hack = false;
       determinateNix.customSettings.trusted-public-keys = [
         "rvolosatovs.cachix.org-1:eRYUO4OXTSmpDFWu4wX3/X08MsP01baqGKi9GsoAmQ8="
         "nixify.cachix.org-1:95SiUQuf8Ij0hwDweALJsLtnMyv/otZamWNRp1Q1pXw="
