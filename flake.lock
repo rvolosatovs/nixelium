@@ -568,27 +568,6 @@
         "type": "github"
       }
     },
-    "home-manager-unstable": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1777518431,
-        "narHash": "sha256-SwgiG2T5pbyo33Vz7/vUCAhEMgwCK8Pa2nDSx5a6/WE=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "2e54a938cdd4c8e414b2518edc3d82308027c670",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "master",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "ioquake3-mac-install": {
       "flake": false,
       "locked": {
@@ -1255,7 +1234,6 @@
         "firefox-addons": "firefox-addons",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
-        "home-manager-unstable": "home-manager-unstable",
         "ioquake3-mac-install": "ioquake3-mac-install",
         "lanzaboote": "lanzaboote",
         "nix-darwin": "nix-darwin",
