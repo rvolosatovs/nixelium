@@ -1220,21 +1220,21 @@ in
     })
     (mkIf osConfig.nixelium.profile.dev.enable {
       home.packages = [
+        pkgs.bun
         pkgs.claude-code
         pkgs.codex
+        pkgs.deno
+        pkgs.nodejs
 
         pkgs.pkgsUnstable.binaryen
-        pkgs.pkgsUnstable.bun
         pkgs.pkgsUnstable.cargo-flamegraph
         pkgs.pkgsUnstable.cargo-generate
         pkgs.pkgsUnstable.cargo-watch
         pkgs.pkgsUnstable.critcmp
-        pkgs.pkgsUnstable.deno
         pkgs.pkgsUnstable.gemini-cli
         pkgs.pkgsUnstable.gh
         pkgs.pkgsUnstable.github-copilot-cli
         pkgs.pkgsUnstable.hey
-        pkgs.pkgsUnstable.nodejs
         pkgs.pkgsUnstable.pprof
         pkgs.pkgsUnstable.protobuf
         pkgs.pkgsUnstable.rtk
@@ -1281,6 +1281,7 @@ in
         pkgs.qemu
         pkgs.shellcheck
         pkgs.tcpdump
+        pkgs.telegram-desktop
         pkgs.wit-deps
         pkgs.yubikey-manager
         pkgs.yubikey-personalization
@@ -1292,7 +1293,6 @@ in
         pkgs.pkgsUnstable.signal-desktop
         pkgs.pkgsUnstable.slack
         pkgs.pkgsUnstable.spotify
-        pkgs.pkgsUnstable.telegram-desktop
         pkgs.pkgsUnstable.wasmtime
       ];
 
