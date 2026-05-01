@@ -830,9 +830,8 @@ in
       programs.zsh.enableCompletion = false;
       programs.zsh.syntaxHighlighting.enable =
         !(osConfig.programs.zsh.syntaxHighlighting.enable or false);
+      programs.zsh.history.append = true;
       programs.zsh.history.expireDuplicatesFirst = true;
-      programs.zsh.history.ignoreAllDups = true;
-      programs.zsh.history.ignoreDups = true;
       programs.zsh.history.save = osConfig.programs.zsh.histSize or 50000;
       programs.zsh.history.size = osConfig.programs.zsh.histSize or 50000;
       programs.zsh.historySubstringSearch.enable = true;
