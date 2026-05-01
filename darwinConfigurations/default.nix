@@ -1,4 +1,5 @@
 inputs: {
-  darwin-aarch64-vm = import ./darwin-aarch64-vm inputs;
+  aarch64-vm = import ./aarch64-vm inputs;
+
   iridium = import ./iridium inputs;
 }
