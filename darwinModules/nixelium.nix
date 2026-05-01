@@ -51,6 +51,10 @@ in
     {
       determinateNix.enable = true;
       determinateNix.nixosVmBasedLinuxBuilder.enable = true;
+      determinateNix.nixosVmBasedLinuxBuilder.config.virtualisation.darwin-builder.diskSize = 200 * 1024;
+      determinateNix.nixosVmBasedLinuxBuilder.config.virtualisation.cores = 4;
+      determinateNix.nixosVmBasedLinuxBuilder.config.virtualisation.memorySize = mkForce (8 * 1024);
+      determinateNix.nixosVmBasedLinuxBuilder.maxJobs = 4;
 
       environment.enableAllTerminfo = true;
       environment.pathsToLink = [
