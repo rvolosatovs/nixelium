@@ -1259,14 +1259,18 @@ in
           pkgs.rustup
         ];
 
-        home.activation.claudeMcpCodex = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          ${pkgs.claude-code}/bin/claude mcp remove --scope user codex >/dev/null 2>&1 || true
-          ${pkgs.claude-code}/bin/claude mcp add --scope user --transport stdio codex -- codex mcp-server
-        '';
+        home.activation.claude = mkIf (config.home.username == osConfig.users.users.owner.name) (
+          lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            ${pkgs.claude-code}/bin/claude mcp remove --scope user codex >/dev/null 2>&1 || true
+            ${pkgs.claude-code}/bin/claude mcp add --scope user --transport stdio codex -- codex mcp-server
+          ''
+        );
 
-        home.activation.rustup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          ${pkgs.rustup}/bin/rustup default stable
-        '';
+        home.activation.rustup = mkIf (config.home.username == osConfig.users.users.owner.name) (
+          lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            ${pkgs.rustup}/bin/rustup default stable
+          ''
+        );
       }
     )
     (mkIf osConfig.nixelium.profile.laptop.enable {
