@@ -1303,6 +1303,7 @@ in
       home.sessionPath = [
         "$HOME/.cargo/bin"
         "$HOME/.local/bin.go"
+        "$HOME/.lmstudio/bin"
       ];
 
       home.shell.enableBashIntegration = true;
