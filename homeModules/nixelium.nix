@@ -558,7 +558,7 @@ in
       programs.git.settings.status.submoduleSummary = true;
       programs.git.settings.user.email = cfg.user.email;
       programs.git.settings.user.name = cfg.user.fullName;
-      programs.git.signing.key = null; # let gpg decide at runtime
+      programs.git.signing.key = lib.mkDefault null; # let gpg decide at runtime
       programs.git.signing.signByDefault = true;
 
       programs.go.env.GOBIN = "${config.home.homeDirectory}/.local/bin.go";
