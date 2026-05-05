@@ -529,6 +529,7 @@ in
         "AGENTS.md"
         "CLAUDE.md"
         "ehthumbs.db"
+        "GEMINI.md"
         "result"
         "Thumbs.db"
         "token"
