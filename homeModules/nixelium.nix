@@ -1394,6 +1394,7 @@ in
       programs.gemini-cli.settings.agents.browser.blockFileUploads = false;
       programs.gemini-cli.settings.agents.browser.confirmSensitiveActions = false;
       programs.gemini-cli.settings.general.defaultApprovalMode = "auto_edit";
+      programs.gemini-cli.settings.security.auth.selectedType = "oauth-personal";
       programs.gemini-cli.settings.security.autoAddToPolicyByDefault = true;
       programs.gemini-cli.settings.security.disableAlwaysAllow = false;
       programs.gemini-cli.settings.security.disableYoloMode = false;
@@ -1402,6 +1403,7 @@ in
       programs.gemini-cli.settings.security.environmentVariableRedaction.enabled = false;
       programs.gemini-cli.settings.security.folderTrust.enabled = false;
       programs.gemini-cli.settings.security.toolSandboxing = false;
+      programs.gemini-cli.settings.tools.allowed = [ "*" ];
       programs.gemini-cli.settings.tools.disableLLMCorrection = false;
       programs.gemini-cli.settings.tools.sandbox.enabled = false;
       programs.gemini-cli.settings.tools.sandboxNetworkAccess = true;
