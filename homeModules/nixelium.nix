@@ -277,6 +277,9 @@ in
       home.sessionVariables.PYTHON_EGG_CACHE = "${config.xdg.cacheHome}/python-eggs";
       home.sessionVariables.WINEPREFIX = "${config.xdg.dataHome}/wine";
 
+      home.shell.enableBashIntegration = true;
+      home.shell.enableZshIntegration = true;
+
       home.shellAliases."gcf^" = "git commit --fixup HEAD^";
       home.shellAliases.ga = "git add";
       home.shellAliases.gap = "git add -p";
@@ -1234,7 +1237,11 @@ in
       home.packages = [
         pkgs.bun
         pkgs.deno
+        pkgs.kubectl
         pkgs.nodejs
+        pkgs.qemu
+        pkgs.shellcheck
+        pkgs.tcpdump
 
         pkgs.pkgsUnstable.binaryen
         pkgs.pkgsUnstable.cargo-flamegraph
@@ -1251,6 +1258,17 @@ in
         pkgs.pkgsUnstable.uv
         pkgs.pkgsUnstable.wasm-tools
       ];
+
+      home.sessionPath = [
+        "$HOME/.cargo/bin"
+        "$HOME/.local/bin.go"
+        "$HOME/.lmstudio/bin"
+      ];
+
+      home.shellAliases.k = "kubectl";
+      home.shellAliases.ka = "kubectl apply";
+      home.shellAliases.kaf = "kubectl apply -f";
+      home.shellAliases.kd = "kubectl get deployments";
 
       programs.claude-code.enable = true;
       programs.claude-code.mcpServers.codex.args = [ "mcp-server" ];
@@ -1280,6 +1298,9 @@ in
       programs.codex.enable = true;
 
       programs.gemini-cli.enable = true;
+
+      programs.go.enable = true;
+      programs.go.package = pkgs.pkgsUnstable.go;
     })
     (mkIf (osConfig.nixelium.profile.dev.enable && pkgs.stdenv.hostPlatform.isLinux) {
       home.packages = [
@@ -1366,11 +1387,7 @@ in
         pkgs.android-tools
         pkgs.avrdude
         pkgs.google-cloud-sdk
-        pkgs.kubectl
         pkgs.minikube
-        pkgs.qemu
-        pkgs.shellcheck
-        pkgs.tcpdump
         pkgs.telegram-desktop
         pkgs.wit-deps
         pkgs.yubikey-manager
@@ -1386,19 +1403,6 @@ in
         pkgs.pkgsUnstable.wasmtime
       ];
 
-      home.sessionPath = [
-        "$HOME/.cargo/bin"
-        "$HOME/.local/bin.go"
-        "$HOME/.lmstudio/bin"
-      ];
-
-      home.shell.enableBashIntegration = true;
-      home.shell.enableZshIntegration = true;
-
-      home.shellAliases.k = "kubectl";
-      home.shellAliases.ka = "kubectl apply";
-      home.shellAliases.kaf = "kubectl apply -f";
-      home.shellAliases.kd = "kubectl get deployments";
       home.shellAliases.mk = "minikube kubectl --";
       home.shellAliases.mka = "minikube kubectl -- apply";
       home.shellAliases.mkaf = "minikube kubectl -- apply -f";
@@ -1469,9 +1473,6 @@ in
           }
         }
       '';
-
-      programs.go.enable = true;
-      programs.go.package = pkgs.pkgsUnstable.go;
 
       programs.kitty.enable = true;
       programs.mpv.enable = true;
