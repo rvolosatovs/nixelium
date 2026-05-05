@@ -191,6 +191,10 @@ in
     visible = false;
     default = schemes.${cfg.base16.theme}.base0F;
   };
+  options.nixelium.profile.unrestricted-ai.enable = mkEnableOption ''
+    coding-agent CLIs (Claude Code, Codex, Gemini) running in their least-restrictive
+    modes — bypass permissions, full filesystem access, no per-tool prompts. Only enable
+    on disposable hosts (VMs, sandboxes) where there is no host state worth protecting'';
   config = mkMerge [
     {
       gtk.colorScheme = "dark";
@@ -227,6 +231,7 @@ in
       gtk.gtk3.extraConfig.gtk-xft-hinting = 1;
       gtk.gtk3.extraConfig.gtk-xft-hintstyle = "hintslight";
       gtk.gtk3.extraConfig.gtk-xft-rgba = "rgb";
+
       home.keyboard.layout = "lv,ru";
       home.keyboard.options = [
         "eurosign:5"
@@ -353,6 +358,10 @@ in
         "klbibkeccnjlkjkiokjodocebajanakg" # great suspender
       ];
 
+      programs.claude-code.package = pkgs.claude-code;
+
+      programs.codex.package = pkgs.codex;
+
       programs.delta.enable = true;
       programs.delta.enableGitIntegration = true;
       programs.delta.options.syntax-theme = "base16";
@@ -478,7 +487,7 @@ in
       programs.dircolors.settings.ln = "01;36";
       programs.dircolors.settings.mh = "00";
       programs.dircolors.settings.mi = "00";
-      programs.dircolors.settings.or = "40;31;01";
+      programs.dircolors.settings."or" = "40;31;01";
       programs.dircolors.settings.ow = "34;42";
       programs.dircolors.settings.pi = "40;33";
       programs.dircolors.settings.rs = "0";
@@ -498,6 +507,8 @@ in
       programs.eza.enableZshIntegration = true;
       programs.eza.extraOptions = [ "--group" ];
       programs.eza.git = true;
+
+      programs.gemini-cli.package = pkgs.pkgsUnstable.gemini-cli;
 
       programs.git.enable = true;
       programs.git.ignores = [
@@ -1222,8 +1233,6 @@ in
     (mkIf osConfig.nixelium.profile.dev.enable {
       home.packages = [
         pkgs.bun
-        pkgs.claude-code
-        pkgs.codex
         pkgs.deno
         pkgs.nodejs
 
@@ -1232,7 +1241,6 @@ in
         pkgs.pkgsUnstable.cargo-generate
         pkgs.pkgsUnstable.cargo-watch
         pkgs.pkgsUnstable.critcmp
-        pkgs.pkgsUnstable.gemini-cli
         pkgs.pkgsUnstable.gh
         pkgs.pkgsUnstable.github-copilot-cli
         pkgs.pkgsUnstable.hey
@@ -1243,6 +1251,35 @@ in
         pkgs.pkgsUnstable.uv
         pkgs.pkgsUnstable.wasm-tools
       ];
+
+      programs.claude-code.enable = true;
+      programs.claude-code.mcpServers.codex.args = [ "mcp-server" ];
+      programs.claude-code.mcpServers.codex.command = "${pkgs.codex}/bin/codex";
+      programs.claude-code.mcpServers.codex.type = "stdio";
+      programs.claude-code.settings.editorMode = "vim";
+      programs.claude-code.settings.enabledPlugins."clangd-lsp@claude-plugins-official" = true;
+      programs.claude-code.settings.enabledPlugins."context7@claude-plugins-official" = true;
+      programs.claude-code.settings.enabledPlugins."octo@nyldn-plugins" = true;
+      programs.claude-code.settings.enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
+      programs.claude-code.settings.enabledPlugins."swift-lsp@claude-plugins-official" = true;
+      programs.claude-code.settings.extraKnownMarketplaces.nyldn-plugins.source.source = "git";
+      programs.claude-code.settings.extraKnownMarketplaces.nyldn-plugins.source.url =
+        "https://github.com/nyldn/claude-octopus.git";
+      programs.claude-code.settings.hooks.PreToolUse = [
+        {
+          matcher = "Bash";
+          hooks = [
+            {
+              type = "command";
+              command = "${pkgs.pkgsUnstable.rtk}/bin/rtk hook claude";
+            }
+          ];
+        }
+      ];
+
+      programs.codex.enable = true;
+
+      programs.gemini-cli.enable = true;
     })
     (mkIf (osConfig.nixelium.profile.dev.enable && pkgs.stdenv.hostPlatform.isLinux) {
       home.packages = [
@@ -1264,16 +1301,64 @@ in
           pkgs.rustup
         ];
 
-        home.activation.claude = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          ${pkgs.claude-code}/bin/claude mcp remove --scope user codex >/dev/null 2>&1 || true
-          ${pkgs.claude-code}/bin/claude mcp add --scope user --transport stdio codex -- codex mcp-server
-        '';
-
         home.activation.rustup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
           ${pkgs.rustup}/bin/rustup default stable
         '';
       }
     )
+    (mkIf cfg.profile.unrestricted-ai.enable {
+      # Gemini loads any *.toml under ~/.gemini/policies/.
+      home.file.".gemini/policies/unrestricted.toml".text = ''
+        [[rule]]
+        toolName = "*"
+        decision = "allow"
+        priority = 100
+      '';
+
+      home.shellAliases.gemini = "gemini --approval-mode=yolo";
+
+      programs.codex.settings.approval_policy = "never";
+      programs.codex.settings.features.codex_hooks = true;
+      programs.codex.settings.model = "gpt-5.5";
+      programs.codex.settings.model_reasoning_effort = "xhigh";
+      programs.codex.settings.notice.model_migrations."gpt-5.3-codex" = "gpt-5.4";
+      programs.codex.settings.oss_provider = "lmstudio";
+      programs.codex.settings.projects.${config.home.homeDirectory}.trust_level = "trusted";
+      programs.codex.settings.sandbox_mode = "danger-full-access";
+      programs.codex.settings.shell_environment_policy.ignore_default_excludes = true;
+      programs.codex.settings.shell_environment_policy."inherit" = "all";
+      programs.codex.settings.tui.model_availability_nux."gpt-5.5" = 4;
+      programs.codex.settings.tui.status_line = [
+        "model-with-reasoning"
+        "current-dir"
+        "git-branch"
+        "context-remaining"
+        "five-hour-limit"
+        "weekly-limit"
+        "context-window-size"
+        "used-tokens"
+        "session-id"
+      ];
+
+      programs.claude-code.settings.env.CLAUDE_CODE_SANDBOXED = "1";
+      programs.claude-code.settings.permissions.defaultMode = "bypassPermissions";
+      programs.claude-code.settings.skipDangerousModePermissionPrompt = true;
+
+      programs.gemini-cli.settings.agents.browser.blockFileUploads = false;
+      programs.gemini-cli.settings.agents.browser.confirmSensitiveActions = false;
+      programs.gemini-cli.settings.general.defaultApprovalMode = "auto_edit";
+      programs.gemini-cli.settings.security.autoAddToPolicyByDefault = true;
+      programs.gemini-cli.settings.security.disableAlwaysAllow = false;
+      programs.gemini-cli.settings.security.disableYoloMode = false;
+      programs.gemini-cli.settings.security.enableConseca = false;
+      programs.gemini-cli.settings.security.enablePermanentToolApproval = true;
+      programs.gemini-cli.settings.security.environmentVariableRedaction.enabled = false;
+      programs.gemini-cli.settings.security.folderTrust.enabled = false;
+      programs.gemini-cli.settings.security.toolSandboxing = false;
+      programs.gemini-cli.settings.tools.disableLLMCorrection = false;
+      programs.gemini-cli.settings.tools.sandbox.enabled = false;
+      programs.gemini-cli.settings.tools.sandboxNetworkAccess = true;
+    })
     (mkIf osConfig.nixelium.profile.laptop.enable {
       home.packages = [
         rust

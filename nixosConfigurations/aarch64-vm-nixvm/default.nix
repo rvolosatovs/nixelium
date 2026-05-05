@@ -20,6 +20,8 @@ nixpkgs-nixos.lib.nixosSystem {
         nixelium.profile.dev.enable = true;
         nixelium.profile.vm.enable = true;
 
+        home-manager.users.owner.nixelium.profile.unrestricted-ai.enable = true;
+
         nixvm.guest.rootSize = "128G";
 
         services.getty.autologinUser = config.users.users.owner.name;
