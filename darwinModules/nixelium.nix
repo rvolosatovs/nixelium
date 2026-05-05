@@ -186,12 +186,6 @@ in
 
       services.skhd.enable = true;
       services.skhd.skhdConfig = ''
-        # NOTE: First six are handled by MacOS, set the config manually
-        ctrl - 7                : ${config.services.yabai.package}/bin/yabai -m space --focus 7
-        ctrl - 8                : ${config.services.yabai.package}/bin/yabai -m space --focus 8
-        ctrl - 9                : ${config.services.yabai.package}/bin/yabai -m space --focus 9
-        ctrl - 0                : ${config.services.yabai.package}/bin/yabai -m space --focus 10
-
         ctrl + shift - 1        : ${config.services.yabai.package}/bin/yabai -m window --space 1
         ctrl + shift - 2        : ${config.services.yabai.package}/bin/yabai -m window --space 2
         ctrl + shift - 3        : ${config.services.yabai.package}/bin/yabai -m window --space 3
