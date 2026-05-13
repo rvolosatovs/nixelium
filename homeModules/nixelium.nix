@@ -1388,7 +1388,6 @@ in
         pkgs.avrdude
         pkgs.google-cloud-sdk
         pkgs.minikube
-        pkgs.telegram-desktop
         pkgs.wit-deps
         pkgs.yubikey-manager
         pkgs.yubikey-personalization
@@ -1503,6 +1502,7 @@ in
         pkgs.ydotool
 
         pkgs.pkgsUnstable.bpftools
+        pkgs.pkgsUnstable.telegram-desktop
       ];
 
       programs.chromium.enable = true;

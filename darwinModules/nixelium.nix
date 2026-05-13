@@ -84,6 +84,7 @@ in
         "lm-studio" # TODO: switch to nixpkgs (currently broken: aarch64-darwin stable marked broken, unstable fails on codesign --deep)
         "mac-mouse-fix"
         "notunes"
+        "telegram-desktop"
         "thunderbird" # TODO: switch to nixpkgs
       ];
       homebrew.caskArgs.require_sha = true;
