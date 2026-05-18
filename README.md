@@ -1,10 +1,10 @@
-# Network infrastructure à la Roman
+# Nix-powered Linux and Darwin systems
 
 ## Architecture
 
 - `checks` contains tests to run with `nix flake check`
 - `darwinConfigurations` contains all Darwin system definitions
-    - `iridium` - company Mac I curently use for dev work
+    - `iridium` - MacBook Pro (M5 Max)
 - `darwinModules` contains all Darwin modules
 - `homeModules` contains all home-manager modules
 - `nixosConfigurations` contains all NixOS system definitions
