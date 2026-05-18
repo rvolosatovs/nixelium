@@ -1208,6 +1208,7 @@ in
         pkgs.pkgsUnstable.docker
         pkgs.pkgsUnstable.lima
         pkgs.pkgsUnstable.podman
+        pkgs.pkgsUnstable.teams
         pkgs.pkgsUnstable.utm
       ];
 
