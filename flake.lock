@@ -1039,6 +1039,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-kitty": {
+      "locked": {
+        "lastModified": 1779355156,
+        "narHash": "sha256-3Zz6xBABrQyhb4sOfSFMNG1lkGxgT6P6raUOC5PNhCA=",
+        "owner": "rvolosatovs",
+        "repo": "nixpkgs",
+        "rev": "89c724818d7210af0c580848760347ba5fc95525",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rvolosatovs",
+        "repo": "nixpkgs",
+        "rev": "89c724818d7210af0c580848760347ba5fc95525",
+        "type": "github"
+      }
+    },
     "nixpkgs-nixos": {
       "locked": {
         "lastModified": 1779102034,
@@ -1242,6 +1258,7 @@
         "nixlib": "nixlib_3",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs-darwin": "nixpkgs-darwin",
+        "nixpkgs-kitty": "nixpkgs-kitty",
         "nixpkgs-nixos": "nixpkgs-nixos",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvm": "nixvm",

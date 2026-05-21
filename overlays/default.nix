@@ -4,6 +4,7 @@ inputs@{
   fenix,
   firefox-addons,
   nixlib,
+  nixpkgs-kitty,
   nixpkgs-unstable,
   slack-darwin-aarch64,
   spotify-darwin-aarch64,
@@ -76,16 +77,28 @@ let
       });
     };
 
+  overlays = [
+    slack
+    spotify
+  ];
+
   pkgsUnstable = final: prev: {
-    pkgsUnstable = importNixpkgs nixpkgs-unstable [
-      slack
-      spotify
-    ] final prev;
+    pkgsUnstable = importNixpkgs nixpkgs-unstable overlays final prev;
   };
 
   unstable = final: prev: {
     lima = prev.pkgsUnstable.lima;
     nerdctl = prev.pkgsUnstable.nerdctl;
+
+    # TODO: Remove
+    kitty =
+      let
+        pkgs = importNixpkgs nixpkgs-kitty overlays final prev;
+      in
+      if versionOlder pkgs.kitty.version prev.kitty.version then
+        warn "nixpkgs provides kitty ${prev.kitty.version}, ignoring override" prev.kitty
+      else
+        pkgs.kitty;
   };
 in
 {
