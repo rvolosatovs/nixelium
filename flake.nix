@@ -42,7 +42,7 @@
   inputs.firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs-nixos";
-  inputs.home-manager.url = "github:nix-community/home-manager/release-25.11";
+  inputs.home-manager.url = "github:nix-community/home-manager/release-26.05";
   inputs.ioquake3-mac-install.flake = false;
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
   inputs.lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0";
