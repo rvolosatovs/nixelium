@@ -12,7 +12,7 @@ runs:
       extra-conf: |
         accept-flake-config = true
 
-  - uses: DeterminateSystems/magic-nix-cache-action@565684385bcd71bad329742eefe8d12f2e765b39 # v13
+  - uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
 
   - uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
     continue-on-error: true
