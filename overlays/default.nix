@@ -55,10 +55,6 @@ let
     neovim = final.wrapNeovim final.neovim-unwrapped (import ./neovim inputs final);
   };
 
-  rust-analyzer = final: prev: {
-    inherit (fenix.packages.${prev.stdenv.hostPlatform.system}) rust-analyzer;
-  };
-
   slack =
     final: prev:
     optionalAttrs (prev.stdenv.hostPlatform.isDarwin && prev.stdenv.hostPlatform.isAarch64) {
@@ -110,7 +106,6 @@ in
     install
     pkgsUnstable
     quake3
-    rust-analyzer
     scripts
     unstable
     ;
@@ -125,7 +120,6 @@ in
     pkgsUnstable
 
     fenix.overlays.default
-    rust-analyzer
 
     firefox
     firefox-addons'
