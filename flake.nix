@@ -55,7 +55,7 @@
   inputs.nixify.url = "github:rvolosatovs/nixify";
   inputs.nixlib.url = "github:nix-community/nixpkgs.lib";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
-  inputs.nixpkgs-kitty.url = "github:rvolosatovs/nixpkgs/89c724818d7210af0c580848760347ba5fc95525";
+  inputs.nixpkgs-kitty.url = "github:NixOS/nixpkgs/56e52bc01e46bed49434b22d910d5becdb716fac";
   inputs.nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
   inputs.nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-26.05";
   inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
