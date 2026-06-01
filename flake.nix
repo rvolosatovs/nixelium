@@ -47,7 +47,7 @@
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
   inputs.lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0";
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
-  inputs.nix-darwin.url = "github:rvolosatovs/nix-darwin/nix-darwin-26.05";
+  inputs.nix-darwin.url = "github:nix-darwin/nix-darwin/a41d518ea85b68d6555d0b6827f82896ad17f837"; # TODO: switch to branch
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
   inputs.nixify.inputs.nixlib.follows = "nixlib";
   inputs.nixify.inputs.nixpkgs-darwin.follows = "nixpkgs-darwin";
