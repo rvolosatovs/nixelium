@@ -363,6 +363,18 @@ vim.lsp.config.rust_analyzer = {
                 },
                 preferNoStd = true,
             },
+            lens = {
+                enable = true,
+                run = { enable = true },
+                debug = { enable = true },
+                implementations = { enable = false },
+                references = {
+                    adt = { enable = false },
+                    enumVariant = { enable = false },
+                    method = { enable = false },
+                    trait = { enable = true },
+                },
+            },
             inlayHints = {
                 closureCaptureHints = {
                     enable = true,
