@@ -232,6 +232,8 @@ in
       gtk.gtk3.extraConfig.gtk-xft-hintstyle = "hintslight";
       gtk.gtk3.extraConfig.gtk-xft-rgba = "rgb";
 
+      gtk.gtk4.theme = config.gtk.theme;
+
       home.keyboard.layout = "lv,ru";
       home.keyboard.options = [
         "eurosign:5"
@@ -666,6 +668,8 @@ in
       programs.neovim.viAlias = true;
       programs.neovim.vimAlias = true;
       programs.neovim.vimdiffAlias = true;
+      programs.neovim.withPython3 = false;
+      programs.neovim.withRuby = false;
 
       programs.password-store.package = pkgs.gopass;
       programs.password-store.settings.PASSWORD_STORE_DIR = "${config.xdg.dataHome}/password-store";
