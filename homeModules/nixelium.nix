@@ -796,7 +796,7 @@ in
       programs.waybar.settings.default.pulseaudio.on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
       programs.waybar.settings.default.tray.spacing = 10;
 
-      programs.waybar.systemd.enable = true; # TODO: Enable
+      programs.waybar.systemd.enable = true;
       programs.waybar.systemd.targets = [ "sway-session.target" ];
 
       programs.zathura.options.completion-bg = "#${cfg.base16.colors.base02}";
