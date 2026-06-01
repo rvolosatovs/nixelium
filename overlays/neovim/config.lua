@@ -8,7 +8,7 @@ local mini_base16 = require('mini.base16')
 local mini_bracketed = require('mini.bracketed')
 local mini_pairs = require('mini.pairs')
 local mini_surround = require('mini.surround')
-local treesitter = require('nvim-treesitter.configs')
+local treesitter = require('nvim-treesitter.config')
 
 --- Filetypes
 
