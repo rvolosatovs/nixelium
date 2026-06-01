@@ -410,14 +410,10 @@ in
       location.latitude = mkDefault 46.3;
       location.longitude = mkDefault 7.5;
 
-      programs.adb.enable = true;
-
       programs.dconf.enable = true;
 
       programs.gamescope.capSysNice = true;
       programs.gamescope.enable = true;
-
-      programs.light.enable = true;
 
       programs.steam.dedicatedServer.openFirewall = true;
       programs.steam.enable = true;
