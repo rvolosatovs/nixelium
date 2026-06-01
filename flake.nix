@@ -83,6 +83,8 @@
     with nixify.lib;
     let
       flake = mkFlake {
+        nixpkgsConfig = import ./nixpkgs/config.nix;
+
         withOverlays = { overlays, ... }: overlays // import ./overlays inputs;
         overlays = [
           self.overlays.default
