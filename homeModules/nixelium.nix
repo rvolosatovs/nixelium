@@ -1396,6 +1396,7 @@ in
         pkgs.yubikey-manager
         pkgs.yubikey-personalization
 
+        pkgs.pkgsUnstable.discord
         pkgs.pkgsUnstable.nats-server
         pkgs.pkgsUnstable.natscli
         pkgs.pkgsUnstable.podman-compose
