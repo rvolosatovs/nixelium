@@ -709,16 +709,15 @@ in
 
       programs.ssh.enable = true;
       programs.ssh.enableDefaultConfig = false;
-      programs.ssh.matchBlocks."*".compression = true;
-      programs.ssh.matchBlocks."*".serverAliveInterval = 5;
-      programs.ssh.matchBlocks."*.labs.overthewire.org".extraOptions.SendEnv = "OTWUSERDIR";
-      programs.ssh.matchBlocks."github.com".extraOptions.Ciphers =
+      programs.ssh.settings."*".Compression = true;
+      programs.ssh.settings."*".ServerAliveInterval = 5;
+      programs.ssh.settings."*.labs.overthewire.org".SendEnv = "OTWUSERDIR";
+      programs.ssh.settings."github.com".Ciphers =
         "chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc";
-      programs.ssh.matchBlocks."github.com".extraOptions.KexAlgorithms =
+      programs.ssh.settings."github.com".KexAlgorithms =
         "curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1";
-      programs.ssh.matchBlocks."github.com".extraOptions.MACs = "hmac-sha2-256,hmac-sha2-512,hmac-sha1";
-      programs.ssh.matchBlocks."windows-aarch64-vm.ghost-ordinal.ts.net".extraOptions.SetEnv =
-        "TERM=xterm-256color";
+      programs.ssh.settings."github.com".MACs = "hmac-sha2-256,hmac-sha2-512,hmac-sha1";
+      programs.ssh.settings."windows-aarch64-vm.ghost-ordinal.ts.net".SetEnv.TERM = "xterm-256color";
 
       programs.thunderbird.profiles.main.isDefault = true;
       programs.thunderbird.profiles.main.withExternalGnupg = true;
@@ -794,7 +793,7 @@ in
       programs.waybar.settings.default.tray.spacing = 10;
 
       programs.waybar.systemd.enable = true; # TODO: Enable
-      programs.waybar.systemd.target = "sway-session.target";
+      programs.waybar.systemd.targets = [ "sway-session.target" ];
 
       programs.zathura.options.completion-bg = "#${cfg.base16.colors.base02}";
       programs.zathura.options.completion-fg = "#${cfg.base16.colors.base0C}";
