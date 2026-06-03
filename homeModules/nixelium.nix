@@ -1324,6 +1324,8 @@ in
       programs.github-copilot-cli.enable = true;
 
       programs.go.enable = true;
+
+      programs.mcp.enable = true;
     })
     (mkIf (osConfig.nixelium.profile.dev.enable && pkgs.stdenv.hostPlatform.isLinux) {
       home.packages = [ pkgs.pkgsUnstable.python3 ];
