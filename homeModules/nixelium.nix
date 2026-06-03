@@ -363,7 +363,7 @@ in
       programs.claude-code.context = ''
         @${pkgs.pkgsUnstable.rtk-init}/.claude/CLAUDE.md
 
-        ${readFile ./agents/policy.md}
+        ${readFile ../agents/policy.md}
       '';
       programs.claude-code.enableMcpIntegration = true;
       programs.claude-code.settings =
@@ -386,7 +386,7 @@ in
       programs.codex.context = ''
         @${pkgs.pkgsUnstable.rtk-init}/.codex/AGENTS.md
 
-        ${readFile ./agents/policy.md}
+        ${readFile ../agents/policy.md}
       '';
       programs.codex.package = pkgs.codex;
 
@@ -539,20 +539,17 @@ in
       programs.github-copilot-cli.context = ''
         ${readFile "${pkgs.pkgsUnstable.rtk-init}/.github/copilot-instructions.md"}
 
-        ${readFile ./agents/policy.md}
+        ${readFile ../agents/policy.md}
       '';
       programs.github-copilot-cli.enableMcpIntegration = true;
       programs.github-copilot-cli.package = pkgs.pkgsUnstable.github-copilot-cli;
-      programs.github-copilot-cli.settings = importJSON "${pkgs.pkgsUnstable.rtk-init}/.github/hooks/rtk-rewrite.json";
 
       programs.gemini-cli.context.GEMINI = ''
         ${readFile "${pkgs.pkgsUnstable.rtk-init}/.gemini/GEMINI.md"}
 
-        ${readFile ./agents/policy.md}
+        ${readFile ../agents/policy.md}
       '';
-      programs.gemini-cli.enableMcpIntegration = true;
       programs.gemini-cli.package = pkgs.pkgsUnstable.gemini-cli;
-      programs.gemini-cli.settings = importJSON "${pkgs.pkgsUnstable.rtk-init}/.gemini/settings.json";
 
       programs.git.enable = true;
       programs.git.ignores = [
@@ -578,6 +575,7 @@ in
         ".DS_Store"
         ".DS_Store?"
         ".envrc*"
+        ".github/copilot-instructions.md"
         ".Spotlight-V100"
         ".Trashes"
         ".vscode"
