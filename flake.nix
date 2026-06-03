@@ -134,6 +134,7 @@
               #install-iso-x86_64-linux
               neovim
               partition-osmium
+              rtk-init
               ssh-for-each
               ;
           };
