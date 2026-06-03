@@ -366,21 +366,26 @@ in
         ${readFile ../agents/policy.md}
       '';
       programs.claude-code.enableMcpIntegration = true;
-      programs.claude-code.settings =
-        let
-          rtk = importJSON "${pkgs.pkgsUnstable.rtk-init}/.claude/settings.json";
-        in
-        rtk
-        // {
-          editorMode = "vim";
-          enabledPlugins."clangd-lsp@claude-plugins-official" = true;
-          enabledPlugins."context7@claude-plugins-official" = true;
-          enabledPlugins."octo@nyldn-plugins" = true;
-          enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
-          enabledPlugins."swift-lsp@claude-plugins-official" = true;
-          extraKnownMarketplaces.nyldn-plugins.source.source = "git";
-          extraKnownMarketplaces.nyldn-plugins.source.url = "https://github.com/nyldn/claude-octopus.git";
-        };
+      programs.claude-code.settings.editorMode = "vim";
+      programs.claude-code.settings.enabledPlugins."clangd-lsp@claude-plugins-official" = true;
+      programs.claude-code.settings.enabledPlugins."context7@claude-plugins-official" = true;
+      programs.claude-code.settings.enabledPlugins."octo@nyldn-plugins" = true;
+      programs.claude-code.settings.enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
+      programs.claude-code.settings.enabledPlugins."swift-lsp@claude-plugins-official" = true;
+      programs.claude-code.settings.extraKnownMarketplaces.nyldn-plugins.source.source = "git";
+      programs.claude-code.settings.extraKnownMarketplaces.nyldn-plugins.source.url =
+        "https://github.com/nyldn/claude-octopus.git";
+      programs.claude-code.settings.hooks.PreToolUse = [
+        {
+          matcher = "Bash";
+          hooks = [
+            {
+              type = "command";
+              command = "${pkgs.pkgsUnstable.rtk}/bin/rtk hook claude";
+            }
+          ];
+        }
+      ];
       programs.claude-code.package = pkgs.claude-code;
 
       programs.codex.context = ''
@@ -536,19 +541,17 @@ in
       programs.eza.extraOptions = [ "--group" ];
       programs.eza.git = true;
 
-      programs.github-copilot-cli.context = ''
-        ${readFile "${pkgs.pkgsUnstable.rtk-init}/.github/copilot-instructions.md"}
-
-        ${readFile ../agents/policy.md}
-      '';
+      programs.github-copilot-cli.context = "${pkgs.concatText "copilot-instructions.md" [
+        "${pkgs.pkgsUnstable.rtk-init}/.github/copilot-instructions.md"
+        ../agents/policy.md
+      ]}";
       programs.github-copilot-cli.enableMcpIntegration = true;
       programs.github-copilot-cli.package = pkgs.pkgsUnstable.github-copilot-cli;
 
-      programs.gemini-cli.context.GEMINI = ''
-        ${readFile "${pkgs.pkgsUnstable.rtk-init}/.gemini/GEMINI.md"}
-
-        ${readFile ../agents/policy.md}
-      '';
+      home.file.".gemini/GEMINI.md".source = pkgs.concatText "GEMINI.md" [
+        "${pkgs.pkgsUnstable.rtk-init}/.gemini/GEMINI.md"
+        ../agents/policy.md
+      ];
       programs.gemini-cli.package = pkgs.pkgsUnstable.gemini-cli;
 
       programs.git.enable = true;
