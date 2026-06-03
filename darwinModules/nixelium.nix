@@ -307,9 +307,7 @@ in
       };
     }
 
-    (mkIf config.nixelium.profile.vm.enable {
-      nixelium.system.isVirtual = true;
-    })
+    (mkIf config.nixelium.profile.vm.enable { nixelium.system.isVirtual = true; })
 
     #(mkIf self.nixosConfigurations.osmium.config.nixelium.build.enable {
     #  nix.buildMachines = [

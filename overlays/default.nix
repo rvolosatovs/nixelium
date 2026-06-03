@@ -25,6 +25,7 @@ let
   infrastructure = import ./infrastructure.nix inputs;
   install = import ./install.nix inputs;
   quake3 = import ./quake3.nix inputs;
+  rtk = import ./rtk.nix inputs;
   scripts = import ./scripts.nix inputs;
 
   firefox-addons' = final: prev: {
@@ -74,13 +75,12 @@ let
     };
 
   overlays = [
+    rtk
     slack
     spotify
   ];
 
-  pkgsUnstable = final: prev: {
-    pkgsUnstable = importNixpkgs nixpkgs-unstable overlays final prev;
-  };
+  pkgsUnstable = final: prev: { pkgsUnstable = importNixpkgs nixpkgs-unstable overlays final prev; };
 
   unstable = final: prev: {
     lima = prev.pkgsUnstable.lima;
@@ -106,6 +106,7 @@ in
     install
     pkgsUnstable
     quake3
+    rtk
     scripts
     unstable
     ;
@@ -129,6 +130,7 @@ in
 
     infrastructure
     install
+    rtk
     scripts
 
     images

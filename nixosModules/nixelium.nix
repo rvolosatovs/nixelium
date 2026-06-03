@@ -567,8 +567,6 @@ in
       systemd.services.audio-off.wantedBy = [ "sleep.target" ];
     })
 
-    (mkIf cfg.profile.vm.enable {
-      nixelium.system.isVirtual = true;
-    })
+    (mkIf cfg.profile.vm.enable { nixelium.system.isVirtual = true; })
   ];
 }

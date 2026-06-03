@@ -1,8 +1,4 @@
-{
-  base16-shell,
-  nixlib,
-  ...
-}:
+{ base16-shell, nixlib, ... }:
 {
   config,
   lib,
@@ -11,6 +7,7 @@
   ...
 }:
 with nixlib.lib;
+with builtins;
 let
   headphones = "70:26:05:CF:7F:C2";
 
@@ -363,8 +360,34 @@ in
         "klbibkeccnjlkjkiokjodocebajanakg" # great suspender
       ];
 
+      programs.claude-code.context = ''
+        @${pkgs.pkgsUnstable.rtk-init}/.claude/CLAUDE.md
+
+        ${readFile ./agents/policy.md}
+      '';
+      programs.claude-code.enableMcpIntegration = true;
+      programs.claude-code.settings =
+        let
+          rtk = importJSON "${pkgs.pkgsUnstable.rtk-init}/.claude/settings.json";
+        in
+        rtk
+        // {
+          editorMode = "vim";
+          enabledPlugins."clangd-lsp@claude-plugins-official" = true;
+          enabledPlugins."context7@claude-plugins-official" = true;
+          enabledPlugins."octo@nyldn-plugins" = true;
+          enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
+          enabledPlugins."swift-lsp@claude-plugins-official" = true;
+          extraKnownMarketplaces.nyldn-plugins.source.source = "git";
+          extraKnownMarketplaces.nyldn-plugins.source.url = "https://github.com/nyldn/claude-octopus.git";
+        };
       programs.claude-code.package = pkgs.claude-code;
 
+      programs.codex.context = ''
+        @${pkgs.pkgsUnstable.rtk-init}/.codex/AGENTS.md
+
+        ${readFile ./agents/policy.md}
+      '';
       programs.codex.package = pkgs.codex;
 
       programs.delta.enable = true;
@@ -513,7 +536,23 @@ in
       programs.eza.extraOptions = [ "--group" ];
       programs.eza.git = true;
 
+      programs.github-copilot-cli.context = ''
+        ${readFile "${pkgs.pkgsUnstable.rtk-init}/.github/copilot-instructions.md"}
+
+        ${readFile ./agents/policy.md}
+      '';
+      programs.github-copilot-cli.enableMcpIntegration = true;
+      programs.github-copilot-cli.package = pkgs.pkgsUnstable.github-copilot-cli;
+      programs.github-copilot-cli.settings = importJSON "${pkgs.pkgsUnstable.rtk-init}/.github/hooks/rtk-rewrite.json";
+
+      programs.gemini-cli.context.GEMINI = ''
+        ${readFile "${pkgs.pkgsUnstable.rtk-init}/.gemini/GEMINI.md"}
+
+        ${readFile ./agents/policy.md}
+      '';
+      programs.gemini-cli.enableMcpIntegration = true;
       programs.gemini-cli.package = pkgs.pkgsUnstable.gemini-cli;
+      programs.gemini-cli.settings = importJSON "${pkgs.pkgsUnstable.rtk-init}/.gemini/settings.json";
 
       programs.git.enable = true;
       programs.git.ignores = [
@@ -579,6 +618,7 @@ in
       programs.git.signing.signByDefault = true;
 
       programs.go.env.GOBIN = "${config.home.homeDirectory}/.local/bin.go";
+      programs.go.package = pkgs.pkgsUnstable.go;
 
       programs.gpg.enable = true;
       programs.gpg.scdaemonSettings.disable-ccid = true;
@@ -660,6 +700,10 @@ in
       programs.kitty.settings.bold_font = "Fira Code Bold";
       programs.kitty.shellIntegration.mode = "no-cursor";
       programs.kitty.themeFile = "Tomorrow_Night";
+
+      programs.mcp.servers.codex.args = [ "mcp-server" ];
+      programs.mcp.servers.codex.command = "${pkgs.codex}/bin/codex";
+      programs.mcp.servers.codex.type = "stdio";
 
       programs.mpv.config.alang = "eng,en,rus,ru";
 
@@ -1253,7 +1297,6 @@ in
         pkgs.pkgsUnstable.cargo-watch
         pkgs.pkgsUnstable.critcmp
         pkgs.pkgsUnstable.gh
-        pkgs.pkgsUnstable.github-copilot-cli
         pkgs.pkgsUnstable.hey
         pkgs.pkgsUnstable.pprof
         pkgs.pkgsUnstable.protobuf
@@ -1275,41 +1318,17 @@ in
       home.shellAliases.kd = "kubectl get deployments";
 
       programs.claude-code.enable = true;
-      programs.claude-code.mcpServers.codex.args = [ "mcp-server" ];
-      programs.claude-code.mcpServers.codex.command = "${pkgs.codex}/bin/codex";
-      programs.claude-code.mcpServers.codex.type = "stdio";
-      programs.claude-code.settings.editorMode = "vim";
-      programs.claude-code.settings.enabledPlugins."clangd-lsp@claude-plugins-official" = true;
-      programs.claude-code.settings.enabledPlugins."context7@claude-plugins-official" = true;
-      programs.claude-code.settings.enabledPlugins."octo@nyldn-plugins" = true;
-      programs.claude-code.settings.enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
-      programs.claude-code.settings.enabledPlugins."swift-lsp@claude-plugins-official" = true;
-      programs.claude-code.settings.extraKnownMarketplaces.nyldn-plugins.source.source = "git";
-      programs.claude-code.settings.extraKnownMarketplaces.nyldn-plugins.source.url =
-        "https://github.com/nyldn/claude-octopus.git";
-      programs.claude-code.settings.hooks.PreToolUse = [
-        {
-          matcher = "Bash";
-          hooks = [
-            {
-              type = "command";
-              command = "${pkgs.pkgsUnstable.rtk}/bin/rtk hook claude";
-            }
-          ];
-        }
-      ];
 
       programs.codex.enable = true;
 
       programs.gemini-cli.enable = true;
 
+      programs.github-copilot-cli.enable = true;
+
       programs.go.enable = true;
-      programs.go.package = pkgs.pkgsUnstable.go;
     })
     (mkIf (osConfig.nixelium.profile.dev.enable && pkgs.stdenv.hostPlatform.isLinux) {
-      home.packages = [
-        pkgs.pkgsUnstable.python3
-      ];
+      home.packages = [ pkgs.pkgsUnstable.python3 ];
     })
     (mkIf
       (
@@ -1322,9 +1341,7 @@ in
         )
       )
       {
-        home.packages = [
-          pkgs.rustup
-        ];
+        home.packages = [ pkgs.rustup ];
 
         home.activation.rustup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
           ${pkgs.rustup}/bin/rustup default stable
