@@ -1287,6 +1287,7 @@ in
         pkgs.bun
         pkgs.deno
         pkgs.kubectl
+        pkgs.nixfmt
         pkgs.nodejs
         pkgs.qemu
         pkgs.shellcheck
