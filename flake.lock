@@ -1220,11 +1220,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779101308,
-        "narHash": "sha256-qMeKD7vBrD7JRFFbsenFsi4Zve0PnlMVKqXXfvUZ5uo=",
+        "lastModified": 1781025126,
+        "narHash": "sha256-8i+b2/pEVT7Upq2NpvoUW8fpZsiwcWiw9DsOR+hJE2s=",
         "owner": "rvolosatovs",
         "repo": "nixvm",
-        "rev": "73184e3258a63f448617dfae4d4546b27060ea75",
+        "rev": "bfbc3061b69928d1b012972b33e01170228c345e",
         "type": "github"
       },
       "original": {
