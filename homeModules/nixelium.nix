@@ -1186,6 +1186,8 @@ in
       xdg.userDirs.publicShare = "${config.home.homeDirectory}/public";
       xdg.userDirs.templates = "${config.home.homeDirectory}/templates";
       xdg.userDirs.videos = "${config.home.homeDirectory}/videos";
+
+      xdg.userDirs.setSessionVariables = false;
       # TODO: Set MIME
 
       xresources.properties."*.background" = "#${cfg.base16.colors.base00}";
