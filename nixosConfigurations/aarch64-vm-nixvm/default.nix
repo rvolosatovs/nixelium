@@ -28,6 +28,7 @@ nixpkgs-nixos.lib.nixosSystem {
 
         system.image.id = "linux-aarch64-vm";
         system.image.version = "1";
+        system.stateVersion = "24.11";
       }
     )
   ];

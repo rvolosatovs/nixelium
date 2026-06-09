@@ -20,8 +20,12 @@ nix-darwin.lib.darwinSystem {
           "Wi-Fi"
         ];
 
+        home-manager.sharedModules = [ { home.stateVersion = "26.05"; } ];
+
         nixelium.profile.dev.enable = true;
         nixelium.profile.laptop.enable = true;
+
+        system.stateVersion = 6;
       }
     )
   ];

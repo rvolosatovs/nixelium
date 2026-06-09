@@ -84,6 +84,8 @@ nixpkgs-nixos.lib.nixosSystem {
         services.transmission.package = pkgs.transmission_4;
         services.transmission.performanceNetParameters = true;
 
+        system.stateVersion = "24.11";
+
         systemd.services.system76-charge-thresholds.after = [ "multi-user.target" ];
         systemd.services.system76-charge-thresholds.description = "Set system76 laptop battery charge thresholds";
         systemd.services.system76-charge-thresholds.script = "${pkgs.system76-power}/bin/system76-power charge-thresholds --profile max_lifespan";

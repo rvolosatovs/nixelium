@@ -1278,7 +1278,6 @@ in
       targets.darwin.search = "DuckDuckGo";
     })
     (mkIf (pkgs.stdenv.hostPlatform.isDarwin && osConfig != null) {
-      home.stateVersion = osConfig.system.nixpkgsRelease;
       home.packages = [
         osConfig.services.skhd.package
         osConfig.services.yabai.package
