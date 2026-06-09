@@ -70,6 +70,8 @@ nixpkgs-nixos.lib.nixosSystem {
         ];
         nix.distributedBuilds = true;
 
+        system.stateVersion = "24.11";
+
         virtualisation.docker.enable = true;
         virtualisation.docker.enableOnBoot = false;
 

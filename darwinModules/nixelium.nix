@@ -274,7 +274,6 @@ in
       system.keyboard.enableKeyMapping = true;
       system.keyboard.remapCapsLockToEscape = true;
       system.primaryUser = username;
-      system.stateVersion = 6;
 
       users.knownGroups = with config.users; [ groups.nix.name ];
       users.knownUsers = with config.users; [ users.nix.name ];

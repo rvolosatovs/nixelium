@@ -257,8 +257,6 @@ in
 
       sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
-      system.stateVersion = "24.11";
-
       systemd.network.wait-online.anyInterface = true;
       systemd.network.wait-online.ignoredInterfaces = [
         "lo"

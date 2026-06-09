@@ -15,6 +15,8 @@ nix-darwin.lib.darwinSystem {
 
         networking.hostName = "darwin-aarch64-vm";
 
+        home-manager.sharedModules = [ { home.stateVersion = "26.05"; } ];
+
         nixelium.profile.dev.enable = true;
         nixelium.profile.vm.enable = true;
 
@@ -23,6 +25,8 @@ nix-darwin.lib.darwinSystem {
         security.sudo.extraConfig = ''
           %admin ALL=(ALL) NOPASSWD: ALL
         '';
+
+        system.stateVersion = 7;
       }
     )
   ];

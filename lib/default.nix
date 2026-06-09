@@ -44,6 +44,8 @@ rec {
               self.nixosModules.default
             ]
             ++ modules;
+
+            system.stateVersion = "26.05";
           }
         )
       ];
