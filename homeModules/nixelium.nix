@@ -542,7 +542,7 @@ in
       programs.eza.git = true;
 
       programs.github-copilot-cli.context = "${pkgs.concatText "copilot-instructions.md" [
-        "${pkgs.pkgsUnstable.rtk-init}/.github/copilot-instructions.md"
+        "${pkgs.pkgsUnstable.rtk-init}/.copilot/copilot-instructions.md"
         ../agents/policy.md
       ]}";
       programs.github-copilot-cli.enableMcpIntegration = true;
