@@ -8,6 +8,7 @@
     "https://crane.cachix.org"
     "https://nix-community.cachix.org"
     "https://install.determinate.systems"
+    "https://cache.flakehub.com"
   ];
   nixConfig.extra-trusted-substituters = [
     "https://rvolosatovs.cachix.org"
@@ -16,6 +17,7 @@
     "https://crane.cachix.org"
     "https://nix-community.cachix.org"
     "https://install.determinate.systems"
+    "https://cache.flakehub.com"
   ];
   nixConfig.extra-trusted-public-keys = [
     "rvolosatovs.cachix.org-1:eRYUO4OXTSmpDFWu4wX3/X08MsP01baqGKi9GsoAmQ8="

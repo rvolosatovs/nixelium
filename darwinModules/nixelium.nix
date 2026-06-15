@@ -21,6 +21,7 @@ let
     "https://bytecodealliance.cachix.org"
     "https://crane.cachix.org"
     "https://nix-community.cachix.org"
+    "https://cache.flakehub.com"
   ];
 
   username = "rvolosatovs";
@@ -118,6 +119,7 @@ in
         "bytecodealliance.cachix.org-1:0SBgh//n2n0heh0sDFhTm+ZKBRy2sInakzFGfzN531Y="
         "crane.cachix.org-1:8Scfpmn9w+hGdXH/Q9tTLiYAE/2dnJYRJP7kl80GuRk="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
       ];
       determinateNix.customSettings.trusted-substituters = substituters;
       determinateNix.customSettings.trusted-users = with config.users; [
