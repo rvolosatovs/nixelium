@@ -133,7 +133,8 @@ in
         "https://bytecodealliance.cachix.org"
         "https://crane.cachix.org"
         "https://nix-community.cachix.org"
-      ];
+      ]
+      ++ optional config.determinate.enable "https://cache.flakehub.com";
       nix.settings.trusted-public-keys = [
         "rvolosatovs.cachix.org-1:eRYUO4OXTSmpDFWu4wX3/X08MsP01baqGKi9GsoAmQ8="
         "nixify.cachix.org-1:95SiUQuf8Ij0hwDweALJsLtnMyv/otZamWNRp1Q1pXw="
@@ -141,7 +142,8 @@ in
         "bytecodealliance.cachix.org-1:0SBgh//n2n0heh0sDFhTm+ZKBRy2sInakzFGfzN531Y="
         "crane.cachix.org-1:8Scfpmn9w+hGdXH/Q9tTLiYAE/2dnJYRJP7kl80GuRk="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
+      ]
+      ++ optional config.determinate.enable "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=";
       nix.settings.trusted-users = with config.users; [
         "@${groups.wheel.name}"
         users.owner.name
