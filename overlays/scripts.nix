@@ -15,6 +15,62 @@ let
 
       ${pkgs.git}/bin/git checkout -q "''${base}" && ${pkgs.git}/bin/git branch --merged | grep -v '\*' | ${pkgs.findutils}/bin/xargs -r ${pkgs.git}/bin/git branch -d
     '';
+
+    gh-merge-dependabot = pkgs.writeShellScriptBin "gh-merge-dependabot" ''
+      set -euo pipefail
+
+      repo="''${1:-$(${pkgs.gh}/bin/gh repo view --json nameWithOwner -q .nameWithOwner)}"
+      owner="''${repo%%/*}"
+      name="''${repo#*/}"
+
+      me="$(${pkgs.gh}/bin/gh api user --jq .login)"
+
+      ${pkgs.gh}/bin/gh api graphql \
+        -f owner="$owner" \
+        -f name="$name" \
+        -f query='
+          query($owner: String!, $name: String!) {
+            repository(owner: $owner, name: $name) {
+              pullRequests(states: OPEN, first: 100) {
+                nodes {
+                  number
+                  url
+                  isInMergeQueue
+                  author { login }
+                  latestReviews(first: 100) {
+                    nodes {
+                      state
+                      author { login }
+                    }
+                  }
+                }
+              }
+            }
+          }' |
+        ${pkgs.jq}/bin/jq -r --arg me "$me" '
+          .data.repository.pullRequests.nodes[]
+          | select(.author.login == "dependabot")
+          | select(.isInMergeQueue | not)
+          | [
+              .number,
+              .url,
+              any(.latestReviews.nodes[]; .author.login == $me and .state == "APPROVED")
+            ]
+          | @tsv' |
+      while IFS=$'\t' read -r number url approved; do
+        if [ "$approved" = "true" ]; then
+          echo "PR #$number ($url) already approved, enabling auto-merge"
+        else
+          echo "Approving and auto-merging PR #$number ($url)"
+          if ! ${pkgs.gh}/bin/gh pr review --repo "$repo" --approve "$number"; then
+            echo "Skipping PR #$number: could not approve" >&2
+          fi
+        fi
+        if ! ${pkgs.gh}/bin/gh pr merge --repo "$repo" --auto "$number"; then
+          echo "Skipping PR #$number: could not enable auto-merge" >&2
+        fi
+      done
+    '';
   };
 in
 final: prev: scripts final prev
