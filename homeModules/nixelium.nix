@@ -245,6 +245,7 @@ in
         pkgs.fd
         pkgs.file
         pkgs.findutils
+        pkgs.gh-merge-dependabot
         pkgs.git-rebase-all
         pkgs.gnumake
         pkgs.jq
