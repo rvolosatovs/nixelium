@@ -19,7 +19,16 @@ let
     gh-merge-dependabot = pkgs.writeShellScriptBin "gh-merge-dependabot" ''
       set -euo pipefail
 
-      repo="''${1:-$(${pkgs.gh}/bin/gh repo view --json nameWithOwner -q .nameWithOwner)}"
+      merge_method=()
+      repo=""
+      for arg in "$@"; do
+        case "$arg" in
+          --merge | --rebase | --squash) merge_method=("$arg") ;;
+          *) repo="$arg" ;;
+        esac
+      done
+
+      repo="''${repo:-$(${pkgs.gh}/bin/gh repo view --json nameWithOwner -q .nameWithOwner)}"
       owner="''${repo%%/*}"
       name="''${repo#*/}"
 
@@ -66,7 +75,7 @@ let
             echo "Skipping PR #$number: could not approve" >&2
           fi
         fi
-        if ! ${pkgs.gh}/bin/gh pr merge --repo "$repo" --auto "$number"; then
+        if ! ${pkgs.gh}/bin/gh pr merge --repo "$repo" --auto "''${merge_method[@]}" "$number"; then
           echo "Skipping PR #$number: could not enable auto-merge" >&2
         fi
       done
