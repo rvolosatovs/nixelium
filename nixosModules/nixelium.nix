@@ -371,6 +371,26 @@ in
       ];
     })
 
+    (mkIf config.boot.lanzaboote.enable {
+      # fwupd 2.1.x dropped the FWUPD_EFIAPPDIR env override that lanzaboote
+      # relies on, so it can't find the signed EFI helper lanzaboote writes to
+      # /run/fwupd-efi and capsule updates fail under Secure Boot with
+      # "fwupdx64.efi.signed cannot be found". Bake that path in at build time
+      # instead. See lanzaboote#591 and fwupd#7508.
+      #
+      # The --replace-fail string is the exact post-patch form produced by
+      # nixpkgs' 0004-Get-the-efi-app-from-fwupd-efi.patch; it is version
+      # sensitive, so re-verify it still matches when nixpkgs-nixos is bumped.
+      services.fwupd.package = pkgs.fwupd.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace meson.build \
+            --replace-fail \
+              "efi_app_location = join_paths(dependency('fwupd-efi').get_variable(pkgconfig: 'prefix'), 'libexec', 'fwupd', 'efi')" \
+              "efi_app_location = '/run/fwupd-efi'"
+        '';
+      });
+    })
+
     (mkIf cfg.profile.laptop.enable {
       boot.binfmt.emulatedSystems = [
         "aarch64-linux"
