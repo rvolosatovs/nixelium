@@ -401,7 +401,6 @@ in
       programs.delta.enable = true;
       programs.delta.enableGitIntegration = true;
       programs.delta.options.syntax-theme = "base16";
-      programs.delta.options.pager = "less --mouse --wheel-lines=3 -R";
 
       programs.dircolors.enable = true;
       programs.dircolors.settings.".7z" = "01;31";
