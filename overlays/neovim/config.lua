@@ -222,7 +222,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
         end
         if client and client:supports_method('textDocument/codeLens') then
-            vim.lsp.codelens.refresh({ bufnr = ev.buf })
+            vim.lsp.codelens.enable(true, { bufnr = ev.buf })
         end
 
         for k, fn in pairs({
