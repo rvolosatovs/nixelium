@@ -1407,6 +1407,13 @@ in
       programs.gemini-cli.settings.tools.disableLLMCorrection = false;
       programs.gemini-cli.settings.tools.sandbox.enabled = false;
       programs.gemini-cli.settings.tools.sandboxNetworkAccess = true;
+
+      programs.mcp.servers.playwright.args = [
+        "--headless"
+        "--isolated"
+      ];
+      programs.mcp.servers.playwright.command = "${pkgs.pkgsUnstable.playwright-mcp}/bin/playwright-mcp";
+      programs.mcp.servers.playwright.type = "stdio";
     })
     (mkIf osConfig.nixelium.profile.laptop.enable {
       home.packages = [
