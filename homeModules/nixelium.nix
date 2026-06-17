@@ -277,9 +277,6 @@ in
       home.sessionVariables.PYTHON_EGG_CACHE = "${config.xdg.cacheHome}/python-eggs";
       home.sessionVariables.WINEPREFIX = "${config.xdg.dataHome}/wine";
 
-      home.shell.enableBashIntegration = true;
-      home.shell.enableZshIntegration = true;
-
       home.shellAliases."gcf^" = "git commit --fixup HEAD^";
       home.shellAliases.ga = "git add";
       home.shellAliases.gap = "git add -p";
@@ -337,7 +334,6 @@ in
       home.shellAliases.sl = "ls";
 
       programs.bash.enable = true;
-      programs.bash.enableCompletion = true;
       programs.bash.historyControl = [
         "erasedups"
         "ignoredups"
@@ -535,13 +531,9 @@ in
       programs.dircolors.settings.tw = "30;42";
 
       programs.direnv.enable = true;
-      programs.direnv.enableBashIntegration = true;
-      programs.direnv.enableZshIntegration = true;
       programs.direnv.nix-direnv.enable = true;
 
       programs.eza.enable = true;
-      programs.eza.enableBashIntegration = true;
-      programs.eza.enableZshIntegration = true;
       programs.eza.extraOptions = [ "--group" ];
       programs.eza.git = true;
 
@@ -761,8 +753,6 @@ in
         "--ansi"
         "--bind='ctrl-e:execute(\${EDITOR:-${pkgs.neovim}/bin/nvim} {})'"
       ];
-      programs.skim.enableBashIntegration = true;
-      programs.skim.enableZshIntegration = true;
       programs.skim.fileWidgetCommand = "${pkgs.fd}/bin/fd -H --color=always --type f --exclude '.git'";
       programs.skim.fileWidgetOptions = [ "--preview '${pkgs.bat}/bin/bat --color=always {}'" ];
 

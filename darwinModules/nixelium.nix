@@ -183,7 +183,6 @@ in
       programs.gnupg.agent.enableSSHSupport = true;
 
       programs.zsh.enable = true;
-      programs.zsh.enableBashCompletion = true;
       programs.zsh.interactiveShellInit = ''
         setopt INTERACTIVE_COMMENTS NO_NOMATCH
       '';
