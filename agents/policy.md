@@ -52,3 +52,9 @@ Hyperledger and Midnight projects — must comply with the LFDT AI Guidelines
   code to tools that may store or train on prompts.
 - **Exemptions** (no disclosure needed): IDE grammar/spelling fixes, single-line
   autocomplete, and standard formatters (Prettier, gofmt, `nix fmt`, …).
+
+# Code Style
+
+- **No explanatory comments.** Do not add comments to code edits; keep any
+  rationale in the chat response, not in the source. Only add comments when
+  explicitly asked, or when the surrounding code clearly uses them in that spot.
