@@ -8,7 +8,6 @@ local mini_base16 = require('mini.base16')
 local mini_bracketed = require('mini.bracketed')
 local mini_pairs = require('mini.pairs')
 local mini_surround = require('mini.surround')
-local treesitter = require('nvim-treesitter.config')
 
 --- Filetypes
 
@@ -45,19 +44,20 @@ mini_base16.setup {
 --- Functions
 
 function goimports(bufnr, timeoutms)
-    local context = { source = { organizeImports = true } }
-    vim.validate { context = { context, 't', true } }
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+    local client = vim.lsp.get_clients({ bufnr = bufnr, method = 'textDocument/codeAction' })[1]
+    local encoding = client and client.offset_encoding or 'utf-16'
 
-    local params = vim.lsp.util.make_range_params()
-    params.context = context
+    local params = vim.lsp.util.make_range_params(0, encoding)
+    params.context = { only = { 'source.organizeImports' } }
 
-    local method = 'textDocument/codeAction'
-    local resp = vim.lsp.buf_request_sync(bufnr, method, params, timeoutms)
-    if resp and resp[1] then
-        local result = resp[1].result
-        if result and result[1] then
-            local edit = result[1].edit
-            vim.lsp.util.apply_workspace_edit(edit)
+    local resp = vim.lsp.buf_request_sync(bufnr, 'textDocument/codeAction', params, timeoutms)
+    for client_id, res in pairs(resp or {}) do
+        for _, action in pairs(res.result or {}) do
+            if action.edit then
+                local c = vim.lsp.get_client_by_id(client_id)
+                vim.lsp.util.apply_workspace_edit(action.edit, c and c.offset_encoding or encoding)
+            end
         end
     end
     vim.lsp.buf.format { async = true }
@@ -113,7 +113,12 @@ vim.g.mapleader = ' '
 
 --- Autocommands
 
-vim.api.nvim_command [[ autocmd TextYankPost * silent! lua require('highlight').on_yank('IncSearch', 500, vim.v.event) ]]
+vim.api.nvim_create_autocmd('TextYankPost', {
+    group = vim.api.nvim_create_augroup('UserYankHighlight', {}),
+    callback = function()
+        vim.hl.on_yank({ higroup = 'IncSearch', timeout = 500 })
+    end,
+})
 
 --- Keybindings
 
@@ -186,25 +191,20 @@ indent_blankline.setup {
 }
 
 --- Treesitter
+--- nvim-treesitter `main` branch: setup only takes `install_dir`; the old
+--- module-based `highlight`/`indent`/`incremental_selection` no longer exist.
+--- Parsers and queries ship via Nix on the runtimepath, so enable highlighting
+--- with `vim.treesitter.start()` and indentation via the bundled indentexpr.
+require('nvim-treesitter').setup {}
 
-treesitter.setup {
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-    },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
-        },
-    },
-    indent = {
-        enable = true,
-    },
-}
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('UserTreesitter', {}),
+    callback = function()
+        if pcall(vim.treesitter.start) then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+    end,
+})
 
 --- LSP
 
@@ -217,20 +217,13 @@ vim.cmd [[set completeopt+=menuone,noselect,popup]]
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
-        print('LSP loaded.')
-
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
         if client and client:supports_method('textDocument/inlayHint') then
             vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
-        else
-            print("no inlay hints available")
         end
         if client and client:supports_method('textDocument/codeLens') then
             vim.lsp.codelens.refresh({ bufnr = ev.buf })
-        else
-            print("no code lens available")
         end
-        vim.diagnostic.config({ virtual_text = true })
 
         for k, fn in pairs({
             ['<C-]>']      = 'vim.lsp.buf.definition()',
@@ -422,13 +415,11 @@ vim.lsp.enable({
 
 --- Diagnostics
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = true,
-        signs = true,
-        update_in_insert = true,
-    }
-)
+vim.diagnostic.config({
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+})
 
 --- Pairs
 mini_pairs.setup {
