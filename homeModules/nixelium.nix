@@ -365,6 +365,7 @@ in
         @${pkgs.pkgsUnstable.rtk-init}/.claude/CLAUDE.md
 
         ${readFile ../agents/policy.md}
+        ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
       '';
       programs.claude-code.enableMcpIntegration = true;
       programs.claude-code.settings.editorMode = "vim";
@@ -393,6 +394,7 @@ in
         @${pkgs.pkgsUnstable.rtk-init}/.codex/AGENTS.md
 
         ${readFile ../agents/policy.md}
+        ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
       '';
       programs.codex.package = pkgs.codex;
 
@@ -542,17 +544,23 @@ in
       programs.eza.extraOptions = [ "--group" ];
       programs.eza.git = true;
 
-      programs.github-copilot-cli.context = "${pkgs.concatText "copilot-instructions.md" [
-        "${pkgs.pkgsUnstable.rtk-init}/.copilot/copilot-instructions.md"
-        ../agents/policy.md
-      ]}";
+      programs.github-copilot-cli.context = "${pkgs.concatText "copilot-instructions.md" (
+        [
+          "${pkgs.pkgsUnstable.rtk-init}/.copilot/copilot-instructions.md"
+          ../agents/policy.md
+        ]
+        ++ optional cfg.profile.unrestricted-ai.enable ../agents/vm-workflow.md
+      )}";
       programs.github-copilot-cli.enableMcpIntegration = true;
       programs.github-copilot-cli.package = pkgs.pkgsUnstable.github-copilot-cli;
 
-      home.file.".gemini/GEMINI.md".source = pkgs.concatText "GEMINI.md" [
-        "${pkgs.pkgsUnstable.rtk-init}/.gemini/GEMINI.md"
-        ../agents/policy.md
-      ];
+      home.file.".gemini/GEMINI.md".source = pkgs.concatText "GEMINI.md" (
+        [
+          "${pkgs.pkgsUnstable.rtk-init}/.gemini/GEMINI.md"
+          ../agents/policy.md
+        ]
+        ++ optional cfg.profile.unrestricted-ai.enable ../agents/vm-workflow.md
+      );
       programs.gemini-cli.package = pkgs.pkgsUnstable.gemini-cli;
 
       programs.git.enable = true;
