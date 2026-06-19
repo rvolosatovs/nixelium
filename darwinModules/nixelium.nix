@@ -91,6 +91,10 @@ in
           name = "chromium";
           args.require_sha = false;
         }
+        {
+          name = "claude";
+          args.require_sha = false;
+        }
         "firefox" # TODO: switch to nixpkgs
         "lm-studio" # TODO: switch to nixpkgs (currently broken: aarch64-darwin stable marked broken, unstable fails on codesign --deep)
         "mac-mouse-fix"
