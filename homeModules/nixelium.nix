@@ -371,6 +371,7 @@ in
       programs.claude-code.settings.editorMode = "vim";
       programs.claude-code.settings.enabledPlugins."clangd-lsp@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."context7@claude-plugins-official" = true;
+      programs.claude-code.settings.enabledPlugins."frontend-design@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."octo@nyldn-plugins" = true;
       programs.claude-code.settings.enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."swift-lsp@claude-plugins-official" = true;
