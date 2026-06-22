@@ -44,7 +44,7 @@
   inputs.home-manager.url = "github:nix-community/home-manager/release-26.05";
   inputs.ioquake3-mac-install.flake = false;
   inputs.ioquake3-mac-install.url = "github:rvolosatovs/ioquake3-mac-install";
-  inputs.lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0";
+  inputs.lanzaboote.url = "github:nix-community/lanzaboote/v1.1.0";
   inputs.nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   inputs.nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
   inputs.nix-flake-tests.url = "github:antifuchs/nix-flake-tests";
