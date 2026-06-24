@@ -1521,7 +1521,7 @@ in
       programs.kitty.enable = true;
       programs.mpv.enable = true;
       programs.password-store.enable = true;
-      programs.zathura.enable = false; # TODO: Enable once https://github.com/NixOS/nixpkgs/issues/514566 fixed
+      programs.zathura.enable = true;
     })
     (mkIf (osConfig.nixelium.profile.laptop.enable && pkgs.stdenv.hostPlatform.isLinux) {
       fonts.fontconfig.enable = true;
