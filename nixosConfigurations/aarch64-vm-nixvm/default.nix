@@ -22,7 +22,7 @@ nixpkgs-nixos.lib.nixosSystem {
 
         home-manager.users.owner.nixelium.profile.unrestricted-ai.enable = true;
 
-        nixvm.guest.rootSize = "128G";
+        nixvm.guest.rootSize = "256G";
 
         # Raise the /nix/store overlay's writable-tmpfs cap and back it with
         # swap. nixvm.nixosModules.guest mounts the overlay's upper/work on a
