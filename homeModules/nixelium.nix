@@ -562,7 +562,7 @@ in
         ]
         ++ optional cfg.profile.unrestricted-ai.enable ../agents/vm-workflow.md
       );
-      programs.gemini-cli.package = pkgs.pkgsUnstable.gemini-cli;
+      programs.antigravity-cli.package = pkgs.pkgsUnstable.antigravity-cli;
 
       programs.git.enable = true;
       programs.git.ignores = [
@@ -1329,11 +1329,11 @@ in
       home.shellAliases.kaf = "kubectl apply -f";
       home.shellAliases.kd = "kubectl get deployments";
 
+      programs.antigravity-cli.enable = true;
+
       programs.claude-code.enable = true;
 
       programs.codex.enable = true;
-
-      programs.gemini-cli.enable = true;
 
       programs.github-copilot-cli.enable = true;
 
@@ -1363,15 +1363,12 @@ in
       }
     )
     (mkIf cfg.profile.unrestricted-ai.enable {
-      # Gemini loads any *.toml under ~/.gemini/policies/.
-      home.file.".gemini/policies/unrestricted.toml".text = ''
-        [[rule]]
-        toolName = "*"
-        decision = "allow"
-        priority = 100
-      '';
+      home.shellAliases.agy = "agy --dangerously-skip-permissions";
 
-      home.shellAliases.gemini = "gemini --approval-mode=yolo";
+
+      programs.claude-code.settings.env.CLAUDE_CODE_SANDBOXED = "1";
+      programs.claude-code.settings.permissions.defaultMode = "bypassPermissions";
+      programs.claude-code.settings.skipDangerousModePermissionPrompt = true;
 
       programs.codex.settings.approval_policy = "never";
       programs.codex.settings.features.codex_hooks = true;
@@ -1395,27 +1392,6 @@ in
         "used-tokens"
         "session-id"
       ];
-
-      programs.claude-code.settings.env.CLAUDE_CODE_SANDBOXED = "1";
-      programs.claude-code.settings.permissions.defaultMode = "bypassPermissions";
-      programs.claude-code.settings.skipDangerousModePermissionPrompt = true;
-
-      programs.gemini-cli.settings.agents.browser.blockFileUploads = false;
-      programs.gemini-cli.settings.agents.browser.confirmSensitiveActions = false;
-      programs.gemini-cli.settings.general.defaultApprovalMode = "auto_edit";
-      programs.gemini-cli.settings.security.auth.selectedType = "oauth-personal";
-      programs.gemini-cli.settings.security.autoAddToPolicyByDefault = true;
-      programs.gemini-cli.settings.security.disableAlwaysAllow = false;
-      programs.gemini-cli.settings.security.disableYoloMode = false;
-      programs.gemini-cli.settings.security.enableConseca = false;
-      programs.gemini-cli.settings.security.enablePermanentToolApproval = true;
-      programs.gemini-cli.settings.security.environmentVariableRedaction.enabled = false;
-      programs.gemini-cli.settings.security.folderTrust.enabled = false;
-      programs.gemini-cli.settings.security.toolSandboxing = false;
-      programs.gemini-cli.settings.tools.allowed = [ "*" ];
-      programs.gemini-cli.settings.tools.disableLLMCorrection = false;
-      programs.gemini-cli.settings.tools.sandbox.enabled = false;
-      programs.gemini-cli.settings.tools.sandboxNetworkAccess = true;
 
       programs.mcp.servers.playwright.args = [
         "--headless"
