@@ -967,11 +967,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1784100666,
-        "narHash": "sha256-HF/mrw5NYQfKFZgkfV2h1UL5/E3ccfsE2XJ1AbbLLJ0=",
+        "lastModified": 1784308773,
+        "narHash": "sha256-y6qdDWD7SI5aKYtYVHAZyNBhnEBQ45RRXiBDuLg7jBI=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "fccfa9031a85b78a437f2f153c1f6449f3bc3185",
+        "rev": "79ecfa27f2518f6261011b0c32d7c357bffcad90",
         "type": "github"
       },
       "original": {
