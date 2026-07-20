@@ -85,16 +85,6 @@ let
   unstable = final: prev: {
     lima = prev.pkgsUnstable.lima;
     nerdctl = prev.pkgsUnstable.nerdctl;
-
-    # TODO: Remove
-    kitty =
-      let
-        pkgs = importNixpkgs nixpkgs-kitty overlays final prev;
-      in
-      if versionOlder pkgs.kitty.version prev.kitty.version then
-        warn "nixpkgs provides kitty ${prev.kitty.version}, ignoring override" prev.kitty
-      else
-        pkgs.kitty;
   };
 in
 {
