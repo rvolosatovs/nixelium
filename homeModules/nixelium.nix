@@ -1295,6 +1295,7 @@ in
     (mkIf osConfig.nixelium.profile.dev.enable {
       home.packages = [
         pkgs.bun
+        pkgs.cargo-watch
         pkgs.deno
         pkgs.kubectl
         pkgs.nixfmt
@@ -1306,7 +1307,6 @@ in
         pkgs.pkgsUnstable.binaryen
         pkgs.pkgsUnstable.cargo-flamegraph
         pkgs.pkgsUnstable.cargo-generate
-        pkgs.pkgsUnstable.cargo-watch
         pkgs.pkgsUnstable.critcmp
         pkgs.pkgsUnstable.gh
         pkgs.pkgsUnstable.hey
