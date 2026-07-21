@@ -1554,11 +1554,11 @@
     "tree-sitter-cedar": {
       "flake": false,
       "locked": {
-        "lastModified": 1784468168,
-        "narHash": "sha256-b9bQBSsX49z/jJ0Oy6pIXlZKWphlI51x3NaRN4ZU5/s=",
+        "lastModified": 1784655760,
+        "narHash": "sha256-TS0+somSqfj4E39hM0iwVoZi54YUTvSwek5YxbDG2Sg=",
         "owner": "DuskSystems",
         "repo": "tree-sitter-cedar",
-        "rev": "fec6529b5f1442aff550d186735d9f1a7036b3c9",
+        "rev": "25604f3fe97fd0c9ce9e682fce66fb7390aa944a",
         "type": "github"
       },
       "original": {
