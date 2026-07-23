@@ -390,6 +390,7 @@ in
         }
       ];
       programs.claude-code.package = pkgs.claude-code;
+      programs.claude-code.settings.model = "claude-fable-5";
 
       programs.codex.context = ''
         @${pkgs.pkgsUnstable.rtk-init}/.codex/AGENTS.md
