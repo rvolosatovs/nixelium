@@ -4,7 +4,6 @@ inputs@{
   fenix,
   firefox-addons,
   nixlib,
-  nixpkgs-kitty,
   nixpkgs-unstable,
   slack-darwin-aarch64,
   spotify-darwin-aarch64,
