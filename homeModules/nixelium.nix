@@ -362,7 +362,7 @@ in
       ];
 
       programs.claude-code.context = ''
-        @${pkgs.pkgsUnstable.rtk-init}/.claude/CLAUDE.md
+        @${pkgs.rtk-init}/.claude/CLAUDE.md
 
         ${readFile ../agents/policy.md}
         ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
@@ -384,7 +384,7 @@ in
           hooks = [
             {
               type = "command";
-              command = "${pkgs.pkgsUnstable.rtk}/bin/rtk hook claude";
+              command = "${pkgs.rtk}/bin/rtk hook claude";
             }
           ];
         }
@@ -393,7 +393,7 @@ in
       programs.claude-code.settings.model = "claude-fable-5";
 
       programs.codex.context = ''
-        @${pkgs.pkgsUnstable.rtk-init}/.codex/AGENTS.md
+        @${pkgs.rtk-init}/.codex/AGENTS.md
 
         ${readFile ../agents/policy.md}
         ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
@@ -548,7 +548,7 @@ in
 
       programs.github-copilot-cli.context = "${pkgs.concatText "copilot-instructions.md" (
         [
-          "${pkgs.pkgsUnstable.rtk-init}/.copilot/copilot-instructions.md"
+          "${pkgs.rtk-init}/.copilot/copilot-instructions.md"
           ../agents/policy.md
         ]
         ++ optional cfg.profile.unrestricted-ai.enable ../agents/vm-workflow.md
@@ -558,7 +558,7 @@ in
 
       home.file.".gemini/GEMINI.md".source = pkgs.concatText "GEMINI.md" (
         [
-          "${pkgs.pkgsUnstable.rtk-init}/.gemini/GEMINI.md"
+          "${pkgs.rtk-init}/.gemini/GEMINI.md"
           ../agents/policy.md
         ]
         ++ optional cfg.profile.unrestricted-ai.enable ../agents/vm-workflow.md
@@ -1302,6 +1302,7 @@ in
         pkgs.nixfmt
         pkgs.nodejs
         pkgs.qemu
+        pkgs.rtk
         pkgs.shellcheck
         pkgs.tcpdump
 
@@ -1313,7 +1314,6 @@ in
         pkgs.pkgsUnstable.hey
         pkgs.pkgsUnstable.pprof
         pkgs.pkgsUnstable.protobuf
-        pkgs.pkgsUnstable.rtk
         pkgs.pkgsUnstable.samply
         pkgs.pkgsUnstable.uv
         pkgs.pkgsUnstable.wasm-tools
