@@ -548,7 +548,7 @@ in
 
       programs.github-copilot-cli.context = "${pkgs.concatText "copilot-instructions.md" (
         [
-          "${pkgs.rtk-init}/.copilot/copilot-instructions.md"
+          "${pkgs.rtk-init}/.github/copilot-instructions.md"
           ../agents/policy.md
         ]
         ++ optional cfg.profile.unrestricted-ai.enable ../agents/vm-workflow.md
