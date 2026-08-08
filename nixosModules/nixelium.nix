@@ -81,7 +81,6 @@ in
 
   config = mkMerge [
     {
-      boot.bootspec.enable = true;
       boot.initrd.availableKernelModules = [ "cryptd" ];
       boot.initrd.systemd.enable = true;
       boot.kernelParams = [ "systemd.unified_cgroup_hierarchy=1" ];
@@ -101,20 +100,15 @@ in
         "/share/zsh"
       ];
 
-      fonts.fontconfig.allowBitmaps = true;
-      fonts.fontconfig.allowType1 = false;
-      fonts.fontconfig.antialias = true;
       fonts.fontconfig.defaultFonts.monospace = [
         "Fira Code"
         "FiraCode Nerd Font"
       ];
       fonts.fontconfig.defaultFonts.sansSerif = [ "Fira Sans" ];
       fonts.fontconfig.defaultFonts.serif = [ "Roboto Slab" ];
-      fonts.fontconfig.hinting.enable = true;
       fonts.fontconfig.subpixel.rgba = "rgb";
 
       hardware.bluetooth.settings.General.ControllerMode = "dual";
-      hardware.bluetooth.powerOnBoot = true;
 
       hardware.trackpoint.sensitivity = 250;
       hardware.trackpoint.speed = 120;
@@ -137,7 +131,6 @@ in
         "149.112.112.112"
       ];
       networking.stevenblack.enable = true;
-      networking.useDHCP = true;
       networking.useNetworkd = true;
 
       nix.optimise.automatic = !config.determinate.enable && !cfg.system.isVirtual;
@@ -215,7 +208,6 @@ in
       security.acme.acceptTerms = true;
       security.acme.defaults.email = email;
 
-      security.sudo.enable = true;
       security.sudo.extraRules = [
         {
           groups = with config.users.groups; [ wheel.name ];
@@ -263,7 +255,6 @@ in
 
       sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
-      systemd.network.wait-online.anyInterface = true;
       systemd.network.wait-online.ignoredInterfaces = [
         "lo"
         "tailscale0"
@@ -414,7 +405,6 @@ in
       };
 
       fonts.enableDefaultPackages = true;
-      fonts.fontconfig.enable = true;
       fonts.fontDir.enable = true;
       fonts.packages = [
         pkgs.fira
@@ -474,8 +464,6 @@ in
       services.btrfs.autoScrub.fileSystems = [ "/" ];
 
       services.dbus.enable = true;
-
-      services.fstrim.enable = true;
 
       services.fwupd.enable = true;
 
