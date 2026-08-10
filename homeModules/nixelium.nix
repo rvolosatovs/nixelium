@@ -610,6 +610,7 @@ in
       programs.git.settings.core.safecrlf = false;
       programs.git.settings.diff.colorMoved = "zebra";
       programs.git.settings.diff.renames = "copy";
+      programs.git.settings.fetch.parallel = 8;
       programs.git.settings.fetch.prune = true;
       programs.git.settings.format.pretty =
         "%C(auto)%h - %s%d%n%+b%+N(%G?) %an <%ae> (%C(blue)%ad%C(auto))%n";
