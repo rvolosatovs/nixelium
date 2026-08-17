@@ -390,6 +390,7 @@ in
         }
       ];
       programs.claude-code.package = pkgs.claude-code;
+      programs.claude-code.settings.effortLevel = "xhigh";
       programs.claude-code.settings.model = "claude-fable-5";
 
       programs.codex.context = ''
@@ -1366,7 +1367,6 @@ in
     )
     (mkIf cfg.profile.unrestricted-ai.enable {
       home.shellAliases.agy = "agy --dangerously-skip-permissions";
-
 
       programs.claude-code.settings.env.CLAUDE_CODE_SANDBOXED = "1";
       programs.claude-code.settings.permissions.defaultMode = "bypassPermissions";
