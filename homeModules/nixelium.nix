@@ -368,6 +368,9 @@ in
         ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
       '';
       programs.claude-code.enableMcpIntegration = true;
+      programs.claude-code.settings.alwaysThinkingEnabled = true;
+      programs.claude-code.settings.attribution.commit = "";
+      programs.claude-code.settings.attribution.pr = "";
       programs.claude-code.settings.editorMode = "vim";
       programs.claude-code.settings.enabledPlugins."clangd-lsp@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."context7@claude-plugins-official" = true;
@@ -375,9 +378,14 @@ in
       programs.claude-code.settings.enabledPlugins."octo@nyldn-plugins" = true;
       programs.claude-code.settings.enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."swift-lsp@claude-plugins-official" = true;
+      programs.claude-code.settings.env.DISABLE_AUTOUPDATER = "1";
       programs.claude-code.settings.extraKnownMarketplaces.nyldn-plugins.source.source = "git";
       programs.claude-code.settings.extraKnownMarketplaces.nyldn-plugins.source.url =
         "https://github.com/nyldn/claude-octopus.git";
+      programs.claude-code.settings.fallbackModel = [
+        "opus"
+        "sonnet"
+      ];
       programs.claude-code.settings.hooks.PreToolUse = [
         {
           matcher = "Bash";
@@ -392,6 +400,7 @@ in
       programs.claude-code.package = pkgs.claude-code;
       programs.claude-code.settings.effortLevel = "xhigh";
       programs.claude-code.settings.model = "claude-fable-5";
+      programs.claude-code.settings.workflowSizeGuideline = "small";
 
       programs.codex.context = ''
         @${pkgs.rtk-init}/.codex/AGENTS.md
