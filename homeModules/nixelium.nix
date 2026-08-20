@@ -1408,7 +1408,6 @@ in
 
         pkgs.android-tools
         pkgs.avrdude
-        pkgs.google-cloud-sdk
         pkgs.minikube
         pkgs.wit-deps
         pkgs.yubikey-manager
