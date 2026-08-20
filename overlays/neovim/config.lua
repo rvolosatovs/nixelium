@@ -230,7 +230,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         else
             print("no code lens available")
         end
-        vim.diagnostic.config({ virtual_text = true })
 
         for k, fn in pairs({
             ['<C-]>']      = 'vim.lsp.buf.definition()',
