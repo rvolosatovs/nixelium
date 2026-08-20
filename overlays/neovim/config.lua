@@ -422,13 +422,11 @@ vim.lsp.enable({
 
 --- Diagnostics
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = true,
-        signs = true,
-        update_in_insert = true,
-    }
-)
+vim.diagnostic.config {
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+}
 
 --- Pairs
 mini_pairs.setup {
