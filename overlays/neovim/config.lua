@@ -226,7 +226,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             print("no inlay hints available")
         end
         if client and client:supports_method('textDocument/codeLens') then
-            vim.lsp.codelens.refresh({ bufnr = ev.buf })
+            vim.lsp.codelens.enable(true, { bufnr = ev.buf })
         else
             print("no code lens available")
         end
