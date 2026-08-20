@@ -8,7 +8,6 @@ local mini_base16 = require('mini.base16')
 local mini_bracketed = require('mini.bracketed')
 local mini_pairs = require('mini.pairs')
 local mini_surround = require('mini.surround')
-local treesitter = require('nvim-treesitter.config')
 
 --- Filetypes
 
@@ -69,29 +68,21 @@ end
 
 --- Options
 
-vim.opt.autoindent = true
 vim.opt.autowriteall = true
 vim.opt.backup = true
 vim.opt.cmdheight = 2
 vim.opt.concealcursor = 'nc'
-vim.opt.conceallevel = 0
 vim.opt.confirm = true
 vim.opt.cursorcolumn = true
 vim.opt.cursorline = true
-vim.opt.encoding = 'utf-8'
 vim.opt.expandtab = true
 vim.opt.fileencoding = 'utf-8'
-vim.opt.fileformat = 'unix'
 vim.opt.foldcolumn = 'auto:3'
 vim.opt.foldlevel = 16
 vim.opt.gdefault = true
 vim.opt.grepprg = paths.bin.ripgrep .. ' --vimgrep'
 vim.opt.guicursor = ""
-vim.opt.hidden = true
-vim.opt.hlsearch = true
 vim.opt.ignorecase = true
-vim.opt.inccommand = 'nosplit'
-vim.opt.incsearch = true
 vim.opt.mouse = 'a'
 vim.opt.nrformats = 'alpha,octal,hex,bin'
 vim.opt.number = true
@@ -105,15 +96,17 @@ vim.opt.termguicolors = true
 vim.opt.title = true
 vim.opt.undofile = true
 vim.opt.updatetime = 250
-vim.opt.visualbell = true
-vim.opt.wrapscan = true
 
 -- use space as the leader key
 vim.g.mapleader = ' '
 
 --- Autocommands
 
-vim.api.nvim_command [[ autocmd TextYankPost * silent! lua require('highlight').on_yank('IncSearch', 500, vim.v.event) ]]
+vim.api.nvim_create_autocmd('TextYankPost', {
+    callback = function()
+        vim.hl.on_yank({ higroup = 'IncSearch', timeout = 500 })
+    end,
+})
 
 --- Keybindings
 
@@ -153,7 +146,6 @@ for _, v in ipairs({
     { '<leader>w',  cmd('w'),                           { "" },       { noremap = true } },
     { '<leader>W',  cmd('wa'),                          { "" },       { noremap = true } },
     { '<space>',    '<nop>',                            { "" },       { noremap = true } },
-    { 'Y',          'y$',                               { "" },       { noremap = true } },
 
     -- quickfix
     { '<leader>q',  lua('telescope.quickfix()'),        { "" },       { noremap = true } },
@@ -187,24 +179,13 @@ indent_blankline.setup {
 
 --- Treesitter
 
-treesitter.setup {
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-    },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
-        },
-    },
-    indent = {
-        enable = true,
-    },
-}
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function(ev)
+        if pcall(vim.treesitter.start, ev.buf) then
+            vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+    end,
+})
 
 --- LSP
 
@@ -213,7 +194,6 @@ treesitter.setup {
 blink.setup {
     completion = { documentation = { auto_show = true } },
 }
-vim.cmd [[set completeopt+=menuone,noselect,popup]]
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
@@ -423,7 +403,6 @@ vim.lsp.enable({
 
 vim.diagnostic.config {
     virtual_text = true,
-    signs = true,
     update_in_insert = true,
 }
 
