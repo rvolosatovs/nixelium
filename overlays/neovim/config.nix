@@ -13,6 +13,7 @@ let
 
   paths = self.lib.toLua {
     bin.bash-language-server = "${pkgsUnstable.bash-language-server}/bin/bash-language-server";
+    bin.basedpyright-langserver = "${pkgsUnstable.basedpyright}/bin/basedpyright-langserver";
     bin.clangd = "${pkgsUnstable.clang-tools}/bin/clangd";
     bin.docker-langserver = "${pkgsUnstable.dockerfile-language-server}/bin/docker-langserver";
     bin.gopls = "${pkgsUnstable.gopls}/bin/gopls";
@@ -23,6 +24,7 @@ let
     bin.nixfmt = "${pkgsUnstable.nixfmt}/bin/nixfmt";
     bin.omnisharp = "${pkgsUnstable.omnisharp-roslyn}/bin/omnisharp";
     bin.ripgrep = "${ripgrep}/bin/rg";
+    bin.ruff = "${pkgsUnstable.ruff}/bin/ruff";
     bin.rust-analyzer = "${fenix.stable.rust-analyzer}/bin/rust-analyzer";
     bin.taplo = "${pkgsUnstable.taplo}/bin/taplo";
     bin.typescript-language-server = "${pkgsUnstable.typescript-language-server}/bin/typescript-language-server";

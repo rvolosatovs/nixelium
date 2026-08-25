@@ -233,6 +233,27 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.lsp.config.bashls = {
     cmd = { paths.bin['bash-language-server'], 'start' },
 }
+vim.lsp.config.basedpyright = {
+    cmd = { paths.bin['basedpyright-langserver'], '--stdio' },
+    settings = {
+        basedpyright = {
+            disableOrganizeImports = true,
+            analysis = {
+                typeCheckingMode = 'standard',
+                diagnosticSeverityOverrides = {
+                    reportUnusedImport = 'none',
+                    reportUnusedVariable = 'none',
+                },
+                inlayHints = {
+                    callArgumentNames = true,
+                    functionReturnTypes = true,
+                    genericTypes = true,
+                    variableTypes = true,
+                },
+            },
+        },
+    },
+}
 vim.lsp.config.clangd = {
     cmd = { paths.bin['clangd'], '--background-index' },
 }
@@ -329,6 +350,9 @@ vim.lsp.config.nixd = {
 vim.lsp.config.omnisharp = {
     cmd = { paths.bin['omnisharp'], '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
 }
+vim.lsp.config.ruff = {
+    cmd = { paths.bin['ruff'], 'server' },
+}
 vim.lsp.config.rust_analyzer = {
     cmd = { paths.bin['rust-analyzer'] },
     settings = {
@@ -382,6 +406,7 @@ vim.lsp.config.ts_ls = {
 }
 vim.lsp.enable({
     'bashls',
+    'basedpyright',
     'clangd',
     'cssls',
     'dockerls',
@@ -394,6 +419,7 @@ vim.lsp.enable({
     'lua_ls',
     'nixd',
     'omnisharp',
+    'ruff',
     'rust_analyzer',
     'taplo',
     'ts_ls',
