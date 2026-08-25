@@ -36,7 +36,7 @@
   inputs.codex-cli-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.codex-cli-nix.url = "github:sadjow/codex-cli-nix";
   inputs.determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
-  inputs.fenix.url = "github:nix-community/fenix";
+  inputs.fenix.url = "github:rvolosatovs/fenix/fix-darwin-rust-lld-libllvm"; # TODO: switch back to upstream
   inputs.firefox-addons.inputs.nixpkgs.follows = "nixpkgs-unstable";
   inputs.firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
   inputs.flake-utils.url = "github:numtide/flake-utils";
