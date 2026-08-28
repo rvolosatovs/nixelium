@@ -1376,7 +1376,7 @@ in
       programs.claude-code.settings.skipDangerousModePermissionPrompt = true;
 
       programs.codex.settings.approval_policy = "never";
-      programs.codex.settings.features.codex_hooks = true;
+      programs.codex.settings.features.hooks = true;
       programs.codex.settings.model = "gpt-5.6-sol";
       programs.codex.settings.model_reasoning_effort = "xhigh";
       programs.codex.settings.oss_provider = "lmstudio";
