@@ -371,6 +371,7 @@ in
       programs.claude-code.settings.alwaysThinkingEnabled = true;
       programs.claude-code.settings.editorMode = "vim";
       programs.claude-code.settings.enabledPlugins."clangd-lsp@claude-plugins-official" = true;
+      programs.claude-code.settings.enabledPlugins."codex@openai-codex" = true;
       programs.claude-code.settings.enabledPlugins."context7@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."frontend-design@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."octo@nyldn-plugins" = true;
@@ -379,6 +380,9 @@ in
       programs.claude-code.settings.extraKnownMarketplaces.nyldn-plugins.source.source = "git";
       programs.claude-code.settings.extraKnownMarketplaces.nyldn-plugins.source.url =
         "https://github.com/nyldn/claude-octopus.git";
+      programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.repo =
+        "openai/codex-plugin-cc";
+      programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.source = "github";
       programs.claude-code.settings.hooks.PreToolUse = [
         {
           matcher = "Bash";
