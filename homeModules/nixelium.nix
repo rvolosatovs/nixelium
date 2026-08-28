@@ -395,7 +395,6 @@ in
         }
       ];
       programs.claude-code.package = pkgs.claude-code;
-      programs.claude-code.settings.effortLevel = "xhigh";
       programs.claude-code.settings.model = "claude-fable-5";
       programs.claude-code.settings.workflowSizeGuideline = "small";
 
@@ -1381,7 +1380,6 @@ in
       programs.codex.settings.approval_policy = "never";
       programs.codex.settings.features.hooks = true;
       programs.codex.settings.model = "gpt-5.6-sol";
-      programs.codex.settings.model_reasoning_effort = "xhigh";
       programs.codex.settings.oss_provider = "lmstudio";
       programs.codex.settings.projects.${config.home.homeDirectory}.trust_level = "trusted";
       programs.codex.settings.sandbox_mode = "danger-full-access";
