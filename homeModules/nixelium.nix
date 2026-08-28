@@ -368,6 +368,7 @@ in
         ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
       '';
       programs.claude-code.enableMcpIntegration = true;
+      programs.claude-code.settings.alwaysThinkingEnabled = true;
       programs.claude-code.settings.editorMode = "vim";
       programs.claude-code.settings.enabledPlugins."clangd-lsp@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."context7@claude-plugins-official" = true;
@@ -390,7 +391,9 @@ in
         }
       ];
       programs.claude-code.package = pkgs.claude-code;
+      programs.claude-code.settings.effortLevel = "xhigh";
       programs.claude-code.settings.model = "claude-fable-5";
+      programs.claude-code.settings.workflowSizeGuideline = "small";
 
       programs.codex.context = ''
         @${pkgs.rtk-init}/.codex/AGENTS.md
