@@ -58,3 +58,11 @@ Hyperledger and Midnight projects — must comply with the LFDT AI Guidelines
 - **No explanatory comments.** Do not add comments to code edits; keep any
   rationale in the chat response, not in the source. Only add comments when
   explicitly asked, or when the surrounding code clearly uses them in that spot.
+
+# Scope
+
+- **Simplest thing that works.** Start from the smallest change that meets the
+  stated goal and passes a real test; only add to it for a reason the user gave
+  or would clearly want. Facts turned up while researching (extra flags, edge
+  cases, hypothetical inputs) are not requirements — leave them unhandled and
+  say so in the reply instead of coding for them.
