@@ -1374,15 +1374,13 @@ in
 
       programs.codex.settings.approval_policy = "never";
       programs.codex.settings.features.codex_hooks = true;
-      programs.codex.settings.model = "gpt-5.5";
+      programs.codex.settings.model = "gpt-5.6-sol";
       programs.codex.settings.model_reasoning_effort = "xhigh";
-      programs.codex.settings.notice.model_migrations."gpt-5.3-codex" = "gpt-5.4";
       programs.codex.settings.oss_provider = "lmstudio";
       programs.codex.settings.projects.${config.home.homeDirectory}.trust_level = "trusted";
       programs.codex.settings.sandbox_mode = "danger-full-access";
       programs.codex.settings.shell_environment_policy.ignore_default_excludes = true;
       programs.codex.settings.shell_environment_policy."inherit" = "all";
-      programs.codex.settings.tui.model_availability_nux."gpt-5.5" = 4;
       programs.codex.settings.tui.status_line = [
         "model-with-reasoning"
         "current-dir"
