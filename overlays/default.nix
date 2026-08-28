@@ -20,6 +20,7 @@ let
       inherit overlays;
     };
 
+  codex = import ./codex.nix inputs;
   images = import ./images.nix inputs;
   infrastructure = import ./infrastructure.nix inputs;
   install = import ./install.nix inputs;
@@ -88,6 +89,7 @@ let
 in
 {
   inherit
+    codex
     firefox
     gopass
     images
@@ -128,5 +130,7 @@ in
 
     claude-code-nix.overlays.default
     codex-cli-nix.overlays.default
+
+    codex
   ];
 }

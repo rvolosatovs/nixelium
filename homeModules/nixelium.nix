@@ -405,7 +405,6 @@ in
         ${readFile ../agents/policy.md}
         ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
       '';
-      programs.codex.package = pkgs.codex;
 
       programs.delta.enable = true;
       programs.delta.enableGitIntegration = true;
@@ -1374,11 +1373,11 @@ in
     (mkIf cfg.profile.unrestricted-ai.enable {
       home.shellAliases.agy = "agy --dangerously-skip-permissions";
 
-
       programs.claude-code.settings.env.CLAUDE_CODE_SANDBOXED = "1";
       programs.claude-code.settings.permissions.defaultMode = "bypassPermissions";
       programs.claude-code.settings.skipDangerousModePermissionPrompt = true;
 
+      programs.codex.package = pkgs.codex-trusted;
       programs.codex.settings.approval_policy = "never";
       programs.codex.settings.features.hooks = true;
       programs.codex.settings.model = "gpt-5.6-sol";
