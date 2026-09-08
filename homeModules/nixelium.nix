@@ -1379,7 +1379,7 @@ in
       programs.codex.package = pkgs.codex-trusted;
       programs.codex.settings.approval_policy = "never";
       programs.codex.settings.features.hooks = true;
-      programs.codex.settings.model = "gpt-5.6-sol";
+      programs.codex.settings.model = "gpt-6-astra";
       programs.codex.settings.oss_provider = "lmstudio";
       programs.codex.settings.projects.${config.home.homeDirectory}.trust_level = "trusted";
       programs.codex.settings.sandbox_mode = "danger-full-access";
