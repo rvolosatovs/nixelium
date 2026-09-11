@@ -395,7 +395,7 @@ in
         }
       ];
       programs.claude-code.package = pkgs.claude-code;
-      programs.claude-code.settings.model = "claude-fable-5";
+      programs.claude-code.settings.model = "claude-fable-5-1";
       programs.claude-code.settings.workflowSizeGuideline = "small";
 
       programs.codex.context = ''
