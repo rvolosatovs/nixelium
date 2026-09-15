@@ -3,11 +3,11 @@
     "advisory-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1788805170,
-        "narHash": "sha256-dwvuAOf43t41WtzODvus5ejal6Qp/Zxtn+DqHHgRox4=",
+        "lastModified": 1788950992,
+        "narHash": "sha256-gvSBQYDVetLiqQmsM/T/62qewNF4QnUrJTcVP9a5BpY=",
         "owner": "rustsec",
         "repo": "advisory-db",
-        "rev": "8a1eb4f933fb5821add5b4e98601ebd90b8b3538",
+        "rev": "b50980aad8b8f14f77e25a97b32dd94bf008b0af",
         "type": "github"
       },
       "original": {
@@ -56,11 +56,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1789243306,
-        "narHash": "sha256-YTEDtq7KPYlR5kMdioqHSdq5LP7Ol4lNFN1jffCUCXU=",
+        "lastModified": 1789434921,
+        "narHash": "sha256-ppvKlpoPL41TrSC3UjpvrHT8zcjnokLqacHMLeq356U=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "e2fe3829b5fcbd493256b42a8f2bfbf86771dbdb",
+        "rev": "21f45473c72a5c902fc7a6156cd0195a656a2e9e",
         "type": "github"
       },
       "original": {
@@ -239,11 +239,11 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1789298866,
-        "narHash": "sha256-6eaV5+MdWy1tAlN4HAFr64pTnYc9jiKGXBsu18cyVjE=",
+        "lastModified": 1789388429,
+        "narHash": "sha256-DWlS3VxQTZZoeZXZFpTchRgNU/LgnrzQJK+EFPiq0Qc=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "1fc6f36a23fa16e3740987957266f6e4b915c3cd",
+        "rev": "4bb440a5be00604edd7a663f6813346f3901b5c1",
         "type": "github"
       },
       "original": {
@@ -329,11 +329,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1789272187,
-        "narHash": "sha256-7oAdO2mooeKvDEDJzksd6o3aK5D/s6bCi51qYExywQs=",
+        "lastModified": 1789358577,
+        "narHash": "sha256-Mq0Ft/ro4yiMB2IODMvDWJKT1udx3oDVME8mlL2Os7s=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "7d6cc3eff8f493e672d675836ccada705da73800",
+        "rev": "53450d808b7ef559de667a5df31e529c00a7c9ec",
         "type": "gitlab"
       },
       "original": {
@@ -809,11 +809,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1789113264,
-        "narHash": "sha256-8YYjg47THJHYUOsT/rv6eBdWYV4l02qjmFQZSycN+rg=",
+        "lastModified": 1789371815,
+        "narHash": "sha256-+LhJskq/s9bWLaL5yI8yr/mQAajMSWehOLzeAGp0jOs=",
         "owner": "rvolosatovs",
         "repo": "nixify",
-        "rev": "dbcddf58f777e027094ea5ee08e3c5a7be2b433d",
+        "rev": "2afd7ff983228e0f449e27953d7008f0874f3154",
         "type": "github"
       },
       "original": {
@@ -945,11 +945,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1789127271,
-        "narHash": "sha256-vL/Fpo7Zxa7wvO8V5FAToUBvP+K3XsMB1wUglTtd/J0=",
+        "lastModified": 1789417814,
+        "narHash": "sha256-xV9fcqtH6jJLVBF3ocqBBwZkPKEke+BujhEwT4Ye9Tc=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "24cfdc1f9344b90a1eee329a3906e2f39f4d0f1e",
+        "rev": "d40fd26f323c898b0c195d41aa5efadd85f57832",
         "type": "github"
       },
       "original": {
@@ -1022,11 +1022,11 @@
     },
     "nixpkgs-nixos": {
       "locked": {
-        "lastModified": 1789114715,
-        "narHash": "sha256-ugpsyk3NM2s87vXfUiIIiibbJ4Pp0JPS5p/3mfs+q+c=",
+        "lastModified": 1789344334,
+        "narHash": "sha256-vdhpDJ3Lr24lkZ+fDCjmBRRtw9/vcSzkqGJOJyF5h2U=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "21a67dc470149f337cecafbe965d8d252a390518",
+        "rev": "c3eea5b2156db11c7eeeada3dc737711255b253e",
         "type": "github"
       },
       "original": {
@@ -1070,11 +1070,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1789264731,
-        "narHash": "sha256-llGJbC0CcU8DfROr6mZjRJgMLQd/SKwfpzxJH/2lHO4=",
+        "lastModified": 1789370336,
+        "narHash": "sha256-6RSEDHIWQtesQKWSu5qRai8L2h4KgCgMEfJHstW99G4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "02f5696b0e6097e589076d886b317b83ff0437d7",
+        "rev": "c7def046b9a883d46974757852106483d741586f",
         "type": "github"
       },
       "original": {
@@ -1116,11 +1116,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1789149629,
-        "narHash": "sha256-H6GwaZzZf+4npqv0tph94w9tZddSjFjmQrVsW0z78uk=",
+        "lastModified": 1789286504,
+        "narHash": "sha256-eiEK7cKZORNEvX0GeF3RtNEF/JXhgf2RqSp3230q13E=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "eaad089433ca2bb662274377d33df3d0e51ef28b",
+        "rev": "ef34387ddd751e1ab8857adf4676492d32eb24ec",
         "type": "github"
       },
       "original": {
@@ -1250,11 +1250,11 @@
     "rust-analyzer-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1789128286,
-        "narHash": "sha256-KRxxgHiKIBp7R2n41IJuE5K4IUiLOpg47EEi3AxuSp8=",
+        "lastModified": 1789328305,
+        "narHash": "sha256-B6BFmC8FTRppbMpg/II53hGKB7shRv2IKi3E/HcJHaU=",
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "6aeeb8cf02741e5da07a1615a05faa506cecb21a",
+        "rev": "682a84e95b5a52cf06e9822fcaa4f628738554bf",
         "type": "github"
       },
       "original": {
@@ -1373,11 +1373,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788678114,
-        "narHash": "sha256-pcqbpV4ZI79al6KAlr+WJjaEo/PYfgctRlG43D5BSJM=",
+        "lastModified": 1789024335,
+        "narHash": "sha256-kCy/MVLRIr95DJ4vspVzWj+kO/x+JuwSHmYZCvShg8w=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "4748ec2f5ed4a881474ed4c98aa71a5308cdac8d",
+        "rev": "577bb1e1fc5af0713169176c5c76622c21fa3ec0",
         "type": "github"
       },
       "original": {
@@ -1443,7 +1443,7 @@
     "spotify-darwin-aarch64": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-dGNXYiTkOSPXOQ2TIXW2NvclZ0tZYbA8UpQeKWccTpY=",
+        "narHash": "sha256-va9LcMRUbqfa+OOaYhkphAnpKhQkN8Rth6/cPz2iFTs=",
         "type": "file",
         "url": "https://download.scdn.co/SpotifyARM64.dmg"
       },
