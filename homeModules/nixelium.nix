@@ -392,6 +392,7 @@ in
           ];
         }
       ];
+      programs.claude-code.settings.model = "claude-fable-5-1";
       programs.claude-code.settings.workflowSizeGuideline = "small";
 
       programs.codex.context = ''
