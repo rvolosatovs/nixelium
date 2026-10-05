@@ -368,7 +368,6 @@ in
         ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
       '';
       programs.claude-code.enableMcpIntegration = true;
-      programs.claude-code.settings.advisorModel = "fable";
       programs.claude-code.settings.alwaysThinkingEnabled = true;
       programs.claude-code.settings.editorMode = "vim";
       programs.claude-code.settings.effortLevel = "high";
