@@ -371,6 +371,7 @@ in
       programs.claude-code.settings.advisorModel = "fable";
       programs.claude-code.settings.alwaysThinkingEnabled = true;
       programs.claude-code.settings.editorMode = "vim";
+      programs.claude-code.settings.effortLevel = "high";
       programs.claude-code.settings.enabledPlugins."clangd-lsp@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."codex@openai-codex" = true;
       programs.claude-code.settings.enabledPlugins."context7@claude-plugins-official" = true;
