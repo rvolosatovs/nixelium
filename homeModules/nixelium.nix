@@ -368,6 +368,7 @@ in
         ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
       '';
       programs.claude-code.enableMcpIntegration = true;
+      programs.claude-code.settings.advisorModel = "fable";
       programs.claude-code.settings.alwaysThinkingEnabled = true;
       programs.claude-code.settings.editorMode = "vim";
       programs.claude-code.settings.enabledPlugins."clangd-lsp@claude-plugins-official" = true;
@@ -376,8 +377,8 @@ in
       programs.claude-code.settings.enabledPlugins."frontend-design@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."swift-lsp@claude-plugins-official" = true;
-      programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.repo =
-        "openai/codex-plugin-cc";
+      programs.claude-code.settings.env.DO_NOT_TRACK = "0";
+      programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.repo = "openai/codex-plugin-cc";
       programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.source = "github";
       programs.claude-code.settings.hooks.PreToolUse = [
         {
@@ -390,8 +391,6 @@ in
           ];
         }
       ];
-      programs.claude-code.package = pkgs.claude-code;
-      programs.claude-code.settings.model = "claude-fable-5-1";
       programs.claude-code.settings.workflowSizeGuideline = "small";
 
       programs.codex.context = ''
@@ -1375,7 +1374,7 @@ in
       programs.codex.package = pkgs.codex-trusted;
       programs.codex.settings.approval_policy = "never";
       programs.codex.settings.features.hooks = true;
-      programs.codex.settings.model = "gpt-6-astra";
+      programs.codex.settings.model_reasoning_effort = "xhigh";
       programs.codex.settings.oss_provider = "lmstudio";
       programs.codex.settings.projects.${config.home.homeDirectory}.trust_level = "trusted";
       programs.codex.settings.sandbox_mode = "danger-full-access";
@@ -1392,6 +1391,7 @@ in
         "used-tokens"
         "session-id"
       ];
+      programs.codex.settings.tui.vim_mode_default = true;
 
       programs.mcp.servers.playwright.args = [
         "--headless"
