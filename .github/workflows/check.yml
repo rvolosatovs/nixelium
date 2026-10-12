@@ -47,7 +47,9 @@ jobs:
       run: nix build -L .#darwinConfigurations.iridium.system
     - if: github.event_name == 'push' && runner.os == 'Linux'
       run: |
-        nix build -L .#nixosConfigurations.cobalt.config.system.build.toplevel
-        nix build -L .#nixosConfigurations.osmium.config.system.build.toplevel
+        nix build -L \
+          .#nixosConfigurations.aarch64-vm-nixvm.config.system.build.toplevel \
+          .#nixosConfigurations.cobalt.config.system.build.toplevel \
+          .#nixosConfigurations.osmium.config.system.build.toplevel
 
     # TODO: Run a VM, test
