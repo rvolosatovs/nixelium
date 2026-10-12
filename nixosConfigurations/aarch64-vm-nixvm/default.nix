@@ -44,10 +44,7 @@ nixpkgs-nixos.lib.nixosSystem {
         #
         # size= must stay below RAM + swap or a full store OOMs instead of
         # erroring; 24G cap vs 32G swap (+~8G RAM) leaves headroom.
-        fileSystems."/nix/.rw-store".options = lib.mkForce [
-          "mode=0755"
-          "size=24G"
-        ];
+        fileSystems."/nix/.rw-store".options = [ "size=24G" ];
 
         # Swap on the root partition: backs the enlarged writable-store tmpfs
         # and gives memory-hungry linkers/rustc headroom during parallel
