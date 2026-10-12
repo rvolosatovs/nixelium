@@ -15,11 +15,20 @@ concurrency:
 
 jobs:
   check:
+    permissions:
+      contents: read
+      id-token: write
     strategy:
       matrix:
         platform:
         - host: macos-latest
+          build: .#darwinConfigurations.iridium.system
         - host: ubuntu-latest
+          build: >-
+            .#nixosConfigurations.cobalt.config.system.build.toplevel
+            .#nixosConfigurations.osmium.config.system.build.toplevel
+        - host: ubuntu-24.04-arm
+          build: .#nixosConfigurations.aarch64-vm-nixvm.config.system.build.toplevel
     runs-on: ${{ matrix.platform.host }}
     steps:
     - name: Remove unused files
@@ -43,13 +52,7 @@ jobs:
       with:
         cachixAuthToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: nix flake check -L
-    - if: github.event_name == 'push' && runner.os == 'macOS'
-      run: nix build -L .#darwinConfigurations.iridium.system
-    - if: github.event_name == 'push' && runner.os == 'Linux'
-      run: |
-        nix build -L \
-          .#nixosConfigurations.aarch64-vm-nixvm.config.system.build.toplevel \
-          .#nixosConfigurations.cobalt.config.system.build.toplevel \
-          .#nixosConfigurations.osmium.config.system.build.toplevel
+    - if: github.event_name != 'pull_request'
+      run: nix build -L ${{ matrix.platform.build }}
 
     # TODO: Run a VM, test
