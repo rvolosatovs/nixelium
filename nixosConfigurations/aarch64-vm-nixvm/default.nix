@@ -13,7 +13,6 @@ nixpkgs-nixos.lib.nixosSystem {
     (
       {
         config,
-        lib,
         pkgs,
         ...
       }:
@@ -65,22 +64,29 @@ nixpkgs-nixos.lib.nixosSystem {
         # At shutdown, swapoff must page every swapped-out tmpfs page back
         # into RAM; with the writable store grown past RAM that OOMs PID 1
         # and panics ("System is deadlocked on memory"). Deleting the
-        # store's upper layer first frees its swap without paging it in.
+        # store's upper layer first, then dropping the overlay's cached
+        # inodes that still pin the deleted files, frees its swap without
+        # paging it in.
         # The system closure lives in the read-only lower layer, so nothing
         # still running needs it, and the tmpfs is discarded anyway.
         systemd.services.nix-rw-store-wipe = {
           description = "Wipe writable Nix store layer before swapoff";
           unitConfig.DefaultDependencies = false;
-          after = [ "swapfile.swap" ];
+          after = [ "swap.target" ];
           before = [
             "sysinit.target"
             "shutdown.target"
           ];
           conflicts = [ "shutdown.target" ];
           wantedBy = [ "sysinit.target" ];
+          restartIfChanged = false;
+          unitConfig.X-StopOnRemoval = false;
           serviceConfig.Type = "oneshot";
           serviceConfig.RemainAfterExit = true;
-          serviceConfig.ExecStop = "${pkgs.findutils}/bin/find /nix/.rw-store/upper -mindepth 1 -delete";
+          serviceConfig.ExecStop = [
+            "-${pkgs.findutils}/bin/find /nix/.rw-store/upper -mindepth 1 -delete"
+            "${pkgs.procps}/bin/sysctl -w vm.drop_caches=2"
+          ];
         };
 
         services.getty.autologinUser = config.users.users.owner.name;
