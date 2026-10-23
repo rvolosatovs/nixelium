@@ -81,10 +81,14 @@ nixpkgs-nixos.lib.nixosSystem {
           wantedBy = [ "sysinit.target" ];
           restartIfChanged = false;
           unitConfig.X-StopOnRemoval = false;
+          unitConfig.IgnoreOnIsolate = true;
+          unitConfig.RefuseManualStop = true;
           serviceConfig.Type = "oneshot";
           serviceConfig.RemainAfterExit = true;
           serviceConfig.ExecStop = [
-            "-${pkgs.findutils}/bin/find /nix/.rw-store/upper -mindepth 1 -delete"
+            "-${pkgs.findutils}/bin/find ${
+              config.fileSystems."/nix/store".overlay.upperdir
+            } -mindepth 1 -delete"
             "${pkgs.procps}/bin/sysctl -w vm.drop_caches=2"
           ];
         };
