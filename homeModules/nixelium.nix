@@ -362,8 +362,6 @@ in
       ];
 
       programs.claude-code.context = ''
-        @${pkgs.rtk-init}/.claude/CLAUDE.md
-
         ${readFile ../agents/policy.md}
         ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
       '';
@@ -380,23 +378,10 @@ in
       programs.claude-code.settings.env.DO_NOT_TRACK = "0";
       programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.repo = "openai/codex-plugin-cc";
       programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.source = "github";
-      programs.claude-code.settings.hooks.PreToolUse = [
-        {
-          matcher = "Bash";
-          hooks = [
-            {
-              type = "command";
-              command = "${pkgs.rtk}/bin/rtk hook claude";
-            }
-          ];
-        }
-      ];
       programs.claude-code.settings.model = "claude-fable-5-1";
       programs.claude-code.settings.workflowSizeGuideline = "small";
 
       programs.codex.context = ''
-        @${pkgs.rtk-init}/.codex/AGENTS.md
-
         ${readFile ../agents/policy.md}
         ${optionalString cfg.profile.unrestricted-ai.enable (readFile ../agents/vm-workflow.md)}
       '';
@@ -549,7 +534,6 @@ in
 
       programs.github-copilot-cli.context = "${pkgs.concatText "copilot-instructions.md" (
         [
-          "${pkgs.rtk-init}/.github/copilot-instructions.md"
           ../agents/policy.md
         ]
         ++ optional cfg.profile.unrestricted-ai.enable ../agents/vm-workflow.md
@@ -559,7 +543,6 @@ in
 
       home.file.".gemini/GEMINI.md".source = pkgs.concatText "GEMINI.md" (
         [
-          "${pkgs.rtk-init}/.gemini/GEMINI.md"
           ../agents/policy.md
         ]
         ++ optional cfg.profile.unrestricted-ai.enable ../agents/vm-workflow.md
@@ -1304,7 +1287,6 @@ in
         pkgs.nixfmt
         pkgs.nodejs
         pkgs.qemu
-        pkgs.rtk
         pkgs.shellcheck
         pkgs.tcpdump
 
