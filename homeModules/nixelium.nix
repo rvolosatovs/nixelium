@@ -1390,13 +1390,13 @@ in
         pkgs.android-tools
         pkgs.avrdude
         pkgs.minikube
+        pkgs.redis
         pkgs.wit-deps
         pkgs.yubikey-manager
         pkgs.yubikey-personalization
 
         pkgs.pkgsUnstable.discord
         pkgs.pkgsUnstable.podman-compose
-        pkgs.pkgsUnstable.redis
         pkgs.pkgsUnstable.signal-desktop
         pkgs.pkgsUnstable.slack
         pkgs.pkgsUnstable.spotify
