@@ -574,6 +574,7 @@ in
         ".DS_Store?"
         ".envrc*"
         ".github/copilot-instructions.md"
+        ".playwright-mcp/"
         ".Spotlight-V100"
         ".Trashes"
         ".vscode"
