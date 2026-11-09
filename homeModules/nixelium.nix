@@ -376,7 +376,8 @@ in
       programs.claude-code.settings.enabledPlugins."rust-analyzer-lsp@claude-plugins-official" = true;
       programs.claude-code.settings.enabledPlugins."swift-lsp@claude-plugins-official" = true;
       programs.claude-code.settings.env.DO_NOT_TRACK = "0";
-      programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.repo = "openai/codex-plugin-cc";
+      programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.repo =
+        "openai/codex-plugin-cc";
       programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.source = "github";
       programs.claude-code.settings.model = "claude-fable-5-1";
       programs.claude-code.settings.workflowSizeGuideline = "small";
@@ -1350,6 +1351,25 @@ in
     )
     (mkIf cfg.profile.unrestricted-ai.enable {
       home.shellAliases.agy = "agy --dangerously-skip-permissions";
+
+      home.activation.gpg-bootstrap =
+        let
+          batch = pkgs.writeText "gpg-gen-key.batch" ''
+            %no-protection
+            Key-Type: EDDSA
+            Key-Curve: ed25519
+            Key-Usage: sign
+            Name-Real: ${cfg.user.fullName}
+            Name-Email: ${cfg.user.email}
+            Expire-Date: 0
+            %commit
+          '';
+        in
+        lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+          if ! ${config.programs.gpg.package}/bin/gpg --list-secret-keys --with-colons 2>/dev/null | grep -q "^sec:"; then
+            ${config.programs.gpg.package}/bin/gpg --batch --gen-key ${batch}
+          fi
+        '';
 
       programs.claude-code.settings.env.CLAUDE_CODE_SANDBOXED = "1";
       programs.claude-code.settings.permissions.defaultMode = "bypassPermissions";

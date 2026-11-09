@@ -25,6 +25,12 @@ nixpkgs-nixos.lib.nixosSystem {
         nixelium.profile.vm.enable = true;
 
         home-manager.users.owner.nixelium.profile.unrestricted-ai.enable = true;
+        home-manager.users.owner.programs.codex.settings.projects."${config.users.users.owner.home}/nixelium".trust_level =
+          "trusted";
+        home-manager.users.owner.programs.codex.settings.projects."${config.users.users.owner.home}/nixvm".trust_level =
+          "trusted";
+
+        users.users.owner.linger = true;
 
         nixvm.guest.rootSize = "256G";
 
