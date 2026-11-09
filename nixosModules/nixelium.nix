@@ -119,6 +119,7 @@ in
       hardware.trackpoint.sensitivity = 250;
       hardware.trackpoint.speed = 120;
 
+      home-manager.backupFileExtension = "hm-bak";
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
 
