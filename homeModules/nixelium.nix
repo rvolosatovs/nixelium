@@ -379,7 +379,7 @@ in
       programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.repo =
         "openai/codex-plugin-cc";
       programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.source = "github";
-      programs.claude-code.settings.model = "claude-fable-5-1";
+      programs.claude-code.settings.model = "fable";
       programs.claude-code.settings.workflowSizeGuideline = "small";
 
       programs.codex.context = ''
