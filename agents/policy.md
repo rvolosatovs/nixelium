@@ -66,3 +66,57 @@ Hyperledger and Midnight projects — must comply with the LFDT AI Guidelines
   or would clearly want. Facts turned up while researching (extra flags, edge
   cases, hypothetical inputs) are not requirements — leave them unhandled and
   say so in the reply instead of coding for them.
+
+# Rust style
+
+The user's standing review preferences, gathered from wrpc, wasmtime,
+Starstream and wasm-tokio; project memory adds repo-specific ones.
+
+- `?` ends a statement. Bind with `let` before calling a method
+  (`let v = x?; v.foo()`, not `x?.foo()`), and never put `?` inside call or
+  macro arguments or operators (`f(g()?)`, `assert_eq!(x.await?, y)`,
+  `Ok(a? + b?)`). The same goes for method chains on `.await`, except
+  `.unwrap()`, `.expect(..)`, `.unwrap_err()`, `.expect_err(..)`,
+  `.context(..)` and `.map_err(..)`; `f(x.await)` and
+  `assert_eq!(x.await, y)` are fine. Also fine: `let Some(x) = expr? else
+  { .. }` (preferred over a separate binding), and `?` in expression slots of
+  macros whose expansion `let`-binds them
+  (`$decode!(.., _i => self.read_u8().await?)`).
+- Import with `use` instead of qualifying at the call site, preferring
+  `core::` paths when the item lives there. Generic free functions stay
+  module-qualified: `use core::mem;` then `mem::replace(..)`. Exceptions,
+  always fully qualified at the use site: `std::sync::{Mutex, MutexGuard,
+  PoisonError}` and most `std::io` items (`std::io::Error`,
+  `std::io::ErrorKind`, `std::io::Result`); an upstream repo's own import
+  style wins. Separate the `core` and `std` `use` groups with a blank line.
+  Tests `use` tokio items (`join`, `try_join`, `spawn`, `yield_now`) but keep
+  generic names qualified (`tokio::time::timeout`, `tokio::io::duplex`).
+- `#[cfg]` gates code, never `use` lines: fully qualify inside the gated block
+  (UFCS for trait methods).
+- Construct empty values with `T::default()` whenever `Default` exists
+  (`Vec::default()`, `BytesMut::default()`, `Arc::default()`), even in a
+  crate that habitually uses `::new()`. Exceptions: `None`, never
+  `Option::default()`; unit structs as the bare literal (`FrameEncoder`, as
+  clippy requires), without `#[non_exhaustive]` to dodge it.
+- Prefer checked conversions and saturating arithmetic
+  (`usize::try_from(n).unwrap_or(usize::MAX)`, `saturating_sub`) over `as`
+  casts and raw `-`; they avoid silent truncation and overflow panics. `as`
+  is right for infallible round-trips (a `usize` clamped to `u32`, widened
+  back).
+- Ignore fields with the rest pattern: `Ok(..)`, `let (tx, ..) = ..`, not `_`.
+- Outside `#[cfg(test)] mod tests`, import through `crate::` paths, never
+  `use super::..`; test modules do use `use super::*;`.
+- Inline trivial private helpers that only wrap a field access, and keep the
+  user's own variable names when refactoring their code, including deliberate
+  shadowing.
+- Names: a lone generic is `T`; reader/writer generics go input first, but
+  values and tuples are `(tx, rx)`. In trait impls write `Self::Assoc`, not
+  the concrete type. No private single-use type aliases. Bind channel pairs
+  (`let (tx, rx) = channel()`, never `channel().0`). Stored byte-buffer
+  fields are `buffer`, not `buf`.
+- No `futures::Either` to unify branches: plain `if`/`else` awaiting each.
+- Take `impl IntoIterator` when a fn only iterates; slices only for
+  indexing; no `BTreeSet` without a need for order or dedup.
+- Never `#[allow(dead_code)]`: delete the unused code.
+- Tests: define items used by only one test fn inside it.
+- Doc comments: the minimal important facts, no narration of the algorithm.

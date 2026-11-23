@@ -381,6 +381,7 @@ in
       programs.claude-code.settings.extraKnownMarketplaces.openai-codex.source.source = "github";
       programs.claude-code.settings.model = "fable";
       programs.claude-code.settings.workflowSizeGuideline = "small";
+      programs.claude-code.skills.branch-fleet = ../agents/skills/branch-fleet;
 
       programs.codex.context = ''
         ${readFile ../agents/policy.md}
@@ -1374,6 +1375,7 @@ in
       programs.claude-code.settings.env.CLAUDE_CODE_SANDBOXED = "1";
       programs.claude-code.settings.permissions.defaultMode = "bypassPermissions";
       programs.claude-code.settings.skipDangerousModePermissionPrompt = true;
+      programs.claude-code.skills.wrpc-fleet = ../agents/skills/wrpc-fleet;
 
       programs.codex.package = pkgs.codex-trusted;
       programs.codex.settings.approval_policy = "never";
