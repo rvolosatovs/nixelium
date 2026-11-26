@@ -257,6 +257,7 @@ in
         ${config.services.yabai.package}/bin/yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
         ${config.services.yabai.package}/bin/yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
         ${config.services.yabai.package}/bin/yabai -m rule --add label="Select file to save to" app="^Inkscape$" title="Select file to save to" manage=off
+        ${config.services.yabai.package}/bin/yabai -m rule --add label="World of Warcraft" title="^World of Warcraft$" manage=off
 
         borders style=square
       '';
