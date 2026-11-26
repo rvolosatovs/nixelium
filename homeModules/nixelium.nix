@@ -1375,6 +1375,7 @@ in
       programs.claude-code.settings.env.CLAUDE_CODE_SANDBOXED = "1";
       programs.claude-code.settings.permissions.defaultMode = "bypassPermissions";
       programs.claude-code.settings.skipDangerousModePermissionPrompt = true;
+      programs.claude-code.skills.starstream-fleet = ../agents/skills/starstream-fleet;
       programs.claude-code.skills.wrpc-fleet = ../agents/skills/wrpc-fleet;
 
       programs.codex.package = pkgs.codex-trusted;
