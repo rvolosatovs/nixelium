@@ -17,7 +17,9 @@ description: Resume the in-flight Starstream PR fleet (open PRs, local stacks, i
 4. Work **one step at a time**. Say which step is next, give the user the exact commands, and
    wait. Upstream squash-merges, so after a merge rebase dependent branches with
    `git rebase --onto upstream/main <old base tip> <branch>`, keeping a `backup/` ref first,
-   re-run their gates, and give the push line.
+   re-run their gates, and hand over a push script: write it per HANDOFF's "Pushing" rules,
+   publish it with `~/starstream-issues/fleet/vm-push.sh <file> '<subject>'` and give the user
+   only the one-liner it prints (`git fetch vm && git show vm/vm-push:push.sh | sh`).
 5. Delegated code work: brief fresh agents with `~/starstream-issues/fleet/agent-rules.md` plus
    the branch, its head, and what's decided. Always pass `model` (`opus`, or `sonnet` for
    mechanical work, per branch-fleet §2).
